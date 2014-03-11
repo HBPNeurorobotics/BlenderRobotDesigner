@@ -53,15 +53,15 @@ class RobotEditor_physicsFrameMenu(bpy.types.Menu):
     
     def draw(self, context):
         layout = self.layout
-        frames = [f for f in bpy.data.objects if f.RobotEditor.tag == 'PHYSICS_FRAME']
+        frameNames = [f.name for f in bpy.data.objects if f.RobotEditor.tag == 'PHYSICS_FRAME']
         
-        for frame in frames:
-            if frame.parent_bone:
-                text = frame.name + " --> " + frame.parent_bone
+        for frame in sorted(frameNames, key=str.lower):
+            if bpy.data.objects[frame].parent_bone:
+                text = frame + " --> " + bpy.data.objects[frame].parent_bone
             else:
-                text = frame.name
+                text = frame
                 
-            layout.operator("roboteditor.selectphysicsframe", text=text).frameName=frame.name
+            layout.operator("roboteditor.selectphysicsframe", text=text).frameName=frame
 
 
 # operator to assign selected physics frame to active bone

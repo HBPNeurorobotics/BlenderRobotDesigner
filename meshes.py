@@ -28,14 +28,14 @@ class RobotEditor_meshMenu(bpy.types.Menu):
     
     def draw(self, context):
         layout = self.layout
-        meshes = [obj for obj in bpy.data.objects if obj.type == 'MESH']
+        meshNames = [obj.name for obj in bpy.data.objects if obj.type == 'MESH']
         
-        for mesh in meshes:
-            if mesh.parent_bone:
-                text = mesh.name + " --> " + mesh.parent_bone
+        for mesh in meshNames:
+            if bpy.data.objects[mesh].parent_bone:
+                text = mesh + " --> " + bpy.data.objects[mesh].parent_bone
             else:
-                text = mesh.name
-            layout.operator("roboteditor.selectmesh", text=text).meshName=mesh.name
+                text = mesh
+            layout.operator("roboteditor.selectmesh", text=text).meshName=mesh
 
 
 # operator to assign mesh to bone

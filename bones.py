@@ -61,10 +61,10 @@ class RobotEditor_BoneMenu(bpy.types.Menu):
         currentArm = context.active_object
         
         layout = self.layout
-        bones = currentArm.data.bones
+        boneNames = [bone.name for bone in currentArm.data.bones]
         
-        for bone in bones:
-            text = bone.name
+        for bone in sorted(boneNames,key=str.lower):
+            text = bone
             layout.operator("roboteditor.selectbone", text=text).boneName = text
 
 
@@ -157,17 +157,17 @@ class RobotEditor_AssignParentMenu(bpy.types.Menu):
         # can't parent to self or own children
         disallowedBones = currentBone.children_recursive
         disallowedBones.append(currentBone)
-        bones = [bone for bone in arm.data.bones if not bone in disallowedBones]
+        boneNames = [bone.name for bone in arm.data.bones if not bone in disallowedBones]
         
         layout = self.layout
         
         layout.operator("roboteditor.createparentbone", text="New...")
         
-        for bone in bones:
-            text = bone.name
-            if bone.name == currentBone.parent.name :
+        for bone in sorted(boneNames, key=str.lower):
+            text = bone
+            if bone == currentBone.parent.name :
                 text = text + " <-- Parent"
-            layout.operator("roboteditor.assignparentbone", text=text).parentName = bone.name
+            layout.operator("roboteditor.assignparentbone", text=text).parentName = bone
 
 
 # operator to delete bone and ALL of its children

@@ -62,14 +62,14 @@ class RobotEditor_markerMenu(bpy.types.Menu):
     
     def draw(self, context):
         layout = self.layout
-        markers = [obj for obj in bpy.data.objects if obj.RobotEditor.tag == 'MARKER']
+        markerNames = [obj.name for obj in bpy.data.objects if obj.RobotEditor.tag == 'MARKER']
         
-        for marker in markers:
-            if marker.parent_bone:
-                text = marker.name + " --> " + marker.parent_bone
+        for marker in sorted(markerNames, key=str.lower):
+            if bpy.data.objects[marker].parent_bone:
+                text = marker + " --> " + bpy.data.objects[marker].parent_bone
             else:
-                text = marker.name
-            layout.operator("roboteditor.selectmarker", text=text).markerName = marker.name
+                text = marker
+            layout.operator("roboteditor.selectmarker", text=text).markerName = marker
     
 
     
