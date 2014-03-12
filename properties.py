@@ -37,10 +37,10 @@ class RobotEditor_DoF(bpy.types.PropertyGroup):
         
         armatures.updateKinematics(armName,boneName)
     
-    value = FloatProperty(name="Value", update = updateDoF )
-    offset = FloatProperty(name="Offset", update = updateDoF)
-    min = FloatProperty(name="Min")
-    max = FloatProperty(name="Max")
+    value = FloatProperty(name="Value", update = updateDoF, precision = 4,step=100 )
+    offset = FloatProperty(name="Offset", update = updateDoF, precision = 4, step=100)
+    min = FloatProperty(name="Min", precision = 4, step=100)
+    max = FloatProperty(name="Max", precision = 4, step=100)
 
 # property group that contains dynamics values
 class RobotEditor_Dynamics(bpy.types.PropertyGroup):
