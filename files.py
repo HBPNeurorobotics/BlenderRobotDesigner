@@ -1,6 +1,44 @@
 import bpy
-from . import collada as c, fix
+from . import collada as c, fix, armatures
 from bpy.props import StringProperty
+
+
+def parseTree(tree, parentName):
+    armName = bpy.context.active_object.name
+    armatures.createBone(armName, tree.name, parentName)
+    bpy.ops.roboteditor.selectbone(boneName = tree.name)
+    
+    boneProp = bpy.context.active_bone.RobotEditor
+    
+    translation = tree.transformations[0]
+    boneProp.Euler.x.value = translation[0]
+    boneProp.Euler.y.value = translation[1]
+    boneProp.Euler.z.value = translation[2]
+        
+    gamma = tree.transformations[1]
+    boneProp.Euler.gamma.value = gamma[3]
+    beta = tree.transformations[2]
+    boneProp.Euler.beta.value = beta[3]
+    alpha = tree.transformations[2]
+    boneProp.Euler.alpha.value = alpha[3]
+    
+    if(tree.axis_type == 'revolute'):
+        boneProp.jointMode = 'REVOLUTE'
+        boneProp.theta.value = float(tree.initalValue)
+        boneProp.theta.max = float(tree.max)
+        boneProp.theta.min = float(tree.min)
+    else:
+        boneProp.jointMode = 'PRISMATIC'
+        boneProp.d.value = float(tree.initialValue)
+        boneProp.d.max = float(tree.max)
+        boneProp.d.min = float(tree.min)
+        
+    for axis in tree.axis:
+        if axis == '-1':
+            boneProp.axis_revert = True
+    
+    for child in tree.children:
+        parseTree(child, tree.name)
 
 
 
@@ -115,7 +153,7 @@ class RobotEditor_exportCollada(bpy.types.Operator):
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
         
-        
+  
         
 def draw(layout, context):
     layout.operator("roboteditor.colladaexport")
