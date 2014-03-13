@@ -1,27 +1,32 @@
 import bpy
+
 from . import collada as c, fix, armatures
+from . import simox
+from . import importer
+
 from bpy.props import StringProperty
+import xml.etree.cElementTree as etree
 
 
 def parseTree(tree, parentName):
     armName = bpy.context.active_object.name
     armatures.createBone(armName, tree.name, parentName)
     bpy.ops.roboteditor.selectbone(boneName = tree.name)
-    
+
     boneProp = bpy.context.active_bone.RobotEditor
-    
+
     translation = tree.transformations[0]
     boneProp.Euler.x.value = translation[0]
     boneProp.Euler.y.value = translation[1]
     boneProp.Euler.z.value = translation[2]
-        
+
     gamma = tree.transformations[1]
     boneProp.Euler.gamma.value = gamma[3]
     beta = tree.transformations[2]
     boneProp.Euler.beta.value = beta[3]
     alpha = tree.transformations[2]
     boneProp.Euler.alpha.value = alpha[3]
-    
+
     if(tree.axis_type == 'revolute'):
         boneProp.jointMode = 'REVOLUTE'
         boneProp.theta.value = float(tree.initalValue)
@@ -32,11 +37,11 @@ def parseTree(tree, parentName):
         boneProp.d.value = float(tree.initialValue)
         boneProp.d.max = float(tree.max)
         boneProp.d.min = float(tree.min)
-        
+
     for axis in tree.axis:
         if axis == '-1':
             boneProp.axis_revert = True
-    
+
     for child in tree.children:
         parseTree(child, tree.name)
 
@@ -45,22 +50,22 @@ def parseTree(tree, parentName):
 def extractData(boneName):
     tree = c.Tree()
     arm = bpy.context.active_object
-    
+
     bpy.ops.roboteditor.selectbone(boneName = boneName)
     currentBone = bpy.context.active_bone
-    
+
     tree.name = boneName
-    
+
     if currentBone.parent:
         parentName = currentBone.parent.name
     else:
         parentName = None
-        
+
     if currentBone.RobotEditor.axis_revert:
         inverted = -1
     else:
         inverted = 1
-        
+
     axis = ["0", "0", "0"]
     if currentBone.RobotEditor.axis == 'X':
         axis[0] = str(inverted)
@@ -68,18 +73,18 @@ def extractData(boneName):
         axis[1] = str(inverted)
     elif currentBone.RobotEditor.axis == 'Z':
         axis[2] = str(inverted)
-        
+
     tree.axis = axis
-    
+
     trafo = currentBone.RobotEditor.getTransform()
     # translation
-    tree.addTrafo([str(e) for e in trafo.translation])   
+    tree.addTrafo([str(e) for e in trafo.translation])
     # rotation
     rotation = trafo.to_euler()
     tree.addTrafo([str(e) for e in [0,0,1, rotation.z]])
     tree.addTrafo([str(e) for e in [0,1,0, rotation.y]])
     tree.addTrafo([str(e) for e in [1,0,0, rotation.x]])
-    
+
     if(currentBone.RobotEditor.jointMode == 'REVOLUTE'):
         tree.initialValue = str(currentBone.RobotEditor.theta.value)
         tree.min = str(currentBone.RobotEditor.theta.min)
@@ -90,26 +95,26 @@ def extractData(boneName):
         tree.min = str(currentBone.RobotEditor.d.min)
         tree.max = str(currentBone.RobotEditor.d.max)
         tree.axis_type = 'prismatic'
-        
+
     children = [child.name for child in currentBone.children]
-    
+
     tree.meshes = [mesh.name for mesh in bpy.data.objects if mesh.type == 'MESH' and mesh.parent_bone == boneName]
-    
+
     markers = [m for m in bpy.data.objects if m.RobotEditor.tag == 'MARKER' and m.parent_bone == boneName]
     tree.markers = [(m.name,(currentBone.matrix_local.inverted()*m.matrix_world.translation).to_tuple()) for m in markers]
-    
+
     for child in children:
         tree.addChild(extractData(child))
-        
+
     return tree
 
 # operator to export an armature to COLLADA 1.5
 class RobotEditor_exportCollada(bpy.types.Operator):
     bl_idname = "roboteditor.colladaexport"
     bl_label = "Export to COLLADA 1.5"
-    
+
     filepath = StringProperty(subtype = 'FILE_PATH')
-    
+
     def execute(self, context):
         bpy.ops.wm.collada_export(filepath=self.filepath, \
                 check_existing=False, filter_blender=False,\
@@ -118,21 +123,21 @@ class RobotEditor_exportCollada(bpy.types.Operator):
                 filter_sound=False, filter_text=False,\
                 filter_btx=False, filter_collada=True, \
                 filter_folder=True)
-                
+
         fix.fixCollada(self.filepath, self.filepath)
         handler = c.COLLADA()
         handler.import14(self.filepath)
-    
+
         arm = context.active_object
         baseBoneName = arm.data.bones[0].name
-    
+
         tree = c.Tree()
         tree.name = arm.name
         tree.addChild(extractData(baseBoneName))
-        
-        
-        
-        
+
+
+
+
         massFrames = [obj for obj in bpy.data.objects if obj.RobotEditor.tag == 'PHYSICS_FRAME' and not obj.parent_bone is '']
         for frame in massFrames:
             frameTrafos = []
@@ -141,34 +146,92 @@ class RobotEditor_exportCollada(bpy.types.Operator):
             frameTrafos.append(tuple([0,0,1,frameRotation.z]))
             frameTrafos.append(tuple([0,1,0,frameRotation.y]))
             frameTrafos.append(tuple([1,0,0,frameRotation.x]))
-            
+
             handler.addMassObject(frame.name, frameTrafos, tuple(v for v in frame.RobotEditor.dynamics.inertiaTensor), frame.RobotEditor.dynamics.mass)
-        
+
         handler.attach(tree)
-        
+
         handler.write(self.filepath)
         return{'FINISHED'}
-    
+
     def invoke(self, context, event):
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
-        
-  
-        
+
+
+# operator to import an MMM-Motion
+classmethodass RobotEditor_importMMM(bpy.types.Operator):
+    bl_idname = "roboteditor.mmmimport"
+    bl_label = "Import MMM"
+    filepath = StringProperty(subtype = 'FILE_PATH')
+
+    def execute(self, context):
+        start=context.scene.frame_current=40
+        fps=context.scene.render.fps
+
+        doc=etree.parse(self.filepath)
+        root=doc.getroot()
+        names=[e.get('name') for e in root.findall('.//joint_order/joint')]
+        timestamps=[float(e.text.strip()) for e in root.findall('.//motion/motion-data/timestamp')]
+        root_positions=[[float(i) for i in e.text.strip().split()] for e in root.findall('.//motion/motion-data/root_position')]
+        root_rotations=[[float(i) for i in e.text.strip().split()] for e in root.findall('.//motion/motion-data/root_rotation')]
+        joint_positions=[[float(i) for i in e.text.strip().split()] for e in root.findall('.//motion/motion-data/joint_position')]
+
+        print(len(root_positions), len(root_rotations))
+        for [i,[timestamp,root_position,root_rotation,joint_position]] in enumerate(zip(timestamps,root_positions,root_rotations,joint_positions)):
+            context.scene.frame_current=start+timestamp*fps
+            bpy.ops.anim.keyframe_insert(type='Location')
+            bpy.ops.anim.keyframe_insert(type='Rotation')
+            context.active_object.location = Vector(root_position)
+            context.active_object.rotation_euler = Euler([0.1,0.1,0.5],'XYZ')
+
+            for [x,value] in enumerate(joint_position):
+                print(names[x], value)
+        return{'FINISHED'}
+
+    def invoke(self, context, event):
+        context.window_manager.fileselect_add(self)
+        return {'RUNNING_MODAL'}
+
 def draw(layout, context):
     layout.operator("roboteditor.colladaexport")
-    
+    layout.operator("roboteditor.mmmimport")
 
-    
-    
+
+# operator to import the kinematics in a SIMOX-XML file
+class RobotEditor_importSIMOX(bpy.types.Operator):
+    bl_idname = "roboteditor.simoximport"
+    bl_label = "Import SIMOX XML"
+    filepath = StringProperty(subtype = 'FILE_PATH')
+
+    def execute(self, context):
+        tree=simox.read(filepath)
+        return{'FINISHED'}
+
+    def invoke(self, context, event):
+        context.window_manager.fileselect_add(self)
+        return {'RUNNING_MODAL'}
+
+def draw(layout, context):
+    layout.operator("roboteditor.colladaexport")
+    layout.operator("roboteditor.mmmimport")
+    layout.operator("roboteditor.simoximport")
+
+
+
+
 
 
 def register():
     bpy.utils.register_class(RobotEditor_exportCollada)
-    
+    bpy.utils.register_class(RobotEditor_importMMM)
+    bpy.utils.register_class(RobotEditor_simoxMMM)
+
 
 def unregister():
     bpy.utils.unregister_class(RobotEditor_exportCollada)
-    
-    
-   
+    bpy.utils.unregister_class(RobotEditor_importMMM)
+    bpy.utils.unregister_class(RobotEditor_simoxMMM)
+
+
+
