@@ -1,12 +1,22 @@
 import bpy
 
 from . import collada as c, fix, armatures
-from . import simox
-from . import importer
 
 from bpy.props import StringProperty
 import xml.etree.cElementTree as etree
 
+
+try:
+    from . import simox
+    use_simox = True
+except:
+    use_simox = False
+
+try:
+    from . import mmm
+    use_mmm = True
+except:
+    use_mmm = False
 
 def parseTree(tree, parentName):
     armName = bpy.context.active_object.name
@@ -160,33 +170,14 @@ class RobotEditor_exportCollada(bpy.types.Operator):
 
 
 # operator to import an MMM-Motion
-classmethodass RobotEditor_importMMM(bpy.types.Operator):
+class RobotEditor_importMMM(bpy.types.Operator):
     bl_idname = "roboteditor.mmmimport"
     bl_label = "Import MMM"
     filepath = StringProperty(subtype = 'FILE_PATH')
 
     def execute(self, context):
-        start=context.scene.frame_current=40
-        fps=context.scene.render.fps
 
-        doc=etree.parse(self.filepath)
-        root=doc.getroot()
-        names=[e.get('name') for e in root.findall('.//joint_order/joint')]
-        timestamps=[float(e.text.strip()) for e in root.findall('.//motion/motion-data/timestamp')]
-        root_positions=[[float(i) for i in e.text.strip().split()] for e in root.findall('.//motion/motion-data/root_position')]
-        root_rotations=[[float(i) for i in e.text.strip().split()] for e in root.findall('.//motion/motion-data/root_rotation')]
-        joint_positions=[[float(i) for i in e.text.strip().split()] for e in root.findall('.//motion/motion-data/joint_position')]
-
-        print(len(root_positions), len(root_rotations))
-        for [i,[timestamp,root_position,root_rotation,joint_position]] in enumerate(zip(timestamps,root_positions,root_rotations,joint_positions)):
-            context.scene.frame_current=start+timestamp*fps
-            bpy.ops.anim.keyframe_insert(type='Location')
-            bpy.ops.anim.keyframe_insert(type='Rotation')
-            context.active_object.location = Vector(root_position)
-            context.active_object.rotation_euler = Euler([0.1,0.1,0.5],'XYZ')
-
-            for [x,value] in enumerate(joint_position):
-                print(names[x], value)
+        mmm.read(self.filepath)
         return{'FINISHED'}
 
     def invoke(self, context, event):
@@ -214,8 +205,10 @@ class RobotEditor_importSIMOX(bpy.types.Operator):
 
 def draw(layout, context):
     layout.operator("roboteditor.colladaexport")
-    layout.operator("roboteditor.mmmimport")
-    layout.operator("roboteditor.simoximport")
+    if use_simox:
+        layout.operator("roboteditor.simoximport")
+    if use_mmm:
+        layout.operator("roboteditor.mmmimport")
 
 
 
@@ -224,14 +217,18 @@ def draw(layout, context):
 
 def register():
     bpy.utils.register_class(RobotEditor_exportCollada)
-    bpy.utils.register_class(RobotEditor_importMMM)
-    bpy.utils.register_class(RobotEditor_simoxMMM)
+    if use_simox:
+        bpy.utils.register_class(RobotEditor_importSIMOX)
+    if use_mmm:
+        bpy.utils.register_class(RobotEditor_importMMM)
 
 
 def unregister():
     bpy.utils.unregister_class(RobotEditor_exportCollada)
-    bpy.utils.unregister_class(RobotEditor_importMMM)
-    bpy.utils.unregister_class(RobotEditor_simoxMMM)
+    if use_simox:
+        bpy.utils.unregister_class(RobotEditor_importSIMOX)
+    if use_mmm:
+        bpy.utils.unregister_class(RobotEditor_importMMM)
 
 
 
