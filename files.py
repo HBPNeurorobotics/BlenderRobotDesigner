@@ -9,13 +9,13 @@ import xml.etree.cElementTree as etree
 try:
     from . import simox
     use_simox = True
-except:
+except ImportError:
     use_simox = False
 
 try:
     from . import mmm
     use_mmm = True
-except:
+except ImportError:
     use_mmm = False
 
 def parseTree(tree, parentName):
