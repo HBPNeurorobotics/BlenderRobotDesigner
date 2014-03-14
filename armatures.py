@@ -87,7 +87,7 @@ def updateKinematics(armatureName, boneName=None):
         boneName = bpy.data.armatures[armatureName].bones[0].name
 
 
-    matrix = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.getTransform()
+    matrix, jointMatrix = bpy.data.armatures[armatureName].bones[boneName].bones[boneName].RobotEditor.getTransform()
 
     bpy.ops.object.mode_set(mode='EDIT', toggle=False)
 
@@ -105,6 +105,12 @@ def updateKinematics(armatureName, boneName=None):
     edit_bone.tail = pos+axis
     edit_bone.roll = roll
 
+    bpy.ops.object.mode_set(mode=currentMode, toggle = False)
+
+    # update pose
+    bpy.ops.object.mode_set(mode='POSE', toggle = False)
+    pose_bone = bpy.context.active_pose_bone
+    pose_bone.matrix_basis = jointMatrix
     bpy.ops.object.mode_set(mode=currentMode, toggle = False)
 
     #   print("Number of children")
