@@ -1,4 +1,7 @@
 import xml.etree.cElementTree as etree
+
+from mathutils import *
+from math import *
 from pprint import pprint
 
 class Tree(object):
@@ -14,8 +17,8 @@ class Tree(object):
         self.acceleration = 0.0
         self.deceleration = 0.0
         self.jerk = 0.0
-        self.min = None
-        self.max = None
+        self.min = 0
+        self.max = 0
         self.active = 'True'
         self.locked = 'False'
         self.initialValue = 0.0
@@ -24,12 +27,15 @@ class Tree(object):
         self.isGripper = None
         self.closingDirection = 1.0
 
+def tolower(element):
+    element.tag = element.tag.lower()
+    for i in element.getchildren():
+        tolower(i)
 
-def parse(element,root):
+def parse(element,root,createTree):
 
-    matrix=element.find('Transform/matrix4x4')
-
-    M=[]
+    matrix=element.find('transform/matrix4x4')
+    T=[]
     if matrix is not None:
         print( element.get('name'))
 
@@ -38,43 +44,80 @@ def parse(element,root):
             for j in range(1,5):
                 row.append(float(matrix.find('row%d'%i).get('c%d'%j)))
             M.append(row)
-    axis = element.find('Joint/axis')
-#    param={
-#        'name': element.get('name'),
-#        'param': {
-#        'type': element.find('Joint').get('type'),
-#        'lo':  element.find('Joint/Limits').get('lo'),
-#        'hi':     element.find('Joint/Limits').get('hi'),
-#        'units':     element.find('Joint/Limits').get('units'),
-#        'axis': [axis.get('x'),axis.get('y'),axis.get('z')],
-#        'transform': M
-#    }
-#    }
-    tree = Tree(element.get('name'))
-    tree.transformations.append(M)
-    tree.axis_type = element.find('Joint').get('type')
-    tree.min = float(element.find('Joint/Limits').get('lo'))
-    tree.max = float(element.find('Joint/Limits').get('hi'))
-    tree.axis = [float(axis.get('x')),float(axis.get('y')),float(axis.get('z'))]
+        M=Matrix(M)
+        T.append(M.translation.to_tuple())
+        e=M.to_euler('XYZ')
+        T.append((1,0,0,e.x))
+        T.append((0,1,0,e.y))
+        T.append((0,0,1,e.z))
 
-    children = [root.find('./RobotNode[@name="%s"]' % i.get('name'))  for i in element.findall('Child')]
-    if None in children:
-        print(children, element.get('name'))
+    axis = element.find('joint/axis')
+    if axis is None:
+        axis = element.find('joint/translationdirection')
 
-    tree.children = [parse(i,root) for i in children]
-    return tree
+    children = [root.find('./robotnode[@name="%s"]' % i.get('name'))  for i in element.findall('child')]
 
-#    param.update({'zchildren': [parse(i,root) for i in children]})
-#    return param
+    if createTree:
+        tree = Tree(element.get('name'))
+        if len(M)>0:
+            tree.transformations += T
+        if element.find('joint') is not None:
+            tree.axis_type = element.find('joint').get('type')
+            tree.min = float(element.find('joint/limits').get('lo'))
+            tree.max = float(element.find('joint/limits').get('hi'))
+            tree.acceleration = float(element.find('joint/maxacceleration').get('value'))
+            tree.speed = float(element.find('joint/maxvelocity').get('value'))
+            tree.jerk = float(element.find('joint/maxtorque').get('value'))
+            tree.axis = [float(axis.get('x')),float(axis.get('y')),float(axis.get('z'))]
 
-def read(filename):
-    doc=etree.parse('filename')
+        if None in children:
+            print(children, element.get('name'))
+
+        tree.children = [parse(i,root,createTree) for i in children]
+        return tree
+
+    else:
+        param={
+            'name': element.get('name')
+        }
+
+        if element.find('joint') is not None:
+            try:
+                param.update( {
+                'param': {
+                'type': element.find('joint').get('type'),
+                'lo':  element.find('joint/limits').get('lo'),
+                'hi':     element.find('joint/limits').get('hi'),
+                'units':     element.find('joint/limits').get('units'),
+                'axis': [axis.get('x'),axis.get('y'),axis.get('z')],
+                'transform': M,
+                'acceleration': element.find('joint/maxacceleration').get('value'),
+                'velocity': element.find('joint/maxvelocity').get('value'),
+                'torque': element.find('joint/maxtorque').get('value'),
+                }})
+            except:
+                print("No param ",param['name'])
+                raise
+
+        param.update({'zchildren': [parse(i,root,createTree) for i in children]})
+        return param
+
+def read(filename,createTree=True):
+    doc=etree.parse(filename)
     root=doc.getroot()
 
     root.get('name')
 
     root.get('StandardName')
 
-    rootNode = root.find('./RobotNode[@name="%s"]' % root.get('RootNode'))
+    tolower(root)
+    rootNode = root.find('./robotnode[@name="%s"]' % root.get('RootNode'))
+    return parse(rootNode,root,createTree)
 
-    return parse(rootNode,root)
+
+if __name__ == "__main__":
+    import sys, pprint
+    print(sys.argv[1])
+    structure = read(sys.argv[1],False)
+    pprint.pprint(structure)
+    pass
