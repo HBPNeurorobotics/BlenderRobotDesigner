@@ -37,6 +37,7 @@ def parse(element,root,createTree):
     matrix=element.find('transform/matrix4x4')
     T=[]
     if matrix is not None:
+        M=[]
         print( element.get('name'))
 
         for i in range(1,5):
@@ -59,8 +60,8 @@ def parse(element,root,createTree):
 
     if createTree:
         tree = Tree(element.get('name'))
-        if len(M)>0:
-            tree.transformations += T
+        tree.transformations += T
+        print (tree.transformations)
         if element.find('joint') is not None:
             tree.axis_type = element.find('joint').get('type')
             tree.min = float(element.find('joint/limits').get('lo'))
@@ -115,9 +116,9 @@ def read(filename,createTree=True):
     return parse(rootNode,root,createTree)
 
 
-if __name__ == "__main__":
-    import sys, pprint
-    print(sys.argv[1])
-    structure = read(sys.argv[1],False)
-    pprint.pprint(structure)
-    pass
+#if __name__ == "__main__":
+#    import sys, pprint
+#    print(sys.argv[1])
+#    structure = read(sys.argv[1],False)
+#    pprint.pprint(structure)
+#    pass

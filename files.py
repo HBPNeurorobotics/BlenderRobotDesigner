@@ -52,6 +52,7 @@ def parseTree(tree, parentName):
     bpy.context.active_bone.RobotEditor.Euler.beta.value = degrees(m.to_euler().y)
     bpy.context.active_bone.RobotEditor.Euler.alpha.value = degrees(m.to_euler().x)
 
+
     if(tree.axis_type == 'revolute'):
         bpy.context.active_bone.RobotEditor.jointMode = 'REVOLUTE'
         #boneProp.theta.value = float(tree.initalValue)
@@ -77,6 +78,7 @@ def parseTree(tree, parentName):
             bpy.context.active_bone.RobotEditor.axis = 'Z'
     print("parsetree done")
 
+    print("parsetree done")
     for child in tree.children:
         parseTree(child, tree.name)
 
