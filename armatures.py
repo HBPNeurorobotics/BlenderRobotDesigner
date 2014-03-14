@@ -27,13 +27,13 @@ def createBone(armatureName, boneName, parentName = None):
     bone.head = (0,0,0) #Dummy
     bone.tail = (0,0,1) #Dummy
     bone.lock = True
-    
+
     if not parentName == None:
         bone.parent = arm.edit_bones[parentName]
-    
+
     bpy.ops.object.mode_set(mode=currentMode, toggle=False)
 
-    
+
 # Function to convert a given rotation vector and a roll angle anlong this axis into a 3x3 rotation matrix
 # Python port of the C function defined in armature.c
 # Thanks to blenderartists.org user vida_vida
@@ -64,121 +64,127 @@ def _vec_roll_to_mat3(vec, roll):
 # Python port of the C function defined in armature.c
 # Thanks to blenderartists.org user vida_vida
 def _mat3_to_vec_roll(mat):
-        
+
     vec = mat.col[1] * bpy.context.scene.RobotEditor.boneLength
     vecmat = _vec_roll_to_mat3(mat.col[1], 0)
     vecmatinv = vecmat.inverted()
     rollmat = vecmatinv * mat
     roll = math.atan2(rollmat[0][2], rollmat[2][2])
     return vec, roll
-    
+
 # update kinematics chain of armatureName starting with boneName
 def updateKinematics(armatureName, boneName=None):
+    #    print("updateKinematics")
     currentMode = bpy.context.object.mode
-    
+
     arm = bpy.data.armatures[armatureName]
+
     if not boneName is None:
-        bone = arm.bones[boneName]
+        boneName = arm.bones[boneName].name
     else:
-        bone = arm.bones[0]
-    
-    matrix = bone.RobotEditor.getTransform()
-    
+        boneName = arm.bones[0].name
+
+
+    matrix = arm.bones[boneName].RobotEditor.getTransform()
+
     bpy.ops.object.mode_set(mode='EDIT', toggle=False)
-    
-    edit_bone = arm.edit_bones[bone.name]
+
+    edit_bone = arm.edit_bones[arm.bones[boneName].name]
     edit_bone.use_inherit_rotation = True
-    
+
     if not edit_bone.parent is None:
         transform = edit_bone.parent.matrix.copy()
         matrix = transform * matrix
-    
+
     pos = matrix.to_translation()
     axis, roll = _mat3_to_vec_roll(matrix.to_3x3())
-    
+
     edit_bone.head = pos
     edit_bone.tail = pos+axis
     edit_bone.roll = roll
-    
+
     bpy.ops.object.mode_set(mode=currentMode, toggle = False)
-    
+
+    #   print("Number of children")
+    #   print(len(arm.bones[boneName].children))
+    #   print("updateKinematics Done")
     # recursive call on all children
-    for childBone in bone.children:
+    for childBone in arm.bones[boneName].children:
         updateKinematics(armatureName, childBone.name)
-    
+
     #TODO: Add constraints!
-    
+
 # operator to select armature
 class RobotEditor_selectArmature(bpy.types.Operator):
     bl_idname = "roboteditor.selectarmature"
     bl_label = "Select Armature"
-    
+
     armatureName = StringProperty()
-    
+
     def execute(self, context):
         for obj in bpy.data.objects :
             obj.select = False
-            
+
         context.scene.objects.active = bpy.data.objects[self.armatureName]
         context.active_object.select = True
         context.scene.RobotEditor.armatureName = self.armatureName # not so sure if this is needed at all
-        
+
         if len(context.active_object.data.bones) > 0 :
             baseBoneName = context.active_object.data.bones[0].name
             bpy.ops.roboteditor.selectbone(boneName = baseBoneName)
         return{'FINISHED'}
 
-        
-# operator to create armature        
+
+# operator to create armature
 class RobotEditor_createArmature(bpy.types.Operator):
     bl_idname = "roboteditor.createarmature"
     bl_label = "Create Armature"
-    
+
     armatureName = StringProperty(name="Enter armature name:")
     baseBoneName = StringProperty(name="Enter base bone name:")
-    
+
     def execute(self,context):
         createArmature(self.armatureName)
         bpy.ops.roboteditor.selectarmature(armatureName = self.armatureName)
         bpy.ops.roboteditor.createbone(boneName = self.baseBoneName)
-        
+
         return{'FINISHED'}
-     
+
 
     def invoke(self, context, event) :
         return context.window_manager.invoke_props_dialog(self)
 
 
-# menu to select exisiting armature or create new one        
+# menu to select exisiting armature or create new one
 class RobotEditor_ArmatureMenu(bpy.types.Menu) :
     bl_idname = "roboteditor.armaturemenu"
     bl_label = "Selecht Armature"
-    
+
     def draw(self, context):
         layout = self.layout
         armatures = [obj for obj in bpy.data.objects if obj.type == 'ARMATURE']
-        
+
         layout.operator("roboteditor.createarmature", text="New...")
-        
+
         for arm in armatures:
             text = arm.name
             layout.operator("roboteditor.selectarmature", text=text).armatureName=text
 
-            
-# operator to rename selected armature           
+
+# operator to rename selected armature
 class RobotEditor_renameArmature(bpy.types.Operator) :
     bl_idname = "roboteditor.renamearmature"
     bl_label = "Rename selected armature"
-    
+
     newName = StringProperty(name="Enter new name:")
-    
+
     def execute(self, context):
         oldName = context.active_object.name
         context.active_object.name = self.newName
         bpy.data.armatures[oldName].name = self.newName
-        
+
         return{'FINISHED'}
-        
+
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
 
@@ -187,19 +193,19 @@ class RobotEditor_renameArmature(bpy.types.Operator) :
 class RobotEditor_joinArmature(bpy.types.Operator):
     bl_idname = "roboteditor.joinarmature"
     bl_label = "Join 2 Armatures"
-    
+
     targetArmatureName = StringProperty()
-    
+
     def execute(self, context):
         sourceArmName = context.active_object.name
         sourceParentBoneName = context.active_object.data.bones[0].name
         bpy.ops.roboteditor.selectarmature(armatureName=self.targetArmatureName)
         bpy.data.objects[sourceArmName].select = True
-        
+
         bpy.ops.object.join()
         bpy.ops.roboteditor.selectbone(boneName = sourceParentBoneName)
         bpy.ops.roboteditor.assignparentbone(parentName = context.active_object.data.bones[0].name)
-        
+
         updateKinematics(context.active_object.name, sourceParentBoneName)
         return{'FINISHED'}
 
@@ -207,19 +213,19 @@ class RobotEditor_joinArmature(bpy.types.Operator):
 class RobotEditor_ArmatureJoinMenu(bpy.types.Menu):
     bl_idname = "roboteditor.joinarmaturemenu"
     bl_label = "Join selected armature with different armature"
-    
+
     def draw(self, context):
         layout = self.layout
-        
+
         currentName = context.active_object.data.name
         armatures = [obj for obj in bpy.data.objects if obj.type == 'ARMATURE' and not obj.name == currentName]
-        
+
         for arm in armatures:
             text = arm.name
             layout.operator("roboteditor.joinarmature", text=text).targetArmatureName = text
-    
 
-    
+
+
 # draw method that builds the part of the GUI responsible for the armature
 def draw(layout, context):
     armatureSelected = False
@@ -231,7 +237,7 @@ def draw(layout, context):
             row.menu("roboteditor.armaturemenu", text=context.active_object.name)
             row.separator()
             row.operator("roboteditor.renamearmature")
-        
+
             layout.label(text="Merge with another armature")
             layout.menu("roboteditor.joinarmaturemenu", text = "")
         else:
@@ -240,11 +246,11 @@ def draw(layout, context):
     except:
         layout.menu("roboteditor.armaturemenu", text="")
         layout.label(text="Select Armature first")
-            
+
     return armatureSelected
-    
-    
-    
+
+
+
 def register():
     bpy.utils.register_class(RobotEditor_selectArmature)
     bpy.utils.register_class(RobotEditor_createArmature)
