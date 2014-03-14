@@ -167,6 +167,7 @@ class RobotEditor_BoneProperty(bpy.types.PropertyGroup):
 
         return parentMatrix, translation*rotation
 
+
     jointMode = EnumProperty \
         (
         items = [('REVOLUTE','Revolute', 'revolute joint'),
@@ -206,7 +207,6 @@ def register():
     bpy.utils.register_class(RobotEditor_Euler)
     bpy.utils.register_class(RobotEditor_DH)
     bpy.utils.register_class(RobotEditor_BoneProperty)
-
 
 
 def unregister():

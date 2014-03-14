@@ -76,6 +76,7 @@ def parseTree(tree, parentName):
         elif tree.axis==[0.0,0.0,1.0]:
             bpy.context.active_bone.RobotEditor.axis = 'Z'
     print("parsetree done")
+
     for child in tree.children:
         parseTree(child, tree.name)
 
