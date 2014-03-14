@@ -87,7 +87,7 @@ def updateKinematics(armatureName, boneName=None):
         boneName = bpy.data.armatures[armatureName].bones[0].name
 
 
-    matrix, jointMatrix = bpy.data.armatures[armatureName].bones[boneName].bones[boneName].RobotEditor.getTransform()
+    matrix, jointMatrix = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.getTransform()
 
     bpy.ops.object.mode_set(mode='EDIT', toggle=False)
 

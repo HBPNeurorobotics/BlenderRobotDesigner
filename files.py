@@ -26,21 +26,19 @@ def parseTree(tree, parentName):
     bpy.ops.roboteditor.selectbone(boneName = tree.name)
     print (tree.name)
     boneProp = bpy.context.active_bone.RobotEditor
-    print (len(tree.transformations))
-    for i in tree.transformationsif len(tree.transformations) > 0:
-        print (tree.transformations[0])
-        if type(tree.transformations[0][0])==list:
-            m=Matrix(tree.transformations[0])
-            print(m)
+    if len(tree.transformations) > 0:
+        # We expect a matrix here!
+        print(tree.transformations)
+        m=Matrix(tree.transformations[0])
+        print(m)
 
-            bpy.context.active_bone.RobotEditor.Euler.x.value = m.translation[0]
-            bpy.context.active_bone.RobotEditor.Euler.y.value = m.translation[1]
-            bpy.context.active_bone.RobotEditor.Euler.z.value = m.translation[2]
+        bpy.context.active_bone.RobotEditor.Euler.x.value = m.translation[0]/1000
+        bpy.context.active_bone.RobotEditor.Euler.y.value = m.translation[1]/1000
+        bpy.context.active_bone.RobotEditor.Euler.z.value = m.translation[2]/1000
 
-            bpy.context.active_bone.RobotEditor.Euler.gamma.value = m.to_euler().x
-            bpy.context.active_bone.RobotEditor.Euler.beta.value = m.to_euler().y
-            bpy.context.active_bone.RobotEditor.Euler.alpha.value = m.to_euler().z
-        print("Not a matrix")
+        bpy.context.active_bone.RobotEditor.Euler.gamma.value = m.to_euler().x
+        bpy.context.active_bone.RobotEditor.Euler.beta.value = m.to_euler().y
+        bpy.context.active_bone.RobotEditor.Euler.alpha.value = m.to_euler().z
 
     if(tree.axis_type == 'revolute'):
         bpy.context.active_bone.RobotEditor.jointMode = 'REVOLUTE'
