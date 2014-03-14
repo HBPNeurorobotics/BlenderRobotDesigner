@@ -154,7 +154,7 @@ class RobotEditor_BoneProperty(bpy.types.PropertyGroup):
             elif(self.axis == 'Z'):
                 translation = Matrix.Translation((0,0,inverted*(self.d.value + self.d.offset),1))
 
-        return translation*parentMatrix*rotation
+        return parentMatrix, translation*rotation
 
     jointMode = EnumProperty \
         (
