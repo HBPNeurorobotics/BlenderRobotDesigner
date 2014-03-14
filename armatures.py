@@ -18,20 +18,22 @@ def createArmature(new_name) :
 # creates new bone, armatureName identifies the armature, boneName the name of the new bone
 # and parentName(optional) identifies the name of the parent bone
 def createBone(armatureName, boneName, parentName = None):
+    print("createBone")
     bpy.ops.roboteditor.selectarmature(armatureName = armatureName)
     currentMode = bpy.context.object.mode
 
     bpy.ops.object.mode_set(mode='EDIT', toggle=False)
-    arm = bpy.data.armatures[armatureName]
-    bone = arm.edit_bones.new(boneName)
+    #arm = bpy.data.armatures[armatureName]
+    bone = bpy.data.armatures[armatureName].edit_bones.new(boneName)
     bone.head = (0,0,0) #Dummy
     bone.tail = (0,0,1) #Dummy
     bone.lock = True
 
     if not parentName == None:
-        bone.parent = arm.edit_bones[parentName]
+        bone.parent = bpy.data.armatures[armatureName].edit_bones[parentName]
 
     bpy.ops.object.mode_set(mode=currentMode, toggle=False)
+    print("createBone done")
 
 
 # Function to convert a given rotation vector and a roll angle anlong this axis into a 3x3 rotation matrix
@@ -77,19 +79,19 @@ def updateKinematics(armatureName, boneName=None):
     #    print("updateKinematics")
     currentMode = bpy.context.object.mode
 
-    arm = bpy.data.armatures[armatureName]
+    #arm = bpy.data.armatures[armatureName]
 
     if not boneName is None:
-        boneName = arm.bones[boneName].name
+        boneName = bpy.data.armatures[armatureName].bones[boneName].name
     else:
-        boneName = arm.bones[0].name
+        boneName = bpy.data.armatures[armatureName].bones[0].name
 
 
-    matrix = arm.bones[boneName].RobotEditor.getTransform()
+    matrix = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.getTransform()
 
     bpy.ops.object.mode_set(mode='EDIT', toggle=False)
 
-    edit_bone = arm.edit_bones[arm.bones[boneName].name]
+    edit_bone = bpy.data.armatures[armatureName].edit_bones[bpy.data.armatures[armatureName].bones[boneName].name]
     edit_bone.use_inherit_rotation = True
 
     if not edit_bone.parent is None:
@@ -109,7 +111,7 @@ def updateKinematics(armatureName, boneName=None):
     #   print(len(arm.bones[boneName].children))
     #   print("updateKinematics Done")
     # recursive call on all children
-    for childBone in arm.bones[boneName].children:
+    for childBone in bpy.data.armatures[armatureName].bones[boneName].children:
         updateKinematics(armatureName, childBone.name)
 
     #TODO: Add constraints!

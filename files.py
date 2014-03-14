@@ -20,43 +20,45 @@ except ImportError:
     use_mmm = False
 
 def parseTree(tree, parentName):
+    print("parsetree")
     armName = bpy.context.active_object.name
     armatures.createBone(armName, tree.name, parentName)
     bpy.ops.roboteditor.selectbone(boneName = tree.name)
     print (tree.name)
     boneProp = bpy.context.active_bone.RobotEditor
     print (len(tree.transformations))
-    if len(tree.transformations) > 0:
+    for i in tree.transformationsif len(tree.transformations) > 0:
         print (tree.transformations[0])
         if type(tree.transformations[0][0])==list:
             m=Matrix(tree.transformations[0])
             print(m)
 
-            boneProp.Euler.x.value = m.translation[0]
-            boneProp.Euler.y.value = m.translation[1]
-            boneProp.Euler.z.value = m.translation[2]
+            bpy.context.active_bone.RobotEditor.Euler.x.value = m.translation[0]
+            bpy.context.active_bone.RobotEditor.Euler.y.value = m.translation[1]
+            bpy.context.active_bone.RobotEditor.Euler.z.value = m.translation[2]
 
-            boneProp.Euler.gamma.value = m.to_euler().x
-            boneProp.Euler.beta.value = m.to_euler().y
-            boneProp.Euler.alpha.value = m.to_euler().z
+            bpy.context.active_bone.RobotEditor.Euler.gamma.value = m.to_euler().x
+            bpy.context.active_bone.RobotEditor.Euler.beta.value = m.to_euler().y
+            bpy.context.active_bone.RobotEditor.Euler.alpha.value = m.to_euler().z
         print("Not a matrix")
 
     if(tree.axis_type == 'revolute'):
-        boneProp.jointMode = 'REVOLUTE'
+        bpy.context.active_bone.RobotEditor.jointMode = 'REVOLUTE'
         #boneProp.theta.value = float(tree.initalValue)
-        boneProp.theta.max = float(tree.max)
-        boneProp.theta.min = float(tree.min)
+        bpy.context.active_bone.RobotEditor.theta.max = float(tree.max)
+        bpy.context.active_bone.RobotEditor.theta.min = float(tree.min)
     else:
-        boneProp.jointMode = 'PRISMATIC'
+        bpy.context.active_bone.RobotEditor.jointMode = 'PRISMATIC'
         #boneProp.d.value = float(tree.initialValue)
-        boneProp.d.max = float(tree.max)
-        boneProp.d.min = float(tree.min)
+        bpy.context.active_bone.RobotEditor.d.max = float(tree.max)
+        bpy.context.active_bone.RobotEditor.d.min = float(tree.min)
 
     if tree.axis is not None:
         for axis in tree.axis:
             if axis == '-1':
-                boneProp.axis_revert = True
+                bpy.context.active_bone.RobotEditor.axis_revert = True
 
+    print("parsetree done")
     for child in tree.children:
         parseTree(child, tree.name)
 
