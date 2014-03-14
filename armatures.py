@@ -324,3 +324,4 @@ def unregister():
     bpy.utils.unregister_class(RobotEditor_renameArmature)
     bpy.utils.unregister_class(RobotEditor_joinArmature)
     bpy.utils.unregister_class(RobotEditor_ArmatureJoinMenu)
+
