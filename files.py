@@ -26,19 +26,31 @@ def parseTree(tree, parentName):
     bpy.ops.roboteditor.selectbone(boneName = tree.name)
     print (tree.name)
     boneProp = bpy.context.active_bone.RobotEditor
-    if len(tree.transformations) > 0:
+
+    m = Matrix()
+    print(tree.transformations)
+    for i in tree.transformations:
         # We expect a matrix here!
-        print(tree.transformations)
-        m=Matrix(tree.transformations[0])
+        # Todo accept rotation and translations too!
+        if type(i[0]) is list:
+            m=m*Matrix(i)
+        elif len(i)==3:
+            #TODO
+            pass
+        elif len(i)==4:
+            #TODO
+            pass
+        else:
+            raise Exception("ParsingError")
         print(m)
 
-        bpy.context.active_bone.RobotEditor.Euler.x.value = m.translation[0]/1000
-        bpy.context.active_bone.RobotEditor.Euler.y.value = m.translation[1]/1000
-        bpy.context.active_bone.RobotEditor.Euler.z.value = m.translation[2]/1000
+    bpy.context.active_bone.RobotEditor.Euler.x.value = m.translation[0]/1000
+    bpy.context.active_bone.RobotEditor.Euler.y.value = m.translation[1]/1000
+    bpy.context.active_bone.RobotEditor.Euler.z.value = m.translation[2]/1000
 
-        bpy.context.active_bone.RobotEditor.Euler.gamma.value = m.to_euler().x
-        bpy.context.active_bone.RobotEditor.Euler.beta.value = m.to_euler().y
-        bpy.context.active_bone.RobotEditor.Euler.alpha.value = m.to_euler().z
+    bpy.context.active_bone.RobotEditor.Euler.gamma.value = degrees(m.to_euler().z)
+    bpy.context.active_bone.RobotEditor.Euler.beta.value = degrees(m.to_euler().y)
+    bpy.context.active_bone.RobotEditor.Euler.alpha.value = degrees(m.to_euler().x)
 
     if(tree.axis_type == 'revolute'):
         bpy.context.active_bone.RobotEditor.jointMode = 'REVOLUTE'
