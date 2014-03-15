@@ -28,12 +28,24 @@ class Tree(object):
         self.closingDirection = 1.0
 
 def tolower(element):
+    """Convert all element tags to lower (i.e., ignore case)"""
     element.tag = element.tag.lower()
     for i in element.getchildren():
         tolower(i)
 
-def parse(element,root,createTree):
+#def inv(m):
+#    m2=[]
+#    for i in range(0,3):
+#        row = []
+#        for j in range(0,3):
+#            row.append(m[j][i])
+#        row.append(-m[i][3])
+#        m2.append(row)
+#    m2.append([0,0,0,1])
+#    return m2
 
+def parse(element,root):
+    """Parse the document tree and store the extracted information in the tree class."""
     matrix=element.find('transform/matrix4x4')
     M=[]
     if matrix is not None:
@@ -57,7 +69,7 @@ def parse(element,root,createTree):
 
     children = [root.find('./robotnode[@name="%s"]' % i.get('name'))  for i in element.findall('child')]
 
-    if createTree:
+    if True:
         tree = Tree(element.get('name'))
         if len(M)>0:
             tree.transformations.append( M)
@@ -66,18 +78,21 @@ def parse(element,root,createTree):
             tree.axis_type = element.find('joint').get('type')
             tree.min = float(element.find('joint/limits').get('lo'))
             tree.max = float(element.find('joint/limits').get('hi'))
-            tree.acceleration = float(element.find('joint/maxacceleration').get('value'))
-            tree.speed = float(element.find('joint/maxvelocity').get('value'))
-            tree.jerk = float(element.find('joint/maxtorque').get('value'))
+            if element.find('joint/maxacceleration'):
+                tree.acceleration = float(element.find('joint/maxacceleration').get('value'))
+            if element.find('joint/maxvelocity'):
+                tree.speed = float(element.find('joint/maxvelocity').get('value'))
+            if element.find('joint/maxtorque'):
+                tree.jerk = float(element.find('joint/maxtorque').get('value'))
             tree.axis = [float(axis.get('x')),float(axis.get('y')),float(axis.get('z'))]
 
         if None in children:
             print(children, element.get('name'))
 
-        tree.children = [parse(i,root,createTree) for i in children]
+        tree.children = [parse(i,root) for i in children]
         return tree
 
-    else:
+    else: # Legacy debug
         param={
             'name': element.get('name')
         }
@@ -100,7 +115,7 @@ def parse(element,root,createTree):
                 print("No param ",param['name'])
                 raise
 
-        param.update({'zchildren': [parse(i,root,createTree) for i in children]})
+        param.update({'zchildren': [parse(i,root) for i in children]})
         return param
 
 def read(filename,createTree=True):
@@ -113,7 +128,7 @@ def read(filename,createTree=True):
 
     tolower(root)
     rootNode = root.find('./robotnode[@name="%s"]' % root.get('RootNode'))
-    return parse(rootNode,root,createTree)
+    return parse(rootNode,root)
 
 
 #if __name__ == "__main__":
