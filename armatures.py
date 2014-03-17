@@ -109,7 +109,9 @@ def updateKinematics(armatureName, boneName=None):
 
     # update pose
     bpy.ops.object.mode_set(mode='POSE', toggle = False)
-    pose_bone = bpy.context.active_pose_bone
+    #pose_bone = bpy.context.active_pose_bone
+    pose_bone = bpy.context.object.pose.bones[boneName]
+    print (pose_bone.name, jointMatrix)
     pose_bone.matrix_basis = jointMatrix
     bpy.ops.object.mode_set(mode=currentMode, toggle = False)
 
@@ -118,6 +120,7 @@ def updateKinematics(armatureName, boneName=None):
     #   print("updateKinematics Done")
     # recursive call on all children
     childBoneNames = [i.name for i in bpy.data.armatures[armatureName].bones[boneName].children]
+    print(boneName,childBoneNames)
     for childBoneName in childBoneNames:
         if childBoneName == "":
             print('Empty name',childBoneName,childBoneNames,boneName)
