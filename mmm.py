@@ -51,8 +51,8 @@ def read(filepath):
         bpy.context.active_object.location = Vector(root_position)
         bpy.context.active_object.rotation_euler = Euler(root_rotation, "XYZ")
 
-#        bpy.ops.anim.keyframe_insert(type="Location")
-#        bpy.ops.anim.keyframe_insert(type="Rotation")
+        bpy.ops.anim.keyframe_insert(type="Location")
+        bpy.ops.anim.keyframe_insert(type="Rotation")
 
         bpy.context.active_object.location = Vector(root_position)
         bpy.context.active_object.rotation_euler = Euler(root_rotation, "XYZ")
