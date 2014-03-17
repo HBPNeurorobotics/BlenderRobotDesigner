@@ -117,8 +117,11 @@ def updateKinematics(armatureName, boneName=None):
     #   print(len(arm.bones[boneName].children))
     #   print("updateKinematics Done")
     # recursive call on all children
-    for childBone in bpy.data.armatures[armatureName].bones[boneName].children:
-        updateKinematics(armatureName, childBone.name)
+    childBoneNames = [i.name for i in bpy.data.armatures[armatureName].bones[boneName].children]
+    for childBoneName in childBoneNames:
+        if childBoneName == "":
+            print('Empty name',childBoneName,childBoneNames,boneName)
+        updateKinematics(armatureName, childBoneName)
 
     #TODO: Add constraints!
 
