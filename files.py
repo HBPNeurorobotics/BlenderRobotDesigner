@@ -110,7 +110,7 @@ def extractData(boneName):
 
     tree.axis = axis
 
-    trafo = currentBone.RobotEditor.getTransform()
+    trafo, dummy = currentBone.RobotEditor.getTransform()
     # translation
     tree.addTrafo([str(e) for e in trafo.translation])
     # rotation
