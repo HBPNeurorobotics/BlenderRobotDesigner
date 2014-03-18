@@ -1,5 +1,6 @@
 import bpy
-
+from mathutils import *
+from math import *
 from . import collada as c, fix, armatures
 
 from bpy.props import StringProperty
@@ -19,39 +20,62 @@ except ImportError:
     use_mmm = False
 
 def parseTree(tree, parentName):
+    print("parsetree")
     armName = bpy.context.active_object.name
     armatures.createBone(armName, tree.name, parentName)
     bpy.ops.roboteditor.selectbone(boneName = tree.name)
-
+    print (tree.name)
     boneProp = bpy.context.active_bone.RobotEditor
 
-    translation = tree.transformations[0]
-    boneProp.Euler.x.value = translation[0]
-    boneProp.Euler.y.value = translation[1]
-    boneProp.Euler.z.value = translation[2]
+    m = Matrix()
+    print(tree.transformations)
+    for i in tree.transformations:
+        # We expect a matrix here!
+        # Todo accept rotation and translations too!
+        if type(i[0]) is list:
+            m=m*Matrix(i)
+        elif len(i)==3:
+            #TODO
+            pass
+        elif len(i)==4:
+            #TODO
+            pass
+        else:
+            raise Exception("ParsingError")
+        print(m)
 
-    gamma = tree.transformations[1]
-    boneProp.Euler.gamma.value = gamma[3]
-    beta = tree.transformations[2]
-    boneProp.Euler.beta.value = beta[3]
-    alpha = tree.transformations[2]
-    boneProp.Euler.alpha.value = alpha[3]
+    bpy.context.active_bone.RobotEditor.Euler.x.value = m.translation[0]/1000
+    bpy.context.active_bone.RobotEditor.Euler.y.value = m.translation[1]/1000
+    bpy.context.active_bone.RobotEditor.Euler.z.value = m.translation[2]/1000
+
+    bpy.context.active_bone.RobotEditor.Euler.gamma.value = degrees(m.to_euler().z)
+    bpy.context.active_bone.RobotEditor.Euler.beta.value = degrees(m.to_euler().y)
+    bpy.context.active_bone.RobotEditor.Euler.alpha.value = degrees(m.to_euler().x)
 
     if(tree.axis_type == 'revolute'):
-        boneProp.jointMode = 'REVOLUTE'
-        boneProp.theta.value = float(tree.initalValue)
-        boneProp.theta.max = float(tree.max)
-        boneProp.theta.min = float(tree.min)
+        bpy.context.active_bone.RobotEditor.jointMode = 'REVOLUTE'
+        #boneProp.theta.value = float(tree.initalValue)
+        bpy.context.active_bone.RobotEditor.theta.max = float(tree.max)
+        bpy.context.active_bone.RobotEditor.theta.min = float(tree.min)
     else:
-        boneProp.jointMode = 'PRISMATIC'
-        boneProp.d.value = float(tree.initialValue)
-        boneProp.d.max = float(tree.max)
-        boneProp.d.min = float(tree.min)
+        bpy.context.active_bone.RobotEditor.jointMode = 'PRISMATIC'
+        #boneProp.d.value = float(tree.initialValue)
+        bpy.context.active_bone.RobotEditor.d.max = float(tree.max)
+        bpy.context.active_bone.RobotEditor.d.min = float(tree.min)
 
-    for axis in tree.axis:
-        if axis == '-1':
-            boneProp.axis_revert = True
+    if tree.axis is not None:
+        for i,axis in enumerate(tree.axis):
+            if axis == -1.0:
+                bpy.context.active_bone.RobotEditor.axis_revert = True
+                tree.axis[i]=1.0
 
+        if tree.axis==[1.0,0.0,0.0]:
+            bpy.context.active_bone.RobotEditor.axis = 'X'
+        elif tree.axis==[0.0,1.0,0.0]:
+            bpy.context.active_bone.RobotEditor.axis = 'Y'
+        elif tree.axis==[0.0,0.0,1.0]:
+            bpy.context.active_bone.RobotEditor.axis = 'Z'
+    print("parsetree done")
     for child in tree.children:
         parseTree(child, tree.name)
 
@@ -196,7 +220,8 @@ class RobotEditor_importSIMOX(bpy.types.Operator):
     filepath = StringProperty(subtype = 'FILE_PATH')
 
     def execute(self, context):
-        tree=simox.read(filepath)
+        tree=simox.read(self.filepath)
+        parseTree(tree,None)
         return{'FINISHED'}
 
     def invoke(self, context, event):
