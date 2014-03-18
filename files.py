@@ -64,10 +64,17 @@ def parseTree(tree, parentName):
         bpy.context.active_bone.RobotEditor.d.min = float(tree.min)
 
     if tree.axis is not None:
-        for axis in tree.axis:
-            if axis == '-1':
+        for i,axis in enumerate(tree.axis):
+            if axis == -1.0:
                 bpy.context.active_bone.RobotEditor.axis_revert = True
+                tree.axis[i]=1.0
 
+        if tree.axis==[1.0,0.0,0.0]:
+            bpy.context.active_bone.RobotEditor.axis = 'X'
+        elif tree.axis==[0.0,1.0,0.0]:
+            bpy.context.active_bone.RobotEditor.axis = 'Y'
+        elif tree.axis==[0.0,0.0,1.0]:
+            bpy.context.active_bone.RobotEditor.axis = 'Z'
     print("parsetree done")
     for child in tree.children:
         parseTree(child, tree.name)

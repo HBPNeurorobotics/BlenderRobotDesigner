@@ -36,13 +36,13 @@ def read(filepath):
     print(len(root_positions), len(root_rotations))
     bpy.ops.object.mode_set(mode='OBJECT')
 
-    lastFrame = start -8
+    lastFrame = start -20
 
     for [i,[timestamp,root_position,root_rotation,joint_position]] in enumerate(zip(timestamps,root_positions,root_rotations,joint_positions)):
 
 
         bpy.context.scene.frame_current = start + timestamp * fps * 10
-        if bpy.context.scene.frame_current - lastFrame < 4: #or bpy.context.scene.frame_current > 100:
+        if bpy.context.scene.frame_current - lastFrame < 12: #or bpy.context.scene.frame_current > 100:
             print('Skipping')
             continue
         lastFrame = bpy.context.scene.frame_current
