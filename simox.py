@@ -70,6 +70,7 @@ def parse(element,root):
     children = [root.find('./robotnode[@name="%s"]' % i.get('name'))  for i in element.findall('child')]
 
     if True:
+
         tree = Tree(element.get('name'))
         if len(M)>0:
             tree.transformations.append( M)
