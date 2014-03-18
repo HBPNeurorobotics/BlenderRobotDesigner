@@ -18,7 +18,7 @@ def read(filepath):
     doc=etree.parse(filepath)
     root=doc.getroot()
     tolower(root)
-    names=[e.get("name") for e in root.findall(".//jointorder/joint")]
+    names=[e.get("name").replace('_joint','') for e in root.findall(".//jointorder/joint")]
     missing = []
     for i in names:
         if not i in bpy.context.object.data.bones.keys():
