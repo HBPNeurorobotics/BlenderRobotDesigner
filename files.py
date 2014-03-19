@@ -121,15 +121,23 @@ def extractData(boneName):
 
     if(currentBone.RobotEditor.jointMode == 'REVOLUTE'):
         tree.initialValue = str(currentBone.RobotEditor.theta.value)
+        tree.offsetTransformation = axis + [str(currentBone.RobotEditor.theta.offset)]
         tree.min = str(currentBone.RobotEditor.theta.min)
         tree.max = str(currentBone.RobotEditor.theta.max)
         tree.axis_type = 'revolute'
     else:
         tree.initialValue = str(currentBone.RobotEditor.d.value)
+        tree.offsetTransformation = ["0", "0", "0"]
+        if currentBone.RobotEditor.axis == 'X':
+            tree.offsetTransformation[0] = str(currentBone.RobotEditor.d.offset)
+        elif currentBone.RobotEditor.axis == 'Y':
+            tree.offsetTransformation[1] = str(currentBone.RobotEditor.d.offset)
+        elif currentBone.RobotEditor.axis == 'Z':
+            tree.offsetTransformation[2] = str(currentBone.RobotEditor.d.offset)
         tree.min = str(currentBone.RobotEditor.d.min)
         tree.max = str(currentBone.RobotEditor.d.max)
         tree.axis_type = 'prismatic'
-
+    print('Offset: ',tree.offsetTransformation)
     children = [child.name for child in currentBone.children]
 
     tree.meshes = [mesh.name for mesh in bpy.data.objects if mesh.type == 'MESH' and mesh.parent_bone == boneName]
