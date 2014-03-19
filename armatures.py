@@ -37,7 +37,7 @@ def createBone(armatureName, boneName, parentName = None):
 
     bpy.ops.roboteditor.selectbone(boneName=boneName)
     bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
-    bpy.context.object.pose.bones[i.name].constraints[0].name='RobotEditorConstraint'
+    bpy.context.object.pose.bones[boneName].constraints[0].name='RobotEditorConstraint'
     bpy.ops.object.mode_set(mode=currentMode, toggle=False)
     print("createBone done")
 
