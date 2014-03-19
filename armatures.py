@@ -86,6 +86,11 @@ def updateKinematics(armatureName, boneName=None):
     else:
         boneName = bpy.data.armatures[armatureName].bones[0].name
 
+    jointAxis = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.axis
+    min_rot = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.theta.min
+    max_rot = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.theta.max
+    jointMode =bpy.data.armatures[armatureName].bones[boneName].RobotEditor.jointMode
+
 
     matrix, jointMatrix = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.getTransform()
 
@@ -113,6 +118,37 @@ def updateKinematics(armatureName, boneName=None):
     pose_bone = bpy.context.object.pose.bones[boneName]
 #    print (pose_bone.name, jointMatrix)
     pose_bone.matrix_basis = jointMatrix
+
+    # Adding constraints for revolute joints
+    if jointMode == 'REVOLUTE':
+        if not 'LIMIT_ROTATION' in [i.type for i in pose_bone.constraints]:
+            bpy.ops.roboteditor.selectbone(boneName=boneName)
+            res=bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
+            print(res,'Adding constraint for ', boneName , pose_bone.constraints.keys())
+        constraint = [i for i in pose_bone.constraints if i.type == 'LIMIT_ROTATION'][0]
+        constraint.name = 'RobotEditorConstraint'
+        constraint.use_limit_x=True
+        constraint.use_limit_y=True
+        constraint.use_limit_z=True
+        constraint.min_x=0.0
+        constraint.min_y=0.0
+        constraint.min_z=0.0
+        constraint.max_x=0.0
+        constraint.max_y=0.0
+        constraint.max_z=0.0
+        print(min_rot,max_rot)
+        if jointAxis=='X':
+            constraint.min_x=math.radians(min_rot)
+            constraint.max_x=math.radians(max_rot)
+        elif jointAxis=='Y':
+            constraint.min_y=math.radians(min_rot)
+            constraint.max_y=math.radians(max_rot)
+        elif jointAxis=='Z':
+            constraint.min_z=math.radians(min_rot)
+            constraint.max_z=math.radians(max_rot)
+        else:
+            print('strange',axis)
+
     bpy.ops.object.mode_set(mode=currentMode, toggle = False)
 
     #   print("Number of children")
