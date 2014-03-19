@@ -32,6 +32,12 @@ def createBone(armatureName, boneName, parentName = None):
     if not parentName == None:
         bone.parent = bpy.data.armatures[armatureName].edit_bones[parentName]
 
+
+    bpy.ops.object.mode_set(mode='POSE', toggle = False)
+
+    bpy.ops.roboteditor.selectbone(boneName=boneName)
+    bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
+    bpy.context.object.pose.bones[i.name].constraints[0].name='RobotEditorConstraint'
     bpy.ops.object.mode_set(mode=currentMode, toggle=False)
     print("createBone done")
 
@@ -86,6 +92,7 @@ def updateKinematics(armatureName, boneName=None):
     else:
         boneName = bpy.data.armatures[armatureName].bones[0].name
 
+    #local variables for updating the constraints
     jointAxis = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.axis
     min_rot = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.theta.min
     max_rot = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.theta.max
@@ -121,33 +128,29 @@ def updateKinematics(armatureName, boneName=None):
 
     # Adding constraints for revolute joints
     if jointMode == 'REVOLUTE':
-        if not 'LIMIT_ROTATION' in [i.type for i in pose_bone.constraints]:
-            bpy.ops.roboteditor.selectbone(boneName=boneName)
-            res=bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
-            print(res,'Adding constraint for ', boneName , pose_bone.constraints.keys())
-        constraint = [i for i in pose_bone.constraints if i.type == 'LIMIT_ROTATION'][0]
-        constraint.name = 'RobotEditorConstraint'
-        constraint.use_limit_x=True
-        constraint.use_limit_y=True
-        constraint.use_limit_z=True
-        constraint.min_x=0.0
-        constraint.min_y=0.0
-        constraint.min_z=0.0
-        constraint.max_x=0.0
-        constraint.max_y=0.0
-        constraint.max_z=0.0
-        print(min_rot,max_rot)
-        if jointAxis=='X':
-            constraint.min_x=math.radians(min_rot)
-            constraint.max_x=math.radians(max_rot)
-        elif jointAxis=='Y':
-            constraint.min_y=math.radians(min_rot)
-            constraint.max_y=math.radians(max_rot)
-        elif jointAxis=='Z':
-            constraint.min_z=math.radians(min_rot)
-            constraint.max_z=math.radians(max_rot)
-        else:
-            print('strange',axis)
+        if 'RobotEditorConstraint' in pose_bone.constraints:
+            constraint = [i for i in pose_bone.constraints if i.type == 'LIMIT_ROTATION'][0]
+            constraint.name = 'RobotEditorConstraint'
+            constraint.owner_space='LOCAL'
+            constraint.use_limit_x=True
+            constraint.use_limit_y=True
+            constraint.use_limit_z=True
+            constraint.min_x=0.0
+            constraint.min_y=0.0
+            constraint.min_z=0.0
+            constraint.max_x=0.0
+            constraint.max_y=0.0
+            constraint.max_z=0.0
+            print(min_rot,max_rot)
+            if jointAxis=='X':
+                constraint.min_x=math.radians(min_rot)
+                constraint.max_x=math.radians(max_rot)
+            elif jointAxis=='Y':
+                constraint.min_y=math.radians(min_rot)
+                constraint.max_y=math.radians(max_rot)
+            elif jointAxis=='Z':
+                constraint.min_z=math.radians(min_rot)
+                constraint.max_z=math.radians(max_rot)
 
     bpy.ops.object.mode_set(mode=currentMode, toggle = False)
 
