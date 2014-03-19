@@ -120,20 +120,12 @@ def extractData(boneName):
     tree.addTrafo([str(e) for e in [1,0,0, rotation.x]])
 
     if(currentBone.RobotEditor.jointMode == 'REVOLUTE'):
-        tree.initialValue = str(currentBone.RobotEditor.theta.value)
-        tree.offsetTransformation = axis + [str(currentBone.RobotEditor.theta.offset)]
+        tree.initialValue = str(currentBone.RobotEditor.theta.offset)
         tree.min = str(currentBone.RobotEditor.theta.min)
         tree.max = str(currentBone.RobotEditor.theta.max)
         tree.axis_type = 'revolute'
     else:
-        tree.initialValue = str(currentBone.RobotEditor.d.value)
-        tree.offsetTransformation = ["0", "0", "0"]
-        if currentBone.RobotEditor.axis == 'X':
-            tree.offsetTransformation[0] = str(currentBone.RobotEditor.d.offset)
-        elif currentBone.RobotEditor.axis == 'Y':
-            tree.offsetTransformation[1] = str(currentBone.RobotEditor.d.offset)
-        elif currentBone.RobotEditor.axis == 'Z':
-            tree.offsetTransformation[2] = str(currentBone.RobotEditor.d.offset)
+        tree.initialValue = str(currentBone.RobotEditor.d.offset)
         tree.min = str(currentBone.RobotEditor.d.min)
         tree.max = str(currentBone.RobotEditor.d.max)
         tree.axis_type = 'prismatic'

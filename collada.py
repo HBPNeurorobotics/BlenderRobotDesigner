@@ -338,13 +338,13 @@ class COLLADA(object):
                 elif len(trafo)==4:
                     el=self.SubElement(attachment,'{ns}rotate')
                 el.text = " ".join(str(i) for i in trafo)
-            # Add offset transformation
-            if len(armatureJoint.offsetTransformation)==3:
-                el=self.SubElement(attachment,'{ns}translate')
-            elif len(armatureJoint.offsetTransformation)==4:
-                el=self.SubElement(attachment,'{ns}rotate')
-            el.text = " ".join(str(i) for i in armatureJoint.offsetTransformation)
-            el.set('sid','offset')
+#            # Add offset transformation
+#            if len(armatureJoint.offsetTransformation)==3:
+#                el=self.SubElement(attachment,'{ns}translate')
+#            elif len(armatureJoint.offsetTransformation)==4:
+#                el=self.SubElement(attachment,'{ns}rotate')
+#            el.text = " ".join(str(i) for i in armatureJoint.offsetTransformation)
+#            el.set('sid','offset')
 
             link = self.SubElement(attachment,'{ns}link',{'sid':armatureJoint.name+'_link','name':armatureJoint.name+'_link'})
 
@@ -684,7 +684,6 @@ class Tree(object):
         self.axis= None # check
         self.isGripper = None   # check check
         self.closingDirection = 1.0 # check check
-        self.offsetTransformation = []
 
     def addTrafo(self,trafo):
         self.transformations.append(trafo)
