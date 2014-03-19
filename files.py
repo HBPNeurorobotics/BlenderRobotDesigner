@@ -129,7 +129,6 @@ def extractData(boneName):
         tree.min = str(currentBone.RobotEditor.d.min)
         tree.max = str(currentBone.RobotEditor.d.max)
         tree.axis_type = 'prismatic'
-    print('Offset: ',tree.offsetTransformation)
     children = [child.name for child in currentBone.children]
 
     tree.meshes = [mesh.name for mesh in bpy.data.objects if mesh.type == 'MESH' and mesh.parent_bone == boneName]
