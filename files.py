@@ -134,7 +134,8 @@ def extractData(boneName):
     tree.meshes = [mesh.name for mesh in bpy.data.objects if mesh.type == 'MESH' and mesh.parent_bone == boneName]
 
     markers = [m for m in bpy.data.objects if m.RobotEditor.tag == 'MARKER' and m.parent_bone == boneName]
-    tree.markers = [(m.name,(currentBone.matrix_local.inverted()*m.matrix_world.translation).to_tuple()) for m in markers]
+    #tree.markers = [(m.name,(currentBone.matrix_local.inverted()*m.matrix_world.translation).to_tuple()) for m in markers]
+    tree.markers = [(m.name,(m.matrix_parent_inverse*m.matrix_world.translation).to_tuple()) for m in markers]
 
     for child in children:
         tree.addChild(extractData(child))
