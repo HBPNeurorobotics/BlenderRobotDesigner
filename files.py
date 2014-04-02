@@ -171,6 +171,7 @@ class RobotEditor_exportCollada(bpy.types.Operator):
 
 
 
+        handler.attach(tree)
 
         massFrames = [obj for obj in bpy.data.objects if obj.RobotEditor.tag == 'PHYSICS_FRAME' and not obj.parent_bone is '']
         for frame in massFrames:
@@ -183,7 +184,6 @@ class RobotEditor_exportCollada(bpy.types.Operator):
 
             handler.addMassObject(frame.name, frameTrafos, tuple(v for v in frame.RobotEditor.dynamics.inertiaTensor), frame.RobotEditor.dynamics.mass)
 
-        handler.attach(tree)
 
         handler.write(self.filepath)
         return{'FINISHED'}

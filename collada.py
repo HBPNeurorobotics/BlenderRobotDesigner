@@ -18,6 +18,10 @@ class COLLADA(object):
         self.namespace='http://www.collada.org/2008/03/COLLADASchema'
         self.ns = '{%s}' % self.namespace
 
+        # Required simply for adding rigid_bodies
+        self.physics_model = None
+        self.instance_physics_model = None
+
     # searches the root node and replaces {ns} by the namespace prefix.
     # Additional replacements are given as keywordarguments.
     def iterfind(self,s,root=None,**kw):
@@ -216,6 +220,18 @@ class COLLADA(object):
         self.SubElement(bind,'{ns}param',{'ref':self.makeSIDREF(AS_motion,newparam2)})
 
         scene = self.find(COLLADA.SCENE)
+
+        # Create and export the tags required for rigid body dynamics!
+        # Models are still attached in a separate function (TODO)
+        library_physics_models = self.SubElement(self.root,'{ns}library_physics_models')
+        library_physics_scenes = self.SubElement(self.root,'{ns}library_physics_scenes')
+        self.physics_model = self.SubElement(library_physics_models,'{ns}physics_model',{'id':armature.name+'_physics_model'})
+        physics_scene = self.SubElement(library_physics_scenes,'physics_scene', {'id': armature.name+'_physics_scene'})
+        self.instance_physics_model =  self.SubInstance(physics_scene,self.physics_model)
+        self.SubElement(physics_scene,'{ns}technique_common')
+        scene = self.find(COLLADA.SCENE)
+        self.SubElement(scene,'{ns}instance_physics_scene',{'url':'#'+armature.name + '_physics_scene'}) #TODO make a method that creates a referenceable node (adding the #)
+
 
         #scene gotta be the last element!
         self.root.remove(scene)
@@ -619,7 +635,7 @@ class COLLADA(object):
 
         return (armature,meshes)
 
-    def addMassObject(self,name,transformations, inertia,mass,robot_name="Robot"):
+    def addMassObject(self,name,transformations, inertia,mass):
         """Incrementally learns the **previously** set training data.
 
         :param name: Name of the mass object
@@ -631,11 +647,8 @@ class COLLADA(object):
         :param mass: mass of the object
         :type mass: scalar
         """
-        library_physics_models = self.find(COLLADA.LIBRARY_PHYSICS_MODELS,warning=False)
-        if library_physics_models is None:
-            library_physics_models = self.SubElement(self.root,'{ns}library_physics_models')
-        physics_model = self.SubElement(library_physics_models,'{ns}physics_model',{'id':name+'_physics_model'})
-        rigid_body = self.SubElement(physics_model,'{ns}rigid_body',{'id':name+'_rigid_body'})
+
+        rigid_body = self.SubElement(self.physics_model,'{ns}rigid_body',{'sid':name+'_rigid_body'})
         tc=self.SubElement(rigid_body,'{ns}technique_common')
         self.SubElement(tc,'mass').text = str(mass)
         mass_frame = self.SubElement(tc,'{ns}mass_frame')
@@ -650,16 +663,8 @@ class COLLADA(object):
 
         self.SubElement(tc,'{ns}inertia',{'sid':'inertia'}).text = " ".join( str(i) for i in inertia)
 
-        library_physics_scenes = self.find(COLLADA.LIBRARY_PHYSICS_SCENES,warning=False)
-        if library_physics_scenes is None:
-            library_physics_scenes = self.SubElement(self.root,'{ns}library_physics_scenes')
-        physics_scene = self.SubElement(library_physics_scenes,robot_name+'physics_scene')
-        self.SubElement(physics_scene,'{ns}technique_common')
-        instance_physics_model =  self.SubInstance(physics_scene,physics_model)
-        instance_rigid_body = self.SubElement(instance_physics_model,'{ns}instance_rigid_body',{'target':name+'_node','body':name+'_rigid_body'})
+        instance_rigid_body = self.SubElement(self.instance_physics_model,'{ns}instance_rigid_body',{'target':"#"+name,'body':self.physics_model.get('id') +'/'+rigid_body.get('sid')})
 
-        scene = self.find(COLLADA.SCENE)
-        self.SubElement(scene,'{ns}instance_physics_scene',{'url':robot_name + 'physics_scene'})
 
 
 class Tree(object):
