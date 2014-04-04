@@ -443,7 +443,7 @@ class COLLADA(object):
         for bind_kinematics_model in self.findall(COLLADA.SCENE_BIND_KINEMATICS_MODEL):
             sid=bind_kinematics_model.get('node')
             if None: #sid:
-                print(sid)
+                #print(sid)
                 armature.root_node = self.find(COLLADA.VISUAL_SCENE_SID,
                     id=self.getID(instance_visual_scene),sid=sid) #irrelevant for import
             #
@@ -635,7 +635,7 @@ class COLLADA(object):
 
         return (armature,meshes)
 
-    def addMassObject(self,name,transformations, inertia,mass):
+    def addMassObject(self,name,transformations, inertia,mass,collisionModels=[]):
         """Incrementally learns the **previously** set training data.
 
         :param name: Name of the mass object
@@ -664,6 +664,12 @@ class COLLADA(object):
         self.SubElement(tc,'{ns}inertia',{'sid':'inertia'}).text = " ".join( str(i) for i in inertia)
 
         instance_rigid_body = self.SubElement(self.instance_physics_model,'{ns}instance_rigid_body',{'target':"#"+name,'body':self.physics_model.get('id') +'/'+rigid_body.get('sid')})
+
+        for model in collisionModels:
+            shape = self.SubElement(rigid_body,'{ns}shape')
+            self.SubElement(shape,'{ns}instance_geometry',{'url': '#'+model})
+            #TODO add transformations
+
 
 
 

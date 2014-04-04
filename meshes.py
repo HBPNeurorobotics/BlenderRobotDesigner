@@ -33,6 +33,8 @@ class RobotEditor_meshMenu(bpy.types.Menu):
         for mesh in meshNames:
             if bpy.data.objects[mesh].parent_bone:
                 text = mesh + " --> " + bpy.data.objects[mesh].parent_bone
+            elif bpy.data.objects[mesh].parent:
+                text = context.scene.RobotEditor.meshName + " --> " + bpy.data.objects[mesh].parent.name
             else:
                 text = mesh
             layout.operator("roboteditor.selectmesh", text=text).meshName=mesh
@@ -96,6 +98,22 @@ class RobotEditor_unassignAllMeshes(bpy.types.Operator):
     def invoke(self,context,event):
         return context.window_manager.invoke_props_dialog(self)
 
+class RobotEditor_assignCollisionModel(bpy.types.Operator):
+    bl_idname = "roboteditor.assigncollisionmodel"
+    bl_label = "Assign selected mesh as collision model to physics frame."
+
+    def execute(self, context):
+        bpy.ops.object.select_all(action="DESELECT")
+        if context.scene.RobotEditor.meshName in bpy.data.objects:
+            bpy.data.objects[context.scene.RobotEditor.meshName].select = True
+            if context.scene.RobotEditor.physicsFrameName in bpy.data.objects:
+                context.scene.objects.active = bpy.data.objects[context.scene.RobotEditor.physicsFrameName]
+                bpy.ops.object.parent_set(type = 'OBJECT', keep_transform=True)
+
+        if context.scene.RobotEditor.armatureName in bpy.data.objects:
+            context.scene.objects.active = bpy.data.objects[context.scene.RobotEditor.armatureName]
+        return{'FINISHED'}
+
 
 # defines the layout part of the mesh submenu
 def draw(layout, context):
@@ -108,6 +126,8 @@ def draw(layout, context):
 
             if mesh.parent_bone:
                 meshMenuText = context.scene.RobotEditor.meshName + " --> " + mesh.parent_bone
+            elif mesh.parent:
+                meshMenuText = context.scene.RobotEditor.meshName + " --> " + mesh.parent.name
             else:
                 meshMenuText = context.scene.RobotEditor.meshName
     topRow.menu("roboteditor.meshmenu", text=meshMenuText)
@@ -117,10 +137,25 @@ def draw(layout, context):
     rightColumn.operator("roboteditor.renamemeshes")
 
     layout.label("Select bone")
-    lowerRow = layout.row(align = False)
+    midRow = layout.row(align = False)
 
-    lowerRow.menu("roboteditor.bonemenu", text = context.active_bone.name)
-    lowerRow.operator("roboteditor.assignmesh")
+    midRow.menu("roboteditor.bonemenu", text = context.active_bone.name)
+    midRow.operator("roboteditor.assignmesh")
+
+    lowerRow = layout.row(align=False)
+    layout.label("Select Physics Frame:")
+    frameMenuText = ""
+    if(context.active_bone and not context.scene.RobotEditor.physicsFrameName == ""):
+        frame = bpy.data.objects[context.scene.RobotEditor.physicsFrameName]
+
+        if frame.parent_bone:
+            frameMenuText = context.scene.RobotEditor.physicsFrameName + " --> " + frame.parent_bone
+        else:
+            frameMenuText = context.scene.RobotEditor.physicsFrameName
+
+    lowerRow.menu("roboteditor.physicsframemenu", text = frameMenuText)
+    lowerRow.operator("roboteditor.assigncollisionmodel")
+
 
 
 
@@ -132,6 +167,7 @@ def register():
     bpy.utils.register_class(RobotEditor_unassignMesh)
     bpy.utils.register_class(RobotEditor_unassignAllMeshes)
     bpy.utils.register_class(RobotEditor_renameAllMeshes)
+    bpy.utils.register_class(RobotEditor_assignCollisionModel)
 
 
 def unregister():
@@ -141,3 +177,4 @@ def unregister():
     bpy.utils.unregister_class(RobotEditor_unassignMesh)
     bpy.utils.unregister_class(RobotEditor_unassignAllMeshes)
     bpy.utils.unregister_class(RobotEditor_renameAllMeshes)
+    bpy.utils.unregister_class(RobotEditor_assignCollisionModel)
