@@ -14,15 +14,23 @@ def fixCollada(in_filename,out_filename):
                 # bpy.types.bone.matrix_local() gives the matrix of the bone at rest position!
                 ns = "{http://www.collada.org/2005/11/COLLADASchema}"
                 matrix=etree.Element(ns+"matrix")
-                bone = obj.parent.data.bones[obj.parent_bone]
-                if bone.RobotEditor.jointMode == "REVOLUTE":
-                    # TODO: Place the transformation for the joint here!
-                    pass
+                if obj.parent_bone !="":
+                    bone = obj.parent.data.bones[obj.parent_bone]
+                    if bone.RobotEditor.jointMode == "REVOLUTE":
+                        # TODO: Place the transformation for the joint here!
+                        pass
 
-                matrix.text = " ".join([str(j) for i in bone.matrix_local.inverted() for j in i])
-                matrix.set('sid','Inverted')
-                # matrix.text = " ".join([str(j) for i in list(obj.matrix_local_inverse) for j in i])
-                element.insert(0,matrix)
+                    matrix.text = " ".join([str(j) for i in bone.matrix_local.inverted() for j in i])
+                    matrix.set('sid','Inverted')
+                    # matrix.text = " ".join([str(j) for i in list(obj.matrix_local_inverse) for j in i])
+                    element.insert(0,matrix)
+                if obj.parent.RobotEditor.tag == "PHYSICS_FRAME":
+                    for parent in root.iter():
+                        if element in parent:
+                            parent.remove(element)
+                            break
+
+
 
     doc.write(out_filename, encoding="UTF-8")
     doc.write("test.xml", encoding="UTF-8")

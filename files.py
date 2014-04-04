@@ -135,7 +135,10 @@ def extractData(boneName):
 
     markers = [m for m in bpy.data.objects if m.RobotEditor.tag == 'MARKER' and m.parent_bone == boneName]
     #tree.markers = [(m.name,(currentBone.matrix_local.inverted()*m.matrix_world.translation).to_tuple()) for m in markers]
-    tree.markers = [(m.name,(m.matrix_parent_inverse*m.matrix_world.translation).to_tuple()) for m in markers]
+    #tree.markers = [(m.name,(m.matrix_parent_inverse*m.matrix_world.translation).to_tuple()) for m in markers]
+
+    poseBone = arm.pose.bones[boneName]
+    tree.markers = [(m.name, (poseBone.matrix.inverted()*m.matrix_world.translation).to_tuple() ) for m in markers]
 
     for child in children:
         tree.addChild(extractData(child))
@@ -170,7 +173,6 @@ class RobotEditor_exportCollada(bpy.types.Operator):
         tree.addChild(extractData(baseBoneName))
 
 
-
         handler.attach(tree)
 
         massFrames = [obj for obj in bpy.data.objects if obj.RobotEditor.tag == 'PHYSICS_FRAME' and not obj.parent_bone is '']
@@ -182,8 +184,10 @@ class RobotEditor_exportCollada(bpy.types.Operator):
             frameTrafos.append(tuple([0,1,0,frameRotation.y]))
             frameTrafos.append(tuple([1,0,0,frameRotation.x]))
 
-            handler.addMassObject(frame.name, frameTrafos, tuple(v for v in frame.RobotEditor.dynamics.inertiaTensor), frame.RobotEditor.dynamics.mass)
-
+            collisionModels = [i.data.name.replace('.','_')+'-mesh' for i in bpy.data.objects if i.parent == frame]
+            #TODO also bring the matrix_local to all collisionmodels
+            print ("mass frames", frame.name, collisionModels)
+            handler.addMassObject(frame.name, frameTrafos, tuple(v for v in frame.RobotEditor.dynamics.inertiaTensor), frame.RobotEditor.dynamics.mass, collisionModels)
 
         handler.write(self.filepath)
         return{'FINISHED'}
