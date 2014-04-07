@@ -33,5 +33,4 @@ def fixCollada(in_filename,out_filename):
 
 
     doc.write(out_filename, encoding="UTF-8")
-    doc.write("test.xml", encoding="UTF-8")
 
