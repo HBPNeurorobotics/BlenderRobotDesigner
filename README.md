@@ -25,7 +25,7 @@ click the *Save User Settings* button in the bottom left corner of the *User Pre
 ## Usage:
 The RobotEditor differentiates between the *semantic properties* of a robot (that is its kinematics and optionally visual markers and physical properties) and the actual *visualization* of the robot (which is defined through meshes for the individual links).
 
-# Kinematics:
+### Kinematics:
 The first step is to create the kinematics representation of a robot. The plugin aggregates the kinematics within a so called *Armature* object. The *Select Armature* menu allows to create a new *Armature* by choosing the *New* list entry.
 This list will also contain all previously defined kinematic chains.
 
@@ -33,8 +33,8 @@ A newly created *Armature* will appear at the current position of the 3D pointer
 is defined **and** the actual joint configuration of the joint within this reference frame. By convention, the tail of the bone is located in the actual point origin of the reference frame while the head points at the direction of the local y-axis (and thus, is perpendicular to the x-z plane).
 
 Transformations of *Bones* from parent reference frames can be defined in two ways:
-1. Euler mode: the transformation is defined through three translations along the local axes and three rotations (around the local x-axis, around the resulting new local y'-axis and finally around the resulting new local z''-axis)
-2. DH mode: the transformation is defined through two rotations and two rotations according to the Denavit-Hartenberg convention 
+	1. Euler mode: the transformation is defined through three translations along the local axes and three rotations (around the local x-axis, around the resulting new local y'-axis and finally around the resulting new local z''-axis)
+	2. DH mode: the transformation is defined through two rotations and two rotations according to the Denavit-Hartenberg convention 
 
 Joints always represent one Degree of Freedom and can either be revolute(rotational) or prismatic(translational). By selecting the active axis, the joint type and value, offset, minimum and maximum, the configuration of a joint can be set.
 
