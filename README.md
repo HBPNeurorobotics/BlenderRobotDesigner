@@ -30,11 +30,15 @@ The first step is to create the kinematics representation of a robot. The plugin
 This list will also contain all previously defined kinematic chains.
 
 A newly created *Armature* will appear at the current position of the 3D pointer in the 3D View. Additionally, a *Bone* object is created. *Bone* objects represent the reference frames through which a kinematic chain
-is defined **and** the actual joint configuration of the joint within this reference frame. By convention, the tail of the bone is located in the actual point origin of the reference frame while the head points at the direction of the local y-axis (and thus, is perpendicular to the x-z plane).
+is defined **and** the actual joint configuration of the joint within this reference frame. All *Bone* functionality can be found in the *Bones* tab
+of the RobotEditor.
+#### Representation of Frame of Reference
+By convention, the tail of a bone is located in the actual point origin of the reference frame while the head points at the direction of the local y-axis (and thus, is perpendicular to the x-z plane).
 
 Transformations of *Bones* from parent reference frames can be defined in two ways:
-	1. Euler mode: the transformation is defined through three translations along the local axes and three rotations (around the local x-axis, around the resulting new local y'-axis and finally around the resulting new local z''-axis)
-	2. DH mode: the transformation is defined through two rotations and two rotations according to the Denavit-Hartenberg convention 
+
+   1. Euler mode: the transformation is defined through three translations along the local axes and three rotations (around the local x-axis, around the resulting new local y'-axis and finally around the resulting new local z''-axis)
+   2. DH mode: the transformation is defined through two rotations and two rotations according to the Denavit-Hartenberg convention 
 
 Joints always represent one Degree of Freedom and can either be revolute(rotational) or prismatic(translational). By selecting the active axis, the joint type and value, offset, minimum and maximum, the configuration of a joint can be set.
 
@@ -50,4 +54,14 @@ The hierarchy of the kinematic chain can be seen in the *Outliner* which can be 
 *Bones* can be either selected through the *Active Bone* drop-down menu in the RobotEditor toolbar or by left-clicking on them in the Outliner.
 
 
-**Tip:** To create spherical joints, create three *Bones* within the same position but with different active axes to account for the three Degrees of Freedom.
+**Tip:** To create spherical joints, create three *Bones* within the same position but with different active axes to account for the three Degrees of Freedom of a spherical joint.
+
+### Visualization:
+After the kinematic representation of the robot has been defined, meshes of the individual links have to be assigned to the respective *Bones*. By doing so, the mesh's position and orientation is made dependent of the *Bone* it is assigned to and thus, moves along accordingly when the joint configuration of the *Bone* is changed.
+
+This can be done in the *Meshes* tab of the RobotEditor. 
+To assign a mesh to a *Bone*, select the respective mesh from the *Select mesh* drop-down menu. Afterwards, select the *Bone* the mesh belongs to and click on *Assign selected mesh to active bone*. The mesh is now assigned to the bone.
+
+**Tip:** Multiple meshes can be assigned to the same *Bone*.
+
+**Tip:** To link the visualization of a spherical joint to its kinematics, assign the respective mesh to the thrid *Bone* of the sub-chain that defines the kinematics of a spherical joint.
