@@ -177,9 +177,10 @@ class RobotEditor_exportCollada(bpy.types.Operator):
 
         massFrames = [obj for obj in bpy.data.objects if obj.RobotEditor.tag == 'PHYSICS_FRAME' and not obj.parent_bone is '']
         for frame in massFrames:
+            transform = frame.parent.data.bones[frame.parent_bone].matrix_local.inverted() * frame.matrix_local
             frameTrafos = []
-            frameTrafos.append(tuple(v for v in frame.matrix_local.translation))
-            frameRotation = frame.matrix_local.to_euler()
+            frameTrafos.append(tuple(v for v in transform.translation))
+            frameRotation = transform.to_euler()
             frameTrafos.append(tuple([0,0,1,frameRotation.z]))
             frameTrafos.append(tuple([0,1,0,frameRotation.y]))
             frameTrafos.append(tuple([1,0,0,frameRotation.x]))
