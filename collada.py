@@ -635,7 +635,7 @@ class COLLADA(object):
 
         return (armature,meshes)
 
-    def addMassObject(self,name,transformations, inertia,mass,collisionModels=[]):
+    def addMassObject(self,name,transformations, inertia,mass,collisionModels=[],collisionModelTransformations={}):
         """Incrementally learns the **previously** set training data.
 
         :param name: Name of the mass object
@@ -646,6 +646,10 @@ class COLLADA(object):
         :type inertia: tuple or list with three elements
         :param mass: mass of the object
         :type mass: scalar
+        :param collisionModels: names of the collision models
+        :type collisionModels: list of strings
+        :param collisionModelTransformations: Transformations of the collision models
+        :type collisionModelTransformations: dictionary relating strings to list of transformations
         """
 
         rigid_body = self.SubElement(self.physics_model,'{ns}rigid_body',{'sid':name+'_rigid_body'})
@@ -668,6 +672,12 @@ class COLLADA(object):
         for model in collisionModels:
             shape = self.SubElement(rigid_body,'{ns}shape')
             self.SubElement(shape,'{ns}instance_geometry',{'url': '#'+model})
+            for t in collisionModelTransformations[model]:
+                if len(t)==3:
+                    self.SubElement(shape, '{ns}translate').text = " ".join(str(i) for i in t)
+                else:
+                    self.SubElement(shape, '{ns}rotate').text = " ".join(str(i) for i in t)
+
             #TODO add transformations
 
 

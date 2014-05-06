@@ -185,10 +185,24 @@ class RobotEditor_exportCollada(bpy.types.Operator):
             frameTrafos.append(tuple([0,1,0,frameRotation.y]))
             frameTrafos.append(tuple([1,0,0,frameRotation.x]))
 
-            collisionModels = [i.data.name.replace('.','_')+'-mesh' for i in bpy.data.objects if i.parent == frame]
+            collisionModels = []
+            collisionModelTransformations = {}
+            for model in [i for i in bpy.data.objects if i.parent == frame]:
+                modelName = model.data.name.replace('.','_')+'-mesh'
+                collisionModels.append(modelName)
+                #matrix = model.parent.data.bones[model.parent_bone].matrix_local.inverted() * model.matrix_local
+                matrix =  model.matrix_local
+                collisionModelTransformations[modelName]=[tuple(v for v in matrix.translation)]
+                rotation = matrix.to_euler()
+                collisionModelTransformations[modelName].append(tuple([0,0,1,rotation.z]))
+                collisionModelTransformations[modelName].append(tuple([0,1,0,rotation.y]))
+                collisionModelTransformations[modelName].append(tuple([1,0,0,rotation.x]))
+
+
+
             #TODO also bring the matrix_local to all collisionmodels
             print ("mass frames", frame.name, collisionModels)
-            handler.addMassObject(frame.name, frameTrafos, tuple(v for v in frame.RobotEditor.dynamics.inertiaTensor), frame.RobotEditor.dynamics.mass, collisionModels)
+            handler.addMassObject(frame.name, frameTrafos, tuple(v for v in frame.RobotEditor.dynamics.inertiaTensor), frame.RobotEditor.dynamics.mass, collisionModels,collisionModelTransformations)
 
         handler.write(self.filepath)
         return{'FINISHED'}
