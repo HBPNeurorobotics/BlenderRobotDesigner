@@ -97,6 +97,7 @@ def updateKinematics(armatureName, boneName=None):
     min_rot = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.theta.min
     max_rot = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.theta.max
     jointMode =bpy.data.armatures[armatureName].bones[boneName].RobotEditor.jointMode
+    jointValue = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.theta.value
 
 
     matrix, jointMatrix = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.getTransform()
@@ -127,31 +128,33 @@ def updateKinematics(armatureName, boneName=None):
     pose_bone.matrix_basis = jointMatrix
 
     # Adding constraints for revolute joints
-    if jointMode == 'REVOLUTE':
-        if 'RobotEditorConstraint' in pose_bone.constraints:
-            constraint = [i for i in pose_bone.constraints if i.type == 'LIMIT_ROTATION'][0]
-            constraint.name = 'RobotEditorConstraint'
-            constraint.owner_space='LOCAL'
-            constraint.use_limit_x=True
-            constraint.use_limit_y=True
-            constraint.use_limit_z=True
-            constraint.min_x=0.0
-            constraint.min_y=0.0
-            constraint.min_z=0.0
-            constraint.max_x=0.0
-            constraint.max_y=0.0
-            constraint.max_z=0.0
-            print(min_rot,max_rot)
-            if jointAxis=='X':
-                constraint.min_x=math.radians(min_rot)
-                constraint.max_x=math.radians(max_rot)
-            elif jointAxis=='Y':
-                constraint.min_y=math.radians(min_rot)
-                constraint.max_y=math.radians(max_rot)
-            elif jointAxis=='Z':
-                constraint.min_z=math.radians(min_rot)
-                constraint.max_z=math.radians(max_rot)
-
+    #---------- REMOVED DUE TO BUG IN BLENDER ------------
+    #if jointMode == 'REVOLUTE':
+    #    if 'RobotEditorConstraint' in pose_bone.constraints:
+    #        constraint = [i for i in pose_bone.constraints if i.type == 'LIMIT_ROTATION'][0]
+    #        constraint.name = 'RobotEditorConstraint'
+    #        constraint.owner_space='LOCAL'
+    #        constraint.use_limit_x=True
+    #        constraint.use_limit_y=True
+    #        constraint.use_limit_z=True
+    #        constraint.min_x=0.0
+    #        constraint.min_y=0.0
+    #        constraint.min_z=0.0
+    #        constraint.max_x=0.0
+    #        constraint.max_y=0.0
+    #        constraint.max_z=0.0
+    #        print(math.radians(jointValue))
+    #        print(math.radians(min_rot),math.radians(max_rot))
+    #        if jointAxis=='X':
+    #            constraint.min_x=math.radians(min_rot)
+    #            constraint.max_x=math.radians(max_rot)
+    #        elif jointAxis=='Y':
+    #            constraint.min_y=math.radians(min_rot)
+    #            constraint.max_y=math.radians(max_rot)
+    #        elif jointAxis=='Z':
+    #            constraint.min_z=math.radians(min_rot)
+    #            constraint.max_z=math.radians(max_rot)
+    #-------------------------------------------------------
     bpy.ops.object.mode_set(mode=currentMode, toggle = False)
 
     #   print("Number of children")
