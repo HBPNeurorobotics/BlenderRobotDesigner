@@ -138,7 +138,7 @@ def extractData(boneName):
     #tree.markers = [(m.name,(m.matrix_parent_inverse*m.matrix_world.translation).to_tuple()) for m in markers]
 
     poseBone = arm.pose.bones[boneName]
-    tree.markers = [(m.name, (poseBone.matrix.inverted()*m.matrix_world.translation).to_tuple() ) for m in markers]
+    tree.markers = [(m.name, (poseBone.matrix.inverted()*arm.matrix_world.inverted()*m.matrix_world.translation).to_tuple() ) for m in markers]
 
     for child in children:
         tree.addChild(extractData(child))

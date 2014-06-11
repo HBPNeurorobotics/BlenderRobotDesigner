@@ -58,7 +58,7 @@ class RobotEditor_renameAllMeshes(bpy.types.Operator):
     def execute(self, context):
         currentMesh = bpy.data.objects[context.scene.RobotEditor.meshName]
         for i in bpy.data.objects:
-            if i.parent_bone != '':
+            if i.parent_bone != '' and i.type=='MESH':
                 if i.name == currentMesh:
                     context.scene.RobotEditor.meshName=i.parent_bone
                 i.name = 'Visualization_'+i.parent_bone
