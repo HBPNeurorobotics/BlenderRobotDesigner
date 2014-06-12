@@ -4,6 +4,16 @@ from mathutils import Euler, Matrix
 from math import radians
 from . import armatures
 
+
+
+# property group that contains all controller-related parameters
+class RobotEditor_ControllerProperty(bpy.types.PropertyGroup):
+    maxVelocity = FloatProperty(name="max. Velocity", precision = 4, step = 100)
+    maxTorque = FloatProperty(name="max. Torque", precision = 4, step = 100)
+    isActive = BoolProperty(name = "acitve?")
+    acceleration = FloatProperty(name = "Acceleration", precision = 4, step = 100)
+    deceleration = FloatProperty(name = "Deceleration", precision = 4, step = 100)
+
 # property group that contains all globally defined parameters
 class RobotEditor_Globals(bpy.types.PropertyGroup):
     def updateGlobals(self, context):
@@ -23,6 +33,7 @@ class RobotEditor_Globals(bpy.types.PropertyGroup):
              ('meshes', 'Meshes', 'Assign meshes to bones'),
              ('markers', 'Markers', 'Assign markers to bones'),
              ('physics','Physics','Assign Physics Frames to bones'),
+             ('controller','Controller','Modify controller parameter'),
              ('files', 'Files', 'Export Armature')],
         name = "RobotEditor Control Panel"
         )
@@ -183,9 +194,11 @@ class RobotEditor_BoneProperty(bpy.types.PropertyGroup):
     Euler = PointerProperty(type=RobotEditor_Euler)
     DH = PointerProperty(type=RobotEditor_DH)
     axis_revert = BoolProperty(name="Axis reverted?", default = False, update = updateBoneProperty)
+    controller = PointerProperty(type=RobotEditor_ControllerProperty)
     # TODO: Add flags!
 
 def register():
+    bpy.utils.register_class(RobotEditor_ControllerProperty)
     bpy.utils.register_class(RobotEditor_Globals)
     bpy.utils.register_class(RobotEditor_DoF)
     bpy.utils.register_class(RobotEditor_Dynamics)
@@ -195,7 +208,9 @@ def register():
     bpy.utils.register_class(RobotEditor_BoneProperty)
 
 
+
 def unregister():
+    bpy.utils.unregister_class(RobotEditor_ControllerProperty)
     bpy.utils.unregister_class(RobotEditor_Globals)
     bpy.utils.unregister_class(RobotEditor_DoF)
     bpy.utils.unregister_class(RobotEditor_Dynamics)

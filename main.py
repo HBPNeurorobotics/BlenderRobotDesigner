@@ -1,5 +1,5 @@
 import bpy
-from . import armatures, bones, meshes, markers, physics, files
+from . import armatures, bones, meshes, markers, physics, files, controllers
 
 
 class RobotEditor_UserInterface(bpy.types.Panel):
@@ -23,6 +23,8 @@ class RobotEditor_UserInterface(bpy.types.Panel):
                 markers.draw(layout, context)
             elif control == 'physics':
                 physics.draw(layout, context)
+            elif control == 'controller':
+                controllers.draw(layout, context)
             elif control == 'files':
                 files.draw(layout, context)
                 
