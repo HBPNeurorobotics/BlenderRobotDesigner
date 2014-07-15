@@ -70,6 +70,15 @@ class RobotEditor_assignPhysicsFrame(bpy.types.Operator):
     bl_label = "Assign selected physics frame to active bone"
 
     def execute(self, context):
+        parent_matrix, bone_matrix = bpy.context.active_bone.RobotEditor.getTransform()
+        armature_matrix = bpy.context.active_object.matrix_world
+	
+	# find selected physics frame
+        for ob in bpy.data.objects:
+            if ob.RobotEditor.tag == 'PHYSICS_FRAME':
+                frame = ob	    
+
+        frame.matrix_world = armature_matrix*parent_matrix*bone_matrix
         bpy.ops.object.parent_set(type = 'BONE')
         return{'FINISHED'}
 
