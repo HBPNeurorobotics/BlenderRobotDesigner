@@ -1,5 +1,6 @@
 import bpy
 from bpy.props import *
+import mathutils
 
 
 # operator to create physics frame
@@ -70,16 +71,23 @@ class RobotEditor_assignPhysicsFrame(bpy.types.Operator):
     bl_label = "Assign selected physics frame to active bone"
 
     def execute(self, context):
-        parent_matrix, bone_matrix = bpy.context.active_bone.RobotEditor.getTransform()
-        armature_matrix = bpy.context.active_object.matrix_world
-	
-	# find selected physics frame
-        for ob in bpy.data.objects:
-            if ob.RobotEditor.tag == 'PHYSICS_FRAME':
-                frame = ob	    
-
-        frame.matrix_world = armature_matrix*parent_matrix*bone_matrix
         bpy.ops.object.parent_set(type = 'BONE')
+        
+        if bpy.context.active_bone.parent:
+            to_parent_matrix = bpy.context.active_bone.parent.matrix_local
+        else:
+            to_parent_matrix = mathutils.Matrix()
+        from_parent_matrix, bone_matrix = bpy.context.active_bone.RobotEditor.getTransform()
+        armature_matrix = bpy.context.active_object.matrix_basis
+	
+        # find selected physics frame
+        for ob in bpy.data.objects:
+            if ob.select and ob.RobotEditor.tag == 'PHYSICS_FRAME':
+                frame = ob
+                print(frame.name)
+
+        frame.matrix_basis = armature_matrix*to_parent_matrix*from_parent_matrix*bone_matrix
+        #frame.matrix_basis = parent_matrix*armature_matrix*bone_matrix
         return{'FINISHED'}
 
 
