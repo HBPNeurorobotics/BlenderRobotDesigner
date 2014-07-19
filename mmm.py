@@ -2,7 +2,7 @@ import bpy
 from mathutils import Euler, Vector
 from math import pi
 import xml.etree.cElementTree as etree
-
+import itertools
 
 def tolower(element):
     """Convert all tags in the XML file to lower case."""
@@ -38,7 +38,7 @@ def read(filepath):
 
     lastFrame = start -20
 
-    for [i,[timestamp,root_position,root_rotation,joint_position]] in enumerate(zip(timestamps,root_positions,root_rotations,joint_positions)):
+    for [i,[timestamp,root_position,root_rotation,joint_position]] in enumerate(itertools.zip_longest(timestamps,root_positions,root_rotations,joint_positions,fillvalue=[])):
 
 
         bpy.context.scene.frame_current = start + timestamp * fps * 10
