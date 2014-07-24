@@ -636,6 +636,7 @@ class COLLADA(object):
         return (armature,meshes)
 
     def addMassObject(self,name,transformations, inertia,mass,collisionModels=[],collisionModelTransformations={}):
+
         """Incrementally learns the **previously** set training data.
 
         :param name: Name of the mass object
@@ -678,7 +679,6 @@ class COLLADA(object):
                 else:
                     self.SubElement(shape, '{ns}rotate').text = " ".join(str(i) for i in t)
 
-            #TODO add transformations
 
 
 

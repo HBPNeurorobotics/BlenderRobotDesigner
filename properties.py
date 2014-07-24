@@ -167,7 +167,6 @@ class RobotEditor_BoneProperty(bpy.types.PropertyGroup):
 
         return parentMatrix, translation*rotation
 
-
     jointMode = EnumProperty \
         (
         items = [('REVOLUTE','Revolute', 'revolute joint'),

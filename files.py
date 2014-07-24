@@ -51,7 +51,10 @@ def parseTree(tree, parentName):
     bpy.context.active_bone.RobotEditor.Euler.gamma.value = degrees(m.to_euler().z)
     bpy.context.active_bone.RobotEditor.Euler.beta.value = degrees(m.to_euler().y)
     bpy.context.active_bone.RobotEditor.Euler.alpha.value = degrees(m.to_euler().x)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 513789a903ef50c544e4814016d9f42660cb237d
 
     if(tree.axis_type == 'revolute'):
         bpy.context.active_bone.RobotEditor.jointMode = 'REVOLUTE'
@@ -78,7 +81,6 @@ def parseTree(tree, parentName):
             bpy.context.active_bone.RobotEditor.axis = 'Z'
     print("parsetree done")
 
-    print("parsetree done")
     for child in tree.children:
         parseTree(child, tree.name)
 
@@ -142,6 +144,7 @@ def extractData(boneName):
 
     poseBone = arm.pose.bones[boneName]
     tree.markers = [(m.name, (poseBone.matrix.inverted()*arm.matrix_world.inverted()*m.matrix_world.translation).to_tuple() ) for m in markers]
+
 
     for child in children:
         tree.addChild(extractData(child))
