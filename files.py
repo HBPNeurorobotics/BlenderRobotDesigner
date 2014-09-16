@@ -51,10 +51,7 @@ def parseTree(tree, parentName):
     bpy.context.active_bone.RobotEditor.Euler.gamma.value = degrees(m.to_euler().z)
     bpy.context.active_bone.RobotEditor.Euler.beta.value = degrees(m.to_euler().y)
     bpy.context.active_bone.RobotEditor.Euler.alpha.value = degrees(m.to_euler().x)
-<<<<<<< HEAD
 
-=======
->>>>>>> 513789a903ef50c544e4814016d9f42660cb237d
 
     if(tree.axis_type == 'revolute'):
         bpy.context.active_bone.RobotEditor.jointMode = 'REVOLUTE'
