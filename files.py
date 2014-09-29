@@ -178,6 +178,7 @@ class RobotEditor_exportCollada(bpy.types.Operator):
         massFrames = [obj for obj in bpy.data.objects if obj.RobotEditor.tag == 'PHYSICS_FRAME' and not obj.parent_bone is '']
         for frame in massFrames:
             #transform = frame.parent.data.bones[frame.parent_bone].matrix_local.inverted() * frame.matrix_local
+            boneName = frame.parent.data.bones[frame.parent_bone].name
             poseBone = arm.pose.bones[boneName]
             transform = poseBone.matrix.inverted()*arm.matrix_world.inverted()*frame.matrix_world
             frameTrafos = []
