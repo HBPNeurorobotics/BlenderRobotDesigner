@@ -8,7 +8,7 @@ def fixCollada(in_filename,out_filename):
     for obj in [i for i in bpy.data.objects if i.type=='MESH']:
          print(obj.name)
          if obj.parent is not None:
-            element = root.find('.//{http://www.collada.org/2005/11/COLLADASchema}node[@name="%s"][@type="NODE"]'%obj.name)
+            element = root.find('.//{http://www.collada.org/2005/11/COLLADASchema}node[@name="%s"][@type="NODE"]'%obj.name.replace('.','_'))
             if not element == None: # sometimes, element is None
                 # Latest discovery: bpy.types.object.matrix_local_inverse() gives only the matrix at the time of parenting!
                 # bpy.types.bone.matrix_local() gives the matrix of the bone at rest position!
