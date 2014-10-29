@@ -1,6 +1,7 @@
 #  RobotEditor
 
 The RobotEditor is a modelling tool that allows to easily create models of scientific robots.
+It has been moved from Github to GitLab recently.
 
 ## Features
 
