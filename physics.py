@@ -72,14 +72,14 @@ class RobotEditor_assignPhysicsFrame(bpy.types.Operator):
 
     def execute(self, context):
         bpy.ops.object.parent_set(type = 'BONE')
-        
+
         if bpy.context.active_bone.parent:
             to_parent_matrix = bpy.context.active_bone.parent.matrix_local
         else:
             to_parent_matrix = mathutils.Matrix()
         from_parent_matrix, bone_matrix = bpy.context.active_bone.RobotEditor.getTransform()
         armature_matrix = bpy.context.active_object.matrix_basis
-	
+
         # find selected physics frame
         for ob in bpy.data.objects:
             if ob.select and ob.RobotEditor.tag == 'PHYSICS_FRAME':
@@ -90,6 +90,53 @@ class RobotEditor_assignPhysicsFrame(bpy.types.Operator):
         #frame.matrix_basis = parent_matrix*armature_matrix*bone_matrix
         return{'FINISHED'}
 
+# operator to generate a collision mesh for an assigned selected physics frame
+class RobotEditor_generateCollisionMesh(bpy.types.Operator):
+    bl_idname = "roboteditor.generatecollisionmesh"
+    bl_label = "Generate Collision Mesh"
+
+    def execute(self, context):
+        currentFrame = bpy.data.objects[context.scene.RobotEditor.physicsFrameName]
+        name = currentFrame.name
+        parentBone = currentFrame.parent_bone
+
+        for target in [i.name for i in bpy.data.objects if i.parent_bone == parentBone and i.name != name and i.type=='MESH']:
+            print(name,target)
+            d=bpy.data.objects[target].dimensions
+            bpy.ops.mesh.primitive_cube_add(location=bpy.data.objects[target].location,rotation=bpy.data.objects[target].rotation_euler)
+            bpy.context.object.dimensions =d*2
+            bpy.ops.object.transform_apply(scale=True)
+
+            mod = bpy.context.object.modifiers.new(name='subsurf',type='SUBSURF')
+            mod.subdivision_type='SIMPLE'
+            mod.levels=2
+            bpy.ops.object.modifier_apply(modifier='subsurf')
+            mod = bpy.context.object.modifiers.new(name='shrink_wrap',type='SHRINKWRAP')
+            mod.wrap_method="NEAREST_SURFACEPOINT"
+            mod.offset=0.001
+            mod.target=bpy.data.objects[target]
+            bpy.ops.object.modifier_apply(modifier='shrink_wrap')
+            bpy.context.object.name = 'COL_' + target.replace('Visualization_','')
+#
+            context.scene.objects.active = bpy.data.objects[name]
+            bpy.ops.object.parent_set(type = 'OBJECT', keep_transform=True)
+
+        return{'FINISHED'}
+
+# operator to generate collision meshes for all assigned physics frames
+class RobotEditor_generateAllCollisionMeshes(bpy.types.Operator):
+    bl_idname = "roboteditor.generatallecollisionmeshes"
+    bl_label = "Generate All Collision Meshes"
+
+    def execute(self, context):
+        armName = context.active_object.name
+
+        for frame in [i.name for i in bpy.data.objects if i.RobotEditor.tag == 'PHYSICS_FRAME']:
+            bpy.ops.roboteditor.selectphysicsframe(frameName = frame)
+            context.scene.objects.active = bpy.data.objects[frame]
+            bpy.ops.roboteditor.generatecollisionmesh()
+
+        return{'FINISHED'}
 
 # operator to unassign selected physics frame
 class RobotEditor_unassignPhysicsFrame(bpy.types.Operator):
@@ -131,6 +178,9 @@ def draw(layout, context):
     lowerRow = layout.row(align=False)
     lowerRow.menu("roboteditor.bonemenu", text = context.active_bone.name)
     lowerRow.operator("roboteditor.assignphysicsframe")
+    lowerRow = layout.row(align=False)
+    lowerRow.operator("roboteditor.generatecollisionmesh")
+    lowerRow.operator("roboteditor.generatallecollisionmeshes")
 
 
 def register():
@@ -139,7 +189,8 @@ def register():
     bpy.utils.register_class(RobotEditor_physicsFrameMenu)
     bpy.utils.register_class(RobotEditor_assignPhysicsFrame)
     bpy.utils.register_class(RobotEditor_unassignPhysicsFrame)
-
+    bpy.utils.register_class(RobotEditor_generateCollisionMesh)
+    bpy.utils.register_class(RobotEditor_generateAllCollisionMeshes)
 
 def unregister():
     bpy.utils.unregister_class(RobotEditor_createPhysicsFrame)
@@ -147,3 +198,5 @@ def unregister():
     bpy.utils.unregister_class(RobotEditor_physicsFrameMenu)
     bpy.utils.unregister_class(RobotEditor_assignPhysicsFrame)
     bpy.utils.unregister_class(RobotEditor_unassignPhysicsFrame)
+    bpy.utils.unregister_class(RobotEditor_generateCollisionMesh)
+    bpy.utils.unregister_class(RobotEditor_generateAllCollisionMeshes)
