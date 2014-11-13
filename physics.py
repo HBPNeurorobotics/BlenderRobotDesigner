@@ -109,11 +109,11 @@ class RobotEditor_generateCollisionMesh(bpy.types.Operator):
 
             mod = bpy.context.object.modifiers.new(name='subsurf',type='SUBSURF')
             mod.subdivision_type='SIMPLE'
-            mod.levels=2
+            mod.levels=bpy.context.scene.RobotEditor.subdivisionLevels
             bpy.ops.object.modifier_apply(modifier='subsurf')
             mod = bpy.context.object.modifiers.new(name='shrink_wrap',type='SHRINKWRAP')
             mod.wrap_method="NEAREST_SURFACEPOINT"
-            mod.offset=0.001
+            mod.offset=bpy.context.scene.RobotEditor.shrinkWrapOffset
             mod.target=bpy.data.objects[target]
             bpy.ops.object.modifier_apply(modifier='shrink_wrap')
             bpy.context.object.name = 'COL_' + target.replace('Visualization_','')
@@ -179,8 +179,14 @@ def draw(layout, context):
     lowerRow.menu("roboteditor.bonemenu", text = context.active_bone.name)
     lowerRow.operator("roboteditor.assignphysicsframe")
     lowerRow = layout.row(align=False)
-    lowerRow.operator("roboteditor.generatecollisionmesh")
-    lowerRow.operator("roboteditor.generatallecollisionmeshes")
+    layout.label("Collision Meshes:")
+    lowerRow = layout.row(align = False)
+    leftColumn = lowerRow.column(align=False)
+    leftColumn.prop(context.scene.RobotEditor,"subdivisionLevels")
+    leftColumn.prop(context.scene.RobotEditor,"shrinkWrapOffset")
+    rightColumn = lowerRow.column(align=False)
+    rightColumn.operator("roboteditor.generatecollisionmesh")
+    rightColumn.operator("roboteditor.generatallecollisionmeshes")
 
 
 def register():

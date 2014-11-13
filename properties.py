@@ -38,6 +38,9 @@ class RobotEditor_Globals(bpy.types.PropertyGroup):
         name = "RobotEditor Control Panel"
         )
     boneLength = FloatProperty(name="Global bone length", default = 1.0, min=0.001, update = updateGlobals)
+    subdivisionLevels = IntProperty(name="Subdivision Levels", default = 2)
+    shrinkWrapOffset = FloatProperty(name="Shrinkwrap Offset", default = 0.001)
+
 
 # property group that defines a degree of freedom
 class RobotEditor_DoF(bpy.types.PropertyGroup):
