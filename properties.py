@@ -67,8 +67,8 @@ class RobotEditor_Dynamics(bpy.types.PropertyGroup):
     #    frame.location = position
 
     #CoM = FloatVectorProperty(name = "Center of Mass", update=updateCoM, subtype = 'XYZ')
-    mass = FloatProperty(name= "Mass")
-    inertiaTensor = FloatVectorProperty(name = "Inertia Tensor")
+    mass = FloatProperty(name= "Mass", precision = 4, step=0.1)
+    inertiaTensor = FloatVectorProperty(name = "Inertia Tensor", precision = 10, step=0.1)
 
 
 
