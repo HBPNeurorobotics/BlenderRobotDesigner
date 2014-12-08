@@ -211,7 +211,6 @@ def register():
     bpy.utils.register_class(RobotEditor_BoneProperty)
 
 
-
 def unregister():
     bpy.utils.unregister_class(RobotEditor_ControllerProperty)
     bpy.utils.unregister_class(RobotEditor_Globals)
