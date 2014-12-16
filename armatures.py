@@ -100,7 +100,7 @@ def updateKinematics(armatureName, boneName=None):
     jointValue = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.theta.value
 
 
-    matrix, jointMatrix = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.getTransform
+    matrix, jointMatrix = bpy.data.armatures[armatureName].bones[boneName].RobotEditor.getTransform()
 
     bpy.ops.object.mode_set(mode='EDIT', toggle=False)
 
