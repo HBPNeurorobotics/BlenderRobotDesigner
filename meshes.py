@@ -72,7 +72,9 @@ class RobotEditor_unassignMesh(bpy.types.Operator):
 
     def execute(self, context):
         currentMesh = bpy.data.objects[context.scene.RobotEditor.meshName]
+        mesh_global = currentMesh.matrix_world
         currentMesh.parent = None
+        currentMesh.matrix_world = mesh_global
 
         return{'FINISHED'}
 
