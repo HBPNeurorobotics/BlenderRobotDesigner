@@ -36,16 +36,24 @@ def read(filepath):
     print(len(root_positions), len(root_rotations))
     bpy.ops.object.mode_set(mode='OBJECT')
 
-    lastFrame = start -20
-
+    #lastFrame = start -20
+    counter = 3                 # frame counter for skipping frames, value of 3 ensures that first frame is used
+    frameCounter = start        # count the current frame in blender
+    
     for [i,[timestamp,root_position,root_rotation,joint_position]] in enumerate(itertools.zip_longest(timestamps,root_positions,root_rotations,joint_positions,fillvalue=[])):
+        counter = counter + 1   # increase counter
+        if counter != 4:        # process frame only if counter equals 4 => use every 4th frame
+            print('Skipping')   # inform that we're skipping
+            continue            # skip frame
+        counter = 0             # reset counter
 
-
-        bpy.context.scene.frame_current = start + timestamp * fps * 10
-        if bpy.context.scene.frame_current - lastFrame < 12: #or bpy.context.scene.frame_current > 100:
-            print('Skipping')
-            continue
-        lastFrame = bpy.context.scene.frame_current
+        #bpy.context.scene.frame_current = start + timestamp * fps * 10
+        bpy.context.scene.frame_current = frameCounter      # set current frame in blender
+        frameCounter = frameCounter + 1                     # increase frameCounter for next frame
+        #if bpy.context.scene.frame_current - lastFrame < 12: #or bpy.context.scene.frame_current > 100:
+        #    print('Skipping')
+        #    continue
+        #lastFrame = bpy.context.scene.frame_current
 
         print(bpy.context.scene.frame_current)
         bpy.context.active_object.location = Vector(root_position)
