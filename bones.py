@@ -232,7 +232,7 @@ def draw(layout, context):
         rightColumn.operator("roboteditor.createbone", text="Create new child Bone")
         rightColumn.operator("roboteditor.createparentbone", text="Create new Parent Bone")
         rightColumn.separator()
-        rightColumn.operator("roboteditor.deletebone", text="Delect active Bone")
+        rightColumn.operator("roboteditor.deletebone", text="Delete active Bone")
 
         layout.label("Parent Mode:")
         layout.prop(context.active_bone.RobotEditor,"parentMode", expand=True)

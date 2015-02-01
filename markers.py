@@ -101,7 +101,7 @@ class RobotEditor_unassignMarker(bpy.types.Operator):
 def draw(layout,context):
     layout.operator("roboteditor.createmarker")
     layout.label("Select marker")
-    topRow = layout.row(align = False)
+    topRow = layout.column(align = False)
     markerMenuText = ""
     if(context.active_bone and not context.scene.RobotEditor.markerName == ""):
         marker = bpy.data.objects[context.scene.RobotEditor.markerName]

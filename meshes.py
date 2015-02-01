@@ -120,7 +120,7 @@ class RobotEditor_assignCollisionModel(bpy.types.Operator):
 # defines the layout part of the mesh submenu
 def draw(layout, context):
     layout.label("Select mesh:")
-    topRow = layout.row(align=False)
+    topRow = layout.column(align=False)
     meshMenuText = ""
     if context.scene.RobotEditor.meshName in bpy.data.objects:
         if(context.active_bone and not context.scene.RobotEditor.meshName == ""):
