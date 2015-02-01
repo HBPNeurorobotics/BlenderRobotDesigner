@@ -90,7 +90,9 @@ class RobotEditor_unassignMarker(bpy.types.Operator):
     
     def execute(self, context):
         currentMarker = bpy.data.objects[context.scene.RobotEditor.markerName]
+        marker_global = currentMarker.matrix_world
         currentMarker.parent = None
+        currentMarker.matrix_world = marker_global
         
         return{'FINISHED'}
         
