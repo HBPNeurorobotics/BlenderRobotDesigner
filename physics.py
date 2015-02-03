@@ -145,8 +145,9 @@ class RobotEditor_unassignPhysicsFrame(bpy.types.Operator):
 
     def execute(self, context):
         currentFrame = bpy.data.objects[context.scene.RobotEditor.physicsFrameName]
+        physNode_global = currentFrame.matrix_world
         currentFrame.parent = None
-
+        currentFrame.matrix_world = physNode_global
         return{'FINISHED'}
 
 
