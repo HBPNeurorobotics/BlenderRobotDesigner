@@ -86,7 +86,7 @@ class RobotEditor_assignPhysicsFrame(bpy.types.Operator):
                 frame = ob
                 print(frame.name)
 
-        frame.matrix_basis = armature_matrix*to_parent_matrix*from_parent_matrix*bone_matrix
+        #frame.matrix_basis = armature_matrix*to_parent_matrix*from_parent_matrix*bone_matrix
         #frame.matrix_basis = parent_matrix*armature_matrix*bone_matrix
         return{'FINISHED'}
 
@@ -155,7 +155,7 @@ class RobotEditor_unassignPhysicsFrame(bpy.types.Operator):
 def draw(layout, context):
     layout.operator("roboteditor.createphysicsframe")
     layout.label("Select Physics Frame:")
-    topRow = layout.row(align=False)
+    topRow = layout.column(align=False)
     frameMenuText = ""
     if(context.active_bone and not context.scene.RobotEditor.physicsFrameName == ""):
         if context.scene.RobotEditor.physicsFrameName in bpy.data.objects:
@@ -176,7 +176,7 @@ def draw(layout, context):
         layout.prop(frame.RobotEditor.dynamics,"inertiaTensor")
 
     layout.label("Select Bone:")
-    lowerRow = layout.row(align=False)
+    lowerRow = layout.column(align=False)
     lowerRow.menu("roboteditor.bonemenu", text = context.active_bone.name)
     lowerRow.operator("roboteditor.assignphysicsframe")
     lowerRow = layout.row(align=False)

@@ -34,7 +34,8 @@ class RobotEditor_meshMenu(bpy.types.Menu):
             if bpy.data.objects[mesh].parent_bone:
                 text = mesh + " --> " + bpy.data.objects[mesh].parent_bone
             elif bpy.data.objects[mesh].parent:
-                text = context.scene.RobotEditor.meshName + " --> " + bpy.data.objects[mesh].parent.name
+                #text = context.scene.RobotEditor.meshName + " --> " + bpy.data.objects[mesh].parent.name
+                text = mesh + " --> " + bpy.data.objects[mesh].parent.name
             else:
                 text = mesh
             layout.operator("roboteditor.selectmesh", text=text).meshName=mesh
