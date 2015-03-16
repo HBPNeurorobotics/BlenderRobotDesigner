@@ -47,7 +47,7 @@ def read(filepath):
     for [i,[timestamp,root_position,root_rotation,joint_position]] in enumerate(itertools.zip_longest(timestamps,root_positions,root_rotations,joint_positions,fillvalue=[])):
         counter = counter + 1   # increase counter
         if counter != 4:        # process frame only if counter equals 4 => use every 4th frame
-            #print('Skipping')   # inform that we're skipping
+            print('Skipping')   # inform that we're skipping
             continue            # skip frame
         counter = 0             # reset counter
 
@@ -59,7 +59,7 @@ def read(filepath):
         #    continue
         #lastFrame = bpy.context.scene.frame_current
 
-        print("Frame number: " , bpy.context.scene.frame_current , " of " , len(root_positions)/4-1)
+        print("Frame number: " , bpy.context.scene.frame_current , " of " , len(root_positions))
         armName = bpy.context.active_object.name
         boneName = bpy.context.active_object.data.bones[0].name
         bpy.context.active_object.location = Vector(root_position)

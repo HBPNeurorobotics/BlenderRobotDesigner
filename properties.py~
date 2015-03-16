@@ -52,7 +52,7 @@ class RobotEditor_DoF(bpy.types.PropertyGroup):
             armName = context.active_object.name
             boneName = context.active_bone.name
 
-            armatures.updateKinematics(armName,boneName)
+        	armatures.updateKinematics(armName,boneName)
         # print("updateDoF Done")
 
     value = FloatProperty(name="Value", update = updateDoF, precision = 4,step=100 )
