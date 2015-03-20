@@ -3,7 +3,7 @@ from mathutils import Euler, Vector
 from math import pi
 import xml.etree.cElementTree as etree
 import itertools
-from RobotEditor import armatures
+from . import armatures
 
 def tolower(element):
     """Convert all tags in the XML file to lower case."""
