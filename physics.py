@@ -179,15 +179,16 @@ def draw(layout, context):
     lowerRow = layout.column(align=False)
     lowerRow.menu("roboteditor.bonemenu", text = context.active_bone.name)
     lowerRow.operator("roboteditor.assignphysicsframe")
-    lowerRow = layout.row(align=False)
-    layout.label("Collision Meshes:")
-    lowerRow = layout.row(align = False)
-    leftColumn = lowerRow.column(align=False)
-    leftColumn.prop(context.scene.RobotEditor,"subdivisionLevels")
-    leftColumn.prop(context.scene.RobotEditor,"shrinkWrapOffset")
-    rightColumn = lowerRow.column(align=False)
-    rightColumn.operator("roboteditor.generatecollisionmesh")
-    rightColumn.operator("roboteditor.generatallecollisionmeshes")
+	# TODO: Fix faulty collision mesh generation
+    #lowerRow = layout.row(align=False)
+    #layout.label("Collision Meshes:")
+    #lowerRow = layout.row(align = False)
+    #leftColumn = lowerRow.column(align=False)
+    #leftColumn.prop(context.scene.RobotEditor,"subdivisionLevels")
+    #leftColumn.prop(context.scene.RobotEditor,"shrinkWrapOffset")
+    #rightColumn = lowerRow.column(align=False)
+    #rightColumn.operator("roboteditor.generatecollisionmesh")
+    #rightColumn.operator("roboteditor.generatallecollisionmeshes")
 
 
 def register():
