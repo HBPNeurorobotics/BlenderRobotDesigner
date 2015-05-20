@@ -28,7 +28,7 @@ class RobotEditor_meshMenu(bpy.types.Menu):
 
     def draw(self, context):
         layout = self.layout
-        meshNames = [obj.name for obj in bpy.data.objects if obj.type == 'MESH']
+        meshNames = [obj.name for obj in bpy.data.objects if obj.type == 'MESH' and context.scene.RobotEditor.liveSearchMeshes in obj.name]
 
         for mesh in meshNames:
             if bpy.data.objects[mesh].parent_bone:
@@ -121,7 +121,7 @@ class RobotEditor_assignCollisionModel(bpy.types.Operator):
 # defines the layout part of the mesh submenu
 def draw(layout, context):
     layout.label("Select mesh:")
-    topRow = layout.column(align=False)
+    topRow = layout.column(align=True)
     meshMenuText = ""
     if context.scene.RobotEditor.meshName in bpy.data.objects:
         if(context.active_bone and not context.scene.RobotEditor.meshName == ""):
@@ -134,15 +134,19 @@ def draw(layout, context):
             else:
                 meshMenuText = context.scene.RobotEditor.meshName
     topRow.menu("roboteditor.meshmenu", text=meshMenuText)
-    rightColumn = topRow.column(align=True)
+    topRow.prop(context.scene.RobotEditor, "liveSearchMeshes", icon='VIEWZOOM', text="")
+    topRow.separator()
+    rightColumn = topRow.column(align=False)
     rightColumn.operator("roboteditor.unassignmesh")
     rightColumn.operator("roboteditor.unassignallmeshes")
     rightColumn.operator("roboteditor.renamemeshes")
 
     layout.label("Select bone")
     midRow = layout.row(align = False)
+    col = midRow.column(align = True)
 
-    midRow.menu("roboteditor.bonemenu", text = context.active_bone.name)
+    col.menu("roboteditor.bonemenu", text = context.active_bone.name)
+    col.prop(context.scene.RobotEditor, "liveSearchBones", icon='VIEWZOOM', text="")
     midRow.operator("roboteditor.assignmesh")
 
     lowerRow = layout.row(align=False)

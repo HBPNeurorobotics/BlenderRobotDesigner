@@ -62,7 +62,7 @@ class RobotEditor_markerMenu(bpy.types.Menu):
     
     def draw(self, context):
         layout = self.layout
-        markerNames = [obj.name for obj in bpy.data.objects if obj.RobotEditor.tag == 'MARKER']
+        markerNames = [obj.name for obj in bpy.data.objects if obj.RobotEditor.tag == 'MARKER' and context.scene.RobotEditor.liveSearchMarkers in obj.name]
         
         for marker in sorted(markerNames, key=str.lower):
             if bpy.data.objects[marker].parent_bone:
@@ -101,7 +101,7 @@ class RobotEditor_unassignMarker(bpy.types.Operator):
 def draw(layout,context):
     layout.operator("roboteditor.createmarker")
     layout.label("Select marker")
-    topRow = layout.column(align = False)
+    topRow = layout.column(align = True)
     markerMenuText = ""
     if(context.active_bone and not context.scene.RobotEditor.markerName == ""):
         marker = bpy.data.objects[context.scene.RobotEditor.markerName]
@@ -111,11 +111,15 @@ def draw(layout,context):
         else:
             markerMenuText = context.scene.RobotEditor.markerName
     topRow.menu("roboteditor.markermenu", text = markerMenuText)
+    topRow.prop(context.scene.RobotEditor, "liveSearchMarkers", icon='VIEWZOOM', text="")
+    topRow.separator()
     topRow.operator("roboteditor.unassignmarker")
     
     layout.label("Select Bone:")
-    lowerRow = layout.row(align = False)
+    lowerRow = layout.column(align = True)
     lowerRow.menu("roboteditor.bonemenu", text = context.active_bone.name)
+    lowerRow.prop(context.scene.RobotEditor, "liveSearchBones", icon='VIEWZOOM', text="")
+    lowerRow.separator()
     lowerRow.operator("roboteditor.assignmarker")
     
     

@@ -61,7 +61,7 @@ class RobotEditor_BoneMenu(bpy.types.Menu):
         currentArm = context.active_object
 
         layout = self.layout
-        boneNames = [bone.name for bone in currentArm.data.bones]
+        boneNames = [bone.name for bone in currentArm.data.bones if context.scene.RobotEditor.liveSearchBones in bone.name]
 
         for bone in sorted(boneNames,key=str.lower):
             text = bone
@@ -218,6 +218,7 @@ def draw(layout, context):
         leftColumn = row.column(align=True)
         leftColumn.label("Active Bone:")
         leftColumn.menu("roboteditor.bonemenu", text = context.active_bone.name)
+        leftColumn.prop(context.scene.RobotEditor, "liveSearchBones", icon='VIEWZOOM', text="")
         leftColumn.separator()
         leftColumn.prop(context.scene.RobotEditor,"boneLength", slider = False)
         leftColumn.separator()

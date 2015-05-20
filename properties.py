@@ -41,6 +41,9 @@ class RobotEditor_Globals(bpy.types.PropertyGroup):
     subdivisionLevels = IntProperty(name="Subdivision Levels", default = 2)
     shrinkWrapOffset = FloatProperty(name="Shrinkwrap Offset", default = 0.001)
     doKinematicUpdate = BoolProperty(name="Import Update", default = True)
+    liveSearchBones = StringProperty(name="Live Search for Bones", default = "")
+    liveSearchMeshes = StringProperty(name="Live Search for Meshes", default = "")
+    liveSearchMarkers = StringProperty(name="Live Search for Markers", default = "")
 
 
 # property group that defines a degree of freedom
@@ -48,12 +51,10 @@ class RobotEditor_DoF(bpy.types.PropertyGroup):
 
     def updateDoF(self, context):
         if context.scene.RobotEditor.doKinematicUpdate:
-            print("updateDoF")
             armName = context.active_object.name
             boneName = context.active_bone.name
 
             armatures.updateKinematics(armName,boneName)
-        # print("updateDoF Done")
 
     value = FloatProperty(name="Value", update = updateDoF, precision = 4,step=100 )
     offset = FloatProperty(name="Offset", update = updateDoF, precision = 4, step=100)
@@ -133,13 +134,14 @@ class RobotEditor_BoneProperty(bpy.types.PropertyGroup):
 
     def getTransform(self):
         # returned transform matrix is of the form translation*parentMatrix*rotation
-        # parent is dependet of parent mode, that is either Euler or DH
+        # parent is dependent of parent mode, that is either Euler or DH
         # either translation or rotation is I_4 dependent of the joint type,
         # whereas a revolute joints contributes a rotation only and a
         # prismatic joint contributes a translation only
 
         translation = Matrix() # initialize as I_4 matrix
         rotation = Matrix() #initialize as I_4 matrix
+        axis_matrix = Matrix() # contains axis information which should be applied to parentMatrix
 
         if self.axis_revert:
             inverted = -1
@@ -153,14 +155,23 @@ class RobotEditor_BoneProperty(bpy.types.PropertyGroup):
 
         if (self.jointMode == 'REVOLUTE'):
             if(self.axis == 'X'):
-                rotation = Euler((radians(self.theta.value + self.theta.offset + 180 * (1-inverted)/2),0,0),'XYZ').to_matrix()
+                #rotation = Euler((radians(self.theta.value + self.theta.offset + 180 * (1-inverted)/2),0,0),'XYZ').to_matrix()
+                rotation = Euler((radians(self.theta.value + self.theta.offset),0,0),'XYZ').to_matrix()
                 rotation.resize_4x4()
+                axis_matrix = Euler((radians(180*(1-inverted)/2),0,0),'XYZ').to_matrix()
+                axis_matrix.resize_4x4()
             elif(self.axis == 'Y'):
-                rotation = Euler((0,radians(self.theta.value + self.theta.offset + 180 * (1-inverted)/2),0),'XYZ').to_matrix()
+                #rotation = Euler((0,radians(self.theta.value + self.theta.offset + 180 * (1-inverted)/2),0),'XYZ').to_matrix()
+                rotation = Euler((0,radians(self.theta.value + self.theta.offset),0),'XYZ').to_matrix()
                 rotation.resize_4x4()
+                axis_matrix = Euler((0,radians(180*(1-inverted)/2),0),'XYZ').to_matrix()
+                axis_matrix.resize_4x4()
             elif(self.axis == 'Z'):
-                rotation = Euler((0,0,radians(self.theta.value + self.theta.offset + 180 * (1-inverted)/2)),'XYZ').to_matrix()
+                #rotation = Euler((0,0,radians(self.theta.value + self.theta.offset + 180 * (1-inverted)/2)),'XYZ').to_matrix()
+                rotation = Euler((0,0,radians(self.theta.value + self.theta.offset)),'XYZ').to_matrix()
                 rotation.resize_4x4()
+                axis_matrix = Euler((0,0,radians(180*(1-inverted)/2)),'XYZ').to_matrix()
+                axis_matrix.resize_4x4()
 
         else: #self.jointMode == 'PRISMATIC'
             if(self.axis == 'X'):
@@ -170,7 +181,8 @@ class RobotEditor_BoneProperty(bpy.types.PropertyGroup):
             elif(self.axis == 'Z'):
                 translation = Matrix.Translation((0,0,inverted*(self.d.value + self.d.offset),1))
 
-        return parentMatrix, translation*rotation
+        return parentMatrix * axis_matrix, translation*rotation
+        #return parentMatrix, translation*rotation
 
     jointMode = EnumProperty \
         (
