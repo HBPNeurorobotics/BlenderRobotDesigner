@@ -25,7 +25,7 @@ bl_info = {
     "category": "Editor"}
 
 import bpy
- 
+
 
 def register():
     from . import properties
@@ -36,7 +36,7 @@ def register():
     from . import markers
     from . import physics
     from . import files
-    
+
     properties.register()
     main.init()
     main.register()
@@ -46,7 +46,8 @@ def register():
     markers.register()
     physics.register()
     files.register()
-    #bpy.utils.register_module(__name__)
+    # bpy.utils.register_module(__name__)
+
 
 def unregister():
     from . import properties
@@ -56,7 +57,7 @@ def unregister():
     from . import meshes
     from . import physics
     from . import files
-    
+
     properties.unregister()
     main.unregister()
     armatures.unregister()
@@ -65,7 +66,4 @@ def unregister():
     markers.unregister()
     physics.unregister()
     files.unregister()
-    #bpy.utils.unregister_module(__name__)
-
-    
-    
+    # bpy.utils.unregister_module(__name__)

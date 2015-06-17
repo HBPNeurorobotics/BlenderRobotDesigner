@@ -4,11 +4,12 @@ from mathutils import *
 from math import *
 from pprint import pprint
 
+
 class Tree(object):
-    def __init__(self,name='armature'):
+    def __init__(self, name='armature'):
         self.children = []
         self.name = name
-        self.transformations= []
+        self.transformations = []
         self.frame_origin = 'False'
         self.frame_tip = 'False'
         self.meshes = None
@@ -23,9 +24,10 @@ class Tree(object):
         self.locked = 'False'
         self.initialValue = 0.0
         self.axis_type = None
-        self.axis= None
+        self.axis = None
         self.isGripper = None
         self.closingDirection = 1.0
+
 
 def tolower(element):
     """Convert all element tags to lower (i.e., ignore case)"""
@@ -33,7 +35,8 @@ def tolower(element):
     for i in element.getchildren():
         tolower(i)
 
-#def inv(m):
+
+# def inv(m):
 #    m2=[]
 #    for i in range(0,3):
 #        row = []
@@ -44,37 +47,37 @@ def tolower(element):
 #    m2.append([0,0,0,1])
 #    return m2
 
-def parse(element,root):
+def parse(element, root):
     """Parse the document tree and store the extracted information in the tree class."""
-    matrix=element.find('transform/matrix4x4')
-    M=[]
+    matrix = element.find('transform/matrix4x4')
+    M = []
     if matrix is not None:
-        print( element.get('name'))
+        print(element.get('name'))
 
-        for i in range(1,5):
+        for i in range(1, 5):
             row = []
-            for j in range(1,5):
-                row.append(float(matrix.find('row%d'%i).get('c%d'%j)))
+            for j in range(1, 5):
+                row.append(float(matrix.find('row%d' % i).get('c%d' % j)))
             M.append(row)
-#        M=Matrix(M)
-#        T.append(M.translation.to_tuple())
-#        e=M.to_euler('XYZ')
-#        T.append((1,0,0,e.x))
-#        T.append((0,1,0,e.y))
-#        T.append((0,0,1,e.z))
+        #        M=Matrix(M)
+        #        T.append(M.translation.to_tuple())
+        #        e=M.to_euler('XYZ')
+        #        T.append((1,0,0,e.x))
+        #        T.append((0,1,0,e.y))
+        #        T.append((0,0,1,e.z))
 
     axis = element.find('joint/axis')
     if axis is None:
         axis = element.find('joint/translationdirection')
 
-    children = [root.find('./robotnode[@name="%s"]' % i.get('name'))  for i in element.findall('child')]
+    children = [root.find('./robotnode[@name="%s"]' % i.get('name')) for i in element.findall('child')]
 
     if True:
 
         tree = Tree(element.get('name'))
-        if len(M)>0:
-            tree.transformations.append( M)
-        print (tree.transformations)
+        if len(M) > 0:
+            tree.transformations.append(M)
+        print(tree.transformations)
         if element.find('joint') is not None:
             tree.axis_type = element.find('joint').get('type')
             tree.min = float(element.find('joint/limits').get('lo'))
@@ -85,43 +88,44 @@ def parse(element,root):
                 tree.speed = float(element.find('joint/maxvelocity').get('value'))
             if element.find('joint/maxtorque'):
                 tree.jerk = float(element.find('joint/maxtorque').get('value'))
-            tree.axis = [float(axis.get('x')),float(axis.get('y')),float(axis.get('z'))]
+            tree.axis = [float(axis.get('x')), float(axis.get('y')), float(axis.get('z'))]
 
         if None in children:
             print(children, element.get('name'))
 
-        tree.children = [parse(i,root) for i in children]
+        tree.children = [parse(i, root) for i in children]
         return tree
 
-    else: # Legacy debug
-        param={
+    else:  # Legacy debug
+        param = {
             'name': element.get('name')
         }
 
         if element.find('joint') is not None:
             try:
-                param.update( {
-                'param': {
-                'type': element.find('joint').get('type'),
-                'lo':  element.find('joint/limits').get('lo'),
-                'hi':     element.find('joint/limits').get('hi'),
-                'units':     element.find('joint/limits').get('units'),
-                'axis': [axis.get('x'),axis.get('y'),axis.get('z')],
-                'transform': M,
-                'acceleration': element.find('joint/maxacceleration').get('value'),
-                'velocity': element.find('joint/maxvelocity').get('value'),
-                'torque': element.find('joint/maxtorque').get('value'),
-                }})
+                param.update({
+                    'param': {
+                        'type': element.find('joint').get('type'),
+                        'lo': element.find('joint/limits').get('lo'),
+                        'hi': element.find('joint/limits').get('hi'),
+                        'units': element.find('joint/limits').get('units'),
+                        'axis': [axis.get('x'), axis.get('y'), axis.get('z')],
+                        'transform': M,
+                        'acceleration': element.find('joint/maxacceleration').get('value'),
+                        'velocity': element.find('joint/maxvelocity').get('value'),
+                        'torque': element.find('joint/maxtorque').get('value'),
+                    }})
             except:
-                print("No param ",param['name'])
+                print("No param ", param['name'])
                 raise
 
-        param.update({'zchildren': [parse(i,root) for i in children]})
+        param.update({'zchildren': [parse(i, root) for i in children]})
         return param
 
-def read(filename,createTree=True):
-    doc=etree.parse(filename)
-    root=doc.getroot()
+
+def read(filename, createTree=True):
+    doc = etree.parse(filename)
+    root = doc.getroot()
 
     root.get('name')
 
@@ -129,10 +133,9 @@ def read(filename,createTree=True):
 
     tolower(root)
     rootNode = root.find('./robotnode[@name="%s"]' % root.get('RootNode'))
-    return parse(rootNode,root)
+    return parse(rootNode, root)
 
-
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 #    import sys, pprint
 #    print(sys.argv[1])
 #    structure = read(sys.argv[1],False)
