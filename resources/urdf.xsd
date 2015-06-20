@@ -191,17 +191,20 @@
     <xs:attribute name="name" type="xs:string" use="required" />
   </xs:complexType>
 
+  <!-- joint transmission node type -->
+  <xs:complexType name="joint_transmission">
+    <xs:all>
+      <xs:element name="hardwareInterface" type="xs:string" />
+    </xs:all>
+    <xs:attribute name="name" type="xs:string" use="required" />
+  </xs:complexType>
+
   <!-- transmission node type -->
   <xs:complexType name="transmission">
     <xs:all>
       <xs:element name="type" type="xs:string" />
       <xs:element name="actuator" type="actuator_transmission" minOccurs="0" maxOccurs="1" />
-      <xs:element name="joint" minOccurs="0" maxOccurs="1" >
-        <xs:all>
-          <xs:element name="hardwareInterface" type="xs:string" />
-          <xs:attribute name="name" type="xs:string" use="required" />
-        </xs:all>
-      </xs:element>
+      <xs:element name="joint" type="joint_transmission" minOccurs="0" maxOccurs="1"/>
     </xs:all>
     <xs:attribute name="name" type="xs:string" use="required" />
   </xs:complexType>
@@ -229,11 +232,9 @@
       <xs:sequence minOccurs="0" maxOccurs="unbounded">
         <xs:element name="joint" type="joint" minOccurs="0" maxOccurs="unbounded" />
         <xs:element name="link"  type="link" minOccurs="0" maxOccurs="unbounded" />
-        
         <xs:element name="transmission" type="transmission" minOccurs="0" maxOccurs="unbounded" />
       </xs:sequence>
       <xs:attribute name="name" type="xs:string" use="required" />
-
       <xs:attribute name="version" type="xs:string" default="1.0" />
     </xs:complexType>
   </xs:element>
