@@ -227,7 +227,13 @@ def export(file_name):
             # todo: several meshes assigned to the same bone
             # todo: solutions add another property to a bone or chose the name from the list of connected meshes
         for mesh in connected_meshes:
+            pose_bone = context.active_object.pose.bones[bone.name]
+            pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
+                bpy.data.objects[mesh].matrix_world
+
             visual = child.add_mesh(export_mesh(mesh))
+            visual.origin.xyz = list_to_string(pose.translation)
+            visual.origin.rpy = list_to_string(pose.to_euler())
 
         # Add geometry
         for child_bones in bone.children:
