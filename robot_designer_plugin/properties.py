@@ -93,6 +93,7 @@ class RobotEditor_Euler(bpy.types.PropertyGroup):
         rot.resize_4x4()
 
         transl = Matrix.Translation((self.x.value, self.y.value, self.z.value))
+        #print("here",transl * rot)
         return transl * rot
 
     x = PointerProperty(type=RobotEditor_DoF)

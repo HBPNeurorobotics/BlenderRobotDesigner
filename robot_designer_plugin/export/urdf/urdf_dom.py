@@ -2,20 +2,21 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Sat Jun 20 16:58:23 2015 by generateDS.py version 2.14a.
+# Generated Wed Jun 24 08:52:21 2015 by generateDS.py version 2.14a.
 #
 # Command line options:
+#   ('--external-encoding', 'utf-8')
 #   ('-f', '')
 #   ('-o', 'urdf_dom.py')
 #
 # Command line arguments:
-#   ../../../resources/urdf.xsd
+#   ../share/urdf.xsd
 #
 # Command line:
-#   /usr/local/bin/generateDS.py -f -o "urdf_dom.py" ../../../resources/urdf.xsd
+#   /usr/local/bin/generateDS.py --external-encoding="utf-8" -f -o "urdf_dom.py" ../share/urdf.xsd
 #
 # Current working directory (os.getcwd()):
-#   urdf
+#   generated
 #
 
 import sys
@@ -390,7 +391,7 @@ except ImportError as exp:
             return None
         @classmethod
         def gds_reverse_node_mapping(cls, mapping):
-            return dict(((v, k) for k, v in list(mapping.items())))
+            return dict(((v, k) for k, v in mapping.items()))
 
 
 #
@@ -412,7 +413,7 @@ except ImportError as exp:
 # Globals
 #
 
-ExternalEncoding = 'ascii'
+ExternalEncoding = 'utf-8'
 Tag_pattern_ = re_.compile(r'({.*})?(.*)')
 String_cleanup_pat_ = re_.compile(r"[\n\r\s]+")
 Namespace_extract_pat_ = re_.compile(r'{(.*)}(.*)')
@@ -694,10 +695,10 @@ class pose(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='pose'):
         if self.rpy is not None and 'rpy' not in already_processed:
             already_processed.add('rpy')
-            outfile.write(' rpy=%s' % (self.gds_format_string(quote_attrib(self.rpy).encode(ExternalEncoding), input_name='rpy'), ))
+            outfile.write(' rpy=%s' % (self.gds_format_string(quote_attrib(self.rpy), input_name='rpy'), ))
         if self.xyz is not None and 'xyz' not in already_processed:
             already_processed.add('xyz')
-            outfile.write(' xyz=%s' % (self.gds_format_string(quote_attrib(self.xyz).encode(ExternalEncoding), input_name='xyz'), ))
+            outfile.write(' xyz=%s' % (self.gds_format_string(quote_attrib(self.xyz), input_name='xyz'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='pose', fromsubclass_=False, pretty_print=True):
         pass
     def exportLiteral(self, outfile, level, name_='pose'):
@@ -779,7 +780,7 @@ class color(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='color'):
         if self.rgba is not None and 'rgba' not in already_processed:
             already_processed.add('rgba')
-            outfile.write(' rgba=%s' % (self.gds_format_string(quote_attrib(self.rgba).encode(ExternalEncoding), input_name='rgba'), ))
+            outfile.write(' rgba=%s' % (self.gds_format_string(quote_attrib(self.rgba), input_name='rgba'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='color', fromsubclass_=False, pretty_print=True):
         pass
     def exportLiteral(self, outfile, level, name_='color'):
@@ -853,7 +854,7 @@ class verbose(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='verbose'):
         if self.value is not None and 'value' not in already_processed:
             already_processed.add('value')
-            outfile.write(' value=%s' % (self.gds_format_string(quote_attrib(self.value).encode(ExternalEncoding), input_name='value'), ))
+            outfile.write(' value=%s' % (self.gds_format_string(quote_attrib(self.value), input_name='value'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='verbose', fromsubclass_=False, pretty_print=True):
         pass
     def exportLiteral(self, outfile, level, name_='verbose'):
@@ -927,7 +928,7 @@ class name(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='name'):
         if self.name is not None and 'name' not in already_processed:
             already_processed.add('name')
-            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name).encode(ExternalEncoding), input_name='name'), ))
+            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='name', fromsubclass_=False, pretty_print=True):
         pass
     def exportLiteral(self, outfile, level, name_='name'):
@@ -1355,7 +1356,7 @@ class box(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='box'):
         if self.size is not None and 'size' not in already_processed:
             already_processed.add('size')
-            outfile.write(' size=%s' % (self.gds_format_string(quote_attrib(self.size).encode(ExternalEncoding), input_name='size'), ))
+            outfile.write(' size=%s' % (self.gds_format_string(quote_attrib(self.size), input_name='size'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='box', fromsubclass_=False, pretty_print=True):
         pass
     def exportLiteral(self, outfile, level, name_='box'):
@@ -1603,10 +1604,10 @@ class mesh(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='mesh'):
         if self.scale is not None and 'scale' not in already_processed:
             already_processed.add('scale')
-            outfile.write(' scale=%s' % (self.gds_format_string(quote_attrib(self.scale).encode(ExternalEncoding), input_name='scale'), ))
+            outfile.write(' scale=%s' % (self.gds_format_string(quote_attrib(self.scale), input_name='scale'), ))
         if self.filename is not None and 'filename' not in already_processed:
             already_processed.add('filename')
-            outfile.write(' filename=%s' % (self.gds_format_string(quote_attrib(self.filename).encode(ExternalEncoding), input_name='filename'), ))
+            outfile.write(' filename=%s' % (self.gds_format_string(quote_attrib(self.filename), input_name='filename'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='mesh', fromsubclass_=False, pretty_print=True):
         pass
     def exportLiteral(self, outfile, level, name_='mesh'):
@@ -1820,7 +1821,7 @@ class texture(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='texture'):
         if self.filename is not None and 'filename' not in already_processed:
             already_processed.add('filename')
-            outfile.write(' filename=%s' % (self.gds_format_string(quote_attrib(self.filename).encode(ExternalEncoding), input_name='filename'), ))
+            outfile.write(' filename=%s' % (self.gds_format_string(quote_attrib(self.filename), input_name='filename'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='texture', fromsubclass_=False, pretty_print=True):
         pass
     def exportLiteral(self, outfile, level, name_='texture'):
@@ -1902,7 +1903,7 @@ class material(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='material'):
         if self.name is not None and 'name' not in already_processed:
             already_processed.add('name')
-            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name).encode(ExternalEncoding), input_name='name'), ))
+            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='material', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
@@ -1960,6 +1961,115 @@ class material(GeneratedsSuper):
             self.texture = obj_
             obj_.original_tagname_ = 'texture'
 # end class material
+
+
+class material_global(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, name=None, color=None, texture=None):
+        self.original_tagname_ = None
+        self.name = _cast(None, name)
+        self.color = color
+        self.texture = texture
+    def factory(*args_, **kwargs_):
+        if material_global.subclass:
+            return material_global.subclass(*args_, **kwargs_)
+        else:
+            return material_global(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_color(self): return self.color
+    def set_color(self, color): self.color = color
+    def get_texture(self): return self.texture
+    def set_texture(self, texture): self.texture = texture
+    def get_name(self): return self.name
+    def set_name(self, name): self.name = name
+    def hasContent_(self):
+        if (
+            self.color is not None or
+            self.texture is not None
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='', name_='material_global', namespacedef_='', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='material_global')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='', name_='material_global', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='material_global'):
+        if self.name is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
+    def exportChildren(self, outfile, level, namespace_='', name_='material_global', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.color is not None:
+            self.color.export(outfile, level, namespace_, name_='color', pretty_print=pretty_print)
+        if self.texture is not None:
+            self.texture.export(outfile, level, namespace_, name_='texture', pretty_print=pretty_print)
+    def exportLiteral(self, outfile, level, name_='material_global'):
+        level += 1
+        already_processed = set()
+        self.exportLiteralAttributes(outfile, level, already_processed, name_)
+        if self.hasContent_():
+            self.exportLiteralChildren(outfile, level, name_)
+    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        if self.name is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            showIndent(outfile, level)
+            outfile.write('name="%s",\n' % (self.name,))
+    def exportLiteralChildren(self, outfile, level, name_):
+        if self.color is not None:
+            showIndent(outfile, level)
+            outfile.write('color=model_.color(\n')
+            self.color.exportLiteral(outfile, level)
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.texture is not None:
+            showIndent(outfile, level)
+            outfile.write('texture=model_.texture(\n')
+            self.texture.exportLiteral(outfile, level)
+            showIndent(outfile, level)
+            outfile.write('),\n')
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('name', node)
+        if value is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            self.name = value
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'color':
+            obj_ = color.factory()
+            obj_.build(child_)
+            self.color = obj_
+            obj_.original_tagname_ = 'color'
+        elif nodeName_ == 'texture':
+            obj_ = texture.factory()
+            obj_.build(child_)
+            self.texture = obj_
+            obj_.original_tagname_ = 'texture'
+# end class material_global
 
 
 class visual(GeneratedsSuper):
@@ -2080,8 +2190,9 @@ class visual(GeneratedsSuper):
 class collision(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, origin=None, geometry=None, verbose=None):
+    def __init__(self, name=None, origin=None, geometry=None, verbose=None):
         self.original_tagname_ = None
+        self.name = _cast(None, name)
         self.origin = origin
         self.geometry = geometry
         self.verbose = verbose
@@ -2097,6 +2208,8 @@ class collision(GeneratedsSuper):
     def set_geometry(self, geometry): self.geometry = geometry
     def get_verbose(self): return self.verbose
     def set_verbose(self, verbose): self.verbose = verbose
+    def get_name(self): return self.name
+    def set_name(self, name): self.name = name
     def hasContent_(self):
         if (
             self.origin is not None or
@@ -2125,7 +2238,9 @@ class collision(GeneratedsSuper):
         else:
             outfile.write('/>%s' % (eol_, ))
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='collision'):
-        pass
+        if self.name is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='collision', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
@@ -2144,7 +2259,10 @@ class collision(GeneratedsSuper):
         if self.hasContent_():
             self.exportLiteralChildren(outfile, level, name_)
     def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        pass
+        if self.name is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            showIndent(outfile, level)
+            outfile.write('name="%s",\n' % (self.name,))
     def exportLiteralChildren(self, outfile, level, name_):
         if self.origin is not None:
             showIndent(outfile, level)
@@ -2172,7 +2290,10 @@ class collision(GeneratedsSuper):
             self.buildChildren(child, node, nodeName_)
         return self
     def buildAttributes(self, node, attrs, already_processed):
-        pass
+        value = find_attr_value_('name', node)
+        if value is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            self.name = value
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         if nodeName_ == 'origin':
             obj_ = pose.factory()
@@ -2195,8 +2316,9 @@ class collision(GeneratedsSuper):
 class link(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, name=None, inertial=None, visual=None, collision=None):
+    def __init__(self, type_=None, name=None, inertial=None, visual=None, collision=None):
         self.original_tagname_ = None
+        self.type_ = _cast(None, type_)
         self.name = _cast(None, name)
         self.inertial = inertial
         if visual is None:
@@ -2225,6 +2347,8 @@ class link(GeneratedsSuper):
     def add_collision(self, value): self.collision.append(value)
     def insert_collision_at(self, index, value): self.collision.insert(index, value)
     def replace_collision_at(self, index, value): self.collision[index] = value
+    def get_type(self): return self.type_
+    def set_type(self, type_): self.type_ = type_
     def get_name(self): return self.name
     def set_name(self, name): self.name = name
     def hasContent_(self):
@@ -2255,9 +2379,12 @@ class link(GeneratedsSuper):
         else:
             outfile.write('/>%s' % (eol_, ))
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='link'):
+        if self.type_ is not None and 'type_' not in already_processed:
+            already_processed.add('type_')
+            outfile.write(' type=%s' % (self.gds_format_string(quote_attrib(self.type_), input_name='type'), ))
         if self.name is not None and 'name' not in already_processed:
             already_processed.add('name')
-            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name).encode(ExternalEncoding), input_name='name'), ))
+            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='link', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
@@ -2276,6 +2403,10 @@ class link(GeneratedsSuper):
         if self.hasContent_():
             self.exportLiteralChildren(outfile, level, name_)
     def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        if self.type_ is not None and 'type_' not in already_processed:
+            already_processed.add('type_')
+            showIndent(outfile, level)
+            outfile.write('type_="%s",\n' % (self.type_,))
         if self.name is not None and 'name' not in already_processed:
             already_processed.add('name')
             showIndent(outfile, level)
@@ -2319,6 +2450,10 @@ class link(GeneratedsSuper):
             self.buildChildren(child, node, nodeName_)
         return self
     def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('type', node)
+        if value is not None and 'type' not in already_processed:
+            already_processed.add('type')
+            self.type_ = value
         value = find_attr_value_('name', node)
         if value is not None and 'name' not in already_processed:
             already_processed.add('name')
@@ -2383,7 +2518,7 @@ class parent(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='parent'):
         if self.link is not None and 'link' not in already_processed:
             already_processed.add('link')
-            outfile.write(' link=%s' % (self.gds_format_string(quote_attrib(self.link).encode(ExternalEncoding), input_name='link'), ))
+            outfile.write(' link=%s' % (self.gds_format_string(quote_attrib(self.link), input_name='link'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='parent', fromsubclass_=False, pretty_print=True):
         pass
     def exportLiteral(self, outfile, level, name_='parent'):
@@ -2457,7 +2592,7 @@ class child(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='child'):
         if self.link is not None and 'link' not in already_processed:
             already_processed.add('link')
-            outfile.write(' link=%s' % (self.gds_format_string(quote_attrib(self.link).encode(ExternalEncoding), input_name='link'), ))
+            outfile.write(' link=%s' % (self.gds_format_string(quote_attrib(self.link), input_name='link'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='child', fromsubclass_=False, pretty_print=True):
         pass
     def exportLiteral(self, outfile, level, name_='child'):
@@ -2531,7 +2666,7 @@ class axis(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='axis'):
         if self.xyz is not None and 'xyz' not in already_processed:
             already_processed.add('xyz')
-            outfile.write(' xyz=%s' % (self.gds_format_string(quote_attrib(self.xyz).encode(ExternalEncoding), input_name='xyz'), ))
+            outfile.write(' xyz=%s' % (self.gds_format_string(quote_attrib(self.xyz), input_name='xyz'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='axis', fromsubclass_=False, pretty_print=True):
         pass
     def exportLiteral(self, outfile, level, name_='axis'):
@@ -3072,7 +3207,7 @@ class mimic(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='mimic'):
         if self.joint is not None and 'joint' not in already_processed:
             already_processed.add('joint')
-            outfile.write(' joint=%s' % (self.gds_format_string(quote_attrib(self.joint).encode(ExternalEncoding), input_name='joint'), ))
+            outfile.write(' joint=%s' % (self.gds_format_string(quote_attrib(self.joint), input_name='joint'), ))
         if self.offset is not None and 'offset' not in already_processed:
             already_processed.add('offset')
             outfile.write(' offset="%s"' % self.gds_format_double(self.offset, input_name='offset'))
@@ -3136,27 +3271,23 @@ class mimic(GeneratedsSuper):
 class actuator_transmission(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, name=None, hardwareInterface=None, mechanicalReduction=None):
+    def __init__(self, mechanicalReduction=None, name=None):
         self.original_tagname_ = None
+        self.mechanicalReduction = _cast(float, mechanicalReduction)
         self.name = _cast(None, name)
-        self.hardwareInterface = hardwareInterface
-        self.mechanicalReduction = mechanicalReduction
     def factory(*args_, **kwargs_):
         if actuator_transmission.subclass:
             return actuator_transmission.subclass(*args_, **kwargs_)
         else:
             return actuator_transmission(*args_, **kwargs_)
     factory = staticmethod(factory)
-    def get_hardwareInterface(self): return self.hardwareInterface
-    def set_hardwareInterface(self, hardwareInterface): self.hardwareInterface = hardwareInterface
     def get_mechanicalReduction(self): return self.mechanicalReduction
     def set_mechanicalReduction(self, mechanicalReduction): self.mechanicalReduction = mechanicalReduction
     def get_name(self): return self.name
     def set_name(self, name): self.name = name
     def hasContent_(self):
         if (
-            self.hardwareInterface is not None or
-            self.mechanicalReduction is not None
+
         ):
             return True
         else:
@@ -3175,26 +3306,365 @@ class actuator_transmission(GeneratedsSuper):
         if self.hasContent_():
             outfile.write('>%s' % (eol_, ))
             self.exportChildren(outfile, level + 1, namespace_='', name_='actuator_transmission', pretty_print=pretty_print)
-            showIndent(outfile, level, pretty_print)
             outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
         else:
             outfile.write('/>%s' % (eol_, ))
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='actuator_transmission'):
+        if self.mechanicalReduction is not None and 'mechanicalReduction' not in already_processed:
+            already_processed.add('mechanicalReduction')
+            outfile.write(' mechanicalReduction="%s"' % self.gds_format_double(self.mechanicalReduction, input_name='mechanicalReduction'))
         if self.name is not None and 'name' not in already_processed:
             already_processed.add('name')
-            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name).encode(ExternalEncoding), input_name='name'), ))
+            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='actuator_transmission', fromsubclass_=False, pretty_print=True):
+        pass
+    def exportLiteral(self, outfile, level, name_='actuator_transmission'):
+        level += 1
+        already_processed = set()
+        self.exportLiteralAttributes(outfile, level, already_processed, name_)
+        if self.hasContent_():
+            self.exportLiteralChildren(outfile, level, name_)
+    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        if self.mechanicalReduction is not None and 'mechanicalReduction' not in already_processed:
+            already_processed.add('mechanicalReduction')
+            showIndent(outfile, level)
+            outfile.write('mechanicalReduction=%e,\n' % (self.mechanicalReduction,))
+        if self.name is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            showIndent(outfile, level)
+            outfile.write('name="%s",\n' % (self.name,))
+    def exportLiteralChildren(self, outfile, level, name_):
+        pass
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('mechanicalReduction', node)
+        if value is not None and 'mechanicalReduction' not in already_processed:
+            already_processed.add('mechanicalReduction')
+            try:
+                self.mechanicalReduction = float(value)
+            except ValueError as exp:
+                raise ValueError('Bad float/double attribute (mechanicalReduction): %s' % exp)
+        value = find_attr_value_('name', node)
+        if value is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            self.name = value
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        pass
+# end class actuator_transmission
+
+
+class gap_joint_transmission(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, a=None, theta0=None, b=None, name=None, h=None, phi0=None, t0=None, gear_ratio=None, r=None, L0=None, mechanical_reduction=None, screw_reduction=None):
+        self.original_tagname_ = None
+        self.a = _cast(float, a)
+        self.theta0 = _cast(float, theta0)
+        self.b = _cast(float, b)
+        self.name = _cast(None, name)
+        self.h = _cast(float, h)
+        self.phi0 = _cast(float, phi0)
+        self.t0 = _cast(float, t0)
+        self.gear_ratio = _cast(float, gear_ratio)
+        self.r = _cast(float, r)
+        self.L0 = _cast(float, L0)
+        self.mechanical_reduction = _cast(float, mechanical_reduction)
+        self.screw_reduction = _cast(float, screw_reduction)
+    def factory(*args_, **kwargs_):
+        if gap_joint_transmission.subclass:
+            return gap_joint_transmission.subclass(*args_, **kwargs_)
+        else:
+            return gap_joint_transmission(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_a(self): return self.a
+    def set_a(self, a): self.a = a
+    def get_theta0(self): return self.theta0
+    def set_theta0(self, theta0): self.theta0 = theta0
+    def get_b(self): return self.b
+    def set_b(self, b): self.b = b
+    def get_name(self): return self.name
+    def set_name(self, name): self.name = name
+    def get_h(self): return self.h
+    def set_h(self, h): self.h = h
+    def get_phi0(self): return self.phi0
+    def set_phi0(self, phi0): self.phi0 = phi0
+    def get_t0(self): return self.t0
+    def set_t0(self, t0): self.t0 = t0
+    def get_gear_ratio(self): return self.gear_ratio
+    def set_gear_ratio(self, gear_ratio): self.gear_ratio = gear_ratio
+    def get_r(self): return self.r
+    def set_r(self, r): self.r = r
+    def get_L0(self): return self.L0
+    def set_L0(self, L0): self.L0 = L0
+    def get_mechanical_reduction(self): return self.mechanical_reduction
+    def set_mechanical_reduction(self, mechanical_reduction): self.mechanical_reduction = mechanical_reduction
+    def get_screw_reduction(self): return self.screw_reduction
+    def set_screw_reduction(self, screw_reduction): self.screw_reduction = screw_reduction
+    def hasContent_(self):
+        if (
+
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='', name_='gap_joint_transmission', namespacedef_='', pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
             eol_ = ''
-        if self.hardwareInterface is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%shardwareInterface>%s</%shardwareInterface>%s' % (namespace_, self.gds_format_string(quote_xml(self.hardwareInterface).encode(ExternalEncoding), input_name='hardwareInterface'), namespace_, eol_))
-        if self.mechanicalReduction is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%smechanicalReduction>%s</%smechanicalReduction>%s' % (namespace_, self.gds_format_double(self.mechanicalReduction, input_name='mechanicalReduction'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='actuator_transmission'):
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='gap_joint_transmission')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='', name_='gap_joint_transmission', pretty_print=pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='gap_joint_transmission'):
+        if self.a is not None and 'a' not in already_processed:
+            already_processed.add('a')
+            outfile.write(' a="%s"' % self.gds_format_double(self.a, input_name='a'))
+        if self.theta0 is not None and 'theta0' not in already_processed:
+            already_processed.add('theta0')
+            outfile.write(' theta0="%s"' % self.gds_format_double(self.theta0, input_name='theta0'))
+        if self.b is not None and 'b' not in already_processed:
+            already_processed.add('b')
+            outfile.write(' b="%s"' % self.gds_format_double(self.b, input_name='b'))
+        if self.name is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
+        if self.h is not None and 'h' not in already_processed:
+            already_processed.add('h')
+            outfile.write(' h="%s"' % self.gds_format_double(self.h, input_name='h'))
+        if self.phi0 is not None and 'phi0' not in already_processed:
+            already_processed.add('phi0')
+            outfile.write(' phi0="%s"' % self.gds_format_double(self.phi0, input_name='phi0'))
+        if self.t0 is not None and 't0' not in already_processed:
+            already_processed.add('t0')
+            outfile.write(' t0="%s"' % self.gds_format_double(self.t0, input_name='t0'))
+        if self.gear_ratio is not None and 'gear_ratio' not in already_processed:
+            already_processed.add('gear_ratio')
+            outfile.write(' gear_ratio="%s"' % self.gds_format_double(self.gear_ratio, input_name='gear_ratio'))
+        if self.r is not None and 'r' not in already_processed:
+            already_processed.add('r')
+            outfile.write(' r="%s"' % self.gds_format_double(self.r, input_name='r'))
+        if self.L0 is not None and 'L0' not in already_processed:
+            already_processed.add('L0')
+            outfile.write(' L0="%s"' % self.gds_format_double(self.L0, input_name='L0'))
+        if self.mechanical_reduction is not None and 'mechanical_reduction' not in already_processed:
+            already_processed.add('mechanical_reduction')
+            outfile.write(' mechanical_reduction="%s"' % self.gds_format_double(self.mechanical_reduction, input_name='mechanical_reduction'))
+        if self.screw_reduction is not None and 'screw_reduction' not in already_processed:
+            already_processed.add('screw_reduction')
+            outfile.write(' screw_reduction="%s"' % self.gds_format_double(self.screw_reduction, input_name='screw_reduction'))
+    def exportChildren(self, outfile, level, namespace_='', name_='gap_joint_transmission', fromsubclass_=False, pretty_print=True):
+        pass
+    def exportLiteral(self, outfile, level, name_='gap_joint_transmission'):
+        level += 1
+        already_processed = set()
+        self.exportLiteralAttributes(outfile, level, already_processed, name_)
+        if self.hasContent_():
+            self.exportLiteralChildren(outfile, level, name_)
+    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        if self.a is not None and 'a' not in already_processed:
+            already_processed.add('a')
+            showIndent(outfile, level)
+            outfile.write('a=%e,\n' % (self.a,))
+        if self.theta0 is not None and 'theta0' not in already_processed:
+            already_processed.add('theta0')
+            showIndent(outfile, level)
+            outfile.write('theta0=%e,\n' % (self.theta0,))
+        if self.b is not None and 'b' not in already_processed:
+            already_processed.add('b')
+            showIndent(outfile, level)
+            outfile.write('b=%e,\n' % (self.b,))
+        if self.name is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            showIndent(outfile, level)
+            outfile.write('name="%s",\n' % (self.name,))
+        if self.h is not None and 'h' not in already_processed:
+            already_processed.add('h')
+            showIndent(outfile, level)
+            outfile.write('h=%e,\n' % (self.h,))
+        if self.phi0 is not None and 'phi0' not in already_processed:
+            already_processed.add('phi0')
+            showIndent(outfile, level)
+            outfile.write('phi0=%e,\n' % (self.phi0,))
+        if self.t0 is not None and 't0' not in already_processed:
+            already_processed.add('t0')
+            showIndent(outfile, level)
+            outfile.write('t0=%e,\n' % (self.t0,))
+        if self.gear_ratio is not None and 'gear_ratio' not in already_processed:
+            already_processed.add('gear_ratio')
+            showIndent(outfile, level)
+            outfile.write('gear_ratio=%e,\n' % (self.gear_ratio,))
+        if self.r is not None and 'r' not in already_processed:
+            already_processed.add('r')
+            showIndent(outfile, level)
+            outfile.write('r=%e,\n' % (self.r,))
+        if self.L0 is not None and 'L0' not in already_processed:
+            already_processed.add('L0')
+            showIndent(outfile, level)
+            outfile.write('L0=%e,\n' % (self.L0,))
+        if self.mechanical_reduction is not None and 'mechanical_reduction' not in already_processed:
+            already_processed.add('mechanical_reduction')
+            showIndent(outfile, level)
+            outfile.write('mechanical_reduction=%e,\n' % (self.mechanical_reduction,))
+        if self.screw_reduction is not None and 'screw_reduction' not in already_processed:
+            already_processed.add('screw_reduction')
+            showIndent(outfile, level)
+            outfile.write('screw_reduction=%e,\n' % (self.screw_reduction,))
+    def exportLiteralChildren(self, outfile, level, name_):
+        pass
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('a', node)
+        if value is not None and 'a' not in already_processed:
+            already_processed.add('a')
+            try:
+                self.a = float(value)
+            except ValueError as exp:
+                raise ValueError('Bad float/double attribute (a): %s' % exp)
+        value = find_attr_value_('theta0', node)
+        if value is not None and 'theta0' not in already_processed:
+            already_processed.add('theta0')
+            try:
+                self.theta0 = float(value)
+            except ValueError as exp:
+                raise ValueError('Bad float/double attribute (theta0): %s' % exp)
+        value = find_attr_value_('b', node)
+        if value is not None and 'b' not in already_processed:
+            already_processed.add('b')
+            try:
+                self.b = float(value)
+            except ValueError as exp:
+                raise ValueError('Bad float/double attribute (b): %s' % exp)
+        value = find_attr_value_('name', node)
+        if value is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            self.name = value
+        value = find_attr_value_('h', node)
+        if value is not None and 'h' not in already_processed:
+            already_processed.add('h')
+            try:
+                self.h = float(value)
+            except ValueError as exp:
+                raise ValueError('Bad float/double attribute (h): %s' % exp)
+        value = find_attr_value_('phi0', node)
+        if value is not None and 'phi0' not in already_processed:
+            already_processed.add('phi0')
+            try:
+                self.phi0 = float(value)
+            except ValueError as exp:
+                raise ValueError('Bad float/double attribute (phi0): %s' % exp)
+        value = find_attr_value_('t0', node)
+        if value is not None and 't0' not in already_processed:
+            already_processed.add('t0')
+            try:
+                self.t0 = float(value)
+            except ValueError as exp:
+                raise ValueError('Bad float/double attribute (t0): %s' % exp)
+        value = find_attr_value_('gear_ratio', node)
+        if value is not None and 'gear_ratio' not in already_processed:
+            already_processed.add('gear_ratio')
+            try:
+                self.gear_ratio = float(value)
+            except ValueError as exp:
+                raise ValueError('Bad float/double attribute (gear_ratio): %s' % exp)
+        value = find_attr_value_('r', node)
+        if value is not None and 'r' not in already_processed:
+            already_processed.add('r')
+            try:
+                self.r = float(value)
+            except ValueError as exp:
+                raise ValueError('Bad float/double attribute (r): %s' % exp)
+        value = find_attr_value_('L0', node)
+        if value is not None and 'L0' not in already_processed:
+            already_processed.add('L0')
+            try:
+                self.L0 = float(value)
+            except ValueError as exp:
+                raise ValueError('Bad float/double attribute (L0): %s' % exp)
+        value = find_attr_value_('mechanical_reduction', node)
+        if value is not None and 'mechanical_reduction' not in already_processed:
+            already_processed.add('mechanical_reduction')
+            try:
+                self.mechanical_reduction = float(value)
+            except ValueError as exp:
+                raise ValueError('Bad float/double attribute (mechanical_reduction): %s' % exp)
+        value = find_attr_value_('screw_reduction', node)
+        if value is not None and 'screw_reduction' not in already_processed:
+            already_processed.add('screw_reduction')
+            try:
+                self.screw_reduction = float(value)
+            except ValueError as exp:
+                raise ValueError('Bad float/double attribute (screw_reduction): %s' % exp)
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        pass
+# end class gap_joint_transmission
+
+
+class passive_joint_transmission(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, name=None):
+        self.original_tagname_ = None
+        self.name = _cast(None, name)
+    def factory(*args_, **kwargs_):
+        if passive_joint_transmission.subclass:
+            return passive_joint_transmission.subclass(*args_, **kwargs_)
+        else:
+            return passive_joint_transmission(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_name(self): return self.name
+    def set_name(self, name): self.name = name
+    def hasContent_(self):
+        if (
+
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='', name_='passive_joint_transmission', namespacedef_='', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='passive_joint_transmission')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='', name_='passive_joint_transmission', pretty_print=pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='passive_joint_transmission'):
+        if self.name is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
+    def exportChildren(self, outfile, level, namespace_='', name_='passive_joint_transmission', fromsubclass_=False, pretty_print=True):
+        pass
+    def exportLiteral(self, outfile, level, name_='passive_joint_transmission'):
         level += 1
         already_processed = set()
         self.exportLiteralAttributes(outfile, level, already_processed, name_)
@@ -3206,12 +3676,7 @@ class actuator_transmission(GeneratedsSuper):
             showIndent(outfile, level)
             outfile.write('name="%s",\n' % (self.name,))
     def exportLiteralChildren(self, outfile, level, name_):
-        if self.hardwareInterface is not None:
-            showIndent(outfile, level)
-            outfile.write('hardwareInterface=%s,\n' % quote_python(self.hardwareInterface).encode(ExternalEncoding))
-        if self.mechanicalReduction is not None:
-            showIndent(outfile, level)
-            outfile.write('mechanicalReduction=%e,\n' % self.mechanicalReduction)
+        pass
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -3225,28 +3690,28 @@ class actuator_transmission(GeneratedsSuper):
             already_processed.add('name')
             self.name = value
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
-        if nodeName_ == 'hardwareInterface':
-            hardwareInterface_ = child_.text
-            hardwareInterface_ = self.gds_validate_string(hardwareInterface_, node, 'hardwareInterface')
-            self.hardwareInterface = hardwareInterface_
-        elif nodeName_ == 'mechanicalReduction':
-            sval_ = child_.text
-            try:
-                fval_ = float(sval_)
-            except (TypeError, ValueError) as exp:
-                raise_parse_error(child_, 'requires float or double: %s' % exp)
-            fval_ = self.gds_validate_float(fval_, node, 'mechanicalReduction')
-            self.mechanicalReduction = fval_
-# end class actuator_transmission
+        pass
+# end class passive_joint_transmission
 
 
 class transmission(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, name=None, type_=None, actuator=None, joint=None):
+    def __init__(self, type_=None, name=None, leftActuator=None, rightActuator=None, flexJoint=None, rollJoint=None, gap_joint=None, passive_joint=None, use_simulated_gripper_joint=None, mechanicalReduction=None, actuator=None, joint=None):
         self.original_tagname_ = None
+        self.type_ = _cast(None, type_)
         self.name = _cast(None, name)
-        self.type_ = type_
+        self.leftActuator = leftActuator
+        self.rightActuator = rightActuator
+        self.flexJoint = flexJoint
+        self.rollJoint = rollJoint
+        self.gap_joint = gap_joint
+        if passive_joint is None:
+            self.passive_joint = []
+        else:
+            self.passive_joint = passive_joint
+        self.use_simulated_gripper_joint = use_simulated_gripper_joint
+        self.mechanicalReduction = mechanicalReduction
         self.actuator = actuator
         self.joint = joint
     def factory(*args_, **kwargs_):
@@ -3255,17 +3720,43 @@ class transmission(GeneratedsSuper):
         else:
             return transmission(*args_, **kwargs_)
     factory = staticmethod(factory)
-    def get_type(self): return self.type_
-    def set_type(self, type_): self.type_ = type_
+    def get_leftActuator(self): return self.leftActuator
+    def set_leftActuator(self, leftActuator): self.leftActuator = leftActuator
+    def get_rightActuator(self): return self.rightActuator
+    def set_rightActuator(self, rightActuator): self.rightActuator = rightActuator
+    def get_flexJoint(self): return self.flexJoint
+    def set_flexJoint(self, flexJoint): self.flexJoint = flexJoint
+    def get_rollJoint(self): return self.rollJoint
+    def set_rollJoint(self, rollJoint): self.rollJoint = rollJoint
+    def get_gap_joint(self): return self.gap_joint
+    def set_gap_joint(self, gap_joint): self.gap_joint = gap_joint
+    def get_passive_joint(self): return self.passive_joint
+    def set_passive_joint(self, passive_joint): self.passive_joint = passive_joint
+    def add_passive_joint(self, value): self.passive_joint.append(value)
+    def insert_passive_joint_at(self, index, value): self.passive_joint.insert(index, value)
+    def replace_passive_joint_at(self, index, value): self.passive_joint[index] = value
+    def get_use_simulated_gripper_joint(self): return self.use_simulated_gripper_joint
+    def set_use_simulated_gripper_joint(self, use_simulated_gripper_joint): self.use_simulated_gripper_joint = use_simulated_gripper_joint
+    def get_mechanicalReduction(self): return self.mechanicalReduction
+    def set_mechanicalReduction(self, mechanicalReduction): self.mechanicalReduction = mechanicalReduction
     def get_actuator(self): return self.actuator
     def set_actuator(self, actuator): self.actuator = actuator
     def get_joint(self): return self.joint
     def set_joint(self, joint): self.joint = joint
+    def get_type(self): return self.type_
+    def set_type(self, type_): self.type_ = type_
     def get_name(self): return self.name
     def set_name(self, name): self.name = name
     def hasContent_(self):
         if (
-            self.type_ is not None or
+            self.leftActuator is not None or
+            self.rightActuator is not None or
+            self.flexJoint is not None or
+            self.rollJoint is not None or
+            self.gap_joint is not None or
+            self.passive_joint or
+            self.use_simulated_gripper_joint is not None or
+            self.mechanicalReduction is not None or
             self.actuator is not None or
             self.joint is not None
         ):
@@ -3291,17 +3782,34 @@ class transmission(GeneratedsSuper):
         else:
             outfile.write('/>%s' % (eol_, ))
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='transmission'):
+        if self.type_ is not None and 'type_' not in already_processed:
+            already_processed.add('type_')
+            outfile.write(' type=%s' % (self.gds_format_string(quote_attrib(self.type_), input_name='type'), ))
         if self.name is not None and 'name' not in already_processed:
             already_processed.add('name')
-            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name).encode(ExternalEncoding), input_name='name'), ))
+            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='transmission', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
             eol_ = ''
-        if self.type_ is not None:
+        if self.leftActuator is not None:
+            self.leftActuator.export(outfile, level, namespace_, name_='leftActuator', pretty_print=pretty_print)
+        if self.rightActuator is not None:
+            self.rightActuator.export(outfile, level, namespace_, name_='rightActuator', pretty_print=pretty_print)
+        if self.flexJoint is not None:
+            self.flexJoint.export(outfile, level, namespace_, name_='flexJoint', pretty_print=pretty_print)
+        if self.rollJoint is not None:
+            self.rollJoint.export(outfile, level, namespace_, name_='rollJoint', pretty_print=pretty_print)
+        if self.gap_joint is not None:
+            self.gap_joint.export(outfile, level, namespace_, name_='gap_joint', pretty_print=pretty_print)
+        for passive_joint_ in self.passive_joint:
+            passive_joint_.export(outfile, level, namespace_, name_='passive_joint', pretty_print=pretty_print)
+        if self.use_simulated_gripper_joint is not None:
+            self.use_simulated_gripper_joint.export(outfile, level, namespace_, name_='use_simulated_gripper_joint', pretty_print=pretty_print)
+        if self.mechanicalReduction is not None:
             showIndent(outfile, level, pretty_print)
-            outfile.write('<%stype>%s</%stype>%s' % (namespace_, self.gds_format_string(quote_xml(self.type_).encode(ExternalEncoding), input_name='type'), namespace_, eol_))
+            outfile.write('<%smechanicalReduction>%s</%smechanicalReduction>%s' % (namespace_, self.gds_format_double(self.mechanicalReduction, input_name='mechanicalReduction'), namespace_, eol_))
         if self.actuator is not None:
             self.actuator.export(outfile, level, namespace_, name_='actuator', pretty_print=pretty_print)
         if self.joint is not None:
@@ -3313,24 +3821,76 @@ class transmission(GeneratedsSuper):
         if self.hasContent_():
             self.exportLiteralChildren(outfile, level, name_)
     def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        if self.type_ is not None and 'type_' not in already_processed:
+            already_processed.add('type_')
+            showIndent(outfile, level)
+            outfile.write('type_="%s",\n' % (self.type_,))
         if self.name is not None and 'name' not in already_processed:
             already_processed.add('name')
             showIndent(outfile, level)
             outfile.write('name="%s",\n' % (self.name,))
     def exportLiteralChildren(self, outfile, level, name_):
-        if self.type_ is not None:
+        if self.leftActuator is not None:
             showIndent(outfile, level)
-            outfile.write('type_=%s,\n' % quote_python(self.type_).encode(ExternalEncoding))
+            outfile.write('leftActuator=model_.actuator_transmission(\n')
+            self.leftActuator.exportLiteral(outfile, level, name_='leftActuator')
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.rightActuator is not None:
+            showIndent(outfile, level)
+            outfile.write('rightActuator=model_.actuator_transmission(\n')
+            self.rightActuator.exportLiteral(outfile, level, name_='rightActuator')
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.flexJoint is not None:
+            showIndent(outfile, level)
+            outfile.write('flexJoint=model_.actuator_transmission(\n')
+            self.flexJoint.exportLiteral(outfile, level, name_='flexJoint')
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.rollJoint is not None:
+            showIndent(outfile, level)
+            outfile.write('rollJoint=model_.actuator_transmission(\n')
+            self.rollJoint.exportLiteral(outfile, level, name_='rollJoint')
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.gap_joint is not None:
+            showIndent(outfile, level)
+            outfile.write('gap_joint=model_.gap_joint_transmission(\n')
+            self.gap_joint.exportLiteral(outfile, level, name_='gap_joint')
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        showIndent(outfile, level)
+        outfile.write('passive_joint=[\n')
+        level += 1
+        for passive_joint_ in self.passive_joint:
+            showIndent(outfile, level)
+            outfile.write('model_.passive_joint_transmission(\n')
+            passive_joint_.exportLiteral(outfile, level, name_='passive_joint_transmission')
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        level -= 1
+        showIndent(outfile, level)
+        outfile.write('],\n')
+        if self.use_simulated_gripper_joint is not None:
+            showIndent(outfile, level)
+            outfile.write('use_simulated_gripper_joint=model_.use_simulated_gripper_jointType(\n')
+            self.use_simulated_gripper_joint.exportLiteral(outfile, level, name_='use_simulated_gripper_joint')
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.mechanicalReduction is not None:
+            showIndent(outfile, level)
+            outfile.write('mechanicalReduction=%e,\n' % self.mechanicalReduction)
         if self.actuator is not None:
             showIndent(outfile, level)
-            outfile.write('actuator=model_.actuator_transmission(\n')
+            outfile.write('actuator=model_.name(\n')
             self.actuator.exportLiteral(outfile, level, name_='actuator')
             showIndent(outfile, level)
             outfile.write('),\n')
         if self.joint is not None:
             showIndent(outfile, level)
-            outfile.write('joint=model_.joint(\n')
-            self.joint.exportLiteral(outfile, level)
+            outfile.write('joint=model_.name(\n')
+            self.joint.exportLiteral(outfile, level, name_='joint')
             showIndent(outfile, level)
             outfile.write('),\n')
     def build(self, node):
@@ -3341,22 +3901,65 @@ class transmission(GeneratedsSuper):
             self.buildChildren(child, node, nodeName_)
         return self
     def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('type', node)
+        if value is not None and 'type' not in already_processed:
+            already_processed.add('type')
+            self.type_ = value
         value = find_attr_value_('name', node)
         if value is not None and 'name' not in already_processed:
             already_processed.add('name')
             self.name = value
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
-        if nodeName_ == 'type':
-            type_ = child_.text
-            type_ = self.gds_validate_string(type_, node, 'type')
-            self.type_ = type_
-        elif nodeName_ == 'actuator':
+        if nodeName_ == 'leftActuator':
             obj_ = actuator_transmission.factory()
+            obj_.build(child_)
+            self.leftActuator = obj_
+            obj_.original_tagname_ = 'leftActuator'
+        elif nodeName_ == 'rightActuator':
+            obj_ = actuator_transmission.factory()
+            obj_.build(child_)
+            self.rightActuator = obj_
+            obj_.original_tagname_ = 'rightActuator'
+        elif nodeName_ == 'flexJoint':
+            obj_ = actuator_transmission.factory()
+            obj_.build(child_)
+            self.flexJoint = obj_
+            obj_.original_tagname_ = 'flexJoint'
+        elif nodeName_ == 'rollJoint':
+            obj_ = actuator_transmission.factory()
+            obj_.build(child_)
+            self.rollJoint = obj_
+            obj_.original_tagname_ = 'rollJoint'
+        elif nodeName_ == 'gap_joint':
+            obj_ = gap_joint_transmission.factory()
+            obj_.build(child_)
+            self.gap_joint = obj_
+            obj_.original_tagname_ = 'gap_joint'
+        elif nodeName_ == 'passive_joint':
+            obj_ = passive_joint_transmission.factory()
+            obj_.build(child_)
+            self.passive_joint.append(obj_)
+            obj_.original_tagname_ = 'passive_joint'
+        elif nodeName_ == 'use_simulated_gripper_joint':
+            obj_ = use_simulated_gripper_jointType.factory()
+            obj_.build(child_)
+            self.use_simulated_gripper_joint = obj_
+            obj_.original_tagname_ = 'use_simulated_gripper_joint'
+        elif nodeName_ == 'mechanicalReduction':
+            sval_ = child_.text
+            try:
+                fval_ = float(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires float or double: %s' % exp)
+            fval_ = self.gds_validate_float(fval_, node, 'mechanicalReduction')
+            self.mechanicalReduction = fval_
+        elif nodeName_ == 'actuator':
+            obj_ = name.factory()
             obj_.build(child_)
             self.actuator = obj_
             obj_.original_tagname_ = 'actuator'
         elif nodeName_ == 'joint':
-            obj_ = joint.factory()
+            obj_ = name.factory()
             obj_.build(child_)
             self.joint = obj_
             obj_.original_tagname_ = 'joint'
@@ -3366,23 +3969,58 @@ class transmission(GeneratedsSuper):
 class joint(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, name=None, hardwareInterface=None):
+    def __init__(self, type_=None, name=None, origin=None, parent=None, child=None, axis=None, calibration=None, dynamics=None, limit=None, safety_controller=None, mimic=None):
         self.original_tagname_ = None
+        self.type_ = _cast(None, type_)
         self.name = _cast(None, name)
-        self.hardwareInterface = hardwareInterface
+        self.origin = origin
+        self.parent = parent
+        self.child = child
+        self.axis = axis
+        self.calibration = calibration
+        self.dynamics = dynamics
+        self.limit = limit
+        self.safety_controller = safety_controller
+        self.mimic = mimic
     def factory(*args_, **kwargs_):
         if joint.subclass:
             return joint.subclass(*args_, **kwargs_)
         else:
             return joint(*args_, **kwargs_)
     factory = staticmethod(factory)
-    def get_hardwareInterface(self): return self.hardwareInterface
-    def set_hardwareInterface(self, hardwareInterface): self.hardwareInterface = hardwareInterface
+    def get_origin(self): return self.origin
+    def set_origin(self, origin): self.origin = origin
+    def get_parent(self): return self.parent
+    def set_parent(self, parent): self.parent = parent
+    def get_child(self): return self.child
+    def set_child(self, child): self.child = child
+    def get_axis(self): return self.axis
+    def set_axis(self, axis): self.axis = axis
+    def get_calibration(self): return self.calibration
+    def set_calibration(self, calibration): self.calibration = calibration
+    def get_dynamics(self): return self.dynamics
+    def set_dynamics(self, dynamics): self.dynamics = dynamics
+    def get_limit(self): return self.limit
+    def set_limit(self, limit): self.limit = limit
+    def get_safety_controller(self): return self.safety_controller
+    def set_safety_controller(self, safety_controller): self.safety_controller = safety_controller
+    def get_mimic(self): return self.mimic
+    def set_mimic(self, mimic): self.mimic = mimic
+    def get_type(self): return self.type_
+    def set_type(self, type_): self.type_ = type_
     def get_name(self): return self.name
     def set_name(self, name): self.name = name
     def hasContent_(self):
         if (
-            self.hardwareInterface is not None
+            self.origin is not None or
+            self.parent is not None or
+            self.child is not None or
+            self.axis is not None or
+            self.calibration is not None or
+            self.dynamics is not None or
+            self.limit is not None or
+            self.safety_controller is not None or
+            self.mimic is not None
         ):
             return True
         else:
@@ -3406,17 +4044,35 @@ class joint(GeneratedsSuper):
         else:
             outfile.write('/>%s' % (eol_, ))
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='joint'):
+        if self.type_ is not None and 'type_' not in already_processed:
+            already_processed.add('type_')
+            outfile.write(' type=%s' % (self.gds_format_string(quote_attrib(self.type_), input_name='type'), ))
         if self.name is not None and 'name' not in already_processed:
             already_processed.add('name')
-            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name).encode(ExternalEncoding), input_name='name'), ))
+            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='joint', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
         else:
             eol_ = ''
-        if self.hardwareInterface is not None:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%shardwareInterface>%s</%shardwareInterface>%s' % (namespace_, self.gds_format_string(quote_xml(self.hardwareInterface).encode(ExternalEncoding), input_name='hardwareInterface'), namespace_, eol_))
+        if self.origin is not None:
+            self.origin.export(outfile, level, namespace_, name_='origin', pretty_print=pretty_print)
+        if self.parent is not None:
+            self.parent.export(outfile, level, namespace_, name_='parent', pretty_print=pretty_print)
+        if self.child is not None:
+            self.child.export(outfile, level, namespace_, name_='child', pretty_print=pretty_print)
+        if self.axis is not None:
+            self.axis.export(outfile, level, namespace_, name_='axis', pretty_print=pretty_print)
+        if self.calibration is not None:
+            self.calibration.export(outfile, level, namespace_, name_='calibration', pretty_print=pretty_print)
+        if self.dynamics is not None:
+            self.dynamics.export(outfile, level, namespace_, name_='dynamics', pretty_print=pretty_print)
+        if self.limit is not None:
+            self.limit.export(outfile, level, namespace_, name_='limit', pretty_print=pretty_print)
+        if self.safety_controller is not None:
+            self.safety_controller.export(outfile, level, namespace_, name_='safety_controller', pretty_print=pretty_print)
+        if self.mimic is not None:
+            self.mimic.export(outfile, level, namespace_, name_='mimic', pretty_print=pretty_print)
     def exportLiteral(self, outfile, level, name_='joint'):
         level += 1
         already_processed = set()
@@ -3424,14 +4080,69 @@ class joint(GeneratedsSuper):
         if self.hasContent_():
             self.exportLiteralChildren(outfile, level, name_)
     def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        if self.type_ is not None and 'type_' not in already_processed:
+            already_processed.add('type_')
+            showIndent(outfile, level)
+            outfile.write('type_="%s",\n' % (self.type_,))
         if self.name is not None and 'name' not in already_processed:
             already_processed.add('name')
             showIndent(outfile, level)
             outfile.write('name="%s",\n' % (self.name,))
     def exportLiteralChildren(self, outfile, level, name_):
-        if self.hardwareInterface is not None:
+        if self.origin is not None:
             showIndent(outfile, level)
-            outfile.write('hardwareInterface=%s,\n' % quote_python(self.hardwareInterface).encode(ExternalEncoding))
+            outfile.write('origin=model_.pose(\n')
+            self.origin.exportLiteral(outfile, level, name_='origin')
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.parent is not None:
+            showIndent(outfile, level)
+            outfile.write('parent=model_.parent(\n')
+            self.parent.exportLiteral(outfile, level)
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.child is not None:
+            showIndent(outfile, level)
+            outfile.write('child=model_.child(\n')
+            self.child.exportLiteral(outfile, level)
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.axis is not None:
+            showIndent(outfile, level)
+            outfile.write('axis=model_.axis(\n')
+            self.axis.exportLiteral(outfile, level)
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.calibration is not None:
+            showIndent(outfile, level)
+            outfile.write('calibration=model_.calibration(\n')
+            self.calibration.exportLiteral(outfile, level)
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.dynamics is not None:
+            showIndent(outfile, level)
+            outfile.write('dynamics=model_.dynamics(\n')
+            self.dynamics.exportLiteral(outfile, level)
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.limit is not None:
+            showIndent(outfile, level)
+            outfile.write('limit=model_.limit(\n')
+            self.limit.exportLiteral(outfile, level)
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.safety_controller is not None:
+            showIndent(outfile, level)
+            outfile.write('safety_controller=model_.safety_controller(\n')
+            self.safety_controller.exportLiteral(outfile, level)
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.mimic is not None:
+            showIndent(outfile, level)
+            outfile.write('mimic=model_.mimic(\n')
+            self.mimic.exportLiteral(outfile, level)
+            showIndent(outfile, level)
+            outfile.write('),\n')
     def build(self, node):
         already_processed = set()
         self.buildAttributes(node, node.attrib, already_processed)
@@ -3440,22 +4151,67 @@ class joint(GeneratedsSuper):
             self.buildChildren(child, node, nodeName_)
         return self
     def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('type', node)
+        if value is not None and 'type' not in already_processed:
+            already_processed.add('type')
+            self.type_ = value
         value = find_attr_value_('name', node)
         if value is not None and 'name' not in already_processed:
             already_processed.add('name')
             self.name = value
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
-        if nodeName_ == 'hardwareInterface':
-            hardwareInterface_ = child_.text
-            hardwareInterface_ = self.gds_validate_string(hardwareInterface_, node, 'hardwareInterface')
-            self.hardwareInterface = hardwareInterface_
+        if nodeName_ == 'origin':
+            obj_ = pose.factory()
+            obj_.build(child_)
+            self.origin = obj_
+            obj_.original_tagname_ = 'origin'
+        elif nodeName_ == 'parent':
+            obj_ = parent.factory()
+            obj_.build(child_)
+            self.parent = obj_
+            obj_.original_tagname_ = 'parent'
+        elif nodeName_ == 'child':
+            obj_ = child.factory()
+            obj_.build(child_)
+            self.child = obj_
+            obj_.original_tagname_ = 'child'
+        elif nodeName_ == 'axis':
+            obj_ = axis.factory()
+            obj_.build(child_)
+            self.axis = obj_
+            obj_.original_tagname_ = 'axis'
+        elif nodeName_ == 'calibration':
+            obj_ = calibration.factory()
+            obj_.build(child_)
+            self.calibration = obj_
+            obj_.original_tagname_ = 'calibration'
+        elif nodeName_ == 'dynamics':
+            obj_ = dynamics.factory()
+            obj_.build(child_)
+            self.dynamics = obj_
+            obj_.original_tagname_ = 'dynamics'
+        elif nodeName_ == 'limit':
+            obj_ = limit.factory()
+            obj_.build(child_)
+            self.limit = obj_
+            obj_.original_tagname_ = 'limit'
+        elif nodeName_ == 'safety_controller':
+            obj_ = safety_controller.factory()
+            obj_.build(child_)
+            self.safety_controller = obj_
+            obj_.original_tagname_ = 'safety_controller'
+        elif nodeName_ == 'mimic':
+            obj_ = mimic.factory()
+            obj_.build(child_)
+            self.mimic = obj_
+            obj_.original_tagname_ = 'mimic'
 # end class joint
 
 
 class robot(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, version='1.0', name=None, joint=None, link=None, transmission=None):
+    def __init__(self, version='1.0', name=None, joint=None, link=None, material=None, transmission=None):
         self.original_tagname_ = None
         self.version = _cast(None, version)
         self.name = _cast(None, name)
@@ -3467,6 +4223,10 @@ class robot(GeneratedsSuper):
             self.link = []
         else:
             self.link = link
+        if material is None:
+            self.material = []
+        else:
+            self.material = material
         if transmission is None:
             self.transmission = []
         else:
@@ -3487,6 +4247,11 @@ class robot(GeneratedsSuper):
     def add_link(self, value): self.link.append(value)
     def insert_link_at(self, index, value): self.link.insert(index, value)
     def replace_link_at(self, index, value): self.link[index] = value
+    def get_material(self): return self.material
+    def set_material(self, material): self.material = material
+    def add_material(self, value): self.material.append(value)
+    def insert_material_at(self, index, value): self.material.insert(index, value)
+    def replace_material_at(self, index, value): self.material[index] = value
     def get_transmission(self): return self.transmission
     def set_transmission(self, transmission): self.transmission = transmission
     def add_transmission(self, value): self.transmission.append(value)
@@ -3500,6 +4265,7 @@ class robot(GeneratedsSuper):
         if (
             self.joint or
             self.link or
+            self.material or
             self.transmission
         ):
             return True
@@ -3526,10 +4292,10 @@ class robot(GeneratedsSuper):
     def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='robot'):
         if self.version is not None and 'version' not in already_processed:
             already_processed.add('version')
-            outfile.write(' version=%s' % (self.gds_format_string(quote_attrib(self.version).encode(ExternalEncoding), input_name='version'), ))
+            outfile.write(' version=%s' % (self.gds_format_string(quote_attrib(self.version), input_name='version'), ))
         if self.name is not None and 'name' not in already_processed:
             already_processed.add('name')
-            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name).encode(ExternalEncoding), input_name='name'), ))
+            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='robot', fromsubclass_=False, pretty_print=True):
         if pretty_print:
             eol_ = '\n'
@@ -3539,6 +4305,8 @@ class robot(GeneratedsSuper):
             joint_.export(outfile, level, namespace_, name_='joint', pretty_print=pretty_print)
         for link_ in self.link:
             link_.export(outfile, level, namespace_, name_='link', pretty_print=pretty_print)
+        for material_ in self.material:
+            material_.export(outfile, level, namespace_, name_='material', pretty_print=pretty_print)
         for transmission_ in self.transmission:
             transmission_.export(outfile, level, namespace_, name_='transmission', pretty_print=pretty_print)
     def exportLiteral(self, outfile, level, name_='robot'):
@@ -3576,6 +4344,18 @@ class robot(GeneratedsSuper):
             showIndent(outfile, level)
             outfile.write('model_.link(\n')
             link_.exportLiteral(outfile, level)
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        level -= 1
+        showIndent(outfile, level)
+        outfile.write('],\n')
+        showIndent(outfile, level)
+        outfile.write('material=[\n')
+        level += 1
+        for material_ in self.material:
+            showIndent(outfile, level)
+            outfile.write('model_.material_global(\n')
+            material_.exportLiteral(outfile, level, name_='material_global')
             showIndent(outfile, level)
             outfile.write('),\n')
         level -= 1
@@ -3620,6 +4400,11 @@ class robot(GeneratedsSuper):
             obj_.build(child_)
             self.link.append(obj_)
             obj_.original_tagname_ = 'link'
+        elif nodeName_ == 'material':
+            obj_ = material_global.factory()
+            obj_.build(child_)
+            self.material.append(obj_)
+            obj_.original_tagname_ = 'material'
         elif nodeName_ == 'transmission':
             obj_ = transmission.factory()
             obj_.build(child_)
@@ -3628,9 +4413,81 @@ class robot(GeneratedsSuper):
 # end class robot
 
 
+class use_simulated_gripper_jointType(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self):
+        self.original_tagname_ = None
+    def factory(*args_, **kwargs_):
+        if use_simulated_gripper_jointType.subclass:
+            return use_simulated_gripper_jointType.subclass(*args_, **kwargs_)
+        else:
+            return use_simulated_gripper_jointType(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def hasContent_(self):
+        if (
+
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='', name_='use_simulated_gripper_jointType', namespacedef_='', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='use_simulated_gripper_jointType')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='', name_='use_simulated_gripper_jointType', pretty_print=pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='use_simulated_gripper_jointType'):
+        pass
+    def exportChildren(self, outfile, level, namespace_='', name_='use_simulated_gripper_jointType', fromsubclass_=False, pretty_print=True):
+        pass
+    def exportLiteral(self, outfile, level, name_='use_simulated_gripper_jointType'):
+        level += 1
+        already_processed = set()
+        self.exportLiteralAttributes(outfile, level, already_processed, name_)
+        if self.hasContent_():
+            self.exportLiteralChildren(outfile, level, name_)
+    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        pass
+    def exportLiteralChildren(self, outfile, level, name_):
+        pass
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        pass
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        pass
+# end class use_simulated_gripper_jointType
+
+
 GDSClassesMapping = {
     'origin': pose,
-    'actuator': actuator_transmission,
+    'flexJoint': actuator_transmission,
+    'rollJoint': actuator_transmission,
+    'joint': name,
+    'leftActuator': actuator_transmission,
+    'material': material_global,
+    'use_simulated_gripper_joint': use_simulated_gripper_jointType,
+    'passive_joint': passive_joint_transmission,
+    'rightActuator': actuator_transmission,
+    'gap_joint': gap_joint_transmission,
+    'actuator': name,
 }
 
 
@@ -3758,6 +4615,7 @@ __all__ = [
     "color",
     "cylinder",
     "dynamics",
+    "gap_joint_transmission",
     "geometry",
     "inertia",
     "inertial",
@@ -3766,16 +4624,19 @@ __all__ = [
     "link",
     "mass",
     "material",
+    "material_global",
     "mesh",
     "mimic",
     "name",
     "parent",
+    "passive_joint_transmission",
     "pose",
     "robot",
     "safety_controller",
     "sphere",
     "texture",
     "transmission",
+    "use_simulated_gripper_jointType",
     "verbose",
     "visual"
 ]

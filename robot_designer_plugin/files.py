@@ -20,6 +20,7 @@ try:
 except ImportError:
     use_mmm = False
 
+from . import export
 
 def parseTree(tree, parentName):
     print("parsetree")
@@ -158,6 +159,7 @@ class RobotEditor_exportCollada(bpy.types.Operator):
 
     filepath = StringProperty(subtype='FILE_PATH')
 
+
     def execute(self, context):
         bpy.ops.wm.collada_export(filepath=self.filepath,
                                   check_existing=False, filter_blender=False,
@@ -254,6 +256,34 @@ class RobotEditor_importSIMOX(bpy.types.Operator):
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
 
+# operator to import the kinematics in a SIMOX-XML file
+class RobotEditor_importURDF(bpy.types.Operator):
+    bl_idname = "roboteditor.urdfimport"
+    bl_label = "Import URDF XML"
+    filepath = StringProperty(subtype='FILE_PATH')
+
+    def execute(self, context):
+        export.urdf.import_(self.filepath)
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        context.window_manager.fileselect_add(self)
+        return {'RUNNING_MODAL'}
+
+# operator to import the kinematics in a SIMOX-XML file
+class RobotEditor_exportURDF(bpy.types.Operator):
+    bl_idname = "roboteditor.urdfexport"
+    bl_label = "Export URDF XML"
+    filepath = StringProperty(subtype='FILE_PATH')
+
+    def execute(self, context):
+        export.urdf.export(self.filepath)
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        context.window_manager.fileselect_add(self)
+        return {'RUNNING_MODAL'}
+
 
 def draw(layout, context):
     layout.operator("roboteditor.colladaexport")
@@ -261,10 +291,15 @@ def draw(layout, context):
         layout.operator("roboteditor.simoximport")
     if use_mmm:
         layout.operator("roboteditor.mmmimport")
+    layout.operator("roboteditor.urdfimport")
+    layout.operator("roboteditor.urdfexport")
+
 
 
 def register():
     bpy.utils.register_class(RobotEditor_exportCollada)
+    bpy.utils.register_class(RobotEditor_importURDF)
+    bpy.utils.register_class(RobotEditor_exportURDF)
     if use_simox:
         bpy.utils.register_class(RobotEditor_importSIMOX)
     if use_mmm:
@@ -273,6 +308,8 @@ def register():
 
 def unregister():
     bpy.utils.unregister_class(RobotEditor_exportCollada)
+    bpy.utils.unregister_class(RobotEditor_exportURDF)
+    bpy.utils.unregister_class(RobotEditor_importURDF)
     if use_simox:
         bpy.utils.unregister_class(RobotEditor_importSIMOX)
     if use_mmm:
