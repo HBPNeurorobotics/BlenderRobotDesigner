@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+
+<robot name="test_robot">
+  <link name="test_robot_link">
+    <inertial>
+      <mass value="1.0"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="model://test_model/meshes/test_mesh.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 1.57 0" xyz="0.16 0.004 0"/>
+      <geometry>
+        <cylinder length="0.22" radius="0.03"/>
+      </geometry>
+      <contact_coefficients mu="5"/>
+    </collision>
+    <collision>
+      <origin rpy="0 0 0" xyz="0.32 0 0"/>
+      <geometry>
+        <sphere radius="0.02"/>
+      </geometry>
+      <contact_coefficients mu="5"/>
+    </collision>
+  </link>
+
+  <joint name="test_robot_joint" type="fixed">
+    <parent link="robot_base_link"/>
+    <child link="test_robot_link"/>
+    <origin rpy="0 0 0" xyz="0.22841 -0.0806665 -0.056215"/>
+  </joint>
+
+  <transmission name="test_robot_joint_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="test_robot_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="test_robot_joint_motor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+      <robotNamespace>/</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+
+</robot>
