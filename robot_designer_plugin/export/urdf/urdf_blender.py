@@ -182,7 +182,7 @@ def export(file_name):
     """
 
     def export_mesh(name):
-        file_path = os.path.join(os.path.dirname(file_name), "test", name + '.dae')
+        file_path = os.path.join(os.path.dirname(file_name), "meshes", name + '.dae')
         print(file_path)
         armature_name = bpy.context.active_object.name
         # todo: deselect all
@@ -194,7 +194,8 @@ def export(file_name):
         context.active_object.select = True
         bpy.ops.wm.collada_export(filepath=file_path, selected=True)
         bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
-        return "package://" + os.path.join("test", name + '.dae')
+        # set correct mesh path: This requires the ROS default package structure.
+        return "package://" + armature_name + "_description" + "/" + os.path.join("meshes", name + '.dae')
 
     def build(bone, tree):
         child = tree.add()
