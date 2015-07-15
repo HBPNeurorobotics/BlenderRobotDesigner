@@ -103,12 +103,12 @@ class URDFTree(object):
     @staticmethod
     def create_empty(name):
 
-        tree = URDFTree(connected_links={}, connected_joints={}, robot=urdf_dom.robot())
+        tree = URDFTree(connected_links={}, connected_joints={}, robot=urdf_dom.RobotType())
         tree.robot.name = name
-        tree.link = urdf_dom.link()
+        tree.link = urdf_dom.LinkType()
         tree.link.name = "base_link"
         tree.robot.link.append(tree.link)
-        tree.joint = urdf_dom.joint()
+        tree.joint = urdf_dom.JointType()
         tree.set_defaults()
         return tree
 
@@ -154,13 +154,13 @@ class URDFTree(object):
         """
 
         tree = URDFTree(connected_links=self.connectedLinks, connected_joints=self.connectedJoints, robot=self.robot)
-        tree.joint = urdf_dom.joint()
-        tree.link = urdf_dom.link()
+        tree.joint = urdf_dom.JointType()
+        tree.link = urdf_dom.LinkType()
         tree.robot.link.append(tree.link)
         tree.robot.joint.append(tree.joint)
         tree.set_defaults()
-        tree.joint.child = urdf_dom.child()
-        tree.joint.parent = urdf_dom.parent()
+        tree.joint.child = urdf_dom.ChildType()
+        tree.joint.parent = urdf_dom.ParentType()
 
         self.connectedLinks[tree.joint] = tree.link
         if self.link in self.connectedJoints:
@@ -176,11 +176,11 @@ class URDFTree(object):
         :param link:
         :return:
         """
-        visual = urdf_dom.visual()
+        visual = urdf_dom.VisualType()
         self.link.visual.append(visual)
-        visual.geometry = urdf_dom.geometry()
-        visual.origin = urdf_dom.pose()
-        visual.geometry.mesh = urdf_dom.mesh()
+        visual.geometry = urdf_dom.GeometryType()
+        visual.origin = urdf_dom.PoseType()
+        visual.geometry.mesh = urdf_dom.MeshType()
         visual.geometry.mesh.filename = file_name
         return visual
 
@@ -192,25 +192,25 @@ class URDFTree(object):
         joint = self.joint
         link = self.link
         if joint.axis is None:
-            joint.axis = urdf_dom.axis()
+            joint.axis = urdf_dom.AxisType()
 
         if joint.limit is None:
-            joint.limit = urdf_dom.limit()
+            joint.limit = urdf_dom.LimitType()
 
         if joint.calibration is None:
-            joint.calibraiton = urdf_dom.calibration()
+            joint.calibration = urdf_dom.CalibrationType()
             # joint.calibration.rising  # there are no default values in the XSD?
             # joint.calibration.falling
 
         if joint.origin is None:
-            joint.origin = urdf_dom.pose()
+            joint.origin = urdf_dom.PoseType()
 
         for visual in link.visual:
             if visual.origin is None:
-                visual.origin = urdf_dom.pose()
+                visual.origin = urdf_dom.PoseType()
 
         if joint.dynamics is None:
-            joint.dynamics = urdf_dom.dynamics()
+            joint.dynamics = urdf_dom.DynamicsType()
 
             # if joint.mimic is None: # truely optional
             # if joint.safety_controller is None: # ignored

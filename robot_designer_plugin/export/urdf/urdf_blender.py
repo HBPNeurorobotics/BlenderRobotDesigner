@@ -41,7 +41,9 @@ def import_(file_name):
         :param visual: A urdf_dom.visual object.
         :return: Returns the transformation in the origin element (a 4x4 blender matrix).
         """
-        file = os.path.join(os.path.dirname(file_name), visual.geometry.mesh.filename.lstrip("package://"))
+        print(visual.geometry.mesh.filename.lstrip("file://"))
+        file = os.path.join(os.path.dirname(file_name), visual.geometry.mesh.filename.lstrip("package://").lstrip(
+            "file://"))
         # print(file, os.path.exists(file))
         fn, extension = os.path.splitext(file)
         if extension == ".stl":
@@ -97,8 +99,8 @@ def import_(file_name):
 
         if tree.joint.type_ == 'revolute':
             bpy.context.active_bone.RobotEditor.jointMode = 'REVOLUTE'
-            bpy.context.active_bone.RobotEditor.theta.max = float(get_value(tree.joint.limit.upper, 0))
-            bpy.context.active_bone.RobotEditor.theta.min = float(get_value(tree.joint.limit.lower, 0))
+            bpy.context.active_bone.RobotEditor.theta.max = degrees(float(get_value(tree.joint.limit.upper, 0)))
+            bpy.context.active_bone.RobotEditor.theta.min = degrees(float(get_value(tree.joint.limit.lower, 0)))
         else:
             bpy.context.active_bone.RobotEditor.jointMode = 'PRISMATIC'
             if tree.joint.limit is not None:
@@ -140,6 +142,7 @@ def import_(file_name):
                 # todo catch if there are more than 1 mesh (and resolve names)
                 bpy.context.active_object.name = tree.link.name
                 bpy.context.active_object.matrix_world = bone_transformation * trafo * scale
+                #bpy.context.active_object.matrix_world = bone_transformation * trafo * bpy.context.active_object.matrix_world
 
                 # connect the meshes
                 bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
@@ -229,7 +232,7 @@ def export(file_name):
         for mesh in connected_meshes:
             pose_bone = context.active_object.pose.bones[bone.name]
             pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
-                bpy.data.objects[mesh].matrix_world
+                   bpy.data.objects[mesh].matrix_world
 
             visual = child.add_mesh(export_mesh(mesh))
             visual.origin.xyz = list_to_string(pose.translation)
