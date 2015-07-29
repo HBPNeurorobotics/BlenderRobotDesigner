@@ -20,7 +20,10 @@ import shlex
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
+print(os.path.abspath('../../robot_designer_plugin'))
+print(sys.version)
+sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath('../../resources/mock_bpy'))
 
 # -- General configuration ------------------------------------------------
 
@@ -32,12 +35,20 @@ import shlex
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinxcontrib.mockautodoc',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
 ]
+
+# Blender is not available as a separate python module. Therefore,
+# use mockautodoc extension
+#mockautodoc = {
+#    'mockimport': ['bpy', 'bpy.props','mathutils'],
+#    'mocktype': ['bpy.props.StringProperty'],
+#}
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -131,16 +142,16 @@ html_theme = 'alabaster'
 #html_title = None
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
-#html_short_title = None
+html_short_title = "NRP Robot Designer"
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-#html_logo = None
+html_logo = "./images/hbp.png"
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-#html_favicon = None
+html_favicon = "./images/hbp_32x32.ico"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

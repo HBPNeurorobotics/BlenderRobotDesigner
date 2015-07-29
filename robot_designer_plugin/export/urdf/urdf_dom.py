@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #
-# Generated Wed Jul 15 10:08:13 2015 by generateDS.py version 2.14a.
+# Generated Mon Jul 27 10:00:53 2015 by generateDS.py version 2.14a.
 #
 # Command line options:
 #   ('-f', '')
@@ -412,7 +412,7 @@ except ImportError as exp:
 # Globals
 #
 
-ExternalEncoding = 'utf-8'
+ExternalEncoding = 'ascii'
 Tag_pattern_ = re_.compile(r'({.*})?(.*)')
 String_cleanup_pat_ = re_.compile(r"[\n\r\s]+")
 Namespace_extract_pat_ = re_.compile(r'{(.*)}(.*)')
@@ -488,11 +488,11 @@ def find_attr_value_(attr_name, node):
     value = None
     if len(attr_parts) == 1:
         value = attrs.get(attr_name)
-    elif len(attr_parts) == 2:
-        prefix, name = attr_parts
-        namespace = node.nsmap.get(prefix)
-        if namespace is not None:
-            value = attrs.get('{%s}%s' % (namespace, name, ))
+    # elif len(attr_parts) == 2:
+    #     prefix, name = attr_parts
+    #     namespace = node.nsmap.get(prefix)
+    #     if namespace is not None:
+    #         value = attrs.get('{%s}%s' % (namespace, name, ))
     return value
 
 
@@ -3765,6 +3765,1166 @@ class TransmissionType(GeneratedsSuper):
 # end class TransmissionType
 
 
+class GazeboPluginBaseType(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, name=None, filename=None, extensiontype_=None):
+        self.original_tagname_ = None
+        self.name = _cast(None, name)
+        self.filename = _cast(None, filename)
+        self.extensiontype_ = extensiontype_
+    def factory(*args_, **kwargs_):
+        if GazeboPluginBaseType.subclass:
+            return GazeboPluginBaseType.subclass(*args_, **kwargs_)
+        else:
+            return GazeboPluginBaseType(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_name(self): return self.name
+    def set_name(self, name): self.name = name
+    def get_filename(self): return self.filename
+    def set_filename(self, filename): self.filename = filename
+    def get_extensiontype_(self): return self.extensiontype_
+    def set_extensiontype_(self, extensiontype_): self.extensiontype_ = extensiontype_
+    def hasContent_(self):
+        if (
+
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='', name_='GazeboPluginBaseType', namespacedef_='', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='GazeboPluginBaseType')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='', name_='GazeboPluginBaseType', pretty_print=pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='GazeboPluginBaseType'):
+        if self.name is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
+        if self.filename is not None and 'filename' not in already_processed:
+            already_processed.add('filename')
+            outfile.write(' filename=%s' % (self.gds_format_string(quote_attrib(self.filename), input_name='filename'), ))
+        if self.extensiontype_ is not None and 'xsi:type' not in already_processed:
+            already_processed.add('xsi:type')
+            outfile.write(' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"')
+            outfile.write(' xsi:type="%s"' % self.extensiontype_)
+    def exportChildren(self, outfile, level, namespace_='', name_='GazeboPluginBaseType', fromsubclass_=False, pretty_print=True):
+        pass
+    def exportLiteral(self, outfile, level, name_='GazeboPluginBaseType'):
+        level += 1
+        already_processed = set()
+        self.exportLiteralAttributes(outfile, level, already_processed, name_)
+        if self.hasContent_():
+            self.exportLiteralChildren(outfile, level, name_)
+    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        if self.name is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            showIndent(outfile, level)
+            outfile.write('name="%s",\n' % (self.name,))
+        if self.filename is not None and 'filename' not in already_processed:
+            already_processed.add('filename')
+            showIndent(outfile, level)
+            outfile.write('filename="%s",\n' % (self.filename,))
+    def exportLiteralChildren(self, outfile, level, name_):
+        pass
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('name', node)
+        if value is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            self.name = value
+        value = find_attr_value_('filename', node)
+        if value is not None and 'filename' not in already_processed:
+            already_processed.add('filename')
+            self.filename = value
+        value = find_attr_value_('xsi:type', node)
+        if value is not None and 'xsi:type' not in already_processed:
+            already_processed.add('xsi:type')
+            self.extensiontype_ = value
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        pass
+# end class GazeboPluginBaseType
+
+
+class GazeboROSPluginType(GazeboPluginBaseType):
+    subclass = None
+    superclass = GazeboPluginBaseType
+    def __init__(self, name=None, filename=None, robotNamespace=None, robotSimType=None):
+        self.original_tagname_ = None
+        super(GazeboROSPluginType, self).__init__(name, filename, )
+        self.robotNamespace = robotNamespace
+        self.robotSimType = robotSimType
+    def factory(*args_, **kwargs_):
+        if GazeboROSPluginType.subclass:
+            return GazeboROSPluginType.subclass(*args_, **kwargs_)
+        else:
+            return GazeboROSPluginType(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_robotNamespace(self): return self.robotNamespace
+    def set_robotNamespace(self, robotNamespace): self.robotNamespace = robotNamespace
+    def get_robotSimType(self): return self.robotSimType
+    def set_robotSimType(self, robotSimType): self.robotSimType = robotSimType
+    def hasContent_(self):
+        if (
+            self.robotNamespace is not None or
+            self.robotSimType is not None or
+            super(GazeboROSPluginType, self).hasContent_()
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='', name_='GazeboROSPluginType', namespacedef_='', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='GazeboROSPluginType')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='', name_='GazeboROSPluginType', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='GazeboROSPluginType'):
+        super(GazeboROSPluginType, self).exportAttributes(outfile, level, already_processed, namespace_, name_='GazeboROSPluginType')
+    def exportChildren(self, outfile, level, namespace_='', name_='GazeboROSPluginType', fromsubclass_=False, pretty_print=True):
+        super(GazeboROSPluginType, self).exportChildren(outfile, level, namespace_, name_, True, pretty_print=pretty_print)
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.robotNamespace is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%srobotNamespace>%s</%srobotNamespace>%s' % (namespace_, self.gds_format_string(quote_xml(self.robotNamespace), input_name='robotNamespace'), namespace_, eol_))
+        if self.robotSimType is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%srobotSimType>%s</%srobotSimType>%s' % (namespace_, self.gds_format_string(quote_xml(self.robotSimType), input_name='robotSimType'), namespace_, eol_))
+    def exportLiteral(self, outfile, level, name_='GazeboROSPluginType'):
+        level += 1
+        already_processed = set()
+        self.exportLiteralAttributes(outfile, level, already_processed, name_)
+        if self.hasContent_():
+            self.exportLiteralChildren(outfile, level, name_)
+    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        super(GazeboROSPluginType, self).exportLiteralAttributes(outfile, level, already_processed, name_)
+    def exportLiteralChildren(self, outfile, level, name_):
+        super(GazeboROSPluginType, self).exportLiteralChildren(outfile, level, name_)
+        if self.robotNamespace is not None:
+            showIndent(outfile, level)
+            outfile.write('robotNamespace=%s,\n' % quote_python(self.robotNamespace))
+        if self.robotSimType is not None:
+            showIndent(outfile, level)
+            outfile.write('robotSimType=%s,\n' % quote_python(self.robotSimType))
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        super(GazeboROSPluginType, self).buildAttributes(node, attrs, already_processed)
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'robotNamespace':
+            robotNamespace_ = child_.text
+            robotNamespace_ = self.gds_validate_string(robotNamespace_, node, 'robotNamespace')
+            self.robotNamespace = robotNamespace_
+        elif nodeName_ == 'robotSimType':
+            robotSimType_ = child_.text
+            robotSimType_ = self.gds_validate_string(robotSimType_, node, 'robotSimType')
+            self.robotSimType = robotSimType_
+        super(GazeboROSPluginType, self).buildChildren(child_, node, nodeName_, True)
+# end class GazeboROSPluginType
+
+
+class GazeboCameraPluginType(GazeboPluginBaseType):
+    subclass = None
+    superclass = GazeboPluginBaseType
+    def __init__(self, name=None, filename=None, alwaysOn=None, updateRate=None, cameraName=None, imageTopicName=None, cameraInfoTopicName=None, frameName=None, hackBaseline=None, distortionK1=None, distortionK2=None, distortionK3=None, distortionT1=None, distortionT2=None):
+        self.original_tagname_ = None
+        super(GazeboCameraPluginType, self).__init__(name, filename, )
+        self.alwaysOn = alwaysOn
+        self.updateRate = updateRate
+        self.cameraName = cameraName
+        self.imageTopicName = imageTopicName
+        self.cameraInfoTopicName = cameraInfoTopicName
+        self.frameName = frameName
+        self.hackBaseline = hackBaseline
+        self.distortionK1 = distortionK1
+        self.distortionK2 = distortionK2
+        self.distortionK3 = distortionK3
+        self.distortionT1 = distortionT1
+        self.distortionT2 = distortionT2
+    def factory(*args_, **kwargs_):
+        if GazeboCameraPluginType.subclass:
+            return GazeboCameraPluginType.subclass(*args_, **kwargs_)
+        else:
+            return GazeboCameraPluginType(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_alwaysOn(self): return self.alwaysOn
+    def set_alwaysOn(self, alwaysOn): self.alwaysOn = alwaysOn
+    def get_updateRate(self): return self.updateRate
+    def set_updateRate(self, updateRate): self.updateRate = updateRate
+    def get_cameraName(self): return self.cameraName
+    def set_cameraName(self, cameraName): self.cameraName = cameraName
+    def get_imageTopicName(self): return self.imageTopicName
+    def set_imageTopicName(self, imageTopicName): self.imageTopicName = imageTopicName
+    def get_cameraInfoTopicName(self): return self.cameraInfoTopicName
+    def set_cameraInfoTopicName(self, cameraInfoTopicName): self.cameraInfoTopicName = cameraInfoTopicName
+    def get_frameName(self): return self.frameName
+    def set_frameName(self, frameName): self.frameName = frameName
+    def get_hackBaseline(self): return self.hackBaseline
+    def set_hackBaseline(self, hackBaseline): self.hackBaseline = hackBaseline
+    def get_distortionK1(self): return self.distortionK1
+    def set_distortionK1(self, distortionK1): self.distortionK1 = distortionK1
+    def get_distortionK2(self): return self.distortionK2
+    def set_distortionK2(self, distortionK2): self.distortionK2 = distortionK2
+    def get_distortionK3(self): return self.distortionK3
+    def set_distortionK3(self, distortionK3): self.distortionK3 = distortionK3
+    def get_distortionT1(self): return self.distortionT1
+    def set_distortionT1(self, distortionT1): self.distortionT1 = distortionT1
+    def get_distortionT2(self): return self.distortionT2
+    def set_distortionT2(self, distortionT2): self.distortionT2 = distortionT2
+    def hasContent_(self):
+        if (
+            self.alwaysOn is not None or
+            self.updateRate is not None or
+            self.cameraName is not None or
+            self.imageTopicName is not None or
+            self.cameraInfoTopicName is not None or
+            self.frameName is not None or
+            self.hackBaseline is not None or
+            self.distortionK1 is not None or
+            self.distortionK2 is not None or
+            self.distortionK3 is not None or
+            self.distortionT1 is not None or
+            self.distortionT2 is not None or
+            super(GazeboCameraPluginType, self).hasContent_()
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='', name_='GazeboCameraPluginType', namespacedef_='', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='GazeboCameraPluginType')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='', name_='GazeboCameraPluginType', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='GazeboCameraPluginType'):
+        super(GazeboCameraPluginType, self).exportAttributes(outfile, level, already_processed, namespace_, name_='GazeboCameraPluginType')
+    def exportChildren(self, outfile, level, namespace_='', name_='GazeboCameraPluginType', fromsubclass_=False, pretty_print=True):
+        super(GazeboCameraPluginType, self).exportChildren(outfile, level, namespace_, name_, True, pretty_print=pretty_print)
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.alwaysOn is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%salwaysOn>%s</%salwaysOn>%s' % (namespace_, self.gds_format_boolean(self.alwaysOn, input_name='alwaysOn'), namespace_, eol_))
+        if self.updateRate is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%supdateRate>%s</%supdateRate>%s' % (namespace_, self.gds_format_double(self.updateRate, input_name='updateRate'), namespace_, eol_))
+        if self.cameraName is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%scameraName>%s</%scameraName>%s' % (namespace_, self.gds_format_string(quote_xml(self.cameraName), input_name='cameraName'), namespace_, eol_))
+        if self.imageTopicName is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%simageTopicName>%s</%simageTopicName>%s' % (namespace_, self.gds_format_string(quote_xml(self.imageTopicName), input_name='imageTopicName'), namespace_, eol_))
+        if self.cameraInfoTopicName is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%scameraInfoTopicName>%s</%scameraInfoTopicName>%s' % (namespace_, self.gds_format_string(quote_xml(self.cameraInfoTopicName), input_name='cameraInfoTopicName'), namespace_, eol_))
+        if self.frameName is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sframeName>%s</%sframeName>%s' % (namespace_, self.gds_format_string(quote_xml(self.frameName), input_name='frameName'), namespace_, eol_))
+        if self.hackBaseline is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%shackBaseline>%s</%shackBaseline>%s' % (namespace_, self.gds_format_double(self.hackBaseline, input_name='hackBaseline'), namespace_, eol_))
+        if self.distortionK1 is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sdistortionK1>%s</%sdistortionK1>%s' % (namespace_, self.gds_format_double(self.distortionK1, input_name='distortionK1'), namespace_, eol_))
+        if self.distortionK2 is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sdistortionK2>%s</%sdistortionK2>%s' % (namespace_, self.gds_format_double(self.distortionK2, input_name='distortionK2'), namespace_, eol_))
+        if self.distortionK3 is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sdistortionK3>%s</%sdistortionK3>%s' % (namespace_, self.gds_format_double(self.distortionK3, input_name='distortionK3'), namespace_, eol_))
+        if self.distortionT1 is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sdistortionT1>%s</%sdistortionT1>%s' % (namespace_, self.gds_format_double(self.distortionT1, input_name='distortionT1'), namespace_, eol_))
+        if self.distortionT2 is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sdistortionT2>%s</%sdistortionT2>%s' % (namespace_, self.gds_format_double(self.distortionT2, input_name='distortionT2'), namespace_, eol_))
+    def exportLiteral(self, outfile, level, name_='GazeboCameraPluginType'):
+        level += 1
+        already_processed = set()
+        self.exportLiteralAttributes(outfile, level, already_processed, name_)
+        if self.hasContent_():
+            self.exportLiteralChildren(outfile, level, name_)
+    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        super(GazeboCameraPluginType, self).exportLiteralAttributes(outfile, level, already_processed, name_)
+    def exportLiteralChildren(self, outfile, level, name_):
+        super(GazeboCameraPluginType, self).exportLiteralChildren(outfile, level, name_)
+        if self.alwaysOn is not None:
+            showIndent(outfile, level)
+            outfile.write('alwaysOn=%s,\n' % self.alwaysOn)
+        if self.updateRate is not None:
+            showIndent(outfile, level)
+            outfile.write('updateRate=%e,\n' % self.updateRate)
+        if self.cameraName is not None:
+            showIndent(outfile, level)
+            outfile.write('cameraName=%s,\n' % quote_python(self.cameraName))
+        if self.imageTopicName is not None:
+            showIndent(outfile, level)
+            outfile.write('imageTopicName=%s,\n' % quote_python(self.imageTopicName))
+        if self.cameraInfoTopicName is not None:
+            showIndent(outfile, level)
+            outfile.write('cameraInfoTopicName=%s,\n' % quote_python(self.cameraInfoTopicName))
+        if self.frameName is not None:
+            showIndent(outfile, level)
+            outfile.write('frameName=%s,\n' % quote_python(self.frameName))
+        if self.hackBaseline is not None:
+            showIndent(outfile, level)
+            outfile.write('hackBaseline=%e,\n' % self.hackBaseline)
+        if self.distortionK1 is not None:
+            showIndent(outfile, level)
+            outfile.write('distortionK1=%e,\n' % self.distortionK1)
+        if self.distortionK2 is not None:
+            showIndent(outfile, level)
+            outfile.write('distortionK2=%e,\n' % self.distortionK2)
+        if self.distortionK3 is not None:
+            showIndent(outfile, level)
+            outfile.write('distortionK3=%e,\n' % self.distortionK3)
+        if self.distortionT1 is not None:
+            showIndent(outfile, level)
+            outfile.write('distortionT1=%e,\n' % self.distortionT1)
+        if self.distortionT2 is not None:
+            showIndent(outfile, level)
+            outfile.write('distortionT2=%e,\n' % self.distortionT2)
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        super(GazeboCameraPluginType, self).buildAttributes(node, attrs, already_processed)
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'alwaysOn':
+            sval_ = child_.text
+            if sval_ in ('true', '1'):
+                ival_ = True
+            elif sval_ in ('false', '0'):
+                ival_ = False
+            else:
+                raise_parse_error(child_, 'requires boolean')
+            ival_ = self.gds_validate_boolean(ival_, node, 'alwaysOn')
+            self.alwaysOn = ival_
+        elif nodeName_ == 'updateRate':
+            sval_ = child_.text
+            try:
+                fval_ = float(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires float or double: %s' % exp)
+            fval_ = self.gds_validate_float(fval_, node, 'updateRate')
+            self.updateRate = fval_
+        elif nodeName_ == 'cameraName':
+            cameraName_ = child_.text
+            cameraName_ = self.gds_validate_string(cameraName_, node, 'cameraName')
+            self.cameraName = cameraName_
+        elif nodeName_ == 'imageTopicName':
+            imageTopicName_ = child_.text
+            imageTopicName_ = self.gds_validate_string(imageTopicName_, node, 'imageTopicName')
+            self.imageTopicName = imageTopicName_
+        elif nodeName_ == 'cameraInfoTopicName':
+            cameraInfoTopicName_ = child_.text
+            cameraInfoTopicName_ = self.gds_validate_string(cameraInfoTopicName_, node, 'cameraInfoTopicName')
+            self.cameraInfoTopicName = cameraInfoTopicName_
+        elif nodeName_ == 'frameName':
+            frameName_ = child_.text
+            frameName_ = self.gds_validate_string(frameName_, node, 'frameName')
+            self.frameName = frameName_
+        elif nodeName_ == 'hackBaseline':
+            sval_ = child_.text
+            try:
+                fval_ = float(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires float or double: %s' % exp)
+            fval_ = self.gds_validate_float(fval_, node, 'hackBaseline')
+            self.hackBaseline = fval_
+        elif nodeName_ == 'distortionK1':
+            sval_ = child_.text
+            try:
+                fval_ = float(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires float or double: %s' % exp)
+            fval_ = self.gds_validate_float(fval_, node, 'distortionK1')
+            self.distortionK1 = fval_
+        elif nodeName_ == 'distortionK2':
+            sval_ = child_.text
+            try:
+                fval_ = float(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires float or double: %s' % exp)
+            fval_ = self.gds_validate_float(fval_, node, 'distortionK2')
+            self.distortionK2 = fval_
+        elif nodeName_ == 'distortionK3':
+            sval_ = child_.text
+            try:
+                fval_ = float(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires float or double: %s' % exp)
+            fval_ = self.gds_validate_float(fval_, node, 'distortionK3')
+            self.distortionK3 = fval_
+        elif nodeName_ == 'distortionT1':
+            sval_ = child_.text
+            try:
+                fval_ = float(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires float or double: %s' % exp)
+            fval_ = self.gds_validate_float(fval_, node, 'distortionT1')
+            self.distortionT1 = fval_
+        elif nodeName_ == 'distortionT2':
+            sval_ = child_.text
+            try:
+                fval_ = float(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires float or double: %s' % exp)
+            fval_ = self.gds_validate_float(fval_, node, 'distortionT2')
+            self.distortionT2 = fval_
+        super(GazeboCameraPluginType, self).buildChildren(child_, node, nodeName_, True)
+# end class GazeboCameraPluginType
+
+
+class ImageType(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, width=None, height=None):
+        self.original_tagname_ = None
+        self.width = width
+        self.height = height
+    def factory(*args_, **kwargs_):
+        if ImageType.subclass:
+            return ImageType.subclass(*args_, **kwargs_)
+        else:
+            return ImageType(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_width(self): return self.width
+    def set_width(self, width): self.width = width
+    def get_height(self): return self.height
+    def set_height(self, height): self.height = height
+    def hasContent_(self):
+        if (
+            self.width is not None or
+            self.height is not None
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='', name_='ImageType', namespacedef_='', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='ImageType')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='', name_='ImageType', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='ImageType'):
+        pass
+    def exportChildren(self, outfile, level, namespace_='', name_='ImageType', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.width is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%swidth>%s</%swidth>%s' % (namespace_, self.gds_format_integer(self.width, input_name='width'), namespace_, eol_))
+        if self.height is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sheight>%s</%sheight>%s' % (namespace_, self.gds_format_integer(self.height, input_name='height'), namespace_, eol_))
+    def exportLiteral(self, outfile, level, name_='ImageType'):
+        level += 1
+        already_processed = set()
+        self.exportLiteralAttributes(outfile, level, already_processed, name_)
+        if self.hasContent_():
+            self.exportLiteralChildren(outfile, level, name_)
+    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        pass
+    def exportLiteralChildren(self, outfile, level, name_):
+        if self.width is not None:
+            showIndent(outfile, level)
+            outfile.write('width=%d,\n' % self.width)
+        if self.height is not None:
+            showIndent(outfile, level)
+            outfile.write('height=%d,\n' % self.height)
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        pass
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'width':
+            sval_ = child_.text
+            try:
+                ival_ = int(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires integer: %s' % exp)
+            ival_ = self.gds_validate_integer(ival_, node, 'width')
+            self.width = ival_
+        elif nodeName_ == 'height':
+            sval_ = child_.text
+            try:
+                ival_ = int(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires integer: %s' % exp)
+            ival_ = self.gds_validate_integer(ival_, node, 'height')
+            self.height = ival_
+# end class ImageType
+
+
+class ClipType(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, near=None, far=None):
+        self.original_tagname_ = None
+        self.near = near
+        self.far = far
+    def factory(*args_, **kwargs_):
+        if ClipType.subclass:
+            return ClipType.subclass(*args_, **kwargs_)
+        else:
+            return ClipType(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_near(self): return self.near
+    def set_near(self, near): self.near = near
+    def get_far(self): return self.far
+    def set_far(self, far): self.far = far
+    def hasContent_(self):
+        if (
+            self.near is not None or
+            self.far is not None
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='', name_='ClipType', namespacedef_='', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='ClipType')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='', name_='ClipType', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='ClipType'):
+        pass
+    def exportChildren(self, outfile, level, namespace_='', name_='ClipType', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.near is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%snear>%s</%snear>%s' % (namespace_, self.gds_format_double(self.near, input_name='near'), namespace_, eol_))
+        if self.far is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sfar>%s</%sfar>%s' % (namespace_, self.gds_format_double(self.far, input_name='far'), namespace_, eol_))
+    def exportLiteral(self, outfile, level, name_='ClipType'):
+        level += 1
+        already_processed = set()
+        self.exportLiteralAttributes(outfile, level, already_processed, name_)
+        if self.hasContent_():
+            self.exportLiteralChildren(outfile, level, name_)
+    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        pass
+    def exportLiteralChildren(self, outfile, level, name_):
+        if self.near is not None:
+            showIndent(outfile, level)
+            outfile.write('near=%e,\n' % self.near)
+        if self.far is not None:
+            showIndent(outfile, level)
+            outfile.write('far=%e,\n' % self.far)
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        pass
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'near':
+            sval_ = child_.text
+            try:
+                fval_ = float(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires float or double: %s' % exp)
+            fval_ = self.gds_validate_float(fval_, node, 'near')
+            self.near = fval_
+        elif nodeName_ == 'far':
+            sval_ = child_.text
+            try:
+                fval_ = float(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires float or double: %s' % exp)
+            fval_ = self.gds_validate_float(fval_, node, 'far')
+            self.far = fval_
+# end class ClipType
+
+
+class NoiseType(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, type_=None, mean=None, stddev=None):
+        self.original_tagname_ = None
+        self.type_ = type_
+        self.mean = mean
+        self.stddev = stddev
+    def factory(*args_, **kwargs_):
+        if NoiseType.subclass:
+            return NoiseType.subclass(*args_, **kwargs_)
+        else:
+            return NoiseType(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_type(self): return self.type_
+    def set_type(self, type_): self.type_ = type_
+    def get_mean(self): return self.mean
+    def set_mean(self, mean): self.mean = mean
+    def get_stddev(self): return self.stddev
+    def set_stddev(self, stddev): self.stddev = stddev
+    def hasContent_(self):
+        if (
+            self.type_ is not None or
+            self.mean is not None or
+            self.stddev is not None
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='', name_='NoiseType', namespacedef_='', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='NoiseType')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='', name_='NoiseType', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='NoiseType'):
+        pass
+    def exportChildren(self, outfile, level, namespace_='', name_='NoiseType', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.type_ is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%stype>%s</%stype>%s' % (namespace_, self.gds_format_string(quote_xml(self.type_), input_name='type'), namespace_, eol_))
+        if self.mean is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%smean>%s</%smean>%s' % (namespace_, self.gds_format_double(self.mean, input_name='mean'), namespace_, eol_))
+        if self.stddev is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%sstddev>%s</%sstddev>%s' % (namespace_, self.gds_format_double(self.stddev, input_name='stddev'), namespace_, eol_))
+    def exportLiteral(self, outfile, level, name_='NoiseType'):
+        level += 1
+        already_processed = set()
+        self.exportLiteralAttributes(outfile, level, already_processed, name_)
+        if self.hasContent_():
+            self.exportLiteralChildren(outfile, level, name_)
+    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        pass
+    def exportLiteralChildren(self, outfile, level, name_):
+        if self.type_ is not None:
+            showIndent(outfile, level)
+            outfile.write('type_=%s,\n' % quote_python(self.type_))
+        if self.mean is not None:
+            showIndent(outfile, level)
+            outfile.write('mean=%e,\n' % self.mean)
+        if self.stddev is not None:
+            showIndent(outfile, level)
+            outfile.write('stddev=%e,\n' % self.stddev)
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        pass
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'type':
+            type_ = child_.text
+            type_ = self.gds_validate_string(type_, node, 'type')
+            self.type_ = type_
+        elif nodeName_ == 'mean':
+            sval_ = child_.text
+            try:
+                fval_ = float(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires float or double: %s' % exp)
+            fval_ = self.gds_validate_float(fval_, node, 'mean')
+            self.mean = fval_
+        elif nodeName_ == 'stddev':
+            sval_ = child_.text
+            try:
+                fval_ = float(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires float or double: %s' % exp)
+            fval_ = self.gds_validate_float(fval_, node, 'stddev')
+            self.stddev = fval_
+# end class NoiseType
+
+
+class CameraType(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, name=None, horizontal_fov=None, image=None, clip=None, noise=None):
+        self.original_tagname_ = None
+        self.name = _cast(None, name)
+        self.horizontal_fov = horizontal_fov
+        self.image = image
+        self.clip = clip
+        self.noise = noise
+    def factory(*args_, **kwargs_):
+        if CameraType.subclass:
+            return CameraType.subclass(*args_, **kwargs_)
+        else:
+            return CameraType(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_horizontal_fov(self): return self.horizontal_fov
+    def set_horizontal_fov(self, horizontal_fov): self.horizontal_fov = horizontal_fov
+    def get_image(self): return self.image
+    def set_image(self, image): self.image = image
+    def get_clip(self): return self.clip
+    def set_clip(self, clip): self.clip = clip
+    def get_noise(self): return self.noise
+    def set_noise(self, noise): self.noise = noise
+    def get_name(self): return self.name
+    def set_name(self, name): self.name = name
+    def hasContent_(self):
+        if (
+            self.horizontal_fov is not None or
+            self.image is not None or
+            self.clip is not None or
+            self.noise is not None
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='', name_='CameraType', namespacedef_='', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='CameraType')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='', name_='CameraType', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='CameraType'):
+        if self.name is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
+    def exportChildren(self, outfile, level, namespace_='', name_='CameraType', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.horizontal_fov is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%shorizontal_fov>%s</%shorizontal_fov>%s' % (namespace_, self.gds_format_double(self.horizontal_fov, input_name='horizontal_fov'), namespace_, eol_))
+        if self.image is not None:
+            self.image.export(outfile, level, namespace_, name_='image', pretty_print=pretty_print)
+        if self.clip is not None:
+            self.clip.export(outfile, level, namespace_, name_='clip', pretty_print=pretty_print)
+        if self.noise is not None:
+            self.noise.export(outfile, level, namespace_, name_='noise', pretty_print=pretty_print)
+    def exportLiteral(self, outfile, level, name_='CameraType'):
+        level += 1
+        already_processed = set()
+        self.exportLiteralAttributes(outfile, level, already_processed, name_)
+        if self.hasContent_():
+            self.exportLiteralChildren(outfile, level, name_)
+    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        if self.name is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            showIndent(outfile, level)
+            outfile.write('name="%s",\n' % (self.name,))
+    def exportLiteralChildren(self, outfile, level, name_):
+        if self.horizontal_fov is not None:
+            showIndent(outfile, level)
+            outfile.write('horizontal_fov=%e,\n' % self.horizontal_fov)
+        if self.image is not None:
+            showIndent(outfile, level)
+            outfile.write('image=model_.ImageType(\n')
+            self.image.exportLiteral(outfile, level, name_='image')
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.clip is not None:
+            showIndent(outfile, level)
+            outfile.write('clip=model_.ClipType(\n')
+            self.clip.exportLiteral(outfile, level, name_='clip')
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.noise is not None:
+            showIndent(outfile, level)
+            outfile.write('noise=model_.NoiseType(\n')
+            self.noise.exportLiteral(outfile, level, name_='noise')
+            showIndent(outfile, level)
+            outfile.write('),\n')
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('name', node)
+        if value is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            self.name = value
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'horizontal_fov':
+            sval_ = child_.text
+            try:
+                fval_ = float(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires float or double: %s' % exp)
+            fval_ = self.gds_validate_float(fval_, node, 'horizontal_fov')
+            self.horizontal_fov = fval_
+        elif nodeName_ == 'image':
+            obj_ = ImageType.factory()
+            obj_.build(child_)
+            self.image = obj_
+            obj_.original_tagname_ = 'image'
+        elif nodeName_ == 'clip':
+            obj_ = ClipType.factory()
+            obj_.build(child_)
+            self.clip = obj_
+            obj_.original_tagname_ = 'clip'
+        elif nodeName_ == 'noise':
+            obj_ = NoiseType.factory()
+            obj_.build(child_)
+            self.noise = obj_
+            obj_.original_tagname_ = 'noise'
+# end class CameraType
+
+
+class GazeboSensorBaseType(GeneratedsSuper):
+    subclass = None
+    superclass = None
+    def __init__(self, type_=None, name=None, pose='0 0 0 0 0 0', update_rate=0, extensiontype_=None):
+        self.original_tagname_ = None
+        self.type_ = _cast(None, type_)
+        self.name = _cast(None, name)
+        self.pose = pose
+        self.update_rate = update_rate
+        self.extensiontype_ = extensiontype_
+    def factory(*args_, **kwargs_):
+        if GazeboSensorBaseType.subclass:
+            return GazeboSensorBaseType.subclass(*args_, **kwargs_)
+        else:
+            return GazeboSensorBaseType(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_pose(self): return self.pose
+    def set_pose(self, pose): self.pose = pose
+    def get_update_rate(self): return self.update_rate
+    def set_update_rate(self, update_rate): self.update_rate = update_rate
+    def get_type(self): return self.type_
+    def set_type(self, type_): self.type_ = type_
+    def get_name(self): return self.name
+    def set_name(self, name): self.name = name
+    def get_extensiontype_(self): return self.extensiontype_
+    def set_extensiontype_(self, extensiontype_): self.extensiontype_ = extensiontype_
+    def hasContent_(self):
+        if (
+            self.pose is not None or
+            self.update_rate is not None
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='', name_='GazeboSensorBaseType', namespacedef_='', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='GazeboSensorBaseType')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='', name_='GazeboSensorBaseType', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='GazeboSensorBaseType'):
+        if self.type_ is not None and 'type_' not in already_processed:
+            already_processed.add('type_')
+            outfile.write(' type=%s' % (self.gds_format_string(quote_attrib(self.type_), input_name='type'), ))
+        if self.name is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
+        if self.extensiontype_ is not None and 'xsi:type' not in already_processed:
+            already_processed.add('xsi:type')
+            outfile.write(' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"')
+            outfile.write(' xsi:type="%s"' % self.extensiontype_)
+    def exportChildren(self, outfile, level, namespace_='', name_='GazeboSensorBaseType', fromsubclass_=False, pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.pose is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%spose>%s</%spose>%s' % (namespace_, self.gds_format_string(quote_xml(self.pose), input_name='pose'), namespace_, eol_))
+        if self.update_rate is not None:
+            showIndent(outfile, level, pretty_print)
+            outfile.write('<%supdate_rate>%s</%supdate_rate>%s' % (namespace_, self.gds_format_double(self.update_rate, input_name='update_rate'), namespace_, eol_))
+    def exportLiteral(self, outfile, level, name_='GazeboSensorBaseType'):
+        level += 1
+        already_processed = set()
+        self.exportLiteralAttributes(outfile, level, already_processed, name_)
+        if self.hasContent_():
+            self.exportLiteralChildren(outfile, level, name_)
+    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        if self.type_ is not None and 'type_' not in already_processed:
+            already_processed.add('type_')
+            showIndent(outfile, level)
+            outfile.write('type_="%s",\n' % (self.type_,))
+        if self.name is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            showIndent(outfile, level)
+            outfile.write('name="%s",\n' % (self.name,))
+    def exportLiteralChildren(self, outfile, level, name_):
+        if self.pose is not None:
+            showIndent(outfile, level)
+            outfile.write('pose=%s,\n' % quote_python(self.pose))
+        if self.update_rate is not None:
+            showIndent(outfile, level)
+            outfile.write('update_rate=%e,\n' % self.update_rate)
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        value = find_attr_value_('type', node)
+        if value is not None and 'type' not in already_processed:
+            already_processed.add('type')
+            self.type_ = value
+        value = find_attr_value_('name', node)
+        if value is not None and 'name' not in already_processed:
+            already_processed.add('name')
+            self.name = value
+        value = find_attr_value_('xsi:type', node)
+        if value is not None and 'xsi:type' not in already_processed:
+            already_processed.add('xsi:type')
+            self.extensiontype_ = value
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'pose':
+            pose_ = child_.text
+            pose_ = self.gds_validate_string(pose_, node, 'pose')
+            self.pose = pose_
+        elif nodeName_ == 'update_rate':
+            sval_ = child_.text
+            try:
+                fval_ = float(sval_)
+            except (TypeError, ValueError) as exp:
+                raise_parse_error(child_, 'requires float or double: %s' % exp)
+            fval_ = self.gds_validate_float(fval_, node, 'update_rate')
+            self.update_rate = fval_
+# end class GazeboSensorBaseType
+
+
+class GazeboSensorType(GazeboSensorBaseType):
+    subclass = None
+    superclass = GazeboSensorBaseType
+    def __init__(self, type_=None, name=None, pose='0 0 0 0 0 0', update_rate=0, camera=None, plugin=None):
+        self.original_tagname_ = None
+        super(GazeboSensorType, self).__init__(type_, name, pose, update_rate, )
+        self.camera = camera
+        self.plugin = plugin
+    def factory(*args_, **kwargs_):
+        if GazeboSensorType.subclass:
+            return GazeboSensorType.subclass(*args_, **kwargs_)
+        else:
+            return GazeboSensorType(*args_, **kwargs_)
+    factory = staticmethod(factory)
+    def get_camera(self): return self.camera
+    def set_camera(self, camera): self.camera = camera
+    def get_plugin(self): return self.plugin
+    def set_plugin(self, plugin): self.plugin = plugin
+    def hasContent_(self):
+        if (
+            self.camera is not None or
+            self.plugin is not None or
+            super(GazeboSensorType, self).hasContent_()
+        ):
+            return True
+        else:
+            return False
+    def export(self, outfile, level, namespace_='', name_='GazeboSensorType', namespacedef_='', pretty_print=True):
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.original_tagname_ is not None:
+            name_ = self.original_tagname_
+        showIndent(outfile, level, pretty_print)
+        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
+        already_processed = set()
+        self.exportAttributes(outfile, level, already_processed, namespace_, name_='GazeboSensorType')
+        if self.hasContent_():
+            outfile.write('>%s' % (eol_, ))
+            self.exportChildren(outfile, level + 1, namespace_='', name_='GazeboSensorType', pretty_print=pretty_print)
+            showIndent(outfile, level, pretty_print)
+            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
+        else:
+            outfile.write('/>%s' % (eol_, ))
+    def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='GazeboSensorType'):
+        super(GazeboSensorType, self).exportAttributes(outfile, level, already_processed, namespace_, name_='GazeboSensorType')
+    def exportChildren(self, outfile, level, namespace_='', name_='GazeboSensorType', fromsubclass_=False, pretty_print=True):
+        super(GazeboSensorType, self).exportChildren(outfile, level, namespace_, name_, True, pretty_print=pretty_print)
+        if pretty_print:
+            eol_ = '\n'
+        else:
+            eol_ = ''
+        if self.camera is not None:
+            self.camera.export(outfile, level, namespace_, name_='camera', pretty_print=pretty_print)
+        if self.plugin is not None:
+            self.plugin.export(outfile, level, namespace_, name_='plugin', pretty_print=pretty_print)
+    def exportLiteral(self, outfile, level, name_='GazeboSensorType'):
+        level += 1
+        already_processed = set()
+        self.exportLiteralAttributes(outfile, level, already_processed, name_)
+        if self.hasContent_():
+            self.exportLiteralChildren(outfile, level, name_)
+    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
+        super(GazeboSensorType, self).exportLiteralAttributes(outfile, level, already_processed, name_)
+    def exportLiteralChildren(self, outfile, level, name_):
+        super(GazeboSensorType, self).exportLiteralChildren(outfile, level, name_)
+        if self.camera is not None:
+            showIndent(outfile, level)
+            outfile.write('camera=model_.CameraType(\n')
+            self.camera.exportLiteral(outfile, level, name_='camera')
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.plugin is not None:
+            showIndent(outfile, level)
+            outfile.write('plugin=model_.GazeboCameraPluginType(\n')
+            self.plugin.exportLiteral(outfile, level, name_='plugin')
+            showIndent(outfile, level)
+            outfile.write('),\n')
+    def build(self, node):
+        already_processed = set()
+        self.buildAttributes(node, node.attrib, already_processed)
+        for child in node:
+            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
+            self.buildChildren(child, node, nodeName_)
+        return self
+    def buildAttributes(self, node, attrs, already_processed):
+        super(GazeboSensorType, self).buildAttributes(node, attrs, already_processed)
+    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
+        if nodeName_ == 'camera':
+            obj_ = CameraType.factory()
+            obj_.build(child_)
+            self.camera = obj_
+            obj_.original_tagname_ = 'camera'
+        elif nodeName_ == 'plugin':
+            obj_ = GazeboCameraPluginType.factory()
+            obj_.build(child_)
+            self.plugin = obj_
+            obj_.original_tagname_ = 'plugin'
+        super(GazeboSensorType, self).buildChildren(child_, node, nodeName_, True)
+# end class GazeboSensorType
+
+
 class GazeboMaterialType(GeneratedsSuper):
     subclass = None
     superclass = None
@@ -3839,154 +4999,14 @@ class GazeboMaterialType(GeneratedsSuper):
 # end class GazeboMaterialType
 
 
-class GazeboPluginType(GeneratedsSuper):
-    subclass = None
-    superclass = None
-    def __init__(self, name=None, filename=None, robotNamespace=None, robotSimType=None):
-        self.original_tagname_ = None
-        self.name = _cast(None, name)
-        self.filename = _cast(None, filename)
-        if robotNamespace is None:
-            self.robotNamespace = []
-        else:
-            self.robotNamespace = robotNamespace
-        if robotSimType is None:
-            self.robotSimType = []
-        else:
-            self.robotSimType = robotSimType
-    def factory(*args_, **kwargs_):
-        if GazeboPluginType.subclass:
-            return GazeboPluginType.subclass(*args_, **kwargs_)
-        else:
-            return GazeboPluginType(*args_, **kwargs_)
-    factory = staticmethod(factory)
-    def get_robotNamespace(self): return self.robotNamespace
-    def set_robotNamespace(self, robotNamespace): self.robotNamespace = robotNamespace
-    def add_robotNamespace(self, value): self.robotNamespace.append(value)
-    def insert_robotNamespace_at(self, index, value): self.robotNamespace.insert(index, value)
-    def replace_robotNamespace_at(self, index, value): self.robotNamespace[index] = value
-    def get_robotSimType(self): return self.robotSimType
-    def set_robotSimType(self, robotSimType): self.robotSimType = robotSimType
-    def add_robotSimType(self, value): self.robotSimType.append(value)
-    def insert_robotSimType_at(self, index, value): self.robotSimType.insert(index, value)
-    def replace_robotSimType_at(self, index, value): self.robotSimType[index] = value
-    def get_name(self): return self.name
-    def set_name(self, name): self.name = name
-    def get_filename(self): return self.filename
-    def set_filename(self, filename): self.filename = filename
-    def hasContent_(self):
-        if (
-            self.robotNamespace or
-            self.robotSimType
-        ):
-            return True
-        else:
-            return False
-    def export(self, outfile, level, namespace_='', name_='GazeboPluginType', namespacedef_='', pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        if self.original_tagname_ is not None:
-            name_ = self.original_tagname_
-        showIndent(outfile, level, pretty_print)
-        outfile.write('<%s%s%s' % (namespace_, name_, namespacedef_ and ' ' + namespacedef_ or '', ))
-        already_processed = set()
-        self.exportAttributes(outfile, level, already_processed, namespace_, name_='GazeboPluginType')
-        if self.hasContent_():
-            outfile.write('>%s' % (eol_, ))
-            self.exportChildren(outfile, level + 1, namespace_='', name_='GazeboPluginType', pretty_print=pretty_print)
-            showIndent(outfile, level, pretty_print)
-            outfile.write('</%s%s>%s' % (namespace_, name_, eol_))
-        else:
-            outfile.write('/>%s' % (eol_, ))
-    def exportAttributes(self, outfile, level, already_processed, namespace_='', name_='GazeboPluginType'):
-        if self.name is not None and 'name' not in already_processed:
-            already_processed.add('name')
-            outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
-        if self.filename is not None and 'filename' not in already_processed:
-            already_processed.add('filename')
-            outfile.write(' filename=%s' % (self.gds_format_string(quote_attrib(self.filename), input_name='filename'), ))
-    def exportChildren(self, outfile, level, namespace_='', name_='GazeboPluginType', fromsubclass_=False, pretty_print=True):
-        if pretty_print:
-            eol_ = '\n'
-        else:
-            eol_ = ''
-        for robotNamespace_ in self.robotNamespace:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%srobotNamespace>%s</%srobotNamespace>%s' % (namespace_, self.gds_format_string(quote_xml(robotNamespace_), input_name='robotNamespace'), namespace_, eol_))
-        for robotSimType_ in self.robotSimType:
-            showIndent(outfile, level, pretty_print)
-            outfile.write('<%srobotSimType>%s</%srobotSimType>%s' % (namespace_, self.gds_format_string(quote_xml(robotSimType_), input_name='robotSimType'), namespace_, eol_))
-    def exportLiteral(self, outfile, level, name_='GazeboPluginType'):
-        level += 1
-        already_processed = set()
-        self.exportLiteralAttributes(outfile, level, already_processed, name_)
-        if self.hasContent_():
-            self.exportLiteralChildren(outfile, level, name_)
-    def exportLiteralAttributes(self, outfile, level, already_processed, name_):
-        if self.name is not None and 'name' not in already_processed:
-            already_processed.add('name')
-            showIndent(outfile, level)
-            outfile.write('name="%s",\n' % (self.name,))
-        if self.filename is not None and 'filename' not in already_processed:
-            already_processed.add('filename')
-            showIndent(outfile, level)
-            outfile.write('filename="%s",\n' % (self.filename,))
-    def exportLiteralChildren(self, outfile, level, name_):
-        showIndent(outfile, level)
-        outfile.write('robotNamespace=[\n')
-        level += 1
-        for robotNamespace_ in self.robotNamespace:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(robotNamespace_))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
-        showIndent(outfile, level)
-        outfile.write('robotSimType=[\n')
-        level += 1
-        for robotSimType_ in self.robotSimType:
-            showIndent(outfile, level)
-            outfile.write('%s,\n' % quote_python(robotSimType_))
-        level -= 1
-        showIndent(outfile, level)
-        outfile.write('],\n')
-    def build(self, node):
-        already_processed = set()
-        self.buildAttributes(node, node.attrib, already_processed)
-        for child in node:
-            nodeName_ = Tag_pattern_.match(child.tag).groups()[-1]
-            self.buildChildren(child, node, nodeName_)
-        return self
-    def buildAttributes(self, node, attrs, already_processed):
-        value = find_attr_value_('name', node)
-        if value is not None and 'name' not in already_processed:
-            already_processed.add('name')
-            self.name = value
-        value = find_attr_value_('filename', node)
-        if value is not None and 'filename' not in already_processed:
-            already_processed.add('filename')
-            self.filename = value
-    def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
-        if nodeName_ == 'robotNamespace':
-            robotNamespace_ = child_.text
-            robotNamespace_ = self.gds_validate_string(robotNamespace_, node, 'robotNamespace')
-            self.robotNamespace.append(robotNamespace_)
-        elif nodeName_ == 'robotSimType':
-            robotSimType_ = child_.text
-            robotSimType_ = self.gds_validate_string(robotSimType_, node, 'robotSimType')
-            self.robotSimType.append(robotSimType_)
-# end class GazeboPluginType
-
-
 class GazeboType(GeneratedsSuper):
     subclass = None
     superclass = None
-    def __init__(self, reference=None, plugin=None, material=None, turnGravityOff=None, selfCollide=None):
+    def __init__(self, reference=None, plugin=None, sensor=None, material=None, turnGravityOff=None, selfCollide=None):
         self.original_tagname_ = None
         self.reference = _cast(None, reference)
         self.plugin = plugin
+        self.sensor = sensor
         self.material = material
         self.turnGravityOff = turnGravityOff
         self.selfCollide = selfCollide
@@ -3998,6 +5018,8 @@ class GazeboType(GeneratedsSuper):
     factory = staticmethod(factory)
     def get_plugin(self): return self.plugin
     def set_plugin(self, plugin): self.plugin = plugin
+    def get_sensor(self): return self.sensor
+    def set_sensor(self, sensor): self.sensor = sensor
     def get_material(self): return self.material
     def set_material(self, material): self.material = material
     def get_turnGravityOff(self): return self.turnGravityOff
@@ -4009,6 +5031,7 @@ class GazeboType(GeneratedsSuper):
     def hasContent_(self):
         if (
             self.plugin is not None or
+            self.sensor is not None or
             self.material is not None or
             self.turnGravityOff is not None or
             self.selfCollide is not None
@@ -4045,6 +5068,8 @@ class GazeboType(GeneratedsSuper):
             eol_ = ''
         if self.plugin is not None:
             self.plugin.export(outfile, level, namespace_, name_='plugin', pretty_print=pretty_print)
+        if self.sensor is not None:
+            self.sensor.export(outfile, level, namespace_, name_='sensor', pretty_print=pretty_print)
         if self.material is not None:
             self.material.export(outfile, level, namespace_, name_='material', pretty_print=pretty_print)
         if self.turnGravityOff is not None:
@@ -4067,8 +5092,14 @@ class GazeboType(GeneratedsSuper):
     def exportLiteralChildren(self, outfile, level, name_):
         if self.plugin is not None:
             showIndent(outfile, level)
-            outfile.write('plugin=model_.GazeboPluginType(\n')
+            outfile.write('plugin=model_.GazeboROSPluginType(\n')
             self.plugin.exportLiteral(outfile, level, name_='plugin')
+            showIndent(outfile, level)
+            outfile.write('),\n')
+        if self.sensor is not None:
+            showIndent(outfile, level)
+            outfile.write('sensor=model_.GazeboSensorType(\n')
+            self.sensor.exportLiteral(outfile, level, name_='sensor')
             showIndent(outfile, level)
             outfile.write('),\n')
         if self.material is not None:
@@ -4097,10 +5128,15 @@ class GazeboType(GeneratedsSuper):
             self.reference = value
     def buildChildren(self, child_, node, nodeName_, fromsubclass_=False):
         if nodeName_ == 'plugin':
-            obj_ = GazeboPluginType.factory()
+            obj_ = GazeboROSPluginType.factory()
             obj_.build(child_)
             self.plugin = obj_
             obj_.original_tagname_ = 'plugin'
+        elif nodeName_ == 'sensor':
+            obj_ = GazeboSensorType.factory()
+            obj_.build(child_)
+            self.sensor = obj_
+            obj_.original_tagname_ = 'sensor'
         elif nodeName_ == 'material':
             obj_ = GazeboMaterialType.factory()
             obj_.build(child_)
@@ -4225,7 +5261,7 @@ class RobotType(GeneratedsSuper):
             already_processed.add('version')
             outfile.write(' version=%s' % (self.gds_format_string(quote_attrib(self.version), input_name='version'), ))
         if self.name is not None and 'name' not in already_processed:
-            already_processed.add('name')
+            already_processe.add('name')
             outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='RobotType', fromsubclass_=False, pretty_print=True):
         if pretty_print:
@@ -4367,7 +5403,9 @@ GDSClassesMapping = {
     'origin': PoseType,
     'cylinder': CylinderType,
     'verbose': VerboseType,
+    'clip': ClipType,
     'color': ColorType,
+    'image': ImageType,
     'safety_controller': SafetyControllerType,
     'collision': CollisionType,
     'dynamics': DynamicsType,
@@ -4375,8 +5413,10 @@ GDSClassesMapping = {
     'calibration': CalibrationType,
     'actuator': ActuatorTransmissionType,
     'texture': TextureType,
+    'camera': CameraType,
     'limit': LimitType,
-    'gazebo': GazeboType,
+    'sensor': GazeboSensorType,
+    'noise': NoiseType,
     'parent': ParentType,
     'material': MaterialType,
     'joint': JointType,
@@ -4389,8 +5429,9 @@ GDSClassesMapping = {
     'contact_coefficients': ContactType,
     'sphere': SphereType,
     'geometry': GeometryType,
+    'gazebo': GazeboType,
     'inertial': InertialType,
-    'plugin': GazeboPluginType,
+    'plugin': GazeboROSPluginType,
     'robot': RobotType,
     'transmission': TransmissionType,
     'mimic': MimicType,
@@ -4517,16 +5558,23 @@ __all__ = [
     "AxisType",
     "BoxType",
     "CalibrationType",
+    "CameraType",
     "ChildType",
+    "ClipType",
     "CollisionType",
     "ColorType",
     "ContactType",
     "CylinderType",
     "DynamicsType",
+    "GazeboCameraPluginType",
     "GazeboMaterialType",
-    "GazeboPluginType",
+    "GazeboPluginBaseType",
+    "GazeboROSPluginType",
+    "GazeboSensorBaseType",
+    "GazeboSensorType",
     "GazeboType",
     "GeometryType",
+    "ImageType",
     "InertiaType",
     "InertialType",
     "JointTransmissionType",
@@ -4537,6 +5585,7 @@ __all__ = [
     "MaterialType",
     "MeshType",
     "MimicType",
+    "NoiseType",
     "ParentType",
     "PoseType",
     "RobotType",

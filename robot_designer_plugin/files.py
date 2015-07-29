@@ -1,9 +1,10 @@
 import bpy
-from mathutils import *
+from mathutils import Euler, Matrix, Quaternion, Vector
+from bpy.props import StringProperty
+
 from math import *
 from . import collada as c, fix, armatures
 
-from bpy.props import StringProperty
 import xml.etree.cElementTree as etree
 
 try:

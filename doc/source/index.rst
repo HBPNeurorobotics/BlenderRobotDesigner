@@ -3,18 +3,33 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+The NRP RobotDesigner
+=====================
+
 Welcome to NRP RobotDesigner's documentation!
-=============================================
+---------------------------------------------
 
-Contents:
+This is the documentation of the RobotDesigner belonging to the *Neurorobotics Platform (NRP)* of the
+`Human Brain Project (HBP) <https://www.humanbrainproject.eu>`_ developed in the
+`sub-project SP-10 Neurorobotics <http://neurorobotics.net/>`_.
+It is realized as a plugin for the `Blender 3D modeling suite <http://blender.org>`_ written in the Python language.
+This document provides information about the plugin, its installation, its features and usage, as well as the
+programming reference for developers.
 
+Contents
+--------
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
+
+    about
+    installation
+    usage
+    modules
 
 
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`

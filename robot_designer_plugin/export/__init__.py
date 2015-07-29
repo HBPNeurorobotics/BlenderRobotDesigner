@@ -8,5 +8,6 @@ __author__ = 'ulbrich'
 
 from . import urdf
 
+# draft for creating a plugin mechanism
 plugins = [('urdf', 'URDF', '.urdf', True, True), ('sdf', 'SDF', '.sdf', True, True),
            ('simox', 'SIMOX XML', '.xml', True, False), ('collada', 'COLLADA v1.5', '.dae', False, True)]

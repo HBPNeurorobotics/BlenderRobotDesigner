@@ -6,6 +6,9 @@ __author__ = 'Stefan Ulbrich'
 import sys
 
 from . import urdf_dom
+import logging
+logger = logging.getLogger('URFD')
+logger.setLevel(logging.DEBUG)
 
 def set_value(l):
     """
@@ -71,18 +74,22 @@ class URDFTree(object):
                        link.name == joint.child.link]
         root_links = [link for link in robot.link if link.name not in child_links]
 
+        logger.debug("Root links: %s", [i.name for i in root_links])
+        logger.debug("connected links: %s", {j.name: l.name for j, l in connected_links.items()})
 
         kinematic_chains = []
 
+        # Skips the basis links
         for link in root_links:
-            tree = URDFTree(connected_links=connected_links, connected_joints=connected_joints, robot=robot)
-            kinematic_chains.append(tree)
             for joint in connected_joints[link]:
+                tree = URDFTree(connected_links=connected_links, connected_joints=connected_joints, robot=robot)
+                kinematic_chains.append(tree)
                 tree.build(connected_links[joint], joint)
 
+        logger.debug("kinematic chains: %s", kinematic_chains)
         return robot.name, root_links, kinematic_chains
 
-    def build(self, link, joint=None):
+    def build(self, link, joint=None,depth=0):
         """
         Recursive function that builds up the tree representation of the robot. You do not have to call it manually (
         Called by parse).
@@ -95,10 +102,12 @@ class URDFTree(object):
         self.set_defaults()
 
         children = self.connectedJoints[link]
+        logger.debug("%s %s, %s -> %s", '-'*depth, joint.name, link.name, [i.name for i in children])
+
         for joint in children:
             tree = URDFTree(connected_links=self.connectedLinks, connected_joints=self.connectedJoints, robot=self.robot)
             self.children.append(tree)
-            tree.build(self.connectedLinks[joint], joint)
+            tree.build(self.connectedLinks[joint], joint, depth+1)
 
     @staticmethod
     def create_empty(name):

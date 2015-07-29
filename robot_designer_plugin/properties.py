@@ -1,8 +1,9 @@
-from math import radians
-
+# Blender-specific imports (catch exception for sphinx documentation)
 import bpy
-from bpy.props import *
 from mathutils import Euler, Matrix
+from bpy.props import *
+
+from math import radians
 from . import armatures
 
 

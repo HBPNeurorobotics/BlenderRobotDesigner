@@ -1,3 +1,4 @@
+# Blender-specific imports (catch exception for sphinx documentation)
 import bpy
 from bpy.props import *
 

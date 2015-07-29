@@ -17,14 +17,17 @@
 # ##### END GPL LICENSE BLOCK #####
 
 bl_info = {
-    "name": "RobotEditor",
+    "name": "NRP Robot Designer",
     "author": "Stefan Ulbrich, Michael Bechtel",
-    "version": (0, 3),
+    "version": (0, 1),
     "blender": (2, 69, 0),
     "location": "View3D > Tools",
     "category": "Editor"}
 
 import bpy
+
+import logging
+logging.basicConfig(format='[%(levelname)s|%(name)s|%(funcName)s|%(filename)s:%(lineno)03d] %(message)s')
 
 
 def register():

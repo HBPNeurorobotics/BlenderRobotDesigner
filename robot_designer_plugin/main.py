@@ -1,4 +1,7 @@
+# Blender-specific imports (catch exception for sphinx documentation)
 import bpy
+from bpy.props import *
+
 from . import armatures, bones, meshes, markers, physics, files, controllers
 
 
@@ -19,7 +22,7 @@ class RobotEditor_printTransformations(bpy.types.Operator):
 
 
 class RobotEditor_UserInterface(bpy.types.Panel):
-    bl_label = "RobotEditor"
+    bl_label = "NRP Robot Designer"
     bl_space_type = "VIEW_3D"
     bl_region_type = "TOOLS"
 

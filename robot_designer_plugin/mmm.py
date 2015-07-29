@@ -1,5 +1,6 @@
 import bpy
-from mathutils import Euler, Vector
+from mathutils import Euler, Matrix, Quaternion, Vector
+
 from math import pi
 import xml.etree.cElementTree as etree
 import itertools

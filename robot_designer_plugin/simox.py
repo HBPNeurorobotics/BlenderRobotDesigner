@@ -1,7 +1,6 @@
+
 import xml.etree.cElementTree as etree
 
-from mathutils import *
-from math import *
 from pprint import pprint
 
 

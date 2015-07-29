@@ -1,6 +1,7 @@
+# Blender-specific imports (catch exception for sphinx documentation)
 import bpy
+from mathutils import Euler, Matrix, Quaternion, Vector
 from bpy.props import *
-import mathutils
 
 
 # operator to create physics frame
@@ -78,7 +79,7 @@ class RobotEditor_assignPhysicsFrame(bpy.types.Operator):
         if bpy.context.active_bone.parent:
             to_parent_matrix = bpy.context.active_bone.parent.matrix_local
         else:
-            to_parent_matrix = mathutils.Matrix()
+            to_parent_matrix = Matrix()
         from_parent_matrix, bone_matrix = bpy.context.active_bone.RobotEditor.getTransform()
         armature_matrix = bpy.context.active_object.matrix_basis
 

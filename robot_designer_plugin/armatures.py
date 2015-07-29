@@ -1,8 +1,7 @@
 import math
 
 import bpy
-import mathutils
-from bpy.props import *
+from bpy.props import StringProperty
 
 
 # creates a new armature, new_name is the name of the new armature
