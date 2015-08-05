@@ -1,6 +1,7 @@
 import math
 
 import bpy
+import mathutils
 from bpy.props import StringProperty
 
 
