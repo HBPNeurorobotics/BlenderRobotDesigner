@@ -228,20 +228,42 @@
 
   <!-- ################################# gazebo specific definitions ################################ -->
 
+  <!-- enum for controller types -->
+  <xs:simpleType name="ControllerEnumType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="position"/>
+      <xs:enumeration value="velocity"/>
+    </xs:restriction>
+  </xs:simpleType>
+
   <!-- gazebo plugin node type -->
   <xs:complexType name="GazeboPluginBaseType">
     <xs:attribute name="filename" type="xs:string" />
     <xs:attribute name="name"     type="xs:string" />
   </xs:complexType>
 
-  <!-- gazebo plugin node type -->
-  <xs:complexType name="GazeboROSPluginType">
+  <!-- gazebo controler type -->
+  <xs:complexType name="GenericControllerPluginDefType">
+    <xs:sequence>
+      <xs:element name="type" type="ControllerEnumType" minOccurs="1" maxOccurs="1" />
+      <xs:element name="pid" type="xs:string" default="0 0 0" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="joint_name" type="xs:string" />
+  </xs:complexType>
+
+  <!-- gazebo plugin type -->
+  <xs:complexType name="GazeboPluginType">
     <xs:complexContent>
       <xs:extension base="GazeboPluginBaseType">
-        <xs:sequence>
-          <xs:element name="robotNamespace" type="xs:string" minOccurs="0" maxOccurs="1" />
-          <xs:element name="robotSimType"   type="xs:string" minOccurs="0" maxOccurs="1" />
-        </xs:sequence>
+        <xs:choice>
+          <xs:sequence>
+            <xs:element name="robotNamespace" type="xs:string" minOccurs="0" maxOccurs="1" />
+            <xs:element name="robotSimType"   type="xs:string" minOccurs="0" maxOccurs="1" />
+          </xs:sequence>
+          <xs:sequence>
+            <xs:element name="controller" type="GenericControllerPluginDefType" minOccurs="0" maxOccurs="unbounded" />
+          </xs:sequence>
+        </xs:choice>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -335,7 +357,7 @@
   <!-- gazebo base type -->
   <xs:complexType name="GazeboType">
     <xs:all>
-      <xs:element name="plugin"         type="GazeboROSPluginType" minOccurs="0" maxOccurs="1" />
+      <xs:element name="plugin"         type="GazeboPluginType" minOccurs="0" maxOccurs="1" />
       <xs:element name="sensor"         type="GazeboSensorType"    minOccurs="0" maxOccurs="1" />
       <xs:element name="material"       type="GazeboMaterialType"  minOccurs="0" maxOccurs="1" />
       <xs:element name="turnGravityOff" type="xs:boolean"          minOccurs="0" maxOccurs="1" />
