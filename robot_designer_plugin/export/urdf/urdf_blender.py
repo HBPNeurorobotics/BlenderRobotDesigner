@@ -63,6 +63,30 @@ def import_(file_name):
         return Matrix.Translation(Vector(string_to_list(visual.origin.xyz))) * \
                Euler(string_to_list(visual.origin.rpy), 'XYZ').to_matrix().to_4x4()
 
+    def import_geometry(collision):
+        """
+        Adds a geometry to the blender scene. Uses the file_name variable of the parenting context
+        :param collision: A urdf_dom.collision object.
+        :return: Returns the transformation in the origin element (a 4x4 blender matrix).
+        """
+        file = os.path.join(os.path.dirname(file_name),
+                            collision.geometry.mesh.filename.replace("package://", "").replace(
+                                "file://", "").replace("model://", ""))
+
+        logger.debug("Import %s, exists: %s", file, os.path.exists(file))
+        fn, extension = os.path.splitext(file)
+        if extension == ".stl":
+            bpy.ops.import_mesh.stl(filepath=file)
+        elif extension == ".dae":
+            bpy.ops.wm.collada_import(filepath=file, import_units=True)
+            # bpy.context.active_object.matrix_world = Matrix()
+
+        # store origin in a transformation matrix
+        # bpy.context.active_object.location = Vector(string_to_list(get_value(visual.origin.xyz, '0 0 0')))
+        # bpy.context.active_object.rotation_euler = Euler(string_to_list(visual.origin.rpy), 'XYZ')
+        return Matrix.Translation(Vector(string_to_list(collision.origin.xyz))) * \
+               Euler(string_to_list(collision.origin.rpy), 'XYZ').to_matrix().to_4x4()
+
     def parse(tree, parent_name=None):
 
         armatures.createBone(armature_name, tree.joint.name, parent_name)
@@ -136,7 +160,7 @@ def import_(file_name):
             if visual.geometry.mesh is not None:
 
                 trafo = import_geometry(visual)
-                logger.debug("Trafo: \n%s",trafo)
+                logger.debug("Trafo: \n%s", trafo)
                 # URDF (the import in ROS) exhibits a strange behavior:
                 # If there is a transformation preceding the mesh in a .dae file, only the scale is
                 # extracted and the rest is omitted. Therefore, we store the scale after import and
@@ -160,16 +184,16 @@ def import_(file_name):
                         [[s1[0] * s2[0], 0, 0, 0], [0, s1[1] * s2[1], 0, 0], [0, 0, s1[2] * s2[2], 0], [0, 0, 0, 1]])
 
                     # if the loop continues the name will be suffixed by a number
-                    #bpy.context.active_object.name = tree.link.name
+                    # bpy.context.active_object.name = tree.link.name
                     assigned_name = bpy.context.active_object.name
 
-                    #bpy.context.active_object.matrix_world = bone_transformation * trafo * scale
+                    # bpy.context.active_object.matrix_world = bone_transformation * trafo * scale
                     bpy.context.active_object.matrix_world = bone_transformation * trafo * \
                                                              bpy.context.active_object.matrix_world
 
                     # connect the meshes
 
-                    logger.debug("Scale: %s,%s, Matrix world: \n%s", s1,s2,bpy.context.active_object.matrix_world)
+                    logger.debug("Scale: %s,%s, Matrix world: \n%s", s1, s2, bpy.context.active_object.matrix_world)
                     logger.debug("Scale: \n%s", scale)
                     logger.debug("Connecting %s,%s,%s -> %s,%s", visual.geometry.mesh.filename,
                                  bpy.context.active_object.name, object_name, armature_name, bone_name)
@@ -181,9 +205,55 @@ def import_(file_name):
             else:
                 # todo debug message or throw exception if it is a primitive -- better create mesh from primitive
                 pass
-        # todo process collision meshes
+
         for collision in tree.link.collision:
-            pass
+            if collision.geometry.mesh is not None:
+
+                # trafo = import_geometry(collision)
+                # logger.debug("Trafo: \n%s", trafo)
+                # URDF (the import in ROS) exhibits a strange behavior:
+                # If there is a transformation preceding the mesh in a .dae file, only the scale is
+                # extracted and the rest is omitted. Therefore, we store the scale after import and
+                # multiply it to the scale given in the xml attribute.
+
+                s1 = string_to_list(collision.geometry.mesh.scale)
+
+                # if there are several objects in the COLLADA file:
+                selected_objects = [i.name for i in bpy.context.selected_objects]
+                for object_name in selected_objects:
+                    bpy.context.scene.objects.active = bpy.data.objects[object_name]
+                    bpy.ops.object.parent_clear(type="CLEAR_KEEP_TRANSFORM")
+                for object_name in selected_objects:
+                    # Select the object (and deselect others)
+                    bpy.ops.object.select_all(False)
+                    bpy.context.scene.objects.active = bpy.data.objects[object_name]
+                    bpy.context.active_object.select = True
+
+                    s2 = bpy.context.active_object.scale
+                    scale = Matrix(
+                        [[s1[0] * s2[0], 0, 0, 0], [0, s1[1] * s2[1], 0, 0], [0, 0, s1[2] * s2[2], 0], [0, 0, 0, 1]])
+                    # if the loop continues the name will be suffixed by a number
+                    # bpy.context.active_object.name = tree.link.name
+                    assigned_name = bpy.context.active_object.name
+
+                    # bpy.context.active_object.matrix_world = bone_transformation * trafo * scale
+                    bpy.context.active_object.matrix_world = bone_transformation * trafo * \
+                                                             bpy.context.active_object.matrix_world
+
+                    # connect the meshes
+
+                    logger.debug("Scale: %s,%s, Matrix world: \n%s", s1, s2, bpy.context.active_object.matrix_world)
+                    logger.debug("Scale: \n%s", scale)
+                    logger.debug("Connecting %s,%s,%s -> %s,%s", collision.geometry.mesh.filename,
+                                 bpy.context.active_object.name, object_name, armature_name, bone_name)
+                    bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
+                    bpy.ops.roboteditor.selectbone(boneName=bone_name)
+                    bpy.data.objects[assigned_name].select = True
+                    bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+
+            else:
+                # todo debug message or throw exception if it is a primitive -- better create mesh from primitive
+                pass
 
         for sub_tree in tree.children:
             parse(sub_tree, bone_name)
@@ -227,6 +297,27 @@ def export(file_name):
         # set correct mesh path: This requires the ROS default package structure.
         return "package://" + armature_name + "_description" + "/" + os.path.join("meshes", name + '.dae')
 
+    def export_collisionmodel(name):
+        file_path = os.path.join(os.path.dirname(file_name), "collisions")
+        print(file_path)
+        if not os.path.exists(file_path):
+            os.makedirs(file_path)
+        object_name = os.path.join(os.path.dirname(file_name), "collisions", name + '.stl')
+        armature_name = bpy.context.active_object.name
+        # todo: call the collada export
+        # todo: set the right name and return it
+        # todo: select the original object
+        bpy.ops.object.select_all(action='DESELECT')
+        context.scene.objects.active = bpy.data.objects['COL_'+name]
+        context.active_object.select = True
+
+        # Using the stl export
+        bpy.ops.export_mesh.stl(filepath=object_name, ascii=True)
+        bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
+        # set correct mesh path: This requires the ROS default package structure.
+        print('debug: ' + object_name)
+        return "package://" + armature_name + "_description" + "/" + os.path.join("collisions", name + '.stl')
+
     def build(bone, tree):
         child = tree.add()
 
@@ -268,6 +359,11 @@ def export(file_name):
             visual = child.add_mesh(export_mesh(mesh))
             visual.origin.xyz = list_to_string(pose.translation)
             visual.origin.rpy = list_to_string(pose.to_euler())
+
+            # using the collisionmodel export for stl files
+            collision = child.add_collisionmodel(export_collisionmodel(mesh))
+            collision.origin.xyz = list_to_string(pose.translation)
+            # collision.origin.rpy = list_to_string(pose.to_euler)
 
         # Add geometry
         for child_bones in bone.children:
