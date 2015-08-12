@@ -193,6 +193,20 @@ class URDFTree(object):
         visual.geometry.mesh.filename = file_name
         return visual
 
+    def add_collisionmodel(self, file_name):
+        """
+
+        :param link:
+        :return:
+        """
+        collision = urdf_dom.CollisionType()
+        self.link.collision.append(collision)
+        collision.geometry = urdf_dom.GeometryType()
+        collision.origin = urdf_dom.PoseType()
+        collision.geometry.mesh = urdf_dom.MeshType()
+        collision.geometry.mesh.filename = file_name
+        return collision
+
     def set_defaults(self):
         """
         Adds some default values to the DOM.
