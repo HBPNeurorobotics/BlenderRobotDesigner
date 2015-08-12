@@ -5261,7 +5261,7 @@ class RobotType(GeneratedsSuper):
             already_processed.add('version')
             outfile.write(' version=%s' % (self.gds_format_string(quote_attrib(self.version), input_name='version'), ))
         if self.name is not None and 'name' not in already_processed:
-            already_processe.add('name')
+            already_processed.add('name')
             outfile.write(' name=%s' % (self.gds_format_string(quote_attrib(self.name), input_name='name'), ))
     def exportChildren(self, outfile, level, namespace_='', name_='RobotType', fromsubclass_=False, pretty_print=True):
         if pretty_print:
