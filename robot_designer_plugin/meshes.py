@@ -84,7 +84,6 @@ class RobotEditor_unassignMesh(bpy.types.Operator):
 
         return {'FINISHED'}
 
-
 # operator to unassign all meshes in the scene
 class RobotEditor_unassignAllMeshes(bpy.types.Operator):
     bl_idname = "roboteditor.unassignallmeshes"
@@ -98,15 +97,15 @@ class RobotEditor_unassignAllMeshes(bpy.types.Operator):
 
             for mesh in meshes:
                 bpy.ops.roboteditor.selectmesh(meshName=mesh.name)
-                bpy.ops.roboteditor.unassignmesh()
+                bpy.ops.roboteditor.unassignmesh(meshName=mesh.name)
 
         return {'FINISHED'}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
 
-
 class RobotEditor_assignCollisionModel(bpy.types.Operator):
+
     bl_idname = "roboteditor.assigncollisionmodel"
     bl_label = "Assign selected mesh as collision model to physics frame."
 
