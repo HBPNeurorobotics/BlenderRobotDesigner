@@ -32,7 +32,8 @@ def read(filepath):
 
     print(missing)
 
-    timestamps = [float(e.text.strip()) for e in root.findall(".//motionframes/motionframe/timestep")]
+    timestamps = [float(e.text.strip()) for e in
+                  root.findall(".//motionframes/motionframe/timestep")]
     root_positions = [[float(i) * scale_factor for i in e.text.strip().split()] for e in
                       root.findall(".//motionframes/motionframe/rootposition")]
     root_rotations = [[float(i) for i in e.text.strip().split()] for e in
@@ -47,11 +48,12 @@ def read(filepath):
     counter = 3  # frame counter for skipping frames, value of 3 ensures that first frame is used
     frameCounter = start  # count the current frame in blender
 
-    # disable kinematic updates for import 
+    # disable kinematic updates for import
     bpy.context.scene.RobotEditor.doKinematicUpdate = False
 
     for [i, [timestamp, root_position, root_rotation, joint_position]] in enumerate(
-            itertools.zip_longest(timestamps, root_positions, root_rotations, joint_positions, fillvalue=[])):
+            itertools.zip_longest(timestamps, root_positions, root_rotations, joint_positions,
+                                  fillvalue=[])):
         counter += 1  # increase counter
         if counter != 4:  # process frame only if counter equals 4 => use every 4th frame
             # print('Skipping')   # inform that we're skipping
@@ -66,7 +68,8 @@ def read(filepath):
         #    continue
         # lastFrame = bpy.context.scene.frame_current
 
-        print("Frame number: ", bpy.context.scene.frame_current, " of ", len(root_positions) / 4 - 1)
+        print(
+            "Frame number: ", bpy.context.scene.frame_current, " of ", len(root_positions) / 4 - 1)
         armName = bpy.context.active_object.name
         boneName = bpy.context.active_object.data.bones[0].name
         bpy.context.active_object.location = Vector(root_position)

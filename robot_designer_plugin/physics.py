@@ -93,6 +93,7 @@ class RobotEditor_assignPhysicsFrame(bpy.types.Operator):
         # frame.matrix_basis = parent_matrix*armature_matrix*bone_matrix
         return {'FINISHED'}
 
+
 # operator to generate a collision mesh for an assigned selected physics frame
 class RobotEditor_generateCollisionMesh(bpy.types.Operator):
     bl_idname = "roboteditor.generatecollisionmesh"
@@ -122,6 +123,15 @@ class RobotEditor_generateCollisionMesh(bpy.types.Operator):
         return {'FINISHED'}
 
     def createColModel(self, target, context):
+        """
+        Create collision model for selected bone
+
+        :param target:  The selected bone in blender
+        :param context: The blender-context
+        :type target:   string
+        :type context:  string
+        :return: null:  does not return anything
+        """
         print(target)
         d = bpy.data.objects[target].dimensions
         bpy.ops.mesh.primitive_cube_add(location=bpy.data.objects[target].location,
@@ -139,8 +149,8 @@ class RobotEditor_generateCollisionMesh(bpy.types.Operator):
         bpy.ops.object.modifier_apply(modifier='shrink_wrap')
 
         bpy.context.object.name = 'COL_' + target.replace('Visualization_', '')  #
-        #context.scene.objects.active = bpy.data.objects[name]
-        #bpy.ops.object.parent_set(type='OBJECT', keep_transform=True)
+        # context.scene.objects.active = bpy.data.objects[name]
+        # bpy.ops.object.parent_set(type='OBJECT', keep_transform=True)
 
         return
 
@@ -208,10 +218,10 @@ def draw(layout, context):
     # TODO: Fix faulty collision mesh generation
     lowerRow = layout.row(align=False)
     layout.label("Collision Meshes:")
-    lowerRow = layout.row(align = False)
+    lowerRow = layout.row(align=False)
     leftColumn = lowerRow.column(align=False)
-    leftColumn.prop(context.scene.RobotEditor,"subdivisionLevels")
-    leftColumn.prop(context.scene.RobotEditor,"shrinkWrapOffset")
+    leftColumn.prop(context.scene.RobotEditor, "subdivisionLevels")
+    leftColumn.prop(context.scene.RobotEditor, "shrinkWrapOffset")
     rightColumn = lowerRow.column(align=False)
     rightColumn.operator("roboteditor.generatecollisionmesh")
     rightColumn.operator("roboteditor.generatallecollisionmeshes")

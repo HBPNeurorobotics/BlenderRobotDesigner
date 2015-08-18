@@ -23,6 +23,7 @@ except ImportError:
 
 from . import export
 
+
 def parseTree(tree, parentName):
     print("parsetree")
     armName = bpy.context.active_object.name
@@ -135,16 +136,20 @@ def extractData(boneName):
         tree.axis_type = 'prismatic'
     children = [child.name for child in currentBone.children]
 
-    tree.meshes = [mesh.name for mesh in bpy.data.objects if mesh.type == 'MESH' and mesh.parent_bone == boneName]
+    tree.meshes = [mesh.name for mesh in bpy.data.objects if
+                   mesh.type == 'MESH' and mesh.parent_bone == boneName]
 
-    markers = [m for m in bpy.data.objects if m.RobotEditor.tag == 'MARKER' and m.parent_bone == boneName]
+    markers = [m for m in bpy.data.objects if
+               m.RobotEditor.tag == 'MARKER' and m.parent_bone == boneName]
     # tree.markers = [(m.name,(currentBone.matrix_local.inverted()*m.matrix_world.translation).to_tuple())
     #  for m in markers]
     # tree.markers = [(m.name,(m.matrix_parent_inverse*m.matrix_world.translation).to_tuple()) for m in markers]
 
     poseBone = arm.pose.bones[boneName]
     tree.markers = [
-        (m.name, (poseBone.matrix.inverted() * arm.matrix_world.inverted() * m.matrix_world.translation).to_tuple()) for
+        (m.name, (
+            poseBone.matrix.inverted() * arm.matrix_world.inverted() * m.matrix_world.translation).to_tuple())
+        for
         m in markers]
 
     for child in children:
@@ -159,7 +164,6 @@ class RobotEditor_exportCollada(bpy.types.Operator):
     bl_label = "Export to COLLADA 1.5"
 
     filepath = StringProperty(subtype='FILE_PATH')
-
 
     def execute(self, context):
         bpy.ops.wm.collada_export(filepath=self.filepath,
@@ -211,8 +215,10 @@ class RobotEditor_exportCollada(bpy.types.Operator):
 
             # TODO also bring the matrix_local to all collisionmodels
             print("mass frames", frame.name, collisionModels)
-            handler.addMassObject(frame.name, frameTrafos, tuple(v for v in frame.RobotEditor.dynamics.inertiaTensor),
-                                  frame.RobotEditor.dynamics.mass, collisionModels, collisionModelTransformations)
+            handler.addMassObject(frame.name, frameTrafos,
+                                  tuple(v for v in frame.RobotEditor.dynamics.inertiaTensor),
+                                  frame.RobotEditor.dynamics.mass, collisionModels,
+                                  collisionModelTransformations)
 
         handler.write(self.filepath)
         return {'FINISHED'}
@@ -257,6 +263,7 @@ class RobotEditor_importSIMOX(bpy.types.Operator):
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
 
+
 # operator to import the kinematics in a SIMOX-XML file
 class RobotEditor_importURDF(bpy.types.Operator):
     bl_idname = "roboteditor.urdfimport"
@@ -270,6 +277,7 @@ class RobotEditor_importURDF(bpy.types.Operator):
     def invoke(self, context, event):
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
+
 
 # operator to import the kinematics in a SIMOX-XML file
 class RobotEditor_exportURDF(bpy.types.Operator):
@@ -294,7 +302,6 @@ def draw(layout, context):
         layout.operator("roboteditor.mmmimport")
     layout.operator("roboteditor.urdfimport")
     layout.operator("roboteditor.urdfexport")
-
 
 
 def register():

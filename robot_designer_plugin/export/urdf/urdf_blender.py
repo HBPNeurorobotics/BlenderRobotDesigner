@@ -295,7 +295,7 @@ def export(file_name):
         bpy.ops.wm.collada_export(filepath=file_path, selected=True)
         bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
         # set correct mesh path: This requires the ROS default package structure.
-        return "package://" + armature_name + "_description" + "/" + os.path.join("meshes", name + '.dae')
+        return "package://" + os.path.join("meshes", name + '.dae')
 
     def export_collisionmodel(name):
         file_path = os.path.join(os.path.dirname(file_name), "collisions")
@@ -316,7 +316,7 @@ def export(file_name):
         bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
         # set correct mesh path: This requires the ROS default package structure.
         print('debug: ' + object_name)
-        return "package://" + armature_name + "_description" + "/" + os.path.join("collisions", name + '.stl')
+        return "package://" + "/" + os.path.join("collisions", name + '.stl')
 
     def build(bone, tree):
         child = tree.add()
