@@ -84,6 +84,7 @@ class RobotEditor_unassignMesh(bpy.types.Operator):
 
         return {'FINISHED'}
 
+
 # operator to unassign all meshes in the scene
 class RobotEditor_unassignAllMeshes(bpy.types.Operator):
     bl_idname = "roboteditor.unassignallmeshes"
@@ -93,19 +94,20 @@ class RobotEditor_unassignAllMeshes(bpy.types.Operator):
 
     def execute(self, context):
         if self.confirmation:
-            meshes = [obj for obj in bpy.data.objects if obj.type == 'MESH' and obj.parent_bone is not '']
+            meshes = [obj for obj in bpy.data.objects if
+                      obj.type == 'MESH' and obj.parent_bone is not '']
 
             for mesh in meshes:
                 bpy.ops.roboteditor.selectmesh(meshName=mesh.name)
-                bpy.ops.roboteditor.unassignmesh(meshName=mesh.name)
+                bpy.ops.roboteditor.unassignmesh()
 
         return {'FINISHED'}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
 
-class RobotEditor_assignCollisionModel(bpy.types.Operator):
 
+class RobotEditor_assignCollisionModel(bpy.types.Operator):
     bl_idname = "roboteditor.assigncollisionmodel"
     bl_label = "Assign selected mesh as collision model to physics frame."
 
@@ -114,7 +116,8 @@ class RobotEditor_assignCollisionModel(bpy.types.Operator):
         if context.scene.RobotEditor.meshName in bpy.data.objects:
             bpy.data.objects[context.scene.RobotEditor.meshName].select = True
             if context.scene.RobotEditor.physicsFrameName in bpy.data.objects:
-                context.scene.objects.active = bpy.data.objects[context.scene.RobotEditor.physicsFrameName]
+                context.scene.objects.active = bpy.data.objects[
+                    context.scene.RobotEditor.physicsFrameName]
                 bpy.ops.object.parent_set(type='OBJECT', keep_transform=True)
 
         if context.scene.RobotEditor.armatureName in bpy.data.objects:

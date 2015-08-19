@@ -195,15 +195,18 @@ class URDFTree(object):
 
     def add_collisionmodel(self, file_name):
         """
+        Add a collision model to a mesh object
 
-        :param link:
-        :return:
+        :param   file_name:  name of the mesh object for which the col_model is generated
+        :type    file_name:  string
+        :return: string:     Collision file that is used in the urdf
         """
         collision = urdf_dom.CollisionType()
         self.link.collision.append(collision)
         collision.geometry = urdf_dom.GeometryType()
         collision.origin = urdf_dom.PoseType()
         collision.geometry.mesh = urdf_dom.MeshType()
+        # print('debug add_collisionmodel: ' + file_name)
         collision.geometry.mesh.filename = file_name
         return collision
 

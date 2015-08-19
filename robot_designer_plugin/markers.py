@@ -56,7 +56,7 @@ class RobotEditor_selectMarker(bpy.types.Operator):
         return {'FINISHED'}
 
 
-# dynamic menu to select from markers        
+# dynamic menu to select from markers
 class RobotEditor_markerMenu(bpy.types.Menu):
     bl_idname = "roboteditor.markermenu"
     bl_label = "Select Marker"
@@ -98,7 +98,7 @@ class RobotEditor_unassignMarker(bpy.types.Operator):
         return {'FINISHED'}
 
 
-# defines the UI part of the markers submenu        
+# defines the UI part of the markers submenu
 def draw(layout, context):
     layout.operator("roboteditor.createmarker")
     layout.label("Select marker")

@@ -83,7 +83,8 @@ class RobotEditor_Properties(bpy.types.PropertyGroup):
         items=[('DEFAULT', 'Default', 'Default'),
                ('MARKER', 'Marker', 'Marker'),
                ('PHYSICS_FRAME', 'Physics Frame', 'Physics Frame'),
-               ('ARMATURE', 'Armature', 'Armature  ')]
+               ('ARMATURE', 'Armature', 'Armature'),
+               ('COLLISION', 'Collision', 'Collision')]
     )
 
 
