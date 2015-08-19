@@ -8,13 +8,6 @@ Subpackages
 
     robot_designer_plugin.export.urdf
 
-Submodules
-----------
-
-.. toctree::
-
-   robot_designer_plugin.export.tree
-
 Module contents
 ---------------
 

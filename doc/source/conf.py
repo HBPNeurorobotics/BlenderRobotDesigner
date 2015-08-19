@@ -35,8 +35,7 @@ sys.path.insert(0, os.path.abspath('../../resources/mock_bpy'))
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinxcontrib.mockautodoc',
-    'sphinx.ext.todo',
+	    'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax',
     'sphinx.ext.ifconfig',
