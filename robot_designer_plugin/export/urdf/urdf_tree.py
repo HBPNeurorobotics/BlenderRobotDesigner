@@ -206,6 +206,7 @@ class URDFTree(object):
         collision.geometry = urdf_dom.GeometryType()
         collision.origin = urdf_dom.PoseType()
         collision.geometry.mesh = urdf_dom.MeshType()
+        # print('debug add_collisionmodel: ' + file_name)
         collision.geometry.mesh.filename = file_name
         return collision
 

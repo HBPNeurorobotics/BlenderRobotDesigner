@@ -148,9 +148,12 @@ class RobotEditor_generateCollisionMesh(bpy.types.Operator):
         mod.target = bpy.data.objects[target]
         bpy.ops.object.modifier_apply(modifier='shrink_wrap')
 
-        bpy.context.object.name = 'COL_' + target.replace('Visualization_', '')  #
-        # context.scene.objects.active = bpy.data.objects[name]
-        # bpy.ops.object.parent_set(type='OBJECT', keep_transform=True)
+        bpy.context.object.name = 'COL_' + target.replace('Visualization_', '')
+        context.active_object.RobotEditor.tag = 'COLLISION'
+        print(context.active_object.RobotEditor.tag, bpy.context.object.name,
+              bpy.context.object.type)
+        context.scene.objects.active = bpy.data.objects[target]
+        bpy.ops.object.parent_set(type='OBJECT', keep_transform=True)
 
         return
 

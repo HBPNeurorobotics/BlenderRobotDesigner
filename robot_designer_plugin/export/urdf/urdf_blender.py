@@ -46,8 +46,9 @@ def import_(file_name):
         :param visual: A urdf_dom.visual object.
         :return: Returns the transformation in the origin element (a 4x4 blender matrix).
         """
-        file = os.path.join(os.path.dirname(file_name), visual.geometry.mesh.filename.replace("package://", "").replace(
-            "file://", "").replace("model://", ""))
+        file = os.path.join(os.path.dirname(file_name),
+                            visual.geometry.mesh.filename.replace("package://", "").replace(
+                                "file://", "").replace("model://", ""))
 
         logger.debug("Import %s, exists: %s", file, os.path.exists(file))
         fn, extension = os.path.splitext(file)
@@ -125,18 +126,23 @@ def import_(file_name):
         bpy.context.active_bone.RobotEditor.Euler.gamma.value = round(degrees(euler[2]), 0)
 
         if tree.joint.dynamics:
-            bpy.context.active_bone.RobotEditor.controller.maxVelocity = float(tree.joint.limit.velocity)
+            bpy.context.active_bone.RobotEditor.controller.maxVelocity = float(
+                tree.joint.limit.velocity)
             # bpy.context.active_bone.RobotEditor.controller.maxVelocity = float(tree.joint.limit.friction)
 
         if tree.joint.type_ == 'revolute':
             bpy.context.active_bone.RobotEditor.jointMode = 'REVOLUTE'
-            bpy.context.active_bone.RobotEditor.theta.max = degrees(float(get_value(tree.joint.limit.upper, 0)))
-            bpy.context.active_bone.RobotEditor.theta.min = degrees(float(get_value(tree.joint.limit.lower, 0)))
+            bpy.context.active_bone.RobotEditor.theta.max = degrees(
+                float(get_value(tree.joint.limit.upper, 0)))
+            bpy.context.active_bone.RobotEditor.theta.min = degrees(
+                float(get_value(tree.joint.limit.lower, 0)))
         else:
             bpy.context.active_bone.RobotEditor.jointMode = 'PRISMATIC'
             if tree.joint.limit is not None:
-                bpy.context.active_bone.RobotEditor.d.max = float(get_value(tree.joint.limit.upper, 0))
-                bpy.context.active_bone.RobotEditor.d.min = float(get_value(tree.joint.limit.lower, 0))
+                bpy.context.active_bone.RobotEditor.d.max = float(
+                    get_value(tree.joint.limit.upper, 0))
+                bpy.context.active_bone.RobotEditor.d.min = float(
+                    get_value(tree.joint.limit.lower, 0))
 
         # todo set the dynamics properties
 
@@ -152,8 +158,9 @@ def import_(file_name):
         #         matrix = [[i.ixx, i.ixz, i.ixz], [i.iyy, i.iyz], [i.izz]]
         # get the transformation of the bone
 
-        bone_transformation = bpy.context.active_object.matrix_world * bpy.context.active_object.pose.bones[
-            bone_name].matrix
+        bone_transformation = bpy.context.active_object.matrix_world * \
+                              bpy.context.active_object.pose.bones[
+                                  bone_name].matrix
 
         for visual in tree.link.visual:
             # geometry is not optional in the xml
@@ -181,7 +188,8 @@ def import_(file_name):
 
                     s2 = bpy.context.active_object.scale
                     scale = Matrix(
-                        [[s1[0] * s2[0], 0, 0, 0], [0, s1[1] * s2[1], 0, 0], [0, 0, s1[2] * s2[2], 0], [0, 0, 0, 1]])
+                        [[s1[0] * s2[0], 0, 0, 0], [0, s1[1] * s2[1], 0, 0],
+                         [0, 0, s1[2] * s2[2], 0], [0, 0, 0, 1]])
 
                     # if the loop continues the name will be suffixed by a number
                     # bpy.context.active_object.name = tree.link.name
@@ -193,10 +201,12 @@ def import_(file_name):
 
                     # connect the meshes
 
-                    logger.debug("Scale: %s,%s, Matrix world: \n%s", s1, s2, bpy.context.active_object.matrix_world)
+                    logger.debug("Scale: %s,%s, Matrix world: \n%s", s1, s2,
+                                 bpy.context.active_object.matrix_world)
                     logger.debug("Scale: \n%s", scale)
                     logger.debug("Connecting %s,%s,%s -> %s,%s", visual.geometry.mesh.filename,
-                                 bpy.context.active_object.name, object_name, armature_name, bone_name)
+                                 bpy.context.active_object.name, object_name, armature_name,
+                                 bone_name)
                     bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
                     bpy.ops.roboteditor.selectbone(boneName=bone_name)
                     bpy.data.objects[assigned_name].select = True
@@ -231,7 +241,8 @@ def import_(file_name):
 
                     s2 = bpy.context.active_object.scale
                     scale = Matrix(
-                        [[s1[0] * s2[0], 0, 0, 0], [0, s1[1] * s2[1], 0, 0], [0, 0, s1[2] * s2[2], 0], [0, 0, 0, 1]])
+                        [[s1[0] * s2[0], 0, 0, 0], [0, s1[1] * s2[1], 0, 0],
+                         [0, 0, s1[2] * s2[2], 0], [0, 0, 0, 1]])
                     # if the loop continues the name will be suffixed by a number
                     # bpy.context.active_object.name = tree.link.name
                     assigned_name = bpy.context.active_object.name
@@ -242,10 +253,12 @@ def import_(file_name):
 
                     # connect the meshes
 
-                    logger.debug("Scale: %s,%s, Matrix world: \n%s", s1, s2, bpy.context.active_object.matrix_world)
+                    logger.debug("Scale: %s,%s, Matrix world: \n%s", s1, s2,
+                                 bpy.context.active_object.matrix_world)
                     logger.debug("Scale: \n%s", scale)
                     logger.debug("Connecting %s,%s,%s -> %s,%s", collision.geometry.mesh.filename,
-                                 bpy.context.active_object.name, object_name, armature_name, bone_name)
+                                 bpy.context.active_object.name, object_name, armature_name,
+                                 bone_name)
                     bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
                     bpy.ops.roboteditor.selectbone(boneName=bone_name)
                     bpy.data.objects[assigned_name].select = True
@@ -266,11 +279,17 @@ def import_(file_name):
                 s1 = string_to_list(visual.geometry.mesh.scale)
                 s2 = bpy.context.active_object.scale
                 scale = Matrix(
-                    [[s1[0] * s2[0], 0, 0, 0], [0, s1[1] * s2[1], 0, 0], [0, 0, s1[2] * s2[2], 0], [0, 0, 0, 1]])
+                    [[s1[0] * s2[0], 0, 0, 0], [0, s1[1] * s2[1], 0, 0], [0, 0, s1[2] * s2[2], 0],
+                     [0, 0, 0, 1]])
                 bpy.context.active_object.matrix_world = trafo * scale
 
     for chain in kinematic_chains:
         parse(chain)
+
+
+def retFile(filestring):
+    # print('debug filestring: ' + filestring)
+    return filestring
 
 
 # Note: move to different file
@@ -282,41 +301,85 @@ def export(file_name):
     """
 
     def export_mesh(name):
-        file_path = os.path.join(os.path.dirname(file_name), "meshes", name + '.dae')
-        print(file_path)
-        armature_name = bpy.context.active_object.name
-        # todo: deselect all
-        # todo: call the collada export
-        # todo: set the right name and return it
-        # todo: select the original object
-        bpy.ops.object.select_all(action='DESELECT')
-        context.scene.objects.active = bpy.data.objects[name]
-        context.active_object.select = True
-        bpy.ops.wm.collada_export(filepath=file_path, selected=True)
-        bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
-        # set correct mesh path: This requires the ROS default package structure.
-        return "package://" + os.path.join("meshes", name + '.dae')
+        meshes = [obj.name for obj in bpy.data.objects if
+                  obj.type == "MESH" and obj.name == name and not obj.RobotEditor.tag == "COLLISION"]
+        print('debug FOLGENDE MESHES SIND IM ARRAY: ')
+        # print(meshes)
+        for mesh in meshes:
+            # print(mesh)
+            file_path = os.path.join(os.path.dirname(file_name), "meshes", mesh + '.dae')
+            # print(file_path)
+            armature_name = bpy.context.active_object.name
+            bpy.ops.object.select_all(action='DESELECT')
+            bpy.context.scene.objects.active = bpy.data.objects[mesh]
+            bpy.context.active_object.select = True
+            bpy.ops.wm.collada_export(filepath=file_path, selected=True)
+            bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
+            # set correct mesh path: This requires the ROS default package structure.
+            return("package://" + os.path.join("meshes", mesh + '.dae'))
 
     def export_collisionmodel(name):
-        file_path = os.path.join(os.path.dirname(file_name), "collisions")
-        print(file_path)
-        if not os.path.exists(file_path):
-            os.makedirs(file_path)
-        object_name = os.path.join(os.path.dirname(file_name), "collisions", name + '.stl')
-        armature_name = bpy.context.active_object.name
-        # todo: call the collada export
-        # todo: set the right name and return it
-        # todo: select the original object
-        bpy.ops.object.select_all(action='DESELECT')
-        context.scene.objects.active = bpy.data.objects['COL_'+name]
-        context.active_object.select = True
+        collisions = [obj.name for obj in bpy.data.objects if
+                      obj.type == "MESH" and name in obj.name and obj.RobotEditor.tag == "COLLISION"]
+        # print('debug FOLGENDE COLLISIONS SIND IM ARRAY: ')
+        # print(collisions)
+        for collision in collisions:
+            file_path = os.path.join(os.path.dirname(file_name), "collisions")
+            # print('debug dateipfad: ' + file_path)
+            if not os.path.exists(file_path):
+                os.makedirs(file_path)
+            object_name = os.path.join(os.path.dirname(file_name), "collisions",
+                                       collision + '.stl')
+            # print('debug object_name :' + object_name)
+            armature_name = bpy.context.active_object.name
+            bpy.ops.object.select_all(action='DESELECT')
+            bpy.context.scene.objects.active = bpy.data.objects[collision]
+            bpy.context.active_object.select = True
 
-        # Using the stl export
-        bpy.ops.export_mesh.stl(filepath=object_name, ascii=True)
-        bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
-        # set correct mesh path: This requires the ROS default package structure.
-        print('debug: ' + object_name)
-        return "package://" + "/" + os.path.join("collisions", name + '.stl')
+            # Using the stl export
+            bpy.ops.export_mesh.stl(filepath=object_name, ascii=True)
+            bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
+            # set correct mesh path: This requires the ROS default package structure.
+            # print('debug: ' + object_name)
+            return("package://" + os.path.join("collisions", collision + '.stl'))
+
+    # def export_mesh(name):
+    #     file_path = os.path.join(os.path.dirname(file_name), "meshes", name + '.dae')
+    #     print(file_path)
+    #     armature_name = bpy.context.active_object.name
+    #     # todo: deselect all
+    #     # todo: call the collada export
+    #     # todo: set the right name and return it
+    #     # todo: select the original object
+    #     bpy.ops.object.select_all(action='DESELECT')
+    #     context.scene.objects.active = bpy.data.objects[name]
+    #     context.active_object.select = True
+    #     bpy.ops.wm.collada_export(filepath=file_path, selected=True)
+    #     bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
+    #     # set correct mesh path: This requires the ROS default package structure.
+    #     return "package://" + os.path.join("meshes", name + '.dae')
+
+    # def export_collisionmodel(name):
+    #     file_path = os.path.join(os.path.dirname(file_name), "collisions")
+    #     print(file_path)
+    #     if not os.path.exists(file_path):
+    #         os.makedirs(file_path)
+    #     object_name = os.path.join(os.path.dirname(file_name), "collisions", name + '.stl')
+    #     armature_name = bpy.context.active_object.name
+    #     # todo: call the collada export
+    #     # todo: set the right name and return it
+    #     # todo: select the original object
+    #     bpy.ops.object.select_all(action='DESELECT')
+    #     context.scene.objects.active = bpy.data.objects[name]
+    #     if bpy.data.objects.RobotEditor.
+    #         context.active_object.select = True
+    #
+    #     # Using the stl export
+    #     bpy.ops.export_mesh.stl(filepath=object_name, ascii=True)
+    #     bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
+    #     # set correct mesh path: This requires the ROS default package structure.
+    #     print('debug: ' + object_name)
+    #     return "package://" + "/" + os.path.join("collisions", name + '.stl')
 
     def build(bone, tree):
         child = tree.add()
@@ -356,11 +419,13 @@ def export(file_name):
             pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
                    bpy.data.objects[mesh].matrix_world
 
+            # print('debug visual hinzugefuegt: ' + export_mesh(mesh))
             visual = child.add_mesh(export_mesh(mesh))
             visual.origin.xyz = list_to_string(pose.translation)
             visual.origin.rpy = list_to_string(pose.to_euler())
 
             # using the collisionmodel export for stl files
+            # print('debug collision hinzugefuegt: ' + export_collisionmodel(mesh))
             collision = child.add_collisionmodel(export_collisionmodel(mesh))
             collision.origin.xyz = list_to_string(pose.translation)
             # collision.origin.rpy = list_to_string(pose.to_euler)
