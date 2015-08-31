@@ -24,13 +24,24 @@ bl_info = {
     "location": "View3D > Tools",
     "category": "Editor"}
 
+import sys
+additionalModulePath = True
 import bpy
-
 import logging
 logging.basicConfig(format='[%(levelname)s|%(name)s|%(funcName)s|%(filename)s:%(lineno)03d] %(message)s')
 
 
 def register():
+    additionalModulePath = True
+    try:
+        from . import generatedAdditionalModulePath
+    except ImportError:
+        additionalModulePath = False
+
+    if (additionalModulePath):
+        print('Adding the following path to sys.path: '+str(generatedAdditionalModulePath.venvPath))
+        sys.path = sys.path + generatedAdditionalModulePath.venvPath
+
     from . import properties
     from . import main
     from . import armatures
@@ -69,4 +80,8 @@ def unregister():
     markers.unregister()
     physics.unregister()
     files.unregister()
+
     # bpy.utils.unregister_module(__name__)
+    if (additionalModulePath):
+        for path in generatedAdditionalModulePath.venvPath:
+            sys.path.remove(path)

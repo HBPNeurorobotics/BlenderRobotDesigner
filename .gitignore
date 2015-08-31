@@ -3,7 +3,10 @@ __pycache__/
 *.py[cod]
 *.xml
 *.blend*
+!installer.blend
 *.dae
 .rope*
 screencast*
 
+# this is now a generated file (prepending of absolute module path during installation)
+robot_designer_plugin/generatedAdditionalModulePath.py
