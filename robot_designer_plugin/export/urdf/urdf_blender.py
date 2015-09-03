@@ -58,11 +58,15 @@ def import_(file_name):
             bpy.ops.wm.collada_import(filepath=file, import_units=True)
             # bpy.context.active_object.matrix_world = Matrix()
 
+        scale_urdf = string_to_list(visual.geometry.mesh.scale)
+        scale_matrix = Matrix([[scale_urdf[0], 0, 0, 0], [0, scale_urdf[1], 0, 0],
+                               [0, 0, scale_urdf[2], 0], [0, 0, 0, 1]])
+
         # store origin in a transformation matrix
         # bpy.context.active_object.location = Vector(string_to_list(get_value(visual.origin.xyz, '0 0 0')))
         # bpy.context.active_object.rotation_euler = Euler(string_to_list(visual.origin.rpy), 'XYZ')
         return Matrix.Translation(Vector(string_to_list(visual.origin.xyz))) * \
-               Euler(string_to_list(visual.origin.rpy), 'XYZ').to_matrix().to_4x4()
+               Euler(string_to_list(visual.origin.rpy), 'XYZ').to_matrix().to_4x4() * scale_matrix
 
     def import_geometry(collision):
         """
@@ -166,16 +170,15 @@ def import_(file_name):
             # geometry is not optional in the xml
             if visual.geometry.mesh is not None:
 
-                trafo = import_geometry(visual)
-                logger.debug("Trafo: \n%s", trafo)
+                trafo_urdf = import_geometry(visual)
+                logger.debug("Trafo: \n%s", trafo_urdf)
                 # URDF (the import in ROS) exhibits a strange behavior:
                 # If there is a transformation preceding the mesh in a .dae file, only the scale is
                 # extracted and the rest is omitted. Therefore, we store the scale after import and
                 # multiply it to the scale given in the xml attribute.
 
-                s1 = string_to_list(visual.geometry.mesh.scale)
 
-                # if there are several objects in the COLLADA file:
+                # if there are multiple objects in the COLLADA file:
                 selected_objects = [i.name for i in bpy.context.selected_objects]
                 for object_name in selected_objects:
                     bpy.context.scene.objects.active = bpy.data.objects[object_name]
@@ -185,25 +188,30 @@ def import_(file_name):
                     bpy.ops.object.select_all(False)
                     bpy.context.scene.objects.active = bpy.data.objects[object_name]
                     bpy.context.active_object.select = True
+                    logger.debug("Matrix world before: \n%s",
+                                 bpy.context.active_object.matrix_world)
+                    bpy.ops.object.transform_apply(location=True,rotation=True,scale=True)
 
-                    s2 = bpy.context.active_object.scale
-                    scale = Matrix(
-                        [[s1[0] * s2[0], 0, 0, 0], [0, s1[1] * s2[1], 0, 0],
-                         [0, 0, s1[2] * s2[2], 0], [0, 0, 0, 1]])
+                    bpy.context.active_object.matrix_world = bone_transformation * trafo_urdf * \
+                                                             bpy.context.active_object.matrix_world
+                    logger.debug("bone matrix: \n%s", bone_transformation)
+                    logger.debug("Matrix world: \n%s", bpy.context.active_object.matrix_world)
+
+                    # scale_object = bpy.context.active_object.scale
+                    # scale_matrix = Matrix([[scale_urdf[0] * scale_object[0], 0, 0, 0],
+                    #                 [0, scale_urdf[1] * scale_object[1], 0, 0],
+                    #                 [0, 0, scale_urdf[2] * scale_object[2], 0], [0, 0, 0, 1]])
+                    # bpy.context.active_object.matrix_world = bone_transformation * trafo_urdf * scale_matrix
+                    # logger.debug("Scale: %s,%s, Matrix world: \n%s", scale_urdf, scale_object,
+                    #              bpy.context.active_object.matrix_world)
 
                     # if the loop continues the name will be suffixed by a number
                     # bpy.context.active_object.name = tree.link.name
-                    assigned_name = bpy.context.active_object.name
 
-                    # bpy.context.active_object.matrix_world = bone_transformation * trafo * scale
-                    bpy.context.active_object.matrix_world = bone_transformation * trafo * \
-                                                             bpy.context.active_object.matrix_world
+                    assigned_name = bpy.context.active_object.name
 
                     # connect the meshes
 
-                    logger.debug("Scale: %s,%s, Matrix world: \n%s", s1, s2,
-                                 bpy.context.active_object.matrix_world)
-                    logger.debug("Scale: \n%s", scale)
                     logger.debug("Connecting %s,%s,%s -> %s,%s", visual.geometry.mesh.filename,
                                  bpy.context.active_object.name, object_name, armature_name,
                                  bone_name)

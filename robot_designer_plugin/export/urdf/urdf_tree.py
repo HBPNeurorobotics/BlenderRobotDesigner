@@ -102,7 +102,8 @@ class URDFTree(object):
         self.set_defaults()
 
         children = self.connectedJoints[link]
-        logger.debug("%s %s, %s -> %s", '-'*depth, joint.name, link.name, [i.name for i in children])
+        logger.debug("%s %s, %s -> %s", '-'*depth, joint.name, link.name, [i.name for i in children] )
+        logger.debug("%s axis: '%s', type: '%s', xyz:'%s', rpy:'%s', limit:'%s-%s' ", ' '*depth,  joint.axis.xyz, joint.type_, joint.origin.xyz,joint.origin.rpy, joint.limit.lower, joint.limit.upper )
 
         for joint in children:
             tree = URDFTree(connected_links=self.connectedLinks, connected_joints=self.connectedJoints, robot=self.robot)
