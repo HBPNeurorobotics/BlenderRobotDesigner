@@ -52,6 +52,7 @@ class RobotEditor_selectBone(bpy.types.Operator):
             b.select = False
 
         arm.data.bones.active.select = True
+        context.scene.RobotEditor.boneName = self.boneName
         return {'FINISHED'}
 
 
@@ -211,6 +212,8 @@ class RobotEditor_deleteBone(bpy.types.Operator):
 
 # draw method that builds the part of the GUI responsible for the bone submenu
 def draw(layout, context):
+    if not armatures.checkArmature(layout,context):
+        return
     # layout.label("Active Bone:")
     if context.active_bone is not None:
 

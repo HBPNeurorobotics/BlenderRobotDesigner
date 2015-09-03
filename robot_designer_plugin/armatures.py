@@ -341,6 +341,13 @@ class RobotEditor_ArmatureJoinMenu(bpy.types.Menu):
             text = arm.name
             layout.operator("roboteditor.joinarmature", text=text).targetArmatureName = text
 
+def checkArmature(layout, context):
+    if context.active_object.type == 'ARMATURE':
+        return True
+    else:
+        layout.label(text="Select Armature first:")
+        layout.menu("roboteditor.armaturemenu", text="")
+        return False
 
 # draw method that builds the part of the GUI responsible for the armature
 def draw(layout, context):

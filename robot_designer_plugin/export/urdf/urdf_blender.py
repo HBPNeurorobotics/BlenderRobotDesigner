@@ -8,6 +8,7 @@ __author__ = 'ulbrich'
 
 # system imports
 import os
+
 from math import *
 
 # blender imports
@@ -28,69 +29,72 @@ logger = logging.getLogger('URFD')
 logger.setLevel(logging.DEBUG)
 
 
-def import_(file_name):
+def import_(urdf_file):
     """
     Imports a URDF file into the RobotDesigner.
 
-    :param file_name: string referring to the file to be opened
+    :param urdf_file: string referring to the file to be opened
     """
-    robot_name, root_links, kinematic_chains = urdf_tree.URDFTree.parse(file_name)
+    robot_name, root_links, kinematic_chains = urdf_tree.URDFTree.parse(urdf_file)
 
     logger.debug('root links: %s', [i.name for i in root_links])
 
     armature_name = bpy.context.active_object.name
 
-    def import_geometry(visual):
+
+    def import_geometry(model):
         """
         Adds a geometry to the blender scene. Uses the file_name variable of the parenting context
-        :param visual: A urdf_dom.visual object.
+        :param model: A urdf_dom.visual object.
         :return: Returns the transformation in the origin element (a 4x4 blender matrix).
         """
-        file = os.path.join(os.path.dirname(file_name),
-                            visual.geometry.mesh.filename.replace("package://", "").replace(
-                                "file://", "").replace("model://", ""))
 
-        logger.debug("Import %s, exists: %s", file, os.path.exists(file))
-        fn, extension = os.path.splitext(file)
+        file_name = model.geometry.mesh.filename.replace("package://", "").replace(
+                                "file://", "").replace("model://", "")
+        file_path = os.path.join(os.path.dirname(urdf_file),file_name)
+
+        logger.debug("Import %s, exists: %s", file_path, os.path.exists(file_path))
+        fn, extension = os.path.splitext(file_path)
         if extension == ".stl":
-            bpy.ops.import_mesh.stl(filepath=file)
+            bpy.ops.import_mesh.stl(filepath=file_path)
         elif extension == ".dae":
-            bpy.ops.wm.collada_import(filepath=file, import_units=True)
-            # bpy.context.active_object.matrix_world = Matrix()
+            bpy.ops.wm.collada_import(filepath=file_path, import_units=True)
 
-        scale_urdf = string_to_list(visual.geometry.mesh.scale)
+        bpy.context.active_object.RobotEditor.fileName = os.path.basename(os.path.splitext(file_name)[0])
+
+        scale_urdf = string_to_list(model.geometry.mesh.scale)
         scale_matrix = Matrix([[scale_urdf[0], 0, 0, 0], [0, scale_urdf[1], 0, 0],
                                [0, 0, scale_urdf[2], 0], [0, 0, 0, 1]])
 
-        # store origin in a transformation matrix
-        # bpy.context.active_object.location = Vector(string_to_list(get_value(visual.origin.xyz, '0 0 0')))
-        # bpy.context.active_object.rotation_euler = Euler(string_to_list(visual.origin.rpy), 'XYZ')
-        return Matrix.Translation(Vector(string_to_list(visual.origin.xyz))) * \
-               Euler(string_to_list(visual.origin.rpy), 'XYZ').to_matrix().to_4x4() * scale_matrix
+        logger.debug("xyz: %s, rpy: %s\n%s",model.origin.xyz,model.origin.rpy,scale_matrix)
 
-    def import_geometry(collision):
-        """
-        Adds a geometry to the blender scene. Uses the file_name variable of the parenting context
-        :param collision: A urdf_dom.collision object.
-        :return: Returns the transformation in the origin element (a 4x4 blender matrix).
-        """
-        file = os.path.join(os.path.dirname(file_name),
-                            collision.geometry.mesh.filename.replace("package://", "").replace(
-                                "file://", "").replace("model://", ""))
 
-        logger.debug("Import %s, exists: %s", file, os.path.exists(file))
-        fn, extension = os.path.splitext(file)
-        if extension == ".stl":
-            bpy.ops.import_mesh.stl(filepath=file)
-        elif extension == ".dae":
-            bpy.ops.wm.collada_import(filepath=file, import_units=True)
-            # bpy.context.active_object.matrix_world = Matrix()
+        return Matrix.Translation(Vector(string_to_list(model.origin.xyz))) * \
+               Euler(string_to_list(model.origin.rpy), 'XYZ').to_matrix().to_4x4() * scale_matrix
 
-        # store origin in a transformation matrix
-        # bpy.context.active_object.location = Vector(string_to_list(get_value(visual.origin.xyz, '0 0 0')))
-        # bpy.context.active_object.rotation_euler = Euler(string_to_list(visual.origin.rpy), 'XYZ')
-        return Matrix.Translation(Vector(string_to_list(collision.origin.xyz))) * \
-               Euler(string_to_list(collision.origin.rpy), 'XYZ').to_matrix().to_4x4()
+    # def import_geometry(collision):
+    #     """
+    #     Adds a geometry to the blender scene. Uses the file_name variable of the parenting context
+    #     :param collision: A urdf_dom.collision object.
+    #     :return: Returns the transformation in the origin element (a 4x4 blender matrix).
+    #     """
+    #     file = os.path.join(os.path.dirname(file_name),
+    #                         collision.geometry.mesh.filename.replace("package://", "").replace(
+    #                             "file://", "").replace("model://", ""))
+    #
+    #     logger.debug("Import %s, exists: %s", file, os.path.exists(file))
+    #     fn, extension = os.path.splitext(file)
+    #     if extension == ".stl":
+    #         bpy.ops.import_mesh.stl(filepath=file)
+    #     elif extension == ".dae":
+    #         bpy.ops.wm.collada_import(filepath=file, import_units=True)
+    #         # bpy.context.active_object.matrix_world = Matrix()
+    #
+    #     # store origin in a transformation matrix
+    #     # bpy.context.active_object.location = Vector(string_to_list(get_value(visual.origin.xyz, '0 0 0')))
+    #     # bpy.context.active_object.rotation_euler = Euler(string_to_list(visual.origin.rpy), 'XYZ')
+    #     return Matrix.Translation(Vector(string_to_list(collision.origin.xyz))) * \
+    #            Euler(string_to_list(collision.origin.rpy), 'XYZ').to_matrix().to_4x4()
 
     def parse(tree, parent_name=None):
 
@@ -103,6 +107,8 @@ def import_(file_name):
 
         xyz = string_to_list(get_value(tree.joint.origin.xyz, "0 0 0"))
         euler = string_to_list(get_value(tree.joint.origin.rpy, '0 0 0'))
+        logger.debug("xyz: %s, rpy: %s",tree.joint.origin.xyz,tree.joint.origin.rpy)
+        logger.debug("xyz: %s, rpy: %s",xyz,euler)
 
         axis = string_to_list(tree.joint.axis.xyz)
         for i, element in enumerate(axis):
@@ -134,7 +140,7 @@ def import_(file_name):
                 tree.joint.limit.velocity)
             # bpy.context.active_bone.RobotEditor.controller.maxVelocity = float(tree.joint.limit.friction)
 
-        if tree.joint.type_ == 'revolute':
+        if tree.joint.type == 'revolute':
             bpy.context.active_bone.RobotEditor.jointMode = 'REVOLUTE'
             bpy.context.active_bone.RobotEditor.theta.max = degrees(
                 float(get_value(tree.joint.limit.upper, 0)))
@@ -166,6 +172,7 @@ def import_(file_name):
                               bpy.context.active_object.pose.bones[
                                   bone_name].matrix
 
+<<<<<<< HEAD
         for visual in tree.link.visual:
             # geometry is not optional in the xml
             if visual.geometry.mesh is not None:
@@ -275,6 +282,81 @@ def import_(file_name):
             else:
                 # todo debug message or throw exception if it is a primitive -- better create mesh from primitive
                 pass
+=======
+        logger.debug("bone matrix: \n%s", bone_transformation)
+
+        models = list(tree.link.visual) + list(tree.link.collision)
+
+        # Iterate first over visual models then over collision models
+        VISUAL, COLLISON = 0, 1
+        for model_type, geometric_models in enumerate((tree.link.visual, tree.link.collision)):
+            # Iterate over the geometric models that are declared for the link
+            for nr, model in enumerate(geometric_models):
+                # geometry is not optional in the xml
+                if model.geometry.mesh is not None:
+
+                    trafo_urdf = import_geometry(model)
+                    logger.debug("Trafo: \n%s", trafo_urdf)
+                    # URDF (the import in ROS) exhibits a strange behavior:
+                    # If there is a transformation preceding the mesh in a .dae file, only the scale is
+                    # extracted and the rest is omitted. Therefore, we store the scale after import and
+                    # multiply it to the scale given in the xml attribute.
+
+
+                    # if there are multiple objects in the COLLADA file:
+                    selected_objects = [i.name for i in bpy.context.selected_objects]
+                    for object_name in selected_objects:
+                        bpy.context.scene.objects.active = bpy.data.objects[object_name]
+                        bpy.ops.object.parent_clear(type="CLEAR_KEEP_TRANSFORM")
+                    for object_name in selected_objects:
+                        # Select the object (and deselect others)
+                        bpy.ops.object.select_all(False)
+                        bpy.context.scene.objects.active = bpy.data.objects[object_name]
+                        bpy.context.active_object.select = True
+                        # logger.debug("Matrix world before: \n%s",
+                        #             bpy.context.active_object.matrix_world)
+                        bpy.ops.object.transform_apply(location=True,rotation=True,scale=True)
+
+                        bpy.context.active_object.matrix_world = bone_transformation * trafo_urdf * \
+                                                                 bpy.context.active_object.matrix_world
+                        # logger.debug("bone matrix: \n%s", bone_transformation)
+                        # logger.debug("Matrix world: \n%s", bpy.context.active_object.matrix_world)
+
+                        # # Can be removed once collada import has been proven to be stable
+                        # scale_object = bpy.context.active_object.scale
+                        # scale_matrix = Matrix([[scale_urdf[0] * scale_object[0], 0, 0, 0],
+                        #                 [0, scale_urdf[1] * scale_object[1], 0, 0],
+                        #                 [0, 0, scale_urdf[2] * scale_object[2], 0], [0, 0, 0, 1]])
+                        # bpy.context.active_object.matrix_world = bone_transformation * trafo_urdf * scale_matrix
+                        # logger.debug("Scale: %s,%s, Matrix world: \n%s", scale_urdf, scale_object,
+                        #              bpy.context.active_object.matrix_world)
+
+                        # if the loop continues the name will be suffixed by a number
+
+                        if model_type == COLLISON:
+                            bpy.context.active_object.name = "COL_%s_%2d" % (tree.link.name, nr)
+                            bpy.context.active_object.RobotEditor.tag = 'COLLISION'
+                        else:
+                            bpy.context.active_object.name = "VIS_%s_%2d" % (tree.link.name, nr)
+
+                        # The name might be altered by blender
+                        assigned_name = bpy.context.active_object.name
+
+                        # connect the meshes
+
+                        # logger.debug("Connecting %s,%s,%s -> %s,%s", visual.geometry.mesh.filename,
+                        #             bpy.context.active_object.name, object_name, armature_name,
+                        #             bone_name)
+                        bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
+                        bpy.ops.roboteditor.selectbone(boneName=bone_name)
+                        bpy.data.objects[assigned_name].select = True
+                        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+
+                else:
+                    # todo debug message or throw exception if it is a primitive -- better create mesh from primitive
+                    pass
+
+>>>>>>> fbd4315... Fixes to URDF import
 
         for sub_tree in tree.children:
             parse(sub_tree, bone_name)
@@ -407,11 +489,11 @@ def export(file_name):
         if bone.RobotEditor.jointMode == 'REVOLUTE':
             child.joint.limit.lower = bone.RobotEditor.theta.min
             child.joint.limit.upper = bone.RobotEditor.theta.max
-            child.joint.type_ = 'revolute'
+            child.joint.type = 'revolute'
         else:
             child.joint.limit.lower = bone.RobotEditor.d.min
             child.joint.limit.upper = bone.RobotEditor.d.max
-            child.joint.type_ = 'prismatic'
+            child.joint.type = 'prismatic'
         # Add properties
         connected_meshes = [mesh.name for mesh in bpy.data.objects if
                             mesh.type == 'MESH' and mesh.parent_bone == bone.name]
@@ -433,10 +515,12 @@ def export(file_name):
             visual.origin.rpy = list_to_string(pose.to_euler())
 
             # using the collisionmodel export for stl files
-            # print('debug collision hinzugefuegt: ' + export_collisionmodel(mesh))
-            collision = child.add_collisionmodel(export_collisionmodel(mesh))
-            collision.origin.xyz = list_to_string(pose.translation)
-            # collision.origin.rpy = list_to_string(pose.to_euler)
+            #print('debug collision hinzugefuegt: ' + export_collisionmodel(mesh))
+            collision_model_path = export_collisionmodel(mesh)
+            if collision_model_path is not None:
+                collision = child.add_collisionmodel(collision_model_path)
+                collision.origin.xyz = list_to_string(pose.translation)
+                # collision.origin.rpy = list_to_string(pose.to_euler)
 
         # Add geometry
         for child_bones in bone.children:

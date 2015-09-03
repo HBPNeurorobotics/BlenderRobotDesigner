@@ -10,14 +10,14 @@ import xml.etree.cElementTree as etree
 try:
     from . import simox
 
-    use_simox = True
+    use_simox = False
 except ImportError:
     use_simox = False
 
 try:
     from . import mmm
 
-    use_mmm = True
+    use_mmm = False
 except ImportError:
     use_mmm = False
 
@@ -295,13 +295,30 @@ class RobotEditor_exportURDF(bpy.types.Operator):
 
 
 def draw(layout, context):
-    layout.operator("roboteditor.colladaexport")
+    layout.prop(bpy.context.scene.RobotEditor, "storageMode", expand=True)
+    if bpy.context.scene.RobotEditor.storageMode == 'local':
+        pass
+    elif bpy.context.scene.RobotEditor.storageMode == 'git':
+        layout.prop(bpy.context.scene.RobotEditor, "gitRepository")
+        layout.prop(bpy.context.scene.RobotEditor, "gitURL")
+    elif bpy.context.scene.RobotEditor.storageMode == 'temporary':
+        layout.prop(bpy.context.scene.RobotEditor, "gitURL")
+
+    row = layout.row()
+    column = row.column()
+
+    column.label('Import:')
     if use_simox:
-        layout.operator("roboteditor.simoximport")
+        column.operator("roboteditor.simoximport")
     if use_mmm:
-        layout.operator("roboteditor.mmmimport")
-    layout.operator("roboteditor.urdfimport")
-    layout.operator("roboteditor.urdfexport")
+        column.operator("roboteditor.mmmimport")
+    column.operator("roboteditor.urdfimport")
+
+    column = row.column()
+    column.label('export:')
+    if armatures.checkArmature(column, context):
+        column.operator("roboteditor.urdfexport")
+        column.operator("roboteditor.colladaexport")
 
 
 def register():

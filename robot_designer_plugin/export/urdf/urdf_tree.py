@@ -5,6 +5,7 @@ Module for importing robots specified in the URDF file format.
 __author__ = 'Stefan Ulbrich'
 import sys
 
+import pyxb
 from . import urdf_dom
 import logging
 logger = logging.getLogger('URFD')
@@ -59,7 +60,8 @@ class URDFTree(object):
         """
 
         # read the file
-        robot = urdf_dom.parse(file_name, silence=True)
+        #robot = urdf_dom.parse(file_name, silence=True)
+        robot = urdf_dom.CreateFromDocument(open(file_name).read())
 
         # create mapping from (parent) links to joints
         connected_joints = {link: [joint for joint in robot.joint if link.name == joint.parent.link] for link
@@ -102,8 +104,9 @@ class URDFTree(object):
         self.set_defaults()
 
         children = self.connectedJoints[link]
-        logger.debug("%s %s, %s -> %s", '-'*depth, joint.name, link.name, [i.name for i in children] )
-        logger.debug("%s axis: '%s', type: '%s', xyz:'%s', rpy:'%s', limit:'%s-%s' ", ' '*depth,  joint.axis.xyz, joint.type_, joint.origin.xyz,joint.origin.rpy, joint.limit.lower, joint.limit.upper )
+
+        #logger.debug("%s %s, %s -> %s", '-'*depth, joint.name, link.name, [i.name for i in children] )
+        #logger.debug("%s axis: '%s', type: '%s', xyz:'%s', rpy:'%s', limit:'%s-%s' ", ' '*depth,  joint.axis.xyz, joint.type_, joint.origin.xyz,joint.origin.rpy, joint.limit.lower, joint.limit.upper )
 
         for joint in children:
             tree = URDFTree(connected_links=self.connectedLinks, connected_joints=self.connectedJoints, robot=self.robot)
@@ -142,9 +145,10 @@ class URDFTree(object):
             if joint.parent is None:
                 joint.parent = self.link.name
 
-        with open(file_name,"w") as f:
-            f.write('<?xml version="1.0" ?>')
-            self.robot.export(f,0)
+        with open(file_name, "w") as f:
+            #f.write('<?xml version="1.0" ?>')
+            f.write(self.robot.toxml("utf-8", element_name="robot").decode("utf-8"))
+            # self.robot.export(f,0)
 
 
     def _write(self):
@@ -207,7 +211,7 @@ class URDFTree(object):
         collision.geometry = urdf_dom.GeometryType()
         collision.origin = urdf_dom.PoseType()
         collision.geometry.mesh = urdf_dom.MeshType()
-        # print('debug add_collisionmodel: ' + file_name)
+        print('debug add_collisionmodel: ' + file_name)
         collision.geometry.mesh.filename = file_name
         return collision
 
@@ -235,6 +239,10 @@ class URDFTree(object):
         for visual in link.visual:
             if visual.origin is None:
                 visual.origin = urdf_dom.PoseType()
+
+        for collision in link.collision:
+            if collision.origin is None:
+                collision.origin = urdf_dom.PoseType()
 
         if joint.dynamics is None:
             joint.dynamics = urdf_dom.DynamicsType()

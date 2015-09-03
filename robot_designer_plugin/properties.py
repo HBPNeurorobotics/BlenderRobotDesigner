@@ -4,7 +4,7 @@ from mathutils import Euler, Matrix
 from bpy.props import *
 
 from math import radians
-from . import armatures
+from . import armatures, meshes
 
 
 # property group that contains all controller-related parameters
@@ -30,14 +30,39 @@ class RobotEditor_Globals(bpy.types.PropertyGroup):
     markerName = StringProperty(name="markerName")
     physicsFrameName = StringProperty(name="physicsFrameName")
     controlEnum = EnumProperty(
-        items=[('bones', 'Bones', 'Modify selected Bone'),
+        items=[('armatures', 'Kinematics', 'Modify the kinematic model'),
+               ('bones', 'Bones', 'Modify selected Bone'),
                ('meshes', 'Meshes', 'Assign meshes to bones'),
-               ('markers', 'Markers', 'Assign markers to bones'),
+               # ('markers', 'Markers', 'Assign markers to bones'),
                ('physics', 'Physics', 'Assign Physics Frames to bones'),
                ('controller', 'Controller', 'Modify controller parameter'),
+               ('tools', 'Tools', 'Tools'),
                ('files', 'Files', 'Export Armature')],
         name="RobotEditor Control Panel"
     )
+    meshType = EnumProperty(
+        items=[('DEFAULT', 'Visual', 'Set visual meshes'), ('COLLISION', 'Collision', 'Set collision meshes')]
+    )
+    listMeshes = EnumProperty(items=[("all",'List all','Show all meshes in menu'),
+                                ("connected", 'List connected', 'Show only connected meshes in menu'),
+                                ('disconnected', 'List disconnected', 'Show only disconnected meshes in menu')])
+
+    hideMeshType =  EnumProperty(
+        items=[('all', 'Show All connected', 'Show all mesh objects in viewport'),
+               ('collision', 'Show collision models', 'Show only connected collision models'),
+               ('visual', 'Show visual models', 'Show only connected visual models')], update=meshes.displayMeshes)
+
+    listBones = EnumProperty(items=[("all",'List all','Show all bones in menu'),
+                                     ("connected", 'List connected', 'Show only bones with connected meshes in menu'),
+                                     ('disconnected', 'List disconnected',
+                                      'List only bones without connected meshes in menu')])
+    storageMode = EnumProperty(items=[('temporary', 'Non-persistant GIT', 'Stores/retrieves files from GIT temporary' +
+                                       ' repository'),
+                                      ('git','Persitant GIT','Stores/retrieves files from persistent GIT repository'),
+                                      ('local','Local','Stores/retrieves from local hard disk')])
+    gitURL = StringProperty(name='GIT URL')
+    gitRepository = StringProperty(name='GIT Repository')
+
     boneLength = FloatProperty(name="Global bone length", default=1.0, min=0.001, update=updateGlobals)
     subdivisionLevels = IntProperty(name="Subdivision Levels", default=2)
     shrinkWrapOffset = FloatProperty(name="Shrinkwrap Offset", default=0.001)
@@ -79,6 +104,7 @@ class RobotEditor_Dynamics(bpy.types.PropertyGroup):
 # property group that stores general information for individual Blender objects with respect to the RobotEditor
 class RobotEditor_Properties(bpy.types.PropertyGroup):
     dynamics = PointerProperty(type=RobotEditor_Dynamics)
+    fileName = StringProperty(name="fileName")
     tag = EnumProperty(
         items=[('DEFAULT', 'Default', 'Default'),
                ('MARKER', 'Marker', 'Marker'),
@@ -124,6 +150,26 @@ class RobotEditor_DH(bpy.types.PropertyGroup):
     alpha = PointerProperty(type=RobotEditor_DoF)
     a = PointerProperty(type=RobotEditor_DoF)
 
+# property group for joint controllers
+class RobotEditor_JointControllerType(bpy.types.PropertyGroup):
+
+    isActive = BoolProperty(name="Active")
+
+    controllerType = EnumProperty(
+        items=[('POSITION', 'Position', 'Position'),
+               ('VELOCITY', 'Velocity', 'Velocity')],
+        name="Controller mode:"
+    )
+
+    # controllerType = EnumProperty(
+    #     items=[('PID', 'PID controller', 'PID controller'),
+    #            ('P', 'P controller', 'P controller')],
+    #     name="Controller type:"
+    # )
+
+    P = FloatProperty(name="P", precision=4, step=100)
+    I = FloatProperty(name="I", precision=4, step=100)
+    D = FloatProperty(name="D", precision=4, step=100)
 
 # bone property, contains all relevant bone information for RobotEditor
 class RobotEditor_BoneProperty(bpy.types.PropertyGroup):
@@ -213,11 +259,14 @@ class RobotEditor_BoneProperty(bpy.types.PropertyGroup):
     DH = PointerProperty(type=RobotEditor_DH)
     axis_revert = BoolProperty(name="Axis reverted?", default=False, update=updateBoneProperty)
     controller = PointerProperty(type=RobotEditor_ControllerProperty)
+    jointController = PointerProperty(type=RobotEditor_JointControllerType)
+
     # TODO: Add flags!
 
 
 def register():
     bpy.utils.register_class(RobotEditor_ControllerProperty)
+    bpy.utils.register_class(RobotEditor_JointControllerType)
     bpy.utils.register_class(RobotEditor_Globals)
     bpy.utils.register_class(RobotEditor_DoF)
     bpy.utils.register_class(RobotEditor_Dynamics)
@@ -229,6 +278,7 @@ def register():
 
 def unregister():
     bpy.utils.unregister_class(RobotEditor_ControllerProperty)
+    bpy.utils.unregister_class(RobotEditor_JointControllerType)
     bpy.utils.unregister_class(RobotEditor_Globals)
     bpy.utils.unregister_class(RobotEditor_DoF)
     bpy.utils.unregister_class(RobotEditor_Dynamics)

@@ -1,6 +1,26 @@
 # Blender-specific imports (catch exception for sphinx documentation)
 import bpy
 from bpy.props import *
+from . import armatures
+
+def displayMeshes(self, context):
+
+
+    hide_mesh = context.scene.RobotEditor.hideMeshType
+    meshNames = [obj.name for obj in bpy.data.objects if
+                 not obj.parent_bone is None and
+                 obj.type == 'MESH']
+    for mesh in meshNames:
+        obj = bpy.data.objects[mesh]
+        if hide_mesh=='all':
+            obj.hide = False
+        elif hide_mesh=='collision' and obj.RobotEditor.tag=='COLLISION':
+            obj.hide = False
+        elif hide_mesh=='visual' and obj.RobotEditor.tag=='DEFAULT':
+            obj.hide = False
+        else:
+            obj.hide = True
+
 
 
 # operator to select mesh
@@ -23,6 +43,39 @@ class RobotEditor_selectMesh(bpy.types.Operator):
 
         return {'FINISHED'}
 
+# dynamic menu to select mesh
+class RobotEditor_boneMeshMenu(bpy.types.Menu):
+    bl_idname = "roboteditor.bonemeshmenu"
+    bl_label = "Select Bone"
+
+    def draw(self, context):
+        mesh_type = context.scene.RobotEditor.meshType
+        hide_bone = context.scene.RobotEditor.listBones
+        layout = self.layout
+
+        currentArm = context.active_object
+        boneNames = [bone.name for bone in currentArm.data.bones if
+                     context.scene.RobotEditor.liveSearchBones in bone.name]
+        meshes = {obj.parent_bone: obj.name for obj in bpy.data.objects if
+                  not obj.parent_bone is None and
+                     obj.type == 'MESH' and
+                     obj.RobotEditor.tag == mesh_type}
+
+        for bone in sorted(boneNames, key=str.lower):
+            if bone in meshes:
+                text = bone + " <-- " + meshes[bone]
+                if hide_bone == 'disconnected':
+                    continue
+            # elif bpy.data.objects[mesh].parent:
+            #    text = context.scene.RobotEditor.meshName + " --> " + bpy.data.objects[mesh].parent.name
+            #    text = mesh + " --> " + bpy.data.objects[mesh].parent.name
+            else:
+                text = bone
+                if hide_bone == 'connected':
+                    continue
+            layout.operator("roboteditor.selectbone", text=text).boneName = bone
+
+
 
 # dynamic menu to select mesh
 class RobotEditor_meshMenu(bpy.types.Menu):
@@ -30,18 +83,26 @@ class RobotEditor_meshMenu(bpy.types.Menu):
     bl_label = "Select Mesh"
 
     def draw(self, context):
+        mesh_type = context.scene.RobotEditor.meshType
+        hide_mesh = context.scene.RobotEditor.listMeshes
         layout = self.layout
         meshNames = [obj.name for obj in bpy.data.objects if
-                     obj.type == 'MESH' and context.scene.RobotEditor.liveSearchMeshes in obj.name]
+                     obj.type == 'MESH' and
+                     obj.RobotEditor.tag == mesh_type and
+                     context.scene.RobotEditor.liveSearchMeshes in obj.name]
 
         for mesh in meshNames:
             if bpy.data.objects[mesh].parent_bone:
                 text = mesh + " --> " + bpy.data.objects[mesh].parent_bone
-            elif bpy.data.objects[mesh].parent:
-                # text = context.scene.RobotEditor.meshName + " --> " + bpy.data.objects[mesh].parent.name
-                text = mesh + " --> " + bpy.data.objects[mesh].parent.name
+                if hide_mesh == 'disconnected':
+                    continue
+            # elif bpy.data.objects[mesh].parent:
+            #    text = context.scene.RobotEditor.meshName + " --> " + bpy.data.objects[mesh].parent.name
+            #    text = mesh + " --> " + bpy.data.objects[mesh].parent.name
             else:
                 text = mesh
+                if hide_mesh == 'connected':
+                    continue
             layout.operator("roboteditor.selectmesh", text=text).meshName = mesh
 
 
@@ -127,53 +188,74 @@ class RobotEditor_assignCollisionModel(bpy.types.Operator):
 
 # defines the layout part of the mesh submenu
 def draw(layout, context):
+    if not armatures.checkArmature(layout,context):
+        return
+
+    layout.label("Mesh type:")
+    layout.prop(bpy.context.scene.RobotEditor, "meshType", expand=True)
+    layout.label("Show in viewport:")
+    layout.prop(bpy.context.scene.RobotEditor, "hideMeshType", expand=True)
+    hide_mesh = context.scene.RobotEditor.listMeshes
+
     layout.label("Select mesh:")
-    topRow = layout.column(align=True)
+    topRow = layout  # layout.column(align=True)
     meshMenuText = ""
     if context.scene.RobotEditor.meshName in bpy.data.objects:
         if context.active_bone and not context.scene.RobotEditor.meshName == "":
             mesh = bpy.data.objects[context.scene.RobotEditor.meshName]
 
-            if mesh.parent_bone:
+            if mesh.parent_bone and not hide_mesh == 'disconnected':
                 meshMenuText = context.scene.RobotEditor.meshName + " --> " + mesh.parent_bone
-            elif mesh.parent:
-                meshMenuText = context.scene.RobotEditor.meshName + " --> " + mesh.parent.name
-            else:
+            # elif mesh.parent:
+            #     meshMenuText = context.scene.RobotEditor.meshName + " --> " + mesh.parent.name
+            elif not mesh.parent_bone and not hide_mesh == 'connected':
                 meshMenuText = context.scene.RobotEditor.meshName
+            else:
+                meshMenuText = ''
+
+    print(context.scene.RobotEditor.meshName)
     topRow.menu("roboteditor.meshmenu", text=meshMenuText)
     topRow.prop(context.scene.RobotEditor, "liveSearchMeshes", icon='VIEWZOOM', text="")
+    topRow.prop(context.scene.RobotEditor, "listMeshes", expand=True)
     topRow.separator()
-    rightColumn = topRow.column(align=False)
+    rightColumn = layout  # topRow.column(align=False)
     rightColumn.operator("roboteditor.unassignmesh")
     rightColumn.operator("roboteditor.unassignallmeshes")
     rightColumn.operator("roboteditor.renamemeshes")
 
-    layout.label("Select bone")
-    midRow = layout.row(align=False)
-    col = midRow.column(align=True)
+    selected_objects = [i for i in context.selected_objects if i.name != context.active_object.name]
+    if len(selected_objects)==1:
+        rightColumn.prop(selected_objects[0].RobotEditor, 'fileName')
 
-    col.menu("roboteditor.bonemenu", text=context.active_bone.name)
-    col.prop(context.scene.RobotEditor, "liveSearchBones", icon='VIEWZOOM', text="")
+    layout.label("Select bone")
+    midRow = layout  #.column(align=True)
+    #col = midRow.column(align=True)
+
+
+    midRow.menu("roboteditor.bonemeshmenu", text=context.scene.RobotEditor.boneName)
+    midRow.prop(context.scene.RobotEditor, "liveSearchBones", icon='VIEWZOOM', text="")
+    midRow.prop(context.scene.RobotEditor, "listBones", expand=True)
     midRow.operator("roboteditor.assignmesh")
 
-    lowerRow = layout.row(align=False)
-    layout.label("Select Physics Frame:")
-    frameMenuText = ""
-    if context.active_bone and not context.scene.RobotEditor.physicsFrameName == "":
-        frame = bpy.data.objects[context.scene.RobotEditor.physicsFrameName]
-
-        if frame.parent_bone:
-            frameMenuText = context.scene.RobotEditor.physicsFrameName + " --> " + frame.parent_bone
-        else:
-            frameMenuText = context.scene.RobotEditor.physicsFrameName
-
-    lowerRow.menu("roboteditor.physicsframemenu", text=frameMenuText)
-    lowerRow.operator("roboteditor.assigncollisionmodel")
+    # lowerRow = layout.row(align=False)
+    # layout.label("Select Physics Frame:")
+    # frameMenuText = ""
+    # if context.active_bone and not context.scene.RobotEditor.physicsFrameName == "":
+    #     frame = bpy.data.objects[context.scene.RobotEditor.physicsFrameName]
+    #
+    #     if frame.parent_bone:
+    #         frameMenuText = context.scene.RobotEditor.physicsFrameName + " --> " + frame.parent_bone
+    #     else:
+    #         frameMenuText = context.scene.RobotEditor.physicsFrameName
+    #
+    # lowerRow.menu("roboteditor.physicsframemenu", text=frameMenuText)
+    # lowerRow.operator("roboteditor.assigncollisionmodel")
 
 
 def register():
     bpy.utils.register_class(RobotEditor_selectMesh)
     bpy.utils.register_class(RobotEditor_meshMenu)
+    bpy.utils.register_class(RobotEditor_boneMeshMenu)
     bpy.utils.register_class(RobotEditor_assignMesh)
     bpy.utils.register_class(RobotEditor_unassignMesh)
     bpy.utils.register_class(RobotEditor_unassignAllMeshes)
@@ -184,6 +266,7 @@ def register():
 def unregister():
     bpy.utils.unregister_class(RobotEditor_selectMesh)
     bpy.utils.unregister_class(RobotEditor_meshMenu)
+    bpy.utils.unregister_class(RobotEditor_boneMeshMenu)
     bpy.utils.unregister_class(RobotEditor_assignMesh)
     bpy.utils.unregister_class(RobotEditor_unassignMesh)
     bpy.utils.unregister_class(RobotEditor_unassignAllMeshes)

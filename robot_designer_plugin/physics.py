@@ -2,7 +2,7 @@
 import bpy
 from mathutils import Euler, Matrix, Quaternion, Vector
 from bpy.props import *
-
+from . import armatures
 
 # operator to create physics frame
 class RobotEditor_createPhysicsFrame(bpy.types.Operator):
@@ -94,13 +94,21 @@ class RobotEditor_assignPhysicsFrame(bpy.types.Operator):
         return {'FINISHED'}
 
 
-# operator to generate a collision mesh for an assigned selected physics frame
 class RobotEditor_generateCollisionMesh(bpy.types.Operator):
+    """
+    Operator to generate a collision mesh for an assigned selected physics frame
+    """
     bl_idname = "roboteditor.generatecollisionmesh"
     bl_label = "Generate Collision Mesh from bone"
     confirmation = BoolProperty(name="This already is a collision mesh. Continue anyway?")
 
     def execute(self, context):
+        """
+        Executes the operator.
+
+        :param context: Blender context object
+        :return:
+        """
 
         for target in [i.name for i in bpy.data.objects if i.type == 'MESH']:
             # check if mesh is already a collision model
@@ -192,6 +200,8 @@ class RobotEditor_unassignPhysicsFrame(bpy.types.Operator):
 
 # draws the layout part of the physics frame submenu
 def draw(layout, context):
+    if not armatures.checkArmature(layout,context):
+        return
     layout.operator("roboteditor.createphysicsframe")
     layout.label("Select Physics Frame:")
     topRow = layout.column(align=False)

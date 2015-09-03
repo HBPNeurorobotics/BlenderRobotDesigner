@@ -28,27 +28,27 @@ class RobotEditor_UserInterface(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
-        layout.operator("roboteditor.printtransformations")
-        if armatures.draw(layout, context):
-            # armature selected!
-            layout.separator()
-            layout.prop(bpy.context.scene.RobotEditor, "controlEnum", expand=True)
-            control = context.scene.RobotEditor.controlEnum
 
-            if control == 'bones':
-                bones.draw(layout, context)
-            elif control == 'meshes':
-                meshes.draw(layout, context)
-            elif control == 'markers':
-                markers.draw(layout, context)
-            elif control == 'physics':
-                physics.draw(layout, context)
-            elif control == 'controller':
-                controllers.draw(layout, context)
-            elif control == 'files':
-                files.draw(layout, context)
+        layout.prop(bpy.context.scene.RobotEditor, "controlEnum", expand=True)
+        control = context.scene.RobotEditor.controlEnum
 
-                # layout.prop(bpy.context.scene.RobotEditor,"controlEnum", expand=True)
+        if control == 'armatures':
+            armatures.draw(layout, context)
+        elif control == 'bones':
+            bones.draw(layout, context)
+        elif control == 'meshes':
+            meshes.draw(layout, context)
+        elif control == 'markers':
+            markers.draw(layout, context)
+        elif control == 'physics':
+            physics.draw(layout, context)
+        elif control == 'controller':
+            controllers.draw(layout, context)
+        elif control == 'files':
+            files.draw(layout, context)
+        elif control == 'tools':
+            layout.operator("roboteditor.printtransformations")
+
 
 
 # initialize all RobotEditor properties
@@ -56,6 +56,7 @@ def init():
     bpy.types.Bone.RobotEditor = bpy.props.PointerProperty(type=bpy.types.RobotEditor_BoneProperty)
     bpy.types.Object.RobotEditor = bpy.props.PointerProperty(type=bpy.types.RobotEditor_Properties)
     bpy.types.Scene.RobotEditor = bpy.props.PointerProperty(type=bpy.types.RobotEditor_Globals)
+
 
 
 def register():
