@@ -342,7 +342,8 @@ class RobotEditor_ArmatureJoinMenu(bpy.types.Menu):
             layout.operator("roboteditor.joinarmature", text=text).targetArmatureName = text
 
 def checkArmature(layout, context):
-    if context.active_object.type == 'ARMATURE':
+
+    if context.active_object is not None and context.active_object.type == 'ARMATURE':
         return True
     else:
         layout.label(text="Select Armature first:")
