@@ -88,6 +88,8 @@ class URDFTree(object):
                 kinematic_chains.append(tree)
                 tree.build(connected_links[joint], joint)
 
+        # todo: parse joint controllers
+
         logger.debug("kinematic chains: %s", kinematic_chains)
         return robot.name, root_links, kinematic_chains
 
@@ -113,6 +115,7 @@ class URDFTree(object):
             self.children.append(tree)
             tree.build(self.connectedLinks[joint], joint, depth+1)
 
+
     @staticmethod
     def create_empty(name):
 
@@ -122,7 +125,13 @@ class URDFTree(object):
         tree.link.name = "base_link"
         tree.robot.link.append(tree.link)
         tree.joint = urdf_dom.JointType()
+
         tree.set_defaults()
+
+        # build empty gazebo tag for control plugins
+        tree.gazebo_tag = urdf_dom.GazeboType()
+        tree.robot.gazebo.append(tree.gazebo_tag)
+
         return tree
 
 
@@ -147,7 +156,9 @@ class URDFTree(object):
 
         with open(file_name, "w") as f:
             #f.write('<?xml version="1.0" ?>')
-            f.write(self.robot.toxml("utf-8", element_name="robot").decode("utf-8"))
+            output = self.robot.toxml("utf-8", element_name="robot").decode("utf-8")
+            output = output.replace(">", ">\n")
+            f.write(output)
             # self.robot.export(f,0)
 
 
@@ -211,9 +222,46 @@ class URDFTree(object):
         collision.geometry = urdf_dom.GeometryType()
         collision.origin = urdf_dom.PoseType()
         collision.geometry.mesh = urdf_dom.MeshType()
-        print('debug add_collisionmodel: ' + file_name)
+        #print('debug add_collisionmodel: ' + file_name)
         collision.geometry.mesh.filename = file_name
         return collision
+
+    def add_inertial(self):
+        """
+        Add a inertial definition to a link object
+
+        :return: string:     reference to inertial object
+        """
+        inertial = urdf_dom.InertialType()
+        self.link.inertial.append(inertial)
+        inertial.mass = urdf_dom.MassType()
+        inertial.inertia = urdf_dom.InertiaType()
+        inertial.origin = urdf_dom.PoseType()
+        inertial.origin.xyz = "0 0 0"
+        inertial.origin.rpy = "0 0 0"
+
+        #print('debug add_inertial: ')
+        return inertial
+
+    def add_joint_control_plugin(self):
+
+        plugin = urdf_dom.GazeboPluginType()
+        plugin.name = "generic_controller"
+        plugin.filename = "libgeneric_controller_plugin.so"
+        self.gazebo_tag.plugin.append(plugin)
+        return plugin
+
+    def add_joint_controller(self, control_plugin):
+        """
+        Add a controller definition to a robot object
+
+        :return: string:     reference to inertial object
+        """
+        joint_controller = urdf_dom.GenericControllerPluginDefType()
+        control_plugin.append(joint_controller)
+        print("Added joint controller.")
+
+        return joint_controller
 
     def set_defaults(self):
         """
@@ -226,15 +274,19 @@ class URDFTree(object):
             joint.axis = urdf_dom.AxisType()
 
         if joint.limit is None:
-            joint.limit = urdf_dom.LimitType()
+            joint.limit = urdf_dom.LimitType(effort=0, lower=0, upper=0, velocity=0)
+            # this had to be completely defined (missing effor argument caused conversion to SDF to fail)
+            joint.limit.effort = joint.limit.lower = joint.limit.upper = joint.limit.velocity = 0
 
         if joint.calibration is None:
             joint.calibration = urdf_dom.CalibrationType()
-            # joint.calibration.rising  # there are no default values in the XSD?
-            # joint.calibration.falling
+            joint.calibration.reference_position = 0.0
+            joint.calibration.rising = 0.0 # there are no default values in the XSD?
+            joint.calibration.falling = 0.0
 
         if joint.origin is None:
             joint.origin = urdf_dom.PoseType()
+            # joint.rpy =
 
         for visual in link.visual:
             if visual.origin is None:
@@ -246,6 +298,17 @@ class URDFTree(object):
 
         if joint.dynamics is None:
             joint.dynamics = urdf_dom.DynamicsType()
+            joint.dynamics.damping = 1.0
+
+        if link.inertial is None:
+            logger.debug("Inertial is None, creating default one.")
+            link.inertial = urdf_dom.InertialType()
+
+        for inertial in link.inertial:
+            if inertial.mass is None:
+                inertial.mass = urdf_dom.MassType()
+            if inertial.inertia is None:
+                inertial.inertia = urdf_dom.InertiaType()
 
             # if joint.mimic is None: # truely optional
             # if joint.safety_controller is None: # ignored
