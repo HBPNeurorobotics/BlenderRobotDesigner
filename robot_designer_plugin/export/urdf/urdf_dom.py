@@ -1,7 +1,7 @@
 # ./urdf_dom.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:e92452c8d3e28a9e27abfc9994d2007779e7f4c9
-# Generated 2015-09-08 06:19:43.202451 by PyXB version 1.2.4 using Python 3.4.0.final.0
+# Generated 2015-09-09 12:16:48.728338 by PyXB version 1.2.4 using Python 3.4.0.final.0
 # Namespace AbsentNamespace0
 
 from __future__ import unicode_literals
@@ -15,7 +15,7 @@ import sys
 import pyxb.utils.six as _six
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:d47d81f0-55e0-11e5-b199-6c71d9b2bdf1')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:e17323fa-56db-11e5-b130-6c71d9b2bdf1')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.4'
@@ -1430,27 +1430,27 @@ class ImageType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'ImageType')
-    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 309, 2)
+    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 348, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element width uses Python identifier width
-    __width = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'width'), 'width', '__AbsentNamespace0_ImageType_width', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 312, 10), )
+    __width = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'width'), 'width', '__AbsentNamespace0_ImageType_width', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 351, 10), )
 
     
     width = property(__width.value, __width.set, None, None)
 
     
     # Element height uses Python identifier height
-    __height = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'height'), 'height', '__AbsentNamespace0_ImageType_height', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 313, 10), )
+    __height = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'height'), 'height', '__AbsentNamespace0_ImageType_height', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 352, 10), )
 
     
     height = property(__height.value, __height.set, None, None)
 
     
     # Element format uses Python identifier format
-    __format = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'format'), 'format', '__AbsentNamespace0_ImageType_format', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 314, 10), )
+    __format = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'format'), 'format', '__AbsentNamespace0_ImageType_format', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 353, 10), )
 
     
     format = property(__format.value, __format.set, None, None)
@@ -1473,20 +1473,20 @@ class ClipType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'ClipType')
-    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 320, 2)
+    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 359, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element near uses Python identifier near
-    __near = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'near'), 'near', '__AbsentNamespace0_ClipType_near', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 323, 10), )
+    __near = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'near'), 'near', '__AbsentNamespace0_ClipType_near', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 362, 10), )
 
     
     near = property(__near.value, __near.set, None, None)
 
     
     # Element far uses Python identifier far
-    __far = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'far'), 'far', '__AbsentNamespace0_ClipType_far', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 324, 10), )
+    __far = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'far'), 'far', '__AbsentNamespace0_ClipType_far', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 363, 10), )
 
     
     far = property(__far.value, __far.set, None, None)
@@ -1508,27 +1508,27 @@ class NoiseType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'NoiseType')
-    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 330, 2)
+    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 369, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element type uses Python identifier type
-    __type = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__AbsentNamespace0_NoiseType_type', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 333, 10), )
+    __type = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__AbsentNamespace0_NoiseType_type', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 372, 10), )
 
     
     type = property(__type.value, __type.set, None, None)
 
     
     # Element mean uses Python identifier mean
-    __mean = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'mean'), 'mean', '__AbsentNamespace0_NoiseType_mean', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 334, 10), )
+    __mean = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'mean'), 'mean', '__AbsentNamespace0_NoiseType_mean', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 373, 10), )
 
     
     mean = property(__mean.value, __mean.set, None, None)
 
     
     # Element stddev uses Python identifier stddev
-    __stddev = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'stddev'), 'stddev', '__AbsentNamespace0_NoiseType_stddev', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 335, 10), )
+    __stddev = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'stddev'), 'stddev', '__AbsentNamespace0_NoiseType_stddev', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 374, 10), )
 
     
     stddev = property(__stddev.value, __stddev.set, None, None)
@@ -1551,34 +1551,34 @@ class CameraType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'CameraType')
-    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 341, 2)
+    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 380, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element horizontal_fov uses Python identifier horizontal_fov
-    __horizontal_fov = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'horizontal_fov'), 'horizontal_fov', '__AbsentNamespace0_CameraType_horizontal_fov', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 344, 10), )
+    __horizontal_fov = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'horizontal_fov'), 'horizontal_fov', '__AbsentNamespace0_CameraType_horizontal_fov', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 383, 10), )
 
     
     horizontal_fov = property(__horizontal_fov.value, __horizontal_fov.set, None, None)
 
     
     # Element image uses Python identifier image
-    __image = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'image'), 'image', '__AbsentNamespace0_CameraType_image', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 345, 10), )
+    __image = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'image'), 'image', '__AbsentNamespace0_CameraType_image', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 384, 10), )
 
     
     image = property(__image.value, __image.set, None, None)
 
     
     # Element clip uses Python identifier clip
-    __clip = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'clip'), 'clip', '__AbsentNamespace0_CameraType_clip', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 346, 10), )
+    __clip = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'clip'), 'clip', '__AbsentNamespace0_CameraType_clip', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 385, 10), )
 
     
     clip = property(__clip.value, __clip.set, None, None)
 
     
     # Element noise uses Python identifier noise
-    __noise = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'noise'), 'noise', '__AbsentNamespace0_CameraType_noise', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 347, 10), )
+    __noise = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'noise'), 'noise', '__AbsentNamespace0_CameraType_noise', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 386, 10), )
 
     
     noise = property(__noise.value, __noise.set, None, None)
@@ -1586,8 +1586,8 @@ class CameraType (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute name uses Python identifier name
     __name = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'name'), 'name', '__AbsentNamespace0_CameraType_name', pyxb.binding.datatypes.string, required=True)
-    __name._DeclarationLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 350, 4)
-    __name._UseLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 350, 4)
+    __name._DeclarationLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 389, 4)
+    __name._UseLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 389, 4)
     
     name = property(__name.value, __name.set, None, None)
 
@@ -1610,43 +1610,51 @@ class GazeboSensorBaseType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'GazeboSensorBaseType')
-    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 354, 2)
+    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 393, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element pose uses Python identifier pose
-    __pose = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'pose'), 'pose', '__AbsentNamespace0_GazeboSensorBaseType_pose', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 357, 10), )
+    __pose = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'pose'), 'pose', '__AbsentNamespace0_GazeboSensorBaseType_pose', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 396, 10), )
 
     
     pose = property(__pose.value, __pose.set, None, None)
 
     
     # Element update_rate uses Python identifier update_rate
-    __update_rate = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'update_rate'), 'update_rate', '__AbsentNamespace0_GazeboSensorBaseType_update_rate', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 358, 10), )
+    __update_rate = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'update_rate'), 'update_rate', '__AbsentNamespace0_GazeboSensorBaseType_update_rate', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 397, 10), )
 
     
     update_rate = property(__update_rate.value, __update_rate.set, None, None)
 
     
+    # Element visualize uses Python identifier visualize
+    __visualize = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'visualize'), 'visualize', '__AbsentNamespace0_GazeboSensorBaseType_visualize', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 398, 10), )
+
+    
+    visualize = property(__visualize.value, __visualize.set, None, None)
+
+    
     # Attribute name uses Python identifier name
     __name = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'name'), 'name', '__AbsentNamespace0_GazeboSensorBaseType_name', pyxb.binding.datatypes.string, required=True)
-    __name._DeclarationLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 361, 4)
-    __name._UseLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 361, 4)
+    __name._DeclarationLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 401, 4)
+    __name._UseLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 401, 4)
     
     name = property(__name.value, __name.set, None, None)
 
     
     # Attribute type uses Python identifier type
     __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__AbsentNamespace0_GazeboSensorBaseType_type', pyxb.binding.datatypes.string, required=True)
-    __type._DeclarationLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 362, 4)
-    __type._UseLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 362, 4)
+    __type._DeclarationLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 402, 4)
+    __type._UseLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 402, 4)
     
     type = property(__type.value, __type.set, None, None)
 
     _ElementMap.update({
         __pose.name() : __pose,
-        __update_rate.name() : __update_rate
+        __update_rate.name() : __update_rate,
+        __visualize.name() : __visualize
     })
     _AttributeMap.update({
         __name.name() : __name,
@@ -1662,15 +1670,15 @@ class GazeboMaterialType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_EMPTY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'GazeboMaterialType')
-    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 381, 2)
+    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 421, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Attribute value uses Python identifier value_
     __value = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'value'), 'value_', '__AbsentNamespace0_GazeboMaterialType_value', pyxb.binding.datatypes.string, required=True)
-    __value._DeclarationLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 382, 4)
-    __value._UseLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 382, 4)
+    __value._DeclarationLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 422, 4)
+    __value._UseLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 422, 4)
     
     value_ = property(__value.value, __value.set, None, None)
 
@@ -1690,50 +1698,85 @@ class GazeboType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'GazeboType')
-    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 386, 2)
+    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 426, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element plugin uses Python identifier plugin
-    __plugin = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'plugin'), 'plugin', '__AbsentNamespace0_GazeboType_plugin', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 388, 10), )
+    __plugin = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'plugin'), 'plugin', '__AbsentNamespace0_GazeboType_plugin', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 428, 10), )
 
     
     plugin = property(__plugin.value, __plugin.set, None, None)
 
     
     # Element sensor uses Python identifier sensor
-    __sensor = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'sensor'), 'sensor', '__AbsentNamespace0_GazeboType_sensor', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 389, 10), )
+    __sensor = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'sensor'), 'sensor', '__AbsentNamespace0_GazeboType_sensor', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 429, 10), )
 
     
     sensor = property(__sensor.value, __sensor.set, None, None)
 
     
     # Element material uses Python identifier material
-    __material = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'material'), 'material', '__AbsentNamespace0_GazeboType_material', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 390, 10), )
+    __material = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'material'), 'material', '__AbsentNamespace0_GazeboType_material', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 430, 10), )
 
     
     material = property(__material.value, __material.set, None, None)
 
     
     # Element gravity uses Python identifier gravity
-    __gravity = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'gravity'), 'gravity', '__AbsentNamespace0_GazeboType_gravity', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 391, 10), )
+    __gravity = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'gravity'), 'gravity', '__AbsentNamespace0_GazeboType_gravity', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 431, 10), )
 
     
     gravity = property(__gravity.value, __gravity.set, None, None)
 
     
     # Element self_collide uses Python identifier self_collide
-    __self_collide = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'self_collide'), 'self_collide', '__AbsentNamespace0_GazeboType_self_collide', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 392, 10), )
+    __self_collide = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'self_collide'), 'self_collide', '__AbsentNamespace0_GazeboType_self_collide', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 432, 10), )
 
     
     self_collide = property(__self_collide.value, __self_collide.set, None, None)
 
     
+    # Element mu1 uses Python identifier mu1
+    __mu1 = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'mu1'), 'mu1', '__AbsentNamespace0_GazeboType_mu1', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 433, 10), )
+
+    
+    mu1 = property(__mu1.value, __mu1.set, None, None)
+
+    
+    # Element mu2 uses Python identifier mu2
+    __mu2 = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'mu2'), 'mu2', '__AbsentNamespace0_GazeboType_mu2', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 434, 10), )
+
+    
+    mu2 = property(__mu2.value, __mu2.set, None, None)
+
+    
+    # Element fdir1 uses Python identifier fdir1
+    __fdir1 = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'fdir1'), 'fdir1', '__AbsentNamespace0_GazeboType_fdir1', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 435, 10), )
+
+    
+    fdir1 = property(__fdir1.value, __fdir1.set, None, None)
+
+    
+    # Element maxVel uses Python identifier maxVel
+    __maxVel = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'maxVel'), 'maxVel', '__AbsentNamespace0_GazeboType_maxVel', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 436, 10), )
+
+    
+    maxVel = property(__maxVel.value, __maxVel.set, None, None)
+
+    
+    # Element minDepth uses Python identifier minDepth
+    __minDepth = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'minDepth'), 'minDepth', '__AbsentNamespace0_GazeboType_minDepth', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 437, 10), )
+
+    
+    minDepth = property(__minDepth.value, __minDepth.set, None, None)
+
+    
     # Attribute reference uses Python identifier reference
     __reference = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'reference'), 'reference', '__AbsentNamespace0_GazeboType_reference', pyxb.binding.datatypes.string)
-    __reference._DeclarationLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 394, 4)
-    __reference._UseLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 394, 4)
+    __reference._DeclarationLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 439, 4)
+    __reference._UseLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 439, 4)
     
     reference = property(__reference.value, __reference.set, None, None)
 
@@ -1742,7 +1785,12 @@ class GazeboType (pyxb.binding.basis.complexTypeDefinition):
         __sensor.name() : __sensor,
         __material.name() : __material,
         __gravity.name() : __gravity,
-        __self_collide.name() : __self_collide
+        __self_collide.name() : __self_collide,
+        __mu1.name() : __mu1,
+        __mu2.name() : __mu2,
+        __fdir1.name() : __fdir1,
+        __maxVel.name() : __maxVel,
+        __minDepth.name() : __minDepth
     })
     _AttributeMap.update({
         __reference.name() : __reference
@@ -1757,41 +1805,41 @@ class RobotType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'RobotType')
-    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 401, 2)
+    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 446, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element joint uses Python identifier joint
-    __joint = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'joint'), 'joint', '__AbsentNamespace0_RobotType_joint', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 404, 10), )
+    __joint = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'joint'), 'joint', '__AbsentNamespace0_RobotType_joint', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 449, 10), )
 
     
     joint = property(__joint.value, __joint.set, None, None)
 
     
     # Element link uses Python identifier link
-    __link = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'link'), 'link', '__AbsentNamespace0_RobotType_link', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 405, 10), )
+    __link = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'link'), 'link', '__AbsentNamespace0_RobotType_link', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 450, 10), )
 
     
     link = property(__link.value, __link.set, None, None)
 
     
     # Element transmission uses Python identifier transmission
-    __transmission = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'transmission'), 'transmission', '__AbsentNamespace0_RobotType_transmission', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 406, 10), )
+    __transmission = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'transmission'), 'transmission', '__AbsentNamespace0_RobotType_transmission', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 451, 10), )
 
     
     transmission = property(__transmission.value, __transmission.set, None, None)
 
     
     # Element gazebo uses Python identifier gazebo
-    __gazebo = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'gazebo'), 'gazebo', '__AbsentNamespace0_RobotType_gazebo', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 407, 10), )
+    __gazebo = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'gazebo'), 'gazebo', '__AbsentNamespace0_RobotType_gazebo', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 452, 10), )
 
     
     gazebo = property(__gazebo.value, __gazebo.set, None, None)
 
     
     # Element material uses Python identifier material
-    __material = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'material'), 'material', '__AbsentNamespace0_RobotType_material', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 408, 10), )
+    __material = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'material'), 'material', '__AbsentNamespace0_RobotType_material', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 453, 10), )
 
     
     material = property(__material.value, __material.set, None, None)
@@ -1799,16 +1847,16 @@ class RobotType (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute name uses Python identifier name
     __name = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'name'), 'name', '__AbsentNamespace0_RobotType_name', pyxb.binding.datatypes.string, required=True)
-    __name._DeclarationLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 411, 4)
-    __name._UseLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 411, 4)
+    __name._DeclarationLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 456, 4)
+    __name._UseLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 456, 4)
     
     name = property(__name.value, __name.set, None, None)
 
     
     # Attribute version uses Python identifier version
     __version = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'version'), 'version', '__AbsentNamespace0_RobotType_version', pyxb.binding.datatypes.string, unicode_default='1.0')
-    __version._DeclarationLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 412, 4)
-    __version._UseLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 412, 4)
+    __version._DeclarationLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 457, 4)
+    __version._UseLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 457, 4)
     
     version = property(__version.value, __version.set, None, None)
 
@@ -1860,10 +1908,87 @@ class GazeboPluginType (GazeboPluginBaseType):
 
     
     # Element controller uses Python identifier controller
-    __controller = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'controller'), 'controller', '__AbsentNamespace0_GazeboPluginType_controller', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 268, 16), )
+    __controller = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'controller'), 'controller', '__AbsentNamespace0_GazeboPluginType_controller', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 269, 16), )
 
     
     controller = property(__controller.value, __controller.set, None, None)
+
+    
+    # Element alwaysOn uses Python identifier alwaysOn
+    __alwaysOn = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'alwaysOn'), 'alwaysOn', '__AbsentNamespace0_GazeboPluginType_alwaysOn', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 271, 16), )
+
+    
+    alwaysOn = property(__alwaysOn.value, __alwaysOn.set, None, None)
+
+    
+    # Element bodyName uses Python identifier bodyName
+    __bodyName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'bodyName'), 'bodyName', '__AbsentNamespace0_GazeboPluginType_bodyName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 272, 16), )
+
+    
+    bodyName = property(__bodyName.value, __bodyName.set, None, None)
+
+    
+    # Element topicName uses Python identifier topicName
+    __topicName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'topicName'), 'topicName', '__AbsentNamespace0_GazeboPluginType_topicName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 273, 16), )
+
+    
+    topicName = property(__topicName.value, __topicName.set, None, None)
+
+    
+    # Element serviceName uses Python identifier serviceName
+    __serviceName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'serviceName'), 'serviceName', '__AbsentNamespace0_GazeboPluginType_serviceName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 274, 16), )
+
+    
+    serviceName = property(__serviceName.value, __serviceName.set, None, None)
+
+    
+    # Element gaussianNoise uses Python identifier gaussianNoise
+    __gaussianNoise = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'gaussianNoise'), 'gaussianNoise', '__AbsentNamespace0_GazeboPluginType_gaussianNoise', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 275, 16), )
+
+    
+    gaussianNoise = property(__gaussianNoise.value, __gaussianNoise.set, None, None)
+
+    
+    # Element updateRate uses Python identifier updateRate
+    __updateRate = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'updateRate'), 'updateRate', '__AbsentNamespace0_GazeboPluginType_updateRate', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 276, 16), )
+
+    
+    updateRate = property(__updateRate.value, __updateRate.set, None, None)
+
+    
+    # Element joint uses Python identifier joint
+    __joint = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'joint'), 'joint', '__AbsentNamespace0_GazeboPluginType_joint', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 278, 16), )
+
+    
+    joint = property(__joint.value, __joint.set, None, None)
+
+    
+    # Element mimicJoint uses Python identifier mimicJoint
+    __mimicJoint = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'mimicJoint'), 'mimicJoint', '__AbsentNamespace0_GazeboPluginType_mimicJoint', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 279, 16), )
+
+    
+    mimicJoint = property(__mimicJoint.value, __mimicJoint.set, None, None)
+
+    
+    # Element multiplier uses Python identifier multiplier
+    __multiplier = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'multiplier'), 'multiplier', '__AbsentNamespace0_GazeboPluginType_multiplier', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 280, 16), )
+
+    
+    multiplier = property(__multiplier.value, __multiplier.set, None, None)
+
+    
+    # Element offset uses Python identifier offset
+    __offset = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'offset'), 'offset', '__AbsentNamespace0_GazeboPluginType_offset', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 281, 16), )
+
+    
+    offset = property(__offset.value, __offset.set, None, None)
+
+    
+    # Element link uses Python identifier link
+    __link = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'link'), 'link', '__AbsentNamespace0_GazeboPluginType_link', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 283, 16), )
+
+    
+    link = property(__link.value, __link.set, None, None)
 
     
     # Attribute filename inherited from GazeboPluginBaseType
@@ -1873,12 +1998,47 @@ class GazeboPluginType (GazeboPluginBaseType):
         __robotNamespace.name() : __robotNamespace,
         __robotSimType.name() : __robotSimType,
         __robotParam.name() : __robotParam,
-        __controller.name() : __controller
+        __controller.name() : __controller,
+        __alwaysOn.name() : __alwaysOn,
+        __bodyName.name() : __bodyName,
+        __topicName.name() : __topicName,
+        __serviceName.name() : __serviceName,
+        __gaussianNoise.name() : __gaussianNoise,
+        __updateRate.name() : __updateRate,
+        __joint.name() : __joint,
+        __mimicJoint.name() : __mimicJoint,
+        __multiplier.name() : __multiplier,
+        __offset.name() : __offset,
+        __link.name() : __link
     })
     _AttributeMap.update({
         
     })
 Namespace.addCategoryObject('typeBinding', 'GazeboPluginType', GazeboPluginType)
+
+
+# Complex type GazeboIMUPluginType with content type ELEMENT_ONLY
+class GazeboIMUPluginType (GazeboPluginBaseType):
+    """Complex type GazeboIMUPluginType with content type ELEMENT_ONLY"""
+    _TypeDefinition = None
+    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
+    _Abstract = False
+    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'GazeboIMUPluginType')
+    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 291, 2)
+    _ElementMap = GazeboPluginBaseType._ElementMap.copy()
+    _AttributeMap = GazeboPluginBaseType._AttributeMap.copy()
+    # Base type is GazeboPluginBaseType
+    
+    # Attribute filename inherited from GazeboPluginBaseType
+    
+    # Attribute name inherited from GazeboPluginBaseType
+    _ElementMap.update({
+        
+    })
+    _AttributeMap.update({
+        
+    })
+Namespace.addCategoryObject('typeBinding', 'GazeboIMUPluginType', GazeboIMUPluginType)
 
 
 # Complex type GazeboCameraPluginType with content type ELEMENT_ONLY
@@ -1888,162 +2048,219 @@ class GazeboCameraPluginType (GazeboPluginBaseType):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'GazeboCameraPluginType')
-    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 276, 2)
+    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 303, 2)
     _ElementMap = GazeboPluginBaseType._ElementMap.copy()
     _AttributeMap = GazeboPluginBaseType._AttributeMap.copy()
     # Base type is GazeboPluginBaseType
     
+    # Element robotNamespace uses Python identifier robotNamespace
+    __robotNamespace = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'robotNamespace'), 'robotNamespace', '__AbsentNamespace0_GazeboCameraPluginType_robotNamespace', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 308, 18), )
+
+    
+    robotNamespace = property(__robotNamespace.value, __robotNamespace.set, None, None)
+
+    
     # Element baseline uses Python identifier baseline
-    __baseline = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'baseline'), 'baseline', '__AbsentNamespace0_GazeboCameraPluginType_baseline', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 281, 18), )
+    __baseline = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'baseline'), 'baseline', '__AbsentNamespace0_GazeboCameraPluginType_baseline', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 309, 18), )
 
     
     baseline = property(__baseline.value, __baseline.set, None, None)
 
     
     # Element alwaysOn uses Python identifier alwaysOn
-    __alwaysOn = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'alwaysOn'), 'alwaysOn', '__AbsentNamespace0_GazeboCameraPluginType_alwaysOn', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 282, 18), )
+    __alwaysOn = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'alwaysOn'), 'alwaysOn', '__AbsentNamespace0_GazeboCameraPluginType_alwaysOn', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 310, 18), )
 
     
     alwaysOn = property(__alwaysOn.value, __alwaysOn.set, None, None)
 
     
     # Element updateRate uses Python identifier updateRate
-    __updateRate = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'updateRate'), 'updateRate', '__AbsentNamespace0_GazeboCameraPluginType_updateRate', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 283, 18), )
+    __updateRate = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'updateRate'), 'updateRate', '__AbsentNamespace0_GazeboCameraPluginType_updateRate', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 311, 18), )
 
     
     updateRate = property(__updateRate.value, __updateRate.set, None, None)
 
     
     # Element cameraName uses Python identifier cameraName
-    __cameraName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'cameraName'), 'cameraName', '__AbsentNamespace0_GazeboCameraPluginType_cameraName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 284, 18), )
+    __cameraName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'cameraName'), 'cameraName', '__AbsentNamespace0_GazeboCameraPluginType_cameraName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 312, 18), )
 
     
     cameraName = property(__cameraName.value, __cameraName.set, None, None)
 
     
     # Element imageTopicName uses Python identifier imageTopicName
-    __imageTopicName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'imageTopicName'), 'imageTopicName', '__AbsentNamespace0_GazeboCameraPluginType_imageTopicName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 285, 18), )
+    __imageTopicName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'imageTopicName'), 'imageTopicName', '__AbsentNamespace0_GazeboCameraPluginType_imageTopicName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 313, 18), )
 
     
     imageTopicName = property(__imageTopicName.value, __imageTopicName.set, None, None)
 
     
     # Element depthImageTopicName uses Python identifier depthImageTopicName
-    __depthImageTopicName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'depthImageTopicName'), 'depthImageTopicName', '__AbsentNamespace0_GazeboCameraPluginType_depthImageTopicName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 286, 18), )
+    __depthImageTopicName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'depthImageTopicName'), 'depthImageTopicName', '__AbsentNamespace0_GazeboCameraPluginType_depthImageTopicName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 314, 18), )
 
     
     depthImageTopicName = property(__depthImageTopicName.value, __depthImageTopicName.set, None, None)
 
     
     # Element cameraInfoTopicName uses Python identifier cameraInfoTopicName
-    __cameraInfoTopicName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'cameraInfoTopicName'), 'cameraInfoTopicName', '__AbsentNamespace0_GazeboCameraPluginType_cameraInfoTopicName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 287, 18), )
+    __cameraInfoTopicName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'cameraInfoTopicName'), 'cameraInfoTopicName', '__AbsentNamespace0_GazeboCameraPluginType_cameraInfoTopicName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 315, 18), )
 
     
     cameraInfoTopicName = property(__cameraInfoTopicName.value, __cameraInfoTopicName.set, None, None)
 
     
     # Element depthImageCameraInfoTopicName uses Python identifier depthImageCameraInfoTopicName
-    __depthImageCameraInfoTopicName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'depthImageCameraInfoTopicName'), 'depthImageCameraInfoTopicName', '__AbsentNamespace0_GazeboCameraPluginType_depthImageCameraInfoTopicName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 288, 18), )
+    __depthImageCameraInfoTopicName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'depthImageCameraInfoTopicName'), 'depthImageCameraInfoTopicName', '__AbsentNamespace0_GazeboCameraPluginType_depthImageCameraInfoTopicName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 316, 18), )
 
     
     depthImageCameraInfoTopicName = property(__depthImageCameraInfoTopicName.value, __depthImageCameraInfoTopicName.set, None, None)
 
     
     # Element frameName uses Python identifier frameName
-    __frameName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'frameName'), 'frameName', '__AbsentNamespace0_GazeboCameraPluginType_frameName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 289, 18), )
+    __frameName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'frameName'), 'frameName', '__AbsentNamespace0_GazeboCameraPluginType_frameName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 317, 18), )
 
     
     frameName = property(__frameName.value, __frameName.set, None, None)
 
     
     # Element hackBaseline uses Python identifier hackBaseline
-    __hackBaseline = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'hackBaseline'), 'hackBaseline', '__AbsentNamespace0_GazeboCameraPluginType_hackBaseline', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 290, 18), )
+    __hackBaseline = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'hackBaseline'), 'hackBaseline', '__AbsentNamespace0_GazeboCameraPluginType_hackBaseline', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 318, 18), )
 
     
     hackBaseline = property(__hackBaseline.value, __hackBaseline.set, None, None)
 
     
     # Element distortionK1 uses Python identifier distortionK1
-    __distortionK1 = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'distortionK1'), 'distortionK1', '__AbsentNamespace0_GazeboCameraPluginType_distortionK1', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 291, 18), )
+    __distortionK1 = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'distortionK1'), 'distortionK1', '__AbsentNamespace0_GazeboCameraPluginType_distortionK1', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 319, 18), )
 
     
     distortionK1 = property(__distortionK1.value, __distortionK1.set, None, None)
 
     
     # Element distortionK2 uses Python identifier distortionK2
-    __distortionK2 = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'distortionK2'), 'distortionK2', '__AbsentNamespace0_GazeboCameraPluginType_distortionK2', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 292, 18), )
+    __distortionK2 = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'distortionK2'), 'distortionK2', '__AbsentNamespace0_GazeboCameraPluginType_distortionK2', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 320, 18), )
 
     
     distortionK2 = property(__distortionK2.value, __distortionK2.set, None, None)
 
     
     # Element distortionK3 uses Python identifier distortionK3
-    __distortionK3 = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'distortionK3'), 'distortionK3', '__AbsentNamespace0_GazeboCameraPluginType_distortionK3', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 293, 18), )
+    __distortionK3 = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'distortionK3'), 'distortionK3', '__AbsentNamespace0_GazeboCameraPluginType_distortionK3', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 321, 18), )
 
     
     distortionK3 = property(__distortionK3.value, __distortionK3.set, None, None)
 
     
     # Element distortionT1 uses Python identifier distortionT1
-    __distortionT1 = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'distortionT1'), 'distortionT1', '__AbsentNamespace0_GazeboCameraPluginType_distortionT1', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 294, 18), )
+    __distortionT1 = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'distortionT1'), 'distortionT1', '__AbsentNamespace0_GazeboCameraPluginType_distortionT1', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 322, 18), )
 
     
     distortionT1 = property(__distortionT1.value, __distortionT1.set, None, None)
 
     
     # Element distortionT2 uses Python identifier distortionT2
-    __distortionT2 = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'distortionT2'), 'distortionT2', '__AbsentNamespace0_GazeboCameraPluginType_distortionT2', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 295, 18), )
+    __distortionT2 = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'distortionT2'), 'distortionT2', '__AbsentNamespace0_GazeboCameraPluginType_distortionT2', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 323, 18), )
 
     
     distortionT2 = property(__distortionT2.value, __distortionT2.set, None, None)
 
     
     # Element CxPrime uses Python identifier CxPrime
-    __CxPrime = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'CxPrime'), 'CxPrime', '__AbsentNamespace0_GazeboCameraPluginType_CxPrime', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 296, 18), )
+    __CxPrime = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'CxPrime'), 'CxPrime', '__AbsentNamespace0_GazeboCameraPluginType_CxPrime', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 324, 18), )
 
     
     CxPrime = property(__CxPrime.value, __CxPrime.set, None, None)
 
     
     # Element Cx uses Python identifier Cx
-    __Cx = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'Cx'), 'Cx', '__AbsentNamespace0_GazeboCameraPluginType_Cx', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 297, 18), )
+    __Cx = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'Cx'), 'Cx', '__AbsentNamespace0_GazeboCameraPluginType_Cx', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 325, 18), )
 
     
     Cx = property(__Cx.value, __Cx.set, None, None)
 
     
     # Element Cy uses Python identifier Cy
-    __Cy = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'Cy'), 'Cy', '__AbsentNamespace0_GazeboCameraPluginType_Cy', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 298, 18), )
+    __Cy = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'Cy'), 'Cy', '__AbsentNamespace0_GazeboCameraPluginType_Cy', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 326, 18), )
 
     
     Cy = property(__Cy.value, __Cy.set, None, None)
 
     
     # Element focalLength uses Python identifier focalLength
-    __focalLength = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'focalLength'), 'focalLength', '__AbsentNamespace0_GazeboCameraPluginType_focalLength', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 299, 18), )
+    __focalLength = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'focalLength'), 'focalLength', '__AbsentNamespace0_GazeboCameraPluginType_focalLength', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 327, 18), )
 
     
     focalLength = property(__focalLength.value, __focalLength.set, None, None)
 
     
     # Element pointCloudCutoff uses Python identifier pointCloudCutoff
-    __pointCloudCutoff = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'pointCloudCutoff'), 'pointCloudCutoff', '__AbsentNamespace0_GazeboCameraPluginType_pointCloudCutoff', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 300, 18), )
+    __pointCloudCutoff = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'pointCloudCutoff'), 'pointCloudCutoff', '__AbsentNamespace0_GazeboCameraPluginType_pointCloudCutoff', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 328, 18), )
 
     
     pointCloudCutoff = property(__pointCloudCutoff.value, __pointCloudCutoff.set, None, None)
 
     
     # Element pointCloudTopicName uses Python identifier pointCloudTopicName
-    __pointCloudTopicName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'pointCloudTopicName'), 'pointCloudTopicName', '__AbsentNamespace0_GazeboCameraPluginType_pointCloudTopicName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 301, 18), )
+    __pointCloudTopicName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'pointCloudTopicName'), 'pointCloudTopicName', '__AbsentNamespace0_GazeboCameraPluginType_pointCloudTopicName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 329, 18), )
 
     
     pointCloudTopicName = property(__pointCloudTopicName.value, __pointCloudTopicName.set, None, None)
+
+    
+    # Element topicName uses Python identifier topicName
+    __topicName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'topicName'), 'topicName', '__AbsentNamespace0_GazeboCameraPluginType_topicName', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 331, 18), )
+
+    
+    topicName = property(__topicName.value, __topicName.set, None, None)
+
+    
+    # Element minRange uses Python identifier minRange
+    __minRange = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'minRange'), 'minRange', '__AbsentNamespace0_GazeboCameraPluginType_minRange', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 332, 18), )
+
+    
+    minRange = property(__minRange.value, __minRange.set, None, None)
+
+    
+    # Element maxRange uses Python identifier maxRange
+    __maxRange = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'maxRange'), 'maxRange', '__AbsentNamespace0_GazeboCameraPluginType_maxRange', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 333, 18), )
+
+    
+    maxRange = property(__maxRange.value, __maxRange.set, None, None)
+
+    
+    # Element fov uses Python identifier fov
+    __fov = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'fov'), 'fov', '__AbsentNamespace0_GazeboCameraPluginType_fov', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 334, 18), )
+
+    
+    fov = property(__fov.value, __fov.set, None, None)
+
+    
+    # Element radiation uses Python identifier radiation
+    __radiation = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'radiation'), 'radiation', '__AbsentNamespace0_GazeboCameraPluginType_radiation', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 335, 18), )
+
+    
+    radiation = property(__radiation.value, __radiation.set, None, None)
+
+    
+    # Element gaussianNoise uses Python identifier gaussianNoise
+    __gaussianNoise = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'gaussianNoise'), 'gaussianNoise', '__AbsentNamespace0_GazeboCameraPluginType_gaussianNoise', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 336, 18), )
+
+    
+    gaussianNoise = property(__gaussianNoise.value, __gaussianNoise.set, None, None)
+
+    
+    # Element visualize uses Python identifier visualize
+    __visualize = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'visualize'), 'visualize', '__AbsentNamespace0_GazeboCameraPluginType_visualize', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 338, 18), )
+
+    
+    visualize = property(__visualize.value, __visualize.set, None, None)
 
     
     # Attribute filename inherited from GazeboPluginBaseType
     
     # Attribute name inherited from GazeboPluginBaseType
     _ElementMap.update({
+        __robotNamespace.name() : __robotNamespace,
         __baseline.name() : __baseline,
         __alwaysOn.name() : __alwaysOn,
         __updateRate.name() : __updateRate,
@@ -2064,7 +2281,14 @@ class GazeboCameraPluginType (GazeboPluginBaseType):
         __Cy.name() : __Cy,
         __focalLength.name() : __focalLength,
         __pointCloudCutoff.name() : __pointCloudCutoff,
-        __pointCloudTopicName.name() : __pointCloudTopicName
+        __pointCloudTopicName.name() : __pointCloudTopicName,
+        __topicName.name() : __topicName,
+        __minRange.name() : __minRange,
+        __maxRange.name() : __maxRange,
+        __fov.name() : __fov,
+        __radiation.name() : __radiation,
+        __gaussianNoise.name() : __gaussianNoise,
+        __visualize.name() : __visualize
     })
     _AttributeMap.update({
         
@@ -2079,7 +2303,7 @@ class GazeboSensorType (GazeboSensorBaseType):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'GazeboSensorType')
-    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 366, 2)
+    _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 406, 2)
     _ElementMap = GazeboSensorBaseType._ElementMap.copy()
     _AttributeMap = GazeboSensorBaseType._AttributeMap.copy()
     # Base type is GazeboSensorBaseType
@@ -2088,15 +2312,17 @@ class GazeboSensorType (GazeboSensorBaseType):
     
     # Element update_rate (update_rate) inherited from GazeboSensorBaseType
     
+    # Element visualize (visualize) inherited from GazeboSensorBaseType
+    
     # Element camera uses Python identifier camera
-    __camera = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'camera'), 'camera', '__AbsentNamespace0_GazeboSensorType_camera', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 371, 14), )
+    __camera = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'camera'), 'camera', '__AbsentNamespace0_GazeboSensorType_camera', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 411, 14), )
 
     
     camera = property(__camera.value, __camera.set, None, None)
 
     
     # Element plugin uses Python identifier plugin
-    __plugin = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'plugin'), 'plugin', '__AbsentNamespace0_GazeboSensorType_plugin', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 372, 14), )
+    __plugin = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(None, 'plugin'), 'plugin', '__AbsentNamespace0_GazeboSensorType_plugin', True, pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 412, 14), )
 
     
     plugin = property(__plugin.value, __plugin.set, None, None)
@@ -2115,7 +2341,7 @@ class GazeboSensorType (GazeboSensorBaseType):
 Namespace.addCategoryObject('typeBinding', 'GazeboSensorType', GazeboSensorType)
 
 
-robot = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'robot'), RobotType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 400, 2))
+robot = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'robot'), RobotType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 445, 2))
 Namespace.addCategoryObject('elementBinding', robot.name().localName(), robot)
 
 
@@ -3153,11 +3379,11 @@ GenericControllerPluginDefType._Automaton = _BuildAutomaton_35()
 
 
 
-ImageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'width'), pyxb.binding.datatypes.integer, scope=ImageType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 312, 10)))
+ImageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'width'), pyxb.binding.datatypes.integer, scope=ImageType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 351, 10)))
 
-ImageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'height'), pyxb.binding.datatypes.integer, scope=ImageType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 313, 10)))
+ImageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'height'), pyxb.binding.datatypes.integer, scope=ImageType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 352, 10)))
 
-ImageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'format'), pyxb.binding.datatypes.string, scope=ImageType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 314, 10)))
+ImageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'format'), pyxb.binding.datatypes.string, scope=ImageType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 353, 10)))
 
 def _BuildAutomaton_36 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3166,25 +3392,25 @@ def _BuildAutomaton_36 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 311, 8))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 350, 8))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 314, 10))
+    cc_1 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 353, 10))
     counters.add(cc_1)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(ImageType._UseForTag(pyxb.namespace.ExpandedName(None, 'width')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 312, 10))
+    symbol = pyxb.binding.content.ElementUse(ImageType._UseForTag(pyxb.namespace.ExpandedName(None, 'width')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 351, 10))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(ImageType._UseForTag(pyxb.namespace.ExpandedName(None, 'height')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 313, 10))
+    symbol = pyxb.binding.content.ElementUse(ImageType._UseForTag(pyxb.namespace.ExpandedName(None, 'height')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 352, 10))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_1, False))
-    symbol = pyxb.binding.content.ElementUse(ImageType._UseForTag(pyxb.namespace.ExpandedName(None, 'format')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 314, 10))
+    symbol = pyxb.binding.content.ElementUse(ImageType._UseForTag(pyxb.namespace.ExpandedName(None, 'format')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 353, 10))
     st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     transitions = []
@@ -3222,9 +3448,9 @@ ImageType._Automaton = _BuildAutomaton_36()
 
 
 
-ClipType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'near'), pyxb.binding.datatypes.double, scope=ClipType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 323, 10)))
+ClipType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'near'), pyxb.binding.datatypes.double, scope=ClipType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 362, 10)))
 
-ClipType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'far'), pyxb.binding.datatypes.double, scope=ClipType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 324, 10)))
+ClipType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'far'), pyxb.binding.datatypes.double, scope=ClipType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 363, 10)))
 
 def _BuildAutomaton_37 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3233,17 +3459,17 @@ def _BuildAutomaton_37 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 322, 8))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 361, 8))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(ClipType._UseForTag(pyxb.namespace.ExpandedName(None, 'near')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 323, 10))
+    symbol = pyxb.binding.content.ElementUse(ClipType._UseForTag(pyxb.namespace.ExpandedName(None, 'near')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 362, 10))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(ClipType._UseForTag(pyxb.namespace.ExpandedName(None, 'far')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 324, 10))
+    symbol = pyxb.binding.content.ElementUse(ClipType._UseForTag(pyxb.namespace.ExpandedName(None, 'far')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 363, 10))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     transitions = []
@@ -3264,11 +3490,11 @@ ClipType._Automaton = _BuildAutomaton_37()
 
 
 
-NoiseType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'type'), pyxb.binding.datatypes.string, scope=NoiseType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 333, 10)))
+NoiseType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'type'), pyxb.binding.datatypes.string, scope=NoiseType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 372, 10)))
 
-NoiseType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'mean'), pyxb.binding.datatypes.double, scope=NoiseType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 334, 10)))
+NoiseType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'mean'), pyxb.binding.datatypes.double, scope=NoiseType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 373, 10)))
 
-NoiseType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'stddev'), pyxb.binding.datatypes.double, scope=NoiseType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 335, 10)))
+NoiseType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'stddev'), pyxb.binding.datatypes.double, scope=NoiseType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 374, 10)))
 
 def _BuildAutomaton_38 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3277,22 +3503,22 @@ def _BuildAutomaton_38 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 332, 8))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 371, 8))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(NoiseType._UseForTag(pyxb.namespace.ExpandedName(None, 'type')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 333, 10))
+    symbol = pyxb.binding.content.ElementUse(NoiseType._UseForTag(pyxb.namespace.ExpandedName(None, 'type')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 372, 10))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(NoiseType._UseForTag(pyxb.namespace.ExpandedName(None, 'mean')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 334, 10))
+    symbol = pyxb.binding.content.ElementUse(NoiseType._UseForTag(pyxb.namespace.ExpandedName(None, 'mean')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 373, 10))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(NoiseType._UseForTag(pyxb.namespace.ExpandedName(None, 'stddev')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 335, 10))
+    symbol = pyxb.binding.content.ElementUse(NoiseType._UseForTag(pyxb.namespace.ExpandedName(None, 'stddev')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 374, 10))
     st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     transitions = []
@@ -3325,13 +3551,13 @@ NoiseType._Automaton = _BuildAutomaton_38()
 
 
 
-CameraType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'horizontal_fov'), pyxb.binding.datatypes.double, scope=CameraType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 344, 10)))
+CameraType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'horizontal_fov'), pyxb.binding.datatypes.double, scope=CameraType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 383, 10)))
 
-CameraType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'image'), ImageType, scope=CameraType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 345, 10)))
+CameraType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'image'), ImageType, scope=CameraType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 384, 10)))
 
-CameraType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'clip'), ClipType, scope=CameraType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 346, 10)))
+CameraType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'clip'), ClipType, scope=CameraType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 385, 10)))
 
-CameraType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'noise'), NoiseType, scope=CameraType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 347, 10)))
+CameraType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'noise'), NoiseType, scope=CameraType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 386, 10)))
 
 def _BuildAutomaton_39 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3340,39 +3566,39 @@ def _BuildAutomaton_39 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 343, 8))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 382, 8))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 344, 10))
+    cc_1 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 383, 10))
     counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 345, 10))
+    cc_2 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 384, 10))
     counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 346, 10))
+    cc_3 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 385, 10))
     counters.add(cc_3)
-    cc_4 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 347, 10))
+    cc_4 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 386, 10))
     counters.add(cc_4)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_1, False))
-    symbol = pyxb.binding.content.ElementUse(CameraType._UseForTag(pyxb.namespace.ExpandedName(None, 'horizontal_fov')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 344, 10))
+    symbol = pyxb.binding.content.ElementUse(CameraType._UseForTag(pyxb.namespace.ExpandedName(None, 'horizontal_fov')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 383, 10))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_2, False))
-    symbol = pyxb.binding.content.ElementUse(CameraType._UseForTag(pyxb.namespace.ExpandedName(None, 'image')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 345, 10))
+    symbol = pyxb.binding.content.ElementUse(CameraType._UseForTag(pyxb.namespace.ExpandedName(None, 'image')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 384, 10))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_3, False))
-    symbol = pyxb.binding.content.ElementUse(CameraType._UseForTag(pyxb.namespace.ExpandedName(None, 'clip')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 346, 10))
+    symbol = pyxb.binding.content.ElementUse(CameraType._UseForTag(pyxb.namespace.ExpandedName(None, 'clip')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 385, 10))
     st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_4, False))
-    symbol = pyxb.binding.content.ElementUse(CameraType._UseForTag(pyxb.namespace.ExpandedName(None, 'noise')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 347, 10))
+    symbol = pyxb.binding.content.ElementUse(CameraType._UseForTag(pyxb.namespace.ExpandedName(None, 'noise')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 386, 10))
     st_3 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_3)
     transitions = []
@@ -3445,9 +3671,11 @@ CameraType._Automaton = _BuildAutomaton_39()
 
 
 
-GazeboSensorBaseType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'pose'), pyxb.binding.datatypes.string, scope=GazeboSensorBaseType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 357, 10), unicode_default='0 0 0 0 0 0'))
+GazeboSensorBaseType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'pose'), pyxb.binding.datatypes.string, scope=GazeboSensorBaseType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 396, 10), unicode_default='0 0 0 0 0 0'))
 
-GazeboSensorBaseType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'update_rate'), pyxb.binding.datatypes.double, scope=GazeboSensorBaseType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 358, 10), unicode_default='0'))
+GazeboSensorBaseType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'update_rate'), pyxb.binding.datatypes.double, scope=GazeboSensorBaseType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 397, 10), unicode_default='0'))
+
+GazeboSensorBaseType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'visualize'), pyxb.binding.datatypes.boolean, scope=GazeboSensorBaseType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 398, 10)))
 
 def _BuildAutomaton_40 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3456,29 +3684,38 @@ def _BuildAutomaton_40 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 355, 4))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 394, 4))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 356, 8))
+    cc_1 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 395, 8))
     counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 357, 10))
+    cc_2 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 396, 10))
     counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 358, 10))
+    cc_3 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 397, 10))
     counters.add(cc_3)
+    cc_4 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 398, 10))
+    counters.add(cc_4)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_1, False))
     final_update.add(fac.UpdateInstruction(cc_2, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboSensorBaseType._UseForTag(pyxb.namespace.ExpandedName(None, 'pose')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 357, 10))
+    symbol = pyxb.binding.content.ElementUse(GazeboSensorBaseType._UseForTag(pyxb.namespace.ExpandedName(None, 'pose')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 396, 10))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_1, False))
     final_update.add(fac.UpdateInstruction(cc_3, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboSensorBaseType._UseForTag(pyxb.namespace.ExpandedName(None, 'update_rate')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 358, 10))
+    symbol = pyxb.binding.content.ElementUse(GazeboSensorBaseType._UseForTag(pyxb.namespace.ExpandedName(None, 'update_rate')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 397, 10))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    final_update.add(fac.UpdateInstruction(cc_1, False))
+    final_update.add(fac.UpdateInstruction(cc_4, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboSensorBaseType._UseForTag(pyxb.namespace.ExpandedName(None, 'visualize')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 398, 10))
+    st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_2)
     transitions = []
     transitions.append(fac.Transition(st_0, [
         fac.UpdateInstruction(cc_0, True),
@@ -3494,6 +3731,13 @@ def _BuildAutomaton_40 ():
         fac.UpdateInstruction(cc_1, False),
         fac.UpdateInstruction(cc_2, False) ]))
     transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_1, True),
+        fac.UpdateInstruction(cc_2, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False),
+        fac.UpdateInstruction(cc_2, False) ]))
+    transitions.append(fac.Transition(st_2, [
         fac.UpdateInstruction(cc_1, True),
         fac.UpdateInstruction(cc_2, False) ]))
     st_0._set_transitionSet(transitions)
@@ -3514,22 +3758,64 @@ def _BuildAutomaton_40 ():
         fac.UpdateInstruction(cc_3, False) ]))
     transitions.append(fac.Transition(st_1, [
         fac.UpdateInstruction(cc_3, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False),
+        fac.UpdateInstruction(cc_3, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_1, True),
+        fac.UpdateInstruction(cc_3, False) ]))
     st_1._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_1, True),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_1, True),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_1, True),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_4, True) ]))
+    st_2._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=None)
 GazeboSensorBaseType._Automaton = _BuildAutomaton_40()
 
 
 
 
-GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'plugin'), GazeboPluginType, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 388, 10)))
+GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'plugin'), GazeboPluginType, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 428, 10)))
 
-GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'sensor'), GazeboSensorType, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 389, 10)))
+GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'sensor'), GazeboSensorType, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 429, 10)))
 
-GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'material'), GazeboMaterialType, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 390, 10)))
+GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'material'), GazeboMaterialType, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 430, 10)))
 
-GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'gravity'), pyxb.binding.datatypes.boolean, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 391, 10)))
+GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'gravity'), pyxb.binding.datatypes.boolean, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 431, 10)))
 
-GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'self_collide'), pyxb.binding.datatypes.boolean, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 392, 10)))
+GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'self_collide'), pyxb.binding.datatypes.boolean, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 432, 10)))
+
+GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'mu1'), pyxb.binding.datatypes.double, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 433, 10)))
+
+GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'mu2'), pyxb.binding.datatypes.double, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 434, 10)))
+
+GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'fdir1'), pyxb.binding.datatypes.string, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 435, 10)))
+
+GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'maxVel'), pyxb.binding.datatypes.double, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 436, 10)))
+
+GazeboType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'minDepth'), pyxb.binding.datatypes.double, scope=GazeboType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 437, 10)))
 
 def _BuildAutomaton_41 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3538,34 +3824,59 @@ def _BuildAutomaton_41 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 387, 4))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 427, 4))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'plugin')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 388, 10))
+    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'plugin')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 428, 10))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'sensor')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 389, 10))
+    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'sensor')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 429, 10))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'material')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 390, 10))
+    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'material')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 430, 10))
     st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'gravity')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 391, 10))
+    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'gravity')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 431, 10))
     st_3 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_3)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'self_collide')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 392, 10))
+    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'self_collide')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 432, 10))
     st_4 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_4)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'mu1')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 433, 10))
+    st_5 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_5)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'mu2')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 434, 10))
+    st_6 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_6)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'fdir1')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 435, 10))
+    st_7 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_7)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'maxVel')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 436, 10))
+    st_8 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_8)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboType._UseForTag(pyxb.namespace.ExpandedName(None, 'minDepth')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 437, 10))
+    st_9 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_9)
     transitions = []
     transitions.append(fac.Transition(st_0, [
         fac.UpdateInstruction(cc_0, True) ]))
@@ -3576,6 +3887,16 @@ def _BuildAutomaton_41 ():
     transitions.append(fac.Transition(st_3, [
         fac.UpdateInstruction(cc_0, True) ]))
     transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
         fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
     transitions = []
@@ -3589,6 +3910,16 @@ def _BuildAutomaton_41 ():
         fac.UpdateInstruction(cc_0, True) ]))
     transitions.append(fac.Transition(st_4, [
         fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_1._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_0, [
@@ -3600,6 +3931,16 @@ def _BuildAutomaton_41 ():
     transitions.append(fac.Transition(st_3, [
         fac.UpdateInstruction(cc_0, True) ]))
     transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
         fac.UpdateInstruction(cc_0, True) ]))
     st_2._set_transitionSet(transitions)
     transitions = []
@@ -3613,6 +3954,16 @@ def _BuildAutomaton_41 ():
         fac.UpdateInstruction(cc_0, True) ]))
     transitions.append(fac.Transition(st_4, [
         fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_3._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_0, [
@@ -3625,22 +3976,142 @@ def _BuildAutomaton_41 ():
         fac.UpdateInstruction(cc_0, True) ]))
     transitions.append(fac.Transition(st_4, [
         fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_4._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_5._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_6._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_7._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_8._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_9._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=None)
 GazeboType._Automaton = _BuildAutomaton_41()
 
 
 
 
-RobotType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'joint'), JointType, scope=RobotType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 404, 10)))
+RobotType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'joint'), JointType, scope=RobotType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 449, 10)))
 
-RobotType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'link'), LinkType, scope=RobotType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 405, 10)))
+RobotType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'link'), LinkType, scope=RobotType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 450, 10)))
 
-RobotType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'transmission'), TransmissionType, scope=RobotType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 406, 10)))
+RobotType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'transmission'), TransmissionType, scope=RobotType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 451, 10)))
 
-RobotType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'gazebo'), GazeboType, scope=RobotType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 407, 10)))
+RobotType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'gazebo'), GazeboType, scope=RobotType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 452, 10)))
 
-RobotType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'material'), MaterialType, scope=RobotType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 408, 10)))
+RobotType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'material'), MaterialType, scope=RobotType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 453, 10)))
 
 def _BuildAutomaton_42 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3649,32 +4120,32 @@ def _BuildAutomaton_42 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 403, 8))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 448, 8))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(RobotType._UseForTag(pyxb.namespace.ExpandedName(None, 'joint')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 404, 10))
+    symbol = pyxb.binding.content.ElementUse(RobotType._UseForTag(pyxb.namespace.ExpandedName(None, 'joint')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 449, 10))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(RobotType._UseForTag(pyxb.namespace.ExpandedName(None, 'link')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 405, 10))
+    symbol = pyxb.binding.content.ElementUse(RobotType._UseForTag(pyxb.namespace.ExpandedName(None, 'link')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 450, 10))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(RobotType._UseForTag(pyxb.namespace.ExpandedName(None, 'transmission')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 406, 10))
+    symbol = pyxb.binding.content.ElementUse(RobotType._UseForTag(pyxb.namespace.ExpandedName(None, 'transmission')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 451, 10))
     st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(RobotType._UseForTag(pyxb.namespace.ExpandedName(None, 'gazebo')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 407, 10))
+    symbol = pyxb.binding.content.ElementUse(RobotType._UseForTag(pyxb.namespace.ExpandedName(None, 'gazebo')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 452, 10))
     st_3 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_3)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(RobotType._UseForTag(pyxb.namespace.ExpandedName(None, 'material')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 408, 10))
+    symbol = pyxb.binding.content.ElementUse(RobotType._UseForTag(pyxb.namespace.ExpandedName(None, 'material')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 453, 10))
     st_4 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_4)
     transitions = []
@@ -3749,7 +4220,29 @@ GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedN
 
 GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'robotParam'), pyxb.binding.datatypes.string, scope=GazeboPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 267, 16)))
 
-GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'controller'), GenericControllerPluginDefType, scope=GazeboPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 268, 16)))
+GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'controller'), GenericControllerPluginDefType, scope=GazeboPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 269, 16)))
+
+GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'alwaysOn'), pyxb.binding.datatypes.boolean, scope=GazeboPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 271, 16)))
+
+GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'bodyName'), pyxb.binding.datatypes.string, scope=GazeboPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 272, 16)))
+
+GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'topicName'), pyxb.binding.datatypes.string, scope=GazeboPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 273, 16)))
+
+GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'serviceName'), pyxb.binding.datatypes.string, scope=GazeboPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 274, 16)))
+
+GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'gaussianNoise'), pyxb.binding.datatypes.double, scope=GazeboPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 275, 16)))
+
+GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'updateRate'), pyxb.binding.datatypes.double, scope=GazeboPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 276, 16)))
+
+GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'joint'), pyxb.binding.datatypes.string, scope=GazeboPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 278, 16)))
+
+GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'mimicJoint'), pyxb.binding.datatypes.string, scope=GazeboPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 279, 16)))
+
+GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'multiplier'), pyxb.binding.datatypes.double, scope=GazeboPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 280, 16)))
+
+GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'offset'), pyxb.binding.datatypes.double, scope=GazeboPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 281, 16)))
+
+GazeboPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'link'), pyxb.binding.datatypes.string, scope=GazeboPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 283, 16)))
 
 def _BuildAutomaton_43 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3778,9 +4271,64 @@ def _BuildAutomaton_43 ():
     states.append(st_2)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'controller')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 268, 16))
+    symbol = pyxb.binding.content.ElementUse(GazeboPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'controller')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 269, 16))
     st_3 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_3)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'alwaysOn')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 271, 16))
+    st_4 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_4)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'bodyName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 272, 16))
+    st_5 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_5)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'topicName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 273, 16))
+    st_6 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_6)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'serviceName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 274, 16))
+    st_7 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_7)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'gaussianNoise')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 275, 16))
+    st_8 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_8)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'updateRate')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 276, 16))
+    st_9 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_9)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'joint')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 278, 16))
+    st_10 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_10)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'mimicJoint')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 279, 16))
+    st_11 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_11)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'multiplier')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 280, 16))
+    st_12 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_12)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'offset')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 281, 16))
+    st_13 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_13)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'link')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 283, 16))
+    st_14 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_14)
     transitions = []
     transitions.append(fac.Transition(st_0, [
         fac.UpdateInstruction(cc_0, True) ]))
@@ -3789,6 +4337,28 @@ def _BuildAutomaton_43 ():
     transitions.append(fac.Transition(st_2, [
         fac.UpdateInstruction(cc_0, True) ]))
     transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
         fac.UpdateInstruction(cc_0, True) ]))
     st_0._set_transitionSet(transitions)
     transitions = []
@@ -3800,6 +4370,28 @@ def _BuildAutomaton_43 ():
         fac.UpdateInstruction(cc_0, True) ]))
     transitions.append(fac.Transition(st_3, [
         fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_1._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_0, [
@@ -3809,6 +4401,28 @@ def _BuildAutomaton_43 ():
     transitions.append(fac.Transition(st_2, [
         fac.UpdateInstruction(cc_0, True) ]))
     transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
         fac.UpdateInstruction(cc_0, True) ]))
     st_2._set_transitionSet(transitions)
     transitions = []
@@ -3820,54 +4434,386 @@ def _BuildAutomaton_43 ():
         fac.UpdateInstruction(cc_0, True) ]))
     transitions.append(fac.Transition(st_3, [
         fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True) ]))
     st_3._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_4._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_5._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_6._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_7._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_8._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_9._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_10._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_11._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_12._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_13._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True) ]))
+    st_14._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=None)
 GazeboPluginType._Automaton = _BuildAutomaton_43()
 
 
 
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'baseline'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 281, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'alwaysOn'), pyxb.binding.datatypes.boolean, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 282, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'updateRate'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 283, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'cameraName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 284, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'imageTopicName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 285, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'depthImageTopicName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 286, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'cameraInfoTopicName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 287, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'depthImageCameraInfoTopicName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 288, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'frameName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 289, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'hackBaseline'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 290, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'distortionK1'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 291, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'distortionK2'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 292, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'distortionK3'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 293, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'distortionT1'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 294, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'distortionT2'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 295, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'CxPrime'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 296, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'Cx'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 297, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'Cy'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 298, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'focalLength'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 299, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'pointCloudCutoff'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 300, 18)))
-
-GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'pointCloudTopicName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 301, 18)))
 
 def _BuildAutomaton_44 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3876,177 +4822,315 @@ def _BuildAutomaton_44 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 280, 14))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 295, 14))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 281, 18))
+    states = []
+    return fac.Automaton(states, counters, True, containing_state=None)
+GazeboIMUPluginType._Automaton = _BuildAutomaton_44()
+
+
+
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'robotNamespace'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 308, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'baseline'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 309, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'alwaysOn'), pyxb.binding.datatypes.boolean, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 310, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'updateRate'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 311, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'cameraName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 312, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'imageTopicName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 313, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'depthImageTopicName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 314, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'cameraInfoTopicName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 315, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'depthImageCameraInfoTopicName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 316, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'frameName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 317, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'hackBaseline'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 318, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'distortionK1'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 319, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'distortionK2'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 320, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'distortionK3'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 321, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'distortionT1'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 322, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'distortionT2'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 323, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'CxPrime'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 324, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'Cx'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 325, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'Cy'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 326, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'focalLength'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 327, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'pointCloudCutoff'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 328, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'pointCloudTopicName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 329, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'topicName'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 331, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'minRange'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 332, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'maxRange'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 333, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'fov'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 334, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'radiation'), pyxb.binding.datatypes.string, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 335, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'gaussianNoise'), pyxb.binding.datatypes.double, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 336, 18)))
+
+GazeboCameraPluginType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'visualize'), pyxb.binding.datatypes.boolean, scope=GazeboCameraPluginType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 338, 18)))
+
+def _BuildAutomaton_45 ():
+    # Remove this helper function from the namespace after it is invoked
+    global _BuildAutomaton_45
+    del _BuildAutomaton_45
+    import pyxb.utils.fac as fac
+
+    counters = set()
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 307, 14))
+    counters.add(cc_0)
+    cc_1 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 308, 18))
     counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 282, 18))
+    cc_2 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 309, 18))
     counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 283, 18))
+    cc_3 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 310, 18))
     counters.add(cc_3)
-    cc_4 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 284, 18))
+    cc_4 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 311, 18))
     counters.add(cc_4)
-    cc_5 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 285, 18))
+    cc_5 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 312, 18))
     counters.add(cc_5)
-    cc_6 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 286, 18))
+    cc_6 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 313, 18))
     counters.add(cc_6)
-    cc_7 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 287, 18))
+    cc_7 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 314, 18))
     counters.add(cc_7)
-    cc_8 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 288, 18))
+    cc_8 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 315, 18))
     counters.add(cc_8)
-    cc_9 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 289, 18))
+    cc_9 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 316, 18))
     counters.add(cc_9)
-    cc_10 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 290, 18))
+    cc_10 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 317, 18))
     counters.add(cc_10)
-    cc_11 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 291, 18))
+    cc_11 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 318, 18))
     counters.add(cc_11)
-    cc_12 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 292, 18))
+    cc_12 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 319, 18))
     counters.add(cc_12)
-    cc_13 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 293, 18))
+    cc_13 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 320, 18))
     counters.add(cc_13)
-    cc_14 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 294, 18))
+    cc_14 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 321, 18))
     counters.add(cc_14)
-    cc_15 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 295, 18))
+    cc_15 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 322, 18))
     counters.add(cc_15)
-    cc_16 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 296, 18))
+    cc_16 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 323, 18))
     counters.add(cc_16)
-    cc_17 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 297, 18))
+    cc_17 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 324, 18))
     counters.add(cc_17)
-    cc_18 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 298, 18))
+    cc_18 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 325, 18))
     counters.add(cc_18)
-    cc_19 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 299, 18))
+    cc_19 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 326, 18))
     counters.add(cc_19)
-    cc_20 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 300, 18))
+    cc_20 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 327, 18))
     counters.add(cc_20)
-    cc_21 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 301, 18))
+    cc_21 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 328, 18))
     counters.add(cc_21)
+    cc_22 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 329, 18))
+    counters.add(cc_22)
+    cc_23 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 331, 18))
+    counters.add(cc_23)
+    cc_24 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 332, 18))
+    counters.add(cc_24)
+    cc_25 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 333, 18))
+    counters.add(cc_25)
+    cc_26 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 334, 18))
+    counters.add(cc_26)
+    cc_27 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 335, 18))
+    counters.add(cc_27)
+    cc_28 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 336, 18))
+    counters.add(cc_28)
+    cc_29 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 338, 18))
+    counters.add(cc_29)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_1, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'baseline')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 281, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'robotNamespace')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 308, 18))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_2, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'alwaysOn')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 282, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'baseline')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 309, 18))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_3, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'updateRate')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 283, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'alwaysOn')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 310, 18))
     st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_4, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'cameraName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 284, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'updateRate')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 311, 18))
     st_3 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_3)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_5, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'imageTopicName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 285, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'cameraName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 312, 18))
     st_4 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_4)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_6, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'depthImageTopicName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 286, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'imageTopicName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 313, 18))
     st_5 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_5)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_7, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'cameraInfoTopicName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 287, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'depthImageTopicName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 314, 18))
     st_6 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_6)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_8, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'depthImageCameraInfoTopicName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 288, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'cameraInfoTopicName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 315, 18))
     st_7 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_7)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_9, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'frameName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 289, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'depthImageCameraInfoTopicName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 316, 18))
     st_8 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_8)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_10, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'hackBaseline')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 290, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'frameName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 317, 18))
     st_9 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_9)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_11, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'distortionK1')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 291, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'hackBaseline')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 318, 18))
     st_10 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_10)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_12, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'distortionK2')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 292, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'distortionK1')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 319, 18))
     st_11 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_11)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_13, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'distortionK3')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 293, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'distortionK2')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 320, 18))
     st_12 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_12)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_14, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'distortionT1')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 294, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'distortionK3')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 321, 18))
     st_13 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_13)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_15, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'distortionT2')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 295, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'distortionT1')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 322, 18))
     st_14 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_14)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_16, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'CxPrime')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 296, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'distortionT2')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 323, 18))
     st_15 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_15)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_17, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'Cx')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 297, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'CxPrime')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 324, 18))
     st_16 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_16)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_18, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'Cy')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 298, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'Cx')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 325, 18))
     st_17 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_17)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_19, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'focalLength')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 299, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'Cy')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 326, 18))
     st_18 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_18)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_20, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'pointCloudCutoff')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 300, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'focalLength')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 327, 18))
     st_19 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_19)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_21, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'pointCloudTopicName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 301, 18))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'pointCloudCutoff')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 328, 18))
     st_20 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_20)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    final_update.add(fac.UpdateInstruction(cc_22, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'pointCloudTopicName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 329, 18))
+    st_21 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_21)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    final_update.add(fac.UpdateInstruction(cc_23, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'topicName')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 331, 18))
+    st_22 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_22)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    final_update.add(fac.UpdateInstruction(cc_24, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'minRange')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 332, 18))
+    st_23 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_23)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    final_update.add(fac.UpdateInstruction(cc_25, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'maxRange')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 333, 18))
+    st_24 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_24)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    final_update.add(fac.UpdateInstruction(cc_26, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'fov')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 334, 18))
+    st_25 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_25)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    final_update.add(fac.UpdateInstruction(cc_27, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'radiation')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 335, 18))
+    st_26 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_26)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    final_update.add(fac.UpdateInstruction(cc_28, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'gaussianNoise')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 336, 18))
+    st_27 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_27)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    final_update.add(fac.UpdateInstruction(cc_29, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboCameraPluginType._UseForTag(pyxb.namespace.ExpandedName(None, 'visualize')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 338, 18))
+    st_28 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_28)
     transitions = []
     transitions.append(fac.Transition(st_0, [
         fac.UpdateInstruction(cc_0, True),
@@ -4111,6 +5195,30 @@ def _BuildAutomaton_44 ():
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_1, False) ]))
     transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False) ]))
+    transitions.append(fac.Transition(st_28, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_1, False) ]))
     st_0._set_transitionSet(transitions)
@@ -4180,6 +5288,30 @@ def _BuildAutomaton_44 ():
     transitions.append(fac.Transition(st_20, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_2, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_2, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_2, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_2, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_2, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_2, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_2, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_2, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_2, False) ]))
     st_1._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_0, [
@@ -4245,6 +5377,30 @@ def _BuildAutomaton_44 ():
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_3, False) ]))
     transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_3, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_3, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_3, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_3, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_3, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_3, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_3, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_3, False) ]))
+    transitions.append(fac.Transition(st_28, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_3, False) ]))
     st_2._set_transitionSet(transitions)
@@ -4314,6 +5470,30 @@ def _BuildAutomaton_44 ():
     transitions.append(fac.Transition(st_20, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_4, False) ]))
     st_3._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_0, [
@@ -4379,6 +5559,30 @@ def _BuildAutomaton_44 ():
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_5, False) ]))
     transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_5, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_5, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_5, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_5, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_5, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_5, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_5, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_5, False) ]))
+    transitions.append(fac.Transition(st_28, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_5, False) ]))
     st_4._set_transitionSet(transitions)
@@ -4448,6 +5652,30 @@ def _BuildAutomaton_44 ():
     transitions.append(fac.Transition(st_20, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_6, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_6, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_6, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_6, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_6, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_6, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_6, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_6, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_6, False) ]))
     st_5._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_0, [
@@ -4513,6 +5741,30 @@ def _BuildAutomaton_44 ():
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_7, False) ]))
     transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_7, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_7, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_7, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_7, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_7, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_7, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_7, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_7, False) ]))
+    transitions.append(fac.Transition(st_28, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_7, False) ]))
     st_6._set_transitionSet(transitions)
@@ -4582,6 +5834,30 @@ def _BuildAutomaton_44 ():
     transitions.append(fac.Transition(st_20, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_8, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_8, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_8, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_8, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_8, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_8, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_8, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_8, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_8, False) ]))
     st_7._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_0, [
@@ -4647,6 +5923,30 @@ def _BuildAutomaton_44 ():
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_9, False) ]))
     transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_9, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_9, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_9, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_9, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_9, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_9, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_9, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_9, False) ]))
+    transitions.append(fac.Transition(st_28, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_9, False) ]))
     st_8._set_transitionSet(transitions)
@@ -4716,6 +6016,30 @@ def _BuildAutomaton_44 ():
     transitions.append(fac.Transition(st_20, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_10, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_10, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_10, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_10, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_10, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_10, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_10, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_10, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_10, False) ]))
     st_9._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_0, [
@@ -4781,6 +6105,30 @@ def _BuildAutomaton_44 ():
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_11, False) ]))
     transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_11, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_11, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_11, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_11, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_11, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_11, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_11, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_11, False) ]))
+    transitions.append(fac.Transition(st_28, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_11, False) ]))
     st_10._set_transitionSet(transitions)
@@ -4850,6 +6198,30 @@ def _BuildAutomaton_44 ():
     transitions.append(fac.Transition(st_20, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_12, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_12, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_12, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_12, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_12, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_12, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_12, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_12, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_12, False) ]))
     st_11._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_0, [
@@ -4915,6 +6287,30 @@ def _BuildAutomaton_44 ():
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_13, False) ]))
     transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_13, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_13, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_13, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_13, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_13, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_13, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_13, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_13, False) ]))
+    transitions.append(fac.Transition(st_28, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_13, False) ]))
     st_12._set_transitionSet(transitions)
@@ -4984,6 +6380,30 @@ def _BuildAutomaton_44 ():
     transitions.append(fac.Transition(st_20, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_14, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_14, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_14, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_14, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_14, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_14, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_14, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_14, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_14, False) ]))
     st_13._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_0, [
@@ -5049,6 +6469,30 @@ def _BuildAutomaton_44 ():
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_15, False) ]))
     transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_15, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_15, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_15, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_15, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_15, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_15, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_15, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_15, False) ]))
+    transitions.append(fac.Transition(st_28, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_15, False) ]))
     st_14._set_transitionSet(transitions)
@@ -5118,6 +6562,30 @@ def _BuildAutomaton_44 ():
     transitions.append(fac.Transition(st_20, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_16, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_16, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_16, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_16, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_16, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_16, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_16, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_16, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_16, False) ]))
     st_15._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_0, [
@@ -5183,6 +6651,30 @@ def _BuildAutomaton_44 ():
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_17, False) ]))
     transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_17, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_17, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_17, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_17, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_17, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_17, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_17, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_17, False) ]))
+    transitions.append(fac.Transition(st_28, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_17, False) ]))
     st_16._set_transitionSet(transitions)
@@ -5252,6 +6744,30 @@ def _BuildAutomaton_44 ():
     transitions.append(fac.Transition(st_20, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_18, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_18, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_18, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_18, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_18, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_18, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_18, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_18, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_18, False) ]))
     st_17._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_0, [
@@ -5317,6 +6833,30 @@ def _BuildAutomaton_44 ():
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_19, False) ]))
     transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_19, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_19, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_19, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_19, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_19, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_19, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_19, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_19, False) ]))
+    transitions.append(fac.Transition(st_28, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_19, False) ]))
     st_18._set_transitionSet(transitions)
@@ -5386,6 +6926,30 @@ def _BuildAutomaton_44 ():
     transitions.append(fac.Transition(st_20, [
         fac.UpdateInstruction(cc_0, True),
         fac.UpdateInstruction(cc_20, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_20, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_20, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_20, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_20, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_20, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_20, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_20, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_20, False) ]))
     st_19._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_0, [
@@ -5453,65 +7017,826 @@ def _BuildAutomaton_44 ():
         fac.UpdateInstruction(cc_21, False) ]))
     transitions.append(fac.Transition(st_20, [
         fac.UpdateInstruction(cc_21, True) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_21, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_21, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_21, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_21, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_21, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_21, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_21, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_21, False) ]))
     st_20._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_15, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_16, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_17, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_18, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_22, True) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_22, False) ]))
+    st_21._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_15, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_16, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_17, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_18, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_23, True) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_23, False) ]))
+    st_22._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_15, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_16, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_17, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_18, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_24, True) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_24, False) ]))
+    st_23._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_15, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_16, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_17, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_18, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_25, True) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_25, False) ]))
+    st_24._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_15, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_16, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_17, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_18, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_26, True) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_26, False) ]))
+    st_25._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_15, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_16, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_17, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_18, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_27, True) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_27, False) ]))
+    st_26._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_15, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_16, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_17, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_18, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_28, True) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_28, False) ]))
+    st_27._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_5, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_6, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_7, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_8, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_9, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_10, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_11, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_12, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_13, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_14, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_15, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_16, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_17, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_18, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_23, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_24, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_25, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_26, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_27, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_29, False) ]))
+    transitions.append(fac.Transition(st_28, [
+        fac.UpdateInstruction(cc_29, True) ]))
+    st_28._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=None)
-GazeboCameraPluginType._Automaton = _BuildAutomaton_44()
+GazeboCameraPluginType._Automaton = _BuildAutomaton_45()
 
 
 
 
-GazeboSensorType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'camera'), CameraType, scope=GazeboSensorType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 371, 14)))
+GazeboSensorType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'camera'), CameraType, scope=GazeboSensorType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 411, 14)))
 
-GazeboSensorType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'plugin'), GazeboCameraPluginType, scope=GazeboSensorType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 372, 14)))
+GazeboSensorType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'plugin'), GazeboCameraPluginType, scope=GazeboSensorType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 412, 14)))
 
-def _BuildAutomaton_45 ():
+def _BuildAutomaton_46 ():
     # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton_45
-    del _BuildAutomaton_45
+    global _BuildAutomaton_46
+    del _BuildAutomaton_46
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 355, 4))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 394, 4))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 356, 8))
+    cc_1 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 395, 8))
     counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 357, 10))
+    cc_2 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 396, 10))
     counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 358, 10))
+    cc_3 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 397, 10))
     counters.add(cc_3)
-    cc_4 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 370, 12))
+    cc_4 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 398, 10))
     counters.add(cc_4)
-    cc_5 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 371, 14))
+    cc_5 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 410, 12))
     counters.add(cc_5)
-    cc_6 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 372, 14))
+    cc_6 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 411, 14))
     counters.add(cc_6)
+    cc_7 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 412, 14))
+    counters.add(cc_7)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_1, False))
     final_update.add(fac.UpdateInstruction(cc_2, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboSensorType._UseForTag(pyxb.namespace.ExpandedName(None, 'pose')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 357, 10))
+    symbol = pyxb.binding.content.ElementUse(GazeboSensorType._UseForTag(pyxb.namespace.ExpandedName(None, 'pose')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 396, 10))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
     final_update.add(fac.UpdateInstruction(cc_1, False))
     final_update.add(fac.UpdateInstruction(cc_3, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboSensorType._UseForTag(pyxb.namespace.ExpandedName(None, 'update_rate')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 358, 10))
+    symbol = pyxb.binding.content.ElementUse(GazeboSensorType._UseForTag(pyxb.namespace.ExpandedName(None, 'update_rate')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 397, 10))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_0, False))
+    final_update.add(fac.UpdateInstruction(cc_1, False))
     final_update.add(fac.UpdateInstruction(cc_4, False))
-    final_update.add(fac.UpdateInstruction(cc_5, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboSensorType._UseForTag(pyxb.namespace.ExpandedName(None, 'camera')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 371, 14))
+    symbol = pyxb.binding.content.ElementUse(GazeboSensorType._UseForTag(pyxb.namespace.ExpandedName(None, 'visualize')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 398, 10))
     st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_4, False))
+    final_update.add(fac.UpdateInstruction(cc_5, False))
     final_update.add(fac.UpdateInstruction(cc_6, False))
-    symbol = pyxb.binding.content.ElementUse(GazeboSensorType._UseForTag(pyxb.namespace.ExpandedName(None, 'plugin')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 372, 14))
+    symbol = pyxb.binding.content.ElementUse(GazeboSensorType._UseForTag(pyxb.namespace.ExpandedName(None, 'camera')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 411, 14))
     st_3 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_3)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_5, False))
+    final_update.add(fac.UpdateInstruction(cc_7, False))
+    symbol = pyxb.binding.content.ElementUse(GazeboSensorType._UseForTag(pyxb.namespace.ExpandedName(None, 'plugin')), pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 412, 14))
+    st_4 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_4)
     transitions = []
     transitions.append(fac.Transition(st_0, [
         fac.UpdateInstruction(cc_0, True),
@@ -5530,10 +7855,17 @@ def _BuildAutomaton_45 ():
         fac.UpdateInstruction(cc_1, True),
         fac.UpdateInstruction(cc_2, False) ]))
     transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False),
+        fac.UpdateInstruction(cc_2, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_1, True),
+        fac.UpdateInstruction(cc_2, False) ]))
+    transitions.append(fac.Transition(st_3, [
         fac.UpdateInstruction(cc_0, False),
         fac.UpdateInstruction(cc_1, False),
         fac.UpdateInstruction(cc_2, False) ]))
-    transitions.append(fac.Transition(st_3, [
+    transitions.append(fac.Transition(st_4, [
         fac.UpdateInstruction(cc_0, False),
         fac.UpdateInstruction(cc_1, False),
         fac.UpdateInstruction(cc_2, False) ]))
@@ -5556,34 +7888,74 @@ def _BuildAutomaton_45 ():
     transitions.append(fac.Transition(st_1, [
         fac.UpdateInstruction(cc_3, True) ]))
     transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False),
+        fac.UpdateInstruction(cc_3, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_1, True),
+        fac.UpdateInstruction(cc_3, False) ]))
+    transitions.append(fac.Transition(st_3, [
         fac.UpdateInstruction(cc_0, False),
         fac.UpdateInstruction(cc_1, False),
         fac.UpdateInstruction(cc_3, False) ]))
-    transitions.append(fac.Transition(st_3, [
+    transitions.append(fac.Transition(st_4, [
         fac.UpdateInstruction(cc_0, False),
         fac.UpdateInstruction(cc_1, False),
         fac.UpdateInstruction(cc_3, False) ]))
     st_1._set_transitionSet(transitions)
     transitions = []
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_0, [
+        fac.UpdateInstruction(cc_1, True),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_1, [
+        fac.UpdateInstruction(cc_1, True),
+        fac.UpdateInstruction(cc_4, False) ]))
     transitions.append(fac.Transition(st_2, [
-        fac.UpdateInstruction(cc_4, True),
-        fac.UpdateInstruction(cc_5, False) ]))
+        fac.UpdateInstruction(cc_0, True),
+        fac.UpdateInstruction(cc_1, False),
+        fac.UpdateInstruction(cc_4, False) ]))
     transitions.append(fac.Transition(st_2, [
-        fac.UpdateInstruction(cc_5, True) ]))
+        fac.UpdateInstruction(cc_1, True),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_2, [
+        fac.UpdateInstruction(cc_4, True) ]))
     transitions.append(fac.Transition(st_3, [
-        fac.UpdateInstruction(cc_4, True),
-        fac.UpdateInstruction(cc_5, False) ]))
+        fac.UpdateInstruction(cc_0, False),
+        fac.UpdateInstruction(cc_1, False),
+        fac.UpdateInstruction(cc_4, False) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_0, False),
+        fac.UpdateInstruction(cc_1, False),
+        fac.UpdateInstruction(cc_4, False) ]))
     st_2._set_transitionSet(transitions)
     transitions = []
-    transitions.append(fac.Transition(st_2, [
-        fac.UpdateInstruction(cc_4, True),
-        fac.UpdateInstruction(cc_6, False) ]))
     transitions.append(fac.Transition(st_3, [
-        fac.UpdateInstruction(cc_4, True),
+        fac.UpdateInstruction(cc_5, True),
         fac.UpdateInstruction(cc_6, False) ]))
     transitions.append(fac.Transition(st_3, [
         fac.UpdateInstruction(cc_6, True) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_5, True),
+        fac.UpdateInstruction(cc_6, False) ]))
     st_3._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_3, [
+        fac.UpdateInstruction(cc_5, True),
+        fac.UpdateInstruction(cc_7, False) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_5, True),
+        fac.UpdateInstruction(cc_7, False) ]))
+    transitions.append(fac.Transition(st_4, [
+        fac.UpdateInstruction(cc_7, True) ]))
+    st_4._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=None)
-GazeboSensorType._Automaton = _BuildAutomaton_45()
+GazeboSensorType._Automaton = _BuildAutomaton_46()
 

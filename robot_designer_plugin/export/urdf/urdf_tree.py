@@ -63,6 +63,20 @@ class URDFTree(object):
         #robot = urdf_dom.parse(file_name, silence=True)
         robot = urdf_dom.CreateFromDocument(open(file_name).read())
 
+        # parsing joint controllers
+        # create a dictionary [ joint_name, controller ] which is
+        # easily searchable during tree traversal
+        controller_cache = {}
+        for gazebo_tag in robot.gazebo:
+            for plugin_tag in gazebo_tag.plugin:
+                if plugin_tag.name == "generic_controller":
+                    for controller in plugin_tag.controller:
+                        # store the controller in cache, so it's accessible
+                        logger.debug("Found controller for joint: " + controller.joint_name + ", caching it.")
+                        controller_cache[controller.joint_name] = controller
+        logger.debug("Built controller cache:")
+        logger.debug(controller_cache)
+
         # create mapping from (parent) links to joints
         connected_joints = {link: [joint for joint in robot.joint if link.name == joint.parent.link] for link
                             in robot.link}
@@ -91,7 +105,7 @@ class URDFTree(object):
         # todo: parse joint controllers
 
         logger.debug("kinematic chains: %s", kinematic_chains)
-        return robot.name, root_links, kinematic_chains
+        return robot.name, root_links, kinematic_chains, controller_cache
 
     def build(self, link, joint=None,depth=0):
         """
@@ -157,7 +171,7 @@ class URDFTree(object):
         with open(file_name, "w") as f:
             #f.write('<?xml version="1.0" ?>')
             output = self.robot.toxml("utf-8", element_name="robot").decode("utf-8")
-            output = output.replace(">", ">\n")
+            #output = output.replace(">", ">\n")
             f.write(output)
             # self.robot.export(f,0)
 
@@ -274,9 +288,9 @@ class URDFTree(object):
             joint.axis = urdf_dom.AxisType()
 
         if joint.limit is None:
-            joint.limit = urdf_dom.LimitType(effort=0, lower=0, upper=0, velocity=0)
+            joint.limit = urdf_dom.LimitType()
             # this had to be completely defined (missing effor argument caused conversion to SDF to fail)
-            joint.limit.effort = joint.limit.lower = joint.limit.upper = joint.limit.velocity = 0
+            joint.limit.effort = joint.limit.lower = joint.limit.upper = joint.limit.velocity = 0.0
 
         if joint.calibration is None:
             joint.calibration = urdf_dom.CalibrationType()

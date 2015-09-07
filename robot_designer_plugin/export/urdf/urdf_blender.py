@@ -38,7 +38,7 @@ def import_(urdf_file):
 
     :param urdf_file: string referring to the file to be opened
     """
-    robot_name, root_links, kinematic_chains = urdf_tree.URDFTree.parse(urdf_file)
+    robot_name, root_links, kinematic_chains, controller_cache = urdf_tree.URDFTree.parse(urdf_file)
 
     logger.debug('root links: %s', [i.name for i in root_links])
 
@@ -136,6 +136,15 @@ def import_(urdf_file):
         euler = string_to_list(get_value(tree.joint.origin.rpy, '0 0 0'))
         #logger.debug("xyz: %s, rpy: %s",tree.joint.origin.xyz,tree.joint.origin.rpy)
         #logger.debug("xyz: %s, rpy: %s",xyz,euler)
+        # check if there is a controller attached to this joint
+        if bone_name in controller_cache:
+            controller = controller_cache[bone_name]
+            PID = controller.pid.split(" ")
+            bpy.context.active_bone.RobotEditor.jointController.isActive = True
+            bpy.context.active_bone.RobotEditor.jointController.controllerType = controller.type
+            bpy.context.active_bone.RobotEditor.jointController.P = float(PID[0])
+            bpy.context.active_bone.RobotEditor.jointController.I = float(PID[1])
+            bpy.context.active_bone.RobotEditor.jointController.D = float(PID[2])
 
         axis = string_to_list(tree.joint.axis.xyz)
         for i, element in enumerate(axis):
@@ -332,7 +341,9 @@ def export(file_name):
             bpy.ops.wm.collada_export(filepath=file_path, selected=True)
             bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
             # set correct mesh path: This requires the ROS default package structure.
-            return("file://" + os.path.join("meshes", mesh + '.dae'))
+            model_folder_name = bpy.context.scene.RobotEditor.modelFolderName
+            print("Model folder name: " + model_folder_name)
+            return("model://" + os.path.join(model_folder_name, "meshes", mesh + '.dae'))
 
     def export_collisionmodel(name):
         collisions = [obj.name for obj in bpy.data.objects if
@@ -357,7 +368,9 @@ def export(file_name):
             bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
             # set correct mesh path: This requires the ROS default package structure.
             # print('debug: ' + object_name)
-            return("file://" + os.path.join("collisions", collision + '.stl'))
+
+            model_folder = bpy.context.scene.RobotEditor.modelFolderPath
+            return("model://" + os.path.join(model_folder, "collisions", collision + '.stl'))
 
     # def export_mesh(name):
     #     file_path = os.path.join(os.path.dirname(file_name), "meshes", name + '.dae')
@@ -458,7 +471,7 @@ def export(file_name):
             # todo: pick up the real values from Physics Frame?
             inertial.mass.value_ = 1.0
             inertial.inertia.ixx = inertial.inertia.ixy = inertial.inertia.ixz = \
-                inertial.inertia.iyy = inertial.inertia.iyz = inertial.inertia.izz = 0.0
+                inertial.inertia.iyy = inertial.inertia.iyz = inertial.inertia.izz = 1.0
 
         # add joint controllers
         if bone.RobotEditor.jointController.isActive is True:
