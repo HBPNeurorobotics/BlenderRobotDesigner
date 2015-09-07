@@ -23,7 +23,7 @@ from ... import armatures
 from . import urdf_tree
 from .helpers import string_to_list, get_value, list_to_string
 
-from ...armatures import createArmature
+from ...armatures import createArmature, updateKinematics
 
 import logging
 
@@ -234,6 +234,7 @@ def import_(urdf_file):
                         # The name might be altered by blender
                         assigned_name = bpy.context.active_object.name
 
+                        bpy.ops.object.transform_apply(location=False, rotation=False, scale=True)
                         # connect the meshes
 
                         # logger.debug("Connecting %s,%s,%s -> %s,%s", visual.geometry.mesh.filename,
@@ -251,7 +252,7 @@ def import_(urdf_file):
 
         for sub_tree in tree.children:
             parse(sub_tree, bone_name)
-        return
+        return bone_name
 
     for link in root_links:
         for visual in link.visual:
@@ -265,7 +266,12 @@ def import_(urdf_file):
                 bpy.context.active_object.matrix_world = trafo * scale
 
     for chain in kinematic_chains:
-        parse(chain)
+        root_name = parse(chain)
+        updateKinematics(bpy.context.active_object.name,root_name)
+
+    bpy.ops.roboteditor.selectcf(meshName='CoordinateFrame')
+    bpy.ops.view3d.view_lock_to_active()
+    bpy.context.active_object.show_x_ray = True
 
 
 def retFile(filestring):

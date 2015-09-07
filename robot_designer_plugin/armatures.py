@@ -3,8 +3,9 @@ import mathutils
 
 import bpy
 import mathutils
-from bpy.props import StringProperty
+from bpy.props import StringProperty, IntProperty
 
+from .tools import collapsible, boneSelector
 
 # creates a new armature, new_name is the name of the new armature
 def createArmature(new_name):
@@ -27,7 +28,7 @@ def createBone(armatureName, boneName, parentName=None):
     bpy.ops.roboteditor.selectarmature(armatureName=armatureName)
     currentMode = bpy.context.object.mode
 
-    bpy.ops.object.mode_set(mode='EDIT', toggle=False)
+    print(bpy.ops.object.mode_set(mode='EDIT', toggle=False))
     # arm = bpy.data.armatures[armatureName]
     bone = bpy.data.armatures[armatureName].edit_bones.new(boneName)
     bone.head = (0, 0, 0)  # Dummy
@@ -43,7 +44,44 @@ def createBone(armatureName, boneName, parentName=None):
     bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
     bpy.context.object.pose.bones[boneName].constraints[0].name = 'RobotEditorConstraint'
     bpy.ops.object.mode_set(mode=currentMode, toggle=False)
+
     print("createBone done")
+
+
+# operator to select mesh
+class RobotEditor_selectCoordinateFrame(bpy.types.Operator):
+    bl_idname = "roboteditor.selectcf"
+    bl_label = "Select Mesh"
+
+    meshName = StringProperty()
+
+    def execute(self, context):
+        for bone in [i.name for i in bpy.data.armatures[context.active_object.name].bones]:
+            if self.meshName != 'None':
+                context.active_object.pose.bones[bone].custom_shape = bpy.data.objects[self.meshName]
+            else:
+                context.active_object.pose.bones[bone].custom_shape = None
+        return {'FINISHED'}
+
+
+# dynamic menu to select mesh
+class RobotEditor_coordinateFrameMenu(bpy.types.Menu):
+    bl_idname = "roboteditor.cfmenu"
+    bl_label = "Select Mesh"
+
+    axis = IntProperty(default=0)
+
+    def draw(self, context):
+        layout = self.layout
+        meshNames = [obj.name for obj in bpy.data.objects if
+                     obj.type == 'MESH' and
+                     obj.parent is None and
+                     obj.parent_bone == '']
+
+        print(meshNames)
+
+        for mesh in meshNames:
+            layout.operator("roboteditor.selectcf", text=mesh).meshName = mesh
 
 
 # Function to convert a given rotation vector and a roll angle anlong this axis into a 3x3 rotation matrix
@@ -234,7 +272,7 @@ class RobotEditor_rebuildModel(bpy.types.Operator):
 
 class RobotEditor_selectArmature(bpy.types.Operator):
     bl_idname = "roboteditor.selectarmature"
-    bl_label = "Select Armature"
+    bl_label = "Select Robot"
 
     armatureName = StringProperty()
 
@@ -346,32 +384,74 @@ def checkArmature(layout, context):
     if context.active_object is not None and context.active_object.type == 'ARMATURE':
         return True
     else:
-        layout.label(text="Select Armature first:")
+        layout.label(text="Select Robot first:")
         layout.menu("roboteditor.armaturemenu", text="")
         return False
 
 # draw method that builds the part of the GUI responsible for the armature
 def draw(layout, context):
     armatureSelected = False
-    layout.label(text="Select Armature:")
     try:
         if context.active_object.type == 'ARMATURE':
+
             armatureSelected = True
-            row = layout.row(align=True)
+
+            box = layout.box()
+
+            row = box.row(align=True)
+            row.label(text="Select Robot:")
             row.menu("roboteditor.armaturemenu", text=context.active_object.name)
-            row.separator()
+            row = box.row(align=True)
             row.operator("roboteditor.renamearmature")
             row.separator()
             row.operator("roboteditor.rebuildmodel")
 
-            layout.label(text="Merge with another armature")
-            layout.menu("roboteditor.joinarmaturemenu", text="")
+            row = box.row(align=True)
+            row.label(text="Merge with another armature")
+            row.menu("roboteditor.joinarmaturemenu", text="")
+            layout.separator()
+
+            if context.active_bone is not None:
+                box = layout.box()
+                box.label("Segment structure:")
+
+                if context.active_bone.parent is not None:
+                    activeBoneParentName = context.active_bone.parent.name
+                else:
+                    activeBoneParentName = ""
+
+                row = box.row(align=True)
+                leftColumn = row.column(align=True)
+                boneSelector(leftColumn,context)
+                row.separator()
+                rightColumn = row.column(align=False)
+                rightColumn.operator("roboteditor.renamebone")
+                rightColumn.operator("roboteditor.createbone", text="Create new child Bone")
+                rightColumn.operator("roboteditor.createparentbone", text="Create new Parent Bone")
+                rightColumn.separator()
+                rightColumn.operator("roboteditor.deletebone", text="Delete active Bone")
+                leftColumn.separator()
+                row = box.row()
+                row.label("Re-assign parent:")
+                row.menu("roboteditor.assignparentbonemenu", text=activeBoneParentName)
+
+            box = layout.box()
+            if collapsible(box,context,'collapseGlobalSettings','Global Settings'):
+                box.prop(context.scene.RobotEditor, "boneLength", slider=False)
+                box.operator('view3d.view_lock_to_active')
+                box.separator()
+
+            box = layout.box()
+            if collapsible(box,context,'collapseCFSelection','Custom coordinate frames for segments'):
+                box.menu('roboteditor.cfmenu', text='None')
         else:
             layout.menu("roboteditor.armaturemenu", text="")
-            layout.label(text="Select Armature first")
-    except:
+            layout.label(text="Select robot first")
+    except Exception as e:
+        print(e)
+
         layout.menu("roboteditor.armaturemenu", text="")
-        layout.label(text="Select Armature first")
+        layout.label(text="Select Robot first")
 
     return armatureSelected
 
@@ -384,6 +464,8 @@ def register():
     bpy.utils.register_class(RobotEditor_rebuildModel)
     bpy.utils.register_class(RobotEditor_joinArmature)
     bpy.utils.register_class(RobotEditor_ArmatureJoinMenu)
+    bpy.utils.register_class(RobotEditor_selectCoordinateFrame)
+    bpy.utils.register_class(RobotEditor_coordinateFrameMenu)
 
 
 def unregister():
@@ -394,3 +476,5 @@ def unregister():
     bpy.utils.unregister_class(RobotEditor_rebuildModel)
     bpy.utils.unregister_class(RobotEditor_joinArmature)
     bpy.utils.unregister_class(RobotEditor_ArmatureJoinMenu)
+    bpy.utils.unregister_class(RobotEditor_selectCoordinateFrame)
+    bpy.utils.unregister_class(RobotEditor_coordinateFrameMenu)

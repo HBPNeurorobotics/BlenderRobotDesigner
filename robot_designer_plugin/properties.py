@@ -30,12 +30,11 @@ class RobotEditor_Globals(bpy.types.PropertyGroup):
     markerName = StringProperty(name="markerName")
     physicsFrameName = StringProperty(name="physicsFrameName")
     controlEnum = EnumProperty(
-        items=[('armatures', 'Kinematics', 'Modify the kinematic model'),
-               ('bones', 'Bones', 'Modify selected Bone'),
-               ('meshes', 'Meshes', 'Assign meshes to bones'),
+        items=[('armatures', 'Robot', 'Modify the Robot'),
+               ('bones', 'Segments', 'Modify segements'),
+               ('meshes', 'Geometries', 'Assign meshes to segments'),
                # ('markers', 'Markers', 'Assign markers to bones'),
-               ('physics', 'Physics', 'Assign Physics Frames to bones'),
-               ('controller', 'Controller', 'Modify controller parameter'),
+               #('controller', 'Controller', 'Modify controller parameter'),
                ('tools', 'Tools', 'Tools'),
                ('files', 'Files', 'Export Armature')],
         name="RobotEditor Control Panel"
@@ -63,15 +62,26 @@ class RobotEditor_Globals(bpy.types.PropertyGroup):
     gitURL = StringProperty(name='GIT URL')
     gitRepository = StringProperty(name='GIT Repository')
 
-    boneLength = FloatProperty(name="Global bone length", default=1.0, min=0.001, update=updateGlobals)
+    boneMode = EnumProperty(items=[('kinematics', 'Kinematics', 'Edit kinematic properties'),
+                                      ('dynamics','Dynamics','Edit Dynamic properties'),
+                                        ('controller','Controller','Edit Controller properties')])
+    boneLength = FloatProperty(name="Global bone length", default=1, min=0.001, update=updateGlobals)
     subdivisionLevels = IntProperty(name="Subdivision Levels", default=2)
-    shrinkWrapOffset = FloatProperty(name="Shrinkwrap Offset", default=0.001)
+    shrinkWrapOffset = FloatProperty(name="Shrinkwrap Offset", default=0.001, unit='LENGTH', min=0, max=0.5)
     doKinematicUpdate = BoolProperty(name="Import Update", default=True)
     liveSearchBones = StringProperty(name="Live Search for Bones", default="")
     liveSearchMeshes = StringProperty(name="Live Search for Meshes", default="")
     liveSearchMarkers = StringProperty(name="Live Search for Markers", default="")
 
-
+    #collapsable bone elements
+    collapseBoneEdit = BoolProperty(name="Edit Bones")
+    collapseGlobalSettings = BoolProperty(name="Robot Designer global settings")
+    collapseController = BoolProperty(name="Collapse controller box")
+    collapseControllerLimits = BoolProperty(name="Collapse controller limits box")
+    collapseCollision = BoolProperty(name="Collapse collision mesh limits box", default=False)
+    collapseDisconnectMesh = BoolProperty(name="Collapse collision mesh limits box", default=True)
+    collapseConnectMesh = BoolProperty(name="Collapse collision mesh limits box", default=True)
+    collapseCFSelection = BoolProperty(name="Collapse coordinate frame selection box", default=False)
 # property group that defines a degree of freedom
 class RobotEditor_DoF(bpy.types.PropertyGroup):
     def updateDoF(self, context):

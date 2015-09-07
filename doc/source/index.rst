@@ -25,7 +25,7 @@ Contents
     installation
     usage
     modules
-
+    planned
 
 
 Indices and tables

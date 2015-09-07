@@ -2,8 +2,8 @@
 import bpy
 from bpy.props import *
 
-from . import armatures
-
+from . import armatures, physics, controllers
+from .tools import collapsible, boneSelector
 
 # operator to create new bone
 class RobotEditor_createBone(bpy.types.Operator):
@@ -68,9 +68,26 @@ class RobotEditor_BoneMenu(bpy.types.Menu):
         boneNames = [bone.name for bone in currentArm.data.bones if
                      context.scene.RobotEditor.liveSearchBones in bone.name]
 
-        for bone in sorted(boneNames, key=str.lower):
-            text = bone
-            layout.operator("roboteditor.selectbone", text=text).boneName = text
+        for root in [bone.name for bone in currentArm.data.bones if bone.parent is None]:
+            if context.scene.RobotEditor.liveSearchBones in root:
+                layout.operator("roboteditor.selectbone", text=root).boneName = root
+
+            def recursion(children,level=0):
+
+                for bone in sorted( [bone.name for bone in children], key=str.lower):
+
+                    if context.scene.RobotEditor.liveSearchBones in bone:
+                        text = '    '*level + '\__ ' + bone
+                        layout.operator("roboteditor.selectbone", text=text).boneName = bone
+                        recursion(currentArm.data.bones[bone].children, level+1)
+                    else:
+                        recursion(currentArm.data.bones[bone].children, level)
+
+            recursion(currentArm.data.bones[root].children)
+
+        # for bone in sorted(boneNames, key=str.lower):
+        #     text = bone
+        #     layout.operator("roboteditor.selectbone", text=text).boneName = text
 
 
 # operator to rename active bone
@@ -211,37 +228,7 @@ class RobotEditor_deleteBone(bpy.types.Operator):
 
 
 # draw method that builds the part of the GUI responsible for the bone submenu
-def draw(layout, context):
-    if not armatures.checkArmature(layout,context):
-        return
-    # layout.label("Active Bone:")
-    if context.active_bone is not None:
-
-        if context.active_bone.parent is not None:
-            activeBoneParentName = context.active_bone.parent.name
-        else:
-            activeBoneParentName = ""
-
-        row = layout.row(align=True)
-        leftColumn = row.column(align=True)
-        leftColumn.label("Active Bone:")
-        leftColumn.menu("roboteditor.bonemenu", text=context.active_bone.name)
-        leftColumn.prop(context.scene.RobotEditor, "liveSearchBones", icon='VIEWZOOM', text="")
-        leftColumn.separator()
-        leftColumn.prop(context.scene.RobotEditor, "boneLength", slider=False)
-        leftColumn.separator()
-        leftColumn.label("Select parent:")
-        leftColumn.menu("roboteditor.assignparentbonemenu", text=activeBoneParentName)
-
-        row.separator()
-
-        rightColumn = row.column(align=False)
-        rightColumn.label("")
-        rightColumn.operator("roboteditor.renamebone")
-        rightColumn.operator("roboteditor.createbone", text="Create new child Bone")
-        rightColumn.operator("roboteditor.createparentbone", text="Create new Parent Bone")
-        rightColumn.separator()
-        rightColumn.operator("roboteditor.deletebone", text="Delete active Bone")
+def drawKinematics(layout,context):
 
         layout.label("Parent Mode:")
         layout.prop(context.active_bone.RobotEditor, "parentMode", expand=True)
@@ -264,7 +251,7 @@ def draw(layout, context):
             parentModeColumn.prop(context.active_bone.RobotEditor.DH.alpha, "value", slider=False, text="alpha")
             parentModeColumn.prop(context.active_bone.RobotEditor.DH.a, "value", slider=False, text="a")
 
-        layout.label("Actice Axis:")
+        layout.label("Active Axis:")
         axisRow = layout.row()
         axisRow.prop(context.active_bone.RobotEditor, "axis", expand=True)
         axisRow.prop(context.active_bone.RobotEditor, "axis_revert")
@@ -285,6 +272,36 @@ def draw(layout, context):
             jointTypeColumn.prop(context.active_bone.RobotEditor.d, "offset", slider=False)
             jointTypeColumn.prop(context.active_bone.RobotEditor.d, "min", slider=False)
             jointTypeColumn.prop(context.active_bone.RobotEditor.d, "max", slider=False)
+
+
+def draw(layout, context):
+    if not armatures.checkArmature(layout,context):
+        return
+    # layout.label("Active Bone:")
+    if context.active_bone is not None:
+
+        if context.active_bone.parent is not None:
+            activeBoneParentName = context.active_bone.parent.name
+        else:
+            activeBoneParentName = ""
+
+        box=layout.box()
+        box.label('Active segment:')
+        boneSelector(box, context)
+        box.separator()
+
+        box = layout.box()
+        row = box.row()
+        row.label("Edit:")
+        row.prop(bpy.context.scene.RobotEditor, "boneMode", expand=True)
+
+        if bpy.context.scene.RobotEditor.boneMode == "kinematics":
+            drawKinematics(box, context)
+        elif bpy.context.scene.RobotEditor.boneMode == "dynamics":
+            physics.draw(box, context)
+        elif bpy.context.scene.RobotEditor.boneMode == "controller":
+            controllers.draw(box, context)
+
     else:
         layout.operator("roboteditor.createbone", text="Create new base bone")
 

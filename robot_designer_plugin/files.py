@@ -295,6 +295,8 @@ class RobotEditor_exportURDF(bpy.types.Operator):
 
 
 def draw(layout, context):
+    layout = layout.box()
+    layout.label('Import/Export')
     layout.prop(bpy.context.scene.RobotEditor, "storageMode", expand=True)
     if bpy.context.scene.RobotEditor.storageMode == 'local':
         pass

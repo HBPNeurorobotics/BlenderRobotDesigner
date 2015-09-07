@@ -31,6 +31,7 @@ class RobotEditor_UserInterface(bpy.types.Panel):
 
         layout.prop(bpy.context.scene.RobotEditor, "controlEnum", expand=True)
         control = context.scene.RobotEditor.controlEnum
+        layout.separator()
 
         if control == 'armatures':
             armatures.draw(layout, context)
@@ -40,10 +41,8 @@ class RobotEditor_UserInterface(bpy.types.Panel):
             meshes.draw(layout, context)
         elif control == 'markers':
             markers.draw(layout, context)
-        elif control == 'physics':
-            physics.draw(layout, context)
-        elif control == 'controller':
-            controllers.draw(layout, context)
+        #elif control == 'controller':
+        #    controllers.draw(layout, context)
         elif control == 'files':
             files.draw(layout, context)
         elif control == 'tools':

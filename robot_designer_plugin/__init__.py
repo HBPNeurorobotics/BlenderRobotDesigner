@@ -50,6 +50,7 @@ def register():
     from . import markers
     from . import physics
     from . import files
+    from . import collision
 
     properties.register()
     main.init()
@@ -60,6 +61,7 @@ def register():
     markers.register()
     physics.register()
     files.register()
+    collision.register()
     # bpy.utils.register_module(__name__)
 
 
@@ -69,8 +71,10 @@ def unregister():
     from . import armatures
     from . import bones
     from . import meshes
+    from . import markers
     from . import physics
     from . import files
+    from . import collision
 
     properties.unregister()
     main.unregister()
@@ -80,6 +84,8 @@ def unregister():
     markers.unregister()
     physics.unregister()
     files.unregister()
+    collision.unregister()
+
 
     # bpy.utils.unregister_module(__name__)
     if (additionalModulePath):

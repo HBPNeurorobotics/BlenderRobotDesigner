@@ -94,95 +94,12 @@ class RobotEditor_assignPhysicsFrame(bpy.types.Operator):
         return {'FINISHED'}
 
 
-class RobotEditor_generateCollisionMesh(bpy.types.Operator):
-    """
-    Operator to generate a collision mesh for an assigned selected physics frame
-    """
-    bl_idname = "roboteditor.generatecollisionmesh"
-    bl_label = "Generate Collision Mesh from bone"
-    confirmation = BoolProperty(name="This already is a collision mesh. Continue anyway?")
-
-    def execute(self, context):
-        """
-        Executes the operator.
-
-        :param context: Blender context object
-        :return:
-        """
-
-        for target in [i.name for i in bpy.data.objects if i.type == 'MESH']:
-            # check if mesh is already a collision model
-            if target.startswith('COL_'):
-                if self.confirmation:
-                    self.createColModel(target, context)
-            else:
-                # check if collision model for current mesh already exists
-                found = False
-                for mesh_name in [j.name for j in bpy.data.objects if j.type == 'MESH']:
-                    if 'COL_' + target == mesh_name:
-                        found = True
-
-                # create collision model only if it doesn't exists
-                if found:
-                    print("Collision model for mesh " + target + " already exists!")
-                else:
-                    self.createColModel(target, context)
-
-        return {'FINISHED'}
-
-    def createColModel(self, target, context):
-        """
-        Create collision model for selected bone
-
-        :param target:  The selected bone in blender
-        :param context: The blender-context
-        :type target:   string
-        :type context:  string
-        :return: null:  does not return anything
-        """
-        print(target)
-        d = bpy.data.objects[target].dimensions
-        bpy.ops.mesh.primitive_cube_add(location=bpy.data.objects[target].location,
-                                        rotation=bpy.data.objects[target].rotation_euler)
-        bpy.context.object.dimensions = d * 2
-        bpy.ops.object.transform_apply(scale=True)
-        mod = bpy.context.object.modifiers.new(name='subsurf', type='SUBSURF')
-        mod.subdivision_type = 'SIMPLE'
-        mod.levels = bpy.context.scene.RobotEditor.subdivisionLevels
-        bpy.ops.object.modifier_apply(modifier='subsurf')
-        mod = bpy.context.object.modifiers.new(name='shrink_wrap', type='SHRINKWRAP')
-        mod.wrap_method = "NEAREST_SURFACEPOINT"
-        mod.offset = bpy.context.scene.RobotEditor.shrinkWrapOffset
-        mod.target = bpy.data.objects[target]
-        bpy.ops.object.modifier_apply(modifier='shrink_wrap')
-
-        bpy.context.object.name = 'COL_' + target.replace('Visualization_', '')
-        context.active_object.RobotEditor.tag = 'COLLISION'
-        print(context.active_object.RobotEditor.tag, bpy.context.object.name,
-              bpy.context.object.type)
-        context.scene.objects.active = bpy.data.objects[target]
-        bpy.ops.object.parent_set(type='OBJECT', keep_transform=True)
-
-        return
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
 
 
 # operator to generate collision meshes for all assigned physics frames
-class RobotEditor_generateAllCollisionMeshes(bpy.types.Operator):
-    bl_idname = "roboteditor.generatallecollisionmeshes"
-    bl_label = "Generate All Collision Meshes"
-
-    def execute(self, context):
-        armName = context.active_object.name
-
-        for frame in [i.name for i in bpy.data.objects if i.RobotEditor.tag == 'PHYSICS_FRAME']:
-            bpy.ops.roboteditor.selectphysicsframe(frameName=frame)
-            context.scene.objects.active = bpy.data.objects[frame]
-            bpy.ops.roboteditor.generatecollisionmesh()
-
-        return {'FINISHED'}
 
 
 # operator to unassign selected physics frame
@@ -232,12 +149,6 @@ def draw(layout, context):
     lowerRow = layout.row(align=False)
     layout.label("Collision Meshes:")
     lowerRow = layout.row(align=False)
-    leftColumn = lowerRow.column(align=False)
-    leftColumn.prop(context.scene.RobotEditor, "subdivisionLevels")
-    leftColumn.prop(context.scene.RobotEditor, "shrinkWrapOffset")
-    rightColumn = lowerRow.column(align=False)
-    rightColumn.operator("roboteditor.generatecollisionmesh")
-    rightColumn.operator("roboteditor.generatallecollisionmeshes")
 
 
 def register():
@@ -246,8 +157,6 @@ def register():
     bpy.utils.register_class(RobotEditor_physicsFrameMenu)
     bpy.utils.register_class(RobotEditor_assignPhysicsFrame)
     bpy.utils.register_class(RobotEditor_unassignPhysicsFrame)
-    bpy.utils.register_class(RobotEditor_generateCollisionMesh)
-    bpy.utils.register_class(RobotEditor_generateAllCollisionMeshes)
 
 
 def unregister():
@@ -256,5 +165,3 @@ def unregister():
     bpy.utils.unregister_class(RobotEditor_physicsFrameMenu)
     bpy.utils.unregister_class(RobotEditor_assignPhysicsFrame)
     bpy.utils.unregister_class(RobotEditor_unassignPhysicsFrame)
-    bpy.utils.unregister_class(RobotEditor_generateCollisionMesh)
-    bpy.utils.unregister_class(RobotEditor_generateAllCollisionMeshes)

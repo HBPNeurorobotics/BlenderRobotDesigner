@@ -1,7 +1,9 @@
 # Blender-specific imports (catch exception for sphinx documentation)
 import bpy
 from bpy.props import *
-from . import armatures
+from . import armatures, collision
+from .tools import collapsible, boneSelector, meshSelector
+
 
 def displayMeshes(self, context):
 
@@ -151,13 +153,18 @@ class RobotEditor_unassignAllMeshes(bpy.types.Operator):
     bl_idname = "roboteditor.unassignallmeshes"
     bl_label = "Unassign ALL meshes"
 
-    confirmation = BoolProperty(name="Are you sure?")
+    confirmation = BoolProperty(name="This disconnects all collision OR visual geometries from the model. Are you sure?")
 
     def execute(self, context):
-        if self.confirmation:
+        mesh_type = context.scene.RobotEditor.meshType
+        if mesh_type=='DEFAULT':
             meshes = [obj for obj in bpy.data.objects if
-                      obj.type == 'MESH' and obj.parent_bone is not '']
+                      obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotEditor.tag != 'COLLISION']
+        else:
+            meshes = [obj for obj in bpy.data.objects if
+                      obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotEditor.tag == 'COLLISION']
 
+        if self.confirmation:
             for mesh in meshes:
                 bpy.ops.roboteditor.selectmesh(meshName=mesh.name)
                 bpy.ops.roboteditor.unassignmesh()
@@ -168,74 +175,85 @@ class RobotEditor_unassignAllMeshes(bpy.types.Operator):
         return context.window_manager.invoke_props_dialog(self)
 
 
-class RobotEditor_assignCollisionModel(bpy.types.Operator):
-    bl_idname = "roboteditor.assigncollisionmodel"
-    bl_label = "Assign selected mesh as collision model to physics frame."
+class RobotEditor_setAllMeshesObject(bpy.types.Operator):
+    bl_idname = "roboteditor.setallmeshesactiveobject"
+    bl_label = "Select all geometry"
 
     def execute(self, context):
-        bpy.ops.object.select_all(action="DESELECT")
-        if context.scene.RobotEditor.meshName in bpy.data.objects:
-            bpy.data.objects[context.scene.RobotEditor.meshName].select = True
-            if context.scene.RobotEditor.physicsFrameName in bpy.data.objects:
-                context.scene.objects.active = bpy.data.objects[
-                    context.scene.RobotEditor.physicsFrameName]
-                bpy.ops.object.parent_set(type='OBJECT', keep_transform=True)
+        mesh_type = context.scene.RobotEditor.meshType
+        meshes = {obj.name for obj in bpy.data.objects if
+                  not obj.parent_bone is None and
+                  obj.type == 'MESH' and
+                  obj.RobotEditor.tag == mesh_type}
 
-        if context.scene.RobotEditor.armatureName in bpy.data.objects:
-            context.scene.objects.active = bpy.data.objects[context.scene.RobotEditor.armatureName]
+        bpy.ops.object.select_all(action='DESELECT')
+
+        for mesh in meshes:
+            bpy.data.objects[mesh].select = True
+            context.scene.objects.active=bpy.data.objects[mesh]
+
         return {'FINISHED'}
 
+
+
+class RobotEditor_setSelectedMeshActiveObject(bpy.types.Operator):
+    bl_idname = "roboteditor.setseletedmeshactiveobject"
+    bl_label = "Select geometry"
+
+    def execute(self, context):
+        mesh = context.scene.RobotEditor.meshName
+        bpy.ops.object.select_all(action='DESELECT')
+        bpy.data.objects[mesh].select = True
+        context.scene.objects.active=bpy.data.objects[mesh]
+        return {'FINISHED'}
 
 # defines the layout part of the mesh submenu
 def draw(layout, context):
     if not armatures.checkArmature(layout,context):
         return
 
-    layout.label("Mesh type:")
-    layout.prop(bpy.context.scene.RobotEditor, "meshType", expand=True)
-    layout.label("Show in viewport:")
-    layout.prop(bpy.context.scene.RobotEditor, "hideMeshType", expand=True)
-    hide_mesh = context.scene.RobotEditor.listMeshes
+    box = layout.box()
+    row = box.row(align=True)
+    row.label("Mesh type:")
+    row.prop(bpy.context.scene.RobotEditor, "meshType", expand=True)
+    row = box.row(align=True)
+    row.label("Show:")
+    row.prop(bpy.context.scene.RobotEditor, "hideMeshType", expand=True)
+    box.separator()
 
-    layout.label("Select mesh:")
-    topRow = layout  # layout.column(align=True)
-    meshMenuText = ""
-    if context.scene.RobotEditor.meshName in bpy.data.objects:
-        if context.active_bone and not context.scene.RobotEditor.meshName == "":
-            mesh = bpy.data.objects[context.scene.RobotEditor.meshName]
+    box = layout.box()
+    if collapsible(box,context,'collapseDisconnectMesh',"Disconnect meshes"):
+        row = box.row()
+        column = row.column(align=True)
+        meshSelector(column,context)
 
-            if mesh.parent_bone and not hide_mesh == 'disconnected':
-                meshMenuText = context.scene.RobotEditor.meshName + " --> " + mesh.parent_bone
-            # elif mesh.parent:
-            #     meshMenuText = context.scene.RobotEditor.meshName + " --> " + mesh.parent.name
-            elif not mesh.parent_bone and not hide_mesh == 'connected':
-                meshMenuText = context.scene.RobotEditor.meshName
-            else:
-                meshMenuText = ''
+        column = row.column(align=True)
+        column.operator("roboteditor.unassignmesh")
+        column.operator("roboteditor.unassignallmeshes")
+        column.operator("roboteditor.renamemeshes")
+        column.operator("roboteditor.setseletedmeshactiveobject")
+        column.operator("roboteditor.setallmeshesactiveobject")
+        selected_objects = [i for i in context.selected_objects if i.name != context.active_object.name]
+        if len(selected_objects)==1:
+            box.prop(selected_objects[0].RobotEditor, 'fileName')
+        box.separator()
 
-    print(context.scene.RobotEditor.meshName)
-    topRow.menu("roboteditor.meshmenu", text=meshMenuText)
-    topRow.prop(context.scene.RobotEditor, "liveSearchMeshes", icon='VIEWZOOM', text="")
-    topRow.prop(context.scene.RobotEditor, "listMeshes", expand=True)
-    topRow.separator()
-    rightColumn = layout  # topRow.column(align=False)
-    rightColumn.operator("roboteditor.unassignmesh")
-    rightColumn.operator("roboteditor.unassignallmeshes")
-    rightColumn.operator("roboteditor.renamemeshes")
+    box=layout.box()
+    if collapsible(box,context,'collapseConnectMesh',"Connect meshes"):
+        row =box.row()
+        column = row.column(align=True)
+        column.menu("roboteditor.bonemeshmenu")
 
-    selected_objects = [i for i in context.selected_objects if i.name != context.active_object.name]
-    if len(selected_objects)==1:
-        rightColumn.prop(selected_objects[0].RobotEditor, 'fileName')
+        column.prop(context.scene.RobotEditor, "liveSearchBones", icon='VIEWZOOM', text="")
+        column.prop(context.scene.RobotEditor, "listBones", expand=True)
+        column = row.column(align=True)
+        column.operator("roboteditor.assignmesh")
+        box.separator()
 
-    layout.label("Select bone")
-    midRow = layout  #.column(align=True)
-    #col = midRow.column(align=True)
-
-
-    midRow.menu("roboteditor.bonemeshmenu", text=context.scene.RobotEditor.boneName)
-    midRow.prop(context.scene.RobotEditor, "liveSearchBones", icon='VIEWZOOM', text="")
-    midRow.prop(context.scene.RobotEditor, "listBones", expand=True)
-    midRow.operator("roboteditor.assignmesh")
+    if bpy.context.scene.RobotEditor.meshType == "DEFAULT":
+        box = layout.box()
+        if collapsible(box,context,'collapseCollision','Generate collision meshes'):
+            collision.draw(box,context)
 
     # lowerRow = layout.row(align=False)
     # layout.label("Select Physics Frame:")
@@ -260,7 +278,8 @@ def register():
     bpy.utils.register_class(RobotEditor_unassignMesh)
     bpy.utils.register_class(RobotEditor_unassignAllMeshes)
     bpy.utils.register_class(RobotEditor_renameAllMeshes)
-    bpy.utils.register_class(RobotEditor_assignCollisionModel)
+    bpy.utils.register_class(RobotEditor_setSelectedMeshActiveObject)
+    bpy.utils.register_class(RobotEditor_setAllMeshesObject)
 
 
 def unregister():
@@ -271,4 +290,5 @@ def unregister():
     bpy.utils.unregister_class(RobotEditor_unassignMesh)
     bpy.utils.unregister_class(RobotEditor_unassignAllMeshes)
     bpy.utils.unregister_class(RobotEditor_renameAllMeshes)
-    bpy.utils.unregister_class(RobotEditor_assignCollisionModel)
+    bpy.utils.unregister_class(RobotEditor_setSelectedMeshActiveObject)
+    bpy.utils.unregister_class(RobotEditor_setAllMeshesObject)
