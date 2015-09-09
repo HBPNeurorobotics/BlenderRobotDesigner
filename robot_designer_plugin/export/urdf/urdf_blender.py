@@ -13,6 +13,7 @@ from math import *
 
 # blender imports
 import bpy
+import os
 from mathutils import Euler, Matrix, Vector
 
 
@@ -52,11 +53,34 @@ def import_(urdf_file):
         :return: Returns the transformation in the origin element (a 4x4 blender matrix).
         """
 
-        file_name = model.geometry.mesh.filename.replace("package://", "").replace(
-                                "file://", "").replace("model://", "")
-        file_path = os.path.join(os.path.dirname(urdf_file),file_name)
+        # determine prefix path for loading meshes in case of paths relative to ROS_PACKAGE_PATH
+        prefix_folder = ""
+        mesh_filename = model.geometry.mesh.filename
+        ros_pkg_paths = os.environ.get("ROS_PACKAGE_PATH")
+        if ros_pkg_paths is not None and \
+                mesh_filename.startswith("package://") or mesh_filename.startswith("model://"):
+            mesh_filename = mesh_filename.replace("package://", "").replace("model://", "")
+            ros_pkg_paths = ros_pkg_paths.split(":")
+            logger.debug("Checking ROS_PACKAGE_PATH:")
+            logger.debug(ros_pkg_paths)
+            for path in ros_pkg_paths:
+                probe_path = os.path.join(path, mesh_filename)
+                logger.debug("Checking path: " + probe_path)
+                if os.path.exists(probe_path):
+                    prefix_folder = path
+                    logger.debug("Prefix path found: " + prefix_folder)
+                    break
+            if prefix_folder == "":
+                logger.debug("Warning! Couldn't load file relative to ROS_PACKAGE_PATH environment variable.")
+                prefix_folder = os.path.dirname(urdf_file)
+        else:
+            prefix_folder = os.path.dirname(urdf_file)
+            logger.debug("Using prefix path: " + prefix_folder)
 
-        logger.debug("Import %s, exists: %s", file_path, os.path.exists(file_path))
+        file_name = mesh_filename.replace("file://", "")
+        file_path = os.path.join(prefix_folder, file_name)
+
+        #logger.debug("Import %s, exists: %s", file_path, os.path.exists(file_path))
         fn, extension = os.path.splitext(file_path)
         if extension == ".stl":
             bpy.ops.import_mesh.stl(filepath=file_path)
@@ -69,7 +93,7 @@ def import_(urdf_file):
         scale_matrix = Matrix([[scale_urdf[0], 0, 0, 0], [0, scale_urdf[1], 0, 0],
                                [0, 0, scale_urdf[2], 0], [0, 0, 0, 1]])
 
-        logger.debug("xyz: %s, rpy: %s\n%s",model.origin.xyz,model.origin.rpy,scale_matrix)
+        #logger.debug("xyz: %s, rpy: %s\n%s",model.origin.xyz,model.origin.rpy,scale_matrix)
 
 
         return Matrix.Translation(Vector(string_to_list(model.origin.xyz))) * \
@@ -104,14 +128,14 @@ def import_(urdf_file):
         armatures.createBone(armature_name, tree.joint.name, parent_name)
         bone_name = tree.joint.name
 
-        logger.debug('bone: %s, children: %s', bone_name, [i.joint.name for i in tree.children])
+        #logger.debug('bone: %s, children: %s', bone_name, [i.joint.name for i in tree.children])
 
         bpy.ops.roboteditor.selectbone(boneName=tree.joint.name)
 
         xyz = string_to_list(get_value(tree.joint.origin.xyz, "0 0 0"))
         euler = string_to_list(get_value(tree.joint.origin.rpy, '0 0 0'))
-        logger.debug("xyz: %s, rpy: %s",tree.joint.origin.xyz,tree.joint.origin.rpy)
-        logger.debug("xyz: %s, rpy: %s",xyz,euler)
+        #logger.debug("xyz: %s, rpy: %s",tree.joint.origin.xyz,tree.joint.origin.rpy)
+        #logger.debug("xyz: %s, rpy: %s",xyz,euler)
 
         axis = string_to_list(tree.joint.axis.xyz)
         for i, element in enumerate(axis):
@@ -149,13 +173,17 @@ def import_(urdf_file):
                 float(get_value(tree.joint.limit.upper, 0)))
             bpy.context.active_bone.RobotEditor.theta.min = degrees(
                 float(get_value(tree.joint.limit.lower, 0)))
-        else:
+        if tree.joint.type == 'prismatic':
             bpy.context.active_bone.RobotEditor.jointMode = 'PRISMATIC'
             if tree.joint.limit is not None:
                 bpy.context.active_bone.RobotEditor.d.max = float(
                     get_value(tree.joint.limit.upper, 0))
                 bpy.context.active_bone.RobotEditor.d.min = float(
                     get_value(tree.joint.limit.lower, 0))
+
+        if tree.joint.type == 'fixed':
+            bpy.context.active_bone.RobotEditor.jointMode = 'FIXED'
+
 
         # todo set the dynamics properties
 
@@ -175,7 +203,7 @@ def import_(urdf_file):
                               bpy.context.active_object.pose.bones[
                                   bone_name].matrix
 
-        logger.debug("bone matrix: \n%s", bone_transformation)
+        #logger.debug("bone matrix: \n%s", bone_transformation)
 
         models = list(tree.link.visual) + list(tree.link.collision)
 
@@ -188,7 +216,7 @@ def import_(urdf_file):
                 if model.geometry.mesh is not None:
 
                     trafo_urdf = import_geometry(model)
-                    logger.debug("Trafo: \n%s", trafo_urdf)
+                    # logger.debug("Trafo: \n%s", trafo_urdf)
                     # URDF (the import in ROS) exhibits a strange behavior:
                     # If there is a transformation preceding the mesh in a .dae file, only the scale is
                     # extracted and the rest is omitted. Therefore, we store the scale after import and
@@ -207,7 +235,7 @@ def import_(urdf_file):
                         bpy.context.active_object.select = True
                         # logger.debug("Matrix world before: \n%s",
                         #             bpy.context.active_object.matrix_world)
-                        bpy.ops.object.transform_apply(location=True,rotation=True,scale=True)
+                        bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
 
                         bpy.context.active_object.matrix_world = bone_transformation * trafo_urdf * \
                                                                  bpy.context.active_object.matrix_world
@@ -226,10 +254,11 @@ def import_(urdf_file):
                         # if the loop continues the name will be suffixed by a number
 
                         if model_type == COLLISON:
-                            bpy.context.active_object.name = "COL_%s_%2d" % (tree.link.name, nr)
+                            # %2d changed to %d because it created unwanted space with one digit numbers
+                            bpy.context.active_object.name = "COL_%s_%d" % (tree.link.name, nr)
                             bpy.context.active_object.RobotEditor.tag = 'COLLISION'
                         else:
-                            bpy.context.active_object.name = "VIS_%s_%2d" % (tree.link.name, nr)
+                            bpy.context.active_object.name = "VIS_%s_%d" % (tree.link.name, nr)
 
                         # The name might be altered by blender
                         assigned_name = bpy.context.active_object.name
@@ -267,7 +296,7 @@ def import_(urdf_file):
 
     for chain in kinematic_chains:
         root_name = parse(chain)
-        updateKinematics(bpy.context.active_object.name,root_name)
+        updateKinematics(bpy.context.active_object.name, root_name)
 
     bpy.ops.roboteditor.selectcf(meshName='CoordinateFrame')
     bpy.ops.view3d.view_lock_to_active()
@@ -290,12 +319,12 @@ def export(file_name):
     def export_mesh(name):
         meshes = [obj.name for obj in bpy.data.objects if
                   obj.type == "MESH" and obj.name == name and not obj.RobotEditor.tag == "COLLISION"]
-        print('debug FOLGENDE MESHES SIND IM ARRAY: ')
-        # print(meshes)
+        #print('debug FOLGENDE MESHES SIND IM ARRAY: ')
+        #print(meshes)
         for mesh in meshes:
-            # print(mesh)
+            #print(mesh)
             file_path = os.path.join(os.path.dirname(file_name), "meshes", mesh + '.dae')
-            # print(file_path)
+            #print(file_path)
             armature_name = bpy.context.active_object.name
             bpy.ops.object.select_all(action='DESELECT')
             bpy.context.scene.objects.active = bpy.data.objects[mesh]
@@ -303,7 +332,7 @@ def export(file_name):
             bpy.ops.wm.collada_export(filepath=file_path, selected=True)
             bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
             # set correct mesh path: This requires the ROS default package structure.
-            return("package://" + os.path.join("meshes", mesh + '.dae'))
+            return("file://" + os.path.join("meshes", mesh + '.dae'))
 
     def export_collisionmodel(name):
         collisions = [obj.name for obj in bpy.data.objects if
@@ -328,7 +357,7 @@ def export(file_name):
             bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
             # set correct mesh path: This requires the ROS default package structure.
             # print('debug: ' + object_name)
-            return("package://" + os.path.join("collisions", collision + '.stl'))
+            return("file://" + os.path.join("collisions", collision + '.stl'))
 
     # def export_mesh(name):
     #     file_path = os.path.join(os.path.dirname(file_name), "meshes", name + '.dae')
@@ -375,7 +404,7 @@ def export(file_name):
         child.joint.origin.rpy = list_to_string(trafo.to_euler())
         child.joint.origin.xyz = list_to_string(trafo.translation)
         child.joint.name = bone.name
-        print(child.joint.name, "trafo", trafo, "rpy", child.joint.origin.rpy)
+        #print(child.joint.name, "trafo", trafo, "rpy", child.joint.origin.rpy)
         if bone.RobotEditor.axis == 'X':
             child.joint.axis.xyz = '1 0 0'
         elif bone.RobotEditor.axis == 'Y':
@@ -387,13 +416,17 @@ def export(file_name):
             child.joint.limit.lower = bone.RobotEditor.theta.min
             child.joint.limit.upper = bone.RobotEditor.theta.max
             child.joint.type = 'revolute'
-        else:
+        if bone.RobotEditor.jointMode == 'PRISMATIC':
             child.joint.limit.lower = bone.RobotEditor.d.min
             child.joint.limit.upper = bone.RobotEditor.d.max
             child.joint.type = 'prismatic'
+        #
+        if bone.RobotEditor.jointMode == 'FIXED':
+            child.joint.type = 'fixed'
+
         # Add properties
         connected_meshes = [mesh.name for mesh in bpy.data.objects if
-                            mesh.type == 'MESH' and mesh.parent_bone == bone.name]
+                            mesh.type == 'MESH' and mesh.parent_bone == bone.name and not mesh.RobotEditor.tag == "COLLISION"]
         if len(connected_meshes) > 0:
             child.link.name = connected_meshes[0]
         else:
@@ -406,7 +439,8 @@ def export(file_name):
             pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
                    bpy.data.objects[mesh].matrix_world
 
-            # print('debug visual hinzugefuegt: ' + export_mesh(mesh))
+            #print('Mesh name: ' + mesh)
+            #print('debug visual hinzugefuegt: ' + export_mesh(mesh))
             visual = child.add_mesh(export_mesh(mesh))
             visual.origin.xyz = list_to_string(pose.translation)
             visual.origin.rpy = list_to_string(pose.to_euler())
@@ -419,6 +453,23 @@ def export(file_name):
                 collision.origin.xyz = list_to_string(pose.translation)
                 # collision.origin.rpy = list_to_string(pose.to_euler)
 
+            # Add inertial definitions (for Gazebo)
+            inertial = child.add_inertial()
+            # todo: pick up the real values from Physics Frame?
+            inertial.mass.value_ = 1.0
+            inertial.inertia.ixx = inertial.inertia.ixy = inertial.inertia.ixz = \
+                inertial.inertia.iyy = inertial.inertia.iyz = inertial.inertia.izz = 0.0
+
+        # add joint controllers
+        if bone.RobotEditor.jointController.isActive is True:
+            logger.debug("Exporting joint controller.")
+            controller = child.add_joint_controller(root.control_plugin)
+            controller.joint_name = bone.name
+            controller.type = bone.RobotEditor.jointController.controllerType
+            controller.pid = str(bone.RobotEditor.jointController.P) + " " +\
+                str(bone.RobotEditor.jointController.I) + " " +\
+                str(bone.RobotEditor.jointController.D)
+
         # Add geometry
         for child_bones in bone.children:
             build(child_bones, child)
@@ -427,6 +478,9 @@ def export(file_name):
 
     robot_name = context.active_object.name
     root = urdf_tree.URDFTree.create_empty(robot_name)
+
+    # build control plugin element
+    root.control_plugin = root.add_joint_control_plugin()
 
     # add root geometries to root.link
 

@@ -25,15 +25,15 @@ from . import export
 
 
 def parseTree(tree, parentName):
-    print("parsetree")
+    #print("parsetree")
     armName = bpy.context.active_object.name
     armatures.createBone(armName, tree.name, parentName)
     bpy.ops.roboteditor.selectbone(boneName=tree.name)
-    print(tree.name)
+    #print(tree.name)
     boneProp = bpy.context.active_bone.RobotEditor
 
     m = Matrix()
-    print(tree.transformations)
+    #print(tree.transformations)
     for i in tree.transformations:
         # We expect a matrix here!
         # Todo accept rotation and translations too!
@@ -47,7 +47,7 @@ def parseTree(tree, parentName):
             pass
         else:
             raise Exception("ParsingError")
-        print(m)
+        #print(m)
 
     bpy.context.active_bone.RobotEditor.Euler.x.value = m.translation[0] / 1000
     bpy.context.active_bone.RobotEditor.Euler.y.value = m.translation[1] / 1000
@@ -80,7 +80,7 @@ def parseTree(tree, parentName):
             bpy.context.active_bone.RobotEditor.axis = 'Y'
         elif tree.axis == [0.0, 0.0, 1.0]:
             bpy.context.active_bone.RobotEditor.axis = 'Z'
-    print("parsetree done")
+    #print("parsetree done")
 
     for child in tree.children:
         parseTree(child, tree.name)

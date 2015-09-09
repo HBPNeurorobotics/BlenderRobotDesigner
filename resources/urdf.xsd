@@ -38,9 +38,9 @@
   <!-- inertial node type -->
   <xs:complexType name="InertialType">
     <xs:all>
-      <xs:element name="origin"  type="PoseType"    minOccurs="0" maxOccurs="1" />
-      <xs:element name="mass"    type="MassType"    minOccurs="0" maxOccurs="1" />
-      <xs:element name="inertia" type="InertiaType" minOccurs="0" maxOccurs="1" />
+      <xs:element name="origin"  type="PoseType"    minOccurs="0" maxOccurs="1"/>
+      <xs:element name="mass"    type="MassType"    minOccurs="0" maxOccurs="1"/>
+      <xs:element name="inertia" type="InertiaType" minOccurs="0" maxOccurs="1"/>
     </xs:all>
   </xs:complexType>
 
@@ -84,8 +84,10 @@
   <!-- material node type -->
   <xs:complexType name="MaterialType">
     <xs:sequence>
-      <xs:element name="color"   type="ColorType"   minOccurs="0" maxOccurs="1" />
-      <xs:element name="texture" type="TextureType" minOccurs="0" maxOccurs="1" />
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="color"   type="ColorType"   />
+          <xs:element name="texture" type="TextureType" />
+        </xs:choice>
     </xs:sequence>
     <xs:attribute name="name" type="xs:string" />
   </xs:complexType>
@@ -121,7 +123,7 @@
   <xs:complexType name="LinkType">
     <xs:sequence minOccurs="0" maxOccurs="unbounded">
       <xs:element name="origin"    type="PoseType"      minOccurs="0" maxOccurs="1" />
-      <xs:element name="inertial"  type="InertialType"  minOccurs="0" maxOccurs="1" />
+      <xs:element name="inertial"  type="InertialType"  minOccurs="0" maxOccurs="1"/>
       <xs:element name="visual"    type="VisualType"    minOccurs="0" maxOccurs="unbounded" />
       <xs:element name="collision" type="CollisionType" minOccurs="0" maxOccurs="unbounded" />
     </xs:sequence>
@@ -258,27 +260,14 @@
   <xs:complexType name="GazeboPluginType">
     <xs:complexContent>
       <xs:extension base="GazeboPluginBaseType">
-        <xs:choice>
-          <xs:sequence>
-            <xs:any maxOccurs="unbounded" minOccurs="0"/>
-          </xs:sequence>
           <xs:sequence>
               <xs:choice minOccurs="0" maxOccurs="unbounded">
                 <xs:element name="robotNamespace" type="xs:string" />
                 <xs:element name="robotSimType"   type="xs:string" />
                 <xs:element name="robotParam"   type="xs:string" />
+                <xs:element name="controller" type="GenericControllerPluginDefType"/>
               </xs:choice>
           </xs:sequence>
-          <xs:sequence>
-            <xs:any maxOccurs="unbounded" minOccurs="0"/>
-          </xs:sequence>
-          <xs:sequence>
-            <xs:element name="controller" type="GenericControllerPluginDefType" minOccurs="0" maxOccurs="unbounded" />
-          </xs:sequence>
-          <xs:sequence>
-            <xs:any maxOccurs="unbounded" minOccurs="0"/>
-          </xs:sequence>
-        </xs:choice>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -396,17 +385,11 @@
   <!-- gazebo base type -->
   <xs:complexType name="GazeboType">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:sequence>
-            <xs:any maxOccurs="unbounded" minOccurs="0"/>
-          </xs:sequence>
           <xs:element name="plugin"         type="GazeboPluginType" />
           <xs:element name="sensor"         type="GazeboSensorType"    />
           <xs:element name="material"       type="GazeboMaterialType"  />
           <xs:element name="gravity"        type="xs:boolean"          />
           <xs:element name="self_collide"   type="xs:boolean"         />
-          <xs:sequence>
-            <xs:any maxOccurs="unbounded" minOccurs="0"/>
-          </xs:sequence>
     </xs:choice>
     <xs:attribute name="reference" type="xs:string" />
   </xs:complexType>
@@ -416,8 +399,8 @@
   <!-- root node is always robot -->
   <xs:element name="robot" type="RobotType"/>
   <xs:complexType name="RobotType">
-    <xs:sequence minOccurs="0" maxOccurs="unbounded">
-        <xs:choice>
+    <xs:sequence>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element name="joint"        type="JointType"        />
           <xs:element name="link"         type="LinkType"         />
           <xs:element name="transmission" type="TransmissionType" />

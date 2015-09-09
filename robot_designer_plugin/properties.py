@@ -163,11 +163,11 @@ class RobotEditor_DH(bpy.types.PropertyGroup):
 # property group for joint controllers
 class RobotEditor_JointControllerType(bpy.types.PropertyGroup):
 
-    isActive = BoolProperty(name="Active")
+    isActive = BoolProperty(name="Active", default=True)
 
     controllerType = EnumProperty(
-        items=[('POSITION', 'Position', 'Position'),
-               ('VELOCITY', 'Velocity', 'Velocity')],
+        items=[('position', 'Position', 'Position'),
+               ('velocity', 'Velocity', 'Velocity')],
         name="Controller mode:"
     )
 
@@ -233,7 +233,7 @@ class RobotEditor_BoneProperty(bpy.types.PropertyGroup):
                 axis_matrix = Euler((0, 0, radians(180 * (1 - inverted) / 2)), 'XYZ').to_matrix()
                 axis_matrix.resize_4x4()
 
-        else:  # self.jointMode == 'PRISMATIC'
+        if self.jointMode == 'PRISMATIC':
             if self.axis == 'X':
                 translation = Matrix.Translation((inverted * (self.d.value + self.d.offset), 0, 0, 1))
             elif self.axis == 'Y':
@@ -241,12 +241,16 @@ class RobotEditor_BoneProperty(bpy.types.PropertyGroup):
             elif self.axis == 'Z':
                 translation = Matrix.Translation((0, 0, inverted * (self.d.value + self.d.offset), 1))
 
+        if self.jointMode == 'FIXED': # todo: check if this is right for fixed joint type
+            translation = Matrix.Translation((0, 0, 0, 1))
+
         return parentMatrix * axis_matrix, translation * rotation
         # return parentMatrix, translation*rotation
 
     jointMode = EnumProperty(
         items=[('REVOLUTE', 'Revolute', 'revolute joint'),
-               ('PRISMATIC', 'Prismatic', 'prismatic joint')],
+               ('PRISMATIC', 'Prismatic', 'prismatic joint'),
+               ('FIXED', 'Fixed', 'fixed joint')],
         name="Joint Mode", update=updateBoneProperty
     )
 
