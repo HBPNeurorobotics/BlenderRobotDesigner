@@ -265,7 +265,34 @@
                 <xs:element name="robotNamespace" type="xs:string" />
                 <xs:element name="robotSimType"   type="xs:string" />
                 <xs:element name="robotParam"   type="xs:string" />
+                <!-- controll plugin -->
                 <xs:element name="controller" type="GenericControllerPluginDefType"/>
+                <!-- IMU -->
+                <xs:element name="alwaysOn" type="xs:boolean" />
+                <xs:element name="bodyName"   type="xs:string" />
+                <xs:element name="topicName"   type="xs:string" />
+                <xs:element name="serviceName" type="xs:string"/>
+                <xs:element name="gaussianNoise" type="xs:double"/>
+                <xs:element name="updateRate" type="xs:double"/>
+                <!-- Mimic joint plugin -->
+                <xs:element name="joint" type="xs:string" />
+                <xs:element name="mimicJoint" type="xs:string" />
+                <xs:element name="multiplier" type="xs:double" />
+                <xs:element name="offset" type="xs:double" />
+                <!-- Disable link plugin -->
+                <xs:element name="link" type="xs:string" />
+              </xs:choice>
+          </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- gazebo IMU plugin type -->
+  <xs:complexType name="GazeboIMUPluginType">
+    <xs:complexContent>
+      <xs:extension base="GazeboPluginBaseType">
+          <xs:sequence>
+              <xs:choice minOccurs="0" maxOccurs="unbounded">
               </xs:choice>
           </xs:sequence>
       </xs:extension>
@@ -278,7 +305,8 @@
       <xs:extension base="GazeboPluginBaseType">
         <xs:sequence>
               <xs:choice minOccurs="0" maxOccurs="unbounded">
-                  <xs:element name="baseline"                       type="xs:double" minOccurs="0" maxOccurs="1" />
+                  <xs:element name="robotNamespace"                 type="xs:string"  minOccurs="0" maxOccurs="1" />
+                  <xs:element name="baseline"                       type="xs:double"  minOccurs="0" maxOccurs="1" />
                   <xs:element name="alwaysOn"                       type="xs:boolean" minOccurs="0" maxOccurs="1" />
                   <xs:element name="updateRate"                     type="xs:double"  minOccurs="0" maxOccurs="1" />
                   <xs:element name="cameraName"                     type="xs:string"  minOccurs="0" maxOccurs="1" />
@@ -299,11 +327,22 @@
                   <xs:element name="focalLength"                    type="xs:double"  minOccurs="0" maxOccurs="1" />
                   <xs:element name="pointCloudCutoff"               type="xs:double"  minOccurs="0" maxOccurs="1" />
                   <xs:element name="pointCloudTopicName"            type="xs:string"  minOccurs="0" maxOccurs="1" />
-            </xs:choice>
+                  <!-- gazebo_ros_range -->
+                  <xs:element name="topicName"                      type="xs:string"  minOccurs="0" maxOccurs="1" />
+                  <xs:element name="minRange"                       type="xs:double"  minOccurs="0" maxOccurs="1" />
+                  <xs:element name="maxRange"                       type="xs:double"  minOccurs="0" maxOccurs="1" />
+                  <xs:element name="fov"                            type="xs:double"  minOccurs="0" maxOccurs="1" />
+                  <xs:element name="radiation"                      type="xs:string"  minOccurs="0" maxOccurs="1" />
+                  <xs:element name="gaussianNoise"                  type="xs:double"  minOccurs="0" maxOccurs="1" />
+                  <!-- sonar -->
+                  <xs:element name="visualize"                      type="xs:boolean"  minOccurs="0" maxOccurs="1" />
+              </xs:choice>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+
+
 
   <!-- gazebo image type -->
   <xs:complexType name="ImageType">
@@ -356,6 +395,7 @@
         <xs:choice minOccurs="0" maxOccurs="unbounded">
           <xs:element name="pose"        type="xs:string"   minOccurs="0" maxOccurs="1" default="0 0 0 0 0 0"/>
           <xs:element name="update_rate" type="xs:double"   minOccurs="0" maxOccurs="1" default="0"/>
+          <xs:element name="visualize" type="xs:boolean"   minOccurs="0" maxOccurs="1" />
         </xs:choice>
     </xs:sequence>
     <xs:attribute name="name" type="xs:string" use="required" />
@@ -390,6 +430,11 @@
           <xs:element name="material"       type="GazeboMaterialType"  />
           <xs:element name="gravity"        type="xs:boolean"          />
           <xs:element name="self_collide"   type="xs:boolean"         />
+          <xs:element name="mu1"            type="xs:double"         />
+          <xs:element name="mu2"            type="xs:double"         />
+          <xs:element name="fdir1"          type="xs:string"         />
+          <xs:element name="maxVel"         type="xs:double"         />
+          <xs:element name="minDepth"       type="xs:double"         />
     </xs:choice>
     <xs:attribute name="reference" type="xs:string" />
   </xs:complexType>

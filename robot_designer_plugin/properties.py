@@ -61,6 +61,9 @@ class RobotEditor_Globals(bpy.types.PropertyGroup):
                                       ('local','Local','Stores/retrieves from local hard disk')])
     gitURL = StringProperty(name='GIT URL')
     gitRepository = StringProperty(name='GIT Repository')
+    modelFolderName = StringProperty(name='Model folder')
+
+    modelFolderPath = StringProperty(name='Model folder')
 
     boneMode = EnumProperty(items=[('kinematics', 'Kinematics', 'Edit kinematic properties'),
                                       ('dynamics','Dynamics','Edit Dynamic properties'),
