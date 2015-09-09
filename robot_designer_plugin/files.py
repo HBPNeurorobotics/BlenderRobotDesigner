@@ -319,7 +319,7 @@ def draw(layout, context):
     column = row.column()
     column.label('export:')
     if armatures.checkArmature(column, context):
-        column.prop(bpy.context.scene.RobotEditor, "modelFolderPath")
+        column.prop(bpy.context.scene.RobotEditor, "modelFolderName")
         column.operator("roboteditor.urdfexport")
         column.operator("roboteditor.colladaexport")
 

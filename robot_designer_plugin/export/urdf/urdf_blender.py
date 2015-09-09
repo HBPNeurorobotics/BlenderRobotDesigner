@@ -339,6 +339,18 @@ def export(file_name):
             bpy.context.scene.objects.active = bpy.data.objects[mesh]
             bpy.context.active_object.select = True
             bpy.ops.wm.collada_export(filepath=file_path, selected=True)
+
+            # quick fix for dispersed meshes
+            # todo: find appropriate solution
+            f = open(file_path,"r")
+            lines = f.readlines()
+            f.close()
+            f = open(file_path,"w")
+            for line in lines:
+                if "matrix" not in line:
+                    f.write(line)
+            f.close()
+
             bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
             # set correct mesh path: This requires the ROS default package structure.
             model_folder_name = bpy.context.scene.RobotEditor.modelFolderName
@@ -369,7 +381,7 @@ def export(file_name):
             # set correct mesh path: This requires the ROS default package structure.
             # print('debug: ' + object_name)
 
-            model_folder = bpy.context.scene.RobotEditor.modelFolderPath
+            model_folder = bpy.context.scene.RobotEditor.modelFolderName
             return("model://" + os.path.join(model_folder, "collisions", collision + '.stl'))
 
     # def export_mesh(name):
