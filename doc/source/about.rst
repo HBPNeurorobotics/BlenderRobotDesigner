@@ -102,14 +102,13 @@ Features
 Installer
 ^^^^^^^^^
 
-The installer will come in a form of a `.blend` file that contains an installer script that can
+The installer comes in a form of a `.blend` file that contains an installer script that can
 be directly executed from within Blender. That way, it can detect the used operating system and
-Blender version and copy/link the files to the correct location as well as select the
+Blender version and link the files to the correct location as well as select the
 correct binaries for the platform.
 
-.. todo::
+For more information, refer to :ref:`installation`.
 
-   Create and document an installer.
 
 Robot modelling
 ^^^^^^^^^^^^^^^
