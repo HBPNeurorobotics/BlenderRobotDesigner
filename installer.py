@@ -45,7 +45,7 @@ def main():
         return
 
     # install dependencies in the virtualEnv (we pre-compiled them into wheels)
-    os.system(pathToPip+' install --use-wheel --no-index --find-links=wheels lxml gitpython gitdb')
+    os.system(pathToPip+' install --use-wheel --find-links=wheels lxml gitpython gitdb pyxb')
     venvLibPath = os.path.join(venvName, 'lib')
 
     # get venv python version
