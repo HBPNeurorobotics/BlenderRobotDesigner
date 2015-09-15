@@ -1,7 +1,7 @@
 # ./urdf_dom.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:e92452c8d3e28a9e27abfc9994d2007779e7f4c9
-# Generated 2015-09-09 12:16:48.728338 by PyXB version 1.2.4 using Python 3.4.0.final.0
+# Generated 2015-09-10 18:55:44.664178 by PyXB version 1.2.4 using Python 3.4.0.final.0
 # Namespace AbsentNamespace0
 
 from __future__ import unicode_literals
@@ -15,7 +15,7 @@ import sys
 import pyxb.utils.six as _six
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:e17323fa-56db-11e5-b130-6c71d9b2bdf1')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c6d8d358-57dc-11e5-8b04-d850e60f8822')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.4'
@@ -81,7 +81,7 @@ class ControllerEnumType (pyxb.binding.datatypes.string, pyxb.binding.basis.enum
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'ControllerEnumType')
     _XSDLocation = pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 237, 2)
     _Documentation = None
-ControllerEnumType._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=ControllerEnumType, enum_prefix=None)
+ControllerEnumType._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=ControllerEnumType)
 ControllerEnumType.position = ControllerEnumType._CF_enumeration.addEnumeration(unicode_value='position', tag='position')
 ControllerEnumType.velocity = ControllerEnumType._CF_enumeration.addEnumeration(unicode_value='velocity', tag='velocity')
 ControllerEnumType._InitializeFacetMap(ControllerEnumType._CF_enumeration)
