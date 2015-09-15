@@ -63,8 +63,6 @@ class RobotEditor_Globals(bpy.types.PropertyGroup):
     gitRepository = StringProperty(name='GIT Repository')
     modelFolderName = StringProperty(name='Model folder')
 
-    modelFolderPath = StringProperty(name='Model folder')
-
     boneMode = EnumProperty(items=[('kinematics', 'Kinematics', 'Edit kinematic properties'),
                                       ('dynamics','Dynamics','Edit Dynamic properties'),
                                         ('controller','Controller','Edit Controller properties')])
@@ -166,7 +164,7 @@ class RobotEditor_DH(bpy.types.PropertyGroup):
 # property group for joint controllers
 class RobotEditor_JointControllerType(bpy.types.PropertyGroup):
 
-    isActive = BoolProperty(name="Active", default=True)
+    isActive = BoolProperty(name="Active", default=False)
 
     controllerType = EnumProperty(
         items=[('position', 'Position', 'Position'),
