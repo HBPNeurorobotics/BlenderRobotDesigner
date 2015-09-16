@@ -73,6 +73,9 @@ def import_(urdf_file):
             if prefix_folder == "":
                 logger.debug("Warning! Couldn't load file relative to ROS_PACKAGE_PATH environment variable.")
                 prefix_folder = os.path.dirname(urdf_file)
+                if prefix_folder.split("/").pop() == mesh_filename.split("/")[0]:
+                    prefix_folder = '/'+'/'.join(prefix_folder.split("/")[1:-1])
+
         else:
             prefix_folder = os.path.dirname(urdf_file)
             logger.debug("Using prefix path: " + prefix_folder)
@@ -424,7 +427,6 @@ def export(file_name):
 
     def build(bone, tree):
         child = tree.add()
-
         trafo, dummy = bone.RobotEditor.getTransform()
         child.joint.origin.rpy = list_to_string(trafo.to_euler())
         child.joint.origin.xyz = list_to_string(trafo.translation)
@@ -437,17 +439,20 @@ def export(file_name):
         elif bone.RobotEditor.axis == 'Z':
             child.joint.axis.xyz = '0 0 1'
 
-        if bone.RobotEditor.jointMode == 'REVOLUTE':
-            child.joint.limit.lower = bone.RobotEditor.theta.min
-            child.joint.limit.upper = bone.RobotEditor.theta.max
-            child.joint.type = 'revolute'
-        if bone.RobotEditor.jointMode == 'PRISMATIC':
-            child.joint.limit.lower = bone.RobotEditor.d.min
-            child.joint.limit.upper = bone.RobotEditor.d.max
-            child.joint.type = 'prismatic'
-        #
-        if bone.RobotEditor.jointMode == 'FIXED':
+        if bone.parent is None:
+            print("Debug: parent bone is none", bone, bone.RobotEditor.jointMode)
             child.joint.type = 'fixed'
+        else:
+            if bone.RobotEditor.jointMode == 'REVOLUTE':
+                child.joint.limit.lower = bone.RobotEditor.theta.min
+                child.joint.limit.upper = bone.RobotEditor.theta.max
+                child.joint.type = 'revolute'
+            if bone.RobotEditor.jointMode == 'PRISMATIC':
+                child.joint.limit.lower = bone.RobotEditor.d.min
+                child.joint.limit.upper = bone.RobotEditor.d.max
+                child.joint.type = 'prismatic'
+            if bone.RobotEditor.jointMode == 'FIXED':
+                child.joint.type = 'fixed'
 
         # Add properties
         connected_meshes = [mesh.name for mesh in bpy.data.objects if
