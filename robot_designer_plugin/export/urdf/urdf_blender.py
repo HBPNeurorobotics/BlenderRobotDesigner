@@ -478,12 +478,12 @@ def export(file_name):
                 collision.origin.xyz = list_to_string(pose.translation)
                 # collision.origin.rpy = list_to_string(pose.to_euler)
 
-            # Add inertial definitions (for Gazebo)
-            inertial = child.add_inertial()
-            # todo: pick up the real values from Physics Frame?
-            inertial.mass.value_ = 1.0
-            inertial.inertia.ixx = inertial.inertia.ixy = inertial.inertia.ixz = \
-                inertial.inertia.iyy = inertial.inertia.iyz = inertial.inertia.izz = 1.0
+        # Add inertial definitions (for Gazebo)
+        inertial = child.add_inertial()
+        # todo: pick up the real values from Physics Frame?
+        inertial.mass.value_ = 1.0
+        inertial.inertia.ixx = inertial.inertia.iyy = inertial.inertia.izz = 1.0
+        inertial.inertia.ixy = inertial.inertia.ixz = inertial.inertia.iyz = 0.0
 
         # add joint controllers
         if bone.RobotEditor.jointController.isActive is True:
