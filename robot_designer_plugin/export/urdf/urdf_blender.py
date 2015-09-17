@@ -331,12 +331,8 @@ def export(file_name):
     def export_mesh(name):
         meshes = [obj.name for obj in bpy.data.objects if
                   obj.type == "MESH" and obj.name == name and not obj.RobotEditor.tag == "COLLISION"]
-        #print('debug FOLGENDE MESHES SIND IM ARRAY: ')
-        #print(meshes)
         for mesh in meshes:
-            #print(mesh)
             file_path = os.path.join(os.path.dirname(file_name), "meshes", mesh + '.dae')
-            #print(file_path)
             armature_name = bpy.context.active_object.name
             bpy.ops.object.select_all(action='DESELECT')
             bpy.context.scene.objects.active = bpy.data.objects[mesh]
@@ -358,34 +354,35 @@ def export(file_name):
             # set correct mesh path: This requires the ROS default package structure.
             model_folder_name = bpy.context.scene.RobotEditor.modelFolderName
             print("Model folder name: " + model_folder_name)
-            return("model://" + os.path.join(model_folder_name, "meshes", mesh + '.dae'))
+            return("model://" + os.path.join(model_folder_name, "meshes", mesh + ".dae"))
 
     def export_collisionmodel(name):
         collisions = [obj.name for obj in bpy.data.objects if
                       obj.type == "MESH" and name in obj.name and obj.RobotEditor.tag == "COLLISION"]
-        # print('debug FOLGENDE COLLISIONS SIND IM ARRAY: ')
-        # print(collisions)
         for collision in collisions:
-            file_path = os.path.join(os.path.dirname(file_name), "collisions")
-            # print('debug dateipfad: ' + file_path)
-            if not os.path.exists(file_path):
-                os.makedirs(file_path)
-            object_name = os.path.join(os.path.dirname(file_name), "collisions",
-                                       collision + '.stl')
-            # print('debug object_name :' + object_name)
+            file_path = os.path.join(os.path.dirname(file_name), "collisions", collision + '.dae')
             armature_name = bpy.context.active_object.name
             bpy.ops.object.select_all(action='DESELECT')
             bpy.context.scene.objects.active = bpy.data.objects[collision]
             bpy.context.active_object.select = True
+            bpy.ops.wm.collada_export(filepath=file_path, selected=True)
 
-            # Using the stl export
-            bpy.ops.export_mesh.stl(filepath=object_name, ascii=True)
+            # quick fix for dispersed meshes
+            # todo: find appropriate solution
+            f = open(file_path,"r")
+            lines = f.readlines()
+            f.close()
+            f = open(file_path,"w")
+            for line in lines:
+                if "matrix" not in line:
+                    f.write(line)
+            f.close()
+
             bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
             # set correct mesh path: This requires the ROS default package structure.
-            # print('debug: ' + object_name)
-
-            model_folder = bpy.context.scene.RobotEditor.modelFolderName
-            return("model://" + os.path.join(model_folder, "collisions", collision + '.stl'))
+            model_folder_name = bpy.context.scene.RobotEditor.modelFolderName
+            print("Model folder name: " + model_folder_name)
+            return("model://" + os.path.join(model_folder_name, "collisions", collision + ".dae"))
 
     # def export_mesh(name):
     #     file_path = os.path.join(os.path.dirname(file_name), "meshes", name + '.dae')
