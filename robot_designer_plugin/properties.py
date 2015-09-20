@@ -164,7 +164,7 @@ class RobotEditor_DH(bpy.types.PropertyGroup):
 # property group for joint controllers
 class RobotEditor_JointControllerType(bpy.types.PropertyGroup):
 
-    isActive = BoolProperty(name="Active", default=False)
+    isActive = BoolProperty(name="Active", default=True)
 
     controllerType = EnumProperty(
         items=[('position', 'Position', 'Position'),
@@ -178,9 +178,9 @@ class RobotEditor_JointControllerType(bpy.types.PropertyGroup):
     #     name="Controller type:"
     # )
 
-    P = FloatProperty(name="P", precision=4, step=100)
-    I = FloatProperty(name="I", precision=4, step=100)
-    D = FloatProperty(name="D", precision=4, step=100)
+    P = FloatProperty(name="P", precision=4, step=100, default=1.0)
+    I = FloatProperty(name="I", precision=4, step=100, default=1.0)
+    D = FloatProperty(name="D", precision=4, step=100, default=1.0)
 
 # bone property, contains all relevant bone information for RobotEditor
 class RobotEditor_BoneProperty(bpy.types.PropertyGroup):

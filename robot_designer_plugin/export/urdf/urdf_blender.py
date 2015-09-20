@@ -217,6 +217,7 @@ def import_(urdf_file):
 
         #logger.debug("bone matrix: \n%s", bone_transformation)
 
+        print("[COLLISION] parsed: " + str(len(list(tree.link.collision))) + " colision meshes.")
         models = list(tree.link.visual) + list(tree.link.collision)
 
         # Iterate first over visual models then over collision models
@@ -265,12 +266,16 @@ def import_(urdf_file):
 
                         # if the loop continues the name will be suffixed by a number
 
+                        print("Model type: " + str(model_type))
                         if model_type == COLLISON:
                             # %2d changed to %d because it created unwanted space with one digit numbers
                             bpy.context.active_object.name = "COL_%s_%d" % (tree.link.name, nr)
                             bpy.context.active_object.RobotEditor.tag = 'COLLISION'
                         else:
                             bpy.context.active_object.name = "VIS_%s_%d" % (tree.link.name, nr)
+
+                        # remove spaces from link name
+                        bpy.context.active_object.name = bpy.context.active_object.name.replace(" ", "")
 
                         # The name might be altered by blender
                         assigned_name = bpy.context.active_object.name
@@ -332,9 +337,11 @@ def export(file_name):
         meshes = [obj.name for obj in bpy.data.objects if
                   obj.type == "MESH" and obj.name == name and not obj.RobotEditor.tag == "COLLISION"]
         for mesh in meshes:
+            print("Processing mesh: " + mesh)
             file_path = os.path.join(os.path.dirname(file_name), "meshes", mesh + '.dae')
             armature_name = bpy.context.active_object.name
             bpy.ops.object.select_all(action='DESELECT')
+            print("Mesh object: " + str(bpy.data.objects[mesh]))
             bpy.context.scene.objects.active = bpy.data.objects[mesh]
             bpy.context.active_object.select = True
             bpy.ops.wm.collada_export(filepath=file_path, selected=True)
@@ -360,19 +367,25 @@ def export(file_name):
         collisions = [obj.name for obj in bpy.data.objects if
                       obj.type == "MESH" and name in obj.name and obj.RobotEditor.tag == "COLLISION"]
         for collision in collisions:
-            file_path = os.path.join(os.path.dirname(file_name), "collisions", collision + '.dae')
+            file_path = os.path.join(os.path.dirname(file_name), "collisions")
+            # print('debug dateipfad: ' + file_path)
+            if not os.path.exists(file_path):
+                os.makedirs(file_path)
+            object_name = os.path.join(os.path.dirname(file_name), "collisions",
+                                       collision + '.dae')
             armature_name = bpy.context.active_object.name
             bpy.ops.object.select_all(action='DESELECT')
             bpy.context.scene.objects.active = bpy.data.objects[collision]
             bpy.context.active_object.select = True
-            bpy.ops.wm.collada_export(filepath=file_path, selected=True)
+            #bpy.ops.export_mesh.stl(filepath=object_name, ascii=True)
+            bpy.ops.wm.collada_export(filepath=object_name, selected=True)
 
             # quick fix for dispersed meshes
             # todo: find appropriate solution
-            f = open(file_path,"r")
+            f = open(object_name,"r")
             lines = f.readlines()
             f.close()
-            f = open(file_path,"w")
+            f = open(object_name,"w")
             for line in lines:
                 if "matrix" not in line:
                     f.write(line)
@@ -453,7 +466,7 @@ def export(file_name):
 
         # Add properties
         connected_meshes = [mesh.name for mesh in bpy.data.objects if
-                            mesh.type == 'MESH' and mesh.parent_bone == bone.name and not mesh.RobotEditor.tag == "COLLISION"]
+                            mesh.type == 'MESH' and mesh.parent_bone == bone.name ]
         if len(connected_meshes) > 0:
             child.link.name = connected_meshes[0]
         else:
@@ -468,9 +481,10 @@ def export(file_name):
 
             #print('Mesh name: ' + mesh)
             #print('debug visual hinzugefuegt: ' + export_mesh(mesh))
-            visual = child.add_mesh(export_mesh(mesh))
-            visual.origin.xyz = list_to_string(pose.translation)
-            visual.origin.rpy = list_to_string(pose.to_euler())
+            if not bpy.data.objects[mesh].RobotEditor.tag == "COLLISION":
+                visual = child.add_mesh(export_mesh(mesh))
+                visual.origin.xyz = list_to_string(pose.translation)
+                visual.origin.rpy = list_to_string(pose.to_euler())
 
             # using the collisionmodel export for stl files
             #print('debug collision hinzugefuegt: ' + export_collisionmodel(mesh))
@@ -479,7 +493,8 @@ def export(file_name):
                 collision = child.add_collisionmodel(collision_model_path)
                 collision.origin.xyz = list_to_string(pose.translation)
                 # collision.origin.rpy = list_to_string(pose.to_euler)
-
+            else:
+                logger.debug("no collision model for: %s", mesh)
         # Add inertial definitions (for Gazebo)
         inertial = child.add_inertial()
         # todo: pick up the real values from Physics Frame?
