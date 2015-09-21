@@ -131,14 +131,14 @@ def import_(urdf_file):
         armatures.createBone(armature_name, tree.joint.name, parent_name)
         bone_name = tree.joint.name
 
-        #logger.debug('bone: %s, children: %s', bone_name, [i.joint.name for i in tree.children])
+        # logger.debug('bone: %s, children: %s', bone_name, [i.joint.name for i in tree.children])
 
         bpy.ops.roboteditor.selectbone(boneName=tree.joint.name)
 
         xyz = string_to_list(get_value(tree.joint.origin.xyz, "0 0 0"))
         euler = string_to_list(get_value(tree.joint.origin.rpy, '0 0 0'))
-        #logger.debug("xyz: %s, rpy: %s",tree.joint.origin.xyz,tree.joint.origin.rpy)
-        #logger.debug("xyz: %s, rpy: %s",xyz,euler)
+        # logger.debug("xyz: %s, rpy: %s",tree.joint.origin.xyz,tree.joint.origin.rpy)
+        # logger.debug("xyz: %s, rpy: %s",xyz,euler)
         # check if there is a controller attached to this joint
         if bone_name in controller_cache:
             controller = controller_cache[bone_name]
@@ -198,24 +198,32 @@ def import_(urdf_file):
 
 
         # todo set the dynamics properties
+        if tree.link.inertial is not None:
+            for iner in tree.link.inertial:
+                # dynamics is not associated to a bone!
+                origin = iner.origin
+                i = iner.inertia
 
-        # if None and tree.link.inertial is not None:
-        #     # dynamics is not associated to a bone!
-        #     origin = tree.link.inertial.origin
-        #     i = tree.link.inertial.inertia
-        #     if tree.joint.inertial is not None:
-        #         bpy.ops.roboteditor.createphysicsframe(tree.link.name)
-        #         # todo select physic frame and assign it to the current bone then select it and assign the values
-        #         bpy.context.active_object.RobotEditor.dynamics.mass = tree.link.inertial.mass.value
-        #         # todo until now only diagonal elements are supported. Throw an exception or show a dialog.
-        #         matrix = [[i.ixx, i.ixz, i.ixz], [i.iyy, i.iyz], [i.izz]]
-        # get the transformation of the bone
+                bpy.ops.roboteditor.createphysicsframe(frameName=tree.link.name)
 
-        bone_transformation = bpy.context.active_object.matrix_world * \
-                              bpy.context.active_object.pose.bones[
-                                  bone_name].matrix
+                bpy.ops.roboteditor.selectphysicsframe(frameName=tree.link.name)
+                bpy.ops.roboteditor.selectbone(boneName=tree.joint.name)
+                bpy.ops.roboteditor.assignphysicsframe()
 
-        #logger.debug("bone matrix: \n%s", bone_transformation)
+                bpy.data.objects[tree.link.name].RobotEditor.dynamics.mass = iner.mass.value_
+
+                # todo until now only diagonal elements are supported. Throw an exception or show a dialog.
+                matrix = [i.ixx, i.iyy, i.izz]
+                print(matrix)
+                # get the transformation of the bone
+
+                bpy.data.objects[tree.link.name].RobotEditor.dynamics.inertiaTensor = matrix
+
+                bone_transformation = bpy.context.active_object.matrix_world * \
+                                      bpy.context.active_object.pose.bones[
+                                          bone_name].matrix
+
+                logger.debug("bone matrix: \n%s", bone_transformation)
 
         print("[COLLISION] parsed: " + str(len(list(tree.link.collision))) + " colision meshes.")
         models = list(tree.link.visual) + list(tree.link.collision)
@@ -498,8 +506,15 @@ def export(file_name):
         # Add inertial definitions (for Gazebo)
         inertial = child.add_inertial()
         # todo: pick up the real values from Physics Frame?
-        inertial.mass.value_ = 1.0
-        inertial.inertia.ixx = inertial.inertia.iyy = inertial.inertia.izz = 1.0
+
+        frameNames = [f.name for f in bpy.data.objects if f.RobotEditor.tag == 'PHYSICS_FRAME']
+        for frame in frameNames:
+            if bpy.data.objects[frame].parent_bone == bone.name:
+                inertial.mass.value_ = bpy.data.objects[frame].RobotEditor.dynamics.mass
+                inertial.inertia.ixx = bpy.data.objects[frame].RobotEditor.dynamics.inertiaTensor[0]
+                inertial.inertia.iyy = bpy.data.objects[frame].RobotEditor.dynamics.inertiaTensor[1]
+                inertial.inertia.izz = bpy.data.objects[frame].RobotEditor.dynamics.inertiaTensor[2]
+
         inertial.inertia.ixy = inertial.inertia.ixz = inertial.inertia.iyz = 0.0
 
         # add joint controllers
