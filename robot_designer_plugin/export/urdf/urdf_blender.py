@@ -523,6 +523,8 @@ def export(file_name):
             controller = child.add_joint_controller(root.control_plugin)
             controller.joint_name = bone.name
             controller.type = bone.RobotEditor.jointController.controllerType
+            if bone.RobotEditor.jointController.P <= 1.0:
+                bone.RobotEditor.jointController.P = 100
             controller.pid = str(bone.RobotEditor.jointController.P) + " " +\
                 str(bone.RobotEditor.jointController.I) + " " +\
                 str(bone.RobotEditor.jointController.D)

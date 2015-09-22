@@ -247,11 +247,11 @@
     <xs:attribute name="name"     type="xs:string" />
   </xs:complexType>
 
-  <!-- gazebo controler type -->
+  <!-- gazebo controller type -->
   <xs:complexType name="GenericControllerPluginDefType">
     <xs:sequence>
       <xs:element name="type" type="ControllerEnumType" minOccurs="1" maxOccurs="1" />
-      <xs:element name="pid" type="xs:string" default="0 0 0" minOccurs="1" maxOccurs="1" />
+      <xs:element name="pid" type="xs:string" default="100 1.0 1.0" minOccurs="1" maxOccurs="1" />
     </xs:sequence>
     <xs:attribute name="joint_name" type="xs:string" />
   </xs:complexType>

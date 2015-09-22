@@ -3349,7 +3349,7 @@ TransmissionType._Automaton = _BuildAutomaton_31()
 
 GenericControllerPluginDefType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'type'), ControllerEnumType, scope=GenericControllerPluginDefType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 253, 6)))
 
-GenericControllerPluginDefType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'pid'), pyxb.binding.datatypes.string, scope=GenericControllerPluginDefType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 254, 6), unicode_default='0 0 0'))
+GenericControllerPluginDefType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(None, 'pid'), pyxb.binding.datatypes.string, scope=GenericControllerPluginDefType, location=pyxb.utils.utility.Location('/home/igor/dev/hbp/RobotDesigner/resources/urdf.xsd', 254, 6), unicode_default='100.0 1.0 1.0'))
 
 def _BuildAutomaton_35 ():
     # Remove this helper function from the namespace after it is invoked

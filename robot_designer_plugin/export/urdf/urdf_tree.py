@@ -272,6 +272,10 @@ class URDFTree(object):
         :return: string:     reference to inertial object
         """
         joint_controller = urdf_dom.GenericControllerPluginDefType()
+        if joint_controller.pid == "1.0 1.0 1.0":
+            joint_controller.pid = "100.0 1.0 1.0"
+            print("Debug: Joint Controller set")
+
         control_plugin.append(joint_controller)
         print("Added joint controller.")
 
