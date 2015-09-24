@@ -294,7 +294,8 @@ class URDFTree(object):
         if joint.limit is None:
             joint.limit = urdf_dom.LimitType()
             # this had to be completely defined (missing effor argument caused conversion to SDF to fail)
-            joint.limit.effort = joint.limit.lower = joint.limit.upper = joint.limit.velocity = 1.0
+            joint.limit.effort = 100.0
+            joint.limit.lower = joint.limit.upper = joint.limit.velocity = 1.0
 
         if joint.calibration is None:
             joint.calibration = urdf_dom.CalibrationType()

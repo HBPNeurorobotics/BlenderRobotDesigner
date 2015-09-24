@@ -164,7 +164,7 @@
   <xs:complexType name="LimitType">
     <xs:attribute name="lower"    type="xs:double" default="0" />
     <xs:attribute name="upper"    type="xs:double" default="0" />
-    <xs:attribute name="effort"   type="xs:double" default="0" />
+    <xs:attribute name="effort"   type="xs:double" default="100" />
     <xs:attribute name="velocity" type="xs:double" default="0" />
   </xs:complexType>
 
