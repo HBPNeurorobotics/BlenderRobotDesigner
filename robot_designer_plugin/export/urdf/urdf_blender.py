@@ -96,11 +96,8 @@ def import_(urdf_file):
         scale_matrix = Matrix([[scale_urdf[0], 0, 0, 0], [0, scale_urdf[1], 0, 0],
                                [0, 0, scale_urdf[2], 0], [0, 0, 0, 1]])
 
-        # logger.debug("xyz: %s, rpy: %s\n%s",model.origin.xyz,model.origin.rpy,scale_matrix)
-
-
         return Matrix.Translation(Vector(string_to_list(model.origin.xyz))) * \
-               Euler(string_to_list(model.origin.rpy), 'XYZ').to_matrix().to_4x4() * scale_matrix
+            Euler(string_to_list(model.origin.rpy), 'XYZ').to_matrix().to_4x4() * scale_matrix
 
     # def import_geometry(collision):
     #     """
@@ -202,7 +199,6 @@ def import_(urdf_file):
         if tree.joint.type == 'fixed':
             bpy.context.active_bone.RobotEditor.jointMode = 'FIXED'
 
-
         # todo set the dynamics properties
         if tree.link.inertial is not None:
             for iner in tree.link.inertial:
@@ -226,8 +222,7 @@ def import_(urdf_file):
                 bpy.data.objects[tree.link.name].RobotEditor.dynamics.inertiaTensor = matrix
 
                 bone_transformation = bpy.context.active_object.matrix_world * \
-                                      bpy.context.active_object.pose.bones[
-                                          bone_name].matrix
+                    bpy.context.active_object.pose.bones[bone_name].matrix
 
                 logger.debug("bone matrix: \n%s", bone_transformation)
 
@@ -249,7 +244,6 @@ def import_(urdf_file):
                     # extracted and the rest is omitted. Therefore, we store the scale after import and
                     # multiply it to the scale given in the xml attribute.
 
-
                     # if there are multiple objects in the COLLADA file:
                     selected_objects = [i.name for i in bpy.context.selected_objects]
                     for object_name in selected_objects:
@@ -265,7 +259,7 @@ def import_(urdf_file):
                         bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
 
                         bpy.context.active_object.matrix_world = bone_transformation * trafo_urdf * \
-                                                                 bpy.context.active_object.matrix_world
+                            bpy.context.active_object.matrix_world
                         # logger.debug("bone matrix: \n%s", bone_transformation)
                         # logger.debug("Matrix world: \n%s", bpy.context.active_object.matrix_world)
 
@@ -514,7 +508,7 @@ def export(file_name):
         for mesh in connected_meshes:
             pose_bone = context.active_object.pose.bones[bone.name]
             pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
-                   bpy.data.objects[mesh].matrix_world
+                bpy.data.objects[mesh].matrix_world
 
             # print('Mesh name: ' + mesh)
             # print('debug visual hinzugefuegt: ' + export_mesh(mesh))
@@ -555,8 +549,7 @@ def export(file_name):
             if bone.RobotEditor.jointController.P <= 1.0:
                 bone.RobotEditor.jointController.P = 100
             controller.pid = str(bone.RobotEditor.jointController.P) + " " + \
-                             str(bone.RobotEditor.jointController.I) + " " + \
-                             str(bone.RobotEditor.jointController.D)
+                str(bone.RobotEditor.jointController.I) + " " + str(bone.RobotEditor.jointController.D)
 
         # Add geometry
         for child_bones in bone.children:
