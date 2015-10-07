@@ -69,13 +69,17 @@ class URDFTree(object):
         # create a dictionary [ joint_name, controller ] which is
         # easily searchable during tree traversal
         controller_cache = {}
+        gazebo_tags = []
         for gazebo_tag in robot.gazebo:
+            gazebo_tags.append(gazebo_tag)
             for plugin_tag in gazebo_tag.plugin:
                 if plugin_tag.name == "generic_controller":
                     for controller in plugin_tag.controller:
                         # store the controller in cache, so it's accessible
                         logger.debug("Found controller for joint: " + controller.joint_name + ", caching it.")
                         controller_cache[controller.joint_name] = controller
+                        # remove last tag from the last, it is handled by controller plugin differently
+                        gazebo_tags.pop()
         logger.debug("Built controller cache:")
         logger.debug(controller_cache)
 
@@ -107,7 +111,7 @@ class URDFTree(object):
         # todo: parse joint controllers
 
         logger.debug("kinematic chains: %s", kinematic_chains)
-        return robot.name, root_links, kinematic_chains, controller_cache
+        return robot.name, root_links, kinematic_chains, controller_cache, gazebo_tags
 
     def build(self, link, joint=None, depth=0):
         """
@@ -122,9 +126,6 @@ class URDFTree(object):
         self.set_defaults()
 
         children = self.connectedJoints[link]
-
-        # logger.debug("%s %s, %s -> %s", '-'*depth, joint.name, link.name, [i.name for i in children] )
-        # logger.debug("%s axis: '%s', type: '%s', xyz:'%s', rpy:'%s', limit:'%s-%s' ", ' '*depth,  joint.axis.xyz, joint.type_, joint.origin.xyz,joint.origin.rpy, joint.limit.lower, joint.limit.upper )
 
         for joint in children:
             tree = URDFTree(connected_links=self.connectedLinks, connected_joints=self.connectedJoints,

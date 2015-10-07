@@ -466,6 +466,10 @@ def draw(layout, context):
             box = layout.box()
             if collapsible(box, context, 'collapseCFSelection', 'Custom coordinate frames for segments'):
                 box.menu('roboteditor.cfmenu', text='None')
+
+            box = layout.box()
+            box.label(text="Custom Gazebo tags")
+            box.prop(bpy.context.scene.RobotEditor, "gazeboTags", slider=True)
         else:
             layout.menu("roboteditor.armaturemenu", text="")
             layout.label(text="Select robot first")

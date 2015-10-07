@@ -38,7 +38,17 @@ def import_(urdf_file):
 
     :param urdf_file: string referring to the file to be opened
     """
-    robot_name, root_links, kinematic_chains, controller_cache = urdf_tree.URDFTree.parse(urdf_file)
+    robot_name, root_links, kinematic_chains, controller_cache, gazebo_tags = \
+        urdf_tree.URDFTree.parse(urdf_file)
+
+    # store gazebo tags
+    tagBuffer = ''
+    print('Processing {0} tags.', len(gazebo_tags))
+    for gazebo_tag in gazebo_tags:
+        curr_tag = gazebo_tag.toxml("utf-8").decode("utf-8")
+        curr_tag = curr_tag[38:]  # remove <xml version=.../> tag
+        tagBuffer = '{0}\n{1}'.format(tagBuffer, curr_tag)
+    bpy.context.scene.RobotEditor.gazeboTags = tagBuffer
 
     logger.debug('root links: %s', [i.name for i in root_links])
 
@@ -58,7 +68,7 @@ def import_(urdf_file):
         mesh_filename = model.geometry.mesh.filename
         ros_pkg_paths = os.environ.get("ROS_PACKAGE_PATH")
         if ros_pkg_paths is not None and \
-                mesh_filename.startswith("package://") or mesh_filename.startswith("model://"):
+                (mesh_filename.startswith("package://") or mesh_filename.startswith("model://")):
             mesh_filename = mesh_filename.replace("package://", "").replace("model://", "")
             ros_pkg_paths = ros_pkg_paths.split(":")
             logger.debug("Checking ROS_PACKAGE_PATH:")
@@ -75,7 +85,6 @@ def import_(urdf_file):
                 prefix_folder = os.path.dirname(urdf_file)
                 if prefix_folder.split("/").pop() == mesh_filename.split("/")[0]:
                     prefix_folder = '/' + '/'.join(prefix_folder.split("/")[1:-1])
-
         else:
             prefix_folder = os.path.dirname(urdf_file)
             logger.debug("Using prefix path: " + prefix_folder)
@@ -96,11 +105,8 @@ def import_(urdf_file):
         scale_matrix = Matrix([[scale_urdf[0], 0, 0, 0], [0, scale_urdf[1], 0, 0],
                                [0, 0, scale_urdf[2], 0], [0, 0, 0, 1]])
 
-        # logger.debug("xyz: %s, rpy: %s\n%s",model.origin.xyz,model.origin.rpy,scale_matrix)
-
-
         return Matrix.Translation(Vector(string_to_list(model.origin.xyz))) * \
-               Euler(string_to_list(model.origin.rpy), 'XYZ').to_matrix().to_4x4() * scale_matrix
+            Euler(string_to_list(model.origin.rpy), 'XYZ').to_matrix().to_4x4() * scale_matrix
 
     # def import_geometry(collision):
     #     """
@@ -202,7 +208,6 @@ def import_(urdf_file):
         if tree.joint.type == 'fixed':
             bpy.context.active_bone.RobotEditor.jointMode = 'FIXED'
 
-
         # todo set the dynamics properties
         if tree.link.inertial is not None:
             for iner in tree.link.inertial:
@@ -226,8 +231,7 @@ def import_(urdf_file):
                 bpy.data.objects[tree.link.name].RobotEditor.dynamics.inertiaTensor = matrix
 
                 bone_transformation = bpy.context.active_object.matrix_world * \
-                                      bpy.context.active_object.pose.bones[
-                                          bone_name].matrix
+                    bpy.context.active_object.pose.bones[bone_name].matrix
 
                 logger.debug("bone matrix: \n%s", bone_transformation)
 
@@ -249,7 +253,6 @@ def import_(urdf_file):
                     # extracted and the rest is omitted. Therefore, we store the scale after import and
                     # multiply it to the scale given in the xml attribute.
 
-
                     # if there are multiple objects in the COLLADA file:
                     selected_objects = [i.name for i in bpy.context.selected_objects]
                     for object_name in selected_objects:
@@ -265,7 +268,7 @@ def import_(urdf_file):
                         bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
 
                         bpy.context.active_object.matrix_world = bone_transformation * trafo_urdf * \
-                                                                 bpy.context.active_object.matrix_world
+                            bpy.context.active_object.matrix_world
                         # logger.debug("bone matrix: \n%s", bone_transformation)
                         # logger.debug("Matrix world: \n%s", bpy.context.active_object.matrix_world)
 
@@ -514,7 +517,7 @@ def export(file_name):
         for mesh in connected_meshes:
             pose_bone = context.active_object.pose.bones[bone.name]
             pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
-                   bpy.data.objects[mesh].matrix_world
+                bpy.data.objects[mesh].matrix_world
 
             # print('Mesh name: ' + mesh)
             # print('debug visual hinzugefuegt: ' + export_mesh(mesh))
@@ -555,8 +558,7 @@ def export(file_name):
             if bone.RobotEditor.jointController.P <= 1.0:
                 bone.RobotEditor.jointController.P = 100
             controller.pid = str(bone.RobotEditor.jointController.P) + " " + \
-                             str(bone.RobotEditor.jointController.I) + " " + \
-                             str(bone.RobotEditor.jointController.D)
+                str(bone.RobotEditor.jointController.I) + " " + str(bone.RobotEditor.jointController.D)
 
         # Add geometry
         for child_bones in bone.children:
@@ -577,6 +579,19 @@ def export(file_name):
     for bone in root_bones:
         build(bone, root)
     root.write(file_name)
+
+    # insert gazebo tags
+    f = open(file_name, "r")
+    content = f.read()
+    f.close()
+    # insert before ending </robot> tag, which is 8 chars before end
+    gazebo_tags = bpy.context.scene.RobotEditor.gazeboTags
+    print("File before: {0}".format(content))
+    content = content[:-8] + gazebo_tags + content[-8:]
+    print("File after: {0}".format(content))
+    f = open(file_name, "w")
+    f.write(content)
+    f.close()
 
 
 def draw():

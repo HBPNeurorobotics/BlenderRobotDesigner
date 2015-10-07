@@ -84,6 +84,9 @@ class RobotEditor_Globals(bpy.types.PropertyGroup):
     collapseConnectMesh = BoolProperty(name="Collapse collision mesh limits box", default=True)
     collapseCFSelection = BoolProperty(name="Collapse coordinate frame selection box", default=False)
 
+    # gazebo tags
+    gazeboTags = StringProperty(name="Gazebo tags", default="")
+
 
 # property group that defines a degree of freedom
 class RobotEditor_DoF(bpy.types.PropertyGroup):

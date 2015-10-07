@@ -88,7 +88,6 @@ def unregister():
     files.unregister()
     collision.unregister()
 
-
     # bpy.utils.unregister_module(__name__)
     if (additionalModulePath):
         for path in generatedAdditionalModulePath.venvPath:
