@@ -3,7 +3,7 @@ import bpy
 __author__ = 'ulbrich'
 
 
-def collapsible(box, context, bool_property,label):
+def collapsible(box, context, bool_property, label):
     """
     Create a collapsible box element
 
@@ -17,19 +17,19 @@ def collapsible(box, context, bool_property,label):
 
     row = box.row()
     row.prop(context.scene.RobotEditor, bool_property,
-             icon="TRIA_DOWN" if getattr(context.scene.RobotEditor,bool_property) else "TRIA_RIGHT",
+             icon="TRIA_DOWN" if getattr(context.scene.RobotEditor, bool_property) else "TRIA_RIGHT",
              icon_only=True, emboss=False
              )
     row.label(text=label)
     return getattr(context.scene.RobotEditor, bool_property)
 
 
-def boneSelector(layout,context):
+def boneSelector(layout, context):
     layout.menu("roboteditor.bonemenu", text=context.active_bone.name)
     layout.prop(context.scene.RobotEditor, "liveSearchBones", icon='VIEWZOOM', text="")
 
 
-def meshSelector(layout,context):
+def meshSelector(layout, context):
     meshMenuText = ""
     hide_mesh = context.scene.RobotEditor.listMeshes
     if context.scene.RobotEditor.meshName in bpy.data.objects:
@@ -48,4 +48,3 @@ def meshSelector(layout,context):
     layout.menu("roboteditor.meshmenu", text=meshMenuText)
     layout.prop(context.scene.RobotEditor, "liveSearchMeshes", icon='VIEWZOOM', text="")
     layout.prop(context.scene.RobotEditor, "listMeshes", expand=True)
-

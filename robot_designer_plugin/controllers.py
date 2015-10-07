@@ -2,16 +2,17 @@ from bpy.props import *
 from . import armatures
 from .tools import collapsible
 
+
 def draw(layout, context):
-    if not armatures.checkArmature(layout,context):
+    if not armatures.checkArmature(layout, context):
         return
     if context.active_bone is not None:
 
         box = layout.box()
-        if collapsible(box,context,'collapseControllerLimits','Limits'):
-            #column.label("Active Bone:")
-            #column.menu("roboteditor.bonemenu", text=context.active_bone.name)
-            #column.separator()
+        if collapsible(box, context, 'collapseControllerLimits', 'Limits'):
+            # column.label("Active Bone:")
+            # column.menu("roboteditor.bonemenu", text=context.active_bone.name)
+            # column.separator()
             box.prop(context.active_bone.RobotEditor.controller, "maxVelocity")
             box.prop(context.active_bone.RobotEditor.controller, "maxTorque")
             box.prop(context.active_bone.RobotEditor.controller, "acceleration")
@@ -28,7 +29,7 @@ def draw(layout, context):
         layout.separator()
         box = layout.box()
 
-        if collapsible(box,context,'collapseController','Controller'):
+        if collapsible(box, context, 'collapseController', 'Controller'):
             box.label("Joint controller:")
             box.prop(context.active_bone.RobotEditor.jointController, "isActive")
             box.prop(context.active_bone.RobotEditor.jointController, "controllerType")

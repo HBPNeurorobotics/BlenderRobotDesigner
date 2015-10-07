@@ -4,6 +4,7 @@ from mathutils import Euler, Matrix, Quaternion, Vector
 from bpy.props import *
 from . import armatures
 
+
 # operator to create physics frame
 class RobotEditor_createPhysicsFrame(bpy.types.Operator):
     bl_idname = "roboteditor.createphysicsframe"
@@ -93,8 +94,6 @@ class RobotEditor_assignPhysicsFrame(bpy.types.Operator):
         # frame.matrix_basis = parent_matrix*armature_matrix*bone_matrix
         return {'FINISHED'}
 
-
-
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
 
@@ -117,7 +116,7 @@ class RobotEditor_unassignPhysicsFrame(bpy.types.Operator):
 
 # draws the layout part of the physics frame submenu
 def draw(layout, context):
-    if not armatures.checkArmature(layout,context):
+    if not armatures.checkArmature(layout, context):
         return
     layout.operator("roboteditor.createphysicsframe")
     layout.label("Select Physics Frame:")

@@ -129,3 +129,16 @@ This downloads the required binary dependencies, compile the scripts into wheels
 If that worked well you can now run **installer.blend** from Blender.
 
 Please if we missed your architecture, send us your **wheels** at  `Stefan Ulbrich <mailto:stefan.ulbrich@fzi.de>`_.
+
+
+Building the URDF DOM
+^^^^^^^^^^^^^^^^^^^^^
+
+For manipulation of URDF files, a DOM is automatically created from an XML Schema Definition (XSD) by
+`PyXB <http://pyxb.sourceforge.net/>`_. The DOM is shipped with the plugin but if the XSD is modified it has
+to be recreated by executing
+
+.. code:: bash
+
+   pyxbgen -u urdf_dom.xsd -m urdf_dom
+

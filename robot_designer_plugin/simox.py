@@ -1,4 +1,3 @@
-
 import xml.etree.cElementTree as etree
 
 from pprint import pprint
@@ -58,12 +57,12 @@ def parse(element, root):
             for j in range(1, 5):
                 row.append(float(matrix.find('row%d' % i).get('c%d' % j)))
             M.append(row)
-        #        M=Matrix(M)
-        #        T.append(M.translation.to_tuple())
-        #        e=M.to_euler('XYZ')
-        #        T.append((1,0,0,e.x))
-        #        T.append((0,1,0,e.y))
-        #        T.append((0,0,1,e.z))
+            #        M=Matrix(M)
+            #        T.append(M.translation.to_tuple())
+            #        e=M.to_euler('XYZ')
+            #        T.append((1,0,0,e.x))
+            #        T.append((0,1,0,e.y))
+            #        T.append((0,0,1,e.z))
 
     axis = element.find('joint/axis')
     if axis is None:

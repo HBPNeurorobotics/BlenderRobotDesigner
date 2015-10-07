@@ -5,6 +5,7 @@ from bpy.props import *
 from . import armatures, physics, controllers
 from .tools import collapsible, boneSelector
 
+
 # operator to create new bone
 class RobotEditor_createBone(bpy.types.Operator):
     bl_idname = "roboteditor.createbone"
@@ -72,22 +73,22 @@ class RobotEditor_BoneMenu(bpy.types.Menu):
             if context.scene.RobotEditor.liveSearchBones in root:
                 layout.operator("roboteditor.selectbone", text=root).boneName = root
 
-            def recursion(children,level=0):
+            def recursion(children, level=0):
 
-                for bone in sorted( [bone.name for bone in children], key=str.lower):
+                for bone in sorted([bone.name for bone in children], key=str.lower):
 
                     if context.scene.RobotEditor.liveSearchBones in bone:
-                        text = '    '*level + '\__ ' + bone
+                        text = '    ' * level + '\__ ' + bone
                         layout.operator("roboteditor.selectbone", text=text).boneName = bone
-                        recursion(currentArm.data.bones[bone].children, level+1)
+                        recursion(currentArm.data.bones[bone].children, level + 1)
                     else:
                         recursion(currentArm.data.bones[bone].children, level)
 
             recursion(currentArm.data.bones[root].children)
 
-        # for bone in sorted(boneNames, key=str.lower):
-        #     text = bone
-        #     layout.operator("roboteditor.selectbone", text=text).boneName = text
+            # for bone in sorted(boneNames, key=str.lower):
+            #     text = bone
+            #     layout.operator("roboteditor.selectbone", text=text).boneName = text
 
 
 # operator to rename active bone
@@ -228,54 +229,53 @@ class RobotEditor_deleteBone(bpy.types.Operator):
 
 
 # draw method that builds the part of the GUI responsible for the bone submenu
-def drawKinematics(layout,context):
+def drawKinematics(layout, context):
+    layout.label("Parent Mode:")
+    layout.prop(context.active_bone.RobotEditor, "parentMode", expand=True)
+    parentModeColumn = layout.column(align=True)
 
-        layout.label("Parent Mode:")
-        layout.prop(context.active_bone.RobotEditor, "parentMode", expand=True)
-        parentModeColumn = layout.column(align=True)
+    if context.active_bone.RobotEditor.parentMode == 'EULER':
+        parentModeColumn.label("Euler position:")
+        parentModeColumn.prop(context.active_bone.RobotEditor.Euler.x, "value", slider=False, text="x")
+        parentModeColumn.prop(context.active_bone.RobotEditor.Euler.y, "value", slider=False, text="y")
+        parentModeColumn.prop(context.active_bone.RobotEditor.Euler.z, "value", slider=False, text="z")
+        parentModeColumn.separator()
+        parentModeColumn.label("Euler rotation in xy'z''")
+        parentModeColumn.prop(context.active_bone.RobotEditor.Euler.alpha, "value", slider=False, text="alpha")
+        parentModeColumn.prop(context.active_bone.RobotEditor.Euler.beta, "value", slider=False, text="beta")
+        parentModeColumn.prop(context.active_bone.RobotEditor.Euler.gamma, "value", slider=False, text="gamma")
+    else:  # parentMode == 'DH'
+        parentModeColumn.label("DH parameter:")
+        parentModeColumn.prop(context.active_bone.RobotEditor.DH.theta, "value", slider=False, text="theta")
+        parentModeColumn.prop(context.active_bone.RobotEditor.DH.d, "value", slider=False, text="d")
+        parentModeColumn.prop(context.active_bone.RobotEditor.DH.alpha, "value", slider=False, text="alpha")
+        parentModeColumn.prop(context.active_bone.RobotEditor.DH.a, "value", slider=False, text="a")
 
-        if context.active_bone.RobotEditor.parentMode == 'EULER':
-            parentModeColumn.label("Euler position:")
-            parentModeColumn.prop(context.active_bone.RobotEditor.Euler.x, "value", slider=False, text="x")
-            parentModeColumn.prop(context.active_bone.RobotEditor.Euler.y, "value", slider=False, text="y")
-            parentModeColumn.prop(context.active_bone.RobotEditor.Euler.z, "value", slider=False, text="z")
-            parentModeColumn.separator()
-            parentModeColumn.label("Euler rotation in xy'z''")
-            parentModeColumn.prop(context.active_bone.RobotEditor.Euler.alpha, "value", slider=False, text="alpha")
-            parentModeColumn.prop(context.active_bone.RobotEditor.Euler.beta, "value", slider=False, text="beta")
-            parentModeColumn.prop(context.active_bone.RobotEditor.Euler.gamma, "value", slider=False, text="gamma")
-        else:  # parentMode == 'DH'
-            parentModeColumn.label("DH parameter:")
-            parentModeColumn.prop(context.active_bone.RobotEditor.DH.theta, "value", slider=False, text="theta")
-            parentModeColumn.prop(context.active_bone.RobotEditor.DH.d, "value", slider=False, text="d")
-            parentModeColumn.prop(context.active_bone.RobotEditor.DH.alpha, "value", slider=False, text="alpha")
-            parentModeColumn.prop(context.active_bone.RobotEditor.DH.a, "value", slider=False, text="a")
+    layout.label("Active Axis:")
+    axisRow = layout.row()
+    axisRow.prop(context.active_bone.RobotEditor, "axis", expand=True)
+    axisRow.prop(context.active_bone.RobotEditor, "axis_revert")
 
-        layout.label("Active Axis:")
-        axisRow = layout.row()
-        axisRow.prop(context.active_bone.RobotEditor, "axis", expand=True)
-        axisRow.prop(context.active_bone.RobotEditor, "axis_revert")
+    layout.label("Joint Type:")
+    layout.prop(context.active_bone.RobotEditor, "jointMode", expand=True)
+    jointTypeColumn = layout.column(align=True)
 
-        layout.label("Joint Type:")
-        layout.prop(context.active_bone.RobotEditor, "jointMode", expand=True)
-        jointTypeColumn = layout.column(align=True)
-
-        if context.active_bone.RobotEditor.jointMode == 'REVOLUTE':
-            jointTypeColumn.label("theta:")
-            jointTypeColumn.prop(context.active_bone.RobotEditor.theta, "value", slider=False)
-            jointTypeColumn.prop(context.active_bone.RobotEditor.theta, "offset", slider=False)
-            jointTypeColumn.prop(context.active_bone.RobotEditor.theta, "min", slider=False)
-            jointTypeColumn.prop(context.active_bone.RobotEditor.theta, "max", slider=False)
-        else:  # jointMode == 'PRISMATIC'
-            jointTypeColumn.label("d:")
-            jointTypeColumn.prop(context.active_bone.RobotEditor.d, "value", slider=False)
-            jointTypeColumn.prop(context.active_bone.RobotEditor.d, "offset", slider=False)
-            jointTypeColumn.prop(context.active_bone.RobotEditor.d, "min", slider=False)
-            jointTypeColumn.prop(context.active_bone.RobotEditor.d, "max", slider=False)
+    if context.active_bone.RobotEditor.jointMode == 'REVOLUTE':
+        jointTypeColumn.label("theta:")
+        jointTypeColumn.prop(context.active_bone.RobotEditor.theta, "value", slider=False)
+        jointTypeColumn.prop(context.active_bone.RobotEditor.theta, "offset", slider=False)
+        jointTypeColumn.prop(context.active_bone.RobotEditor.theta, "min", slider=False)
+        jointTypeColumn.prop(context.active_bone.RobotEditor.theta, "max", slider=False)
+    else:  # jointMode == 'PRISMATIC'
+        jointTypeColumn.label("d:")
+        jointTypeColumn.prop(context.active_bone.RobotEditor.d, "value", slider=False)
+        jointTypeColumn.prop(context.active_bone.RobotEditor.d, "offset", slider=False)
+        jointTypeColumn.prop(context.active_bone.RobotEditor.d, "min", slider=False)
+        jointTypeColumn.prop(context.active_bone.RobotEditor.d, "max", slider=False)
 
 
 def draw(layout, context):
-    if not armatures.checkArmature(layout,context):
+    if not armatures.checkArmature(layout, context):
         return
     # layout.label("Active Bone:")
     if context.active_bone is not None:
@@ -285,7 +285,7 @@ def draw(layout, context):
         else:
             activeBoneParentName = ""
 
-        box=layout.box()
+        box = layout.box()
         box.label('Active segment:')
         boneSelector(box, context)
         box.separator()
