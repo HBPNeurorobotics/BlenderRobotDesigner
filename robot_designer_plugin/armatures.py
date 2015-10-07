@@ -7,8 +7,14 @@ from bpy.props import StringProperty, IntProperty
 
 from .tools import collapsible, boneSelector
 
-# creates a new armature, new_name is the name of the new armature
+
 def createArmature(new_name):
+    """
+    Creates a new armature
+    :param new_name: the name of the new armature
+    :return: reference to the new armature object
+    """
+
     armature_data = bpy.data.armatures.new(new_name)
     armature_Object = bpy.data.objects.new(new_name, armature_data)
     armature_Object.data = armature_data
@@ -21,9 +27,14 @@ def createArmature(new_name):
     return armature_Object
 
 
-# creates new bone, armatureName identifies the armature, boneName the name of the new bone
-# and parentName(optional) identifies the name of the parent bone
 def createBone(armatureName, boneName, parentName=None):
+    """
+    Creates a new bone
+
+    :param armatureName: string identifier of the armature
+    :param boneName: the name of the new bone
+    :param parentName: (optional) identifies the name of the parent bone
+    """
     print("createBone")
     bpy.ops.roboteditor.selectarmature(armatureName=armatureName)
     currentMode = bpy.context.object.mode
@@ -48,8 +59,10 @@ def createBone(armatureName, boneName, parentName=None):
     print("createBone done")
 
 
-# operator to select mesh
 class RobotEditor_selectCoordinateFrame(bpy.types.Operator):
+    """
+    Operator for selecting mesh for visualization of coordinate frames.
+    """
     bl_idname = "roboteditor.selectcf"
     bl_label = "Select Mesh"
 
@@ -64,8 +77,10 @@ class RobotEditor_selectCoordinateFrame(bpy.types.Operator):
         return {'FINISHED'}
 
 
-# dynamic menu to select mesh
 class RobotEditor_coordinateFrameMenu(bpy.types.Menu):
+    """
+    Dynamic menu to select mesh
+    """
     bl_idname = "roboteditor.cfmenu"
     bl_label = "Select Mesh"
 
@@ -84,10 +99,16 @@ class RobotEditor_coordinateFrameMenu(bpy.types.Menu):
             layout.operator("roboteditor.selectcf", text=mesh).meshName = mesh
 
 
-# Function to convert a given rotation vector and a roll angle anlong this axis into a 3x3 rotation matrix
-# Python port of the C function defined in armature.c
-# Thanks to blenderartists.org user vida_vida
 def _vec_roll_to_mat3(vec, roll):
+    """
+    Function to convert a given rotation vector and a roll angle along this axis into a 3x3 rotation matrix
+    Python port of the C function defined in armature.c
+    Credits: blenderartists.org user vida_vida
+
+    :param vec:
+    :param roll:
+    :return:
+    """
     target = mathutils.Vector((0, 1, 0))
     nor = vec.normalized()
     axis = target.cross(nor)
@@ -379,14 +400,15 @@ class RobotEditor_ArmatureJoinMenu(bpy.types.Menu):
             text = arm.name
             layout.operator("roboteditor.joinarmature", text=text).targetArmatureName = text
 
-def checkArmature(layout, context):
 
+def checkArmature(layout, context):
     if context.active_object is not None and context.active_object.type == 'ARMATURE':
         return True
     else:
         layout.label(text="Select Robot first:")
         layout.menu("roboteditor.armaturemenu", text="")
         return False
+
 
 # draw method that builds the part of the GUI responsible for the armature
 def draw(layout, context):
@@ -407,7 +429,7 @@ def draw(layout, context):
             row.operator("roboteditor.rebuildmodel")
 
             row = box.row(align=True)
-            row.label(text="Merge with another armature")
+            row.label(text="Merge with another robot model")
             row.menu("roboteditor.joinarmaturemenu", text="")
             layout.separator()
 
@@ -422,7 +444,7 @@ def draw(layout, context):
 
                 row = box.row(align=True)
                 leftColumn = row.column(align=True)
-                boneSelector(leftColumn,context)
+                boneSelector(leftColumn, context)
                 row.separator()
                 rightColumn = row.column(align=False)
                 rightColumn.operator("roboteditor.renamebone")
@@ -436,13 +458,13 @@ def draw(layout, context):
                 row.menu("roboteditor.assignparentbonemenu", text=activeBoneParentName)
 
             box = layout.box()
-            if collapsible(box,context,'collapseGlobalSettings','Global Settings'):
+            if collapsible(box, context, 'collapseGlobalSettings', 'Global Settings'):
                 box.prop(context.scene.RobotEditor, "boneLength", slider=False)
                 box.operator('view3d.view_lock_to_active')
                 box.separator()
 
             box = layout.box()
-            if collapsible(box,context,'collapseCFSelection','Custom coordinate frames for segments'):
+            if collapsible(box, context, 'collapseCFSelection', 'Custom coordinate frames for segments'):
                 box.menu('roboteditor.cfmenu', text='None')
         else:
             layout.menu("roboteditor.armaturemenu", text="")

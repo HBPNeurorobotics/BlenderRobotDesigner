@@ -42,7 +42,7 @@ def import_(urdf_file):
 
     logger.debug('root links: %s', [i.name for i in root_links])
 
-    armature_name = createArmature(robot_name).name #bpy.context.active_object.name
+    armature_name = createArmature(robot_name).name  # bpy.context.active_object.name
 
     bpy.ops.roboteditor.selectarmature(armatureName=armature_name)
 
@@ -74,7 +74,7 @@ def import_(urdf_file):
                 logger.debug("Warning! Couldn't load file relative to ROS_PACKAGE_PATH environment variable.")
                 prefix_folder = os.path.dirname(urdf_file)
                 if prefix_folder.split("/").pop() == mesh_filename.split("/")[0]:
-                    prefix_folder = '/'+'/'.join(prefix_folder.split("/")[1:-1])
+                    prefix_folder = '/' + '/'.join(prefix_folder.split("/")[1:-1])
 
         else:
             prefix_folder = os.path.dirname(urdf_file)
@@ -83,7 +83,7 @@ def import_(urdf_file):
         file_name = mesh_filename.replace("file://", "")
         file_path = os.path.join(prefix_folder, file_name)
 
-        #logger.debug("Import %s, exists: %s", file_path, os.path.exists(file_path))
+        # logger.debug("Import %s, exists: %s", file_path, os.path.exists(file_path))
         fn, extension = os.path.splitext(file_path)
         if extension == ".stl":
             bpy.ops.import_mesh.stl(filepath=file_path)
@@ -96,7 +96,7 @@ def import_(urdf_file):
         scale_matrix = Matrix([[scale_urdf[0], 0, 0, 0], [0, scale_urdf[1], 0, 0],
                                [0, 0, scale_urdf[2], 0], [0, 0, 0, 1]])
 
-        #logger.debug("xyz: %s, rpy: %s\n%s",model.origin.xyz,model.origin.rpy,scale_matrix)
+        # logger.debug("xyz: %s, rpy: %s\n%s",model.origin.xyz,model.origin.rpy,scale_matrix)
 
 
         return Matrix.Translation(Vector(string_to_list(model.origin.xyz))) * \
@@ -127,6 +127,12 @@ def import_(urdf_file):
     #            Euler(string_to_list(collision.origin.rpy), 'XYZ').to_matrix().to_4x4()
 
     def parse(tree, parent_name=None):
+        """
+        Recursively parses the URDF tree elements.
+
+        :param tree: The actual segment
+        :param parent_name: Name of the parent segment (if None the segment is a root element)
+        """
 
         armatures.createBone(armature_name, tree.joint.name, parent_name)
         bone_name = tree.joint.name
@@ -303,7 +309,6 @@ def import_(urdf_file):
                     # todo debug message or throw exception if it is a primitive -- better create mesh from primitive
                     pass
 
-
         for sub_tree in tree.children:
             parse(sub_tree, bone_name)
         return bone_name
@@ -342,6 +347,13 @@ def export(file_name):
     """
 
     def export_mesh(name):
+        """
+        Exports a mesh to a separate file.
+
+        :param name: the name of the mesh (not the file name).
+        :type name: basestring.
+        :return: name of the file the mesh is stored in.
+        """
         meshes = [obj.name for obj in bpy.data.objects if
                   obj.type == "MESH" and obj.name == name and not obj.RobotEditor.tag == "COLLISION"]
         for mesh in meshes:
@@ -356,10 +368,10 @@ def export(file_name):
 
             # quick fix for dispersed meshes
             # todo: find appropriate solution
-            f = open(file_path,"r")
+            f = open(file_path, "r")
             lines = f.readlines()
             f.close()
-            f = open(file_path,"w")
+            f = open(file_path, "w")
             for line in lines:
                 if "matrix" not in line:
                     f.write(line)
@@ -369,9 +381,20 @@ def export(file_name):
             # set correct mesh path: This requires the ROS default package structure.
             model_folder_name = bpy.context.scene.RobotEditor.modelFolderName
             print("Model folder name: " + model_folder_name)
-            return("model://" + os.path.join(model_folder_name, "meshes", mesh + ".dae"))
+            return ("model://" + os.path.join(model_folder_name, "meshes", mesh + ".dae"))
 
     def export_collisionmodel(name):
+        """
+        Exports a *collision* mesh to a separate file.
+
+        .. note::
+
+            This can be merged with export_mesh using an additional parameter.
+
+        :param name: the name of the mesh (not the file name).
+        :type name: basestring.
+        :return: name of the file the mesh is stored in.
+        """
         collisions = [obj.name for obj in bpy.data.objects if
                       obj.type == "MESH" and name in obj.name and obj.RobotEditor.tag == "COLLISION"]
         for collision in collisions:
@@ -385,15 +408,15 @@ def export(file_name):
             bpy.ops.object.select_all(action='DESELECT')
             bpy.context.scene.objects.active = bpy.data.objects[collision]
             bpy.context.active_object.select = True
-            #bpy.ops.export_mesh.stl(filepath=object_name, ascii=True)
+            # bpy.ops.export_mesh.stl(filepath=object_name, ascii=True)
             bpy.ops.wm.collada_export(filepath=object_name, selected=True)
 
             # quick fix for dispersed meshes
             # todo: find appropriate solution
-            f = open(object_name,"r")
+            f = open(object_name, "r")
             lines = f.readlines()
             f.close()
-            f = open(object_name,"w")
+            f = open(object_name, "w")
             for line in lines:
                 if "matrix" not in line:
                     f.write(line)
@@ -403,7 +426,7 @@ def export(file_name):
             # set correct mesh path: This requires the ROS default package structure.
             model_folder_name = bpy.context.scene.RobotEditor.modelFolderName
             print("Model folder name: " + model_folder_name)
-            return("model://" + os.path.join(model_folder_name, "collisions", collision + ".dae"))
+            return ("model://" + os.path.join(model_folder_name, "collisions", collision + ".dae"))
 
     # def export_mesh(name):
     #     file_path = os.path.join(os.path.dirname(file_name), "meshes", name + '.dae')
@@ -444,12 +467,18 @@ def export(file_name):
     #     return "package://" + "/" + os.path.join("collisions", name + '.stl')
 
     def build(bone, tree):
+        """
+        Recursively builds a URDF tree object hierarchy for export
+
+        :param bone: Reference to a blender bone object
+        :param tree: Reference to a URDF Tree object
+        """
         child = tree.add()
         trafo, dummy = bone.RobotEditor.getTransform()
         child.joint.origin.rpy = list_to_string(trafo.to_euler())
         child.joint.origin.xyz = list_to_string(trafo.translation)
         child.joint.name = bone.name
-        #print(child.joint.name, "trafo", trafo, "rpy", child.joint.origin.rpy)
+        # print(child.joint.name, "trafo", trafo, "rpy", child.joint.origin.rpy)
         if bone.RobotEditor.axis == 'X':
             child.joint.axis.xyz = '1 0 0'
         elif bone.RobotEditor.axis == 'Y':
@@ -474,7 +503,7 @@ def export(file_name):
 
         # Add properties
         connected_meshes = [mesh.name for mesh in bpy.data.objects if
-                            mesh.type == 'MESH' and mesh.parent_bone == bone.name ]
+                            mesh.type == 'MESH' and mesh.parent_bone == bone.name]
         if len(connected_meshes) > 0:
             child.link.name = connected_meshes[0]
         else:
@@ -487,15 +516,15 @@ def export(file_name):
             pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
                    bpy.data.objects[mesh].matrix_world
 
-            #print('Mesh name: ' + mesh)
-            #print('debug visual hinzugefuegt: ' + export_mesh(mesh))
+            # print('Mesh name: ' + mesh)
+            # print('debug visual hinzugefuegt: ' + export_mesh(mesh))
             if not bpy.data.objects[mesh].RobotEditor.tag == "COLLISION":
                 visual = child.add_mesh(export_mesh(mesh))
                 visual.origin.xyz = list_to_string(pose.translation)
                 visual.origin.rpy = list_to_string(pose.to_euler())
 
             # using the collisionmodel export for stl files
-            #print('debug collision hinzugefuegt: ' + export_collisionmodel(mesh))
+            # print('debug collision hinzugefuegt: ' + export_collisionmodel(mesh))
             collision_model_path = export_collisionmodel(mesh)
             if collision_model_path is not None:
                 collision = child.add_collisionmodel(collision_model_path)
@@ -525,9 +554,9 @@ def export(file_name):
             controller.type = bone.RobotEditor.jointController.controllerType
             if bone.RobotEditor.jointController.P <= 1.0:
                 bone.RobotEditor.jointController.P = 100
-            controller.pid = str(bone.RobotEditor.jointController.P) + " " +\
-                str(bone.RobotEditor.jointController.I) + " " +\
-                str(bone.RobotEditor.jointController.D)
+            controller.pid = str(bone.RobotEditor.jointController.P) + " " + \
+                             str(bone.RobotEditor.jointController.I) + " " + \
+                             str(bone.RobotEditor.jointController.D)
 
         # Add geometry
         for child_bones in bone.children:

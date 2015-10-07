@@ -9,6 +9,7 @@ import logging
 logger = logging.getLogger('Meshes')
 logger.setLevel(logging.DEBUG)
 
+
 def create_collision_mesh(context, target):
     """
 
@@ -18,13 +19,11 @@ def create_collision_mesh(context, target):
     """
 
 
-
 class RobotEditor_generateAllCollisionMeshes(bpy.types.Operator):
     bl_idname = "roboteditor.generatallecollisionmeshes"
     bl_label = "Generate All Collision Meshes"
 
     def execute(self, context):
-
         visuals = [o.name for o in bpy.data.objects if o.type == 'MESH'
                    and o.parent == context.active_object and o.RobotEditor.tag != "COLLISION"]
 
@@ -35,8 +34,9 @@ class RobotEditor_generateAllCollisionMeshes(bpy.types.Operator):
 
         return {'FINISHED'}
 
+
 class RobotEditor_SettingsDialog(bpy.types.Operator):
-    bl_idname ="roboteditor.collisiondialog"
+    bl_idname = "roboteditor.collisiondialog"
     bl_label = "Settings for creating collision meshes"
 
     levels = bpy.props.FloatProperty(name='Levels')
@@ -48,10 +48,11 @@ class RobotEditor_SettingsDialog(bpy.types.Operator):
 
         return {'FINISHED'}
 
-    def invoke(self,context,event):
+    def invoke(self, context, event):
         # self.levels = context.scene.RobotEditor.subdivisionLevels
         # self.offset = context.scene.RobotEditor.shrinkWrapOffset
         return context.window_manager.invoke_props_dialog(self)
+
 
 class RobotEditor_generateCollisionMesh(bpy.types.Operator):
     """
@@ -69,19 +70,19 @@ class RobotEditor_generateCollisionMesh(bpy.types.Operator):
         :param context: Blender context object
         :return:
         """
-        #bpy.ops.roboteditor.collisiondialog('INVOKE_DEFAULT')
+        # bpy.ops.roboteditor.collisiondialog('INVOKE_DEFAULT')
 
         logger.debug("Creating Collision mesh for: %s", self.target)
         armature = context.active_object.name
 
         bpy.ops.object.select_all(action='DESELECT')
-        bpy.context.scene.objects.active= bpy.data.objects[self.target]
+        bpy.context.scene.objects.active = bpy.data.objects[self.target]
 
         d = bpy.data.objects[self.target].dimensions
         bpy.ops.mesh.primitive_cube_add(location=bpy.data.objects[self.target].location,
                                         rotation=bpy.data.objects[self.target].rotation_euler)
         offset = bpy.context.scene.RobotEditor.shrinkWrapOffset
-        bpy.context.object.dimensions = d*100
+        bpy.context.object.dimensions = d * 100
         bpy.ops.object.transform_apply(scale=True)
         mod = bpy.context.object.modifiers.new(name='subsurf', type='SUBSURF')
         mod.subdivision_type = 'SIMPLE'
@@ -136,7 +137,7 @@ class RobotEditor_generateCollisionMesh(bpy.types.Operator):
 #         return {'FINISHED'}
 
 
-def draw(layout,context):
+def draw(layout, context):
     row = layout.row()
     column = row.column()
     meshSelector(column, context)
@@ -150,13 +151,14 @@ def draw(layout,context):
 
 
 def register():
-    #bpy.utils.register_class(RobotEditor_assignCollisionModel)
+    # bpy.utils.register_class(RobotEditor_assignCollisionModel)
     bpy.utils.register_class(RobotEditor_generateCollisionMesh)
     bpy.utils.register_class(RobotEditor_generateAllCollisionMeshes)
-    #bpy.utils.register_class(RobotEditor_SettingsDialog)
+    # bpy.utils.register_class(RobotEditor_SettingsDialog)
+
 
 def unregister():
-    #bpy.utils.unregister_class(RobotEditor_assignCollisionModel)
+    # bpy.utils.unregister_class(RobotEditor_assignCollisionModel)
     bpy.utils.unregister_class(RobotEditor_generateCollisionMesh)
     bpy.utils.unregister_class(RobotEditor_generateAllCollisionMeshes)
-    #bpy.utils.unregister_class(RobotEditor_SettingsDialog)
+    # bpy.utils.unregister_class(RobotEditor_SettingsDialog)

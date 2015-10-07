@@ -16,6 +16,10 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+import bpy
+import logging
+import sys
+
 bl_info = {
     "name": "NRP Robot Designer",
     "author": "Stefan Ulbrich, Michael Bechtel",
@@ -24,10 +28,8 @@ bl_info = {
     "location": "View3D > Tools",
     "category": "Editor"}
 
-import sys
 additionalModulePath = True
-import bpy
-import logging
+
 logging.basicConfig(format='[%(levelname)s|%(name)s|%(funcName)s|%(filename)s:%(lineno)03d] %(message)s')
 
 
@@ -39,7 +41,7 @@ def register():
         additionalModulePath = False
 
     if (additionalModulePath):
-        print('Adding the following path to sys.path: '+str(generatedAdditionalModulePath.venvPath))
+        print('Adding the following path to sys.path: ' + str(generatedAdditionalModulePath.venvPath))
         sys.path = sys.path + generatedAdditionalModulePath.venvPath
 
     from . import properties

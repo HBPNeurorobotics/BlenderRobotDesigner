@@ -94,7 +94,7 @@ class COLLADA(object):
     VISUAL_SCENE = '{ns}library_visual_scenes/{ns}visual_scene'
     VISUAL_SCENE_ID = VISUAL_SCENE + '[@id="{id}"]'
     VISUAL_SCENE_TYPE_SID = VISUAL_SCENE_ID + \
-        '//{ns}node[@sid="{sid}"][@type="{type}"]'  # Type either 'JOINT' or 'NODE'
+                            '//{ns}node[@sid="{sid}"][@type="{type}"]'  # Type either 'JOINT' or 'NODE'
     VISUAL_SCENE_SID = VISUAL_SCENE_ID + '//{ns}node[@sid="{sid}"]'
     VISUAL_SCENE_NAME = VISUAL_SCENE_ID + '//{ns}node[@name="{name}"]'
     VISUAL_SCENE_2SID = VISUAL_SCENE_SID + '//*[@sid="{sid2}"]'
@@ -111,13 +111,13 @@ class COLLADA(object):
     ARTICULATED_SYSTEMS_MOTION_ID = ARTICULATED_SYSTEMS_MOTION + '[@id="{id}"]'
     ARTICULATED_SYSTEMS_MOTION_SID = ARTICULATED_SYSTEMS_MOTION_ID + '//*[@sid="{sid}"]'
     ARTICULATED_SYSTEMS_MOTION_AXIS_INFO = ARTICULATED_SYSTEMS_MOTION_ID + \
-        '/{ns}motion/{ns}technique_common/{ns}axis_info[@axis="{axis}"]'
+                                           '/{ns}motion/{ns}technique_common/{ns}axis_info[@axis="{axis}"]'
 
     ARTICULATED_SYSTEMS_KINEMATICS = '{ns}library_articulated_systems/{ns}articulated_system[{ns}kinematics]'
     ARTICULATED_SYSTEMS_KINEMATICS_ID = ARTICULATED_SYSTEMS_KINEMATICS + '[@id="{id}"]'
     ARTICULATED_SYSTEMS_KINEMATICS_SID = ARTICULATED_SYSTEMS_KINEMATICS_ID + '//*[@sid="{sid}"]'
     ARTICULATED_SYSTEMS_KINEMATICS_AXIS_INFO = ARTICULATED_SYSTEMS_KINEMATICS_ID + \
-        '/{ns}kinematics/{ns}technique_common/{ns}axis_info[@axis="{axis}"]'
+                                               '/{ns}kinematics/{ns}technique_common/{ns}axis_info[@axis="{axis}"]'
 
     KINEMATICS_SCENES = '{ns}library_kinematics_scenes/{ns}kinematics_scene'
     KINEMATICS_SCENES_ID = KINEMATICS_SCENES + '[@id="{id}"]'

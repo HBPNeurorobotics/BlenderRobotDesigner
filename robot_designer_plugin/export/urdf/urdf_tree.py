@@ -8,8 +8,10 @@ import sys
 import pyxb
 from . import urdf_dom
 import logging
+
 logger = logging.getLogger('URFD')
 logger.setLevel(logging.DEBUG)
+
 
 def set_value(l):
     """
@@ -60,7 +62,7 @@ class URDFTree(object):
         """
 
         # read the file
-        #robot = urdf_dom.parse(file_name, silence=True)
+        # robot = urdf_dom.parse(file_name, silence=True)
         robot = urdf_dom.CreateFromDocument(open(file_name).read())
 
         # parsing joint controllers
@@ -107,7 +109,7 @@ class URDFTree(object):
         logger.debug("kinematic chains: %s", kinematic_chains)
         return robot.name, root_links, kinematic_chains, controller_cache
 
-    def build(self, link, joint=None,depth=0):
+    def build(self, link, joint=None, depth=0):
         """
         Recursive function that builds up the tree representation of the robot. You do not have to call it manually (
         Called by parse).
@@ -121,17 +123,24 @@ class URDFTree(object):
 
         children = self.connectedJoints[link]
 
-        #logger.debug("%s %s, %s -> %s", '-'*depth, joint.name, link.name, [i.name for i in children] )
-        #logger.debug("%s axis: '%s', type: '%s', xyz:'%s', rpy:'%s', limit:'%s-%s' ", ' '*depth,  joint.axis.xyz, joint.type_, joint.origin.xyz,joint.origin.rpy, joint.limit.lower, joint.limit.upper )
+        # logger.debug("%s %s, %s -> %s", '-'*depth, joint.name, link.name, [i.name for i in children] )
+        # logger.debug("%s axis: '%s', type: '%s', xyz:'%s', rpy:'%s', limit:'%s-%s' ", ' '*depth,  joint.axis.xyz, joint.type_, joint.origin.xyz,joint.origin.rpy, joint.limit.lower, joint.limit.upper )
 
         for joint in children:
-            tree = URDFTree(connected_links=self.connectedLinks, connected_joints=self.connectedJoints, robot=self.robot)
+            tree = URDFTree(connected_links=self.connectedLinks, connected_joints=self.connectedJoints,
+                            robot=self.robot)
             self.children.append(tree)
-            tree.build(self.connectedLinks[joint], joint, depth+1)
-
+            tree.build(self.connectedLinks[joint], joint, depth + 1)
 
     @staticmethod
     def create_empty(name):
+        """
+        Creates an empty tree object.
+
+        :param name: the name of the robot the tree is representing the model of.
+        :type name: string
+        :return: The tree instance.
+        """
 
         tree = URDFTree(connected_links={}, connected_joints={}, robot=urdf_dom.RobotType())
         tree.robot.name = name
@@ -147,7 +156,6 @@ class URDFTree(object):
         tree.robot.gazebo.append(tree.gazebo_tag)
 
         return tree
-
 
     def write(self, file_name):
         """
@@ -169,12 +177,11 @@ class URDFTree(object):
                 joint.parent = self.link.name
 
         with open(file_name, "w") as f:
-            #f.write('<?xml version="1.0" ?>')
+            # f.write('<?xml version="1.0" ?>')
             output = self.robot.toxml("utf-8", element_name="robot").decode("utf-8")
-            #output = output.replace(">", ">\n")
+            # output = output.replace(">", ">\n")
             f.write(output)
             # self.robot.export(f,0)
-
 
     def _write(self):
         """
@@ -211,8 +218,10 @@ class URDFTree(object):
 
     def add_mesh(self, file_name):
         """
+        Adds a mesh to current segment.
 
-        :param link:
+        :param file_name: Name of the file
+        :type file_name: string
         :return:
         """
         visual = urdf_dom.VisualType()
@@ -236,7 +245,7 @@ class URDFTree(object):
         collision.geometry = urdf_dom.GeometryType()
         collision.origin = urdf_dom.PoseType()
         collision.geometry.mesh = urdf_dom.MeshType()
-        #print('debug add_collisionmodel: ' + file_name)
+        # print('debug add_collisionmodel: ' + file_name)
         collision.geometry.mesh.filename = file_name
         return collision
 
@@ -254,10 +263,15 @@ class URDFTree(object):
         inertial.origin.xyz = "0 0 0"
         inertial.origin.rpy = "0 0 0"
 
-        #print('debug add_inertial: ')
+        # print('debug add_inertial: ')
         return inertial
 
     def add_joint_control_plugin(self):
+        """
+        Adds a reference to the generic control plugin of the NRP backend.
+
+        :return: Reference to the plugin type defined in the URDF
+        """
 
         plugin = urdf_dom.GazeboPluginType()
         plugin.name = "generic_controller"
@@ -283,7 +297,7 @@ class URDFTree(object):
 
     def set_defaults(self):
         """
-        Adds some default values to the DOM.
+        Adds defaults to missing values.
         """
 
         joint = self.joint
@@ -300,7 +314,7 @@ class URDFTree(object):
         if joint.calibration is None:
             joint.calibration = urdf_dom.CalibrationType()
             joint.calibration.reference_position = 0.0
-            joint.calibration.rising = 0.0 # there are no default values in the XSD?
+            joint.calibration.rising = 0.0  # there are no default values in the XSD?
             joint.calibration.falling = 0.0
 
         if joint.origin is None:
@@ -329,12 +343,12 @@ class URDFTree(object):
             if inertial.inertia is None:
                 inertial.inertia = urdf_dom.InertiaType()
 
-            # if joint.mimic is None: # truely optional
-            # if joint.safety_controller is None: # ignored
+                # if joint.mimic is None: # truely optional
+                # if joint.safety_controller is None: # ignored
 
-            # if link.inertial is None:
+                # if link.inertial is None:
 
-            # todo continue and remove if statements from urdf_blender
+                # todo continue and remove if statements from urdf_blender
 
     def show(self, depth=0):
         """
@@ -349,6 +363,7 @@ class URDFTree(object):
             print("Root link: %s" % self.link.name)
         for tree in self.children:
             tree.show(depth + 1)
+
 
 # debugging the module
 if __name__ == "__main__":

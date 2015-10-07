@@ -41,7 +41,7 @@ class RobotEditor_UserInterface(bpy.types.Panel):
             meshes.draw(layout, context)
         elif control == 'markers':
             markers.draw(layout, context)
-        #elif control == 'controller':
+        # elif control == 'controller':
         #    controllers.draw(layout, context)
         elif control == 'files':
             files.draw(layout, context)
@@ -49,13 +49,11 @@ class RobotEditor_UserInterface(bpy.types.Panel):
             layout.operator("roboteditor.printtransformations")
 
 
-
 # initialize all RobotEditor properties
 def init():
     bpy.types.Bone.RobotEditor = bpy.props.PointerProperty(type=bpy.types.RobotEditor_BoneProperty)
     bpy.types.Object.RobotEditor = bpy.props.PointerProperty(type=bpy.types.RobotEditor_Properties)
     bpy.types.Scene.RobotEditor = bpy.props.PointerProperty(type=bpy.types.RobotEditor_Globals)
-
 
 
 def register():

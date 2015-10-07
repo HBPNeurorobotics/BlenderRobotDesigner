@@ -34,7 +34,7 @@ class RobotEditor_Globals(bpy.types.PropertyGroup):
                ('bones', 'Segments', 'Modify segements'),
                ('meshes', 'Geometries', 'Assign meshes to segments'),
                # ('markers', 'Markers', 'Assign markers to bones'),
-               #('controller', 'Controller', 'Modify controller parameter'),
+               # ('controller', 'Controller', 'Modify controller parameter'),
                ('tools', 'Tools', 'Tools'),
                ('files', 'Files', 'Export Armature')],
         name="RobotEditor Control Panel"
@@ -42,30 +42,30 @@ class RobotEditor_Globals(bpy.types.PropertyGroup):
     meshType = EnumProperty(
         items=[('DEFAULT', 'Visual', 'Set visual meshes'), ('COLLISION', 'Collision', 'Set collision meshes')]
     )
-    listMeshes = EnumProperty(items=[("all",'List all','Show all meshes in menu'),
-                                ("connected", 'List connected', 'Show only connected meshes in menu'),
-                                ('disconnected', 'List disconnected', 'Show only disconnected meshes in menu')])
+    listMeshes = EnumProperty(items=[("all", 'List all', 'Show all meshes in menu'),
+                                     ("connected", 'List connected', 'Show only connected meshes in menu'),
+                                     ('disconnected', 'List disconnected', 'Show only disconnected meshes in menu')])
 
-    hideMeshType =  EnumProperty(
+    hideMeshType = EnumProperty(
         items=[('all', 'Show All connected', 'Show all mesh objects in viewport'),
                ('collision', 'Show collision models', 'Show only connected collision models'),
                ('visual', 'Show visual models', 'Show only connected visual models')], update=meshes.displayMeshes)
 
-    listBones = EnumProperty(items=[("all",'List all','Show all bones in menu'),
-                                     ("connected", 'List connected', 'Show only bones with connected meshes in menu'),
-                                     ('disconnected', 'List disconnected',
-                                      'List only bones without connected meshes in menu')])
+    listBones = EnumProperty(items=[("all", 'List all', 'Show all bones in menu'),
+                                    ("connected", 'List connected', 'Show only bones with connected meshes in menu'),
+                                    ('disconnected', 'List disconnected',
+                                     'List only bones without connected meshes in menu')])
     storageMode = EnumProperty(items=[('temporary', 'Non-persistant GIT', 'Stores/retrieves files from GIT temporary' +
                                        ' repository'),
-                                      ('git','Persitant GIT','Stores/retrieves files from persistent GIT repository'),
-                                      ('local','Local','Stores/retrieves from local hard disk')])
+                                      ('git', 'Persitant GIT', 'Stores/retrieves files from persistent GIT repository'),
+                                      ('local', 'Local', 'Stores/retrieves from local hard disk')])
     gitURL = StringProperty(name='GIT URL')
     gitRepository = StringProperty(name='GIT Repository')
     modelFolderName = StringProperty(name='Model folder')
 
     boneMode = EnumProperty(items=[('kinematics', 'Kinematics', 'Edit kinematic properties'),
-                                      ('dynamics','Dynamics','Edit Dynamic properties'),
-                                        ('controller','Controller','Edit Controller properties')])
+                                   ('dynamics', 'Dynamics', 'Edit Dynamic properties'),
+                                   ('controller', 'Controller', 'Edit Controller properties')])
     boneLength = FloatProperty(name="Global bone length", default=1, min=0.001, update=updateGlobals)
     subdivisionLevels = IntProperty(name="Subdivision Levels", default=2)
     shrinkWrapOffset = FloatProperty(name="Shrinkwrap Offset", default=0.001, unit='LENGTH', min=0, max=0.5)
@@ -74,7 +74,7 @@ class RobotEditor_Globals(bpy.types.PropertyGroup):
     liveSearchMeshes = StringProperty(name="Live Search for Meshes", default="")
     liveSearchMarkers = StringProperty(name="Live Search for Markers", default="")
 
-    #collapsable bone elements
+    # collapsable bone elements
     collapseBoneEdit = BoolProperty(name="Edit Bones")
     collapseGlobalSettings = BoolProperty(name="Robot Designer global settings")
     collapseController = BoolProperty(name="Collapse controller box")
@@ -83,6 +83,8 @@ class RobotEditor_Globals(bpy.types.PropertyGroup):
     collapseDisconnectMesh = BoolProperty(name="Collapse collision mesh limits box", default=True)
     collapseConnectMesh = BoolProperty(name="Collapse collision mesh limits box", default=True)
     collapseCFSelection = BoolProperty(name="Collapse coordinate frame selection box", default=False)
+
+
 # property group that defines a degree of freedom
 class RobotEditor_DoF(bpy.types.PropertyGroup):
     def updateDoF(self, context):
@@ -132,7 +134,7 @@ class RobotEditor_Euler(bpy.types.PropertyGroup):
         rot.resize_4x4()
 
         transl = Matrix.Translation((self.x.value, self.y.value, self.z.value))
-        #print("here",transl * rot)
+        # print("here",transl * rot)
         return transl * rot
 
     x = PointerProperty(type=RobotEditor_DoF)
@@ -161,9 +163,9 @@ class RobotEditor_DH(bpy.types.PropertyGroup):
     alpha = PointerProperty(type=RobotEditor_DoF)
     a = PointerProperty(type=RobotEditor_DoF)
 
+
 # property group for joint controllers
 class RobotEditor_JointControllerType(bpy.types.PropertyGroup):
-
     isActive = BoolProperty(name="Active", default=True)
 
     controllerType = EnumProperty(
@@ -181,6 +183,7 @@ class RobotEditor_JointControllerType(bpy.types.PropertyGroup):
     P = FloatProperty(name="P", precision=4, step=100, default=1.0)
     I = FloatProperty(name="I", precision=4, step=100, default=1.0)
     D = FloatProperty(name="D", precision=4, step=100, default=1.0)
+
 
 # bone property, contains all relevant bone information for RobotEditor
 class RobotEditor_BoneProperty(bpy.types.PropertyGroup):
@@ -242,7 +245,7 @@ class RobotEditor_BoneProperty(bpy.types.PropertyGroup):
             elif self.axis == 'Z':
                 translation = Matrix.Translation((0, 0, inverted * (self.d.value + self.d.offset), 1))
 
-        if self.jointMode == 'FIXED': # todo: check if this is right for fixed joint type
+        if self.jointMode == 'FIXED':  # todo: check if this is right for fixed joint type
             translation = Matrix.Translation((0, 0, 0, 1))
 
         return parentMatrix * axis_matrix, translation * rotation
