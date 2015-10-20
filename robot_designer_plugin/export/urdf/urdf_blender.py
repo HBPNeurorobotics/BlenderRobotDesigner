@@ -284,6 +284,9 @@ def import_(urdf_file):
                         # if the loop continues the name will be suffixed by a number
 
                         print("Model type: " + str(model_type))
+                        # Remove multiple "COL_" and "VIS_" strings before renaming
+                        while tree.link.name.startswith(("COL_", "VIS_")):
+                            tree.link.name = tree.link.name[4:]
                         if model_type == COLLISON:
                             # %2d changed to %d because it created unwanted space with one digit numbers
                             bpy.context.active_object.name = "COL_%s_%d" % (tree.link.name, nr)
