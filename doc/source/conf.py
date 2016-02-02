@@ -15,6 +15,15 @@
 
 import sys
 import os
+
+try:
+    import collaboratory_sphinx_theme
+    using_collaboratory_sphinx_theme = False
+except ImportError:
+    using_collaboratory_sphinx_theme = False
+    print("Failed to import the collaboratory sphinx theme")
+
+
 import shlex
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -23,7 +32,8 @@ import shlex
 print(os.path.abspath('../../robot_designer_plugin'))
 print(sys.version)
 sys.path.insert(0, os.path.abspath('../../'))
-sys.path.insert(0, os.path.abspath('../../resources/mock_bpy'))
+sys.path.insert(0, os.path.abspath('../../robot_designer_plugin/resources/blender_api'))
+print(sys.path)
 
 # -- General configuration ------------------------------------------------
 
@@ -40,8 +50,10 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
+    'sphinx.ext.intersphinx'
 ]
 
+intersphinx_mapping = {'bpy': ('https://www.blender.org/api/blender_python_api_current/',None)}
 # Blender is not available as a separate python module. Therefore,
 # use mockautodoc extension
 #mockautodoc = {
@@ -65,8 +77,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'NRP RobotDesigner'
-copyright = '2015, Stefan Ulbrich'
-author = 'Stefan Ulbrich'
+copyright = '2015, Stefan Ulbrich (FZI)'
+author = 'Stefan Ulbrich (FZI)'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -126,7 +138,11 @@ todo_include_todos = True
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'alabaster'
+if using_collaboratory_sphinx_theme:
+    html_theme_path = [collaboratory_sphinx_theme.get_html_theme_path()]
+    html_theme = 'collaboratory_sphinx_theme'
+else:
+    html_theme = 'alabaster'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -143,14 +159,15 @@ html_theme = 'alabaster'
 # A shorter title for the navigation bar.  Default is the same as html_title.
 html_short_title = "NRP Robot Designer"
 
-# The name of an image file (relative to this directory) to place at the top
-# of the sidebar.
-html_logo = "./images/hbp.png"
+if not using_collaboratory_sphinx_theme:
+    # The name of an image file (relative to this directory) to place at the top
+    # of the sidebar.
+    html_logo = "./images/hbp.png"
 
-# The name of an image file (within the static path) to use as favicon of the
-# docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
-# pixels large.
-html_favicon = "./images/hbp_32x32.ico"
+    # The name of an image file (within the static path) to use as favicon of the
+    # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
+    # pixels large.
+    html_favicon = "./images/hbp_32x32.ico"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -241,7 +258,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   (master_doc, 'NRPRobotDesigner.tex', 'NRP RobotDesigner Documentation',
-   'Stefan Ulbrich', 'manual'),
+   'Stefan Ulbrich (FZI)', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

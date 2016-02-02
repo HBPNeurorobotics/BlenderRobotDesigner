@@ -30,7 +30,7 @@ from 2008-2012 at the `HIS -- Humanoids and Intelligence Systens Lab
 in the context of the `OpenGRASP software <http://opengrasp.sourceforge.net/>`_.
 It is published under the GPL license.
 This Python plugin restricted to the
-Blender version 2.49 was mainly developed by `Stefan Ulbrich <mailto:stefan.ulbrich@fzi.de>`_.
+Blender version 2.49 was mainly developed by `Stefan Ulbrich (FZI) <mailto:stefan.ulbrich@fzi.de>`_.
 One of the most notable features of the *RobotEditor* was support for the
 `Collada v1.5 <https://www.khronos.org/collada/>`_ 3D asset exchange format. This file format has large support from
 the industry including companies such as Daimler and Sony. The RobotEditor was the only freely available
@@ -40,7 +40,7 @@ Afterwards, the *RobotEditor* [#f3]_ has been completely rewritten to comply the
 versions (>2.69) at the `H2T -- High Perfomance Humanoid Technologies Lab (IAR -- Institute for Anthropomatics
 and Robotics) <http://h2t.anthropomatik.kit.edu/enligsh/index.php>`_ of the
 `Karlsruhe Institute of Technology <http://www.kit.edu/english/index.php>`_ by the main authors
-`Michael Bechtel <mailto:michael.bechtel@kit.edu>`_ and `Stefan Ulbrich <mailto:stefan.ulbrich@fzi.de>`_. Many new
+`Michael Bechtel <mailto:michael.bechtel@kit.edu>`_ and `Stefan Ulbrich (FZI) <mailto:stefan.ulbrich@fzi.de>`_. Many new
 feature such as *physical properties*, *joint dynamics*, *sensors for matching motion capture data* support for
 the `Simox robot simulator <http://simox.sourceforge.net/>`_ [#f4]_ have been added to the software. The current is still
 developed and the current state is `available under the GPL license <https://gitlab.com/h2t/roboteditor>`_.

@@ -1,0 +1,793 @@
+Panels:
+  - Class: rviz/Displays
+    Help Height: 81
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /Status1
+        - /Marker1
+        - /Grid1
+        - /RobotModel1
+      Splitter Ratio: 0.5
+    Tree Height: 720
+  - Class: rviz/Selection
+    Name: Selection
+  - Class: rviz/Tool Properties
+    Expanded:
+      - /2D Pose Estimate1
+      - /2D Nav Goal1
+      - /Publish Point1
+    Name: Tool Properties
+    Splitter Ratio: 0.588679
+  - Class: rviz/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz/Time
+    Experimental: false
+    Name: Time
+    SyncMode: 0
+    SyncSource: ""
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /visualization_marker
+      Name: Marker
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.03
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 10
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled:
+          {}
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        clavicle_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        clavicle_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        eye_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        eye_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.001:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.002:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.003:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.004:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.005:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.006:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.007:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.008:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.009:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.010:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.011:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.012:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.013:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.014:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.015:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.016:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.017:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.018:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.019:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.020:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.021:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.022:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.023:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.024:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.025:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.026:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.027:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.028:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.029:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.030:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.031:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.032:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.033:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.034:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.035:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.036:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.037:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.038:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.039:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.040:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.041:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.042:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.043:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.044:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.045:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.046:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.047:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.048:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.049:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.050:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.051:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.052:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.053:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.054:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.055:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.056:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.057:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.058:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.059:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.060:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.061:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.062:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.063:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.064:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.065:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.066:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.067:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.068:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.069:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.070:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.071:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.072:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.073:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.074:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.075:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.076:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.077:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.078:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.079:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.080:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.081:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.082:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.083:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.084:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.085:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.086:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.087:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.088:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.089:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.090:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.091:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.092:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.093:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.094:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.095:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.096:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.097:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.098:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.099:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.100:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.101:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.102:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.103:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.104:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.105:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.106:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.107:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.108:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.109:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.110:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        human.111:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        levator02_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        levator02_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        levator03_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        levator03_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        levator04_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        levator04_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        neck01_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        neck02_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        neck03_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        oculi02_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        oculi02_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        oris02_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        oris04_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        oris04_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        oris06_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        oris06_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        oris06_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        oris07_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        oris07_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        risorius02_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        risorius02_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        root_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        shoulder01_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        shoulder01_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        special01_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        special03_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        special04_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        special05_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        special05_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        special06_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        special06_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        temporalis01_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        temporalis01_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        temporalis02_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        temporalis02_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        toe5-2_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        toe5-2_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        tongue00_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        tongue01_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        tongue02_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        tongue03_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        tongue04_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        tongue05_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        tongue05_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        tongue06_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        tongue06_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        tongue07_L_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        tongue07_R_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+      Name: RobotModel
+      Robot Description: robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+  Enabled: true
+  Global Options:
+    Background Color: 0; 0; 0
+    Fixed Frame: root_link
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+    - Class: rviz/FocusCamera
+    - Class: rviz/Measure
+    - Class: rviz/SetInitialPose
+      Topic: /initialpose
+    - Class: rviz/SetGoal
+      Topic: /move_base_simple/goal
+    - Class: rviz/PublishPoint
+      Single click: true
+      Topic: /clicked_point
+  Value: true
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 127.35
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.06
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      Name: Current View
+      Near Clip Distance: 0.01
+      Pitch: 0.485203
+      Target Frame: <Fixed Frame>
+      Value: Orbit (rviz)
+      Yaw: 3.40861
+    Saved: ~
+Window Geometry:
+  Displays:
+    collapsed: false
+  Height: 1031
+  Hide Left Dock: false
+  Hide Right Dock: false
+  QMainWindow State: 000000ff00000000fd0000000400000000000001b700000362fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006700fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000004300000362000000e300fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f00000362fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000004300000362000000b300fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000007790000003efc0100000002fb0000000800540069006d00650100000000000007790000023a00fffffffb0000000800540069006d00650100000000000004500000000000000000000004a70000036200000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Selection:
+    collapsed: false
+  Time:
+    collapsed: false
+  Tool Properties:
+    collapsed: false
+  Views:
+    collapsed: false
+  Width: 1913
+  X: 0
+  Y: 60

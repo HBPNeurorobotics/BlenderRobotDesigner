@@ -1,0 +1,21 @@
+robotdesigner:
+  title: "RobotDesigner"
+  paths: [
+    "/Users/ulbrich/Projects/RobotDesigner"
+  ]
+  settings:
+    '*':
+      "autocomplete-python":
+        pythonPaths: "$PROJECT/venv/bin/python3.4"
+        extraPaths: "$PROJECT/robot_designer_plugin/resources/blender_api;$PROJECT/robot_designer_plugin/resources/third-party/pyxb;"
+        useSnippets: "required"
+      "linter-flake8":
+        maxLineLength: 120
+      "atom-beautify":
+        python_max_line_length: 120
+      editor:
+        invisibles: {}
+        preferredLineLength: 120
+        tabLength: 4
+        tabType: "soft"
+        showIndentGuide: true

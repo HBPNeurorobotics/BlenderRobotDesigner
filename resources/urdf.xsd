@@ -27,19 +27,19 @@
 
   <!-- inertia node type -->
   <xs:complexType name="InertiaType">
-    <xs:attribute name="ixx" type="xs:double" default="0" />
+    <xs:attribute name="ixx" type="xs:double" default="1.0" />
     <xs:attribute name="ixy" type="xs:double" default="0" />
     <xs:attribute name="ixz" type="xs:double" default="0" />
-    <xs:attribute name="iyy" type="xs:double" default="0" />
+    <xs:attribute name="iyy" type="xs:double" default="1.0" />
     <xs:attribute name="iyz" type="xs:double" default="0" />
-    <xs:attribute name="izz" type="xs:double" default="0" />
+    <xs:attribute name="izz" type="xs:double" default="1.0" />
   </xs:complexType>
 
   <!-- inertial node type -->
   <xs:complexType name="InertialType">
     <xs:all>
       <xs:element name="origin"  type="PoseType"    minOccurs="0" maxOccurs="1"/>
-      <xs:element name="mass"    type="MassType"    minOccurs="0" maxOccurs="1"/>
+      <xs:element name="mass"    type="MassType"    minOccurs="1" maxOccurs="1"/>
       <xs:element name="inertia" type="InertiaType" minOccurs="0" maxOccurs="1"/>
     </xs:all>
   </xs:complexType>

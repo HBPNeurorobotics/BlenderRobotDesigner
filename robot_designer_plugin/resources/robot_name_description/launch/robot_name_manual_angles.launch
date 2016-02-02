@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="start_rviz" default="true" />
+  <arg name="ns" default="/robot" />
+  <!--arg name="robot_name" default="$robot_name$"/-->
+  <arg name="model_name" default="$robot_name$.urdf" />
+
+  <!-- Load URDF and start robot state publisher node -->
+  <include file="$(find $robot_name$_description)/launch/$robot_name$.launch">
+    <arg name="start_rviz" value="$(arg start_rviz)" />
+    <arg name="ns" value="$(arg ns)" />
+    <arg name="model_name" value="$(arg model_name)" />
+  </include>
+
+  <!-- Start joint state publisher until real joint states are published -->
+  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher">
+    <param name="use_gui" type="bool" value="true" />
+  </node>
+
+</launch>

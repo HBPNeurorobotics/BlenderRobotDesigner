@@ -16,13 +16,83 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-import bpy
-import logging
+from importlib import reload
 import sys
+import os
+
+try:
+
+    from . import core
+    reload(core)  # Must be the first to reload
+
+
+    third_party_path = os.path.join(core.config.resource_path,'third-party')
+    if third_party_path not in sys.path:
+        sys.path.append(third_party_path)
+
+except Exception as e:
+    print("Could not load core functionality!", type(e).__name__, e)
+    raise e
+    def register(): pass
+    def unregister(): pass
+
+try:
+    from . import export
+    from . import interface
+    from . import operators
+    from . import properties
+
+    core.PluginManager.clear()
+
+    reload(operators)
+    reload(properties)
+    reload(export)
+    reload(interface)
+
+    core.PluginManager.load_icon('hbp', 'icons/hbp.png')
+
+    def register():
+        import sys
+
+        additionalModulePath = True
+        try:
+            from . import generatedAdditionalModulePath
+        except ImportError:
+            additionalModulePath = False
+
+        if (additionalModulePath):
+            print('Adding the following path to sys.path: ' + str(generatedAdditionalModulePath.venvPath))
+            sys.path = sys.path + generatedAdditionalModulePath.venvPath
+
+        core.PluginManager.register()
+
+
+    def unregister():
+        import sys
+        core.PluginManager.unregister()
+
+        additionalModulePath = True
+        try:
+            from . import generatedAdditionalModulePath
+        except ImportError:
+            additionalModulePath = False
+        if (additionalModulePath):
+            for path in generatedAdditionalModulePath.venvPath:
+                sys.path.remove(path)
+
+except Exception as e:
+    from .core.logfile import RD_logger, EXCEPTION_MESSAGE, log_callstack
+    RD_logger.error("Could not import submodules:\n" + EXCEPTION_MESSAGE,
+                    type(e).__name__, e, log_callstack(), log_callstack(True))
+
+    def register(): pass
+    def unregister(): pass
+
+
 
 bl_info = {
     "name": "NRP Robot Designer",
-    "author": "Stefan Ulbrich, Michael Bechtel",
+    "author": "Stefan Ulbrich (FZI), Michael Bechtel",
     "version": (0, 1),
     "blender": (2, 69, 0),
     "location": "View3D > Tools",
@@ -30,65 +100,4 @@ bl_info = {
 
 additionalModulePath = True
 
-logging.basicConfig(format='[%(levelname)s|%(name)s|%(funcName)s|%(filename)s:%(lineno)03d] %(message)s')
 
-
-def register():
-    additionalModulePath = True
-    try:
-        from . import generatedAdditionalModulePath
-    except ImportError:
-        additionalModulePath = False
-
-    if (additionalModulePath):
-        print('Adding the following path to sys.path: ' + str(generatedAdditionalModulePath.venvPath))
-        sys.path = sys.path + generatedAdditionalModulePath.venvPath
-
-    from . import properties
-    from . import main
-    from . import armatures
-    from . import bones
-    from . import meshes
-    from . import markers
-    from . import physics
-    from . import files
-    from . import collision
-
-    properties.register()
-    main.init()
-    main.register()
-    armatures.register()
-    bones.register()
-    meshes.register()
-    markers.register()
-    physics.register()
-    files.register()
-    collision.register()
-    # bpy.utils.register_module(__name__)
-
-
-def unregister():
-    from . import properties
-    from . import main
-    from . import armatures
-    from . import bones
-    from . import meshes
-    from . import markers
-    from . import physics
-    from . import files
-    from . import collision
-
-    properties.unregister()
-    main.unregister()
-    armatures.unregister()
-    bones.unregister()
-    meshes.unregister()
-    markers.unregister()
-    physics.unregister()
-    files.unregister()
-    collision.unregister()
-
-    # bpy.utils.unregister_module(__name__)
-    if (additionalModulePath):
-        for path in generatedAdditionalModulePath.venvPath:
-            sys.path.remove(path)

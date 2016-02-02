@@ -19,14 +19,12 @@ programming reference for developers.
 Contents
 --------
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     about
-    installation
-    usage
-    modules
+    user_manual/index
+    developer_manual/index
     planned
-
 
 Indices and tables
 ------------------
