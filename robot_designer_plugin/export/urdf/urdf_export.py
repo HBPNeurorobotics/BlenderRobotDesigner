@@ -108,7 +108,7 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
         bpy.context.scene.objects.active = bpy.data.objects[mesh]
         bpy.context.active_object.select = True
         bpy.ops.wm.collada_export(
-                filepath=file_path, selected=True, use_texture_copies=True)
+            filepath=file_path, selected=True, use_texture_copies=True)
 
         # quick fix for dispersed meshes
         # todo: find appropriate solution
@@ -156,7 +156,7 @@ def create_urdf(operator: RDOperator, context, base_link_name,
         child = tree.add()
         trafo, dummy = segment.RobotEditor.getTransform()
         child.joint.origin.rpy = list_to_string(trafo.to_euler())
-        child.joint.origin.xyz = list_to_string(trafo.translation)
+        child.joint.origin.xyz = list_to_string([i * j for i, j in zip(trafo.translation, blender_scale_factor)])
         child.joint.name = segment.name + '_joint'
         child.link.name = segment.name + '_link'
         if segment.RobotEditor.axis_revert:
@@ -178,9 +178,9 @@ def create_urdf(operator: RDOperator, context, base_link_name,
         else:
             if segment.RobotEditor.jointMode == 'REVOLUTE':
                 child.joint.limit.lower = radians(
-                        segment.RobotEditor.theta.min)
+                    segment.RobotEditor.theta.min)
                 child.joint.limit.upper = radians(
-                        segment.RobotEditor.theta.max)
+                    segment.RobotEditor.theta.max)
                 child.joint.type = 'revolute'
             if segment.RobotEditor.jointMode == 'PRISMATIC':
                 child.joint.limit.lower = segment.RobotEditor.d.min
@@ -209,7 +209,8 @@ def create_urdf(operator: RDOperator, context, base_link_name,
             visual_path = export_mesh(operator, context, mesh, meshpath, toplevel_directory,
                                       in_ros_package, abs_filepaths, export_collision=False)
             if visual_path:
-                visual = child.add_mesh(visual_path, bpy.data.objects[mesh].scale)
+                visual = child.add_mesh(visual_path,
+                                        [i * j for i, j in zip(bpy.data.objects[mesh].scale, blender_scale_factor)])
                 visual.origin.xyz = list_to_string(pose.translation)
                 visual.origin.rpy = list_to_string(pose.to_euler())
             else:
@@ -258,6 +259,9 @@ def create_urdf(operator: RDOperator, context, base_link_name,
             walk_segments(child_segments, child)
 
     robot_name = context.active_object.name
+
+    blender_scale_factor = context.active_object.scale
+
     root = urdf_tree.URDFTree.create_empty(robot_name, base_link_name)
 
     # build control plugin element
@@ -344,8 +348,8 @@ class ExportZippedPackage(RDOperator):
     bl_label = "Export zipped ROS/URDF Package"
 
     filter_glob = StringProperty(
-            default="*.zip",
-            options={'HIDDEN'},
+        default="*.zip",
+        options={'HIDDEN'},
     )
 
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
@@ -406,7 +410,7 @@ class ExportPackage(RDOperator):
     bl_label = "Export ROS/URDF Package"
 
     directory = StringProperty(
-            name="Mesh directory", subtype='DIR_PATH', default="")
+        name="Mesh directory", subtype='DIR_PATH', default="")
     gazebo = BoolProperty(name="Export Gazebo tags", default=True)
 
     package_url = BoolProperty(name="Package URL", default=True)
@@ -435,8 +439,8 @@ class ExportPlain(RDOperator):
     bl_label = "Export plain URDF"
 
     filter_glob = StringProperty(
-            default="*.urdf",
-            options={'HIDDEN'},
+        default="*.urdf",
+        options={'HIDDEN'},
     )
 
     abs_file_paths = BoolProperty(name="Absolute Filepaths", default=False)
