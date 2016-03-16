@@ -105,8 +105,9 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
         file_path = os.path.join(directory, mesh + '.dae')
         model_name = bpy.context.active_object.name
         bpy.ops.object.select_all(action='DESELECT')
+        bpy.data.objects[mesh].select=True
         bpy.context.scene.objects.active = bpy.data.objects[mesh]
-        bpy.context.active_object.select = True
+        #bpy.context.active_object.select = True
         bpy.ops.wm.collada_export(
                 filepath=file_path, selected=True, use_texture_copies=True)
 
@@ -271,6 +272,8 @@ def create_urdf(operator: RDOperator, context, base_link_name,
 
     for segments in root_segments:
         walk_segments(segments, root)
+
+    operator.logger.info("Writing to '%s'" % filepath)
     root.write(filepath)
 
     # insert gazebo tags before "</robot>" tag
@@ -376,12 +379,11 @@ class ExportZippedPackage(RDOperator):
                 for file in files:
                     file_path = os.path.join(root, file)
                     ziph.write(file_path, os.path.relpath(file_path, path))
+        with tempfile.TemporaryDirectory() as target:
+            create_package(self, context, target, self.base_link_name)
 
-        target = tempfile.TemporaryDirectory()
-        create_package(self, context, target.name, self.base_link_name)
-
-        with zipfile.ZipFile(self.filepath, 'w') as zipf:
-            zipdir(target.name, zipf)
+            with zipfile.ZipFile(self.filepath, 'w') as zipf:
+                zipdir(target, zipf)
 
         return {'FINISHED'}
 
