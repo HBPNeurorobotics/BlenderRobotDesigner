@@ -44,6 +44,8 @@ import logging
 from . import urdf_dom
 from .helpers import list_to_string
 from pyxb import ContentNondeterminismExceededError
+import os
+
 logger = logging.getLogger('URFD')
 logger.setLevel(logging.DEBUG)
 
@@ -215,6 +217,9 @@ class URDFTree(object):
         for joint in self.robot.joint:
             if joint.parent is None:
                 joint.parent = self.link.name
+
+        if not os.path.exists(os.path.dirname(file_name)):
+            os.makedirs(os.path.dirname(file_name))
 
         with open(file_name, "w") as f:
             # f.write('<?xml version="1.0" ?>')

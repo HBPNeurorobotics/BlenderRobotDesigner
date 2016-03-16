@@ -23,6 +23,8 @@ except ImportError:
     using_collaboratory_sphinx_theme = False
     print("Failed to import the collaboratory sphinx theme")
 
+import hbp_sphinx_theme
+
 
 import shlex
 
@@ -45,12 +47,14 @@ print(sys.path)
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-	    'sphinx.ext.todo',
+    'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
-    'sphinx.ext.intersphinx'
+    'sphinx.ext.intersphinx',
+#    'sphinx.ext.autodoc_annotation',
+    'sphinx_autodoc_typehints'
 ]
 
 intersphinx_mapping = {'bpy': ('https://www.blender.org/api/blender_python_api_current/',None)}
@@ -142,7 +146,8 @@ if using_collaboratory_sphinx_theme:
     html_theme_path = [collaboratory_sphinx_theme.get_html_theme_path()]
     html_theme = 'collaboratory_sphinx_theme'
 else:
-    html_theme = 'alabaster'
+    html_theme = 'hbp_sphinx_theme'
+    html_theme_path = [hbp_sphinx_theme.get_html_theme_path()]
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -162,7 +167,7 @@ html_short_title = "NRP Robot Designer"
 if not using_collaboratory_sphinx_theme:
     # The name of an image file (relative to this directory) to place at the top
     # of the sidebar.
-    html_logo = "./images/hbp.png"
+    #html_logo = "./images/hbp.png"
 
     # The name of an image file (within the static path) to use as favicon of the
     # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
