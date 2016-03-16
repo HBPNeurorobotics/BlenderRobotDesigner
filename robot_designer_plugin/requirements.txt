@@ -1,2 +1,3 @@
 mathutils
 sphinx
+sphinx-autodoc-typehints
