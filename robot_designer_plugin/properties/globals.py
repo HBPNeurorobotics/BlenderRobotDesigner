@@ -48,12 +48,12 @@ from ..core.logfile import operator_logger, LogFunction
 from ..operators.segments import SelectSegment, UpdateSegments
 
 
-@PluginManager.register_class
-class StringCollection(bpy.types.PropertyGroup):
-    name = StringProperty()
+# @PluginManager.register_property_group
+# class StringCollection(bpy.types.PropertyGroup):
+#     name = StringProperty()
 
 
-@PluginManager.register_class
+@PluginManager.register_property_group(bpy.types.Scene)
 class RDGlobals(bpy.types.PropertyGroup):
     '''
     Property group that contains all globally defined parameters mostly related to the state of the GUI
@@ -116,6 +116,7 @@ class RDGlobals(bpy.types.PropertyGroup):
             items=[('armatures', 'Robot', 'Modify the Robot'),
                    ('bones', 'Segments', 'Modify segements'),
                    ('meshes', 'Geometries', 'Assign meshes to segments'),
+                   ('sensors', 'Sensors', 'Assign sensors to segments'),
                    # ('markers', 'Markers', 'Assign markers to bones'),
                    # ('controller', 'Controller', 'Modify controller parameter'),
                    ('tools', 'Tools', 'Tools'),
@@ -166,7 +167,7 @@ class RDGlobals(bpy.types.PropertyGroup):
                                update=updateGlobals)
     doKinematicUpdate = BoolProperty(name="Import Update", default=True)
 
-    meshes = CollectionProperty(type=StringCollection)
+#    meshes = CollectionProperty(type=StringCollection)
 
     # liveSearchBones = StringProperty(name="Live Search for Bones", default="")
     # liveSearchMeshes = StringProperty(name="Live Search for Meshes",

@@ -67,6 +67,25 @@ class PluginManager(object):
     _property_fields = {}
 
     @staticmethod
+    def register_property_group(base=None):
+
+        propertyTypes = (bpy.props.EnumProperty, bpy.props.StringProperty, bpy.props.BoolProperty,
+                         bpy.props.StringProperty,
+                         bpy.props.PointerProperty)
+
+        def decorator(cls):
+            if issubclass(cls, bpy.types.PropertyGroup):
+                # RD_logger.info("Dependencies: %s", base)
+                PluginManager._property_groups_to_register.append((cls, base))
+            return cls
+
+        return decorator
+
+    # bpy.props.PointerProperty(type=robot_designer_plugin.properties.segments.RDDegreeOfFreedom)[1]['type'] is robot_designer_plugin.properties.segments.RDDegreeOfFreedom
+
+
+
+    @staticmethod
     def register_class(*args):
         """
         :term:`Class decorator<class decorator>` for :class:`.operators.RDOperator`, :class:`bpy.types.Menu`,
@@ -78,12 +97,13 @@ class PluginManager(object):
         """
 
         def decorator(cls):
-            if issubclass(cls, (RDOperator, bpy.types.Menu, bpy.types.Panel, bpy.types.Panel, bpy.types.PropertyGroup)):
+            if issubclass(cls, (RDOperator, bpy.types.Menu, bpy.types.Panel, bpy.types.Panel)):
                 PluginManager._classes_to_register.append((cls, dependencies))
             elif issubclass(cls, CollapsibleBase):
                 PluginManager._bools_to_register.append(cls.property_name)
             else:
-                RD_logger.error("Could not register %s, subclass of: %s", cls, cls.mro())
+                RD_logger.error("Could not register %s, subclass of: %s\nDependencies: %s\n%s", cls, cls.mro(),
+                                dependencies, args)
 
                 raise TypeError("Wrong with decorator")
             # print(cls)
@@ -94,10 +114,12 @@ class PluginManager(object):
                            ":class:`robot_designer_plugin.core.pluginmanager.Pluginmanager`\n"
             return cls
 
-        if len(args) == 1 and inspect.isclass(args[0]):
+        if len(args) == 1 and inspect.isclass(args[0]):  # No arguments
+
             dependencies = []
+
             return decorator(args[0])
-        else:
+        else:  # Arguments given to decorator
             dependencies = args
             return decorator
 
@@ -112,7 +134,7 @@ class PluginManager(object):
         :param btype: Any type defined in :mod:`bpy.types`.
         :return:
         """
-        cls._property_groups_to_register.append((property_group, btype))
+        # cls._property_groups_to_register.append((property_group, btype))
 
         # props = inspect.getmembers(property_group, lambda x: isinstance(x, tuple) and len(x) == 2)
         # print(props)
@@ -124,9 +146,6 @@ class PluginManager(object):
         #     cls._property_fields[property_group].append(
         #
         #     )
-
-
-
 
     @classmethod
     def register_plugin(cls, label, operators, draw_function=None, type_=PluginTypes.FILE):
@@ -178,7 +197,7 @@ class PluginManager(object):
             cls._icons_to_register.append((id, file_path, 'IMAGE'))
 
     @classmethod
-    def get_icon(cls, id:str):
+    def get_icon(cls, id: str):
         '''
 
         :param id:
@@ -189,7 +208,6 @@ class PluginManager(object):
             return cls._bl_icons_dict[id].icon_id
         else:
             return 0
-
 
     @classmethod
     def clear(cls):
@@ -202,7 +220,6 @@ class PluginManager(object):
         cls._bools_to_register.clear()
         cls._icons_to_register.clear()
 
-
     @classmethod
     def get_property(cls, obj, prop):
         '''
@@ -214,7 +231,6 @@ class PluginManager(object):
         args, varargs, keywords, locals = inspect.getargvalues(inspect.currentframe())
         print(args, varargs, keywords, locals)
 
-
     @classmethod
     def register(cls):
         """
@@ -225,16 +241,21 @@ class PluginManager(object):
         try:
             for class_, dependencies in cls._classes_to_register:
                 bpy.utils.register_class(class_)
-                report.append("\t+ class {0:35} in {1:40}".format(class_.__name__,
+                report.append('\t+ class {0:35} in {1:40}'.format(class_.__name__,
                                                                   "/".join(class_.__module__.split('.')[1:])))
                 cls._registered_classes.append(class_)
-            RD_logger.info("Done")
+            RD_logger.info('Done')
 
-            for prop, btype in cls._property_groups_to_register:
-                report.append("\t+ propery {0:33} in {1:40}".format(prop.__name__,
-                                                                    "/".join(prop.__module__.split('.')[1:])))
-                setattr(btype, "RobotEditor", bpy.props.PointerProperty(type=getattr(bpy.types, prop.__name__)))
-                cls._registered_properties.append((prop, btype))
+            RD_logger.debug("Properties: %s", cls._property_groups_to_register)
+            for prop, extends in cls._property_groups_to_register:
+                report.append("\t+ propery {0:33} {1:8} in {2:40}".format(prop.__name__,
+                                                                          "(%s)" % extends.__name__ if extends else '',
+                                                                          "/".join(prop.__module__.split('.')[1:])))
+
+                bpy.utils.register_class(prop)
+                if extends in (bpy.types.Object, bpy.types.Scene, bpy.types.Bone):
+                    setattr(extends, 'RobotEditor', bpy.props.PointerProperty(type=getattr(bpy.types, prop.__name__)))
+                cls._registered_properties.append((prop, extends))
 
             for i in cls._property_fields.items():
                 print(i)
@@ -247,7 +268,7 @@ class PluginManager(object):
                 cls._bl_icons_dict = bpy.utils.previews.new()
 
                 for icon in cls._icons_to_register:
-                    report.append("\t+ icon {0:36} from {1:40}".format(icon[0],icon[1]))
+                    report.append("\t+ icon {0:36} from {1:40}".format(icon[0], icon[1]))
                     cls._bl_icons_dict.load(*icon)
             RD_logger.info("\n".join(report))
 
@@ -273,8 +294,10 @@ class PluginManager(object):
                 report.append("\t- class {0:35} in {1:40}".format(class_.__name__,
                                                                   "/".join(class_.__module__.split('.')[1:])))
 
-            for prop, btype in cls._registered_properties:
-                delattr(btype, "RobotEditor")
+            for prop, extends in cls._registered_properties:
+                bpy.utils.unregister_class(prop)
+                if extends in (bpy.types.Object, bpy.types.Scene, bpy.types.Bone):
+                    delattr(extends, "RobotEditor")
 
             for prop in cls._registered_bools:
                 delattr(bpy.types.Scene, prop)

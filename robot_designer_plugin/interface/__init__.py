@@ -33,7 +33,7 @@
 #   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
-from . import controllers, dynamics, files, geometries, helpers, kinematics, main, menus, model, segments
+from . import controllers, dynamics, files, geometries, helpers, kinematics, main, menus, model, segments, sensors
 from importlib import reload
 
 reload(helpers) # Due to dependencies has to be the first to reload
@@ -47,3 +47,4 @@ reload(kinematics)
 reload(main)
 reload(model)
 reload(segments)
+reload(sensors)

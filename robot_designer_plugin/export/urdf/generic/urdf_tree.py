@@ -278,7 +278,7 @@ class URDFTree(object):
         visual.geometry.mesh.scale = list_to_string(scale_factor)
         return visual
 
-    def add_collisionmodel(self, file_name):
+    def add_collisionmodel(self, file_name,scale_factor=(1.0,1.0,1.0)):
         """
         Add a collision model to a mesh object
 
@@ -293,6 +293,7 @@ class URDFTree(object):
         collision.geometry.mesh = urdf_dom.MeshType()
         # print('debug add_collisionmodel: ' + file_name)
         collision.geometry.mesh.filename = file_name
+        collision.geometry.mesh.scale = list_to_string(scale_factor)
         return collision
 
     def add_inertial(self):

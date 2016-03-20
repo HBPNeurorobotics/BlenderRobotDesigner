@@ -54,6 +54,8 @@ from ..operators import model, segments
 from . import menus
 from .helpers import drawInfoBox, push_info, ModelPropertiesBox
 
+from mathutils import Vector
+
 from ..operators.helpers import PoseMode, NotEditMode
 
 @LogFunction
@@ -127,6 +129,11 @@ def draw(layout, context):
         row = box.row()
         row.label("Re-assign parent:")
         menus.AssignParentMenu.putMenu(row, context,text=parent_name)
+
+        if context.active_object.scale != Vector((1.0,1.0,1.0)):
+            infoBox.add_message("Warning: You should not use a global scale factor"
+                                "for the kinematics. Units will be displayed without this factor")
+
         infoBox.draw_info()
 
 

@@ -287,7 +287,7 @@ class Importer(object):
                                                        scale=True)
                         SelectModel.run(model_name=model_name)
                         SelectSegment.run(segment_name=segment_name)
-                        SelectGeometry.run(mesh_name=assigned_name)
+                        SelectGeometry.run(geometry_name=assigned_name)
                         AssignGeometry.run()
                 else:
                     self.logger.error("Mesh file not found")

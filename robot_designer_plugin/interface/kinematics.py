@@ -34,6 +34,9 @@
 #   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
+
+
+
 def draw(layout, context):
     """
     Draw method that builds the part of the GUI responsible for the bone submenu.
@@ -42,6 +45,7 @@ def draw(layout, context):
     :param context:
     :return:
     """
+
     layout.label("Parent Mode:")
     layout.prop(context.active_bone.RobotEditor, "parentMode", expand=True)
     parent_column = layout.column(align=True)

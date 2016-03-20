@@ -212,7 +212,7 @@ def create_urdf(operator: RDOperator, context, base_link_name,
             if visual_path:
                 visual = child.add_mesh(visual_path,
                                         [i * j for i, j in zip(bpy.data.objects[mesh].scale, blender_scale_factor)])
-                visual.origin.xyz = list_to_string(pose.translation)
+                visual.origin.xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
                 visual.origin.rpy = list_to_string(pose.to_euler())
             else:
                 operator.logger.info("No visual model for: %s", mesh)
@@ -220,8 +220,9 @@ def create_urdf(operator: RDOperator, context, base_link_name,
             collision_path = export_mesh(operator, context, mesh, meshpath, toplevel_directory,
                                          in_ros_package, abs_filepaths, export_collision=True)
             if collision_path:
-                collision = child.add_collisionmodel(collision_path)
-                collision.origin.xyz = list_to_string(pose.translation)
+                collision = child.add_collisionmodel(collision_path,
+                    [i * j for i, j in zip(bpy.data.objects[mesh].scale, blender_scale_factor)])
+                collision.origin.xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
                 collision.origin.rpy = list_to_string(pose.to_euler())
             else:
                 operator.logger.info("No collision model for: %s", mesh)

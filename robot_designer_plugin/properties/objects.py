@@ -44,7 +44,7 @@ from bpy.props import FloatProperty, StringProperty, \
 from ..core import PluginManager
 
 
-@PluginManager.register_class
+@PluginManager.register_property_group()
 class RDDynamics(bpy.types.PropertyGroup):
     '''
     Property group that contains dynamics values
@@ -61,13 +61,12 @@ class RDDynamics(bpy.types.PropertyGroup):
     inertiaTensor = FloatVectorProperty(name="Inertia Tensor", precision=10,
                                         step=0.1)
 
-@PluginManager.register_class
+@PluginManager.register_property_group(bpy.types.Object)
 class RDObjects(bpy.types.PropertyGroup):
     '''
     Property group that stores general information for individual Blender
     objects with respect to the RobotEditor
     '''
-    dynamics = PointerProperty(type=RDDynamics)
     fileName = StringProperty(name="fileName")
     tag = EnumProperty(
             items=[('DEFAULT', 'Default', 'Default'),
@@ -76,3 +75,5 @@ class RDObjects(bpy.types.PropertyGroup):
                    ('ARMATURE', 'Armature', 'Armature'),
                    ('COLLISION', 'Collision', 'Collision')]
     )
+
+    dynamics = PointerProperty(type=RDDynamics)

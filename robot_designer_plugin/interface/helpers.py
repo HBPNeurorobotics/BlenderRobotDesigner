@@ -46,6 +46,9 @@ from ..core.pluginmanager import PluginManager
 class DisconnectGeometryBox(CollapsibleBase):
     property_name = "disconnect_geometry_box"
 
+@PluginManager.register_class
+class CameraSensorBox(CollapsibleBase):
+    property_name = "camera_sensor_box"
 
 @PluginManager.register_class
 class ConnectGeometryBos(CollapsibleBase):

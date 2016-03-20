@@ -43,11 +43,8 @@ reload(segments)
 reload(globals)
 reload(objects)
 
-PluginManager.register_property_groups(segments.RDSegment, bpy.types.Bone)
-PluginManager.register_property_groups(objects.RDObjects, bpy.types.Object)
-PluginManager.register_property_groups(globals.RDGlobals, bpy.types.Scene)
+# PluginManager.register_property_groups(segments.RDSegment, bpy.types.Bone)
+# PluginManager.register_property_groups(objects.RDObjects, bpy.types.Object)
+# PluginManager.register_property_groups(globals.RDGlobals, bpy.types.Scene)
 
-#bpy.types.Bone.RobotEditor = bpy.props.PointerProperty(type=bpy.types.RDSegment)
-#bpy.types.Object.RobotEditor = bpy.props.PointerProperty(type=bpy.types.RDObjects)
-#bpy.types.Scene.RobotEditor = bpy.props.PointerProperty(type=bpy.types.RDGlobals)
 

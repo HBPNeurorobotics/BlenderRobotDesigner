@@ -422,6 +422,22 @@
     <xs:attribute name="value" type="xs:string" use="required" />
   </xs:complexType>
 
+  <xs:complexType name="GazeboLinkType">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="plugin"         type="GazeboPluginType" />
+      <xs:element name="sensor"         type="GazeboSensorType"    />
+      <xs:element name="material"       type="GazeboMaterialType"  />
+      <xs:element name="gravity"        type="xs:boolean"          />
+      <xs:element name="self_collide"   type="xs:boolean"         />
+      <xs:element name="mu1"            type="xs:double"         />
+      <xs:element name="mu2"            type="xs:double"         />
+      <xs:element name="fdir1"          type="xs:string"         />
+      <xs:element name="maxVel"         type="xs:double"         />
+      <xs:element name="minDepth"       type="xs:double"         />
+    </xs:choice>
+    <xs:attribute name="reference" type="xs:string" />
+  </xs:complexType>
+
   <!-- gazebo base type -->
   <xs:complexType name="GazeboType">
     <xs:choice minOccurs="0" maxOccurs="unbounded">

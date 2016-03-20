@@ -83,7 +83,7 @@ class GenerateAllCollisionMeshes(RDOperator):
         self.logger.debug("Visuals: %s", visuals)
 
         for i in visuals:
-            SelectGeometry.run(mesh_name=i)
+            SelectGeometry.run(geometry_name=i)
             GenerateCollisionMesh.run(shrinkWrapOffset=self.shrinkWrapOffset, subdivisionLevels=self.subdivisionLevels)
 
         return {'FINISHED'}

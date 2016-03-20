@@ -67,17 +67,16 @@ class SelectGeometry(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "selectmesh"
     bl_label = "Select Mesh"
 
-    mesh_name = StringProperty()
+    geometry_name = StringProperty()
 
     @classmethod
-    def run(cls, mesh_name=""):
+    def run(cls, geometry_name=""):
         return super().run(**cls.pass_keywords())
-
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleMeshSelected)
     def execute(self, context):
-        mesh = bpy.data.objects[self.mesh_name]
+        mesh = bpy.data.objects[self.geometry_name]
 
         if mesh.type != 'MESH':
             self.report({'ERROR'}, 'Object is no geometry (Mesh). Is %s' % mesh.type)
@@ -194,12 +193,11 @@ class DetachAllGeometries(RDOperator):
     bl_label = "Unassign ALL meshes"
 
     confirmation = BoolProperty(
-            name="This disconnects all collision OR visual geometries from the model. Are you sure?")
+        name="This disconnects all collision OR visual geometries from the model. Are you sure?")
 
     @classmethod
     def run(cls, confirmation=True):
         return super().run(**cls.pass_keywords())
-
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
@@ -214,7 +212,7 @@ class DetachAllGeometries(RDOperator):
 
         if self.confirmation:
             for mesh in meshes:
-                SelectGeometry.run(mesh_name=mesh.name)
+                SelectGeometry.run(geometry_name=mesh.name)
                 DetachGeometry.run()
 
         return {'FINISHED'}
@@ -258,7 +256,7 @@ class SelectAllGeometries(RDOperator):
         return {'FINISHED'}
 
 
-@RDOperator.Preconditions(ModelSelected,ObjectMode, SingleMeshSelected)
+@RDOperator.Preconditions(ModelSelected, ObjectMode, SingleMeshSelected)
 @PluginManager.register_class
 class SetGeometryActive(RDOperator):
     """

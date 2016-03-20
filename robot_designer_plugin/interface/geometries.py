@@ -117,6 +117,8 @@ def draw(layout, context):
         row = box.row()
         column = row.column(align=True)
         menus.GeometriesMenu.putMenu(column, context)
+        print("test: ", menus.GeometriesMenu.bl_idname, menus.ConnectedObjectsMenu.bl_idname,
+              menus.GeometriesMenu.blender_type, menus.ConnectedObjectsMenu.blender_type)
         #create_geometry_selection(column, context)
 
         column = row.column(align=True)

@@ -187,7 +187,7 @@ class GenerateMeshFromSegment(RDOperator):
             bpy.ops.object.delete()
 
             SelectModel.run(model_name=model.name)
-            SelectGeometry.run(mesh_name=bezier.name) #
+            SelectGeometry.run(geometry_name=bezier.name) #
             SelectSegment.run(segment_name=parent_name)
             AssignGeometry.run()
             SelectSegment.run(segment_name=bone_name)

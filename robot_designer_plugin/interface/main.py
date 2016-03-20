@@ -65,7 +65,7 @@ class UserInterface(bpy.types.Panel):
 
     def draw(self, context):
         from ..operators import gui
-        from . import files, model, segments, geometries
+        from . import files, model, segments, geometries, sensors
         layout = self.layout
 
         layout.label("HBP Neurorobotics RobotDesigner", icon_value=PluginManager.get_icon('hbp'))
@@ -80,6 +80,8 @@ class UserInterface(bpy.types.Panel):
             segments.draw(layout, context)
         elif control == 'meshes':
             geometries.draw(layout, context)
+        elif control == 'sensors':
+            sensors.draw(layout,context)
         # elif control == 'markers':
         #     markers.draw(layout, context)
         elif control == 'files':
@@ -96,6 +98,7 @@ class UserInterface(bpy.types.Panel):
             row.operator("object.mode_set", text="Object Mode").mode = 'OBJECT'
             if context.active_object.type == "ARMATURE":
                 row.operator("object.mode_set", text="Pose Mode").mode = 'POSE'
+
 
         # row.prop(bpy.context.scene.RobotEditor, "editModes", expand=True)
         # Can we get a call back to the blender 'tab' event?

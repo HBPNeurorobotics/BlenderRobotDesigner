@@ -134,7 +134,7 @@ class RebuildModel(RDOperator):
         # reassign all meshes to bones according to dictionary
         for k, v in meshes_bones_dictionary.items():
             segments.SelectSegment.run(segment_name=v)
-            rigid_bodies.SelectGeometry.run(mesh_name=k)
+            rigid_bodies.SelectGeometry.run(geometry_name=k)
             rigid_bodies.AssignGeometry.run()
 
         # then markers

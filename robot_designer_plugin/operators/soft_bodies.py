@@ -168,7 +168,7 @@ class ConvertSoftBodies(RDOperator):
             for bone, object in bone2object.items():
                 if self.smooth:
                     SelectModel.run(model_name=model_name)
-                    SelectGeometry.run(mesh_name=object)
+                    SelectGeometry.run(geometry_name=object)
                     SetGeometryActive.run()
                     bpy.ops.object.mode_set(mode="EDIT",toggle=False)
                     bpy.ops.mesh.select_all(action='SELECT')
@@ -180,7 +180,7 @@ class ConvertSoftBodies(RDOperator):
 
                 if self.solidify:
                     SelectModel.run(model_name=model_name)
-                    SelectGeometry.run(mesh_name=object)
+                    SelectGeometry.run(geometry_name=object)
                     SetGeometryActive.run()
                     mod = bpy.context.object.modifiers.new(name='solidify', type='SOLIDIFY')
                     mod.thickness = self.thickness
@@ -195,7 +195,7 @@ class ConvertSoftBodies(RDOperator):
                         SelectModel.run(model_name=model_name)
                         if bone in bpy.context.active_object.data.bones:
                             SelectSegment.run(segment_name=bone)
-                            SelectGeometry.run(mesh_name=object)
+                            SelectGeometry.run(geometry_name=object)
                             AssignGeometry.run()
                         else:
                             self.logger.error("Vertex group %s has no matching bone" % bone)

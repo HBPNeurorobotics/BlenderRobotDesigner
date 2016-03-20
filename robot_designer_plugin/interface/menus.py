@@ -54,7 +54,7 @@ from ..core import PluginManager
 from ..core.config import OPERATOR_PREFIX
 from ..core.operators import RDOperator
 from ..core.logfile import gui_logger
-
+from ..core.property import global_properties
 class BaseMenu(object):
 
     logger = gui_logger
@@ -101,38 +101,42 @@ class SegmentsGeometriesMenu(bpy.types.Menu, BaseMenu):
             layout.operator(segments.SelectSegment.bl_idname, text=text).segment_name = bone
 
 
-# dynamic menu to select mesh
-@PluginManager.register_class
-class GeometriesMenu(bpy.types.Menu, BaseMenu):
+
+
+
+class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
     """
-    :ref:`menu` for selecting geometries while displaying connections to robot segments in the scene.
+    :ref:`menu` for selecting sensors while displaying connections to robot segments in the scene.
     """
-    bl_idname = OPERATOR_PREFIX + "meshmenu"
-    bl_label = "Select Geometry"
+    bl_idname = "Override"
+
+    obj_tag = "meshType" # can be set to scene property
+    show_connected = "listMeshes" # set to scene property
+    blender_type = "CAMERA"
+    quick_search = "meshName"
+    operator_property = "geometry_name"
+    operator = rigid_bodies.SelectGeometry
 
     @RDOperator.OperatorLogger
     def draw(self, context):
-        mesh_type = context.scene.RobotEditor.meshType
-        hide_mesh = context.scene.RobotEditor.listMeshes
+        obj_tag = getattr(context.scene.RobotEditor,self.obj_tag)
+        obj_hidden = getattr(context.scene.RobotEditor,self.show_connected)
         layout = self.layout
-        geometry_names = [obj.name for obj in bpy.data.objects if
-                          obj.type == 'MESH' and
-                          obj.RobotEditor.tag == mesh_type and not obj.hide]
-        self.logger.debug(geometry_names)
+        obj_names = [obj.name for obj in bpy.data.objects if
+                          obj.type == self.blender_type and
+                          obj.RobotEditor.tag == obj_tag and not obj.hide]
+        self.logger.debug(obj_names)
 
-        for mesh in geometry_names:
-            if bpy.data.objects[mesh].parent_bone:
-                text = mesh + " --> " + bpy.data.objects[mesh].parent_bone
-                if hide_mesh == 'disconnected':
+        for obj in obj_names:
+            if bpy.data.objects[obj].parent_bone:
+                text = obj + " --> " + bpy.data.objects[obj].parent_bone
+                if obj_hidden == 'disconnected':
                     continue
-            # elif bpy.data.objects[mesh].parent:
-            #    text = context.scene.RobotEditor.meshName + " --> " + bpy.data.objects[mesh].parent.name
-            #    text = mesh + " --> " + bpy.data.objects[mesh].parent.name
             else:
-                text = mesh
-                if hide_mesh == 'connected':
+                text = obj
+                if obj_hidden == 'connected':
                     continue
-            layout.operator(rigid_bodies.SelectGeometry.bl_idname, text=text).mesh_name = mesh
+            setattr(layout.operator(self.operator.bl_idname, text=text),self.operator_property, obj)
 
     @classmethod
     def putMenu(cls,layout, context, text=None, **kwargs):
@@ -144,8 +148,6 @@ class GeometriesMenu(bpy.types.Menu, BaseMenu):
         selected = [i for i in bpy.context.selected_objects if i.type == 'MESH']
 
         if len(selected) == 1:
-            # if context.scene.RobotEditor.meshName in bpy.data.objects:
-            #    if context.active_bone and not context.scene.RobotEditor.meshName == "":
             mesh = selected[0]
             if mesh.parent_bone and not hide_mesh == 'disconnected':
                 text = mesh.name + " --> " + mesh.parent_bone
@@ -156,24 +158,44 @@ class GeometriesMenu(bpy.types.Menu, BaseMenu):
 
         layout.menu(cls.bl_idname, text=text)
         row = layout.row(align=True)
-        row.prop(bpy.context.scene.RobotEditor, "listMeshes", expand=True, icon_only=True)
+        row.prop(bpy.context.scene.RobotEditor, cls.show_connected, expand=True, icon_only=True)
         row.separator()
 
-        # bpy.context.scene.RobotEditor.meshes.add().name = "test"
-        # for obj in bpy.data.objects:
-        #     if obj.type=="MESH":
-        #         if obj.name not in bpy.context.scene.RobotEditor.meshes:
-        #             bpy.context.scene.RobotEditor.meshes.add().name = obj.name
-        # for name in bpy.context.scene.RobotEditor.meshes:
-        #     if name not in [i.name for i in bpy.data.objects if i.type=='MESH']:
-        #         bpy.context.scene.RobotEditor.meshes.remove(bpy.context.scene.RobotEditor.meshes.find(name))
+        cls.quick_search.prop_search(bpy.context.scene, layout,
+                                     bpy.data,'objects', icon='VIEWZOOM', text='')
+        #row.prop_search(bpy.context.scene.RobotEditor, cls.quick_search, bpy.data, 'objects',
+        #                icon='VIEWZOOM', text='')
 
-        # row.prop_search(bpy.context.scene.RobotEditor, "meshName", bpy.context.scene.RobotEditor, 'meshes',
-        #                 icon='VIEWZOOM', text='')
-        row.prop_search(bpy.context.scene.RobotEditor, "meshName", bpy.data, 'objects',
-                         icon='VIEWZOOM', text='')
+@PluginManager.register_class
+class GeometriesMenu(ConnectedObjectsMenu):
+    """
+    :ref:`menu` for selecting geometries while displaying connections to robot segments in the scene.
+    """
+    bl_idname = OPERATOR_PREFIX + "meshmenu"
+    bl_label = "Select Geometry"
 
-# menu to select exisiting armature or create new one
+    obj_tag = "meshType" # can be set to scene property
+    show_connected = "listMeshes" # set to scene property
+    blender_type = "MESH"
+    quick_search = global_properties.gui_properties.selected_mesh
+    operator_property = "geometry_name"
+    operator = rigid_bodies.SelectGeometry
+
+@PluginManager.register_class
+class CameraSensorMenu(ConnectedObjectsMenu):
+    """
+    :ref:`menu` for selecting geometries while displaying connections to robot segments in the scene.
+    """
+    bl_idname = OPERATOR_PREFIX + "camera_sensor_menu"
+    bl_label = "Select Camera Sensor"
+
+    obj_tag = "meshType" # can be set to scene property
+    show_connected = "listMeshes" # set to scene property
+    blender_type = "CAMERA"
+    quick_search = "meshName"
+    operator_property = "geometry_name"
+    operator = rigid_bodies.SelectGeometry
+
 @PluginManager.register_class
 class ModelMenu(bpy.types.Menu, BaseMenu):
     """
