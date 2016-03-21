@@ -49,7 +49,8 @@ from bpy.props import EnumProperty
 # RobotDesigner imports
 
 from ..core import config, PluginManager
-
+from ..core.gui import InfoBox
+from ..properties.globals import global_properties
 
 @PluginManager.register_class
 class UserInterface(bpy.types.Panel):
@@ -70,8 +71,9 @@ class UserInterface(bpy.types.Panel):
 
         layout.label("HBP Neurorobotics RobotDesigner", icon_value=PluginManager.get_icon('hbp'))
         layout.separator()
-        layout.prop(bpy.context.scene.RobotEditor, "controlEnum", expand=True)
-        control = context.scene.RobotEditor.controlEnum
+
+        global_properties.gui_tab.prop(bpy.context.scene, layout, expand=True)
+        control = global_properties.gui_tab.get(bpy.context.scene)
         layout.separator()
 
         if control == 'armatures':
@@ -90,7 +92,7 @@ class UserInterface(bpy.types.Panel):
             row = layout.row(align=True)
             row.operator(gui.PrintTransformations.bl_idname)
             row = layout.row(align=True)
-            row.prop(bpy.context.scene.RobotEditor,'OperatorDebugLevel',expand=True)
+            global_properties.operator_debug_level.prop(bpy.context.scene,row, expand=True)
 
         row = layout.row(align=True)
         row.label("Set Mode")
@@ -100,10 +102,9 @@ class UserInterface(bpy.types.Panel):
                 row.operator("object.mode_set", text="Pose Mode").mode = 'POSE'
 
 
-        # row.prop(bpy.context.scene.RobotEditor, "editModes", expand=True)
-        # Can we get a call back to the blender 'tab' event?
-        # if bpy.context.scene.RobotEditor.editModes != context.mode:
-        #     print("switchMode", context.mode, bpy.context.scene.RobotEditor.editModes)
+        row = layout.row(align=True)
+        InfoBox.draw_global_info(row)
+
 
     def draw_header(self, context):
         layout = self.layout

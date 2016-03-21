@@ -57,6 +57,7 @@ from .helpers import drawInfoBox, push_info, ModelPropertiesBox
 from mathutils import Vector
 
 from ..operators.helpers import PoseMode, NotEditMode
+from ..properties.globals import global_properties
 
 @LogFunction
 def check_armature(layout, context):
@@ -147,7 +148,8 @@ def draw(layout, context):
 
         box = layout.box()
         box.label(text="Custom Gazebo tags")
-        box.prop(bpy.context.scene.RobotEditor, "gazeboTags", slider=True)
+        global_properties.gazebo_tags.prop(bpy.context.scene, box)
+        #box.prop(bpy.context.scene.RobotEditor, "gazebo_tags", slider=True)
     else:
         layout.menu(menus.ModelMenu.bl_idname, text="Select Robot")
         layout.label(text="Select robot first")

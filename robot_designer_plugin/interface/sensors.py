@@ -44,7 +44,7 @@ from . import menus
 from ..operators import rigid_bodies, soft_bodies, collision, mesh_generation
 from .helpers import drawInfoBox, info_list, CameraSensorBox
 from ..core.gui import InfoBox
-
+from ..properties.globals import global_properties
 
 def draw(layout, context):
     """
@@ -64,10 +64,10 @@ def draw(layout, context):
     box = layout.box()
     row = box.row(align=True)
     row.label("Mesh type:")
-    row.prop(bpy.context.scene.RobotEditor, "meshType", expand=True)
+    row.prop(bpy.context.scene, "meshType", expand=True)
     row = box.row(align=True)
     row.label("Show:")
-    row.prop(bpy.context.scene.RobotEditor, "hideMeshType", expand=True)
+    global_properties.display_mesh_selection.prop(context.scene, row, expand=True)
     box.separator()
 
     box = CameraSensorBox.get(layout, context, "Cameras", icon="CAMERA_DATA")

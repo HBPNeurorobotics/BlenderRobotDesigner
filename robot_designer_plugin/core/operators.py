@@ -43,7 +43,7 @@ import bpy
 from .config import PLUGIN_PREFIX, EXCEPTION_MESSAGE
 from .logfile import log_callstack, operator_logger as logger
 from .conditions import Condition
-
+from .gui import InfoBox
 
 def get_registered_operator(operator):
     """
@@ -199,6 +199,7 @@ class RDOperator(bpy.types.Operator):
                              kwargs,
                              ', '.join(bad_kwargs), type(e).__name__,
                              '\n\t\t'.join(e.__str__().split('\n')))
+            InfoBox.global_message.append(e)
             raise e
 
             # todo check for keyword arguments without default value
@@ -210,9 +211,11 @@ class RDOperator(bpy.types.Operator):
             check, messages = Condition.check_conditions(*cls._pre_conditions[cls])
             cls.logger.info("Conditions set for this operator: %s\n\t%s\n\t%s", cls._pre_conditions[cls], check,
                             messages)
+            InfoBox.global_message.append(e)
             raise e
         except Exception as e:
             cls.logger.error('THIS CODE SHOULD NEVER BE EXECUTED: %s\n%s\n', e, log_callstack(back_trace=True))
+            InfoBox.global_message.append(e)
             raise e
 
     @classmethod
@@ -274,6 +277,7 @@ class RDOperator(bpy.types.Operator):
                 return result
 
             except Exception as e:
+                InfoBox.global_message.append(e)
                 message = "Operator %s (%s) threw an exception:%s\n\t%s" % (id, class_name,
                                                                             type(e).__name__, e)
                 self.logger.error("Operator %s (%s) threw an exception:\n" + EXCEPTION_MESSAGE,

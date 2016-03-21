@@ -54,7 +54,8 @@ from ..core import PluginManager
 from ..core.config import OPERATOR_PREFIX
 from ..core.operators import RDOperator
 from ..core.logfile import gui_logger
-from ..core.property import global_properties
+from ..properties.globals import global_properties
+
 class BaseMenu(object):
 
     logger = gui_logger
@@ -75,8 +76,8 @@ class SegmentsGeometriesMenu(bpy.types.Menu, BaseMenu):
 
     @RDOperator.OperatorLogger
     def draw(self, context):
-        mesh_type = context.scene.RobotEditor.meshType
-        hide_bone = context.scene.RobotEditor.listBones
+        mesh_type = global_properties.mesh_type.get(context.scene)
+        hide_bone = global_properties.display_mesh_selection.get(context.scene)
         layout = self.layout
 
         current_model = context.active_object
@@ -110,17 +111,18 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
     """
     bl_idname = "Override"
 
-    obj_tag = "meshType" # can be set to scene property
-    show_connected = "listMeshes" # set to scene property
+    obj_tag = None # can be set to scene property
+    show_connected = None # set to scene property
     blender_type = "CAMERA"
-    quick_search = "meshName"
+    quick_search = None
     operator_property = "geometry_name"
     operator = rigid_bodies.SelectGeometry
+    text = "Select Mesh"
 
     @RDOperator.OperatorLogger
     def draw(self, context):
-        obj_tag = getattr(context.scene.RobotEditor,self.obj_tag)
-        obj_hidden = getattr(context.scene.RobotEditor,self.show_connected)
+        obj_tag = self.obj_tag.get(context.scene)
+        obj_hidden = self.show_connected.get(context.scene)
         layout = self.layout
         obj_names = [obj.name for obj in bpy.data.objects if
                           obj.type == self.blender_type and
@@ -141,8 +143,7 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
     @classmethod
     def putMenu(cls,layout, context, text=None, **kwargs):
 
-        text = "Select Mesh"
-        hide_mesh = bpy.context.scene.RobotEditor.listMeshes
+        hide_mesh = cls.show_connected.get(context.scene)
 
         # Get selected meshes
         selected = [i for i in bpy.context.selected_objects if i.type == 'MESH']
@@ -156,9 +157,9 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
             else:
                 text = 'Select Mesh'
 
-        layout.menu(cls.bl_idname, text=text)
+        layout.menu(cls.bl_idname, text=cls.text)
         row = layout.row(align=True)
-        row.prop(bpy.context.scene.RobotEditor, cls.show_connected, expand=True, icon_only=True)
+        cls.show_connected.prop(context.scene, row,  expand=True, icon_only=True)
         row.separator()
 
         cls.quick_search.prop_search(bpy.context.scene, layout,
@@ -174,10 +175,10 @@ class GeometriesMenu(ConnectedObjectsMenu):
     bl_idname = OPERATOR_PREFIX + "meshmenu"
     bl_label = "Select Geometry"
 
-    obj_tag = "meshType" # can be set to scene property
-    show_connected = "listMeshes" # set to scene property
+    obj_tag = global_properties.mesh_type
+    show_connected = global_properties.list_meshes # set to scene property
     blender_type = "MESH"
-    quick_search = global_properties.gui_properties.selected_mesh
+    quick_search = global_properties.mesh_name
     operator_property = "geometry_name"
     operator = rigid_bodies.SelectGeometry
 
@@ -189,10 +190,10 @@ class CameraSensorMenu(ConnectedObjectsMenu):
     bl_idname = OPERATOR_PREFIX + "camera_sensor_menu"
     bl_label = "Select Camera Sensor"
 
-    obj_tag = "meshType" # can be set to scene property
-    show_connected = "listMeshes" # set to scene property
+    obj_tag = global_properties.mesh_type # can be set to scene property
+    show_connected = global_properties.list_meshes # set to scene property
     blender_type = "CAMERA"
-    quick_search = "meshName"
+    quick_search = global_properties.mesh_name
     operator_property = "geometry_name"
     operator = rigid_bodies.SelectGeometry
 
@@ -203,7 +204,7 @@ class ModelMenu(bpy.types.Menu, BaseMenu):
     """
 
     bl_idname = OPERATOR_PREFIX + "armaturemenu"
-    bl_label = "Selecht Armature"
+    bl_label = "Selecht Model"
 
     @RDOperator.OperatorLogger
     def draw(self, context):
@@ -214,12 +215,10 @@ class ModelMenu(bpy.types.Menu, BaseMenu):
 
         for arm in armatures:
             text = arm.name
-            #layout.operator(model.SelectModel.bl_idname, text=text).armatureName = text
             model.SelectModel.place_button(layout, text=text).model_name = text
 
 
 
-# dynamic menu for joining two armatures
 @PluginManager.register_class
 class JoinModelMenu(bpy.types.Menu, BaseMenu):
     """
@@ -262,7 +261,6 @@ class CoordinateFrameMenu(bpy.types.Menu, BaseMenu):
             model.SelectCoordinateFrame.place_button(layout,text=mesh).mesh_name = mesh
 
 
-# Dynamic menu to select bone
 @PluginManager.register_class
 class SegmentsMenu(bpy.types.Menu, BaseMenu):
     """
@@ -290,12 +288,8 @@ class SegmentsMenu(bpy.types.Menu, BaseMenu):
 
             recursion(current_model.data.bones[root].children)
 
-            # for bone in sorted(boneNames, key=str.lower):
-            #     text = bone
-            #     layout.operator(SelectSegment.bl_idname, text=text).segment_name = text
 
 
-# dynmic menu for assigning parent bones
 @PluginManager.register_class
 class AssignParentMenu(bpy.types.Menu, BaseMenu):
     """

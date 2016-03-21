@@ -40,6 +40,8 @@ class InfoBox(object):
     See :ref:`gui_develpment` for an example.
     """
 
+    global_message=[]
+
     def __init__(self, layout):
         """
         Constructor.
@@ -71,6 +73,13 @@ class InfoBox(object):
             column = self.layout.column(align=True)
             for text in set(messages):
                 column.label(text=text, icon='INFO')
+
+    @classmethod
+    def draw_global_info(cls, layout):
+        if cls.global_message:
+            box = layout.box()
+            ib = InfoBox(layout)
+            ib.draw_info(additional_messages=cls.global_message)
 
 
 class CollapsibleBase(object):

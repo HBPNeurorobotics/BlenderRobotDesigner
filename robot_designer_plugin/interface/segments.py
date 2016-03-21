@@ -44,7 +44,7 @@ from . import kinematics, controllers, dynamics
 from .helpers import create_segment_selector
 from ..operators import segments
 from ..core.pluginmanager import PluginManager
-from ..properties.globals import RDGlobals
+from ..properties.globals import global_properties
 
 def draw(layout, context):
     """
@@ -77,15 +77,15 @@ def draw(layout, context):
         else:
             row.label("Edit:")
 
-            print(PluginManager.get_property(bpy.context.scene, RDGlobals.boneMode))
+            global_properties.segment_tab.prop(bpy.context.scene,row,expand=True)
 
-            row.prop(bpy.context.scene.RobotEditor, "boneMode", expand=True)
+            tab = global_properties.segment_tab.get(bpy.context.scene)
 
-            if bpy.context.scene.RobotEditor.boneMode == "kinematics":
+            if tab == "kinematics":
                 kinematics.draw(box, context)
-            elif bpy.context.scene.RobotEditor.boneMode == "dynamics":
+            elif tab == "dynamics":
                 dynamics.draw(box, context)
-            elif bpy.context.scene.RobotEditor.boneMode == "controller":
+            elif tab == "controller":
                 controllers.draw(box, context)
 
     else:

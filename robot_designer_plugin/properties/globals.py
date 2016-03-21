@@ -46,32 +46,56 @@ from bpy.props import IntProperty, FloatProperty, BoolProperty, StringProperty, 
 from ..core import PluginManager
 from ..core.logfile import operator_logger, LogFunction
 from ..operators.segments import SelectSegment, UpdateSegments
+from ..core.property import PropertyGroupHandlerBase, PropertyHandler
 
 
-# @PluginManager.register_property_group
-# class StringCollection(bpy.types.PropertyGroup):
-#     name = StringProperty()
-
-
-@PluginManager.register_property_group(bpy.types.Scene)
-class RDGlobals(bpy.types.PropertyGroup):
-    '''
+class RDGlobals(PropertyGroupHandlerBase):
+    """
     Property group that contains all globally defined parameters mostly related to the state of the GUI
-    '''
+    """
 
+    @staticmethod
+    def debug_level_callback(self, context):
+        operator_logger.info('Switching debug level')
+        if context.scene.RobotEditor.OperatorDebugLevel == 'debug':
+            operator_logger.setLevel(logging.DEBUG)
+        elif context.scene.RobotEditor.OperatorDebugLevel == 'info':
+            operator_logger.setLevel(logging.INFO)
+        elif context.scene.RobotEditor.OperatorDebugLevel == 'warning':
+            operator_logger.setLevel(logging.WARNING)
+        else:
+            operator_logger.setLevel(logging.ERROR)
+
+    @staticmethod
     def updateGlobals(self, context):
         model_name = context.active_object.name
         segment_name = context.active_bone.name
 
-        UpdateSegments.run(model_name=model_name, segment_name= segment_name)
+        UpdateSegments.run(model_name=model_name, segment_name=segment_name)
 
 
+    @staticmethod
+    def updateBoneName(self, context):
+        SelectSegment.run(segment_name=context.scene.RobotEditor.segment_name)
+
+    @staticmethod
+    def update_geometry_name(self, context):
+        print("Udpate Mesh name")
+        # SelectGeometry.run(meshName=context.scene.RobotEditor.meshName)
+        for i in [i for i in bpy.context.selected_objects if i.name != context.active_object.name]:
+            i.select = False
+        try:
+            bpy.data.objects[global_properties.mesh_name.get(context.scene)].select = True
+        except KeyError:
+            pass  # This happens when the search title is selected
+
+    @staticmethod
     def displayMeshes(self, context):
         """
         Hides/Shows mesh objects in dependence of the respective Global property
         """
 
-        hide_mesh = context.scene.RobotEditor.hideMeshType
+        hide_mesh = global_properties.display_mesh_selection.get(context.scene)
         meshNames = [obj.name for obj in bpy.data.objects if
                      not obj.parent_bone is None and
                      obj.type == 'MESH']
@@ -86,33 +110,22 @@ class RDGlobals(bpy.types.PropertyGroup):
             else:
                 obj.hide = True
 
-    armatureName = StringProperty(name="armatureName")
+    def __init__(self):
 
+        # Holds the current selected kinematics model (armature) name
+        self.model_name = PropertyHandler(StringProperty())
 
-    @LogFunction
-    def updateBoneName(self, context):
-        SelectSegment.run(segment_name=context.scene.RobotEditor.segment_name)
+        # Holds the name of the currently selected segment (Bone)
+        self.segment_name = PropertyHandler(StringProperty(update=self.updateBoneName))
 
+        # Holds the name of the currently selected geometry (Mesh object)
+        self.mesh_name = PropertyHandler(StringProperty(update=self.update_geometry_name))
 
-    segment_name = StringProperty(name="boneName", update=updateBoneName)
+        # Holds the name of the currently selected physics frame (Empty object)
+        self.physics_frame_name = PropertyHandler(StringProperty())
 
-
-    @LogFunction
-    def updateMeshName(self, context):
-        #SelectGeometry.run(meshName=context.scene.RobotEditor.meshName)
-        for i in [i for i in bpy.context.selected_objects if i.name != context.active_object.name]:
-            i.select=False
-        try:
-            bpy.data.objects[context.scene.RobotEditor.meshName].select = True
-        except KeyError:
-            pass # This happens when the search title is selected
-
-
-    meshName = StringProperty(name="meshName", update=updateMeshName)
-
-    markerName = StringProperty(name="markerName")
-    physicsFrameName = StringProperty(name="physicsFrameName")
-    controlEnum = EnumProperty(
+        # Used to realize the main tab in the GUI
+        self.gui_tab = PropertyHandler(EnumProperty(
             items=[('armatures', 'Robot', 'Modify the Robot'),
                    ('bones', 'Segments', 'Modify segements'),
                    ('meshes', 'Geometries', 'Assign meshes to segments'),
@@ -121,92 +134,67 @@ class RDGlobals(bpy.types.PropertyGroup):
                    # ('controller', 'Controller', 'Modify controller parameter'),
                    ('tools', 'Tools', 'Tools'),
                    ('files', 'Files', 'Export Armature')],
-            name="RobotEditor Control Panel"
-    )
-    meshType = EnumProperty(
+        ))
+
+        # Holds the selection to operate on colission geometries OR visual geometries
+        self.mesh_type = PropertyHandler(EnumProperty(
             items=[('DEFAULT', 'Visual', 'Set visual meshes'),
                    ('COLLISION', 'Collision', 'Set collision meshes')]
-    )
-    listMeshes = EnumProperty(
-            items=[("all", 'List all', 'Show all meshes in menu','RESTRICT_VIEW_OFF',1),
-                   ("connected", 'List connected', 'Show only connected meshes in menu','OUTLINER_OB_ARMATURE',2),
-                   ('disconnected', 'List disconnected', 'Show only disconnected meshes in menu',
-                    'ARMATURE_DATA',3)])
+        ))
 
-    hideMeshType = EnumProperty(
+        # Holds the selection to list connected or unassigned meshes in dropdown menus
+        self.list_meshes = PropertyHandler(EnumProperty(
+            items=[("all", 'List all', 'Show all meshes in menu', 'RESTRICT_VIEW_OFF', 1),
+                   ("connected", 'List connected', 'Show only connected meshes in menu', 'OUTLINER_OB_ARMATURE', 2),
+                   ('disconnected', 'List disconnected', 'Show only disconnected meshes in menu',
+                    'ARMATURE_DATA', 3)]))
+
+        # Holds the selection of wheter do hide/display connected/unassigned meshes in the 3D viewport
+        self.display_mesh_selection = PropertyHandler(EnumProperty(
             items=[('all', 'Show All connected',
                     'Show all mesh objects in viewport'),
                    ('collision', 'Show collision models',
                     'Show only connected collision models'),
                    ('visual', 'Show visual models',
                     'Show only connected visual models')],
-            update=displayMeshes)
+            update=self.displayMeshes))
 
-    listBones = EnumProperty(
-            items=[("all", 'List all', 'Show all bones in menu','RESTRICT_VIEW_OFF',1),
-                   ("connected", 'List connected','Show only bones with connected meshes in menu',
-                    'OUTLINER_OB_ARMATURE',2,),
+        # Holds the selection to list connected or unassigned segments in dropdown menus
+        self.list_segments = PropertyHandler(EnumProperty(
+            items=[("all", 'List all', 'Show all bones in menu', 'RESTRICT_VIEW_OFF', 1),
+                   ("connected", 'List connected', 'Show only bones with connected meshes in menu',
+                    'OUTLINER_OB_ARMATURE', 2,),
                    ('disconnected', 'List disconnected',
-                    'List only bones without connected meshes in menu','ARMATURE_DATA',3)])
-    storageMode = EnumProperty(items=[('temporary', 'Non-persistant GIT',
-                                       'Stores/retrieves files from GIT temporary' +
-                                       ' repository'),
-                                      ('git', 'Persitant GIT',
-                                       'Stores/retrieves files from persistent GIT repository'),
-                                      ('local', 'Local',
-                                       'Stores/retrieves from local hard disk')])
-    gitURL = StringProperty(name='GIT URL')
-    gitRepository = StringProperty(name='GIT Repository')
-    modelFolderName = StringProperty(name='Model folder')
+                    'List only bones without connected meshes in menu', 'ARMATURE_DATA', 3)]))
 
-    boneMode = EnumProperty(
+        self.storage_mode = PropertyHandler(EnumProperty(items=[('temporary', 'Non-persistant GIT',
+                                                           'Stores/retrieves files from GIT temporary' +
+                                                           ' repository'),
+                                                                ('git', 'Persitant GIT',
+                                                           'Stores/retrieves files from persistent GIT repository'),
+                                                                ('local', 'Local',
+                                                           'Stores/retrieves from local hard disk')]))
+        self.git_url = PropertyHandler(StringProperty(name='GIT URL'))
+        self.git_repository = PropertyHandler(StringProperty(name='GIT Repository'))
+
+        self.segment_tab = PropertyHandler(EnumProperty(
             items=[('kinematics', 'Kinematics', 'Edit kinematic properties'),
                    ('dynamics', 'Dynamics', 'Edit Dynamic properties'),
-                   ('controller', 'Controller', 'Edit Controller properties')])
-    boneLength = FloatProperty(name="Global bone length", default=1, min=0.001,
-                               update=updateGlobals)
-    doKinematicUpdate = BoolProperty(name="Import Update", default=True)
+                   ('controller', 'Controller', 'Edit Controller properties')],
+            name="asdf"))
 
-#    meshes = CollectionProperty(type=StringCollection)
+        self.bone_length = PropertyHandler(FloatProperty(name="Global bone length", default=1, min=0.001,
+                                                         update=self.updateGlobals))
+        self.do_kinematic_update = PropertyHandler(BoolProperty(name="Import Update", default=True))
 
-    # liveSearchBones = StringProperty(name="Live Search for Bones", default="")
-    # liveSearchMeshes = StringProperty(name="Live Search for Meshes",
-    #                                   default="")
-    # liveSearchMarkers = StringProperty(name="Live Search for Markers",
-    #                                    default="")
+        self.gazebo_tags = PropertyHandler(StringProperty(name="Gazebo tags", default=""))
 
-    # collapsable bone elements
-    # collapseBoneEdit = BoolProperty(name="Edit Bones")
-    # collapseGlobalSettings = BoolProperty(
-    #         name="Robot Designer global settings")
-    # collapseController = BoolProperty(name="Collapse controller box")
-    # collapseControllerLimits = BoolProperty(
-    #         name="Collapse controller limits box")
-    # collapseCollision = BoolProperty(name="Collapse collision mesh limits box",
-    #                                  default=False)
-    # collapseDisconnectMesh = BoolProperty(
-    #         name="Collapse collision mesh limits box", default=True)
-    # collapseConnectMesh = BoolProperty(
-    #         name="Collapse collision mesh limits box", default=True)
-    # collapseCFSelection = BoolProperty(
-    #         name="Collapse coordinate frame selection box", default=False)
-    # collapseSoftBodies = BoolProperty(name="Collapse soft body box", default=False)
-    # # gazebo tags
-    gazeboTags = StringProperty(name="Gazebo tags", default="")
-
-    def debug_level_callback(self, context):
-        operator_logger.info('Switching debug level')
-        if context.scene.RobotEditor.OperatorDebugLevel == 'debug':
-            operator_logger.setLevel(logging.DEBUG)
-        elif context.scene.RobotEditor.OperatorDebugLevel == 'info':
-            operator_logger.setLevel(logging.INFO)
-        elif context.scene.RobotEditor.OperatorDebugLevel == 'warning':
-            operator_logger.setLevel(logging.WARNING)
-        else:
-            operator_logger.setLevel(logging.ERROR)
-
-    OperatorDebugLevel = EnumProperty(
+        self.operator_debug_level = PropertyHandler(EnumProperty(
             items=[('debug', 'Debug', 'Log everything including debug messages (verbose)'),
                    ('info', 'Info', 'Log information'),
                    ('warning', 'Warning', 'Log only warnings'),
-                   ('error', 'Error', 'Log only errors')], update=debug_level_callback)
+                   ('error', 'Error', 'Log only errors')], update=self.debug_level_callback))
+
+
+global_properties = RDGlobals()
+global_properties.register(bpy.types.Scene)

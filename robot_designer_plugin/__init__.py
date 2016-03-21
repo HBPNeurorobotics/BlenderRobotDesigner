@@ -81,9 +81,9 @@ try:
                 sys.path.remove(path)
 
 except Exception as e:
-    from .core.logfile import RD_logger, EXCEPTION_MESSAGE, log_callstack
-    RD_logger.error("Could not import submodules:\n" + EXCEPTION_MESSAGE,
-                    type(e).__name__, e, log_callstack(), log_callstack(True))
+    from .core.logfile import core_logger, EXCEPTION_MESSAGE, log_callstack
+    core_logger.error("Could not import submodules:\n" + EXCEPTION_MESSAGE,
+                      type(e).__name__, e, log_callstack(), log_callstack(True))
 
     def register(): pass
     def unregister(): pass

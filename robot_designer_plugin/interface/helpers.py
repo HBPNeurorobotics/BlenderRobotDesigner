@@ -40,7 +40,7 @@ from . import menus
 from ..core import Condition
 from ..core.gui import CollapsibleBase
 from ..core.pluginmanager import PluginManager
-
+from ..properties.globals import global_properties
 
 @PluginManager.register_class
 class DisconnectGeometryBox(CollapsibleBase):
@@ -127,6 +127,6 @@ def create_segment_selector(layout, context):
     global info_list
     single_segment = getSingleSegment(context)
     layout.menu(menus.SegmentsMenu.bl_idname, text=single_segment.name if single_segment else "Select Segment")
-    layout.prop_search(context.scene.RobotEditor, "segment_name", context.active_object.data, 'bones',
+    global_properties.segment_name.prop_search(context.scene, layout, context.active_object.data, 'bones',
                        icon='VIEWZOOM',
                        text='')

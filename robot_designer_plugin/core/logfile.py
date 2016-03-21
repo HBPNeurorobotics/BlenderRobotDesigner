@@ -54,6 +54,8 @@ import sys
 import traceback
 import os
 
+from .gui import InfoBox
+
 from ..core.config import BACKTRACE_MESSAGE_CALLSTACK, BACKTRACE_MESSAGE, BACKTRACE_FILTER_FUNC, \
     BACKTRACE_FILTER_HIDE_CODE, BACKTRACE_MESSAGE_STACK, BACKTRACE_MESSAGE_STACK_CODE, EXCEPTION_MESSAGE, script_path
 
@@ -61,13 +63,13 @@ from importlib import reload
 
 reload(logging)
 logging.basicConfig(format='[%(levelname)5s|%(name)10s|%(filename)12s:%(lineno)03d|%(funcName)s()] %(message)s\n',
-                    filename=os.path.join(script_path, 'resources/log.txt'))
+                    filename=os.path.join(script_path, 'resources/log.txt'), filemode='w')
 
 operator_logger = logging.getLogger('Operators')
 '''
 Logging object associated with :term:`operators`. All loggers store to ``resources/log.txt``
 '''
-RD_logger = logging.getLogger('Core')
+core_logger = logging.getLogger('Core')
 '''
 Logging object associated with the :term:`plugin core`. All loggers store to ``resources/log.txt``
 '''
@@ -81,7 +83,7 @@ Logging object associated with :term:`properties`. All loggers store to ``resour
 '''
 
 operator_logger.setLevel(logging.DEBUG)
-RD_logger.setLevel(logging.DEBUG)
+core_logger.setLevel(logging.DEBUG)
 gui_logger.setLevel(logging.DEBUG)
 prop_logger.setLevel(logging.DEBUG)
 
@@ -103,6 +105,7 @@ def LogFunction(func):
         except Exception as e:
             gui_logger.error("Draw function in %s module threw an exception:\n" + EXCEPTION_MESSAGE,
                              func.__module__, type(e).__name__, e, log_callstack(), log_callstack(back_trace=True))
+            InfoBox.global_message.append(e)
 
     return func_logger
 

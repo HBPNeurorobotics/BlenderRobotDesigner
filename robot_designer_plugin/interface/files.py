@@ -42,6 +42,7 @@ import bpy
 from .model import check_armature
 from ..core import PluginManager
 from ..core.gui import InfoBox
+from ..properties.globals import global_properties
 
 def draw(layout, context):
     """
@@ -52,14 +53,19 @@ def draw(layout, context):
     """
     layout = layout.box()
     layout.label('Import/Export')
-    layout.prop(bpy.context.scene.RobotEditor, "storageMode", expand=True)
-    if bpy.context.scene.RobotEditor.storageMode == 'local':
-        pass
-    elif bpy.context.scene.RobotEditor.storageMode == 'git':
-        layout.prop(bpy.context.scene.RobotEditor, "gitRepository")
-        layout.prop(bpy.context.scene.RobotEditor, "gitURL")
-    elif bpy.context.scene.RobotEditor.storageMode == 'temporary':
-        layout.prop(bpy.context.scene.RobotEditor, "gitURL")
+
+    # # Will be added again once GIT persistence has been decided on
+    #
+    # global_properties.storage_mode.prop(context.scene,layout, expand=True)
+    # storage_mode = global_properties.storage_mode.get(context.scene)
+    #
+    # if storage_mode == 'local':
+    #     pass
+    # elif storage_mode == 'git':
+    #     global_properties.git_repository.prop(context.scene, layout)
+    #     global_properties.git_url.prop(context.scene, layout)
+    # elif storage_mode == 'temporary':
+    #     global_properties.git_url.prop(context.scene, layout)
 
     row = layout.row()
     column = row.column()
@@ -79,22 +85,3 @@ def draw(layout, context):
         row2=box.row(align=True)
         infoBox.draw_info()
 
-    row = layout.row()
-    column = row.column()
-    #column.label('Import:')
-    # if use_simox:
-    #     column.operator("roboteditor.simoximport")
-    # if use_mmm:
-    #     column.operator("roboteditor.mmmimport")
-    #column.operator("roboteditor.urdfimport")
-
-    #column = row.column()
-
-    #column.label('export:')
-    #if context.mode == 'OBJECT':
-    #    if check_armature(column, context):
-    #        column.prop(bpy.context.scene.RobotEditor, "modelFolderName")
-    #        column.operator("roboteditor.urdfexport")
-    #        # column.operator("roboteditor.colladaexport")
-    #else:
-    #    column.label('Please activate object mode for export')
