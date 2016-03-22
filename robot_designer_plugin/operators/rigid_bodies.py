@@ -52,6 +52,7 @@ from bpy.props import StringProperty, BoolProperty
 from ..core import config, PluginManager, Condition, RDOperator
 from .helpers import ModelSelected, SingleMeshSelected, ObjectMode
 
+from ..properties.globals import global_properties
 
 # operator to select mesh
 @RDOperator.Preconditions(ModelSelected)
@@ -80,10 +81,10 @@ class SelectGeometry(RDOperator):
 
         if mesh.type != 'MESH':
             self.report({'ERROR'}, 'Object is no geometry (Mesh). Is %s' % mesh.type)
-            context.scene.RobotEditor.meshName = 'Search'
+            global_properties.mesh_name.set(context.scene, 'Search')
             return {'FINISHED'}
 
-        context.scene.RobotEditor.meshName = 'Search'
+        global_properties.mesh_name.set(context.scene, 'Search')
 
         arm = context.active_object
 
@@ -140,11 +141,12 @@ class RenameAllGeometries(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
-        current_mesh = bpy.data.objects[context.scene.RobotEditor.meshName]
+        mesh_name = global_properties.mesh_name.get(context.scene)
+        current_mesh = bpy.data.objects[mesh_name]
         for i in bpy.data.objects:
             if i.parent_bone != '' and i.type == 'MESH':
                 if i.name == current_mesh:
-                    context.scene.RobotEditor.meshName = i.parent_bone
+                    global_properties.mesh_name.set(context.scene, i.parent_bone)
                 i.name = 'Visualization_' + i.parent_bone
 
         return {'FINISHED'}
@@ -171,7 +173,8 @@ class DetachGeometry(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleMeshSelected)
     def execute(self, context):
-        current_mesh = bpy.data.objects[context.scene.RobotEditor.meshName]
+        mesh_name = global_properties.mesh_name.get(context.scene)
+        current_mesh = bpy.data.objects[mesh_name]
         mesh_global = current_mesh.matrix_world
         current_mesh.parent = None
         current_mesh.matrix_world = mesh_global
@@ -202,7 +205,7 @@ class DetachAllGeometries(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
-        mesh_type = context.scene.RobotEditor.meshType
+        mesh_type =  global_properties.mesh_type.get(context.scene)
         if mesh_type == 'DEFAULT':
             meshes = [obj for obj in bpy.data.objects if
                       obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotEditor.tag != 'COLLISION']
@@ -241,7 +244,7 @@ class SelectAllGeometries(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ObjectMode)
     def execute(self, context):
-        mesh_type = context.scene.RobotEditor.meshType
+        mesh_type =  global_properties.mesh_type.get(context.scene)
         meshes = {obj.name for obj in bpy.data.objects if
                   not obj.parent_bone is None and
                   obj.type == 'MESH' and

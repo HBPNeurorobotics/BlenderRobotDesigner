@@ -42,7 +42,7 @@ import bpy
 from ..operators import dynamics
 from . import menus
 from .model import check_armature
-
+from ..properties.globals import global_properties
 
 def draw(layout, context):
     """
@@ -57,20 +57,21 @@ def draw(layout, context):
     layout.label("Select Physics Frame:")
     topRow = layout.column(align=False)
     frameMenuText = ""
-    if context.active_bone and not context.scene.RobotEditor.physicsFrameName == "":
-        if context.scene.RobotEditor.physicsFrameName in bpy.data.objects:
-            frame = bpy.data.objects[context.scene.RobotEditor.physicsFrameName]
+    frame_name = global_properties.physics_frame_name.get(context.scene)
+    if context.active_bone and frame_name:
+        if frame_name in bpy.data.objects:
+            frame = bpy.data.objects[frame_name]
 
             if frame.parent_bone:
-                frameMenuText = context.scene.RobotEditor.physicsFrameName + " --> " + frame.parent_bone
+                frameMenuText = frame_name + " --> " + frame.parent_bone
             else:
-                frameMenuText = context.scene.RobotEditor.physicsFrameName
+                frameMenuText = frame_name
 
     topRow.menu(menus.MassObjectMenu.bl_idname, text=frameMenuText)
     topRow.operator(dynamics.DetachPhysical.bl_idname)
 
-    if context.scene.RobotEditor.physicsFrameName is not "":
-        frame = bpy.data.objects[context.scene.RobotEditor.physicsFrameName]
+    if frame_name:
+        frame = bpy.data.objects[frame_name]
         layout.prop(frame.RobotEditor.dynamics, "mass")
         layout.separator()
         layout.prop(frame.RobotEditor.dynamics, "inertiaTensor")

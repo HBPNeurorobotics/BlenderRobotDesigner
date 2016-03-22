@@ -42,7 +42,7 @@ from bpy.props import FloatProperty, StringProperty, \
 
 # RobotDesigner imports
 from ..core import PluginManager
-
+# from .globals import global_properties
 
 @PluginManager.register_property_group()
 class RDDynamics(bpy.types.PropertyGroup):

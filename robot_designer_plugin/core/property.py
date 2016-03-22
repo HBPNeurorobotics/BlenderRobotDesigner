@@ -73,6 +73,13 @@ class PropertyHandler(object):
             obj = getattr(obj, i)
         return obj
 
+    def set(self,obj, value):
+        obj = getattr(obj,"RobotDesigner")
+        for i in self.reference[:-1]:
+            obj = getattr(obj, i)
+        setattr(obj,self.reference[-1],value)
+
+
     def prop(self, obj, layout, *args, **kwargs):
         """
         Resolves and renders a registered property on a GUI :class:`bpy.types.UILayout` object given a

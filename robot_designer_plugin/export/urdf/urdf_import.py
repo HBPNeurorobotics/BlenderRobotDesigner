@@ -64,6 +64,8 @@ from ...operators.dynamics import AssignPhysical, CreatePhysical, SelectPhysical
 from .generic import urdf_tree
 from .generic.helpers import string_to_list, get_value
 
+from ...properties.globals import global_properties
+
 import logging
 
 __author__ = 'Stefan Ulbrich(FZI), Igor Peric (FZI), Maximillian Stauss (FZI)'
@@ -309,7 +311,7 @@ class Importer(object):
             curr_tag = gazebo_tag.toxml("utf-8").decode("utf-8")
             curr_tag = curr_tag[38:]  # remove <xml version=.../> tag
             tag_buffer = '{0}\n{1}'.format(tag_buffer, curr_tag)
-        bpy.context.scene.RobotEditor.gazeboTags = tag_buffer
+        global_properties.gazebo_tags.set(bpy.context.scene, tag_buffer)
 
         self.logger.debug('root links: %s', [i.name for i in root_links])
 

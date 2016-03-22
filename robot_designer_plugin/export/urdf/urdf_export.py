@@ -64,6 +64,7 @@ from ...core import config, PluginManager, RDOperator
 from ...operators.helpers import ModelSelected, ObjectMode
 from ...operators.model import SelectModel
 
+from ...properties.globals import global_properties
 
 def export_mesh(operator: RDOperator, context, name: str, directory: str, toplevel_dir: str, in_ros_package: bool,
                 abs_file_paths=False, export_collision=False):
@@ -285,7 +286,7 @@ def create_urdf(operator: RDOperator, context, base_link_name,
     if operator.gazebo:
         with open(filepath, "r") as f:
             content = f.read()
-        gazebo_tags = bpy.context.scene.RobotEditor.gazeboTags
+        gazebo_tags = global_properties.gazebo_tags.get(bpy.context.scene)
         content = content.replace("</robot>", gazebo_tags + "</robot>")
         with open(filepath, "w") as f:
             f.write(content)

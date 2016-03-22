@@ -56,6 +56,7 @@ from bpy.props import StringProperty
 from ..core import config, PluginManager, RDOperator, Condition
 from .helpers import ModelSelected
 
+from ..properties.globals import global_properties
 
 # operator to create physics frame
 @RDOperator.Preconditions(ModelSelected)
@@ -119,7 +120,7 @@ class SelectPhysical(RDOperator):
     @RDOperator.Postconditions(ModelSelected)  # todo condition for physicframe
     def execute(self, context):
         arm = context.active_object
-        context.scene.RobotEditor.physicsFrameName = self.frameName
+        global_properties.physics_frame_name.set(context.scene, self.frameName)
 
         frame = bpy.data.objects[self.frameName]
 
@@ -204,7 +205,7 @@ class DetachPhysical(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)  # todo condition for physicframe
     def execute(self, context):
-        currentFrame = bpy.data.objects[context.scene.RobotEditor.physicsFrameName]
+        currentFrame = global_properties.physics_frame_name.get(context.scene)
         physNode_global = currentFrame.matrix_world
         currentFrame.parent = None
         currentFrame.matrix_world = physNode_global

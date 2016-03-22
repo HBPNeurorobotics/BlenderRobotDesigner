@@ -149,7 +149,6 @@ def draw(layout, context):
         box = layout.box()
         box.label(text="Custom Gazebo tags")
         global_properties.gazebo_tags.prop(bpy.context.scene, box)
-        #box.prop(bpy.context.scene.RobotEditor, "gazebo_tags", slider=True)
     else:
         layout.menu(menus.ModelMenu.bl_idname, text="Select Robot")
         layout.label(text="Select robot first")

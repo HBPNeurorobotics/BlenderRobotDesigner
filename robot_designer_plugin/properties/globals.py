@@ -57,11 +57,12 @@ class RDGlobals(PropertyGroupHandlerBase):
     @staticmethod
     def debug_level_callback(self, context):
         operator_logger.info('Switching debug level')
-        if context.scene.RobotEditor.OperatorDebugLevel == 'debug':
+        level = global_properties.operator_debug_level.get(context.scene)
+        if level == 'debug':
             operator_logger.setLevel(logging.DEBUG)
-        elif context.scene.RobotEditor.OperatorDebugLevel == 'info':
+        elif level == 'info':
             operator_logger.setLevel(logging.INFO)
-        elif context.scene.RobotEditor.OperatorDebugLevel == 'warning':
+        elif level == 'warning':
             operator_logger.setLevel(logging.WARNING)
         else:
             operator_logger.setLevel(logging.ERROR)
@@ -76,12 +77,12 @@ class RDGlobals(PropertyGroupHandlerBase):
 
     @staticmethod
     def updateBoneName(self, context):
-        SelectSegment.run(segment_name=context.scene.RobotEditor.segment_name)
+
+        SelectSegment.run(segment_name=global_properties.segment_name.get(context.scene))
 
     @staticmethod
     def update_geometry_name(self, context):
         print("Udpate Mesh name")
-        # SelectGeometry.run(meshName=context.scene.RobotEditor.meshName)
         for i in [i for i in bpy.context.selected_objects if i.name != context.active_object.name]:
             i.select = False
         try:

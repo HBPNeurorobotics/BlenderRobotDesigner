@@ -48,6 +48,8 @@ from ..operators.segments import UpdateSegments
 from ..core import PluginManager
 from ..core.logfile import prop_logger as logger
 
+from .globals import global_properties
+
 
 @PluginManager.register_property_group()
 class RDActuator(bpy.types.PropertyGroup):
@@ -67,7 +69,7 @@ class RDDegreeOfFreedom(bpy.types.PropertyGroup):
     """
 
     def updateDoF(self: memoryview, context):
-        if context.scene.RobotEditor.doKinematicUpdate:
+        if global_properties.do_kinematic_update.get(context.scene):
             segment_name = context.active_bone.name
 
             UpdateSegments.run(segment_name=segment_name)

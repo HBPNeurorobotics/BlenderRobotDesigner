@@ -54,6 +54,7 @@ from bpy.props import StringProperty
 # RobotDesigner imports
 from ..core import config, PluginManager, RDOperator, Condition
 from .helpers import ModelSelected
+from ..properties.globals import global_properties
 
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
@@ -199,7 +200,8 @@ class SelectModel(RDOperator):
 
         context.scene.objects.active = bpy.data.objects[self.model_name]
         context.active_object.select = True
-        context.scene.RobotEditor.armatureName = self.model_name # not so sure if this is needed at all
+        global_properties.model_name.set(context.scene, self.model_name)
+        # not so sure if this is needed at all
 
         if len(context.active_object.data.bones) > 0:
             baseBoneName = context.active_object.data.bones[0].name
