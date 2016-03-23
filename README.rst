@@ -1,6 +1,5 @@
-
-The BlenderRobotDesigner of the Neurorobotics Platform (NRP) of the Human Brain Project
-=======================================================================================
+The BlenderRobotDesigner of the Neurorobotics Platform (NRP)
+============================================================
 
 Introduction
 ------------
@@ -57,7 +56,7 @@ of the `FZI Forschungszentrum Informatik <http://www.fzi.de/en/home/>`__
 in Karlsruhe.
 
 History
-~~~~~~~
+^^^^^^^
 
 The foundations of the *NRP RobotDesigner* has been initially developed
 under the name *OpenGRASP RobotEditor* from 2008-2012 at the `Humanoids
@@ -104,7 +103,7 @@ communication/file exchange), additional file formats, support for
 simulators, an installer and an adapted user interface.
 
 License
-~~~~~~~
+^^^^^^^
 
 Similar to its predecessor *the RobotEditor* the NRP RobotDesigner is
 published as open source software under the `GPLv2
@@ -114,7 +113,7 @@ The NRP RobotDesigner
 ---------------------
 
 The Human Brain Project [#]_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The European Commission has selected the `Human Brain
 Project <https://www.humanbrainproject.eu>`__ as one of its two
@@ -135,7 +134,7 @@ funding agencies, industry and partners from outside the European Union.
 `Read more... <http://neurorobotics.net/the-human-brain-project/>`__
 
 The Neurorobotics Platform [#]_
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The Neurorobotics sub-project will develop the Neurorobotics Platform
 which will offer scientists and technology developers a software and
@@ -324,7 +323,7 @@ automatically for the installed Blender version.
 --------------
 
 Footnotes
-~~~~~~~~~
+^^^^^^^^^
 
 .. [#] Funded by the European Commission through its Cognition Unit under the
     Information Society Technologies of the seventh Framework Programme (FP7)
