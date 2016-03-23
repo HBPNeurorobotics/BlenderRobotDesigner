@@ -1,4 +1,0 @@
-mathutils
-sphinx
-sphinx-autodoc-typehints
-hbp-sphinx-theme

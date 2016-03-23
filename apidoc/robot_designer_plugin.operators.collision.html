@@ -1,0 +1,245 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.operators.collision module &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
+    <link rel="up" title="robot_designer_plugin.operators package" href="robot_designer_plugin.operators.html" />
+    <link rel="next" title="robot_designer_plugin.operators.dynamics module" href="robot_designer_plugin.operators.dynamics.html" />
+    <link rel="prev" title="robot_designer_plugin.operators.api module" href="robot_designer_plugin.operators.api.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="robot_designer_plugin.operators.api.html"
+                        title="previous chapter">robot_designer_plugin.operators.api module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="robot_designer_plugin.operators.dynamics.html"
+                        title="next chapter">robot_designer_plugin.operators.dynamics module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/apidoc/robot_designer_plugin.operators.collision.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../developer_manual/index.html">Developers Manual</a>
+                    
+                    <a href="modules.html">robot_designer_plugin</a>
+                    
+                    <a href="robot_designer_plugin.html">robot_designer_plugin package</a>
+                    
+                    <a href="robot_designer_plugin.operators.html">robot_designer_plugin.operators package</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    <span class="hbpdoc-hnav-previous">
+                        previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.api.html">robot_designer_plugin.operators.api module</a>
+                    </span>
+                    
+                    
+                    <span class="hbpdoc-hnav-next">
+                        next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.dynamics.html">robot_designer_plugin.operators.dynamics module</a>
+                    </span>
+                    
+                </aside>
+
+                <div class="section" id="module-robot_designer_plugin.operators.collision">
+<span id="robot-designer-plugin-operators-collision-module"></span><h1>robot_designer_plugin.operators.collision module<a class="headerlink" href="#module-robot_designer_plugin.operators.collision" title="Permalink to this headline">¶</a></h1>
+<p>Sphinx-autodoc tag</p>
+<dl class="class">
+<dt id="robot_designer_plugin.operators.collision.GenerateAllCollisionMeshes">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.collision.</code><code class="descname">GenerateAllCollisionMeshes</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/collision.html#GenerateAllCollisionMeshes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateAllCollisionMeshes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><span class="xref std std-ref">operator</span> for ...</p>
+<p><strong>Preconditions:</strong></p>
+<p><strong>Postconditions:</strong></p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.collision.GenerateAllCollisionMeshes.bl_idname">
+<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.generatallecollisionmeshes'</em><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateAllCollisionMeshes.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.collision.GenerateAllCollisionMeshes.bl_label">
+<code class="descname">bl_label</code><em class="property"> = 'Generate All Collision Meshes'</em><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateAllCollisionMeshes.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.operators.collision.GenerateAllCollisionMeshes.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateAllCollisionMeshes.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.operators.collision.GenerateAllCollisionMeshes.invoke">
+<code class="descname">invoke</code><span class="sig-paren">(</span><em>context</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/collision.html#GenerateAllCollisionMeshes.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateAllCollisionMeshes.invoke" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.collision.GenerateAllCollisionMeshes.shrinkWrapOffset">
+<code class="descname">shrinkWrapOffset</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateAllCollisionMeshes.shrinkWrapOffset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.collision.GenerateAllCollisionMeshes.subdivisionLevels">
+<code class="descname">subdivisionLevels</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateAllCollisionMeshes.subdivisionLevels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="robot_designer_plugin.operators.collision.GenerateCollisionMesh">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.collision.</code><code class="descname">GenerateCollisionMesh</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/collision.html#GenerateCollisionMesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateCollisionMesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><span class="xref std std-ref">operator</span> for creating a collision mesh using the builtin
+subdivide and shrinkwrap operators.</p>
+<p><strong>Preconditions:</strong></p>
+<p><strong>Postconditions:</strong></p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleMeshSelected" title="robot_designer_plugin.operators.helpers.SingleMeshSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.SingleMeshSelected</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.collision.GenerateCollisionMesh.bl_idname">
+<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.generatecollisionmesh'</em><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateCollisionMesh.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.collision.GenerateCollisionMesh.bl_label">
+<code class="descname">bl_label</code><em class="property"> = 'Generate Collision Mesh for selected'</em><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateCollisionMesh.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.operators.collision.GenerateCollisionMesh.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateCollisionMesh.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.operators.collision.GenerateCollisionMesh.invoke">
+<code class="descname">invoke</code><span class="sig-paren">(</span><em>context</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/collision.html#GenerateCollisionMesh.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateCollisionMesh.invoke" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="robot_designer_plugin.operators.collision.GenerateCollisionMesh.run">
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><em>shrinkWrapOffset</em>, <em>subdivisionLevels</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/collision.html#GenerateCollisionMesh.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateCollisionMesh.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.collision.GenerateCollisionMesh.shrinkWrapOffset">
+<code class="descname">shrinkWrapOffset</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateCollisionMesh.shrinkWrapOffset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.collision.GenerateCollisionMesh.subdivisionLevels">
+<code class="descname">subdivisionLevels</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.operators.collision.GenerateCollisionMesh.subdivisionLevels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                <span class="hbpdoc-hnav-previous">
+                    previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.api.html">robot_designer_plugin.operators.api module</a>
+                </span>
+                
+                
+                <span class="hbpdoc-hnav-next">
+                    next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.dynamics.html">robot_designer_plugin.operators.dynamics module</a>
+                </span>
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>

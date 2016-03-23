@@ -1,0 +1,324 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.operators.dynamics &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../../../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../../index.html">Module code</a>
+                    
+                    <a href="../../robot_designer_plugin.html">robot_designer_plugin</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    
+                </aside>
+
+                <h1>Source code for robot_designer_plugin.operators.dynamics</h1><div class="highlight"><pre>
+<span></span><span class="c1"># #####</span>
+<span class="c1"># This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
+<span class="c1"># in the Human Brain Project (HBP).</span>
+<span class="c1"># It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)</span>
+<span class="c1"># developed at the Karlsruhe Institute of Technology in the</span>
+<span class="c1"># High Performance Humanoid Technologies Laboratory (H2T).</span>
+<span class="c1"># #####</span>
+
+<span class="c1"># ##### BEGIN GPL LICENSE BLOCK #####</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software; you can redistribute it and/or</span>
+<span class="c1">#  modify it under the terms of the GNU General Public License</span>
+<span class="c1">#  as published by the Free Software Foundation; either version 2</span>
+<span class="c1">#  of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU General Public License</span>
+<span class="c1">#  along with this program; if not, write to the Free Software Foundation,</span>
+<span class="c1">#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</span>
+<span class="c1">#</span>
+<span class="c1"># ##### END GPL LICENSE BLOCK #####</span>
+
+<span class="c1"># #####</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)</span>
+<span class="c1"># Copyright (c) 2016, FZI Forschungszentrum Informatik</span>
+<span class="c1">#</span>
+<span class="c1"># Changes:</span>
+<span class="c1">#</span>
+<span class="c1">#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.</span>
+<span class="c1">#</span>
+<span class="c1"># ######</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Sphinx-autodoc tag</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># ######</span>
+<span class="c1"># System imports</span>
+<span class="c1"># import os</span>
+<span class="c1"># import sys</span>
+<span class="c1"># import math</span>
+
+<span class="c1"># ######</span>
+<span class="c1"># Blender imports</span>
+<span class="kn">from</span> <span class="nn">mathutils</span> <span class="kn">import</span> <span class="n">Matrix</span>
+
+<span class="kn">import</span> <span class="nn">bpy</span>
+<span class="kn">from</span> <span class="nn">bpy.props</span> <span class="kn">import</span> <span class="n">StringProperty</span>
+
+<span class="c1"># ######</span>
+<span class="c1"># RobotDesigner imports</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">PluginManager</span><span class="p">,</span> <span class="n">RDOperator</span><span class="p">,</span> <span class="n">Condition</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">ModelSelected</span>
+
+<span class="kn">from</span> <span class="nn">..properties.globals</span> <span class="kn">import</span> <span class="n">global_properties</span>
+
+<span class="c1"># operator to create physics frame</span>
+<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager.register_class</span>
+<div class="viewcode-block" id="CreatePhysical"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.CreatePhysical">[docs]</a><span class="k">class</span> <span class="nc">CreatePhysical</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :ref:`operator` for ...</span>
+
+<span class="sd">    **Preconditions:**</span>
+
+<span class="sd">    **Postconditions:**</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;createphysicsframe&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Create Physics Frame&quot;</span>
+
+    <span class="n">frameName</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">()</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="CreatePhysical.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.CreatePhysical.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">frameName</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+
+    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>  <span class="c1"># todo condition for physicframe</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">model</span>
+        <span class="n">model_name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">empty_add</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;PLAIN_AXES&#39;</span><span class="p">)</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frameName</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="s1">&#39;PHYSICS_FRAME&#39;</span>
+
+        <span class="n">model</span><span class="o">.</span><span class="n">SelectModel</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">)</span>
+        <span class="n">SelectPhysical</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">frameName</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">frameName</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
+
+<div class="viewcode-block" id="CreatePhysical.invoke"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.CreatePhysical.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span><span class="o">.</span><span class="n">invoke_props_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+
+
+<span class="c1"># operator to select a physics frame</span>
+<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager.register_class</span>
+<div class="viewcode-block" id="SelectPhysical"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.SelectPhysical">[docs]</a><span class="k">class</span> <span class="nc">SelectPhysical</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :ref:`operator` for ...</span>
+
+<span class="sd">    **Preconditions:**</span>
+
+<span class="sd">    **Postconditions:**</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;selectphysicsframe&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Select Physics Frame&quot;</span>
+
+    <span class="n">frameName</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">()</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="SelectPhysical.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.SelectPhysical.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">frameName</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+
+    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>  <span class="c1"># todo condition for physicframe</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">arm</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
+        <span class="n">global_properties</span><span class="o">.</span><span class="n">physics_frame_name</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frameName</span><span class="p">)</span>
+
+        <span class="n">frame</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">frameName</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="n">frame</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">arm</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="n">arm</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
+
+
+<span class="c1"># operator to assign selected physics frame to active bone</span>
+<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager.register_class</span>
+<div class="viewcode-block" id="AssignPhysical"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.AssignPhysical">[docs]</a><span class="k">class</span> <span class="nc">AssignPhysical</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :ref:`operator` for ...</span>
+
+<span class="sd">    **Preconditions:**</span>
+
+<span class="sd">    **Postconditions:**</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;assignphysicsframe&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Assign selected physics frame to active bone&quot;</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="AssignPhysical.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.AssignPhysical.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+
+    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">parent_set</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;BONE&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+            <span class="n">to_parent_matrix</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">matrix_local</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">to_parent_matrix</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">()</span>
+        <span class="n">from_parent_matrix</span><span class="p">,</span> <span class="n">bone_matrix</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">getTransform</span><span class="p">()</span>
+        <span class="n">armature_matrix</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">matrix_basis</span>
+
+        <span class="c1"># find selected physics frame</span>
+        <span class="k">for</span> <span class="n">ob</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ob</span><span class="o">.</span><span class="n">select</span> <span class="ow">and</span> <span class="n">ob</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;PHYSICS_FRAME&#39;</span><span class="p">:</span>
+                <span class="n">frame</span> <span class="o">=</span> <span class="n">ob</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="c1"># frame.matrix_basis = armature_matrix*to_parent_matrix*from_parent_matrix*bone_matrix</span>
+        <span class="c1"># frame.matrix_basis = parent_matrix*armature_matrix*bone_matrix</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
+
+<div class="viewcode-block" id="AssignPhysical.invoke"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.AssignPhysical.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span><span class="o">.</span><span class="n">invoke_props_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+
+
+<span class="c1"># operator to generate collision meshes for all assigned physics frames</span>
+
+
+<span class="c1"># operator to unassign selected physics frame</span>
+<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager.register_class</span>
+<div class="viewcode-block" id="DetachPhysical"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.DetachPhysical">[docs]</a><span class="k">class</span> <span class="nc">DetachPhysical</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :ref:`operator` for ...</span>
+
+<span class="sd">    **Preconditions:**</span>
+
+<span class="sd">    **Postconditions:**</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;unassignphysicsframe&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Unassign selected physics frame&quot;</span>
+
+    <span class="n">frameName</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">()</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DetachPhysical.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.DetachPhysical.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">frameName</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+
+    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>  <span class="c1"># todo condition for physicframe</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">currentFrame</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">physics_frame_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
+        <span class="n">physNode_global</span> <span class="o">=</span> <span class="n">currentFrame</span><span class="o">.</span><span class="n">matrix_world</span>
+        <span class="n">currentFrame</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">currentFrame</span><span class="o">.</span><span class="n">matrix_world</span> <span class="o">=</span> <span class="n">physNode_global</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
+</pre></div>
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>

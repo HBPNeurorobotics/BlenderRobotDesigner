@@ -1,7 +1,0 @@
-[gerrit]
-host=bbpcode.epfl.ch
-port=22
-project=neurorobotics/RobotDesigner
-defaultbranch=master
-defaultremote=origin
-

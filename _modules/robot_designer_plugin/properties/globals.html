@@ -1,0 +1,313 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.properties.globals &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../../../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../../index.html">Module code</a>
+                    
+                    <a href="../../robot_designer_plugin.html">robot_designer_plugin</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    
+                </aside>
+
+                <h1>Source code for robot_designer_plugin.properties.globals</h1><div class="highlight"><pre>
+<span></span><span class="c1"># #####</span>
+<span class="c1"># This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
+<span class="c1"># in the Human Brain Project (HBP).</span>
+<span class="c1"># It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)</span>
+<span class="c1"># developed at the Karlsruhe Institute of Technology in the</span>
+<span class="c1"># High Performance Humanoid Technologies Laboratory (H2T).</span>
+<span class="c1"># #####</span>
+
+<span class="c1"># ##### BEGIN GPL LICENSE BLOCK #####</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software; you can redistribute it and/or</span>
+<span class="c1">#  modify it under the terms of the GNU General Public License</span>
+<span class="c1">#  as published by the Free Software Foundation; either version 2</span>
+<span class="c1">#  of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU General Public License</span>
+<span class="c1">#  along with this program; if not, write to the Free Software Foundation,</span>
+<span class="c1">#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</span>
+<span class="c1">#</span>
+<span class="c1"># ##### END GPL LICENSE BLOCK #####</span>
+
+<span class="c1"># #####</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)</span>
+<span class="c1"># Copyright (c) 2016, FZI Forschungszentrum Informatik</span>
+<span class="c1">#</span>
+<span class="c1"># Changes:</span>
+<span class="c1">#</span>
+<span class="c1">#   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.</span>
+<span class="c1">#</span>
+<span class="c1"># ######</span>
+
+<span class="c1"># System imports</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="c1"># Blender imports</span>
+<span class="kn">import</span> <span class="nn">bpy</span>
+<span class="kn">from</span> <span class="nn">bpy.props</span> <span class="kn">import</span> <span class="n">IntProperty</span><span class="p">,</span> <span class="n">FloatProperty</span><span class="p">,</span> <span class="n">BoolProperty</span><span class="p">,</span> <span class="n">StringProperty</span><span class="p">,</span> <span class="n">EnumProperty</span><span class="p">,</span> <span class="n">CollectionProperty</span>
+
+<span class="c1"># RobotDesigner imports</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">PluginManager</span>
+<span class="kn">from</span> <span class="nn">..core.logfile</span> <span class="kn">import</span> <span class="n">operator_logger</span><span class="p">,</span> <span class="n">LogFunction</span>
+<span class="kn">from</span> <span class="nn">..operators.segments</span> <span class="kn">import</span> <span class="n">SelectSegment</span><span class="p">,</span> <span class="n">UpdateSegments</span>
+<span class="kn">from</span> <span class="nn">..core.property</span> <span class="kn">import</span> <span class="n">PropertyGroupHandlerBase</span><span class="p">,</span> <span class="n">PropertyHandler</span>
+
+
+<div class="viewcode-block" id="RDGlobals"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.globals.html#robot_designer_plugin.properties.globals.RDGlobals">[docs]</a><span class="k">class</span> <span class="nc">RDGlobals</span><span class="p">(</span><span class="n">PropertyGroupHandlerBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Property group that contains all globally defined parameters mostly related to the state of the GUI</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="RDGlobals.debug_level_callback"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.globals.html#robot_designer_plugin.properties.globals.RDGlobals.debug_level_callback">[docs]</a>    <span class="k">def</span> <span class="nf">debug_level_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">operator_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Switching debug level&#39;</span><span class="p">)</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">operator_debug_level</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">level</span> <span class="o">==</span> <span class="s1">&#39;debug&#39;</span><span class="p">:</span>
+            <span class="n">operator_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">level</span> <span class="o">==</span> <span class="s1">&#39;info&#39;</span><span class="p">:</span>
+            <span class="n">operator_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">level</span> <span class="o">==</span> <span class="s1">&#39;warning&#39;</span><span class="p">:</span>
+            <span class="n">operator_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">operator_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="RDGlobals.updateGlobals"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.globals.html#robot_designer_plugin.properties.globals.RDGlobals.updateGlobals">[docs]</a>    <span class="k">def</span> <span class="nf">updateGlobals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">model_name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">segment_name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="n">UpdateSegments</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">,</span> <span class="n">segment_name</span><span class="o">=</span><span class="n">segment_name</span><span class="p">)</span></div>
+
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="RDGlobals.updateBoneName"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.globals.html#robot_designer_plugin.properties.globals.RDGlobals.updateBoneName">[docs]</a>    <span class="k">def</span> <span class="nf">updateBoneName</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+
+        <span class="n">SelectSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">global_properties</span><span class="o">.</span><span class="n">segment_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">))</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="RDGlobals.update_geometry_name"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.globals.html#robot_designer_plugin.properties.globals.RDGlobals.update_geometry_name">[docs]</a>    <span class="k">def</span> <span class="nf">update_geometry_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Udpate Mesh name&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span><span class="p">]:</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">global_properties</span><span class="o">.</span><span class="n">mesh_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)]</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">pass</span>  <span class="c1"># This happens when the search title is selected</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="RDGlobals.displayMeshes"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.globals.html#robot_designer_plugin.properties.globals.RDGlobals.displayMeshes">[docs]</a>    <span class="k">def</span> <span class="nf">displayMeshes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Hides/Shows mesh objects in dependence of the respective Global property</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">hide_mesh</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">display_mesh_selection</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
+        <span class="n">meshNames</span> <span class="o">=</span> <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span>
+                     <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent_bone</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span>
+                     <span class="n">obj</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;MESH&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">mesh</span> <span class="ow">in</span> <span class="n">meshNames</span><span class="p">:</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">mesh</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">hide_mesh</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">hide</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">elif</span> <span class="n">hide_mesh</span> <span class="o">==</span> <span class="s1">&#39;collision&#39;</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;COLLISION&#39;</span><span class="p">:</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">hide</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">elif</span> <span class="n">hide_mesh</span> <span class="o">==</span> <span class="s1">&#39;visual&#39;</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;DEFAULT&#39;</span><span class="p">:</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">hide</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">hide</span> <span class="o">=</span> <span class="bp">True</span></div>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1"># Holds the current selected kinematics model (armature) name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_name</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">StringProperty</span><span class="p">())</span>
+
+        <span class="c1"># Holds the name of the currently selected segment (Bone)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">StringProperty</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">updateBoneName</span><span class="p">))</span>
+
+        <span class="c1"># Holds the name of the currently selected geometry (Mesh object)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mesh_name</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">StringProperty</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">update_geometry_name</span><span class="p">))</span>
+
+        <span class="c1"># Holds the name of the currently selected physics frame (Empty object)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">physics_frame_name</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">StringProperty</span><span class="p">())</span>
+
+        <span class="c1"># Used to realize the main tab in the GUI</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gui_tab</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;armatures&#39;</span><span class="p">,</span> <span class="s1">&#39;Robot&#39;</span><span class="p">,</span> <span class="s1">&#39;Modify the Robot&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;bones&#39;</span><span class="p">,</span> <span class="s1">&#39;Segments&#39;</span><span class="p">,</span> <span class="s1">&#39;Modify segements&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;meshes&#39;</span><span class="p">,</span> <span class="s1">&#39;Geometries&#39;</span><span class="p">,</span> <span class="s1">&#39;Assign meshes to segments&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;sensors&#39;</span><span class="p">,</span> <span class="s1">&#39;Sensors&#39;</span><span class="p">,</span> <span class="s1">&#39;Assign sensors to segments&#39;</span><span class="p">),</span>
+                   <span class="c1"># (&#39;markers&#39;, &#39;Markers&#39;, &#39;Assign markers to bones&#39;),</span>
+                   <span class="c1"># (&#39;controller&#39;, &#39;Controller&#39;, &#39;Modify controller parameter&#39;),</span>
+                   <span class="p">(</span><span class="s1">&#39;tools&#39;</span><span class="p">,</span> <span class="s1">&#39;Tools&#39;</span><span class="p">,</span> <span class="s1">&#39;Tools&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;files&#39;</span><span class="p">,</span> <span class="s1">&#39;Files&#39;</span><span class="p">,</span> <span class="s1">&#39;Export Armature&#39;</span><span class="p">)],</span>
+        <span class="p">))</span>
+
+        <span class="c1"># Holds the selection to operate on colission geometries OR visual geometries</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mesh_type</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;DEFAULT&#39;</span><span class="p">,</span> <span class="s1">&#39;Visual&#39;</span><span class="p">,</span> <span class="s1">&#39;Set visual meshes&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;COLLISION&#39;</span><span class="p">,</span> <span class="s1">&#39;Collision&#39;</span><span class="p">,</span> <span class="s1">&#39;Set collision meshes&#39;</span><span class="p">)]</span>
+        <span class="p">))</span>
+
+        <span class="c1"># Holds the selection to list connected or unassigned meshes in dropdown menus</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list_meshes</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s1">&#39;List all&#39;</span><span class="p">,</span> <span class="s1">&#39;Show all meshes in menu&#39;</span><span class="p">,</span> <span class="s1">&#39;RESTRICT_VIEW_OFF&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s2">&quot;connected&quot;</span><span class="p">,</span> <span class="s1">&#39;List connected&#39;</span><span class="p">,</span> <span class="s1">&#39;Show only connected meshes in menu&#39;</span><span class="p">,</span> <span class="s1">&#39;OUTLINER_OB_ARMATURE&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;disconnected&#39;</span><span class="p">,</span> <span class="s1">&#39;List disconnected&#39;</span><span class="p">,</span> <span class="s1">&#39;Show only disconnected meshes in menu&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;ARMATURE_DATA&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]))</span>
+
+        <span class="c1"># Holds the selection of wheter do hide/display connected/unassigned meshes in the 3D viewport</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">display_mesh_selection</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;Show All connected&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Show all mesh objects in viewport&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;collision&#39;</span><span class="p">,</span> <span class="s1">&#39;Show collision models&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Show only connected collision models&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;visual&#39;</span><span class="p">,</span> <span class="s1">&#39;Show visual models&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Show only connected visual models&#39;</span><span class="p">)],</span>
+            <span class="n">update</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">displayMeshes</span><span class="p">))</span>
+
+        <span class="c1"># Holds the selection to list connected or unassigned segments in dropdown menus</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list_segments</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="s1">&#39;List all&#39;</span><span class="p">,</span> <span class="s1">&#39;Show all bones in menu&#39;</span><span class="p">,</span> <span class="s1">&#39;RESTRICT_VIEW_OFF&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s2">&quot;connected&quot;</span><span class="p">,</span> <span class="s1">&#39;List connected&#39;</span><span class="p">,</span> <span class="s1">&#39;Show only bones with connected meshes in menu&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;OUTLINER_OB_ARMATURE&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,),</span>
+                   <span class="p">(</span><span class="s1">&#39;disconnected&#39;</span><span class="p">,</span> <span class="s1">&#39;List disconnected&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;List only bones without connected meshes in menu&#39;</span><span class="p">,</span> <span class="s1">&#39;ARMATURE_DATA&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">storage_mode</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;temporary&#39;</span><span class="p">,</span> <span class="s1">&#39;Non-persistant GIT&#39;</span><span class="p">,</span>
+                                                           <span class="s1">&#39;Stores/retrieves files from GIT temporary&#39;</span> <span class="o">+</span>
+                                                           <span class="s1">&#39; repository&#39;</span><span class="p">),</span>
+                                                                <span class="p">(</span><span class="s1">&#39;git&#39;</span><span class="p">,</span> <span class="s1">&#39;Persitant GIT&#39;</span><span class="p">,</span>
+                                                           <span class="s1">&#39;Stores/retrieves files from persistent GIT repository&#39;</span><span class="p">),</span>
+                                                                <span class="p">(</span><span class="s1">&#39;local&#39;</span><span class="p">,</span> <span class="s1">&#39;Local&#39;</span><span class="p">,</span>
+                                                           <span class="s1">&#39;Stores/retrieves from local hard disk&#39;</span><span class="p">)]))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">git_url</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;GIT URL&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">git_repository</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;GIT Repository&#39;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">segment_tab</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;kinematics&#39;</span><span class="p">,</span> <span class="s1">&#39;Kinematics&#39;</span><span class="p">,</span> <span class="s1">&#39;Edit kinematic properties&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;dynamics&#39;</span><span class="p">,</span> <span class="s1">&#39;Dynamics&#39;</span><span class="p">,</span> <span class="s1">&#39;Edit Dynamic properties&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;controller&#39;</span><span class="p">,</span> <span class="s1">&#39;Controller&#39;</span><span class="p">,</span> <span class="s1">&#39;Edit Controller properties&#39;</span><span class="p">)],</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;asdf&quot;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">bone_length</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">FloatProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Global bone length&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+                                                         <span class="n">update</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">updateGlobals</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">do_kinematic_update</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Import Update&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">gazebo_tags</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Gazebo tags&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">operator_debug_level</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="s1">&#39;Debug&#39;</span><span class="p">,</span> <span class="s1">&#39;Log everything including debug messages (verbose)&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span> <span class="s1">&#39;Info&#39;</span><span class="p">,</span> <span class="s1">&#39;Log information&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;warning&#39;</span><span class="p">,</span> <span class="s1">&#39;Warning&#39;</span><span class="p">,</span> <span class="s1">&#39;Log only warnings&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Error&#39;</span><span class="p">,</span> <span class="s1">&#39;Log only errors&#39;</span><span class="p">)],</span> <span class="n">update</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">debug_level_callback</span><span class="p">))</span></div>
+
+
+<span class="n">global_properties</span> <span class="o">=</span> <span class="n">RDGlobals</span><span class="p">()</span>
+<span class="n">global_properties</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Scene</span><span class="p">)</span>
+</pre></div>
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>

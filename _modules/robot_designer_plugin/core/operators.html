@@ -1,0 +1,468 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.core.operators &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../../../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../../index.html">Module code</a>
+                    
+                    <a href="../../robot_designer_plugin.html">robot_designer_plugin</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    
+                </aside>
+
+                <h1>Source code for robot_designer_plugin.core.operators</h1><div class="highlight"><pre>
+<span></span><span class="c1"># #####</span>
+<span class="c1"># This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
+<span class="c1"># in the Human Brain Project (HBP).</span>
+<span class="c1"># It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)</span>
+<span class="c1"># developed at the Karlsruhe Institute of Technology in the</span>
+<span class="c1"># High Performance Humanoid Technologies Laboratory (H2T).</span>
+<span class="c1"># #####</span>
+
+<span class="c1"># ##### BEGIN GPL LICENSE BLOCK #####</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software; you can redistribute it and/or</span>
+<span class="c1">#  modify it under the terms of the GNU General Public License</span>
+<span class="c1">#  as published by the Free Software Foundation; either version 2</span>
+<span class="c1">#  of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU General Public License</span>
+<span class="c1">#  along with this program; if not, write to the Free Software Foundation,</span>
+<span class="c1">#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</span>
+<span class="c1">#</span>
+<span class="c1"># ##### END GPL LICENSE BLOCK #####</span>
+
+<span class="c1"># #####</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2016, FZI Forschungszentrum Informatik</span>
+<span class="c1">#</span>
+<span class="c1"># Changes:</span>
+<span class="c1">#</span>
+<span class="c1">#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.</span>
+<span class="c1">#</span>
+<span class="c1"># ######</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This submodule provides the base class and decorators, and some functions for defining Blender :term:`operators` that</span>
+<span class="sd">register automatically.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+
+<span class="kn">import</span> <span class="nn">bpy</span>
+<span class="kn">from</span> <span class="nn">.config</span> <span class="kn">import</span> <span class="n">PLUGIN_PREFIX</span><span class="p">,</span> <span class="n">EXCEPTION_MESSAGE</span>
+<span class="kn">from</span> <span class="nn">.logfile</span> <span class="kn">import</span> <span class="n">log_callstack</span><span class="p">,</span> <span class="n">operator_logger</span> <span class="k">as</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">.conditions</span> <span class="kn">import</span> <span class="n">Condition</span>
+<span class="kn">from</span> <span class="nn">.gui</span> <span class="kn">import</span> <span class="n">InfoBox</span>
+
+<div class="viewcode-block" id="get_registered_operator"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.get_registered_operator">[docs]</a><span class="k">def</span> <span class="nf">get_registered_operator</span><span class="p">(</span><span class="n">operator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function that gets the registered Blender :term:`operator` based on its ``bl_idname`` tag.</span>
+
+<span class="sd">    :param operator: A subclass of :class:`RDOperator` class.</span>
+<span class="sd">    :return: The actually callable operator function. One has to pass :term:`keyword arguments` that match the name</span>
+<span class="sd">        of the classes attributes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="p">,</span> <span class="n">PLUGIN_PREFIX</span><span class="p">),</span> <span class="n">operator</span><span class="o">.</span><span class="n">bl_idname</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">PLUGIN_PREFIX</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="RDOperator"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator">[docs]</a><span class="k">class</span> <span class="nc">RDOperator</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for the :term:`operators&lt;operator&gt;` in the RobotDesigner.</span>
+
+<span class="sd">    :term:`Blender operators&lt;operator&gt;` are defined as :term:`class objects` derived from :class:`bpy.types.Operator`.</span>
+<span class="sd">    A plugin must *register* these classes by calling :func:`bpy.utils.register_class` which causes blender to</span>
+<span class="sd">    create a callable function *out of a method* (:meth:`bpy.types.Operator.execute`) that accepts</span>
+<span class="sd">    :term:`keyword arguments &lt;keyword argument&gt;` that are bound to the class&#39; attributes -- if they are</span>
+<span class="sd">    subclasses</span>
+<span class="sd">    of :class:`bpy.types.Property`. Note that the static method has not the same arguments and operates on its</span>
+<span class="sd">    attributes.</span>
+<span class="sd">    Finally, the operator is addressed to by its ID. For example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        class NewOp(bpy.types.Operator):</span>
+<span class="sd">            bl_label = &quot;Description&quot; # Obligatory</span>
+<span class="sd">            bl_idname = &quot;plugin_name.newop&quot; # obligatory</span>
+
+<span class="sd">            test = StringProperty() # A property. It&#39;s value is passed when calling the operator.</span>
+
+<span class="sd">            def execute(self, context):</span>
+<span class="sd">                self.report({INFO}, self.text)</span>
+<span class="sd">                return {&#39;FINISHED&#39;}</span>
+
+<span class="sd">        # ...</span>
+
+<span class="sd">        bpy.utils.register(NewOp)</span>
+
+<span class="sd">        # ...</span>
+
+<span class="sd">        bpy.ops.plugin_name.newop(test=&quot;Hello World)</span>
+
+
+<span class="sd">    This example show an operator that opens a window containing the message *&quot;Hello World&quot;*. While this is feasible</span>
+<span class="sd">    for smaller plugins, what happens, if you have a lot of operators written, and you want to have code completion.</span>
+<span class="sd">    What happens if you want to refactor the names of of the identifier or class attributes. While for the latter there</span>
+<span class="sd">    is no simple solution available, the :mod:`robot_designer_plugin.core` provides this wrapper class with</span>
+<span class="sd">    an additional ``run(**kwargs)`` method (that can---and should---be overridden to provide keyword completion).</span>
+<span class="sd">    Furthermore, it provides decorators for automatically setting preconditions (that define the</span>
+<span class="sd">    :meth:`bpy.types.Operator.poll` method) for automatic condition checking, logging functionality and post condition</span>
+<span class="sd">    checking. Together with the :meth:`.pluginmanager.PluginManager.register` method, this makes developing faster (</span>
+<span class="sd">    code completion,</span>
+<span class="sd">    code navigation, less verbosity, ...) and safer.</span>
+
+<span class="sd">    An examplary :term:`operator` looks like this:</span>
+
+<span class="sd">    .. literalinclude:: ../../../resources/templates/operator.py</span>
+<span class="sd">        :emphasize-lines: 7-11,16-18, 31-33, 60-62</span>
+<span class="sd">        :lines: 50-111</span>
+<span class="sd">        :linenos:</span>
+
+<span class="sd">    A template is located in ``&lt;RobotDesignerDirectory&gt;/resources/templates/operator.py`` (where you should insert</span>
+<span class="sd">    the path to the repository) that can be used to quickly write new operators.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_pre_conditions</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="sd">&quot;&quot;&quot;Dictionary set by the :meth:`PreConditions` decorator. Stores the :class:`.conditions.Condition` that are</span>
+<span class="sd">    checked for each :class:`RDOperator` -based operator&quot;&quot;&quot;</span>
+
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+    <span class="sd">&quot;&quot;&quot;For convenience, every the operators share a logging instance.&quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RDOperator.poll"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator.poll">[docs]</a>    <span class="k">def</span> <span class="nf">poll</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The :meth:`bpy.types.Operator.poll` class method is called every time, an operator is to be executed, but</span>
+<span class="sd">        also when it is placed in a guy (it becomes greyed out). This method is defined in this base class and</span>
+<span class="sd">        the checks are defined by a list of :class:`.conditions.Condition` derived classes that are given by</span>
+<span class="sd">        the :meth:`Preconditions` decorator. Derived classes do not need to override this method and should</span>
+<span class="sd">        call the parent&#39;s method otherwise.</span>
+
+<span class="sd">        :param context: The actual Blender :term:`context`.</span>
+<span class="sd">        :type context: :class:`bpy.types.Context`</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">cls</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_pre_conditions</span><span class="p">:</span>
+            <span class="n">check</span><span class="p">,</span> <span class="n">messages</span> <span class="o">=</span> <span class="n">Condition</span><span class="o">.</span><span class="n">check_conditions</span><span class="p">(</span><span class="o">*</span><span class="n">cls</span><span class="o">.</span><span class="n">_pre_conditions</span><span class="p">[</span><span class="n">cls</span><span class="p">])</span>
+            <span class="c1"># if not check:</span>
+            <span class="c1">#    cls.logger.debug(&quot;Unmet preconditions: \n%s&quot;, messages)</span>
+            <span class="k">return</span> <span class="n">check</span>
+        <span class="k">return</span> <span class="bp">True</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="RDOperator.pass_keywords"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator.pass_keywords">[docs]</a>    <span class="k">def</span> <span class="nf">pass_keywords</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Helper function that extracts the arguments of the callee (must be a (class) method) and returns them.</span>
+
+<span class="sd">        Credits to `Kelly Yancey &lt;http://kbyanc.blogspot.de/2007/07/python-aggregating-function-arguments.html&gt;`_</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">args</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="nb">locals</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getargvalues</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">args</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">i</span><span class="p">:</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">locals</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">args</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">kwargs</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RDOperator.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Enables to run an :ref:`operator` by calling its class object.</span>
+<span class="sd">        Child classes *should* override this method with keywords. Then your :term:`IDE` will be able to assist you</span>
+<span class="sd">        The :meth:`pass_keywords` function makes</span>
+<span class="sd">        overriding very convenient (just copy the method&#39;s body):</span>
+
+<span class="sd">        .. code: python</span>
+
+<span class="sd">            class NewOp(RDOperator):</span>
+<span class="sd">                model_name = StringProperty(name=&quot;Enter model name:&quot;)</span>
+<span class="sd">                base_segment_name = StringProperty(name=&quot;Enter root segment name:&quot;, default=&quot;&quot;)</span>
+
+<span class="sd">                @classmethod</span>
+<span class="sd">                def run(cls, model_name, base_segment_name):</span>
+<span class="sd">                    return super().run(**cls.pass_keywords())</span>
+
+<span class="sd">        .. warning:</span>
+
+<span class="sd">            :term: `refactoring&lt;Refactoring&gt;` class attributes (i.e., the keywords) requires you modify both the</span>
+<span class="sd">            overridden run function *and* your attributes.</span>
+
+<span class="sd">        In addition, this method also does extensive error and exception handling writing everything to the log file</span>
+<span class="sd">        (see :mod:`.logfile`).</span>
+
+<span class="sd">        :param kwargs: The keyword arguments passed to the :ref:`Operator` (**must** match the names of the class&#39;s</span>
+<span class="sd">            attributes (only of type :class:`bpy.types.Property).</span>
+<span class="sd">        :return: The return values of :meth:`bpy.types.Operator.execute`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">get_registered_operator</span><span class="p">(</span><span class="n">cls</span><span class="p">)(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+        <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">bad_kwargs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">kwarg</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">kwarg</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+                    <span class="n">bad_kwargs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kwarg</span><span class="p">)</span>
+
+            <span class="n">cls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Exception when running operator </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1">):&#39;</span>
+                             <span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">keywords:</span><span class="se">\t</span><span class="si">%s</span><span class="se">\n\t</span><span class="s1">Bad keywords:</span><span class="se">\t</span><span class="si">%s</span><span class="s1">&#39;</span>
+                             <span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">Exception:</span><span class="se">\t</span><span class="si">%s</span><span class="se">\n\t</span><span class="s1">Messages:</span><span class="se">\n\t\t</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span>
+                             <span class="n">cls</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">,</span> <span class="n">cls</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
+                             <span class="n">kwargs</span><span class="p">,</span>
+                             <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bad_kwargs</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
+                             <span class="s1">&#39;</span><span class="se">\n\t\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">__str__</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)))</span>
+            <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_message</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">e</span>
+
+            <span class="c1"># todo check for keyword arguments without default value</span>
+
+        <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Exception when running operator </span><span class="si">%s</span><span class="s1"> (</span><span class="si">%s</span><span class="s1">):&#39;</span>
+                             <span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">Exception:</span><span class="se">\t</span><span class="si">%s</span><span class="se">\n\t</span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">cls</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">,</span> <span class="n">cls</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
+                             <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">__str__</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)))</span>
+            <span class="n">check</span><span class="p">,</span> <span class="n">messages</span> <span class="o">=</span> <span class="n">Condition</span><span class="o">.</span><span class="n">check_conditions</span><span class="p">(</span><span class="o">*</span><span class="n">cls</span><span class="o">.</span><span class="n">_pre_conditions</span><span class="p">[</span><span class="n">cls</span><span class="p">])</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Conditions set for this operator: </span><span class="si">%s</span><span class="se">\n\t</span><span class="si">%s</span><span class="se">\n\t</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cls</span><span class="o">.</span><span class="n">_pre_conditions</span><span class="p">[</span><span class="n">cls</span><span class="p">],</span> <span class="n">check</span><span class="p">,</span>
+                            <span class="n">messages</span><span class="p">)</span>
+            <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_message</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">e</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;THIS CODE SHOULD NEVER BE EXECUTED: </span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">log_callstack</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+            <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_message</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">e</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="RDOperator.place_button"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator.place_button">[docs]</a>    <span class="k">def</span> <span class="nf">place_button</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">infoBox</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This is a convenience method that let&#39;s the developer create a button executing the operator from the gui.</span>
+<span class="sd">        The results of the :meth:`poll` method (i.e., checking it&#39;s conditions) can be optionally passed to an</span>
+<span class="sd">        :class:`.gui.InfoBox` instance such that a report for a group of operators can be displayed (i.e., why</span>
+<span class="sd">        it is not executable)</span>
+
+<span class="sd">        :param layout: the gui element to place the button (see :meth:`bpy.types.Panel.draw`)</span>
+<span class="sd">        :param text: Optionally override the text in the ``bl_label`` attribute.</span>
+<span class="sd">        :param infoBox: Optional instance of :class:`.gui.InfoBox`</span>
+<span class="sd">        :param kwargs: Additional keyword arguments to :meth:`bpy.types.UILayout.operator`)</span>
+<span class="sd">        :return: The operator instance (this can be used to set one of the class&#39;s attributes)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">infoBox</span> <span class="ow">and</span> <span class="n">cls</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_pre_conditions</span><span class="p">:</span>
+            <span class="c1"># if not isinstance(infoBox, InfoBox):</span>
+            <span class="c1">#    raise TypeError(&quot;Argument: infobox must be of type %s (not %s)&quot; % (InfoBox.__name__, type(infoBox)))</span>
+
+            <span class="n">check</span><span class="p">,</span> <span class="n">messages</span> <span class="o">=</span> <span class="n">Condition</span><span class="o">.</span><span class="n">check_conditions</span><span class="p">(</span><span class="o">*</span><span class="n">cls</span><span class="o">.</span><span class="n">_pre_conditions</span><span class="p">[</span><span class="n">cls</span><span class="p">])</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">check</span><span class="p">:</span>
+                <span class="n">infoBox</span><span class="o">.</span><span class="n">add_message</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
+
+        <span class="c1"># Checkconditions</span>
+        <span class="c1"># todo check KWargs</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">text</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">bl_label</span>
+        <span class="k">return</span> <span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="RDOperator.OperatorLogger"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator.OperatorLogger">[docs]</a>    <span class="k">def</span> <span class="nf">OperatorLogger</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Decorator for the `bpy.types.Operator.execute` method (only for sub classes of :class:`RDOperator`).</span>
+
+<span class="sd">        Performs logging and exception handling.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">op_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+
+            <span class="c1"># `callargs[&#39;self&#39;]` parameter refers to the operator instance</span>
+            <span class="c1"># This is done in order to avoid positional arguments.</span>
+            <span class="c1"># That way, the decorator can be used as @OperationLogger instead of</span>
+            <span class="c1"># @OperationLogger</span>
+            <span class="c1"># callargs = inspect.getcallargs(func,*args)</span>
+
+            <span class="n">class_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span>
+            <span class="nb">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">bl_idname</span>
+
+            <span class="c1"># Execute the Operator</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># self.logger.debug(&quot;Entering %s() from %s(%s):\n%s&quot;,</span>
+                <span class="c1">#                    func.__name__, id, class_name,</span>
+                <span class="c1">#                    log_callstack())</span>
+
+                <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+                <span class="c1"># self.logger.debug(&quot;Leaving %s() %s(%s)&quot;, id, class_name, result)</span>
+
+                <span class="k">return</span> <span class="n">result</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_message</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Operator </span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">) threw an exception:</span><span class="si">%s</span><span class="se">\n\t</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">class_name</span><span class="p">,</span>
+                                                                            <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Operator </span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">) threw an exception:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">EXCEPTION_MESSAGE</span><span class="p">,</span>
+                                  <span class="nb">id</span><span class="p">,</span> <span class="n">class_name</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">log_callstack</span><span class="p">(),</span> <span class="n">log_callstack</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">RDOperator</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">({</span><span class="s1">&#39;ERROR&#39;</span><span class="p">},</span> <span class="n">message</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># Menu has no report and must return None</span>
+                    <span class="k">return</span>
+
+        <span class="k">return</span> <span class="n">op_logger</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="RDOperator.Preconditions"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator.Preconditions">[docs]</a>    <span class="k">def</span> <span class="nf">Preconditions</span><span class="p">(</span><span class="o">*</span><span class="n">conditions</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :term:`Class decorator&lt;class decorator&gt;` for :term:`operators&lt;operator&gt;`.</span>
+
+<span class="sd">        Registers the conditions (of type :class:`.conditions.Condition`) for its subclasses. They will be</span>
+<span class="sd">        checked within the :meth:`poll` and :meth:`place_button` methods.</span>
+
+<span class="sd">        :param conditions: a number of subclasses of :class:`.conditions.Condition`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">cls</span><span class="p">:</span> <span class="n">RDOperator</span><span class="p">):</span>
+            <span class="c1"># Todo check why this check fails some times</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">RDOperator</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Preconditions: Can only decorate sub classes of RDOperator.i </span><span class="se">\n</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="si">%s</span><span class="s2"> </span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                    <span class="n">cls</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
+                    <span class="n">cls</span><span class="o">.</span><span class="n">mro</span><span class="p">(),</span> <span class="nb">type</span><span class="p">(</span><span class="n">cls</span><span class="p">),</span> <span class="n">conditions</span><span class="p">))</span>
+
+            <span class="n">cls</span><span class="o">.</span><span class="n">_pre_conditions</span><span class="p">[</span><span class="n">cls</span><span class="p">]</span> <span class="o">=</span> <span class="n">conditions</span>
+
+            <span class="n">cls</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    **Preconditions**:</span><span class="se">\n\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="s1">&#39;    * :class:`</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">`</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">__module__</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">)</span>
+
+            <span class="c1"># RDOperator.logger.debug(&quot;Decorating %s, \nArgs: %s\n %s, %s, %s&quot;, cls, args, issubclass(cls, RDOperator),</span>
+            <span class="c1">#                        issubclass(cls, bpy.types.Operator), [RDOperator is i for i in cls.mro()])</span>
+            <span class="c1"># for i in cls.mro():</span>
+            <span class="c1">#    print(i)</span>
+            <span class="k">return</span> <span class="n">cls</span>
+
+        <span class="c1"># RDOperator.logger.debug(&quot;Precondition:\nArgs: %s&quot;, args)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">conditions</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">conditions</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">RDOperator</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Decorator Preconditions must be called with arguments of subclasses of Condition&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="nb">issubclass</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">RDOperator</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">]):</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Decorator Preconditions must be called with arguments of subclasses of Condition &#39;</span>
+                                <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">conditions</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">decorator</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="RDOperator.Postconditions"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator.Postconditions">[docs]</a>    <span class="k">def</span> <span class="nf">Postconditions</span><span class="p">(</span><span class="o">*</span><span class="n">conditions</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method decorator for the :meth:`bpy.types.Operator.execute` method. Works only with :term:`operators&lt;operator&gt;`</span>
+<span class="sd">        derived :class:`RDOperator`.</span>
+
+<span class="sd">        Checks whether post conditions are met after calling the operator. Reports an error message to the log file</span>
+<span class="sd">        (see :mod:`.logfile`)</span>
+
+<span class="sd">        :param conditions: a number of subclasses of :class:`.conditions.Condition`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+            <span class="k">def</span> <span class="nf">func_wrapper</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+                <span class="n">check</span><span class="p">,</span> <span class="n">messages</span> <span class="o">=</span> <span class="n">Condition</span><span class="o">.</span><span class="n">check_conditions</span><span class="p">(</span><span class="o">*</span><span class="n">conditions</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">check</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">({</span><span class="s1">&#39;ERROR&#39;</span><span class="p">},</span> <span class="n">messages</span><span class="p">)</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Postcondition not met: </span><span class="si">%s</span><span class="se">\\</span><span class="s1">n</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">messages</span><span class="p">,</span> <span class="n">log_callstack</span><span class="p">(),</span> <span class="n">log_callstack</span><span class="p">(</span><span class="bp">True</span><span class="p">))</span>
+                <span class="k">return</span> <span class="n">result</span>
+
+            <span class="k">return</span> <span class="n">func_wrapper</span>
+
+        <span class="k">return</span> <span class="n">decorator</span></div></div>
+</pre></div>
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>

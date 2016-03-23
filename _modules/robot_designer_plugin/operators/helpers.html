@@ -1,0 +1,288 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.operators.helpers &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../../../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../../index.html">Module code</a>
+                    
+                    <a href="../../robot_designer_plugin.html">robot_designer_plugin</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    
+                </aside>
+
+                <h1>Source code for robot_designer_plugin.operators.helpers</h1><div class="highlight"><pre>
+<span></span><span class="c1"># #####</span>
+<span class="c1"># This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
+<span class="c1"># in the Human Brain Project (HBP).</span>
+<span class="c1"># It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)</span>
+<span class="c1"># developed at the Karlsruhe Institute of Technology in the</span>
+<span class="c1"># High Performance Humanoid Technologies Laboratory (H2T).</span>
+<span class="c1"># #####</span>
+
+<span class="c1"># ##### BEGIN GPL LICENSE BLOCK #####</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software; you can redistribute it and/or</span>
+<span class="c1">#  modify it under the terms of the GNU General Public License</span>
+<span class="c1">#  as published by the Free Software Foundation; either version 2</span>
+<span class="c1">#  of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU General Public License</span>
+<span class="c1">#  along with this program; if not, write to the Free Software Foundation,</span>
+<span class="c1">#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</span>
+<span class="c1">#</span>
+<span class="c1"># ##### END GPL LICENSE BLOCK #####</span>
+
+<span class="c1"># #####</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)</span>
+<span class="c1"># Copyright (c) 2016, FZI Forschungszentrum Informatik</span>
+<span class="c1">#</span>
+<span class="c1"># Changes:</span>
+<span class="c1">#</span>
+<span class="c1">#   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.</span>
+<span class="c1">#</span>
+<span class="c1"># ######</span>
+
+<span class="c1"># System imports</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">mathutils</span>
+
+<span class="c1"># Blender imports</span>
+<span class="kn">import</span> <span class="nn">bpy</span>
+
+<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">Condition</span>
+
+
+<span class="k">def</span> <span class="nf">_vec_roll_to_mat3</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">roll</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to convert a given rotation vector and a roll angle along this axis into a 3x3 rotation matrix</span>
+<span class="sd">    Python port of the C function defined in armature.c</span>
+<span class="sd">    Credits: blenderartists.org user vida_vida</span>
+
+<span class="sd">    :param vec:</span>
+<span class="sd">    :param roll:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Vector</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">nor</span> <span class="o">=</span> <span class="n">vec</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>
+    <span class="n">axis</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">nor</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">axis</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.0000000001</span><span class="p">:</span>  <span class="c1"># this seems to be the problem for some bones, no idea how to fix</span>
+        <span class="n">axis</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>
+        <span class="n">theta</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">angle</span><span class="p">(</span><span class="n">nor</span><span class="p">)</span>
+        <span class="n">bMatrix</span> <span class="o">=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">updown</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">target</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">nor</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">bMatrix</span> <span class="o">=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">updown</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+        <span class="c1"># C code:</span>
+        <span class="c1"># bMatrix[0][0]=updown; bMatrix[1][0]=0.0;    bMatrix[2][0]=0.0;</span>
+        <span class="c1"># bMatrix[0][1]=0.0;    bMatrix[1][1]=updown; bMatrix[2][1]=0.0;</span>
+        <span class="c1"># bMatrix[0][2]=0.0;    bMatrix[1][2]=0.0;    bMatrix[2][2]=1.0;</span>
+        <span class="n">bMatrix</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="n">rMatrix</span> <span class="o">=</span> <span class="n">mathutils</span><span class="o">.</span><span class="n">Matrix</span><span class="o">.</span><span class="n">Rotation</span><span class="p">(</span><span class="n">roll</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">nor</span><span class="p">)</span>
+    <span class="n">mat</span> <span class="o">=</span> <span class="n">rMatrix</span> <span class="o">*</span> <span class="n">bMatrix</span>
+    <span class="k">return</span> <span class="n">mat</span>
+
+
+<span class="k">def</span> <span class="nf">_mat3_to_vec_roll</span><span class="p">(</span><span class="n">mat</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to convert a 3x3 rotation matrix to a rotation axis and a roll angle along this axis</span>
+<span class="sd">    Python port of the C function defined in armature.c</span>
+
+<span class="sd">    Thanks to blenderartists.org user vida_vida</span>
+
+<span class="sd">    :param mat:</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span> <span class="nn">..properties.globals</span> <span class="kn">import</span> <span class="n">global_properties</span>
+    <span class="n">vec</span> <span class="o">=</span> <span class="n">mat</span><span class="o">.</span><span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">bone_length</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
+    <span class="n">vecmat</span> <span class="o">=</span> <span class="n">_vec_roll_to_mat3</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">col</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">vecmatinv</span> <span class="o">=</span> <span class="n">vecmat</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span>
+    <span class="n">rollmat</span> <span class="o">=</span> <span class="n">vecmatinv</span> <span class="o">*</span> <span class="n">mat</span>
+    <span class="n">roll</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">rollmat</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="n">rollmat</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">vec</span><span class="p">,</span> <span class="n">roll</span>
+
+
+<div class="viewcode-block" id="ModelSelected"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected">[docs]</a><span class="k">class</span> <span class="nc">ModelSelected</span><span class="p">(</span><span class="n">Condition</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="ModelSelected.check"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :ref:`condition` that assures the armature is selected.</span>
+
+<span class="sd">        :return: True if the condition is met, else false. String with error message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;ARMATURE&#39;</span><span class="p">,</span> <span class="s2">&quot;Model not selected and active.&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span><span class="p">,</span> <span class="s2">&quot;No model selected&quot;</span></div></div>
+
+
+<div class="viewcode-block" id="SingleSegmentSelected"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleSegmentSelected">[docs]</a><span class="k">class</span> <span class="nc">SingleSegmentSelected</span><span class="p">(</span><span class="n">Condition</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="SingleSegmentSelected.check"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleSegmentSelected.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :ref:`condition` that assures that a single mesh object (i.e., two selected objects where exactly one is a mesh).</span>
+
+<span class="sd">        :return: True if the condition is met, else false. String with error message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="p">:</span>
+            <span class="n">selected_segments</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">select</span><span class="p">]</span>
+            <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_segments</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Single Segment must be selected&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span><span class="p">,</span> <span class="s2">&quot;No Object select&quot;</span></div></div>
+
+
+<div class="viewcode-block" id="SingleMeshSelected"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleMeshSelected">[docs]</a><span class="k">class</span> <span class="nc">SingleMeshSelected</span><span class="p">(</span><span class="n">Condition</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="SingleMeshSelected.check"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleMeshSelected.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :ref:`condition` that assures that a single mesh object (i.e., two selected objects where exactly one is a mesh).</span>
+
+<span class="sd">        :return: True if the condition is met, else false. String with error message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;MESH&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Single mesh object must be selected.&quot;</span></div></div>
+
+
+<div class="viewcode-block" id="ObjectMode"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ObjectMode">[docs]</a><span class="k">class</span> <span class="nc">ObjectMode</span><span class="p">(</span><span class="n">Condition</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="ObjectMode.check"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ObjectMode.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :term:`condition` that assures that the :term:`object mode` is selected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;OBJECT&#39;</span><span class="p">,</span> <span class="s2">&quot;Must be in object mode&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="s2">&quot;&quot;</span></div></div>
+
+
+<div class="viewcode-block" id="PoseMode"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.PoseMode">[docs]</a><span class="k">class</span> <span class="nc">PoseMode</span><span class="p">(</span><span class="n">Condition</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="PoseMode.check"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.PoseMode.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :term:`condition` that assures that the :term:`pose mode` is selected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">&#39;POSE&#39;</span><span class="p">,</span> <span class="s2">&quot;Must be in pose mode&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="s2">&quot;&quot;</span></div></div>
+
+
+<div class="viewcode-block" id="NotEditMode"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.NotEditMode">[docs]</a><span class="k">class</span> <span class="nc">NotEditMode</span><span class="p">(</span><span class="n">Condition</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="NotEditMode.check"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.NotEditMode.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :term:`condition` that assures that the :term:`edit mode` is *not* selected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode</span> <span class="o">!=</span> <span class="s1">&#39;EDIT&#39;</span><span class="p">,</span> <span class="s2">&quot;Must not be in edot mode&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="s2">&quot;&quot;</span></div></div>
+
+
+
+</pre></div>
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>

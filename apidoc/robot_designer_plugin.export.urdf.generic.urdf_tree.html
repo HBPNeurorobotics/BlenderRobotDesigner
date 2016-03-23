@@ -1,0 +1,318 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.export.urdf.generic.urdf_tree module &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
+    <link rel="up" title="robot_designer_plugin.export.urdf.generic package" href="robot_designer_plugin.export.urdf.generic.html" />
+    <link rel="next" title="robot_designer_plugin.export.urdf.urdf_export module" href="robot_designer_plugin.export.urdf.urdf_export.html" />
+    <link rel="prev" title="robot_designer_plugin.export.urdf.generic.urdf_dom module" href="robot_designer_plugin.export.urdf.generic.urdf_dom.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="robot_designer_plugin.export.urdf.generic.urdf_dom.html"
+                        title="previous chapter">robot_designer_plugin.export.urdf.generic.urdf_dom module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="robot_designer_plugin.export.urdf.urdf_export.html"
+                        title="next chapter">robot_designer_plugin.export.urdf.urdf_export module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../developer_manual/index.html">Developers Manual</a>
+                    
+                    <a href="modules.html">robot_designer_plugin</a>
+                    
+                    <a href="robot_designer_plugin.html">robot_designer_plugin package</a>
+                    
+                    <a href="robot_designer_plugin.export.html">robot_designer_plugin.export package</a>
+                    
+                    <a href="robot_designer_plugin.export.urdf.html">robot_designer_plugin.export.urdf package</a>
+                    
+                    <a href="robot_designer_plugin.export.urdf.generic.html">robot_designer_plugin.export.urdf.generic package</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    <span class="hbpdoc-hnav-previous">
+                        previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.export.urdf.generic.urdf_dom.html">robot_designer_plugin.export.urdf.generic.urdf_dom module</a>
+                    </span>
+                    
+                    
+                    <span class="hbpdoc-hnav-next">
+                        next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.export.urdf.urdf_export.html">robot_designer_plugin.export.urdf.urdf_export module</a>
+                    </span>
+                    
+                </aside>
+
+                <div class="section" id="module-robot_designer_plugin.export.urdf.generic.urdf_tree">
+<span id="robot-designer-plugin-export-urdf-generic-urdf-tree-module"></span><h1>robot_designer_plugin.export.urdf.generic.urdf_tree module<a class="headerlink" href="#module-robot_designer_plugin.export.urdf.generic.urdf_tree" title="Permalink to this headline">¶</a></h1>
+<p>Module for importing robots specified in the URDF file format.</p>
+<dl class="class">
+<dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.export.urdf.generic.urdf_tree.</code><code class="descname">URDFTree</code><span class="sig-paren">(</span><em>connected_joints</em>, <em>connected_links</em>, <em>robot=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A class that parses and represents a robot described by a URDF file.
+The data is stored in a tree of linked instances of this class. Therefore, a root element (or several) has to be
+detectable in the file excluding closed kinematic loops at the moment.
+Each instance represents a <em>blender/RobotDesigner bone</em> that is a compound of joint and link.
+It uses a document object model (DOM) created by generateDS.py (in version 2.14a &#8211; the newest
+that does not depend on the lxml module, which is not included in blender).</p>
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add">
+<code class="descname">add</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates and adds another URDFTree instance to this node. Do not add children to the subtree manually as
+references are not created then. Note that if there is no robot member defined yet (i.e., you are <em>exporting</em>),
+it will be created automatically.
+:param link: a urdf_dom link element
+:param joint: a urdf_dom joint element
+:return: a reference to the newly created URDFTree instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_collisionmodel">
+<code class="descname">add_collisionmodel</code><span class="sig-paren">(</span><em>file_name</em>, <em>scale_factor=(1.0</em>, <em>1.0</em>, <em>1.0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree.add_collisionmodel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_collisionmodel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a collision model to a mesh object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<em>string</em>) &#8211; name of the mesh object for which the col_model is generated</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">string:     Collision file that is used in the urdf</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_inertial">
+<code class="descname">add_inertial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree.add_inertial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_inertial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a inertial definition to a link object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string:     reference to inertial object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_joint_control_plugin">
+<code class="descname">add_joint_control_plugin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree.add_joint_control_plugin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_joint_control_plugin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a reference to the generic control plugin of the NRP backend.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Reference to the plugin type defined in the URDF</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_joint_controller">
+<code class="descname">add_joint_controller</code><span class="sig-paren">(</span><em>control_plugin</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree.add_joint_controller"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_joint_controller" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a controller definition to a robot object</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">string:     reference to inertial object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_mesh">
+<code class="descname">add_mesh</code><span class="sig-paren">(</span><em>file_name</em>, <em>scale_factor=(1.0</em>, <em>1.0</em>, <em>1.0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree.add_mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_mesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a mesh to current segment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<em>string</em>) &#8211; Name of the file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.build">
+<code class="descname">build</code><span class="sig-paren">(</span><em>link</em>, <em>joint=None</em>, <em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursive function that builds up the tree representation of the robot. You do not have to call it manually (
+Called by parse).
+:param link: The link the kinematics subtree starts with
+:param joint: The joint connecting to the previous link (if any)</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.create_empty">
+<em class="property">static </em><code class="descname">create_empty</code><span class="sig-paren">(</span><em>base_link_name='base_link'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree.create_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.create_empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an empty tree object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>string</em>) &#8211; the name of the robot the tree is representing the model of.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The tree instance.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.parse">
+<em class="property">static </em><code class="descname">parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses a URDF file and builds up a tree representing the kinematic structure of a robot.
+Explanation: The URDF file format stores links (i.e., rigid bodies) and joints (i.e., connection between links)
+in a flat structure (as opposed to a tree data structure). Links have no references while joints refer to the
+NAMES of have exactly one parent (link) and child (link). This method first resolves these cross references
+and calls the recursive URDFTree.build() method to create a tree-like data structure representing the
+kinematic tree(s) of the robot.
+:param file_name: the name of the file to open</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.set_defaults">
+<code class="descname">set_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree.set_defaults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.set_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds defaults to missing values.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.show">
+<code class="descname">show</code><span class="sig-paren">(</span><em>depth=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints the kinematic tree to the command line (for debugging).
+This function serves as an example for export export.
+:param depth: the depth of the kinematics sub tree for indention</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>file_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should only be called on the root element.
+:param file_name:
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.set_value">
+<code class="descclassname">robot_designer_plugin.export.urdf.generic.urdf_tree.</code><code class="descname">set_value</code><span class="sig-paren">(</span><em>l</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#set_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.set_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>helper function that creates a string out of a list of floats
+:param l: python list of floats
+:return: string representing the list</p>
+</dd></dl>
+
+</div>
+
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                <span class="hbpdoc-hnav-previous">
+                    previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.export.urdf.generic.urdf_dom.html">robot_designer_plugin.export.urdf.generic.urdf_dom module</a>
+                </span>
+                
+                
+                <span class="hbpdoc-hnav-next">
+                    next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.export.urdf.urdf_export.html">robot_designer_plugin.export.urdf.urdf_export module</a>
+                </span>
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>

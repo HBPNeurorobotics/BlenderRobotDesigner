@@ -1,0 +1,282 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.core.property module &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
+    <link rel="up" title="The Plugin Core" href="../developer_manual/plugin_core.html" />
+    <link rel="next" title="robot_designer_plugin.core.resources module" href="robot_designer_plugin.core.resources.html" />
+    <link rel="prev" title="robot_designer_plugin.core.pluginmanager module" href="robot_designer_plugin.core.pluginmanager.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="robot_designer_plugin.core.pluginmanager.html"
+                        title="previous chapter">robot_designer_plugin.core.pluginmanager module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="robot_designer_plugin.core.resources.html"
+                        title="next chapter">robot_designer_plugin.core.resources module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/apidoc/robot_designer_plugin.core.property.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../developer_manual/index.html">Developers Manual</a>
+                    
+                    <a href="../developer_manual/plugin_core.html">The Plugin Core</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    <span class="hbpdoc-hnav-previous">
+                        previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.core.pluginmanager.html">robot_designer_plugin.core.pluginmanager module</a>
+                    </span>
+                    
+                    
+                    <span class="hbpdoc-hnav-next">
+                        next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.core.resources.html">robot_designer_plugin.core.resources module</a>
+                    </span>
+                    
+                </aside>
+
+                <div class="section" id="module-robot_designer_plugin.core.property">
+<span id="robot-designer-plugin-core-property-module"></span><h1>robot_designer_plugin.core.property module<a class="headerlink" href="#module-robot_designer_plugin.core.property" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="robot_designer_plugin.core.property.PropertyGroupHandlerBase">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.core.property.</code><code class="descname">PropertyGroupHandlerBase</code><a class="reference internal" href="../_modules/robot_designer_plugin/core/property.html#PropertyGroupHandlerBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.property.PropertyGroupHandlerBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Base class for wraps a <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.PropertyGroup</span></code></a>-derived class object. Blender uses those classes as templates
+to dynamically generate properties for existing types (such as <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Object.html#bpy.types.Object" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Object</span></code></a> or <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Bone.html#bpy.types.Bone" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Bone</span></code></a>)
+This, however, makes developing cumbersome. Dynamically created properties are usually accessed by:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">context</span><span class="o">.</span><span class="n">current_object</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">propertygroup1</span><span class="o">.</span><span class="n">propertygroup2</span><span class="o">.</span><span class="n">property</span>
+</pre></div>
+</div>
+<p>which cannot be resolved during programming time (as it is dynamically generated and aggregated to the blender
+objects. Using this wrapper class, you can build a delegation class structure that is known during programming
+and, therefore, for code completion and static analysis.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GuiProperties</span><span class="p">(</span><span class="n">PropertyGroupHandlerBase</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">selected_mesh</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;meshName&quot;</span><span class="p">))</span>
+
+<span class="k">class</span> <span class="nc">GlobalProperties</span><span class="p">(</span><span class="n">PropertyGroupHandlerBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gui_properties</span> <span class="o">=</span> <span class="n">GuiProperties</span><span class="p">()</span>
+
+<span class="n">global_properties</span> <span class="o">=</span> <span class="n">GlobalProperties</span><span class="p">()</span>
+<span class="n">global_properties</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Scene</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>When calling the <a class="reference internal" href="#robot_designer_plugin.core.property.PropertyGroupHandlerBase.register" title="robot_designer_plugin.core.property.PropertyGroupHandlerBase.register"><code class="xref py py-meth docutils literal"><span class="pre">register()</span></code></a> method, the plugin core creates the class templates for Blender dynamically
+and registeres them to the software.</p>
+<dl class="method">
+<dt id="robot_designer_plugin.core.property.PropertyGroupHandlerBase.register">
+<code class="descname">register</code><span class="sig-paren">(</span><em>btype</em>, <em>parent=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/property.html#PropertyGroupHandlerBase.register"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.property.PropertyGroupHandlerBase.register" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register the wrapped property group to blender. This needs only be called for property groups directly
+assigned to a blender type. Nested groups are automatically registered.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Register should use the standard registration mechanism of PluginManager. Right now, however,
+this would break the current registration process. This will be done once the properties for
+the robot designer have been clarified and migrated to this representation.</p>
+</div>
+<p>&#64;param btype: Blender type (e.g. <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Object.html#bpy.types.Object" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Object</span></code></a> or <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Bone.html#bpy.types.Bone" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Bone</span></code></a>)
+&#64;param parent: For traversing nested groups
+&#64;return: Reference to the generated <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.PropertyGroup</span></code></a>-derived class (not used by the user).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="robot_designer_plugin.core.property.PropertyHandler">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.core.property.</code><code class="descname">PropertyHandler</code><span class="sig-paren">(</span><em>property</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/property.html#PropertyHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.property.PropertyHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Wraps a Blender property factory functions (e.g., <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.props.html#bpy.props.StringProperty" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-func docutils literal"><span class="pre">bpy.props.StringProperty()</span></code></a>, <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.props.html#bpy.props.FloatProperty" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-func docutils literal"><span class="pre">bpy.props.FloatProperty()</span></code></a> or
+<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.props.html#bpy.props.IntProperty" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-func docutils literal"><span class="pre">bpy.props.IntProperty()</span></code></a>). Use it in a <a class="reference internal" href="#robot_designer_plugin.core.property.PropertyGroupHandlerBase" title="robot_designer_plugin.core.property.PropertyGroupHandlerBase"><code class="xref py py-class docutils literal"><span class="pre">PropertyGroupHandlerBase</span></code></a> instance.
+E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GuiProperties</span><span class="p">(</span><span class="n">PropertyGroupHandlerBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected_mesh</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;meshName&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="robot_designer_plugin.core.property.PropertyHandler.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/property.html#PropertyHandler.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.property.PropertyHandler.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolves and returns the registered property given a reference to the (correct) object type.</p>
+<p>In the example in <code class="xref py py-class docutils literal"><span class="pre">PropertyGroupWrapper</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">mesh</span> <span class="n">name</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">gui_properties</span><span class="o">.</span><span class="n">selected_mesh</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> &#8211; A Blender object with additional properties defined by the wrapper classes.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The property.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.core.property.PropertyHandler.prop">
+<code class="descname">prop</code><span class="sig-paren">(</span><em>obj</em>, <em>layout</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/property.html#PropertyHandler.prop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.property.PropertyHandler.prop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolves and renders a registered property on a GUI <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.UILayout.html#bpy.types.UILayout" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.UILayout</span></code></a> object given a
+reference to the (correct) object type.</p>
+<p>In the example in <code class="xref py py-class docutils literal"><span class="pre">PropertyGroupWrapper</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">layout</span><span class="p">):</span>
+    <span class="n">global_properties</span><span class="o">.</span><span class="n">gui_properties</span><span class="o">.</span><span class="n">selected_mesh</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Additional positional arguments and keyword arguments are passed to <code class="xref py py-meth docutils literal"><span class="pre">bpy.types.UIlayout.prop()</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>obj</strong> &#8211; A Blender object with additional properties defined by the wrapper classes.</li>
+<li><strong>layout</strong> &#8211; A <code class="xref py py-class docutils literal"><span class="pre">bpy.types.UIlayout</span></code> reference.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.core.property.PropertyHandler.prop_search">
+<code class="descname">prop_search</code><span class="sig-paren">(</span><em>obj</em>, <em>layout</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/property.html#PropertyHandler.prop_search"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.property.PropertyHandler.prop_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolves and renders a <code class="xref py py-meth docutils literal"><span class="pre">bpy.types.UIlayout.prop_search()</span></code> connected to a registered property
+on a GUI <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.UILayout.html#bpy.types.UILayout" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.UILayout</span></code></a> object given a
+reference to the (correct) object type.</p>
+<p>In the example in <code class="xref py py-class docutils literal"><span class="pre">PropertyGroupWrapper</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">layout</span><span class="p">):</span>
+    <span class="n">global_properties</span><span class="o">.</span><span class="n">gui_properties</span><span class="o">.</span><span class="n">selected_mesh</span><span class="o">.</span><span class="n">prop_search</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span>
+                                         <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="s1">&#39;objects&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s1">&#39;VIEWZOOM&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Additional positional arguments and keyword arguments are passed to <code class="xref py py-meth docutils literal"><span class="pre">bpy.types.UIlayout.prop()</span></code></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>obj</strong> &#8211; A Blender object with additional properties defined by the wrapper classes.</li>
+<li><strong>layout</strong> &#8211; A <code class="xref py py-class docutils literal"><span class="pre">bpy.types.UIlayout</span></code> reference.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.core.property.PropertyHandler.set">
+<code class="descname">set</code><span class="sig-paren">(</span><em>obj</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/property.html#PropertyHandler.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.property.PropertyHandler.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                <span class="hbpdoc-hnav-previous">
+                    previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.core.pluginmanager.html">robot_designer_plugin.core.pluginmanager module</a>
+                </span>
+                
+                
+                <span class="hbpdoc-hnav-next">
+                    next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.core.resources.html">robot_designer_plugin.core.resources module</a>
+                </span>
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>

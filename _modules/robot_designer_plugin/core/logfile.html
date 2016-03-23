@@ -1,0 +1,256 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.core.logfile &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../../../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../../index.html">Module code</a>
+                    
+                    <a href="../../robot_designer_plugin.html">robot_designer_plugin</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    
+                </aside>
+
+                <h1>Source code for robot_designer_plugin.core.logfile</h1><div class="highlight"><pre>
+<span></span><span class="c1"># #####</span>
+<span class="c1"># This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
+<span class="c1"># in the Human Brain Project (HBP).</span>
+<span class="c1"># It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)</span>
+<span class="c1"># developed at the Karlsruhe Institute of Technology in the</span>
+<span class="c1"># High Performance Humanoid Technologies Laboratory (H2T).</span>
+<span class="c1"># #####</span>
+
+<span class="c1"># ##### BEGIN GPL LICENSE BLOCK #####</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software; you can redistribute it and/or</span>
+<span class="c1">#  modify it under the terms of the GNU General Public License</span>
+<span class="c1">#  as published by the Free Software Foundation; either version 2</span>
+<span class="c1">#  of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU General Public License</span>
+<span class="c1">#  along with this program; if not, write to the Free Software Foundation,</span>
+<span class="c1">#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</span>
+<span class="c1">#</span>
+<span class="c1"># ##### END GPL LICENSE BLOCK #####</span>
+
+<span class="c1"># #####</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2016, FZI Forschungszentrum Informatik</span>
+<span class="c1">#</span>
+<span class="c1"># Changes:</span>
+<span class="c1">#</span>
+<span class="c1">#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.</span>
+<span class="c1">#</span>
+<span class="c1"># ######</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This sub package provides logging mechanism for the plugin development.</span>
+
+<span class="sd">Blender is not easy to debug (adding an external debugger is planned) such that providing informative</span>
+<span class="sd">output to a log file is mandatory.</span>
+<span class="sd">The log file is stored in the path stored in the plugin directory (:data:`.config.script_path`) in</span>
+<span class="sd">``resources/log.txt``.</span>
+
+<span class="sd">An example of a log file:</span>
+
+
+<span class="sd">.. literalinclude:: ../../../doc/source/developer_manual/log_example.txt</span>
+
+<span class="sd">Logging of operators can be automated with the decorators and base classes in the :mod:`.operators` module.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">.gui</span> <span class="kn">import</span> <span class="n">InfoBox</span>
+
+<span class="kn">from</span> <span class="nn">..core.config</span> <span class="kn">import</span> <span class="n">BACKTRACE_MESSAGE_CALLSTACK</span><span class="p">,</span> <span class="n">BACKTRACE_MESSAGE</span><span class="p">,</span> <span class="n">BACKTRACE_FILTER_FUNC</span><span class="p">,</span> \
+    <span class="n">BACKTRACE_FILTER_HIDE_CODE</span><span class="p">,</span> <span class="n">BACKTRACE_MESSAGE_STACK</span><span class="p">,</span> <span class="n">BACKTRACE_MESSAGE_STACK_CODE</span><span class="p">,</span> <span class="n">EXCEPTION_MESSAGE</span><span class="p">,</span> <span class="n">script_path</span>
+
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="nb">reload</span>
+
+<span class="nb">reload</span><span class="p">(</span><span class="n">logging</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="s1">&#39;[</span><span class="si">%(levelname)5s</span><span class="s1">|</span><span class="si">%(name)10s</span><span class="s1">|</span><span class="si">%(filename)12s</span><span class="s1">:</span><span class="si">%(lineno)03d</span><span class="s1">|</span><span class="si">%(funcName)s</span><span class="s1">()] </span><span class="si">%(message)s</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">script_path</span><span class="p">,</span> <span class="s1">&#39;resources/log.txt&#39;</span><span class="p">),</span> <span class="n">filemode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+<span class="n">operator_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;Operators&#39;</span><span class="p">)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Logging object associated with :term:`operators`. All loggers store to ``resources/log.txt``</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="n">core_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;Core&#39;</span><span class="p">)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Logging object associated with the :term:`plugin core`. All loggers store to ``resources/log.txt``</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="n">gui_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;GUI&#39;</span><span class="p">)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Logging object associated with the user interface. All loggers store to ``resources/log.txt``</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="n">prop_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;Properties&#39;</span><span class="p">)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Logging object associated with :term:`properties`. All loggers store to ``resources/log.txt``</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="n">operator_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<span class="n">core_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<span class="n">gui_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+<span class="n">prop_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="LogFunction"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.logfile.html#robot_designer_plugin.core.logfile.LogFunction">[docs]</a><span class="k">def</span> <span class="nf">LogFunction</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Logging / exception handling decorator for functions (use for draw function for instance).</span>
+
+<span class="sd">    :param func: The function to decorate</span>
+<span class="sd">    :return: A :term:`decorator`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">func_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+
+        <span class="c1"># Execute the Operator</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">gui_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Draw function in </span><span class="si">%s</span><span class="s2"> module threw an exception:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">EXCEPTION_MESSAGE</span><span class="p">,</span>
+                             <span class="n">func</span><span class="o">.</span><span class="n">__module__</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">log_callstack</span><span class="p">(),</span> <span class="n">log_callstack</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+            <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_message</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">func_logger</span></div>
+
+
+<div class="viewcode-block" id="log_callstack"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.logfile.html#robot_designer_plugin.core.logfile.log_callstack">[docs]</a><span class="k">def</span> <span class="nf">log_callstack</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function that formats either a (filtered) backtrace or call stack in a string. Blender internals</span>
+<span class="sd">    are filtered such that errors in the own code can be detected more easily.</span>
+
+<span class="sd">    :param back_trace: If true, the backtrace is returned. Otherwise, the call stack is returned.</span>
+<span class="sd">    :return: the formatted call stack/backtrace in a string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">back_trace</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">BACKTRACE_MESSAGE_CALLSTACK</span> <span class="o">%</span> <span class="nb">len</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">traceback</span><span class="o">.</span><span class="n">extract_stack</span><span class="p">()</span> <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;run&#39;</span><span class="p">])</span>
+        <span class="n">stack</span> <span class="o">=</span> <span class="n">traceback</span><span class="o">.</span><span class="n">extract_stack</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">BACKTRACE_MESSAGE</span>
+        <span class="n">stack</span> <span class="o">=</span> <span class="n">traceback</span><span class="o">.</span><span class="n">extract_tb</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+
+    <span class="n">last_call</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">stack</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;addons&#39;</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+            <span class="nb">file</span> <span class="o">=</span> <span class="s1">&#39;...&#39;</span> <span class="o">+</span> <span class="n">path</span><span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;addons&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">6</span><span class="p">:]</span>
+        <span class="k">elif</span> <span class="s1">&#39;scripts&#39;</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+            <span class="nb">file</span> <span class="o">=</span> <span class="s1">&#39;...&#39;</span> <span class="o">+</span> <span class="n">path</span><span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;scripts&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">7</span><span class="p">:]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">file</span> <span class="o">=</span> <span class="n">path</span>
+        <span class="k">if</span> <span class="n">func</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">BACKTRACE_FILTER_FUNC</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">BACKTRACE_FILTER_HIDE_CODE</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">+=</span> <span class="n">BACKTRACE_MESSAGE_STACK</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="nb">file</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">message</span> <span class="o">+=</span> <span class="n">BACKTRACE_MESSAGE_STACK_CODE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="nb">file</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">last_call</span><span class="p">)</span>
+        <span class="n">last_call</span> <span class="o">=</span> <span class="n">code</span>
+
+    <span class="k">return</span> <span class="n">message</span></div>
+</pre></div>
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>
