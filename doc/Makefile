@@ -6,6 +6,7 @@ SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = build
+GHBUILDDIR      = gh-pages
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
@@ -50,6 +51,12 @@ help:
 
 clean:
 	rm -rf $(BUILDDIR)/*
+	rm -rf $(GHBUILDDIR)/html/*
+
+gh:
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(GHBUILDDIR)/html
+	@echo
+	@echo "Build finished. The HTML pages are in $(GHBUILDDIR)/html."
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
