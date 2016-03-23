@@ -4,7 +4,7 @@
 ### About
 
 The *NRP RobotDesigner* software developed in the scope
-of the [Human Brain Project](The Human Brain Project) in the sub-project
+of the [Human Brain Project](https://www.humanbrainproject.eu>) in the sub-project
 [SP10 Neurorobtics](http://neurorobotics.net/index.php). It is part of the *Neurorobotics Platform* which
 aims at providing easy accessible and usable tools to neuro-scientists and neuro-roboticists for simulating robots
 that are controlled by artificial brains in virtual environments. The *RobotDesinger* is a modeling tool that
@@ -21,6 +21,8 @@ This design decision has been made due to three reasons:
 
 Under the hood, the plugin extends the built-in data types and provides an improved and clear interface to
 the modeling software. Future development plans of the robot designer, however, include provide a simplified web-based interface integrated into the NRP to construct robots from building blocks. Therefore, the code base of the standalone software is planned to be used and will be further maintained.
+
+The RobotDesigner is currently developed and maintained under the lead of the [Intelligent Systems and Production Engineering department](http://www.fzi.de/en/about-us/organisation/research-divisions/ispe/) of the [FZI Forschungszentrum Informatik](http://www.fzi.de/en/home/) in Karlsruhe.
 
 ### History
 
@@ -50,7 +52,7 @@ he *NRP RobotDesigner* is a fork of the *RobotEditor*, which has been chosen as 
 (e.g., [phobos](https://github.com/rock-simulation/phobos>)). It will enrich the existing project
 by components required for the NRP (e.g., for communication/file exchange), additional file formats, support for simulators, an installer and  an adapted user interface.
 
-### license
+### License
 
 Similar to its predecessor *the RobotEditor* the NRP RobotDesigner is published as open source software under the [GPLv2 license](http://www.gnu.org/licenses/gpl-2.0.html).
 
@@ -96,7 +98,7 @@ the models provided by the Brain Simulation Platform, high level models coming f
 
 ## installation
 
-Obtain the current master branch by downloading the [``.zip`` file](https://github.com/HBPNeurorobotics/BlenderRobotDesigner/archive/master.zip) or using git (you need Python 3 installed). On Linux, for instance, you can run:
+Obtain the current master branch by downloading the [``.zip`` file](https://github.com/HBPNeurorobotics/BlenderRobotDesigner/archive/master.zip) or using git (you need Python 3 installed, best using [a virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/)). On Linux, for instance, you can run:
 
     user@host ~/Projects $ git clone git@github.com:HBPNeurorobotics/BlenderRobotDesigner.git
     user@host ~/Projects $ cd BlenderRobotDesigner
@@ -127,7 +129,7 @@ This will build the documentation including the user's and developers manual wit
    * Convex hull computation
    * Conversion from deformable meshes to rigid bodies. This is useful to transform deformable actors such as those created by [MakeHuman](http://www.makehuman.org/) into robots. This is used to provide a standard humanoid robot model to the NRP.
    * Generation of links and joint geometries based on the kinematic description (*still experimental*).
- * Placing of sensors (*Note: Currently, this includes cameras only. More to follow on request by the NRP and users)
+ * Placing of sensors (*Note: Currently, this includes cameras only. More to follow on request by the NRP and users*)
 
 
 * **File format and ROS/Gazebo support**
@@ -143,7 +145,7 @@ This will build the documentation including the user's and developers manual wit
 
 * **Plugin Core Framework**
 
- Although the RobotEditor is already feature rich, development is cumbersome due to Blender's conventions for plugin design. The ``Plugin Core`` framework is a python package that abstracts and simplifies many of the boiler plate thus allowing the design of larger applications based on Blender.
+ Although the RobotEditor is already feature rich, development is cumbersome due to Blender's conventions for plugin design. The ``Plugin Core`` framework is a python package that abstracts and simplifies many of the boiler plate thus allowing the design of larger applications based on Blender. The RobotEditor, therefore, had to be refactored and rewritten in large parts to comply with this framework.
 
  Especially the dynamic nature of how functionality is added to Blender makes a modern Python development with IDEs (Integrated Development Environments) such as the excellent [PyCharm<sup>TM</sup>](https://www.jetbrains.com/pycharm/) which support code completion and refactoring difficult. By using decorators ([PEP 0318](https://www.python.org/dev/peps/pep-0318/)) and handlers for [Blender Operators](https://www.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator) and [Properties](https://www.blender.org/api/blender_python_api_current/bpy.types.Property.html#bpy.types.Property), and *extended exception handling* and *logging*, developers can easily create even larger projects comfortably. Integration of *external debugging* is planned and currently under development. Further, mock ups for the Blender API can be generated and used for code completion.
 
@@ -152,9 +154,9 @@ This will build the documentation including the user's and developers manual wit
 
  The ``Plugin Core`` has an extensive documentation and might be released as a separated project in the future for inclusion in different projects.
 
-* **Documentation**
+* **Documentation** and coding standards
 
- The RobotDesigner comes with extensive documentation in form of a user's and developers manual which explains all steps necessary to setup and run the software as well on how to extend it and use the ``Plugin Core`` in general.
+ The RobotDesigner comes with extensive documentation in form of a user's and developers manual which explains all steps necessary to setup and run the software as well on how to extend it and use the ``Plugin Core`` in general. The code aims at being well-documented (the original code base is currently in the process of being documented) and to meet coding standards such as [PEP 8](https://www.python.org/dev/peps/pep-0008/).
 
 ## Planned features
 
@@ -164,7 +166,7 @@ The distributed version control system [GIT](https://git-scm.com/) will be used 
 to a remote repository that can be accessed by the *Neurorobotics Platform*. That way, it will not be necessary
 to upload and store robot models and create a seamless integration of the RobotDesigner in the web-based NRP.
 * File formats
-  * Simulation Description format (see [above's section](File format and ROS/Gazebo support))
+  * Simulation Description Format (see above's section)
   * More file formats will be supported upon demand. By the inclusion and abstraction of the ``PyXB`` interface XML-based systems can be integrated easily.
 
 Furthermore, the *plugin core* framework will be separated from the main project and will be extended to a web application that allows running a sub-set of Blender's design capabilities in a web browser. Work on this has been already initiated.
@@ -172,13 +174,16 @@ Furthermore, the *plugin core* framework will be separated from the main project
 The installer will be improved to install external dependencies automatically for the installed Blender version.
 
 ---
+
+### Footnotes
+
 <sup><a name="f1">1</a></sup>Funded by the European Commission through its Cognition Unit under the Information Society Technologies of the seventh Framework Programme (FP7)
 
-<sup><a name="f2">2</a></sup>B. Leon, S. Ulbrich, R. Diankov, G. Puche, M. Przybylski, A. Morales, T. Asfour, S. Moisio, J. Bohg, J. Kuffner and R. Dillmann , *OpenGRASP: A Toolkit for Robot Grasping Simulation,* 2nd International Conference on Simulation, Modeling, and Programming for Autonomous Robots (SIMPAR), November 15, 2010
+<sup><a name="f2">2</a></sup>B. Leon, S. Ulbrich, R. Diankov, G. Puche, M. Przybylski, A. Morales, T. Asfour, S. Moisio, J. Bohg, J. Kuffner and R. Dillmann, *"OpenGRASP: A Toolkit for Robot Grasping Simulation",* 2nd International Conference on Simulation, Modeling, and Programming for Autonomous Robots (SIMPAR), November 15, 2010
 
-<sup><a name="f3">3</a></sup>N. Vahrenkamp, M. Kröhnert, S. Ulbrich, T. Asfour, G. Metta, R. Dillmann  and G. Sandini, *Simox: A Robotics Toolbox for Simulation, Motion and Grasp Planning*, International Conference on Intelligent Autonomous Systems (IAS), pp. 585 - 594, 2012
+<sup><a name="f3">3</a></sup>N. Vahrenkamp, M. Kröhnert, S. Ulbrich, T. Asfour, G. Metta, R. Dillmann  and G. Sandini, *"Simox: A Robotics Toolbox for Simulation, Motion and Grasp Planning"*, International Conference on Intelligent Autonomous Systems (IAS), pp. 585 - 594, 2012
 
-<sup><a name="f4">4</a></sup>C. Mandery, Ö. Terlemez, M. Do, N. Vahrenkamp and T. Asfour, *The KIT Whole-Body Human Motion Database*, International Conference on Advanced Robotics (ICAR), pp. 0 - 0, July, 2015
+<sup><a name="f4">4</a></sup>C. Mandery, Ö. Terlemez, M. Do, N. Vahrenkamp and T. Asfour, *"The KIT Whole-Body Human Motion Database"*, International Conference on Advanced Robotics (ICAR), pp. 0 - 0, July, 2015
 
 <sup><a name="f5">5</a></sup>From [the project's website](http://www.humanbrainproject.eu)
 
