@@ -43,7 +43,6 @@ import mathutils
 import bpy
 
 from ..core import Condition
-from ..properties.globals import global_properties
 
 
 def _vec_roll_to_mat3(vec, roll):
@@ -88,6 +87,7 @@ def _mat3_to_vec_roll(mat):
     :param mat:
     :return:
     """
+    from ..properties.globals import global_properties
     vec = mat.col[1] * global_properties.bone_length.get(bpy.context.scene)
     vecmat = _vec_roll_to_mat3(mat.col[1], 0)
     vecmatinv = vecmat.inverted()
