@@ -327,22 +327,17 @@ Footnotes
 
 .. [#] Funded by the European Commission through its Cognition Unit under the
     Information Society Technologies of the seventh Framework Programme (FP7)
-
 .. [#] B. Leon, S. Ulbrich, R. Diankov, G. Puche, M. Przybylski, A. Morales,
     T. Asfour, S. Moisio, J. Bohg, J. Kuffner and R. Dillmann, *"OpenGRASP:
     A Toolkit for Robot Grasping Simulation",* 2nd International Conference
     on Simulation, Modeling, and Programming for Autonomous Robots (SIMPAR),
     November 15, 2010
-
 .. [#] N. Vahrenkamp, M. Kröhnert, S. Ulbrich, T. Asfour, G. Metta, R.
     Dillmann and G. Sandini, *"Simox: A Robotics Toolbox for Simulation,
     Motion and Grasp Planning"*, International Conference on Intelligent
     Autonomous Systems (IAS), pp. 585 - 594, 2012
-
 .. [#] C. Mandery, Ö. Terlemez, M. Do, N. Vahrenkamp and T. Asfour, *"The KIT
     Whole-Body Human Motion Database"*, International Conference on Advanced
     Robotics (ICAR), pp. 0 - 0, July, 2015
-
 .. [#] From `the project's website <http://www.humanbrainproject.eu>`__
-
 .. [#] From `the Neurorobotics website <neurorobotics.net>`__
