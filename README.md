@@ -141,7 +141,7 @@ This will build the documentation including the user's and developers manual wit
 
 
 
-* ** *Plugin Core* Framework**
+* **Plugin Core Framework**
 
  Although the RobotEditor is already feature rich, development is cumbersome due to Blender's conventions for plugin design. The ``Plugin Core`` framework is a python package that abstracts and simplifies many of the boiler plate thus allowing the design of larger applications based on Blender.
 
