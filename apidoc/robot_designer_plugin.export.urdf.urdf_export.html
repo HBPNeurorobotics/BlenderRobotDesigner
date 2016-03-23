@@ -1,0 +1,415 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.export.urdf.urdf_export module &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
+    <link rel="up" title="robot_designer_plugin.export.urdf package" href="robot_designer_plugin.export.urdf.html" />
+    <link rel="next" title="robot_designer_plugin.export.urdf.urdf_import module" href="robot_designer_plugin.export.urdf.urdf_import.html" />
+    <link rel="prev" title="robot_designer_plugin.export.urdf.generic.urdf_tree module" href="robot_designer_plugin.export.urdf.generic.urdf_tree.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="robot_designer_plugin.export.urdf.generic.urdf_tree.html"
+                        title="previous chapter">robot_designer_plugin.export.urdf.generic.urdf_tree module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="robot_designer_plugin.export.urdf.urdf_import.html"
+                        title="next chapter">robot_designer_plugin.export.urdf.urdf_import module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/apidoc/robot_designer_plugin.export.urdf.urdf_export.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../developer_manual/index.html">Developers Manual</a>
+                    
+                    <a href="modules.html">robot_designer_plugin</a>
+                    
+                    <a href="robot_designer_plugin.html">robot_designer_plugin package</a>
+                    
+                    <a href="robot_designer_plugin.export.html">robot_designer_plugin.export package</a>
+                    
+                    <a href="robot_designer_plugin.export.urdf.html">robot_designer_plugin.export.urdf package</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    <span class="hbpdoc-hnav-previous">
+                        previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.export.urdf.generic.urdf_tree.html">robot_designer_plugin.export.urdf.generic.urdf_tree module</a>
+                    </span>
+                    
+                    
+                    <span class="hbpdoc-hnav-next">
+                        next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.export.urdf.urdf_import.html">robot_designer_plugin.export.urdf.urdf_import module</a>
+                    </span>
+                    
+                </aside>
+
+                <div class="section" id="module-robot_designer_plugin.export.urdf.urdf_export">
+<span id="robot-designer-plugin-export-urdf-urdf-export-module"></span><h1>robot_designer_plugin.export.urdf.urdf_export module<a class="headerlink" href="#module-robot_designer_plugin.export.urdf.urdf_export" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">Operators</span></a> (and functions) exporting to URDF. It supports the creation of ROS packages, zipped
+ROS packages and &#8216;plain&#8217; URDF files with absolute or relative file paths.</p>
+<p>Note: modify <code class="xref py py-meth docutils literal"><span class="pre">pyxb.binding.basis._TypeBinding_mixin.toxml()</span></code> to call <code class="xref py py-meth docutils literal"><span class="pre">xml.dom.minidom.Node.toprettyxml()</span></code></p>
+<dl class="class">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPackage">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.export.urdf.urdf_export.</code><code class="descname">ExportPackage</code><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_export.html#ExportPackage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPackage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><span class="xref std std-ref">operator</span> for exporting  the selected robot to an URDF File into a ROS package.</p>
+<p><strong>Preconditions:</strong></p>
+<p><strong>Postconditions:</strong></p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ObjectMode" title="robot_designer_plugin.operators.helpers.ObjectMode"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ObjectMode</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPackage.abs_file_path">
+<code class="descname">abs_file_path</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPackage.abs_file_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPackage.base_link_name">
+<code class="descname">base_link_name</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPackage.base_link_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPackage.bl_idname">
+<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.export_to_urdf_package'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPackage.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPackage.bl_label">
+<code class="descname">bl_label</code><em class="property"> = 'Export ROS/URDF Package'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPackage.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPackage.directory">
+<code class="descname">directory</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPackage.directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPackage.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPackage.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPackage.gazebo">
+<code class="descname">gazebo</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPackage.gazebo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPackage.invoke">
+<code class="descname">invoke</code><span class="sig-paren">(</span><em>context</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_export.html#ExportPackage.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPackage.invoke" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPackage.package_url">
+<code class="descname">package_url</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPackage.package_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPlain">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.export.urdf.urdf_export.</code><code class="descname">ExportPlain</code><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_export.html#ExportPlain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPlain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><span class="xref std std-ref">operator</span> for exporting  the selected robot to a URDF File and mesh directory in the same directory.</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ObjectMode" title="robot_designer_plugin.operators.helpers.ObjectMode"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ObjectMode</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPlain.abs_file_paths">
+<code class="descname">abs_file_paths</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPlain.abs_file_paths" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPlain.base_link_name">
+<code class="descname">base_link_name</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPlain.base_link_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPlain.bl_idname">
+<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.export_to_urdf_plain'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPlain.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPlain.bl_label">
+<code class="descname">bl_label</code><em class="property"> = 'Export plain URDF'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPlain.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPlain.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPlain.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPlain.filepath">
+<code class="descname">filepath</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPlain.filepath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPlain.filter_glob">
+<code class="descname">filter_glob</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPlain.filter_glob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPlain.gazebo">
+<code class="descname">gazebo</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPlain.gazebo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPlain.invoke">
+<code class="descname">invoke</code><span class="sig-paren">(</span><em>context</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_export.html#ExportPlain.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPlain.invoke" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportPlain.package_url">
+<code class="descname">package_url</code><em class="property"> = False</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportPlain.package_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.export.urdf.urdf_export.</code><code class="descname">ExportZippedPackage</code><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_export.html#ExportZippedPackage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><span class="xref std std-ref">operator</span> for exporting  the selected robot to an URDF File into a zipped ROS package.</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ObjectMode" title="robot_designer_plugin.operators.helpers.ObjectMode"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ObjectMode</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.abs_file_path">
+<code class="descname">abs_file_path</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.abs_file_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.base_link_name">
+<code class="descname">base_link_name</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.base_link_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.bl_idname">
+<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.export_to_urdf_package_zipped'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.bl_label">
+<code class="descname">bl_label</code><em class="property"> = 'Export zipped ROS/URDF Package'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.filepath">
+<code class="descname">filepath</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.filepath" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.filter_glob">
+<code class="descname">filter_glob</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.filter_glob" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.gazebo">
+<code class="descname">gazebo</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.gazebo" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.invoke">
+<code class="descname">invoke</code><span class="sig-paren">(</span><em>context</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_export.html#ExportZippedPackage.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.invoke" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.package_url">
+<code class="descname">package_url</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage.package_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.create_package">
+<code class="descclassname">robot_designer_plugin.export.urdf.urdf_export.</code><code class="descname">create_package</code><span class="sig-paren">(</span><em>operator</em>, <em>context</em>, <em>toplevel_dir</em>, <em>base_link_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_export.html#create_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.create_package" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a ros package. Copies a template from the resources folder and replaces place holders with the robot name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>operator</strong> (<a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">RDOperator</span></code></a>) &#8211; The calling operator</li>
+<li><strong>context</strong> &#8211; The current context</li>
+<li><strong>toplevel_dir</strong> &#8211; The directory in which to export</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.create_urdf">
+<code class="descclassname">robot_designer_plugin.export.urdf.urdf_export.</code><code class="descname">create_urdf</code><span class="sig-paren">(</span><em>operator</em>, <em>context</em>, <em>base_link_name</em>, <em>filepath</em>, <em>meshpath</em>, <em>toplevel_directory</em>, <em>in_ros_package</em>, <em>abs_filepaths=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_export.html#create_urdf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.create_urdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the URDF XML file and exports the meshes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>operator</strong> (<a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">RDOperator</span></code></a>) &#8211; The calling operator</li>
+<li><strong>context</strong> &#8211; The current context</li>
+<li><strong>filepath</strong> (<code class="xref py py-class docutils literal"><span class="pre">str</span></code>) &#8211; path to the URDF file</li>
+<li><strong>meshpath</strong> (<code class="xref py py-class docutils literal"><span class="pre">str</span></code>) &#8211; Path to the mesh directory</li>
+<li><strong>toplevel_directory</strong> (<code class="xref py py-class docutils literal"><span class="pre">str</span></code>) &#8211; The directory in which to export</li>
+<li><strong>in_ros_package</strong> (<code class="xref py py-class docutils literal"><span class="pre">bool</span></code>) &#8211; Whether to export into a ros package or plain files</li>
+<li><strong>abs_filepaths</strong> &#8211; If not intstalled into a ros package decides whether to use absolute file paths.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="robot_designer_plugin.export.urdf.urdf_export.export_mesh">
+<code class="descclassname">robot_designer_plugin.export.urdf.urdf_export.</code><code class="descname">export_mesh</code><span class="sig-paren">(</span><em>operator</em>, <em>context</em>, <em>name</em>, <em>directory</em>, <em>toplevel_dir</em>, <em>in_ros_package</em>, <em>abs_file_paths=False</em>, <em>export_collision=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_export.html#export_mesh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_export.export_mesh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exports a mesh to a separate file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>operator</strong> (<a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">RDOperator</span></code></a>) &#8211; The calling operator</li>
+<li><strong>context</strong> &#8211; The current context</li>
+<li><strong>name</strong> (<em>basestring.</em>) &#8211; the name of the mesh (not the file name).</li>
+<li><strong>directory</strong> (<code class="xref py py-class docutils literal"><span class="pre">str</span></code>) &#8211; The directory in which to install the meshes</li>
+<li><strong>toplevel_dir</strong> (<code class="xref py py-class docutils literal"><span class="pre">str</span></code>) &#8211; The directory in which to export</li>
+<li><strong>in_ros_package</strong> (<code class="xref py py-class docutils literal"><span class="pre">bool</span></code>) &#8211; Whether to export into a ros package or plain files</li>
+<li><strong>abs_file_paths</strong> &#8211; If not intstalled into a ros package decides whether to use absolute file paths.</li>
+<li><strong>export_collision</strong> &#8211; Exporting a collision mesh or visualization mesh.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">name of the file the mesh is stored in.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                <span class="hbpdoc-hnav-previous">
+                    previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.export.urdf.generic.urdf_tree.html">robot_designer_plugin.export.urdf.generic.urdf_tree module</a>
+                </span>
+                
+                
+                <span class="hbpdoc-hnav-next">
+                    next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.export.urdf.urdf_import.html">robot_designer_plugin.export.urdf.urdf_import module</a>
+                </span>
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>

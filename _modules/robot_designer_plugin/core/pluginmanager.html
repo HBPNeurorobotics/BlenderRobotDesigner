@@ -1,0 +1,430 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.core.pluginmanager &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../../../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../../index.html">Module code</a>
+                    
+                    <a href="../../robot_designer_plugin.html">robot_designer_plugin</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    
+                </aside>
+
+                <h1>Source code for robot_designer_plugin.core.pluginmanager</h1><div class="highlight"><pre>
+<span></span><span class="c1"># #####</span>
+<span class="c1"># This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
+<span class="c1"># in the Human Brain Project (HBP).</span>
+<span class="c1"># It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)</span>
+<span class="c1"># developed at the Karlsruhe Institute of Technology in the</span>
+<span class="c1"># High Performance Humanoid Technologies Laboratory (H2T).</span>
+<span class="c1"># #####</span>
+
+<span class="c1"># ##### BEGIN GPL LICENSE BLOCK #####</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software; you can redistribute it and/or</span>
+<span class="c1">#  modify it under the terms of the GNU General Public License</span>
+<span class="c1">#  as published by the Free Software Foundation; either version 2</span>
+<span class="c1">#  of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU General Public License</span>
+<span class="c1">#  along with this program; if not, write to the Free Software Foundation,</span>
+<span class="c1">#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</span>
+<span class="c1">#</span>
+<span class="c1"># ##### END GPL LICENSE BLOCK #####</span>
+
+<span class="c1"># #####</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2016, FZI Forschungszentrum Informatik</span>
+<span class="c1">#</span>
+<span class="c1"># Changes:</span>
+<span class="c1">#</span>
+<span class="c1">#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.</span>
+<span class="c1">#</span>
+<span class="c1"># ######</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This sub module contains the :class:`PluginManager` that handles automatic registration of classes.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">bpy</span>
+<span class="kn">import</span> <span class="nn">bpy.utils</span>
+
+<span class="kn">from</span> <span class="nn">.config</span> <span class="kn">import</span> <span class="n">EXCEPTION_MESSAGE</span><span class="p">,</span> <span class="n">resource_path</span>
+<span class="kn">from</span> <span class="nn">.logfile</span> <span class="kn">import</span> <span class="n">core_logger</span><span class="p">,</span> <span class="n">log_callstack</span>
+<span class="kn">from</span> <span class="nn">.operators</span> <span class="kn">import</span> <span class="n">RDOperator</span>
+<span class="kn">from</span> <span class="nn">.gui</span> <span class="kn">import</span> <span class="n">CollapsibleBase</span>
+
+
+<div class="viewcode-block" id="PluginManager"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager">[docs]</a><span class="k">class</span> <span class="nc">PluginManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class handles the automatic registration of classes to Blender.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_classes_to_register</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_registered_classes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_property_groups_to_register</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_registered_properties</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_file_plugins</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_bools_to_register</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_registered_bools</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">PluginTypes</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s1">&#39;PluginType&#39;</span><span class="p">,</span> <span class="s1">&#39;FILE GEOMETRY SEGMENTS MODEL&#39;</span><span class="p">)</span>
+
+    <span class="n">_bl_icons_dict</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">_icons_to_register</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">_property_fields</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="PluginManager.register_property_group"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.register_property_group">[docs]</a>    <span class="k">def</span> <span class="nf">register_property_group</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+        <span class="n">propertyTypes</span> <span class="o">=</span> <span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">EnumProperty</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">StringProperty</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">BoolProperty</span><span class="p">,</span>
+                         <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">StringProperty</span><span class="p">,</span>
+                         <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">PointerProperty</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PropertyGroup</span><span class="p">):</span>
+                <span class="c1"># RD_logger.info(&quot;Dependencies: %s&quot;, base)</span>
+                <span class="n">PluginManager</span><span class="o">.</span><span class="n">_property_groups_to_register</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cls</span><span class="p">,</span> <span class="n">base</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">cls</span>
+
+        <span class="k">return</span> <span class="n">decorator</span></div>
+
+    <span class="c1"># bpy.props.PointerProperty(type=robot_designer_plugin.properties.segments.RDDegreeOfFreedom)[1][&#39;type&#39;] is robot_designer_plugin.properties.segments.RDDegreeOfFreedom</span>
+
+
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="PluginManager.register_class"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.register_class">[docs]</a>    <span class="k">def</span> <span class="nf">register_class</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :term:`Class decorator&lt;class decorator&gt;` for :class:`.operators.RDOperator`, :class:`bpy.types.Menu`,</span>
+<span class="sd">        :class:`bpy.types.PropertyGroup` (and more ``bpy`` classes) and :class:`.gui.CollapsibleBox`.</span>
+
+<span class="sd">        An example of how to use this decorator is given in :class:`.operators.RDOperator`.</span>
+
+<span class="sd">        :param args: For now, no arguments should be passed to the decorator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="p">(</span><span class="n">RDOperator</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Menu</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Panel</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Panel</span><span class="p">)):</span>
+                <span class="n">PluginManager</span><span class="o">.</span><span class="n">_classes_to_register</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">cls</span><span class="p">,</span> <span class="n">dependencies</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">CollapsibleBase</span><span class="p">):</span>
+                <span class="n">PluginManager</span><span class="o">.</span><span class="n">_bools_to_register</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">property_name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">core_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not register </span><span class="si">%s</span><span class="s2">, subclass of: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">Dependencies: </span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cls</span><span class="p">,</span> <span class="n">cls</span><span class="o">.</span><span class="n">mro</span><span class="p">(),</span>
+                                  <span class="n">dependencies</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Wrong with decorator&quot;</span><span class="p">)</span>
+            <span class="c1"># print(cls)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">cls</span><span class="o">.</span><span class="n">__doc__</span><span class="p">:</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="s2">&quot;Missing documentation.</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    **Automatically registered** to &quot;</span> \
+                           <span class="s2">&quot;:class:`robot_designer_plugin.core.pluginmanager.Pluginmanager`</span><span class="se">\n</span><span class="s2">&quot;</span>
+            <span class="k">return</span> <span class="n">cls</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>  <span class="c1"># No arguments</span>
+
+            <span class="n">dependencies</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">return</span> <span class="n">decorator</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># Arguments given to decorator</span>
+            <span class="n">dependencies</span> <span class="o">=</span> <span class="n">args</span>
+            <span class="k">return</span> <span class="n">decorator</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginManager.register_property_groups"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.register_property_groups">[docs]</a>    <span class="k">def</span> <span class="nf">register_property_groups</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">property_group</span><span class="p">,</span> <span class="n">btype</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :term:`Properties&lt;property&gt;` have to be assigned to blender types.</span>
+<span class="sd">        This function collects all properties and assigns them when :meth:`register` is called</span>
+<span class="sd">        and unloads them when :meth:`unregister` is called.</span>
+
+<span class="sd">        :param property_group: A class derived from :class:`bpy.types.PropertyGroup`.</span>
+<span class="sd">        :param btype: Any type defined in :mod:`bpy.types`.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span></div>
+        <span class="c1"># cls._property_groups_to_register.append((property_group, btype))</span>
+
+        <span class="c1"># props = inspect.getmembers(property_group, lambda x: isinstance(x, tuple) and len(x) == 2)</span>
+        <span class="c1"># print(props)</span>
+        <span class="c1"># cls._property_fields[property_group]=[]</span>
+        <span class="c1"># for name, prop in props:</span>
+        <span class="c1">#     cls._property_fields[property_group].append((name, prop))</span>
+        <span class="c1">#</span>
+        <span class="c1"># for nested in inspect.getmembers(property_group, lambda x: isinstance(x, bpy.types.PropertyGroup)):</span>
+        <span class="c1">#     cls._property_fields[property_group].append(</span>
+        <span class="c1">#</span>
+        <span class="c1">#     )</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginManager.register_plugin"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.register_plugin">[docs]</a>    <span class="k">def</span> <span class="nf">register_plugin</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">operators</span><span class="p">,</span> <span class="n">draw_function</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">type_</span><span class="o">=</span><span class="n">PluginTypes</span><span class="o">.</span><span class="n">FILE</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        .. warning::</span>
+
+<span class="sd">            The plugin system is still under development.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">_file_plugins</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">label</span><span class="p">,</span> <span class="n">operators</span><span class="p">,</span> <span class="n">draw_function</span><span class="p">,</span> <span class="n">type_</span><span class="p">))</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="nb">property</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        .. warning::</span>
+
+<span class="sd">            Better handling of properties is still under development.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">property</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;attr&#39;</span><span class="p">]</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginManager.getFilePlugins"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.getFilePlugins">[docs]</a>    <span class="k">def</span> <span class="nf">getFilePlugins</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">type_</span><span class="o">=</span><span class="n">PluginTypes</span><span class="o">.</span><span class="n">FILE</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        .. warning::</span>
+
+<span class="sd">            The plugin system is still under development.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_file_plugins</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginManager.register_collapsible"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.register_collapsible">[docs]</a>    <span class="k">def</span> <span class="nf">register_collapsible</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">property_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called when a class of type :class:`.gui.CollapsibleBox` is created.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">_bools_to_register</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">property_name</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginManager.load_icon"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.load_icon">[docs]</a>    <span class="k">def</span> <span class="nf">load_icon</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">        :param id: ID of the label</span>
+<span class="sd">        :param filename: Relative to :data:`.config/resource_path`</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">resource_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+            <span class="n">core_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;File does not exist: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">_icons_to_register</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">id</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;IMAGE&#39;</span><span class="p">))</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginManager.get_icon"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.get_icon">[docs]</a>    <span class="k">def</span> <span class="nf">get_icon</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">        :param id:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">_bl_icons_dict</span> <span class="ow">and</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_bl_icons_dict</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">_bl_icons_dict</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">.</span><span class="n">icon_id</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginManager.clear"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        When a plugin is required to be reloadable (which it should be during development) each module is imported</span>
+<span class="sd">        twice. Therefore, this method is called before the modules are reloaded.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">_classes_to_register</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">_property_groups_to_register</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">_bools_to_register</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">_icons_to_register</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginManager.get_property"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.get_property">[docs]</a>    <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">prop</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">        :param obj:</span>
+<span class="sd">        :param prop:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">args</span><span class="p">,</span> <span class="n">varargs</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="nb">locals</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getargvalues</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">())</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">varargs</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="nb">locals</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginManager.register"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.register">[docs]</a>    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called from the top-level :func:`robot_designer_plugin.register` function in the ``__init__.py`` of the plugin.</span>
+<span class="sd">        Registers all data collected during import.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">class_</span><span class="p">,</span> <span class="n">dependencies</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_classes_to_register</span><span class="p">:</span>
+                <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_class</span><span class="p">(</span><span class="n">class_</span><span class="p">)</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">+ class {0:35} in {1:40}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">class_</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
+                                                                  <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">class_</span><span class="o">.</span><span class="n">__module__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])))</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">_registered_classes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">class_</span><span class="p">)</span>
+            <span class="n">core_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Done&#39;</span><span class="p">)</span>
+
+            <span class="n">core_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Properties: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cls</span><span class="o">.</span><span class="n">_property_groups_to_register</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">prop</span><span class="p">,</span> <span class="n">extends</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_property_groups_to_register</span><span class="p">:</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">+ propery {0:33} {1:8} in {2:40}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prop</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
+                                                                          <span class="s2">&quot;(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">extends</span><span class="o">.</span><span class="n">__name__</span> <span class="k">if</span> <span class="n">extends</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+                                                                          <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">prop</span><span class="o">.</span><span class="n">__module__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])))</span>
+
+                <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_class</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">extends</span> <span class="ow">in</span> <span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Object</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Scene</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Bone</span><span class="p">):</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="n">extends</span><span class="p">,</span> <span class="s1">&#39;RobotEditor&#39;</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="p">,</span> <span class="n">prop</span><span class="o">.</span><span class="n">__name__</span><span class="p">)))</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">_registered_properties</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">prop</span><span class="p">,</span> <span class="n">extends</span><span class="p">))</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_property_fields</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_bools_to_register</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Scene</span><span class="p">,</span> <span class="n">prop</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">BoolProperty</span><span class="p">())</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">_registered_bools</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">_icons_to_register</span><span class="p">:</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">_bl_icons_dict</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">previews</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
+
+                <span class="k">for</span> <span class="n">icon</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_icons_to_register</span><span class="p">:</span>
+                    <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">+ icon {0:36} from {1:40}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">icon</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">icon</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+                    <span class="n">cls</span><span class="o">.</span><span class="n">_bl_icons_dict</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="o">*</span><span class="n">icon</span><span class="p">)</span>
+            <span class="n">core_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">report</span><span class="p">))</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Error occured&quot;</span><span class="p">)</span>
+            <span class="n">core_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">report</span><span class="p">))</span>
+            <span class="n">core_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">EXCEPTION_MESSAGE</span><span class="p">,</span>
+                              <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">log_callstack</span><span class="p">(),</span> <span class="n">log_callstack</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+
+        <span class="n">cls</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="PluginManager.unregister"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.unregister">[docs]</a>    <span class="k">def</span> <span class="nf">unregister</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Called from the top-level :func:`robot_designer_plugin.unregister` function in the ``__init__.py`` of the</span>
+<span class="sd">        plugin.</span>
+<span class="sd">        Removes all data collected during import.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">class_</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_registered_classes</span><span class="p">:</span>
+                <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_class</span><span class="p">(</span><span class="n">class_</span><span class="p">)</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">- class {0:35} in {1:40}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">class_</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
+                                                                  <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">class_</span><span class="o">.</span><span class="n">__module__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])))</span>
+
+            <span class="k">for</span> <span class="n">prop</span><span class="p">,</span> <span class="n">extends</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_registered_properties</span><span class="p">:</span>
+                <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_class</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">extends</span> <span class="ow">in</span> <span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Object</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Scene</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Bone</span><span class="p">):</span>
+                    <span class="nb">delattr</span><span class="p">(</span><span class="n">extends</span><span class="p">,</span> <span class="s2">&quot;RobotEditor&quot;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">_registered_bools</span><span class="p">:</span>
+                <span class="nb">delattr</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Scene</span><span class="p">,</span> <span class="n">prop</span><span class="p">)</span>
+
+            <span class="n">core_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">report</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">_bl_icons_dict</span><span class="p">:</span>
+                <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">previews</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">_bl_icons_dict</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Error occured during clean up. You should restart blender!&quot;</span><span class="p">)</span>
+            <span class="n">core_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">report</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">core_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">EXCEPTION_MESSAGE</span><span class="p">,</span>
+                              <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">log_callstack</span><span class="p">(),</span> <span class="n">log_callstack</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+
+        <span class="n">cls</span><span class="o">.</span><span class="n">_registered_classes</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">_property_groups_to_register</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">_registered_bools</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div></div>
+</pre></div>
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,324 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>About &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="#" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="index.html" />
+    <link rel="next" title="User Manual" href="user_manual/index.html" />
+    <link rel="prev" title="The NRP RobotDesigner" href="index.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">About</a><ul>
+<li><a class="reference internal" href="#history">History</a></li>
+<li><a class="reference internal" href="#the-robotdesigner">The RobotDesigner</a><ul>
+<li><a class="reference internal" href="#the-human-brain-project">The Human Brain Project </a></li>
+<li><a class="reference internal" href="#the-neurorobotics-platform">The Neurorobotics Platform </a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#features">Features</a><ul>
+<li><a class="reference internal" href="#installer">Installer</a></li>
+<li><a class="reference internal" href="#robot-modelling">Robot modelling</a></li>
+<li><a class="reference internal" href="#file-format-support">File format support</a></li>
+<li><a class="reference internal" href="#git-integration">GIT integration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">The NRP RobotDesigner</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="user_manual/index.html"
+                        title="next chapter">User Manual</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/about.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    <span class="hbpdoc-hnav-previous">
+                        previous: <a class="hbpdoc-hnav-link" href="index.html">The NRP RobotDesigner</a>
+                    </span>
+                    
+                    
+                    <span class="hbpdoc-hnav-next">
+                        next: <a class="hbpdoc-hnav-link" href="user_manual/index.html">User Manual</a>
+                    </span>
+                    
+                </aside>
+
+                <div class="section" id="about">
+<h1>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h1>
+<p>The <em>NRP RobotDesigner</em> software developed in the scope
+of the <a class="reference external" href="hhttps://www.humanbrainproject.eu">Human Brain Project</a> in the sub-project
+<a class="reference external" href="http://neurorobotics.net/index.php">SP10 Neurorobtics</a>. It is part of the <em>Neurorobotics Platform</em> which
+aims at providing easy accessible and usable tools to neuro-scientists and neuro-roboticists for simulating robots
+that are controlled by artificial brains in virtual environments. The <em>RobotDesinger</em> is a modelling tool that
+allows to generate <em>geometric</em>, <em>kinematic</em> and <em>dynamic</em> models that can be used in the simulation environment.
+While other services of the NRP are created as web-based services that do not require installation and, therefore,
+administration expertise, the <em>RobotDesigner</em> is a plugin for the freely available (GPL licensed)
+<a class="reference external" href="http://blender.org">Blender 3D modeling suite</a>.
+This is because of three reasons:</p>
+<ol class="arabic simple">
+<li>The full capabilities of a feature-rich modelling suite such as Blender is an enormous undertaking.</li>
+<li>If someone is willing to model her/his own model, expertise in this field can be expected.</li>
+<li>Blender is freely available for a wide range of platforms and installation is very easy.</li>
+</ol>
+<p>Under the hood, the plugin extends the built-in data types and provides an improved and clear interface to
+the modelling software.</p>
+<div class="section" id="history">
+<h2>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
+<p>The <em>NRP RobotDesigner</em> has been initially developed under the name <em>OpenGRASP RobotEditor</em>
+from 2008-2012 at the <a class="reference external" href="http://his.anthropomatik.kit.edu/english/index.php">HIS &#8211; Humanoids and Intelligence Systens Lab
+(IAR &#8211; Institute for Anthropomatics and Robotics)</a>  of the
+<a class="reference external" href="http://www.kit.edu/english/index.php">Karlsruhe Institute of Technology</a> the in the
+<a class="reference external" href="http://www.csc.kth.se/grasp/">European GRASP project</a> <a class="footnote-reference" href="#f1" id="id1">[1]</a> <a class="footnote-reference" href="#f2" id="id2">[2]</a>
+in the context of the <a class="reference external" href="http://opengrasp.sourceforge.net/">OpenGRASP software</a>.
+It is published under the GPL license.
+This Python plugin restricted to the
+Blender version 2.49 was mainly developed by <a class="reference external" href="mailto:stefan&#46;ulbrich&#37;&#52;&#48;fzi&#46;de">Stefan Ulbrich (FZI)</a>.
+One of the most notable features of the <em>RobotEditor</em> was support for the
+<a class="reference external" href="https://www.khronos.org/collada/">Collada v1.5</a> 3D asset exchange format. This file format has large support from
+the industry including companies such as Daimler and Sony. The RobotEditor was the only freely available
+tool creating valid models for Collada v1.5 which supported the new description facilities for kinematics and dynamics.</p>
+<p>Afterwards, the <em>RobotEditor</em> <a class="footnote-reference" href="#f3" id="id3">[3]</a> has been completely rewritten to comply the programming interface of newer Blender
+versions (&gt;2.69) at the <a class="reference external" href="http://h2t.anthropomatik.kit.edu/enligsh/index.php">H2T &#8211; High Perfomance Humanoid Technologies Lab (IAR &#8211; Institute for Anthropomatics
+and Robotics)</a> of the
+<a class="reference external" href="http://www.kit.edu/english/index.php">Karlsruhe Institute of Technology</a> by the main authors
+<a class="reference external" href="mailto:michael&#46;bechtel&#37;&#52;&#48;kit&#46;edu">Michael Bechtel</a> and <a class="reference external" href="mailto:stefan&#46;ulbrich&#37;&#52;&#48;fzi&#46;de">Stefan Ulbrich (FZI)</a>. Many new
+feature such as <em>physical properties</em>, <em>joint dynamics</em>, <em>sensors for matching motion capture data</em> support for
+the <a class="reference external" href="http://simox.sourceforge.net/">Simox robot simulator</a> <a class="footnote-reference" href="#f4" id="id6">[4]</a> have been added to the software. The current is still
+developed and the current state is <a class="reference external" href="https://gitlab.com/h2t/roboteditor">available under the GPL license</a>.</p>
+<p>The <em>RobotEditor</em> has been chosen as the basis of the <em>NRP RobotDesigner</em> after a comparison to competing projects
+(e.g., <a class="reference external" href="https://github.com/rock-simulation/phobos">phobos</a>). It will enrich the existing projects
+by components required for the NRP (e.g., for communication/file exchange), additional file formats,
+support for simulators, an installer and  an adapted user interface.</p>
+</div>
+<div class="section" id="the-robotdesigner">
+<h2>The RobotDesigner<a class="headerlink" href="#the-robotdesigner" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-human-brain-project">
+<h3>The Human Brain Project <a class="footnote-reference" href="#f5" id="id7">[5]</a><a class="headerlink" href="#the-human-brain-project" title="Permalink to this headline">¶</a></h3>
+<p>The European Commission has selected the Human Brain Project as one of its two Flagship projects. Over the course of
+10 years the HBP will create an integrated system of six ICT platforms, one dedicated to Neurorobotics.
+The Neurorobotics Subproject of the HBP is coordinated by a research group led by Prof. Alois Knoll.
+The Human Brain Project is part of the FET Flagship Programme, which is a new initiative launched by the
+European Commission as part of its
+<a class="reference external" href="http://cordis.europa.eu/fp7/ict/programme/fet/flagship/">Future and Emerging Technologies (FET)</a> initiative.
+The goal is to encourage
+visionary, “mission-oriented” research with the potential to deliver breakthroughs in information technology
+with major benefits for European society and industry. The Commission envisages the Flagship program as a highly
+ambitious initiative involving close collaboration with National and Regional funding agencies, industry and
+partners from outside the European Union. <a class="reference external" href="http://neurorobotics.net/the-human-brain-project/">Read more</a></p>
+</div>
+<div class="section" id="the-neurorobotics-platform">
+<h3>The Neurorobotics Platform <a class="footnote-reference" href="#f5" id="id8">[5]</a><a class="headerlink" href="#the-neurorobotics-platform" title="Permalink to this headline">¶</a></h3>
+<p>The Neurorobotics sub-project will develop the Neurorobotics Platform which will offer scientists and technology
+developers a software and hardware infrastructure allowing them to connect pre-validated brain models to detailed
+simulations of robot bodies and environments and to use the resulting neurorobotic systems in in silico experiments
+and technology development.
+The goal for the ramp-up phase will be to develop the Neurorobotics Platform version 1 which will allow researchers
+to design and run simple experiments in cognitive neuroscience using simulated robots and simulated environments
+linked to simplified versions of HBP brain models. The <em>Neurorobotics Platform</em> will include a Robot Designer, an
+Environment Builder, and a Closed-Loop engine, as well as the <em>Neurorobotics Platform</em> host facility.
+The <em>Neurorobotics Platform</em> will exploit the 3D modelling capabilities provided by commercial and open source gaming
+platforms (the choice of platform will be made in the early stage of the project). The <em>HBP Neurorobotics Platform</em>
+will allow researchers to conduct closed-loop experiments, in which a virtual robot is connected to a brain model,
+running on the HPC platform or on neuromorphic hardware. Although the capabilities to model virtual robots and
+environments already exist, and although various labs have created closed-loop set-ups with simple brain models,
+the HBP platform will be the first to couple robots to detailed models of the brain. This will make it possible to
+perform experiments exploring the link between low level brain circuitry and high-level function. The first release
+of the <em>Neurorobotics Platform</em> will offer extremely simple functionality. The majority of technical development work
+will focus on the goals fixed for the second release, which will provide a flexible environment in which researchers
+can perform experiments using simulated robots connected to different classes of brain model – simplified versions of
+the models provided by the Brain Simulation Platform, high level models coming from the
+<a class="reference external" href="https://www.humanbrainproject.eu/de/cognitive-architectures">Cognitive Architectures</a> and
+<a class="reference external" href="https://www.humanbrainproject.eu/de/theoretical-neuroscience">Theoretical Neuroscience</a> subprojects.</p>
+</div>
+</div>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="installer">
+<h3>Installer<a class="headerlink" href="#installer" title="Permalink to this headline">¶</a></h3>
+<p>The installer comes in a form of a <cite>.blend</cite> file that contains an installer script that can
+be directly executed from within Blender. That way, it can detect the used operating system and
+Blender version and link the files to the correct location as well as select the
+correct binaries for the platform.</p>
+<p>For more information, refer to <a class="reference internal" href="user_manual/installation_old.html#installation"><span>Installation</span></a>.</p>
+</div>
+<div class="section" id="robot-modelling">
+<h3>Robot modelling<a class="headerlink" href="#robot-modelling" title="Permalink to this headline">¶</a></h3>
+<p>The robot designer adds functionality to the Blender software with respect to robotics:</p>
+<ul class="simple">
+<li>Kinematic modelling in a scientific/engineering way
+(e.g., entering transformations in <em>Denavit-Hartenberg</em> convention)</li>
+<li>Editing of dynamic properties (center of mass and distribution, friction, etc.)</li>
+<li>Generation of simplified collision models</li>
+<li>Placing of sensors</li>
+</ul>
+</div>
+<div class="section" id="file-format-support">
+<h3>File format support<a class="headerlink" href="#file-format-support" title="Permalink to this headline">¶</a></h3>
+<p>In order to interchange models with the <em>Neurorobotics platform</em> the Robot designer has to support additional file
+formats.</p>
+<p>At first, this will be the <a class="reference external" href="http://wiki.ros.org/urdf/XML">URDF</a> format which is very popular in the <a class="reference external" href="http://wiki.ros.org">Robot Operating
+System (ROS)</a> community. It will be enriched by additional information tags supported by the
+<a class="reference external" href="http://gazebosim.org/">Gazebo</a> simulator&#8212;especially for supporting a plugin developed for the NRP to
+include joint controllers directly in the robot description file. This file support relies on
+<a class="reference external" href="https://pypi.python.org/pypi/generateDS">generateDS</a>&#8212;a software that translates XML scheme definitions (XSD)
+into a Python document object model. Currently, the RobotDesigner supports export and limited import of these
+files.</p>
+<p>In the future, support for the <a class="reference external" href="http://sdformat.org/spec?elem=sdf">SDF</a> file format is planned although
+conversion in between URDF and SDF is possible in a limited way.</p>
+</div>
+<div class="section" id="git-integration">
+<h3>GIT integration<a class="headerlink" href="#git-integration" title="Permalink to this headline">¶</a></h3>
+<p>The distributed version control system <a class="reference external" href="https://git-scm.com/">GIT</a> will be used to directly upload exported models
+to a remote repository that can be accessed by the <em>Neurorobotics Platform</em>. That way, it will not be necessary
+to upload and store robot models and create a seamless integration of the RobotDesigner in the web-based NRP.</p>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="f1" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Funded by the European Commission through its Cognition Unit under the Information Society Technologies of the seventh Framework Programme (FP7)</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><ol class="first last upperalpha simple" start="2">
+<li>Leon, S. Ulbrich, R. Diankov, G. Puche, M. Przybylski, A. Morales, T. Asfour, S. Moisio, J. Bohg, J. Kuffner and R. Dillmann , <em>OpenGRASP: A Toolkit for Robot Grasping Simulation,</em> 2nd International Conference on Simulation, Modeling, and Programming for Autonomous Robots (SIMPAR), November 15, 2010</li>
+</ol>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><ol class="first last upperalpha simple" start="14">
+<li>Vahrenkamp, M. Kröhnert, S. Ulbrich, T. Asfour, G. Metta, R. Dillmann  and G. Sandini, <em>Simox: A Robotics Toolbox for Simulation, Motion and Grasp Planning</em>, International Conference on Intelligent Autonomous Systems (IAS), pp. 585 - 594, 2012</li>
+</ol>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[4]</a></td><td><ol class="first last upperalpha simple" start="3">
+<li>Mandery, Ö. Terlemez, M. Do, N. Vahrenkamp and T. Asfour, <em>The KIT Whole-Body Human Motion Database</em>, International Conference on Advanced Robotics (ICAR), pp. 0 - 0, July, 2015</li>
+</ol>
+</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="f5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[5]</td><td><em>(<a class="fn-backref" href="#id7">1</a>, <a class="fn-backref" href="#id8">2</a>)</em> From <a class="reference external" href="neurorobotics.net">the Neurorobotics website</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                <span class="hbpdoc-hnav-previous">
+                    previous: <a class="hbpdoc-hnav-link" href="index.html">The NRP RobotDesigner</a>
+                </span>
+                
+                
+                <span class="hbpdoc-hnav-next">
+                    next: <a class="hbpdoc-hnav-link" href="user_manual/index.html">User Manual</a>
+                </span>
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>

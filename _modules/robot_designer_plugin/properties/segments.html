@@ -1,0 +1,383 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.properties.segments &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
+    <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../../../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../../index.html">Module code</a>
+                    
+                    <a href="../../robot_designer_plugin.html">robot_designer_plugin</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    
+                </aside>
+
+                <h1>Source code for robot_designer_plugin.properties.segments</h1><div class="highlight"><pre>
+<span></span><span class="c1"># #####</span>
+<span class="c1"># This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
+<span class="c1"># in the Human Brain Project (HBP).</span>
+<span class="c1"># It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)</span>
+<span class="c1"># developed at the Karlsruhe Institute of Technology in the</span>
+<span class="c1"># High Performance Humanoid Technologies Laboratory (H2T).</span>
+<span class="c1"># #####</span>
+
+<span class="c1"># ##### BEGIN GPL LICENSE BLOCK #####</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software; you can redistribute it and/or</span>
+<span class="c1">#  modify it under the terms of the GNU General Public License</span>
+<span class="c1">#  as published by the Free Software Foundation; either version 2</span>
+<span class="c1">#  of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU General Public License</span>
+<span class="c1">#  along with this program; if not, write to the Free Software Foundation,</span>
+<span class="c1">#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</span>
+<span class="c1">#</span>
+<span class="c1"># ##### END GPL LICENSE BLOCK #####</span>
+
+<span class="c1"># #####</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)</span>
+<span class="c1"># Copyright (c) 2016, FZI Forschungszentrum Informatik</span>
+<span class="c1">#</span>
+<span class="c1"># Changes:</span>
+<span class="c1">#</span>
+<span class="c1">#   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.</span>
+<span class="c1">#</span>
+<span class="c1"># ######</span>
+
+<span class="c1"># System imports</span>
+<span class="kn">from</span> <span class="nn">mathutils</span> <span class="kn">import</span> <span class="n">Euler</span><span class="p">,</span> <span class="n">Matrix</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">radians</span>
+
+<span class="c1"># Blender imports</span>
+<span class="kn">import</span> <span class="nn">bpy</span>
+<span class="kn">from</span> <span class="nn">bpy.props</span> <span class="kn">import</span> <span class="n">FloatProperty</span><span class="p">,</span> <span class="n">BoolProperty</span><span class="p">,</span> <span class="n">EnumProperty</span><span class="p">,</span> <span class="n">PointerProperty</span>
+
+<span class="c1"># RobotDesigner imports</span>
+<span class="kn">from</span> <span class="nn">..operators.segments</span> <span class="kn">import</span> <span class="n">UpdateSegments</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">PluginManager</span>
+<span class="kn">from</span> <span class="nn">..core.logfile</span> <span class="kn">import</span> <span class="n">prop_logger</span> <span class="k">as</span> <span class="n">logger</span>
+
+<span class="kn">from</span> <span class="nn">.globals</span> <span class="kn">import</span> <span class="n">global_properties</span>
+
+
+<span class="nd">@PluginManager.register_property_group</span><span class="p">()</span>
+<div class="viewcode-block" id="RDActuator"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.segments.html#robot_designer_plugin.properties.segments.RDActuator">[docs]</a><span class="k">class</span> <span class="nc">RDActuator</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PropertyGroup</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Property group that contains all controller-related parameters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">maxVelocity</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;max. Velocity&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">maxTorque</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;max. Torque&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">isActive</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;acitve?&quot;</span><span class="p">)</span>
+    <span class="n">acceleration</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Acceleration&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">deceleration</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Deceleration&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span></div>
+
+<span class="nd">@PluginManager.register_property_group</span><span class="p">()</span>
+<div class="viewcode-block" id="RDDegreeOfFreedom"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.segments.html#robot_designer_plugin.properties.segments.RDDegreeOfFreedom">[docs]</a><span class="k">class</span> <span class="nc">RDDegreeOfFreedom</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PropertyGroup</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Property group that defines a degree of freedom</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="RDDegreeOfFreedom.updateDoF"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.segments.html#robot_designer_plugin.properties.segments.RDDegreeOfFreedom.updateDoF">[docs]</a>    <span class="k">def</span> <span class="nf">updateDoF</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">memoryview</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">do_kinematic_update</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">):</span>
+            <span class="n">segment_name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span>
+
+            <span class="n">UpdateSegments</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">segment_name</span><span class="p">)</span></div>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Value&quot;</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="n">updateDoF</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                          <span class="n">step</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Offset&quot;</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="n">updateDoF</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                           <span class="n">step</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="nb">min</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Min&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=-</span><span class="mf">90.0</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+    <span class="nb">max</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Max&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">90.0</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span></div>
+
+<span class="nd">@PluginManager.register_property_group</span><span class="p">()</span>
+<div class="viewcode-block" id="RDJointController"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.segments.html#robot_designer_plugin.properties.segments.RDJointController">[docs]</a><span class="k">class</span> <span class="nc">RDJointController</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PropertyGroup</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Property group for joint controllers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">isActive</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Active&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="n">controllerType</span> <span class="o">=</span> <span class="n">EnumProperty</span><span class="p">(</span>
+        <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;position&#39;</span><span class="p">,</span> <span class="s1">&#39;Position&#39;</span><span class="p">,</span> <span class="s1">&#39;Position&#39;</span><span class="p">),</span>
+               <span class="p">(</span><span class="s1">&#39;velocity&#39;</span><span class="p">,</span> <span class="s1">&#39;Velocity&#39;</span><span class="p">,</span> <span class="s1">&#39;Velocity&#39;</span><span class="p">)],</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Controller mode:&quot;</span>
+    <span class="p">)</span>
+
+    <span class="c1"># controllerType = EnumProperty(</span>
+    <span class="c1">#     items=[(&#39;PID&#39;, &#39;PID controller&#39;, &#39;PID controller&#39;),</span>
+    <span class="c1">#            (&#39;P&#39;, &#39;P controller&#39;, &#39;P controller&#39;)],</span>
+    <span class="c1">#     name=&quot;Controller type:&quot;</span>
+    <span class="c1"># )</span>
+
+    <span class="n">P</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;P&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">I</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;I&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span></div>
+
+<span class="nd">@PluginManager.register_property_group</span><span class="p">()</span>
+<div class="viewcode-block" id="RDEulerAnglesSegment"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.segments.html#robot_designer_plugin.properties.segments.RDEulerAnglesSegment">[docs]</a><span class="k">class</span> <span class="nc">RDEulerAnglesSegment</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PropertyGroup</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Property group that defines a joint in Euler mode</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="RDEulerAnglesSegment.getTransformFromParent"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.segments.html#robot_designer_plugin.properties.segments.RDEulerAnglesSegment.getTransformFromParent">[docs]</a>    <span class="k">def</span> <span class="nf">getTransformFromParent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rot</span> <span class="o">=</span> <span class="n">Euler</span><span class="p">((</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">value</span><span class="p">),</span>
+                     <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">value</span><span class="p">)),</span> <span class="s1">&#39;XYZ&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+        <span class="n">rot</span><span class="o">.</span><span class="n">resize_4x4</span><span class="p">()</span>
+
+        <span class="n">transl</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">Translation</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+        <span class="c1"># print(&quot;here&quot;,transl * rot)</span>
+        <span class="k">return</span> <span class="n">transl</span> <span class="o">*</span> <span class="n">rot</span></div>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDegreeOfFreedom</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDegreeOfFreedom</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDegreeOfFreedom</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDegreeOfFreedom</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDegreeOfFreedom</span><span class="p">)</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDegreeOfFreedom</span><span class="p">)</span></div>
+
+
+<span class="nd">@PluginManager.register_property_group</span><span class="p">()</span>
+<div class="viewcode-block" id="RDDenavitHartenbergSegment"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.segments.html#robot_designer_plugin.properties.segments.RDDenavitHartenbergSegment">[docs]</a><span class="k">class</span> <span class="nc">RDDenavitHartenbergSegment</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PropertyGroup</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Property group that defines a joint in DH mode</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="RDDenavitHartenbergSegment.getTransformFromParent"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.segments.html#robot_designer_plugin.properties.segments.RDDenavitHartenbergSegment.getTransformFromParent">[docs]</a>    <span class="k">def</span> <span class="nf">getTransformFromParent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">alphaMatrix</span> <span class="o">=</span> <span class="n">Euler</span><span class="p">((</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                            <span class="s1">&#39;XYZ&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+        <span class="n">alphaMatrix</span><span class="o">.</span><span class="n">resize_4x4</span><span class="p">()</span>
+
+        <span class="n">thetaMatrix</span> <span class="o">=</span> <span class="n">Euler</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">value</span><span class="p">)),</span>
+                            <span class="s1">&#39;XYZ&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+        <span class="n">thetaMatrix</span><span class="o">.</span><span class="n">resize_4x4</span><span class="p">()</span>
+
+        <span class="n">translation</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">Translation</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">translation</span> <span class="o">*</span> <span class="n">alphaMatrix</span> <span class="o">*</span> <span class="n">thetaMatrix</span></div>
+
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDegreeOfFreedom</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDegreeOfFreedom</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDegreeOfFreedom</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDegreeOfFreedom</span><span class="p">)</span></div>
+
+<span class="nd">@PluginManager.register_property_group</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Bone</span><span class="p">)</span>
+<div class="viewcode-block" id="RDSegment"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.segments.html#robot_designer_plugin.properties.segments.RDSegment">[docs]</a><span class="k">class</span> <span class="nc">RDSegment</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PropertyGroup</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Bone property, contains all relevant bone information for RobotEditor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="RDSegment.callbackSegments"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.segments.html#robot_designer_plugin.properties.segments.RDSegment.callbackSegments">[docs]</a>    <span class="k">def</span> <span class="nf">callbackSegments</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Callback called&quot;</span><span class="p">)</span>
+            <span class="n">armName</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">segment_name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span>
+
+            <span class="n">UpdateSegments</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">segment_name</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="RDSegment.getTransform"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.segments.html#robot_designer_plugin.properties.segments.RDSegment.getTransform">[docs]</a>    <span class="k">def</span> <span class="nf">getTransform</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returned transform matrix is of the form translation*parentMatrix*rotation</span>
+<span class="sd">        parent is dependent of parent mode, that is either Euler or DH</span>
+<span class="sd">        either translation or rotation is I_4 dependent of the joint type,</span>
+<span class="sd">        whereas a revolute joints contributes a rotation only and a</span>
+<span class="sd">        prismatic joint contributes a translation only</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">translation</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">()</span>  <span class="c1"># initialize as I_4 matrix</span>
+        <span class="n">rotation</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">()</span>  <span class="c1"># initialize as I_4 matrix</span>
+        <span class="n">axis_matrix</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">()</span>  <span class="c1"># contains axis information which should be applied to parentMatrix</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis_revert</span><span class="p">:</span>
+            <span class="n">inverted</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">inverted</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parentMode</span> <span class="o">==</span> <span class="s1">&#39;EULER&#39;</span><span class="p">:</span>
+            <span class="n">parentMatrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">getTransformFromParent</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># self.parentMode == &#39;DH&#39;</span>
+            <span class="n">parentMatrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">DH</span><span class="o">.</span><span class="n">getTransformFromParent</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">jointMode</span> <span class="o">==</span> <span class="s1">&#39;REVOLUTE&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span>
+                <span class="n">rotation</span> <span class="o">=</span> <span class="n">Euler</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">offset</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                        <span class="s1">&#39;XYZ&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+                <span class="n">rotation</span><span class="o">.</span><span class="n">resize_4x4</span><span class="p">()</span>
+                <span class="n">axis_matrix</span> <span class="o">=</span> <span class="n">Euler</span><span class="p">((</span><span class="n">radians</span><span class="p">(</span><span class="mi">180</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">inverted</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                                    <span class="s1">&#39;XYZ&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+                <span class="n">axis_matrix</span><span class="o">.</span><span class="n">resize_4x4</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span>
+                <span class="n">rotation</span> <span class="o">=</span> <span class="n">Euler</span><span class="p">(</span>
+                        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">offset</span><span class="p">),</span> <span class="mi">0</span><span class="p">),</span>
+                        <span class="s1">&#39;XYZ&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+                <span class="n">rotation</span><span class="o">.</span><span class="n">resize_4x4</span><span class="p">()</span>
+                <span class="n">axis_matrix</span> <span class="o">=</span> <span class="n">Euler</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">radians</span><span class="p">(</span><span class="mi">180</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">inverted</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">0</span><span class="p">),</span>
+                                    <span class="s1">&#39;XYZ&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+                <span class="n">axis_matrix</span><span class="o">.</span><span class="n">resize_4x4</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;Z&#39;</span><span class="p">:</span>
+                <span class="n">rotation</span> <span class="o">=</span> <span class="n">Euler</span><span class="p">(</span>
+                        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">radians</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">offset</span><span class="p">)),</span>
+                        <span class="s1">&#39;XYZ&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+                <span class="n">rotation</span><span class="o">.</span><span class="n">resize_4x4</span><span class="p">()</span>
+                <span class="n">axis_matrix</span> <span class="o">=</span> <span class="n">Euler</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">radians</span><span class="p">(</span><span class="mi">180</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">inverted</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)),</span>
+                                    <span class="s1">&#39;XYZ&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span>
+                <span class="n">axis_matrix</span><span class="o">.</span><span class="n">resize_4x4</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">jointMode</span> <span class="o">==</span> <span class="s1">&#39;PRISMATIC&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span>
+                <span class="n">translation</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">Translation</span><span class="p">(</span>
+                        <span class="p">(</span><span class="n">inverted</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">offset</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span>
+                <span class="n">translation</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">Translation</span><span class="p">(</span>
+                        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">inverted</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">offset</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;Z&#39;</span><span class="p">:</span>
+                <span class="n">translation</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">Translation</span><span class="p">(</span>
+                        <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">inverted</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">offset</span><span class="p">),</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">jointMode</span> <span class="o">==</span> <span class="s1">&#39;FIXED&#39;</span><span class="p">:</span>  <span class="c1"># todo: check if this is right for fixed joint type</span>
+            <span class="n">translation</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">Translation</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">parentMatrix</span> <span class="o">*</span> <span class="n">axis_matrix</span><span class="p">,</span> <span class="n">translation</span> <span class="o">*</span> <span class="n">rotation</span></div>
+        <span class="c1"># return parentMatrix, translation*rotation</span>
+
+    <span class="n">jointMode</span> <span class="o">=</span> <span class="n">EnumProperty</span><span class="p">(</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;REVOLUTE&#39;</span><span class="p">,</span> <span class="s1">&#39;Revolute&#39;</span><span class="p">,</span> <span class="s1">&#39;revolute joint&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;PRISMATIC&#39;</span><span class="p">,</span> <span class="s1">&#39;Prismatic&#39;</span><span class="p">,</span> <span class="s1">&#39;prismatic joint&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;FIXED&#39;</span><span class="p">,</span> <span class="s1">&#39;Fixed&#39;</span><span class="p">,</span> <span class="s1">&#39;fixed joint&#39;</span><span class="p">)],</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Joint Mode&quot;</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="n">callbackSegments</span>
+    <span class="p">)</span>
+
+    <span class="n">parentMode</span> <span class="o">=</span> <span class="n">EnumProperty</span><span class="p">(</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;EULER&#39;</span><span class="p">,</span> <span class="s1">&#39;Euler&#39;</span><span class="p">,</span> <span class="s1">&#39;Euler mode&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;DH&#39;</span><span class="p">,</span> <span class="s1">&#39;DH&#39;</span><span class="p">,</span> <span class="s1">&#39;DH mode&#39;</span><span class="p">)],</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Parent Mode&quot;</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="n">callbackSegments</span>
+    <span class="p">)</span>
+
+    <span class="n">axis</span> <span class="o">=</span> <span class="n">EnumProperty</span><span class="p">(</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;X&#39;</span><span class="p">,</span> <span class="s1">&#39;X Axis&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Y&#39;</span><span class="p">,</span> <span class="s1">&#39;Y Axis&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;Z Axis&#39;</span><span class="p">)],</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Active Axis&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="n">callbackSegments</span>
+    <span class="p">)</span>
+
+    <span class="n">RD_Bone</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Created by RD&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="n">axis_revert</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Axis reverted?&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                               <span class="n">update</span><span class="o">=</span><span class="n">callbackSegments</span><span class="p">)</span>
+
+
+    <span class="n">controller</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDActuator</span><span class="p">)</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDegreeOfFreedom</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDegreeOfFreedom</span><span class="p">)</span>
+    <span class="n">jointController</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDJointController</span><span class="p">)</span>
+    <span class="n">Euler</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDEulerAnglesSegment</span><span class="p">)</span>
+    <span class="n">DH</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDenavitHartenbergSegment</span><span class="p">)</span></div>
+
+<span class="c1"># Resolving circular dependencies</span>
+
+
+</pre></div>
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>

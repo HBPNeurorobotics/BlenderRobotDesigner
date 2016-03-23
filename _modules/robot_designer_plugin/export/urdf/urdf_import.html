@@ -1,0 +1,601 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.export.urdf.urdf_import &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../../../../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../../index.html" />
+    <link rel="up" title="robot_designer_plugin" href="../../../robot_designer_plugin.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../../../../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../../../index.html">Module code</a>
+                    
+                    <a href="../../../robot_designer_plugin.html">robot_designer_plugin</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    
+                </aside>
+
+                <h1>Source code for robot_designer_plugin.export.urdf.urdf_import</h1><div class="highlight"><pre>
+<span></span><span class="c1"># #####</span>
+<span class="c1"># This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
+<span class="c1"># in the Human Brain Project (HBP).</span>
+<span class="c1"># It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)</span>
+<span class="c1"># developed at the Karlsruhe Institute of Technology in the</span>
+<span class="c1"># High Performance Humanoid Technologies Laboratory (H2T).</span>
+<span class="c1"># #####</span>
+
+<span class="c1"># ##### BEGIN GPL LICENSE BLOCK #####</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software; you can redistribute it and/or</span>
+<span class="c1">#  modify it under the terms of the GNU General Public License</span>
+<span class="c1">#  as published by the Free Software Foundation; either version 2</span>
+<span class="c1">#  of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU General Public License</span>
+<span class="c1">#  along with this program; if not, write to the Free Software Foundation,</span>
+<span class="c1">#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</span>
+<span class="c1">#</span>
+<span class="c1"># ##### END GPL LICENSE BLOCK #####</span>
+
+<span class="c1"># #####</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2016, FZI Forschungszentrum Informatik</span>
+<span class="c1">#</span>
+<span class="c1"># Changes:</span>
+<span class="c1">#   2015        Stefan Ulbrich, Igor Peric, Maximilian Stauss</span>
+<span class="c1">#                   Initial version of URDF support</span>
+<span class="c1">#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.</span>
+<span class="c1">#</span>
+<span class="c1"># ######</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The module that encapsulates all blender calls and offers the importer and exporter for the RobotDesigner</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># ######</span>
+<span class="c1"># System imports</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mathutils</span> <span class="kn">import</span> <span class="n">Euler</span><span class="p">,</span> <span class="n">Matrix</span><span class="p">,</span> <span class="n">Vector</span>
+
+<span class="c1"># ######</span>
+<span class="c1"># Blender imports</span>
+<span class="kn">import</span> <span class="nn">bpy</span>
+<span class="kn">from</span> <span class="nn">bpy.props</span> <span class="kn">import</span> <span class="n">StringProperty</span>
+
+<span class="c1"># ######</span>
+<span class="c1"># RobotDesigner imports</span>
+<span class="kn">from</span> <span class="nn">...core</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">PluginManager</span><span class="p">,</span> <span class="n">Condition</span><span class="p">,</span> <span class="n">RDOperator</span>
+<span class="kn">from</span> <span class="nn">...operators.helpers</span> <span class="kn">import</span> <span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span>
+
+<span class="kn">from</span> <span class="nn">...operators.segments</span> <span class="kn">import</span> <span class="n">SelectSegment</span><span class="p">,</span> <span class="n">CreateNewSegment</span><span class="p">,</span> <span class="n">UpdateSegments</span>
+<span class="kn">from</span> <span class="nn">...operators.model</span> <span class="kn">import</span> <span class="n">SelectModel</span><span class="p">,</span> <span class="n">CreateNewModel</span><span class="p">,</span> <span class="n">SelectCoordinateFrame</span>
+<span class="kn">from</span> <span class="nn">...operators.rigid_bodies</span> <span class="kn">import</span> <span class="n">SelectGeometry</span><span class="p">,</span> <span class="n">AssignGeometry</span>
+<span class="kn">from</span> <span class="nn">...operators.dynamics</span> <span class="kn">import</span> <span class="n">AssignPhysical</span><span class="p">,</span> <span class="n">CreatePhysical</span><span class="p">,</span> <span class="n">SelectPhysical</span>
+<span class="c1"># ######</span>
+<span class="c1"># URDF-specific imports</span>
+
+<span class="kn">from</span> <span class="nn">.generic</span> <span class="kn">import</span> <span class="n">urdf_tree</span>
+<span class="kn">from</span> <span class="nn">.generic.helpers</span> <span class="kn">import</span> <span class="n">string_to_list</span><span class="p">,</span> <span class="n">get_value</span>
+
+<span class="kn">from</span> <span class="nn">...properties.globals</span> <span class="kn">import</span> <span class="n">global_properties</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Stefan Ulbrich(FZI), Igor Peric (FZI), Maximillian Stauss (FZI)&#39;</span>
+
+
+<div class="viewcode-block" id="Importer"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_import.html#robot_designer_plugin.export.urdf.urdf_import.Importer">[docs]</a><span class="k">class</span> <span class="nc">Importer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">PACKAGE_URL</span> <span class="o">=</span> <span class="s1">&#39;package://&#39;</span>
+    <span class="n">FILE_URL_RELATIVE</span> <span class="o">=</span> <span class="s1">&#39;file://&#39;</span>
+    <span class="n">FILE_URL_ABSOLUTE</span> <span class="o">=</span> <span class="s1">&#39;file:///&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="p">:</span> <span class="n">RDOperator</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">base_dir</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">file_path</span>
+        <span class="k">if</span> <span class="n">base_dir</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span> <span class="o">=</span> <span class="n">base_dir</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">operator</span><span class="o">.</span><span class="n">logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">operator</span> <span class="o">=</span> <span class="n">operator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">controllers</span> <span class="o">=</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="Importer.import_geometry"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_import.html#robot_designer_plugin.export.urdf.urdf_import.Importer.import_geometry">[docs]</a>    <span class="k">def</span> <span class="nf">import_geometry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a geometry to the blender scene. Uses the self.file_name variable of the parenting context</span>
+<span class="sd">        :param model: A urdf_dom.visual object.</span>
+<span class="sd">        :return: Returns the transformation in the origin element (a 4x4 blender matrix).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># determine prefix path for loading meshes in case of paths relative to ROS_PACKAGE_PATH</span>
+        <span class="n">prefix_folder</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">mesh_url</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">filename</span>
+
+        <span class="c1"># check for absolute file path</span>
+        <span class="k">if</span> <span class="n">mesh_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">FILE_URL_ABSOLUTE</span><span class="p">):</span>
+            <span class="n">mesh_path</span> <span class="o">=</span> <span class="n">mesh_url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">FILE_URL_ABSOLUTE</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">mesh_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">FILE_URL_RELATIVE</span><span class="p">)</span> <span class="ow">or</span> <span class="n">mesh_url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PACKAGE_URL</span><span class="p">):</span>
+            <span class="n">mesh_path</span> <span class="o">=</span> <span class="n">mesh_url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">FILE_URL_RELATIVE</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">PACKAGE_URL</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">mesh_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span><span class="p">,</span> <span class="n">mesh_path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">operator</span><span class="o">.</span><span class="n">report</span><span class="p">({</span><span class="s1">&#39;ERROR&#39;</span><span class="p">},</span> <span class="s2">&quot;Unsupported URL schema&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unsupported URL schema&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">fn</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">mesh_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.stl&quot;</span><span class="p">:</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">import_mesh</span><span class="o">.</span><span class="n">stl</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">mesh_path</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.dae&quot;</span><span class="p">:</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">wm</span><span class="o">.</span><span class="n">collada_import</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">mesh_path</span><span class="p">,</span> <span class="n">import_units</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">fileName</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">mesh_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">scale_factor</span> <span class="o">=</span> <span class="n">string_to_list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
+        <span class="n">scale_matrix</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">scale_factor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+        <span class="k">return</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">Translation</span><span class="p">(</span><span class="n">Vector</span><span class="p">(</span><span class="n">string_to_list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">xyz</span><span class="p">)))</span> <span class="o">*</span> \
+               <span class="n">Euler</span><span class="p">(</span><span class="n">string_to_list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">rpy</span><span class="p">),</span> <span class="s1">&#39;XYZ&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_matrix</span><span class="p">()</span><span class="o">.</span><span class="n">to_4x4</span><span class="p">()</span> <span class="o">*</span> <span class="n">scale_matrix</span></div>
+
+<div class="viewcode-block" id="Importer.parse"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_import.html#robot_designer_plugin.export.urdf.urdf_import.Importer.parse">[docs]</a>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">urdf_tree</span><span class="o">.</span><span class="n">URDFTree</span><span class="p">,</span> <span class="n">parent_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recursively parses the URDF tree elements.</span>
+
+<span class="sd">        :param node: The actual segment</span>
+<span class="sd">        :param parent_name: Name of the parent segment (if None the segment is a root element)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">C</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span>
+
+        <span class="n">SelectSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">parent_name</span><span class="p">)</span>
+
+        <span class="n">CreateNewSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">segment_name</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> -&gt; </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">parent_name</span><span class="p">,</span> <span class="n">segment_name</span><span class="p">)</span>
+
+        <span class="n">xyz</span> <span class="o">=</span> <span class="n">string_to_list</span><span class="p">(</span><span class="n">get_value</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">xyz</span><span class="p">,</span> <span class="s2">&quot;0 0 0&quot;</span><span class="p">))</span>
+        <span class="n">euler</span> <span class="o">=</span> <span class="n">string_to_list</span><span class="p">(</span><span class="n">get_value</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">rpy</span><span class="p">,</span> <span class="s1">&#39;0 0 0&#39;</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">segment_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">controllers</span><span class="p">:</span>
+            <span class="n">controller</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">controllers</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span>
+            <span class="n">PID</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">pid</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">isActive</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">controllerType</span> <span class="o">=</span> <span class="n">controller</span><span class="o">.</span><span class="n">type</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">PID</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">I</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">PID</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">D</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">PID</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+
+        <span class="n">axis</span> <span class="o">=</span> <span class="n">string_to_list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">xyz</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axis</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">element</span> <span class="o">==</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">:</span>
+                <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">axis_revert</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="n">axis</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+        <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]:</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;X&#39;</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]:</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;Y&#39;</span>
+        <span class="k">elif</span> <span class="n">axis</span> <span class="o">==</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]:</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="s1">&#39;Z&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># todo throw exception -- only main axes are supported. Add a limitations section to documentation</span>
+            <span class="c1"># (which has to be created as well)!</span>
+            <span class="k">pass</span>
+
+        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">degrees</span><span class="p">(</span><span class="n">euler</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">degrees</span><span class="p">(</span><span class="n">euler</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">degrees</span><span class="p">(</span><span class="n">euler</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">dynamics</span><span class="p">:</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">maxVelocity</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span>
+                    <span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">velocity</span><span class="p">)</span>
+            <span class="c1"># bpy.context.active_bone.RobotEditor.controller.maxVelocity = float(tree.joint.limit.friction)</span>
+
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;revolute&#39;</span><span class="p">:</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointMode</span> <span class="o">=</span> <span class="s1">&#39;REVOLUTE&#39;</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="n">degrees</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">get_value</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">upper</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="n">degrees</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">get_value</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;prismatic&#39;</span><span class="p">:</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointMode</span> <span class="o">=</span> <span class="s1">&#39;PRISMATIC&#39;</span>
+            <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">limit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">get_value</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">upper</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">get_value</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">lower</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;fixed&#39;</span><span class="p">:</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointMode</span> <span class="o">=</span> <span class="s1">&#39;FIXED&#39;</span>
+
+        <span class="c1"># todo set the dynamics properties</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">inertial</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">inertia</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">inertial</span><span class="p">:</span>
+                <span class="c1"># dynamics is not associated to a bone!</span>
+                <span class="n">origin</span> <span class="o">=</span> <span class="n">inertia</span><span class="o">.</span><span class="n">origin</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="n">inertia</span><span class="o">.</span><span class="n">inertia</span>
+
+                <span class="n">CreatePhysical</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">frameName</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">SelectPhysical</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">frameName</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">SelectSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">node</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">AssignPhysical</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+                <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="n">inertia</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">value_</span>
+
+                <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">ixy</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">i</span><span class="o">.</span><span class="n">ixz</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">i</span><span class="o">.</span><span class="n">iyz</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">operator</span><span class="o">.</span><span class="n">report</span><span class="p">({</span><span class="s1">&#39;ERROR&#39;</span><span class="p">},</span> <span class="s1">&#39;Only diogonal inertia matrices currently supported&#39;</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Only diogonal inertia matrices currently supported&#39;</span><span class="p">)</span>
+
+                <span class="n">matrix</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">ixx</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">iyy</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">izz</span><span class="p">]</span>
+
+                <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">inertiaTensor</span> <span class="o">=</span> <span class="n">matrix</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
+        <span class="n">model_name</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="n">pose_bone</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span>
+        <span class="n">segment_world</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">matrix_world</span> <span class="o">*</span> <span class="n">pose_bone</span><span class="o">.</span><span class="n">matrix</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;[COLLISION] parsed: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">collision</span><span class="p">)))</span> <span class="o">+</span> <span class="s2">&quot; collision meshes.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Iterate first over visual models then over collision models</span>
+        <span class="n">VISUAL</span><span class="p">,</span> <span class="n">COLLISON</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">model_type</span><span class="p">,</span> <span class="n">geometric_models</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">visual</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">collision</span><span class="p">)):</span>
+            <span class="c1"># Iterate over the geometric models that are declared for the link</span>
+            <span class="k">for</span> <span class="n">nr</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">geometric_models</span><span class="p">):</span>
+                <span class="c1"># geometry is not optional in the xml</span>
+                <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">mesh</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+
+                    <span class="n">trafo_urdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">import_geometry</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+                    <span class="c1"># self.logger.debug(&quot;Trafo: \n%s&quot;, trafo_urdf)</span>
+                    <span class="c1"># URDF (the import in ROS) exhibits a strange behavior:</span>
+                    <span class="c1"># If there is a transformation preceding the mesh in a .dae file, only the scale is</span>
+                    <span class="c1"># extracted and the rest is omitted. Therefore, we store the scale after import and</span>
+                    <span class="c1"># multiply it to the scale given in the xml attribute.</span>
+
+                    <span class="c1"># if there are multiple objects in the COLLADA file, they will be selected</span>
+                    <span class="n">selected_objects</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="nb">object</span> <span class="ow">in</span> <span class="n">selected_objects</span><span class="p">:</span>
+                        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="nb">object</span>  <span class="c1"># bpy.data.objects[object]</span>
+                        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">parent_clear</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;CLEAR_KEEP_TRANSFORM&quot;</span><span class="p">)</span>
+
+                    <span class="k">for</span> <span class="nb">object</span> <span class="ow">in</span> <span class="n">selected_objects</span><span class="p">:</span>
+
+                        <span class="k">if</span> <span class="nb">object</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="s1">&#39;MESH&#39;</span><span class="p">:</span>
+                            <span class="k">continue</span>
+
+                        <span class="c1"># Select the object (and deselect others)</span>
+                        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">select_all</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+                        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="nb">object</span>  <span class="c1"># bpy.data.objects[object]</span>
+                        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="bp">True</span>
+                        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">transform_apply</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">matrix_world</span> <span class="o">=</span> <span class="n">segment_world</span> <span class="o">*</span> <span class="n">trafo_urdf</span> <span class="o">*</span> \
+                                                                 <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">matrix_world</span>
+
+                        <span class="c1"># # Can be removed once collada import has been proven to be stable</span>
+                        <span class="c1"># scale_object = bpy.context.active_object.scale</span>
+                        <span class="c1"># scale_matrix = Matrix([[scale_urdf[0] * scale_object[0], 0, 0, 0],</span>
+                        <span class="c1">#                 [0, scale_urdf[1] * scale_object[1], 0, 0],</span>
+                        <span class="c1">#                 [0, 0, scale_urdf[2] * scale_object[2], 0], [0, 0, 0, 1]])</span>
+                        <span class="c1"># bpy.context.active_object.matrix_world = bone_transformation * trafo_urdf * scale_matrix</span>
+                        <span class="c1"># self.logger.debug(&quot;Scale: %s,%s, Matrix world: \n%s&quot;, scale_urdf, scale_object,</span>
+                        <span class="c1">#              bpy.context.active_object.matrix_world)</span>
+
+                        <span class="c1"># if the loop continues the name will be suffixed by a number</span>
+
+                        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Model type: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">model_type</span><span class="p">))</span>
+                        <span class="c1"># Remove multiple &quot;COL_&quot; and &quot;VIS_&quot; strings before renaming</span>
+                        <span class="k">if</span> <span class="n">model_type</span> <span class="o">==</span> <span class="n">COLLISON</span><span class="p">:</span>
+                            <span class="c1"># %2d changed to %d because it created unwanted space with one digit numbers</span>
+                            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;COL_</span><span class="si">%s</span><span class="s2">_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">nr</span><span class="p">)</span>
+                            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="s1">&#39;COLLISION&#39;</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;VIZ_</span><span class="si">%s</span><span class="s2">_</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">nr</span><span class="p">)</span>
+
+                        <span class="c1"># remove spaces from link name</span>
+                        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+                        <span class="c1"># The name might be altered by blender</span>
+                        <span class="n">assigned_name</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span>
+
+                        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">transform_apply</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                                                       <span class="n">rotation</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                                                       <span class="n">scale</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                        <span class="n">SelectModel</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">)</span>
+                        <span class="n">SelectSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">segment_name</span><span class="p">)</span>
+                        <span class="n">SelectGeometry</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">geometry_name</span><span class="o">=</span><span class="n">assigned_name</span><span class="p">)</span>
+                        <span class="n">AssignGeometry</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Mesh file not found&quot;</span><span class="p">)</span>
+                    <span class="k">pass</span>
+
+        <span class="k">for</span> <span class="n">sub_tree</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">sub_tree</span><span class="p">,</span> <span class="n">segment_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">segment_name</span></div>
+
+<div class="viewcode-block" id="Importer.import_file"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_import.html#robot_designer_plugin.export.urdf.urdf_import.Importer.import_file">[docs]</a>    <span class="k">def</span> <span class="nf">import_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">robot_name</span><span class="p">,</span> <span class="n">root_links</span><span class="p">,</span> <span class="n">kinematic_chains</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">controllers</span><span class="p">,</span> <span class="n">gazebo_tags</span> <span class="o">=</span> \
+            <span class="n">urdf_tree</span><span class="o">.</span><span class="n">URDFTree</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="c1"># store gazebo tags</span>
+        <span class="n">tag_buffer</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Processing {0} tags.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">gazebo_tags</span><span class="p">)))</span>
+        <span class="k">for</span> <span class="n">gazebo_tag</span> <span class="ow">in</span> <span class="n">gazebo_tags</span><span class="p">:</span>
+            <span class="n">curr_tag</span> <span class="o">=</span> <span class="n">gazebo_tag</span><span class="o">.</span><span class="n">toxml</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="n">curr_tag</span> <span class="o">=</span> <span class="n">curr_tag</span><span class="p">[</span><span class="mi">38</span><span class="p">:]</span>  <span class="c1"># remove &lt;xml version=.../&gt; tag</span>
+            <span class="n">tag_buffer</span> <span class="o">=</span> <span class="s1">&#39;{0}</span><span class="se">\n</span><span class="s1">{1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tag_buffer</span><span class="p">,</span> <span class="n">curr_tag</span><span class="p">)</span>
+        <span class="n">global_properties</span><span class="o">.</span><span class="n">gazebo_tags</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="n">tag_buffer</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;root links: </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">root_links</span><span class="p">])</span>
+
+        <span class="n">CreateNewModel</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">robot_name</span><span class="p">,</span> <span class="n">base_segment_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">model_name</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="n">SelectModel</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">root_links</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">visual</span> <span class="ow">in</span> <span class="n">link</span><span class="o">.</span><span class="n">visual</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">visual</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">mesh</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">trafo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">import_geometry</span><span class="p">(</span><span class="n">visual</span><span class="p">)</span>
+                    <span class="n">s1</span> <span class="o">=</span> <span class="n">string_to_list</span><span class="p">(</span><span class="n">visual</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
+                    <span class="n">s2</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">scale</span>
+                    <span class="n">scale</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">s1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">s2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">s1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">s2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                                    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">s2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+                    <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">matrix_world</span> <span class="o">=</span> <span class="n">trafo</span> <span class="o">*</span> <span class="n">scale</span>
+
+        <span class="k">for</span> <span class="n">chain</span> <span class="ow">in</span> <span class="n">kinematic_chains</span><span class="p">:</span>
+            <span class="n">root_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">chain</span><span class="p">)</span>
+            <span class="n">UpdateSegments</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">root_name</span><span class="p">,</span> <span class="n">recurse</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">SelectCoordinateFrame</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">mesh_name</span><span class="o">=</span><span class="s1">&#39;CoordinateFrame&#39;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">view3d</span><span class="o">.</span><span class="n">view_lock_to_active</span><span class="p">()</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">show_x_ray</span> <span class="o">=</span> <span class="bp">True</span></div>
+
+<div class="viewcode-block" id="Importer.import_package"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_import.html#robot_designer_plugin.export.urdf.urdf_import.Importer.import_package">[docs]</a>    <span class="k">def</span> <span class="nf">import_package</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Searches in the top level directories of the :attr:`file_path` for a ``package.xml``. This path is used</span>
+<span class="sd">        as base path for finding models.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="kn">import</span> <span class="nn">os</span>
+        <span class="n">package_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">package_dir</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No path to file given&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">package_dir</span><span class="p">,</span> <span class="s2">&quot;package.xml&quot;</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span><span class="n">package_dir</span><span class="p">)</span>
+            <span class="n">package_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">package_dir</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">package_dir</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">import_file</span><span class="p">()</span></div></div>
+
+
+<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ObjectMode</span><span class="p">)</span>
+<span class="nd">@PluginManager.register_class</span>
+<div class="viewcode-block" id="ImportPackage"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_import.html#robot_designer_plugin.export.urdf.urdf_import.ImportPackage">[docs]</a><span class="k">class</span> <span class="nc">ImportPackage</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :term:`Operator&lt;operator&gt;` for importing a robot from a ROS package (URDF)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Obligatory class attributes</span>
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;import_urdf_package&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;URDF import (ROS package)&quot;</span>
+
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Filename&quot;</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="s1">&#39;FILE_PATH&#39;</span><span class="p">)</span>
+
+    <span class="c1"># directory = StringProperty(</span>
+    <span class="c1">#        name=&quot;Mesh directory&quot;, subtype=&#39;DIR_PATH&#39;, default=&quot;&quot;)</span>
+
+<div class="viewcode-block" id="ImportPackage.invoke"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_import.html#robot_designer_plugin.export.urdf.urdf_import.ImportPackage.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span><span class="o">.</span><span class="n">fileselect_add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;RUNNING_MODAL&#39;</span><span class="p">}</span></div>
+
+    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">importer</span> <span class="o">=</span> <span class="n">Importer</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+        <span class="n">importer</span><span class="o">.</span><span class="n">import_package</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
+
+
+<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ObjectMode</span><span class="p">)</span>
+<span class="nd">@PluginManager.register_class</span>
+<div class="viewcode-block" id="ImportZippedPackage"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_import.html#robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage">[docs]</a><span class="k">class</span> <span class="nc">ImportZippedPackage</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :term:`Operator&lt;operator&gt;` for importing a robot from a ROS package (URDF)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Obligatory class attributes</span>
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;import_urdf_zipped_package&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;URDF import (zipped ROS package)&quot;</span>
+
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Filename&quot;</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="s1">&#39;FILE_PATH&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ImportZippedPackage.invoke"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_import.html#robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span><span class="o">.</span><span class="n">fileselect_add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;RUNNING_MODAL&#39;</span><span class="p">}</span></div>
+
+    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">zipfile</span>
+        <span class="kn">import</span> <span class="nn">tempfile</span>
+
+        <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">target</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
+                <span class="n">z</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+
+            <span class="n">file_path</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">subFolders</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span><span class="n">subFolders</span><span class="p">,</span><span class="n">files</span><span class="p">,[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">files</span><span class="p">])</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s1">&#39;.urdf&#39;</span> <span class="o">==</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="mi">1</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="n">file_path</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">({</span><span class="s2">&quot;INFO&quot;</span><span class="p">},</span><span class="s2">&quot;Multiple URDF in zip. Choosing: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">file_path</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Importing: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span>
+                <span class="n">importer</span> <span class="o">=</span> <span class="n">Importer</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="n">file_path</span><span class="p">)</span>
+                <span class="n">importer</span><span class="o">.</span><span class="n">import_package</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">({</span><span class="s1">&#39;ERROR&#39;</span><span class="p">},</span> <span class="s2">&quot;No URDF file found in package&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No URDF file found in package&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
+
+
+<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ObjectMode</span><span class="p">)</span>
+<span class="nd">@PluginManager.register_class</span>
+<div class="viewcode-block" id="ImportPlain"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_import.html#robot_designer_plugin.export.urdf.urdf_import.ImportPlain">[docs]</a><span class="k">class</span> <span class="nc">ImportPlain</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :term:`Operator&lt;operator&gt;` for importing a robot from a ROS package (URDF)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Obligatory class attributes</span>
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;import_urdf_plain&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;URDF import (plain file)&quot;</span>
+
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Filename&quot;</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="s1">&#39;FILE_PATH&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ImportPlain.invoke"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_import.html#robot_designer_plugin.export.urdf.urdf_import.ImportPlain.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span><span class="o">.</span><span class="n">fileselect_add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;RUNNING_MODAL&#39;</span><span class="p">}</span></div>
+
+    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">os</span>
+        <span class="n">importer</span> <span class="o">=</span> <span class="n">Importer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+        <span class="n">importer</span><span class="o">.</span><span class="n">import_file</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
+
+        <span class="c1"># Code for looking up ROS packages via environment variables:</span>
+
+        <span class="c1"># ros_pkg_paths = os.environ.get(&quot;ROS_PACKAGE_PATH&quot;)</span>
+        <span class="c1"># if ros_pkg_paths is not None and \</span>
+        <span class="c1">#         mesh_filename.startswith(</span>
+        <span class="c1">#                 &quot;package://&quot;) or mesh_filename.startswith(&quot;model://&quot;):</span>
+        <span class="c1">#     mesh_filename = mesh_filename.replace(&quot;package://&quot;, &quot;&quot;).replace(</span>
+        <span class="c1">#             &quot;model://&quot;, &quot;&quot;)</span>
+        <span class="c1">#     ros_pkg_paths = ros_pkg_paths.split(&quot;:&quot;)</span>
+        <span class="c1">#     self.logger.debug(&quot;Checking ROS_PACKAGE_PATH:&quot;)</span>
+        <span class="c1">#     self.logger.debug(ros_pkg_paths)</span>
+        <span class="c1">#     for path in ros_pkg_paths:</span>
+        <span class="c1">#         probe_path = os.path.join(path, mesh_filename)</span>
+        <span class="c1">#         self.logger.debug(&quot;Checking path: &quot; + probe_path)</span>
+        <span class="c1">#         if os.path.exists(probe_path):</span>
+        <span class="c1">#             prefix_folder = path</span>
+        <span class="c1">#             self.logger.debug(&quot;Prefix path found: &quot; + prefix_folder)</span>
+        <span class="c1">#             break</span>
+        <span class="c1">#     if prefix_folder == &quot;&quot;:</span>
+        <span class="c1">#         self.logger.debug(</span>
+        <span class="c1">#                 &quot;Warning! Couldn&#39;t load file relative to ROS_PACKAGE_PATH environment variable.&quot;)</span>
+        <span class="c1">#         prefix_folder = os.path.dirname(self.file_path)</span>
+        <span class="c1">#         if prefix_folder.split(&quot;/&quot;).pop() == mesh_filename.split(&quot;/&quot;)[</span>
+        <span class="c1">#             0]:</span>
+        <span class="c1">#             prefix_folder = &#39;/&#39; + &#39;/&#39;.join(</span>
+        <span class="c1">#                     prefix_folder.split(&quot;/&quot;)[1:-1])</span>
+</pre></div>
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>

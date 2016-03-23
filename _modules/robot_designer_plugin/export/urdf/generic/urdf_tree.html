@@ -1,0 +1,531 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.export.urdf.generic.urdf_tree &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../../../../../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../../../../../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../../../index.html" />
+    <link rel="up" title="robot_designer_plugin" href="../../../../robot_designer_plugin.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../../../../../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../../../../index.html">Module code</a>
+                    
+                    <a href="../../../../robot_designer_plugin.html">robot_designer_plugin</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    
+                </aside>
+
+                <h1>Source code for robot_designer_plugin.export.urdf.generic.urdf_tree</h1><div class="highlight"><pre>
+<span></span><span class="c1"># #####</span>
+<span class="c1"># This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
+<span class="c1"># in the Human Brain Project (HBP).</span>
+<span class="c1"># It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)</span>
+<span class="c1"># developed at the Karlsruhe Institute of Technology in the</span>
+<span class="c1"># High Performance Humanoid Technologies Laboratory (H2T).</span>
+<span class="c1"># #####</span>
+
+<span class="c1"># ##### BEGIN GPL LICENSE BLOCK #####</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software; you can redistribute it and/or</span>
+<span class="c1">#  modify it under the terms of the GNU General Public License</span>
+<span class="c1">#  as published by the Free Software Foundation; either version 2</span>
+<span class="c1">#  of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU General Public License</span>
+<span class="c1">#  along with this program; if not, write to the Free Software Foundation,</span>
+<span class="c1">#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</span>
+<span class="c1">#</span>
+<span class="c1"># ##### END GPL LICENSE BLOCK #####</span>
+
+<span class="c1"># #####</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2016, FZI Forschungszentrum Informatik</span>
+<span class="c1">#</span>
+<span class="c1"># Changes:</span>
+<span class="c1">#</span>
+<span class="c1">#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.</span>
+<span class="c1">#</span>
+<span class="c1"># ######</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Module for importing robots specified in the URDF file format.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Stefan Ulbrich (FZI)&#39;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">urdf_dom</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">list_to_string</span>
+<span class="kn">from</span> <span class="nn">pyxb</span> <span class="kn">import</span> <span class="n">ContentNondeterminismExceededError</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;URFD&#39;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="set_value"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.set_value">[docs]</a><span class="k">def</span> <span class="nf">set_value</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    helper function that creates a string out of a list of floats</span>
+<span class="sd">    :param l: python list of floats</span>
+<span class="sd">    :return: string representing the list</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">l</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="URDFTree"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree">[docs]</a><span class="k">class</span> <span class="nc">URDFTree</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class that parses and represents a robot described by a URDF file.</span>
+<span class="sd">    The data is stored in a tree of linked instances of this class. Therefore, a root element (or several) has to be</span>
+<span class="sd">    detectable in the file excluding closed kinematic loops at the moment.</span>
+<span class="sd">    Each instance represents a *blender/RobotDesigner bone* that is a compound of joint and link.</span>
+<span class="sd">    It uses a document object model (DOM) created by generateDS.py (in version 2.14a -- the newest</span>
+<span class="sd">    that does not depend on the lxml module, which is not included in blender).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connected_joints</span><span class="p">,</span> <span class="n">connected_links</span><span class="p">,</span> <span class="n">robot</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Constructor</span>
+<span class="sd">        :param root: if specified, the constructor copies the cross-references in the XML file from another</span>
+<span class="sd">        URDFTree instance.</span>
+<span class="sd">        :param connected_joints: If specified, the connectedJoints (cross-reference in the XML file) is set.</span>
+<span class="sd">        :param connected_links: If specified, the connectedLinks (cross-reference in the XML file) is set.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># super(URDFTree, self).__init__()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">robot</span> <span class="o">=</span> <span class="n">robot</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">joint</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectedLinks</span> <span class="o">=</span> <span class="n">connected_links</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectedJoints</span> <span class="o">=</span> <span class="n">connected_joints</span>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="URDFTree.parse"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.parse">[docs]</a>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">file_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Parses a URDF file and builds up a tree representing the kinematic structure of a robot.</span>
+<span class="sd">        Explanation: The URDF file format stores links (i.e., rigid bodies) and joints (i.e., connection between links)</span>
+<span class="sd">        in a flat structure (as opposed to a tree data structure). Links have no references while joints refer to the</span>
+<span class="sd">        NAMES of have exactly one parent (link) and child (link). This method first resolves these cross references</span>
+<span class="sd">        and calls the recursive URDFTree.build() method to create a tree-like data structure representing the</span>
+<span class="sd">        kinematic tree(s) of the robot.</span>
+<span class="sd">        :param file_name: the name of the file to open</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># read the file</span>
+        <span class="c1"># robot = urdf_dom.parse(file_name, silence=True)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">robot</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">CreateFromDocument</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+        <span class="k">except</span> <span class="n">ContentNondeterminismExceededError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error raised </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">e</span>
+
+        <span class="c1"># parsing joint controllers</span>
+        <span class="c1"># create a dictionary [ joint_name, controller ] which is</span>
+        <span class="c1"># easily searchable during tree traversal</span>
+        <span class="n">controller_cache</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">gazebo_tags</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">gazebo_tag</span> <span class="ow">in</span> <span class="n">robot</span><span class="o">.</span><span class="n">gazebo</span><span class="p">:</span>
+            <span class="n">gazebo_tags</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gazebo_tag</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">plugin_tag</span> <span class="ow">in</span> <span class="n">gazebo_tag</span><span class="o">.</span><span class="n">plugin</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">plugin_tag</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;generic_controller&quot;</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">controller</span> <span class="ow">in</span> <span class="n">plugin_tag</span><span class="o">.</span><span class="n">controller</span><span class="p">:</span>
+                        <span class="c1"># store the controller in cache, so it&#39;s accessible</span>
+                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Found controller for joint: &quot;</span> <span class="o">+</span> <span class="n">controller</span><span class="o">.</span><span class="n">joint_name</span> <span class="o">+</span> <span class="s2">&quot;, caching it.&quot;</span><span class="p">)</span>
+                        <span class="n">controller_cache</span><span class="p">[</span><span class="n">controller</span><span class="o">.</span><span class="n">joint_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">controller</span>
+                    <span class="c1"># remove last tag from the last, it is handled by controller plugin differently</span>
+                    <span class="n">gazebo_tags</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Built controller cache:&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">controller_cache</span><span class="p">)</span>
+
+        <span class="c1"># create mapping from (parent) links to joints</span>
+        <span class="n">connected_joints</span> <span class="o">=</span> <span class="p">{</span><span class="n">link</span><span class="p">:</span> <span class="p">[</span><span class="n">joint</span> <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">robot</span><span class="o">.</span><span class="n">joint</span> <span class="k">if</span> <span class="n">link</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">joint</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">link</span><span class="p">]</span> <span class="k">for</span> <span class="n">link</span>
+                            <span class="ow">in</span> <span class="n">robot</span><span class="o">.</span><span class="n">link</span><span class="p">}</span>
+
+        <span class="c1"># create mapping from joints to their child links</span>
+        <span class="n">connected_links</span> <span class="o">=</span> <span class="p">{</span><span class="n">joint</span><span class="p">:</span> <span class="n">link</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">robot</span><span class="o">.</span><span class="n">link</span> <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">robot</span><span class="o">.</span><span class="n">joint</span> <span class="k">if</span>
+                           <span class="n">link</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">joint</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">link</span><span class="p">}</span>
+
+        <span class="c1"># find root links (i.e., links that are NOT connected to a joint)</span>
+        <span class="n">child_links</span> <span class="o">=</span> <span class="p">[</span><span class="n">link</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">robot</span><span class="o">.</span><span class="n">link</span> <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">robot</span><span class="o">.</span><span class="n">joint</span> <span class="k">if</span>
+                       <span class="n">link</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">joint</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">link</span><span class="p">]</span>
+        <span class="n">root_links</span> <span class="o">=</span> <span class="p">[</span><span class="n">link</span> <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">robot</span><span class="o">.</span><span class="n">link</span> <span class="k">if</span> <span class="n">link</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">child_links</span><span class="p">]</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Root links: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">root_links</span><span class="p">])</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;connected links: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">j</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">l</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">connected_links</span><span class="o">.</span><span class="n">items</span><span class="p">()})</span>
+
+        <span class="n">kinematic_chains</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Skips the basis links</span>
+        <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">root_links</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">connected_joints</span><span class="p">[</span><span class="n">link</span><span class="p">]:</span>
+                <span class="n">tree</span> <span class="o">=</span> <span class="n">URDFTree</span><span class="p">(</span><span class="n">connected_links</span><span class="o">=</span><span class="n">connected_links</span><span class="p">,</span> <span class="n">connected_joints</span><span class="o">=</span><span class="n">connected_joints</span><span class="p">,</span> <span class="n">robot</span><span class="o">=</span><span class="n">robot</span><span class="p">)</span>
+                <span class="n">kinematic_chains</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+                <span class="n">tree</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">connected_links</span><span class="p">[</span><span class="n">joint</span><span class="p">],</span> <span class="n">joint</span><span class="p">)</span>
+
+        <span class="c1"># todo: parse joint controllers</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;kinematic chains: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">kinematic_chains</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">robot</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">root_links</span><span class="p">,</span> <span class="n">kinematic_chains</span><span class="p">,</span> <span class="n">controller_cache</span><span class="p">,</span> <span class="n">gazebo_tags</span></div>
+
+<div class="viewcode-block" id="URDFTree.build"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.build">[docs]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">joint</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recursive function that builds up the tree representation of the robot. You do not have to call it manually (</span>
+<span class="sd">        Called by parse).</span>
+<span class="sd">        :param link: The link the kinematics subtree starts with</span>
+<span class="sd">        :param joint: The joint connecting to the previous link (if any)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">joint</span> <span class="o">=</span> <span class="n">joint</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link</span> <span class="o">=</span> <span class="n">link</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">()</span>
+
+        <span class="n">children</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectedJoints</span><span class="p">[</span><span class="n">link</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+            <span class="n">tree</span> <span class="o">=</span> <span class="n">URDFTree</span><span class="p">(</span><span class="n">connected_links</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">connectedLinks</span><span class="p">,</span> <span class="n">connected_joints</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">connectedJoints</span><span class="p">,</span>
+                            <span class="n">robot</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">connectedLinks</span><span class="p">[</span><span class="n">joint</span><span class="p">],</span> <span class="n">joint</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="URDFTree.create_empty"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.create_empty">[docs]</a>    <span class="k">def</span> <span class="nf">create_empty</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">base_link_name</span><span class="o">=</span><span class="s2">&quot;base_link&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates an empty tree object.</span>
+
+<span class="sd">        :param name: the name of the robot the tree is representing the model of.</span>
+<span class="sd">        :type name: string</span>
+<span class="sd">        :return: The tree instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">URDFTree</span><span class="p">(</span><span class="n">connected_links</span><span class="o">=</span><span class="p">{},</span> <span class="n">connected_joints</span><span class="o">=</span><span class="p">{},</span> <span class="n">robot</span><span class="o">=</span><span class="n">urdf_dom</span><span class="o">.</span><span class="n">RobotType</span><span class="p">())</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">link</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">LinkType</span><span class="p">()</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">base_link_name</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">link</span><span class="p">)</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">joint</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">JointType</span><span class="p">()</span>
+
+        <span class="n">tree</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">()</span>
+
+        <span class="c1"># build empty gazebo tag for control plugins</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">gazebo_tag</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">GazeboType</span><span class="p">()</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">gazebo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">gazebo_tag</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">tree</span></div>
+
+<div class="viewcode-block" id="URDFTree.write"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Should only be called on the root element.</span>
+<span class="sd">        :param file_name:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">joint</span><span class="p">,</span> <span class="n">link</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectedLinks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">joint</span><span class="o">.</span><span class="n">child</span><span class="o">.</span><span class="n">link</span> <span class="o">=</span> <span class="n">link</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="k">for</span> <span class="n">link</span><span class="p">,</span> <span class="n">joints</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectedJoints</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="n">joints</span><span class="p">:</span>
+                <span class="n">joint</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">link</span> <span class="o">=</span> <span class="n">link</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="c1"># Connect root joints to self.link (the root link)</span>
+        <span class="k">for</span> <span class="n">joint</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">joint</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">joint</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">joint</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">file_name</span><span class="p">)):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">file_name</span><span class="p">))</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="c1"># f.write(&#39;&lt;?xml version=&quot;1.0&quot; ?&gt;&#39;)</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">toxml</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span> <span class="n">element_name</span><span class="o">=</span><span class="s2">&quot;robot&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+            <span class="c1"># output = output.replace(&quot;&gt;&quot;, &quot;&gt;\n&quot;)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">output</span><span class="p">)</span></div>
+            <span class="c1"># self.robot.export(f,0)</span>
+
+    <span class="k">def</span> <span class="nf">_write</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recursion that builds the creates the cross links for the DOM (might not be necessary)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="URDFTree.add"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates and adds another URDFTree instance to this node. Do not add children to the subtree manually as</span>
+<span class="sd">        references are not created then. Note that if there is no robot member defined yet (i.e., you are *exporting*),</span>
+<span class="sd">        it will be created automatically.</span>
+<span class="sd">        :param link: a urdf_dom link element</span>
+<span class="sd">        :param joint: a urdf_dom joint element</span>
+<span class="sd">        :return: a reference to the newly created URDFTree instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">URDFTree</span><span class="p">(</span><span class="n">connected_links</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">connectedLinks</span><span class="p">,</span> <span class="n">connected_joints</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">connectedJoints</span><span class="p">,</span> <span class="n">robot</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">robot</span><span class="p">)</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">joint</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">JointType</span><span class="p">()</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">link</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">LinkType</span><span class="p">()</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">link</span><span class="p">)</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">robot</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">joint</span><span class="p">)</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">set_defaults</span><span class="p">()</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">child</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">ChildType</span><span class="p">()</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">ParentType</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">connectedLinks</span><span class="p">[</span><span class="n">tree</span><span class="o">.</span><span class="n">joint</span><span class="p">]</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">link</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">link</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">connectedJoints</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connectedJoints</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tree</span><span class="o">.</span><span class="n">joint</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">connectedJoints</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">tree</span><span class="o">.</span><span class="n">joint</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">tree</span></div>
+
+<div class="viewcode-block" id="URDFTree.add_mesh"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_mesh">[docs]</a>    <span class="k">def</span> <span class="nf">add_mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a mesh to current segment.</span>
+
+<span class="sd">        :param file_name: Name of the file</span>
+<span class="sd">        :type file_name: string</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">visual</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">VisualType</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">visual</span><span class="p">)</span>
+        <span class="n">visual</span><span class="o">.</span><span class="n">geometry</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">GeometryType</span><span class="p">()</span>
+        <span class="n">visual</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">PoseType</span><span class="p">()</span>
+        <span class="n">visual</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">MeshType</span><span class="p">()</span>
+        <span class="n">visual</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">file_name</span>
+        <span class="n">visual</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">list_to_string</span><span class="p">(</span><span class="n">scale_factor</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">visual</span></div>
+
+<div class="viewcode-block" id="URDFTree.add_collisionmodel"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_collisionmodel">[docs]</a>    <span class="k">def</span> <span class="nf">add_collisionmodel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span><span class="n">scale_factor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a collision model to a mesh object</span>
+
+<span class="sd">        :param   file_name:  name of the mesh object for which the col_model is generated</span>
+<span class="sd">        :type    file_name:  string</span>
+<span class="sd">        :return: string:     Collision file that is used in the urdf</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">collision</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">CollisionType</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">collision</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">collision</span><span class="p">)</span>
+        <span class="n">collision</span><span class="o">.</span><span class="n">geometry</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">GeometryType</span><span class="p">()</span>
+        <span class="n">collision</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">PoseType</span><span class="p">()</span>
+        <span class="n">collision</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">mesh</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">MeshType</span><span class="p">()</span>
+        <span class="c1"># print(&#39;debug add_collisionmodel: &#39; + file_name)</span>
+        <span class="n">collision</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">file_name</span>
+        <span class="n">collision</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">list_to_string</span><span class="p">(</span><span class="n">scale_factor</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">collision</span></div>
+
+<div class="viewcode-block" id="URDFTree.add_inertial"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_inertial">[docs]</a>    <span class="k">def</span> <span class="nf">add_inertial</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a inertial definition to a link object</span>
+
+<span class="sd">        :return: string:     reference to inertial object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">inertial</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">InertialType</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">inertial</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inertial</span><span class="p">)</span>
+        <span class="n">inertial</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">MassType</span><span class="p">()</span>
+        <span class="n">inertial</span><span class="o">.</span><span class="n">inertia</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">InertiaType</span><span class="p">()</span>
+        <span class="n">inertial</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">PoseType</span><span class="p">()</span>
+        <span class="n">inertial</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">xyz</span> <span class="o">=</span> <span class="s2">&quot;0 0 0&quot;</span>
+        <span class="n">inertial</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">rpy</span> <span class="o">=</span> <span class="s2">&quot;0 0 0&quot;</span>
+
+        <span class="c1"># print(&#39;debug add_inertial: &#39;)</span>
+        <span class="k">return</span> <span class="n">inertial</span></div>
+
+<div class="viewcode-block" id="URDFTree.add_joint_control_plugin"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_joint_control_plugin">[docs]</a>    <span class="k">def</span> <span class="nf">add_joint_control_plugin</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a reference to the generic control plugin of the NRP backend.</span>
+
+<span class="sd">        :return: Reference to the plugin type defined in the URDF</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">plugin</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">GazeboPluginType</span><span class="p">()</span>
+        <span class="n">plugin</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;generic_controller&quot;</span>
+        <span class="n">plugin</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;libgeneric_controller_plugin.so&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gazebo_tag</span><span class="o">.</span><span class="n">plugin</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plugin</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">plugin</span></div>
+
+<div class="viewcode-block" id="URDFTree.add_joint_controller"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add_joint_controller">[docs]</a>    <span class="k">def</span> <span class="nf">add_joint_controller</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control_plugin</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a controller definition to a robot object</span>
+
+<span class="sd">        :return: string:     reference to inertial object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">joint_controller</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">GenericControllerPluginDefType</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">joint_controller</span><span class="o">.</span><span class="n">pid</span> <span class="o">==</span> <span class="s2">&quot;1.0 1.0 1.0&quot;</span><span class="p">:</span>
+            <span class="n">joint_controller</span><span class="o">.</span><span class="n">pid</span> <span class="o">=</span> <span class="s2">&quot;100.0 1.0 1.0&quot;</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Debug: Joint Controller set&quot;</span><span class="p">)</span>
+
+        <span class="n">control_plugin</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">joint_controller</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Added joint controller.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">joint_controller</span></div>
+
+<div class="viewcode-block" id="URDFTree.set_defaults"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.set_defaults">[docs]</a>    <span class="k">def</span> <span class="nf">set_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds defaults to missing values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">joint</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">joint</span>
+        <span class="n">link</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">link</span>
+        <span class="k">if</span> <span class="n">joint</span><span class="o">.</span><span class="n">axis</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">joint</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">AxisType</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">joint</span><span class="o">.</span><span class="n">limit</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">joint</span><span class="o">.</span><span class="n">limit</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">LimitType</span><span class="p">()</span>
+            <span class="c1"># this had to be completely defined (missing effor argument caused conversion to SDF to fail)</span>
+            <span class="n">joint</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">effort</span> <span class="o">=</span> <span class="mf">100.0</span>
+            <span class="n">joint</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">lower</span> <span class="o">=</span> <span class="n">joint</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">upper</span> <span class="o">=</span> <span class="n">joint</span><span class="o">.</span><span class="n">limit</span><span class="o">.</span><span class="n">velocity</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+        <span class="k">if</span> <span class="n">joint</span><span class="o">.</span><span class="n">calibration</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">joint</span><span class="o">.</span><span class="n">calibration</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">CalibrationType</span><span class="p">()</span>
+            <span class="n">joint</span><span class="o">.</span><span class="n">calibration</span><span class="o">.</span><span class="n">reference_position</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">joint</span><span class="o">.</span><span class="n">calibration</span><span class="o">.</span><span class="n">rising</span> <span class="o">=</span> <span class="mf">0.0</span>  <span class="c1"># there are no default values in the XSD?</span>
+            <span class="n">joint</span><span class="o">.</span><span class="n">calibration</span><span class="o">.</span><span class="n">falling</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+        <span class="k">if</span> <span class="n">joint</span><span class="o">.</span><span class="n">origin</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">joint</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">PoseType</span><span class="p">()</span>
+            <span class="c1"># joint.rpy =</span>
+
+        <span class="k">for</span> <span class="n">visual</span> <span class="ow">in</span> <span class="n">link</span><span class="o">.</span><span class="n">visual</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">visual</span><span class="o">.</span><span class="n">origin</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">visual</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">PoseType</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">collision</span> <span class="ow">in</span> <span class="n">link</span><span class="o">.</span><span class="n">collision</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">collision</span><span class="o">.</span><span class="n">origin</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">collision</span><span class="o">.</span><span class="n">origin</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">PoseType</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">joint</span><span class="o">.</span><span class="n">dynamics</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">joint</span><span class="o">.</span><span class="n">dynamics</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">DynamicsType</span><span class="p">()</span>
+            <span class="n">joint</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">damping</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+        <span class="k">if</span> <span class="n">link</span><span class="o">.</span><span class="n">inertial</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Inertial is None, creating default one.&quot;</span><span class="p">)</span>
+            <span class="n">link</span><span class="o">.</span><span class="n">inertial</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">InertialType</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">inertial</span> <span class="ow">in</span> <span class="n">link</span><span class="o">.</span><span class="n">inertial</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">inertial</span><span class="o">.</span><span class="n">mass</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">inertial</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">MassType</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">inertial</span><span class="o">.</span><span class="n">inertia</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">inertial</span><span class="o">.</span><span class="n">inertia</span> <span class="o">=</span> <span class="n">urdf_dom</span><span class="o">.</span><span class="n">InertiaType</span><span class="p">()</span></div>
+
+                <span class="c1"># if joint.mimic is None: # truely optional</span>
+                <span class="c1"># if joint.safety_controller is None: # ignored</span>
+
+                <span class="c1"># if link.inertial is None:</span>
+
+                <span class="c1"># todo continue and remove if statements from urdf_blender</span>
+
+<div class="viewcode-block" id="URDFTree.show"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prints the kinematic tree to the command line (for debugging).</span>
+<span class="sd">        This function serves as an example for export export.</span>
+<span class="sd">        :param depth: the depth of the kinematics sub tree for indention</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">, link: </span><span class="si">%s</span><span class="s2">, joint: </span><span class="si">%s</span><span class="s2">, type: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s2">&quot;*&quot;</span> <span class="o">*</span> <span class="n">depth</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">type_</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">depth</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Root link: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">tree</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="n">tree</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div></div>
+
+
+<span class="c1"># debugging the module</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">robot</span> <span class="o">=</span> <span class="n">URDFTree</span><span class="p">()</span>
+    <span class="n">robot</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s2">&quot;../../models/hollie.urdf&quot;</span><span class="p">)</span>
+    <span class="n">robot</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>

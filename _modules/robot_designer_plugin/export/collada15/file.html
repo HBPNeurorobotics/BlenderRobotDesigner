@@ -1,0 +1,355 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.export.collada15.file &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../../../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../../../../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../../../../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../../../../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../../index.html" />
+    <link rel="up" title="robot_designer_plugin" href="../../../robot_designer_plugin.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../../../../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../../../index.html">Module code</a>
+                    
+                    <a href="../../../robot_designer_plugin.html">robot_designer_plugin</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    
+                </aside>
+
+                <h1>Source code for robot_designer_plugin.export.collada15.file</h1><div class="highlight"><pre>
+<span></span><span class="c1"># #####</span>
+<span class="c1"># This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
+<span class="c1"># in the Human Brain Project (HBP).</span>
+<span class="c1"># It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)</span>
+<span class="c1"># developed at the Karlsruhe Institute of Technology in the</span>
+<span class="c1"># High Performance Humanoid Technologies Laboratory (H2T).</span>
+<span class="c1"># #####</span>
+
+<span class="c1"># ##### BEGIN GPL LICENSE BLOCK #####</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software; you can redistribute it and/or</span>
+<span class="c1">#  modify it under the terms of the GNU General Public License</span>
+<span class="c1">#  as published by the Free Software Foundation; either version 2</span>
+<span class="c1">#  of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU General Public License</span>
+<span class="c1">#  along with this program; if not, write to the Free Software Foundation,</span>
+<span class="c1">#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</span>
+<span class="c1">#</span>
+<span class="c1"># ##### END GPL LICENSE BLOCK #####</span>
+
+<span class="c1"># #####</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)</span>
+<span class="c1"># Copyright (c) 2016, FZI Forschungszentrum Informatik</span>
+<span class="c1">#</span>
+<span class="c1"># Changes:</span>
+<span class="c1">#</span>
+<span class="c1">#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.</span>
+<span class="c1">#</span>
+<span class="c1"># ######</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Sphinx-autodoc tag</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># ######</span>
+<span class="c1"># System imports</span>
+<span class="c1"># import os</span>
+<span class="c1"># import sys</span>
+<span class="c1"># import math</span>
+
+<span class="c1"># ######</span>
+<span class="c1"># Blender imports</span>
+<span class="kn">import</span> <span class="nn">bpy</span>
+<span class="kn">from</span> <span class="nn">bpy.props</span> <span class="kn">import</span> <span class="n">StringProperty</span>
+<span class="c1"># import mathutils</span>
+
+<span class="c1"># ######</span>
+<span class="c1"># RobotDesigner imports</span>
+<span class="kn">from</span> <span class="nn">...core</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">PluginManager</span>
+<span class="kn">from</span> <span class="nn">...core.operators</span> <span class="kn">import</span> <span class="n">RDOperator</span>
+<span class="kn">from</span> <span class="nn">...operators.helpers</span> <span class="kn">import</span> <span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span>
+
+<span class="c1"># ######</span>
+<span class="c1"># Plugin imports</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span>  <span class="n">fix</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">collada</span>
+
+<div class="viewcode-block" id="extractData"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.collada15.file.html#robot_designer_plugin.export.collada15.file.extractData">[docs]</a><span class="k">def</span> <span class="nf">extractData</span><span class="p">(</span><span class="n">segment_name</span><span class="p">):</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">collada</span><span class="o">.</span><span class="n">Tree</span><span class="p">()</span>
+    <span class="n">arm</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
+
+    <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">roboteditor</span><span class="o">.</span><span class="n">select_segment</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">segment_name</span><span class="p">)</span>
+    <span class="n">currentBone</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span>
+
+    <span class="n">tree</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">segment_name</span>
+
+    <span class="k">if</span> <span class="n">currentBone</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+        <span class="n">parentName</span> <span class="o">=</span> <span class="n">currentBone</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">parentName</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">if</span> <span class="n">currentBone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">axis_revert</span><span class="p">:</span>
+        <span class="n">inverted</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">inverted</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">axis</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">currentBone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span>
+        <span class="n">axis</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">inverted</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">currentBone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span>
+        <span class="n">axis</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">inverted</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">currentBone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;Z&#39;</span><span class="p">:</span>
+        <span class="n">axis</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">inverted</span><span class="p">)</span>
+
+    <span class="n">tree</span><span class="o">.</span><span class="n">axis</span> <span class="o">=</span> <span class="n">axis</span>
+
+    <span class="n">trafo</span><span class="p">,</span> <span class="n">dummy</span> <span class="o">=</span> <span class="n">currentBone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">getTransform</span><span class="p">()</span>
+    <span class="c1"># translation</span>
+    <span class="n">tree</span><span class="o">.</span><span class="n">addTrafo</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">trafo</span><span class="o">.</span><span class="n">translation</span><span class="p">])</span>
+    <span class="c1"># rotation</span>
+    <span class="n">rotation</span> <span class="o">=</span> <span class="n">trafo</span><span class="o">.</span><span class="n">to_euler</span><span class="p">()</span>
+    <span class="n">tree</span><span class="o">.</span><span class="n">addTrafo</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">rotation</span><span class="o">.</span><span class="n">z</span><span class="p">]])</span>
+    <span class="n">tree</span><span class="o">.</span><span class="n">addTrafo</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rotation</span><span class="o">.</span><span class="n">y</span><span class="p">]])</span>
+    <span class="n">tree</span><span class="o">.</span><span class="n">addTrafo</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rotation</span><span class="o">.</span><span class="n">x</span><span class="p">]])</span>
+
+    <span class="k">if</span> <span class="n">currentBone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointMode</span> <span class="o">==</span> <span class="s1">&#39;REVOLUTE&#39;</span><span class="p">:</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">initialValue</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">currentBone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">currentBone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">min</span><span class="p">)</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">currentBone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">axis_type</span> <span class="o">=</span> <span class="s1">&#39;revolute&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">initialValue</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">currentBone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">offset</span><span class="p">)</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">currentBone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">min</span><span class="p">)</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">currentBone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">axis_type</span> <span class="o">=</span> <span class="s1">&#39;prismatic&#39;</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[</span><span class="n">child</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">currentBone</span><span class="o">.</span><span class="n">children</span><span class="p">]</span>
+
+    <span class="n">tree</span><span class="o">.</span><span class="n">meshes</span> <span class="o">=</span> <span class="p">[</span><span class="n">mesh</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">mesh</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span>
+                   <span class="n">mesh</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;MESH&#39;</span> <span class="ow">and</span> <span class="n">mesh</span><span class="o">.</span><span class="n">parent_bone</span> <span class="o">==</span> <span class="n">segment_name</span><span class="p">]</span>
+
+    <span class="n">markers</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span>
+               <span class="n">m</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;MARKER&#39;</span> <span class="ow">and</span> <span class="n">m</span><span class="o">.</span><span class="n">parent_bone</span> <span class="o">==</span> <span class="n">segment_name</span><span class="p">]</span>
+    <span class="c1"># tree.markers = [(m.name,(currentBone.matrix_local.inverted()*m.matrix_world.translation).to_tuple())</span>
+    <span class="c1">#  for m in markers]</span>
+    <span class="c1"># tree.markers = [(m.name,(m.matrix_parent_inverse*m.matrix_world.translation).to_tuple()) for m in markers]</span>
+
+    <span class="n">poseBone</span> <span class="o">=</span> <span class="n">arm</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span>
+    <span class="n">tree</span><span class="o">.</span><span class="n">markers</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="p">(</span>
+            <span class="n">poseBone</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span> <span class="o">*</span> <span class="n">arm</span><span class="o">.</span><span class="n">matrix_world</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span> <span class="o">*</span> <span class="n">m</span><span class="o">.</span><span class="n">matrix_world</span><span class="o">.</span><span class="n">translation</span><span class="p">)</span><span class="o">.</span><span class="n">to_tuple</span><span class="p">())</span>
+        <span class="k">for</span>
+        <span class="n">m</span> <span class="ow">in</span> <span class="n">markers</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">extractData</span><span class="p">(</span><span class="n">child</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">tree</span></div>
+<span class="c1"># @PluginManager.register_class</span>
+<span class="c1"># class ImportCollada15(RDOperator):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Not implemented</span>
+<span class="c1">#     **Preconditions:**</span>
+<span class="c1">#</span>
+<span class="c1">#     **Postconditions:**</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     bl_idname = config.OPERATOR_PREFIX + &quot;selectarmature&quot;</span>
+<span class="c1">#     bl_label = &quot;Select model&quot;</span>
+<span class="c1">#</span>
+<span class="c1">#     model_name = StringProperty()</span>
+<span class="c1">#</span>
+<span class="c1">#     @classmethod</span>
+<span class="c1">#     def run(cls, model_name=&quot;&quot;):</span>
+<span class="c1">#         return super().run(**cls.pass_keywords())</span>
+<span class="c1">#</span>
+<span class="c1">#     @classmethod</span>
+<span class="c1">#     def poll(cls, context):</span>
+<span class="c1">#         &quot;&quot;&quot;</span>
+<span class="c1">#         Checks whether preconditions are met for this :ref:`operator`</span>
+<span class="c1">#</span>
+<span class="c1">#         :param context: :ref:`context`</span>
+<span class="c1">#         :return: True when conditions are met, False otherwise</span>
+<span class="c1">#         &quot;&quot;&quot;</span>
+<span class="c1">#         return check_conditions(ObjectMode)</span>
+<span class="c1">#</span>
+<span class="c1">#     @OperatorLogger</span>
+<span class="c1">#     @Postconditions(ModelSelected)</span>
+<span class="c1">#     def execute(self, context):</span>
+<span class="c1">#         self.report({&#39;ERROR&#39;},&quot;Not implemented&quot;)</span>
+
+<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ObjectMode</span><span class="p">,</span> <span class="n">ModelSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager.register_class</span>
+<div class="viewcode-block" id="RobotEditor_exportCollada"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.collada15.file.html#robot_designer_plugin.export.collada15.file.RobotEditor_exportCollada">[docs]</a><span class="k">class</span> <span class="nc">RobotEditor_exportCollada</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :term:`operator` for exporting a :term:`robot model` to COLLADA 1.5</span>
+<span class="sd">    **Preconditions:**</span>
+
+<span class="sd">    **Postconditions:**</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="s2">&quot;roboteditor.colladaexport&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Export to COLLADA 1.5&quot;</span>
+
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">subtype</span><span class="o">=</span><span class="s1">&#39;FILE_PATH&#39;</span><span class="p">)</span>
+
+    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">wm</span><span class="o">.</span><span class="n">collada_export</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span>
+                                  <span class="n">check_existing</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">filter_blender</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                                  <span class="n">filter_image</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">filter_movie</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                                  <span class="n">filter_python</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">filter_font</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                                  <span class="n">filter_sound</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">filter_text</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                                  <span class="n">filter_btx</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">filter_collada</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                  <span class="n">filter_folder</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+        <span class="n">fix</span><span class="o">.</span><span class="n">fixCollada</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+        <span class="n">handler</span> <span class="o">=</span> <span class="n">collada</span><span class="o">.</span><span class="n">COLLADA</span><span class="p">()</span>
+        <span class="n">handler</span><span class="o">.</span><span class="n">import14</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+
+        <span class="n">arm</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
+        <span class="n">baseBoneName</span> <span class="o">=</span> <span class="n">arm</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">collada</span><span class="o">.</span><span class="n">Tree</span><span class="p">()</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">arm</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">tree</span><span class="o">.</span><span class="n">addChild</span><span class="p">(</span><span class="n">extractData</span><span class="p">(</span><span class="n">baseBoneName</span><span class="p">))</span>
+
+        <span class="n">handler</span><span class="o">.</span><span class="n">attach</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+
+        <span class="n">massFrames</span> <span class="o">=</span> <span class="p">[</span><span class="n">obj</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span>
+                      <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;PHYSICS_FRAME&#39;</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent_bone</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">massFrames</span><span class="p">:</span>
+            <span class="c1"># transform = frame.parent.data.bones[frame.parent_bone].matrix_local.inverted() * frame.matrix_local</span>
+            <span class="n">segment_name</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">frame</span><span class="o">.</span><span class="n">parent_bone</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">poseBone</span> <span class="o">=</span> <span class="n">arm</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span>
+            <span class="n">transform</span> <span class="o">=</span> <span class="n">poseBone</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span> <span class="o">*</span> <span class="n">arm</span><span class="o">.</span><span class="n">matrix_world</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span> <span class="o">*</span> <span class="n">frame</span><span class="o">.</span><span class="n">matrix_world</span>
+            <span class="n">frameTrafos</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">transform</span><span class="o">.</span><span class="n">translation</span><span class="p">)]</span>
+            <span class="n">frameRotation</span> <span class="o">=</span> <span class="n">transform</span><span class="o">.</span><span class="n">to_euler</span><span class="p">()</span>
+            <span class="n">frameTrafos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">frameRotation</span><span class="o">.</span><span class="n">z</span><span class="p">]))</span>
+            <span class="n">frameTrafos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frameRotation</span><span class="o">.</span><span class="n">y</span><span class="p">]))</span>
+            <span class="n">frameTrafos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">frameRotation</span><span class="o">.</span><span class="n">x</span><span class="p">]))</span>
+
+            <span class="n">collisionModels</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">collisionModelTransformations</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">parent</span> <span class="o">==</span> <span class="n">frame</span><span class="p">]:</span>
+                <span class="n">modelName</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;-mesh&#39;</span>
+                <span class="n">collisionModels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">modelName</span><span class="p">)</span>
+                <span class="c1"># matrix = model.parent.data.bones[model.parent_bone].matrix_local.inverted() * model.matrix_local</span>
+                <span class="n">matrix</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">matrix_local</span>
+                <span class="n">collisionModelTransformations</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">matrix</span><span class="o">.</span><span class="n">translation</span><span class="p">)]</span>
+                <span class="n">rotation</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">to_euler</span><span class="p">()</span>
+                <span class="n">collisionModelTransformations</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">rotation</span><span class="o">.</span><span class="n">z</span><span class="p">]))</span>
+                <span class="n">collisionModelTransformations</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rotation</span><span class="o">.</span><span class="n">y</span><span class="p">]))</span>
+                <span class="n">collisionModelTransformations</span><span class="p">[</span><span class="n">modelName</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">rotation</span><span class="o">.</span><span class="n">x</span><span class="p">]))</span>
+
+            <span class="c1"># TODO also bring the matrix_local to all collisionmodels</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;mass frames&quot;</span><span class="p">,</span> <span class="n">frame</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">collisionModels</span><span class="p">)</span>
+            <span class="n">handler</span><span class="o">.</span><span class="n">addMassObject</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">frameTrafos</span><span class="p">,</span>
+                                  <span class="nb">tuple</span><span class="p">(</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">inertiaTensor</span><span class="p">),</span>
+                                  <span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">mass</span><span class="p">,</span> <span class="n">collisionModels</span><span class="p">,</span>
+                                  <span class="n">collisionModelTransformations</span><span class="p">)</span>
+
+        <span class="n">handler</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
+
+<div class="viewcode-block" id="RobotEditor_exportCollada.invoke"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.collada15.file.html#robot_designer_plugin.export.collada15.file.RobotEditor_exportCollada.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span><span class="o">.</span><span class="n">fileselect_add</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;RUNNING_MODAL&#39;</span><span class="p">}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div></div>
+</pre></div>
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>

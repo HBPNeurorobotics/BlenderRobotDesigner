@@ -1,0 +1,392 @@
+
+
+
+<!DOCTYPE html>
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>robot_designer_plugin.operators.rigid_bodies module &mdash; NRP RobotDesigner 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/hbpdoc.js"></script>
+    <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
+    <link rel="up" title="robot_designer_plugin.operators package" href="robot_designer_plugin.operators.html" />
+    <link rel="next" title="robot_designer_plugin.operators.segments module" href="robot_designer_plugin.operators.segments.html" />
+    <link rel="prev" title="robot_designer_plugin.operators.model module" href="robot_designer_plugin.operators.model.html" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  </head>
+  <body role="document">
+<div class="hbpdoc-page">
+    <section class="hbpdoc-title page-header">
+        <a class="project-title" href="../index.html">NRP RobotDesigner</a>
+
+        <a class="hbpdoc-toc-toggle pull-right" href>
+            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+        </a>
+    </section>
+    <section class="hbpdoc-main">
+        <nav class="hbpdoc-sidebar hbpdoc-container">
+            <a class="hbpdoc-toc-toggle pull-right" href>
+                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
+            </a>
+            
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="robot_designer_plugin.operators.model.html"
+                        title="previous chapter">robot_designer_plugin.operators.model module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="robot_designer_plugin.operators.segments.html"
+                        title="next chapter">robot_designer_plugin.operators.segments module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/apidoc/robot_designer_plugin.operators.rigid_bodies.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+        </nav>
+
+        <article class="hbpdoc-content">
+
+            <div class="content">
+                
+                <div class="breadcrumb breadcrumb-meta expand">
+                    
+                    <a href="../developer_manual/index.html">Developers Manual</a>
+                    
+                    <a href="modules.html">robot_designer_plugin</a>
+                    
+                    <a href="robot_designer_plugin.html">robot_designer_plugin package</a>
+                    
+                    <a href="robot_designer_plugin.operators.html">robot_designer_plugin.operators package</a>
+                    
+                </div>
+                
+
+                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
+                    
+                    <span class="hbpdoc-hnav-previous">
+                        previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.model.html">robot_designer_plugin.operators.model module</a>
+                    </span>
+                    
+                    
+                    <span class="hbpdoc-hnav-next">
+                        next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.segments.html">robot_designer_plugin.operators.segments module</a>
+                    </span>
+                    
+                </aside>
+
+                <div class="section" id="module-robot_designer_plugin.operators.rigid_bodies">
+<span id="robot-designer-plugin-operators-rigid-bodies-module"></span><h1>robot_designer_plugin.operators.rigid_bodies module<a class="headerlink" href="#module-robot_designer_plugin.operators.rigid_bodies" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="robot_designer_plugin.operators.rigid_bodies.AssignGeometry">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.rigid_bodies.</code><code class="descname">AssignGeometry</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#AssignGeometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.AssignGeometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><span class="xref std std-ref">operator</span> for assigning a geometry to a segment.</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleMeshSelected" title="robot_designer_plugin.operators.helpers.SingleMeshSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.SingleMeshSelected</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.AssignGeometry.bl_idname">
+<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.assignmesh'</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.AssignGeometry.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.AssignGeometry.bl_label">
+<code class="descname">bl_label</code><em class="property"> = 'Assign selected mesh to active bone'</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.AssignGeometry.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.operators.rigid_bodies.AssignGeometry.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.AssignGeometry.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="robot_designer_plugin.operators.rigid_bodies.AssignGeometry.run">
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#AssignGeometry.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.AssignGeometry.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="robot_designer_plugin.operators.rigid_bodies.DetachAllGeometries">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.rigid_bodies.</code><code class="descname">DetachAllGeometries</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#DetachAllGeometries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.DetachAllGeometries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><span class="xref std std-ref">operator</span> for detaching <em>all</em> <span class="xref std std-term">geometries</span> from the selected <a class="reference internal" href="../developer_manual/glossary.html#term-model"><span class="xref std std-term">model</span></a>.</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.DetachAllGeometries.bl_idname">
+<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.unassignallmeshes'</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.DetachAllGeometries.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.DetachAllGeometries.bl_label">
+<code class="descname">bl_label</code><em class="property"> = 'Unassign ALL meshes'</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.DetachAllGeometries.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.DetachAllGeometries.confirmation">
+<code class="descname">confirmation</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.DetachAllGeometries.confirmation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.operators.rigid_bodies.DetachAllGeometries.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.DetachAllGeometries.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.operators.rigid_bodies.DetachAllGeometries.invoke">
+<code class="descname">invoke</code><span class="sig-paren">(</span><em>context</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#DetachAllGeometries.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.DetachAllGeometries.invoke" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="robot_designer_plugin.operators.rigid_bodies.DetachAllGeometries.run">
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><em>confirmation=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#DetachAllGeometries.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.DetachAllGeometries.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="robot_designer_plugin.operators.rigid_bodies.DetachGeometry">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.rigid_bodies.</code><code class="descname">DetachGeometry</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#DetachGeometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.DetachGeometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">operator</span></a> for detaching a single <a class="reference internal" href="../developer_manual/glossary.html#term-geometry"><span class="xref std std-term">geometry</span></a> form a <a class="reference internal" href="../developer_manual/glossary.html#term-segment"><span class="xref std std-term">segment</span></a>.</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleMeshSelected" title="robot_designer_plugin.operators.helpers.SingleMeshSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.SingleMeshSelected</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.DetachGeometry.bl_idname">
+<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.unassignmesh'</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.DetachGeometry.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.DetachGeometry.bl_label">
+<code class="descname">bl_label</code><em class="property"> = 'Unassign selected mesh'</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.DetachGeometry.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.operators.rigid_bodies.DetachGeometry.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.DetachGeometry.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="robot_designer_plugin.operators.rigid_bodies.DetachGeometry.run">
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#DetachGeometry.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.DetachGeometry.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="robot_designer_plugin.operators.rigid_bodies.RenameAllGeometries">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.rigid_bodies.</code><code class="descname">RenameAllGeometries</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#RenameAllGeometries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.RenameAllGeometries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><span class="xref std std-ref">operator</span> for renaming geometries using their parented segment&#8217;s name.</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.RenameAllGeometries.bl_idname">
+<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.renamemeshes'</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.RenameAllGeometries.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.RenameAllGeometries.bl_label">
+<code class="descname">bl_label</code><em class="property"> = 'Renames meshes after bones'</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.RenameAllGeometries.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.operators.rigid_bodies.RenameAllGeometries.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.RenameAllGeometries.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="robot_designer_plugin.operators.rigid_bodies.RenameAllGeometries.run">
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#RenameAllGeometries.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.RenameAllGeometries.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SelectAllGeometries">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.rigid_bodies.</code><code class="descname">SelectAllGeometries</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#SelectAllGeometries"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SelectAllGeometries" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><span class="xref std std-ref">operator</span> for selecting all geometries.</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SelectAllGeometries.bl_idname">
+<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.setallmeshesactiveobject'</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SelectAllGeometries.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SelectAllGeometries.bl_label">
+<code class="descname">bl_label</code><em class="property"> = 'Select all geometries'</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SelectAllGeometries.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SelectAllGeometries.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SelectAllGeometries.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SelectAllGeometries.run">
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#SelectAllGeometries.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SelectAllGeometries.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SelectGeometry">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.rigid_bodies.</code><code class="descname">SelectGeometry</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#SelectGeometry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SelectGeometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><span class="xref std std-ref">operator</span> for ...</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SelectGeometry.bl_idname">
+<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.selectmesh'</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SelectGeometry.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SelectGeometry.bl_label">
+<code class="descname">bl_label</code><em class="property"> = 'Select Mesh'</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SelectGeometry.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SelectGeometry.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SelectGeometry.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SelectGeometry.geometry_name">
+<code class="descname">geometry_name</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SelectGeometry.geometry_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SelectGeometry.run">
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><em>geometry_name=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#SelectGeometry.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SelectGeometry.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SetGeometryActive">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.rigid_bodies.</code><code class="descname">SetGeometryActive</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#SetGeometryActive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SetGeometryActive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><span class="xref std std-ref">operator</span> for ...</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ObjectMode" title="robot_designer_plugin.operators.helpers.ObjectMode"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ObjectMode</span></code></a></li>
+<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleMeshSelected" title="robot_designer_plugin.operators.helpers.SingleMeshSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.SingleMeshSelected</span></code></a></li>
+</ul>
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SetGeometryActive.bl_idname">
+<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.setseletedmeshactiveobject'</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SetGeometryActive.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SetGeometryActive.bl_label">
+<code class="descname">bl_label</code><em class="property"> = 'Select geometry'</em><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SetGeometryActive.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SetGeometryActive.execute">
+<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SetGeometryActive.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="robot_designer_plugin.operators.rigid_bodies.SetGeometryActive.run">
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/rigid_bodies.html#SetGeometryActive.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.rigid_bodies.SetGeometryActive.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+            </div>
+
+            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
+                
+                <span class="hbpdoc-hnav-previous">
+                    previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.model.html">robot_designer_plugin.operators.model module</a>
+                </span>
+                
+                
+                <span class="hbpdoc-hnav-next">
+                    next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.segments.html">robot_designer_plugin.operators.segments module</a>
+                </span>
+                
+            </aside>
+        </article>
+    </section>
+
+
+    <div class="hbpdoc-footer">
+        NRP RobotDesigner <small>0.1</small> 
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+    </div>
+    </div>
+</div>
+
+  </body>
+</html>
