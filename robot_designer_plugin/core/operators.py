@@ -112,6 +112,7 @@ class RDOperator(bpy.types.Operator):
     the path to the repository) that can be used to quickly write new operators.
     """
 
+
     _pre_conditions = {}
     """Dictionary set by the :meth:`PreConditions` decorator. Stores the :class:`.conditions.Condition` that are
     checked for each :class:`RDOperator` -based operator"""

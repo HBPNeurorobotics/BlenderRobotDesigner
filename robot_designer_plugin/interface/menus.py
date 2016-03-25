@@ -48,7 +48,7 @@ from bpy.props import IntProperty, StringProperty, CollectionProperty
 # ######
 # RobotDesigner imports
 
-from ..operators import segments, model, rigid_bodies, dynamics
+from ..operators import segments, model, rigid_bodies, dynamics, sensors
 
 from ..core import PluginManager
 from ..core.config import OPERATOR_PREFIX
@@ -146,7 +146,9 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
         hide_mesh = cls.show_connected.get(context.scene)
 
         # Get selected meshes
-        selected = [i for i in bpy.context.selected_objects if i.type == 'MESH']
+        selected = [i for i in bpy.context.selected_objects if i.type == cls.blender_type]
+
+        text = cls.text
 
         if len(selected) == 1:
             mesh = selected[0]
@@ -154,15 +156,13 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
                 text = mesh.name + " --> " + mesh.parent_bone
             elif not mesh.parent_bone and not hide_mesh == 'connected':
                 text = mesh.name
-            else:
-                text = 'Select Mesh'
 
-        layout.menu(cls.bl_idname, text=cls.text)
+        layout.menu(cls.bl_idname, text=text)
         row = layout.row(align=True)
         cls.show_connected.prop(context.scene, row,  expand=True, icon_only=True)
         row.separator()
 
-        cls.quick_search.prop_search(bpy.context.scene, layout,
+        cls.quick_search.prop_search(bpy.context.scene, row,
                                      bpy.data,'objects', icon='VIEWZOOM', text='')
         #row.prop_search(bpy.context.scene.RobotEditor, cls.quick_search, bpy.data, 'objects',
         #                icon='VIEWZOOM', text='')
@@ -190,12 +190,12 @@ class CameraSensorMenu(ConnectedObjectsMenu):
     bl_idname = OPERATOR_PREFIX + "camera_sensor_menu"
     bl_label = "Select Camera Sensor"
 
-    obj_tag = global_properties.mesh_type # can be set to scene property
+    obj_tag = global_properties.sensor_type # can be set to scene property
     show_connected = global_properties.list_meshes # set to scene property
-    blender_type = "CAMERA"
+    blender_type = PluginManager.blenderObjectTypes.camera
     quick_search = global_properties.mesh_name
-    operator_property = "geometry_name"
-    operator = rigid_bodies.SelectGeometry
+    operator_property = "object_name"
+    operator = sensors.SelectSensor
 
 @PluginManager.register_class
 class ModelMenu(bpy.types.Menu, BaseMenu):

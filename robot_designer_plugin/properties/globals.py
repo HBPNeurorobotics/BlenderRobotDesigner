@@ -48,6 +48,11 @@ from ..core.logfile import operator_logger, LogFunction
 from ..operators.segments import SelectSegment, UpdateSegments
 from ..core.property import PropertyGroupHandlerBase, PropertyHandler
 
+class RDSelectedObjects(PropertyGroupHandlerBase):
+
+    def __init__(self):
+
+        self.visible = PropertyHandler()
 
 class RDGlobals(PropertyGroupHandlerBase):
     """
@@ -91,22 +96,24 @@ class RDGlobals(PropertyGroupHandlerBase):
             pass  # This happens when the search title is selected
 
     @staticmethod
-    def displayMeshes(self, context):
+    def display_geometries(self, context):
         """
         Hides/Shows mesh objects in dependence of the respective Global property
         """
 
-        hide_mesh = global_properties.display_mesh_selection.get(context.scene)
-        meshNames = [obj.name for obj in bpy.data.objects if
+        hide_geometry = global_properties.display_mesh_selection.get(context.scene)
+        geometry_name = [obj.name for obj in bpy.data.objects if
                      not obj.parent_bone is None and
                      obj.type == 'MESH']
-        for mesh in meshNames:
+        for mesh in geometry_name:
             obj = bpy.data.objects[mesh]
-            if hide_mesh == 'all':
+            if hide_geometry == 'all':
                 obj.hide = False
-            elif hide_mesh == 'collision' and obj.RobotEditor.tag == 'COLLISION':
+            elif hide_geometry == 'collision' and obj.RobotEditor.tag == 'COLLISION':
                 obj.hide = False
-            elif hide_mesh == 'visual' and obj.RobotEditor.tag == 'DEFAULT':
+            elif hide_geometry == 'visual' and obj.RobotEditor.tag == 'DEFAULT':
+                obj.hide = False
+            elif hide_geometry == 'none':
                 obj.hide = False
             else:
                 obj.hide = True
@@ -125,6 +132,9 @@ class RDGlobals(PropertyGroupHandlerBase):
         # Holds the name of the currently selected physics frame (Empty object)
         self.physics_frame_name = PropertyHandler(StringProperty())
 
+        # Holds the name of the currently selected physics frame (Empty object)
+        self.camera_sensor_name = PropertyHandler(StringProperty())
+
         # Used to realize the main tab in the GUI
         self.gui_tab = PropertyHandler(EnumProperty(
             items=[('armatures', 'Robot', 'Modify the Robot'),
@@ -139,8 +149,14 @@ class RDGlobals(PropertyGroupHandlerBase):
 
         # Holds the selection to operate on colission geometries OR visual geometries
         self.mesh_type = PropertyHandler(EnumProperty(
-            items=[('DEFAULT', 'Visual', 'Set visual meshes'),
-                   ('COLLISION', 'Collision', 'Set collision meshes')]
+            items=[('DEFAULT', 'Visual geometries', 'Edit visual geometries'),
+                   ('COLLISION', 'Collision geometries', 'Edit collision geometries')]
+        ))
+
+        self.sensor_type = PropertyHandler(EnumProperty(
+            items=[('CAMERA_SENSOR','Cameras', 'Edit camera sensors'),
+                   ('LASER_SENSOR', 'Laser scanners', 'Edit laser scanners')]
+                   # ('POSITION', 'Position sensors', 'Edit position sensors')]
         ))
 
         # Holds the selection to list connected or unassigned meshes in dropdown menus
@@ -152,13 +168,14 @@ class RDGlobals(PropertyGroupHandlerBase):
 
         # Holds the selection of wheter do hide/display connected/unassigned meshes in the 3D viewport
         self.display_mesh_selection = PropertyHandler(EnumProperty(
-            items=[('all', 'Show All connected',
-                    'Show all mesh objects in viewport'),
-                   ('collision', 'Show collision models',
+            items=[('all', 'All',
+                    'Show all objects in viewport'),
+                   ('collision', 'Collision',
                     'Show only connected collision models'),
-                   ('visual', 'Show visual models',
-                    'Show only connected visual models')],
-            update=self.displayMeshes))
+                   ('visual', 'Visual',
+                    'Show only connected visual models'),
+                   ('none', "None", "Show no connected model")],
+            update=self.display_geometries))
 
         # Holds the selection to list connected or unassigned segments in dropdown menus
         self.list_segments = PropertyHandler(EnumProperty(

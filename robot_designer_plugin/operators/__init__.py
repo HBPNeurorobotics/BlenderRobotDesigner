@@ -34,7 +34,8 @@
 #
 # ######
 
-from . import api, helpers, collision, dynamics, file, gui, model, rigid_bodies, segments, soft_bodies, mesh_generation
+from . import api, helpers, collision, dynamics, file, gui, model, rigid_bodies, segments, soft_bodies, \
+    mesh_generation, sensors
 
 from importlib import reload
 reload(api)
@@ -48,4 +49,4 @@ reload(rigid_bodies)
 reload(segments)
 reload(soft_bodies)
 reload(mesh_generation)
-
+reload(sensors)

@@ -43,7 +43,7 @@ from .model import check_armature
 
 from . import menus
 from ..operators import rigid_bodies, soft_bodies, collision, mesh_generation
-from .helpers import drawInfoBox, info_list, getSingleSegment, ConnectGeometryBos, DisconnectGeometryBox, \
+from .helpers import drawInfoBox, info_list, getSingleSegment, ConnectGeometryBox, DisconnectGeometryBox, \
     CollisionBox, DeformableBox, MeshGenerationBox, create_segment_selector
 from ..core.logfile import LogFunction
 from ..core.gui import InfoBox
@@ -74,14 +74,12 @@ def draw(layout, context):
     row.label("Show:")
     global_properties.display_mesh_selection.prop(context.scene, row, expand=True)
 
-    box = DisconnectGeometryBox.get(layout, context, "Disconnect meshes", icon="UNLINKED")
+    box = DisconnectGeometryBox.get(layout, context, "Detach Geometry", icon="UNLINKED")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
         column = row.column(align=True)
         menus.GeometriesMenu.putMenu(column, context)
-        print("test: ", menus.GeometriesMenu.bl_idname, menus.ConnectedObjectsMenu.bl_idname,
-              menus.GeometriesMenu.blender_type, menus.ConnectedObjectsMenu.blender_type)
         #create_geometry_selection(column, context)
 
         column = row.column(align=True)
@@ -97,7 +95,7 @@ def draw(layout, context):
         infoBox.draw_info()
 
 
-    box = ConnectGeometryBos.get(layout, context, "Connect geometry", icon="LINKED")
+    box = ConnectGeometryBox.get(layout, context, "Attach Geometry", icon="LINKED")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
@@ -110,7 +108,7 @@ def draw(layout, context):
                     text=single_segment.name if single_segment else "Select Segment")
         row2 = column.row(align=True)
 
-        global_properties.display_bones_selection.prop(context.scene, row2, expand=True, icon_only=True)
+        global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
         row2.separator()
         global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
                          icon='VIEWZOOM',

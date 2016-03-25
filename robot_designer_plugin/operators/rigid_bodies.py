@@ -59,11 +59,8 @@ from ..properties.globals import global_properties
 @PluginManager.register_class
 class SelectGeometry(RDOperator):
     """
-    :ref:`operator` for ...
-
-
-
-
+    :ref:`Operator <operator>` for selecting a geometry (:class:`bpy.types.Object` with `bpy.types.Mesh` data)
+    second to the selected model (Blender object with :class:`bpy.types.Armature` data)
     """
     bl_idname = config.OPERATOR_PREFIX + "selectmesh"
     bl_label = "Select Mesh"
@@ -84,7 +81,7 @@ class SelectGeometry(RDOperator):
             global_properties.mesh_name.set(context.scene, 'Search')
             return {'FINISHED'}
 
-        global_properties.mesh_name.set(context.scene, 'Search')
+        global_properties.mesh_name.set(context.scene, self.geometry_name)
 
         arm = context.active_object
 
@@ -102,10 +99,6 @@ class SelectGeometry(RDOperator):
 class AssignGeometry(RDOperator):
     """
     :ref:`operator` for assigning a geometry to a segment.
-
-
-
-
     """
     bl_idname = config.OPERATOR_PREFIX + "assignmesh"
     bl_label = "Assign selected mesh to active bone"

@@ -41,9 +41,11 @@ import mathutils
 
 # Blender imports
 import bpy
+from bpy.props import StringProperty
 
-from ..core import Condition
+from ..core import Condition, PluginManager
 
+from ..core import RDOperator
 
 def _vec_roll_to_mat3(vec, roll):
     """
@@ -172,5 +174,55 @@ class NotEditMode(Condition):
         else:
             return True, ""
 
+class SingleCameraSelected(Condition):
+    @staticmethod
+    def check():
+        """
+        :term:`condition` that assures that a :class:`bpy.types.Camera` associated object is selected.
+        """
+        selected = [i for i in bpy.context.selected_objects if i.type == PluginManager.blenderObjectTypes.camera]
+        return len(selected) == 1, "Single camera object must be selected."
 
 
+class SelectObjectBase(RDOperator):
+    """
+    Base class for :ref:`operators <operator>` for selecting an object (:class:`bpy.types.Object`)
+    second to the selected model (Blender object with :class:`bpy.types.Armature` data)
+    """
+
+    object_name = StringProperty()
+    object_data_type = 'MESH'
+
+    @classmethod
+    def run(cls, object_name=""):
+        return super().run(**cls.pass_keywords())
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+        mesh = bpy.data.objects[self.object_name]
+
+        arm = context.active_object
+
+        for obj in bpy.data.objects:
+            obj.select = False
+
+        mesh.select = True
+        arm.select = True
+
+        return {'FINISHED'}
+
+
+class AssignObjectBase(RDOperator):
+    """
+    Base class for :ref:`operators <operator>` for assigning an object to the currently selected
+    segment segment.
+    """
+
+    @classmethod
+    def run(cls):
+        return super().run(**cls.pass_keywords())
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+        return {'FINISHED'}

@@ -73,7 +73,9 @@ class RDObjects(bpy.types.PropertyGroup):
                    ('MARKER', 'Marker', 'Marker'),
                    ('PHYSICS_FRAME', 'Physics Frame', 'Physics Frame'),
                    ('ARMATURE', 'Armature', 'Armature'),
-                   ('COLLISION', 'Collision', 'Collision')]
+                   ('COLLISION', 'Collision', 'Collision'),
+                   ('CAMERA_SENSOR', 'Camera sensor', 'Camera sensor'),
+                   ('LASER_SENSOR','Laser sensor', 'Laser sensor')]
     )
 
     dynamics = PointerProperty(type=RDDynamics)

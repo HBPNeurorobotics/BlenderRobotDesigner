@@ -61,7 +61,7 @@ class InfoBox(object):
         """
         self.messages.append(message)
 
-    def draw_info(self, additional_messages=[]):
+    def draw_info(self, additional_messages=[], icon="INFO"):
         """
         Draws the info box onto the layout.
 
@@ -72,14 +72,16 @@ class InfoBox(object):
 
             column = self.layout.column(align=True)
             for text in set(messages):
-                column.label(text=text, icon='INFO')
+                column.label(text=text, icon=icon)
 
     @classmethod
     def draw_global_info(cls, layout):
-        if cls.global_message:
-            box = layout.box()
-            ib = InfoBox(layout)
-            ib.draw_info(additional_messages=cls.global_message)
+
+        layout.label("Debug:")
+        box = layout.box()
+
+        ib = InfoBox(box)
+        ib.draw_info(additional_messages=cls.global_message+["test"], icon="ERROR")
 
 
 class CollapsibleBase(object):

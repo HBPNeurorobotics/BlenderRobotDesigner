@@ -46,12 +46,9 @@ from ..properties.globals import global_properties
 class DisconnectGeometryBox(CollapsibleBase):
     property_name = "disconnect_geometry_box"
 
-@PluginManager.register_class
-class CameraSensorBox(CollapsibleBase):
-    property_name = "camera_sensor_box"
 
 @PluginManager.register_class
-class ConnectGeometryBos(CollapsibleBase):
+class ConnectGeometryBox(CollapsibleBase):
     property_name = "connect_geometry_box"
 
 
@@ -84,6 +81,17 @@ class ControllerBox(CollapsibleBase):
 class MeshGenerationBox(CollisionBox):
     property_name = "mesh_generation_box"
 
+@PluginManager.register_class
+class AttachSensorBox(CollapsibleBase):
+    property_name = "attach_sensor_box"
+
+@PluginManager.register_class
+class DetachSensorBox(CollapsibleBase):
+    property_name = "detach_sensor_box"
+
+@PluginManager.register_class
+class SensorPropertiesBox(CollapsibleBase):
+    property_name = "sensor_properties_box"
 
 info_list = []
 
@@ -109,6 +117,12 @@ def getSingleSegment(context):
             info_list.append("Multiple segments selected, some operators not available")
     return None
 
+def getSingleObject(context):
+    selected = [i for i in context.selected_objects if i.type != "ARMATURE"]
+    if len(selected)==1:
+        return selected[0]
+    else:
+        return None
 
 def drawInfoBox(layout, context, infos=[]):
     global info_list
