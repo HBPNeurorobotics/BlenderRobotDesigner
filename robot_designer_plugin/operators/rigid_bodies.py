@@ -62,8 +62,8 @@ class SelectGeometry(RDOperator):
     :ref:`Operator <operator>` for selecting a geometry (:class:`bpy.types.Object` with `bpy.types.Mesh` data)
     second to the selected model (Blender object with :class:`bpy.types.Armature` data)
     """
-    bl_idname = config.OPERATOR_PREFIX + "selectmesh"
-    bl_label = "Select Mesh"
+    bl_idname = config.OPERATOR_PREFIX + "select_geometry"
+    bl_label = "Select geometry"
 
     geometry_name = StringProperty()
 
@@ -100,8 +100,8 @@ class AssignGeometry(RDOperator):
     """
     :ref:`operator` for assigning a geometry to a segment.
     """
-    bl_idname = config.OPERATOR_PREFIX + "assignmesh"
-    bl_label = "Assign selected mesh to active bone"
+    bl_idname = config.OPERATOR_PREFIX + "assign_geometry"
+    bl_label = "Assign selected geometry to active segment"
 
     @classmethod
     def run(cls):
@@ -124,8 +124,8 @@ class RenameAllGeometries(RDOperator):
 
 
     """
-    bl_idname = config.OPERATOR_PREFIX + "renamemeshes"
-    bl_label = "Renames meshes after bones"
+    bl_idname = config.OPERATOR_PREFIX + "rename_geometries"
+    bl_label = "Renames geometries after segments"
 
     @classmethod
     def run(cls):
@@ -157,7 +157,7 @@ class DetachGeometry(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "unassignmesh"
-    bl_label = "Unassign selected mesh"
+    bl_label = "Detach selected geometry"
 
     @classmethod
     def run(cls):
@@ -186,7 +186,7 @@ class DetachAllGeometries(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "unassignallmeshes"
-    bl_label = "Unassign ALL meshes"
+    bl_label = "Detach all geometries"
 
     confirmation = BoolProperty(
         name="This disconnects all collision OR visual geometries from the model. Are you sure?")
@@ -259,7 +259,7 @@ class SetGeometryActive(RDOperator):
     :ref:`operator` for ...
     """
     bl_idname = config.OPERATOR_PREFIX + "setseletedmeshactiveobject"
-    bl_label = "Select geometry"
+    bl_label = "Make geometry active"
 
     @classmethod
     def run(cls):

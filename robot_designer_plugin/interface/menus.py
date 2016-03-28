@@ -196,6 +196,7 @@ class CameraSensorMenu(ConnectedObjectsMenu):
     quick_search = global_properties.mesh_name
     operator_property = "object_name"
     operator = sensors.SelectSensor
+    text = "Select sensor"
 
 @PluginManager.register_class
 class ModelMenu(bpy.types.Menu, BaseMenu):

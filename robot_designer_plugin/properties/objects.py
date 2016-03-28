@@ -38,10 +38,12 @@
 # Blender imports
 import bpy
 from bpy.props import FloatProperty, StringProperty, \
-    EnumProperty, FloatVectorProperty, PointerProperty
+    EnumProperty, FloatVectorProperty, PointerProperty, IntProperty
 
 # RobotDesigner imports
 from ..core import PluginManager
+
+
 # from .globals import global_properties
 
 @PluginManager.register_property_group()
@@ -61,6 +63,21 @@ class RDDynamics(bpy.types.PropertyGroup):
     inertiaTensor = FloatVectorProperty(name="Inertia Tensor", precision=10,
                                         step=0.1)
 
+
+@PluginManager.register_property_group()
+class RDCamera(bpy.types.PropertyGroup):
+    width = IntProperty(default=320, min=1)
+    height = IntProperty(default=240, min=1)
+    format = EnumProperty(items=[('L8', 'L8', 'L8'),
+                                 ('R8G8B8', 'R8G8B8', 'R8G8B8'),
+                                 ('B8G8R8', 'B8G8R8', 'B8G8R8'),
+                                 ('BAYER_RGGB8', 'BAYER_RGGB8', 'BAYER_RGGB8'),
+                                 ('BAYER_BGGR8', 'BAYER_BGGR8', 'BAYER_BGGR8'),
+                                 ('BAYER_GBRG8', 'BAYER_GBRG8', 'BAYER_GBRG8'),
+                                 ('BAYER_GRBG8', 'BAYER_GRBG8', 'BAYER_GRBG8')
+                                 ])
+
+
 @PluginManager.register_property_group(bpy.types.Object)
 class RDObjects(bpy.types.PropertyGroup):
     '''
@@ -69,13 +86,14 @@ class RDObjects(bpy.types.PropertyGroup):
     '''
     fileName = StringProperty(name="fileName")
     tag = EnumProperty(
-            items=[('DEFAULT', 'Default', 'Default'),
-                   ('MARKER', 'Marker', 'Marker'),
-                   ('PHYSICS_FRAME', 'Physics Frame', 'Physics Frame'),
-                   ('ARMATURE', 'Armature', 'Armature'),
-                   ('COLLISION', 'Collision', 'Collision'),
-                   ('CAMERA_SENSOR', 'Camera sensor', 'Camera sensor'),
-                   ('LASER_SENSOR','Laser sensor', 'Laser sensor')]
+        items=[('DEFAULT', 'Default', 'Default'),
+               ('MARKER', 'Marker', 'Marker'),
+               ('PHYSICS_FRAME', 'Physics Frame', 'Physics Frame'),
+               ('ARMATURE', 'Armature', 'Armature'),
+               ('COLLISION', 'Collision', 'Collision'),
+               ('CAMERA_SENSOR', 'Camera sensor', 'Camera sensor'),
+               ('LASER_SENSOR', 'Laser sensor', 'Laser sensor')]
     )
 
     dynamics = PointerProperty(type=RDDynamics)
+    camera = PointerProperty(type=RDCamera)

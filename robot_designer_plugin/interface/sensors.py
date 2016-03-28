@@ -120,15 +120,21 @@ def draw(layout, context):
             if mode == "CAMERA_SENSOR":
                 if sensor.RobotEditor.tag == 'CAMERA_SENSOR':
                     column = row.column(align=True)
-                    column.prop(sensor.data, 'angle_x')
+                    column.prop(sensor.data, 'angle_x', text = "Horizontal field of view")
                     column = row.column(align=True)
                     column.prop(sensor.data, 'angle_y')
+                    row = box.row()
+                    column = row.column(align=True)
+                    column.prop(sensor.RobotEditor.camera, 'width', text = 'width (px.)')
+                    column = row.column(align=True)
+                    column.prop(sensor.RobotEditor.camera, 'height', text="height (px.)")
                     row = box.row()
                     column = row.column(align=True)
                     column.prop(sensor.data, 'clip_start')
                     column = row.column(align=True)
                     column.prop(sensor.data, 'clip_end')
-                    pass
+                    row = box.row()
+                    row.prop(sensor.RobotEditor.camera, 'format', text="Format")
                 else:
                     infoBox.add_message('Selected object is no camera sensor')
                     if sensor.type == 'CAMERA':
@@ -139,7 +145,8 @@ def draw(layout, context):
                 else:
                     infoBox.add_message('Selected object is no camera sensor')
                     if sensor.type == 'CAMERA':
-                        sensors.ConvertCameraToSensor.place_button(row,"Convert to laser scanner sensor",infoBox).sensor_type = "LASER_SENSOR"
+                        #sensors.ConvertCameraToSensor.place_button(row,"Convert to laser scanner sensor",infoBox).sensor_type = "LASER_SENSOR"
+                        pass
         else:
             infoBox.add_message('No sensor (or more than one) selected')
 
