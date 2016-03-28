@@ -107,7 +107,7 @@ class DetachCameraSensor(RDOperator):
     """
     :term:`Operator <operator>` for detaching a single camera sensor from a :term:`segment`.
     """
-    bl_idname = config.OPERATOR_PREFIX + "unassignmesh"
+    bl_idname = config.OPERATOR_PREFIX + "detach_camera_sensor"
     bl_label = "Unassign selected mesh"
 
     @classmethod
@@ -131,7 +131,7 @@ class ConvertCameraToSensor(RDOperator):
     """
     :term:`Operator <operator>` for detaching a single camera sensor from a :term:`segment`.
     """
-    bl_idname = config.OPERATOR_PREFIX + "unassignmesh"
+    bl_idname = config.OPERATOR_PREFIX + "convert_camera_to_sensor"
     bl_label = "Unassign selected mesh"
 
     sensor_type = StringProperty(default="CAMERA_SENSOR")
