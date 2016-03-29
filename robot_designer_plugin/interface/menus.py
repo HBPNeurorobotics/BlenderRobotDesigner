@@ -55,6 +55,7 @@ from ..core.config import OPERATOR_PREFIX
 from ..core.operators import RDOperator
 from ..core.logfile import gui_logger
 from ..properties.globals import global_properties
+from ..core.constants import StringConstants
 
 class BaseMenu(object):
 
@@ -143,7 +144,7 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
     @classmethod
     def putMenu(cls,layout, context, text=None, **kwargs):
 
-        hide_mesh = cls.show_connected.get(context.scene)
+        hide_obj = cls.show_connected.get(context.scene)
 
         # Get selected meshes
         selected = [i for i in bpy.context.selected_objects if i.type == cls.blender_type]
@@ -151,11 +152,11 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
         text = cls.text
 
         if len(selected) == 1:
-            mesh = selected[0]
-            if mesh.parent_bone and not hide_mesh == 'disconnected':
-                text = mesh.name + " --> " + mesh.parent_bone
-            elif not mesh.parent_bone and not hide_mesh == 'connected':
-                text = mesh.name
+            object = selected[0]
+            if object.parent_bone and not hide_obj == 'disconnected':
+                text = object.name + " --> " + object.parent_bone
+            elif not object.parent_bone and not hide_obj == 'connected':
+                text = object.name
 
         layout.menu(cls.bl_idname, text=text)
         row = layout.row(align=True)
@@ -177,7 +178,7 @@ class GeometriesMenu(ConnectedObjectsMenu):
 
     obj_tag = global_properties.mesh_type
     show_connected = global_properties.list_meshes # set to scene property
-    blender_type = "MESH"
+    blender_type = StringConstants.mesh
     quick_search = global_properties.mesh_name
     operator_property = "geometry_name"
     operator = rigid_bodies.SelectGeometry
@@ -192,11 +193,27 @@ class CameraSensorMenu(ConnectedObjectsMenu):
 
     obj_tag = global_properties.sensor_type # can be set to scene property
     show_connected = global_properties.list_meshes # set to scene property
-    blender_type = PluginManager.blenderObjectTypes.camera
+    blender_type = StringConstants.camera
     quick_search = global_properties.mesh_name
     operator_property = "object_name"
     operator = sensors.SelectSensor
     text = "Select sensor"
+
+@PluginManager.register_class
+class MassObjectMenu(ConnectedObjectsMenu):
+    """
+    :ref:`menu` for selecting :term:`mass entities` while displaying connections to robot segments in the scene.
+    """
+    bl_idname = OPERATOR_PREFIX + "mass_object_menu"
+    bl_label = "Select mass object"
+
+    obj_tag = global_properties.physics_type
+    show_connected = global_properties.list_meshes
+    blender_type = StringConstants.empty
+    quick_search = global_properties.physics_frame_name
+    operator_property = "frameName"
+    operator = dynamics.SelectPhysical
+    text = "Select mass object"
 
 @PluginManager.register_class
 class ModelMenu(bpy.types.Menu, BaseMenu):
@@ -320,24 +337,24 @@ class AssignParentMenu(bpy.types.Menu, BaseMenu):
             layout.operator(segments.AssignParentSegment.bl_idname, text=text).parent_name = bone
 
 
-# dynamic menu to select physics frame
-@PluginManager.register_class
-class MassObjectMenu(bpy.types.Menu, BaseMenu):
-    """
-    :ref:`menu` for selecting physical instances.
-    """
-    bl_idname = OPERATOR_PREFIX + "physicsframemenu"
-    bl_label = "SelectPhysics Frame"
-
-    @RDOperator.OperatorLogger
-    def draw(self, context):
-        layout = self.layout
-        mass_object_names = [f.name for f in bpy.data.objects if f.RobotEditor.tag == 'PHYSICS_FRAME']
-
-        for frame in sorted(mass_object_names, key=str.lower):
-            if bpy.data.objects[frame].parent_bone:
-                text = frame + " --> " + bpy.data.objects[frame].parent_bone
-            else:
-                text = frame
-
-            layout.operator(dynamics.SelectPhysical.bl_idname, text=text).frameName = frame
+# # dynamic menu to select physics frame
+# @PluginManager.register_class
+# class MassObjectMenu(bpy.types.Menu, BaseMenu):
+#     """
+#     :ref:`menu` for selecting physical instances.
+#     """
+#     bl_idname = OPERATOR_PREFIX + "physicsframemenu"
+#     bl_label = "SelectPhysics Frame"
+#
+#     @RDOperator.OperatorLogger
+#     def draw(self, context):
+#         layout = self.layout
+#         mass_object_names = [f.name for f in bpy.data.objects if f.RobotEditor.tag == 'PHYSICS_FRAME']
+#
+#         for frame in sorted(mass_object_names, key=str.lower):
+#             if bpy.data.objects[frame].parent_bone:
+#                 text = frame + " --> " + bpy.data.objects[frame].parent_bone
+#             else:
+#                 text = frame
+#
+#             layout.operator(dynamics.SelectPhysical.bl_idname, text=text).frameName = frame

@@ -50,7 +50,7 @@ from bpy.props import StringProperty, BoolProperty
 # ######
 # RobotDesigner imports
 from ..core import config, PluginManager, Condition, RDOperator
-from .helpers import ModelSelected, SingleMeshSelected, ObjectMode
+from .helpers import ModelSelected, SingleMeshSelected, ObjectMode, SingleSegmentSelected
 
 from ..properties.globals import global_properties
 
@@ -94,7 +94,7 @@ class SelectGeometry(RDOperator):
         return {'FINISHED'}
 
 
-@RDOperator.Preconditions(ModelSelected, SingleMeshSelected)
+@RDOperator.Preconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
 @PluginManager.register_class
 class AssignGeometry(RDOperator):
     """
@@ -108,7 +108,7 @@ class AssignGeometry(RDOperator):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
-    @RDOperator.Postconditions(ModelSelected)
+    @RDOperator.Postconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
     def execute(self, context):
         bpy.ops.object.parent_set(type='BONE', keep_transform=True)
         return {'FINISHED'}

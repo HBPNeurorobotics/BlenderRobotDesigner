@@ -44,8 +44,9 @@ import bpy
 from bpy.props import StringProperty
 
 from ..core import Condition, PluginManager
-
+from ..core.constants import StringConstants
 from ..core import RDOperator
+
 
 def _vec_roll_to_mat3(vec, roll):
     """
@@ -174,14 +175,26 @@ class NotEditMode(Condition):
         else:
             return True, ""
 
+
 class SingleCameraSelected(Condition):
     @staticmethod
     def check():
         """
         :term:`condition` that assures that a :class:`bpy.types.Camera` associated object is selected.
         """
-        selected = [i for i in bpy.context.selected_objects if i.type == PluginManager.blenderObjectTypes.camera]
+        selected = [i for i in bpy.context.selected_objects if i.type == StringConstants.camera]
         return len(selected) == 1, "Single camera object must be selected."
+
+
+class SingleMassObjectSelected(Condition):
+    @staticmethod
+    def check():
+        """
+        :term:`condition` that assures that a :class:`bpy.types.Camera` associated object is selected.
+        """
+        selected = [i for i in bpy.context.selected_objects if
+                    i.type == StringConstants.empty and i.RobotEditor.tag == "PHYSICS_FRAME"]
+        return len(selected) == 1, "Single mass object must be selected."
 
 
 class SelectObjectBase(RDOperator):

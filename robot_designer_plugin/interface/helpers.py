@@ -93,6 +93,11 @@ class DetachSensorBox(CollapsibleBase):
 class SensorPropertiesBox(CollapsibleBase):
     property_name = "sensor_properties_box"
 
+
+@PluginManager.register_class
+class DebugBox(CollapsibleBase):
+    property_name = "debug_box"
+
 info_list = []
 
 

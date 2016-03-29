@@ -53,8 +53,8 @@ from bpy.props import StringProperty
 
 # ######
 # RobotDesigner imports
-from ..core import config, PluginManager, RDOperator, Condition
-from .helpers import ModelSelected
+from ..core import config, PluginManager, RDOperator
+from .helpers import ModelSelected, SingleSegmentSelected, SingleMassObjectSelected
 
 from ..properties.globals import global_properties
 
@@ -136,7 +136,7 @@ class SelectPhysical(RDOperator):
 
 
 # operator to assign selected physics frame to active bone
-@RDOperator.Preconditions(ModelSelected)
+@RDOperator.Preconditions(ModelSelected, SingleSegmentSelected, SingleMassObjectSelected)
 @PluginManager.register_class
 class AssignPhysical(RDOperator):
     """
@@ -154,7 +154,7 @@ class AssignPhysical(RDOperator):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
-    @RDOperator.Postconditions(ModelSelected)
+    @RDOperator.Postconditions(ModelSelected, SingleSegmentSelected, SingleMassObjectSelected)
     def execute(self, context):
         bpy.ops.object.parent_set(type='BONE')
 
@@ -183,7 +183,7 @@ class AssignPhysical(RDOperator):
 
 
 # operator to unassign selected physics frame
-@RDOperator.Preconditions(ModelSelected)
+@RDOperator.Preconditions(ModelSelected, SingleMassObjectSelected)
 @PluginManager.register_class
 class DetachPhysical(RDOperator):
     """
@@ -203,10 +203,13 @@ class DetachPhysical(RDOperator):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
-    @RDOperator.Postconditions(ModelSelected)  # todo condition for physicframe
+    @RDOperator.Postconditions(ModelSelected, SingleMassObjectSelected)
     def execute(self, context):
-        currentFrame = global_properties.physics_frame_name.get(context.scene)
-        physNode_global = currentFrame.matrix_world
-        currentFrame.parent = None
-        currentFrame.matrix_world = physNode_global
+        if self.frameName:
+            current_frame = context.scene.objects[self.frameName]
+        else:
+            current_frame = context.scene.objects[global_properties.physics_frame_name.get(context.scene)]
+        physNode_global = current_frame.matrix_world
+        current_frame.parent = None
+        current_frame.matrix_world = physNode_global
         return {'FINISHED'}
