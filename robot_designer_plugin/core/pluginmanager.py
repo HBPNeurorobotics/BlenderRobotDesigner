@@ -48,12 +48,15 @@ from .logfile import core_logger, log_callstack
 from .operators import RDOperator
 from .gui import CollapsibleBase
 
+from collections import namedtuple
+BlenderObjectTypes = namedtuple("BlenderObjectTypes", "mesh, camera, empty, armature, bone")
 
 class PluginManager(object):
     """
     This class handles the automatic registration of classes to Blender.
     """
 
+    blenderObjectTypes = BlenderObjectTypes("MESH", "CAMERA", "EMPTY", "ARMATURE", "BONE")
     _classes_to_register = []
     _registered_classes = []
     _property_groups_to_register = []

@@ -6,7 +6,7 @@ SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
 PAPER         =
 BUILDDIR      = build
-GHBUILDDIR      = gh-pages/html
+GHBUILDDIR      = gh-pages
 
 # User-friendly check for sphinx-build
 ifeq ($(shell which $(SPHINXBUILD) >/dev/null 2>&1; echo $$?), 1)
@@ -53,11 +53,10 @@ clean:
 	rm -rf $(BUILDDIR)/*
 	rm -rf $(GHBUILDDIR)/html/*
 
-github:
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(GHBUILDDIR)
-	touch $(GHBUILDDIR)/.nojekyll
+gh:
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(GHBUILDDIR)/html
 	@echo
-	@echo "Build finished. The HTML pages for GitHub pages are in $(GHBUILDDIR)."
+	@echo "Build finished. The HTML pages are in $(GHBUILDDIR)/html."
 
 html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html

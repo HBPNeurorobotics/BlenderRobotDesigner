@@ -51,7 +51,6 @@ from bpy.props import EnumProperty
 from ..core import config, PluginManager
 from ..core.gui import InfoBox
 from ..properties.globals import global_properties
-from .helpers import DebugBox
 
 @PluginManager.register_class
 class UserInterface(bpy.types.Panel):
@@ -103,14 +102,8 @@ class UserInterface(bpy.types.Panel):
                 row.operator("object.mode_set", text="Pose Mode").mode = 'POSE'
 
 
-        layout.separator()
         row = layout.row(align=True)
-
-        if InfoBox.global_messages:
-            box = DebugBox.get(row, context, "Debug")
-            if box:
-                box.label("press <F8> to clear", icon="INFO")
-                InfoBox.draw_global_info(box)
+        InfoBox.draw_global_info(row)
 
 
     def draw_header(self, context):

@@ -50,15 +50,14 @@ It consists of submodules for:
 5. automated plugin setup (registration to blender) (:mod:`robot_designer_plugin.core.pluginmanager`)
 '''
 
-from . import constants, config, operators, conditions, logfile, pluginmanager, resources, gui, property
+from . import config, operators, conditions, logfile, pluginmanager, resources, gui, property
 from importlib import reload
 
-reload(constants)
-reload(gui)
 reload(config)
 reload(conditions)
 reload(logfile)
 reload(operators)
+reload(gui)
 reload(pluginmanager)  # Should be last imported .. depends on gui and operators
 reload(property)  # Has to be imported after pluginmanager
 reload(resources)

@@ -105,7 +105,7 @@ def LogFunction(func):
         except Exception as e:
             gui_logger.error("Draw function in %s module threw an exception:\n" + EXCEPTION_MESSAGE,
                              func.__module__, type(e).__name__, e, log_callstack(), log_callstack(back_trace=True))
-            InfoBox.global_messages.append(e)
+            InfoBox.global_message.append(e)
 
     return func_logger
 
@@ -140,25 +140,5 @@ def log_callstack(back_trace=False):
             else:
                 message += BACKTRACE_MESSAGE_STACK_CODE.format(func, file, line, code, last_call)
         last_call = code
-
-    return message
-
-
-def log_callstack_last(back_trace=False):
-    if not back_trace:
-        stack = traceback.extract_stack()[:-1]
-    else:
-        stack = traceback.extract_tb(sys.exc_info()[2])
-
-    message = "empty"
-
-    print("Parsing stack")
-
-    for path, line, func, code in stack:
-        print(path,func)
-        if func not in BACKTRACE_FILTER_FUNC:
-            if func not in BACKTRACE_FILTER_HIDE_CODE:
-                file = os.path.split(path)[-1]
-                message = "%s:%s" % (file, line)
 
     return message

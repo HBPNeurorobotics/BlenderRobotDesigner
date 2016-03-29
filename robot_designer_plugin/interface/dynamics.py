@@ -43,9 +43,6 @@ from ..operators import dynamics
 from . import menus
 from .model import check_armature
 from ..properties.globals import global_properties
-from ..core.gui import InfoBox
-from .helpers import getSingleSegment, getSingleObject
-
 
 def draw(layout, context):
     """
@@ -56,42 +53,30 @@ def draw(layout, context):
     """
     if not check_armature(layout, context):
         return
+    layout.operator(dynamics.CreatePhysical.bl_idname)
+    layout.label("Select Physics Frame:")
+    topRow = layout.column(align=False)
+    frameMenuText = ""
+    frame_name = global_properties.physics_frame_name.get(context.scene)
+    if context.active_bone and frame_name:
+        if frame_name in bpy.data.objects:
+            frame = bpy.data.objects[frame_name]
 
-    box = layout.box()
-    box.label("Select mass object")
-    infoBox = InfoBox(box)
-    row = box.row()
-    column = row.column(align=True)
+            if frame.parent_bone:
+                frameMenuText = frame_name + " --> " + frame.parent_bone
+            else:
+                frameMenuText = frame_name
 
-    single_segment = getSingleSegment(context)
+    topRow.menu(menus.MassObjectMenu.bl_idname, text=frameMenuText)
+    topRow.operator(dynamics.DetachPhysical.bl_idname)
 
-    column.menu(menus.SegmentsGeometriesMenu.bl_idname,
-                text=single_segment.name if single_segment else "Select Segment")
-
-    row2 = column.row(align=True)
-
-    global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
-    row2.separator()
-    global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
-                                               icon='VIEWZOOM',
-                                               text='')
-
-    column = row.column(align=True)
-    menus.MassObjectMenu.putMenu(column, context)
-    # create_geometry_selection(column, context)
-    row = box.column(align=True)
-    dynamics.AssignPhysical.place_button(row,infoBox=infoBox)
-    dynamics.DetachPhysical.place_button(row,infoBox=infoBox)
-    dynamics.CreatePhysical.place_button(row,infoBox=infoBox)
-
-    obj = getSingleObject(context)
-    if obj and obj.RobotEditor.tag=="PHYSICS_FRAME":
-        frame_name = global_properties.physics_frame_name.get(context.scene)
-        box = layout.box()
-        box.label("Properties", icon="MODIFIER")
+    if frame_name:
         frame = bpy.data.objects[frame_name]
-        box.prop(frame.RobotEditor.dynamics, "mass")
-        box.separator()
-        box.prop(frame.RobotEditor.dynamics, "inertiaTensor")
+        layout.prop(frame.RobotEditor.dynamics, "mass")
+        layout.separator()
+        layout.prop(frame.RobotEditor.dynamics, "inertiaTensor")
 
-    infoBox.draw_info()
+    layout.label("Select Bone:")
+    lower_row = layout.column(align=False)
+    lower_row.menu(menus.SegmentsMenu.bl_idname, text=context.active_bone.name)
+    lower_row.operator(dynamics.AssignPhysical.bl_idname)

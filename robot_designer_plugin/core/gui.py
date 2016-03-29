@@ -1,13 +1,10 @@
-# #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
+# # This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
 # in the Human Brain Project (HBP).
 # It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
 # developed at the Karlsruhe Institute of Technology in the
 # High Performance Humanoid Technologies Laboratory (H2T).
-# #####
-
-# ##### BEGIN GPL LICENSE BLOCK #####
-#
+# 
+# #
 #  This program is free software; you can redistribute it and/or
 #  modify it under the terms of the GNU General Public License
 #  as published by the Free Software Foundation; either version 2
@@ -22,22 +19,17 @@
 #  along with this program; if not, write to the Free Software Foundation,
 #  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
-# ##### END GPL LICENSE BLOCK #####
-
-# #####
-#
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
+# 
+# #
+# Copyright (c)
 #
 # Changes:
 #
 #   2016-01-15: Stefan Ulbrich (FZI), First version of the plugin framework core
 #
-# ######
 """
 This submodule provides helper classes for creating blender guis.
 """
-
-from .constants import StringConstants
 
 
 class InfoBox(object):
@@ -48,7 +40,7 @@ class InfoBox(object):
     See :ref:`gui_develpment` for an example.
     """
 
-    global_messages = []
+    global_message=[]
 
     def __init__(self, layout):
         """
@@ -69,7 +61,7 @@ class InfoBox(object):
         """
         self.messages.append(message)
 
-    def draw_info(self, additional_messages=[], icon=StringConstants.info):
+    def draw_info(self, additional_messages=[], icon="INFO"):
         """
         Draws the info box onto the layout.
 
@@ -85,9 +77,11 @@ class InfoBox(object):
     @classmethod
     def draw_global_info(cls, layout):
 
-        if cls.global_messages:
-            ib = InfoBox(layout)
-            ib.draw_info(additional_messages=cls.global_messages, icon=StringConstants.error)
+        layout.label("Debug:")
+        box = layout.box()
+
+        ib = InfoBox(box)
+        ib.draw_info(additional_messages=cls.global_message+["test"], icon="ERROR")
 
 
 class CollapsibleBase(object):
@@ -110,7 +104,7 @@ class CollapsibleBase(object):
     """
 
     @classmethod
-    def get(cls, layout, context, label, icon=StringConstants.none):
+    def get(cls, layout, context, label, icon='NONE'):
         """
         Create a collapsible box element and adds it to the gui element
 
@@ -123,8 +117,7 @@ class CollapsibleBase(object):
         box = layout.box()
         row = box.row()
         row.prop(context.scene, cls.property_name,
-                 icon=StringConstants.tria_down if getattr(context.scene,
-                                                           cls.property_name) else StringConstants.tria_right,
+                 icon="TRIA_DOWN" if getattr(context.scene, cls.property_name) else "TRIA_RIGHT",
                  icon_only=True, emboss=False
                  )
         row.label(text=label, icon=icon)

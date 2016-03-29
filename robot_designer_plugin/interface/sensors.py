@@ -41,11 +41,10 @@ import bpy
 from .model import check_armature
 
 from . import menus
-from ..operators import sensors
+from ..operators import  sensors
 from .helpers import getSingleObject, getSingleSegment, info_list, AttachSensorBox, DetachSensorBox, SensorPropertiesBox
 from ..core.gui import InfoBox
 from ..properties.globals import global_properties
-
 
 def draw(layout, context):
     """
@@ -57,23 +56,18 @@ def draw(layout, context):
     if not check_armature(layout, context):
         return
 
-    if len([i for i in context.selected_objects if i.type == "MESH"]) == 0:
+    if len([i for i in context.selected_objects if i.type=="MESH"])==0:
         info_list.append("No mesh selected")
-    elif len(context.selected_objects) > 2:
+    elif len(context.selected_objects)>2:
         info_list.append("Too many objects selected")
 
     box = layout.box()
     row = box.row(align=True)
-    column = row.column(align=True)
-    column.label("Sensor type:")
-    column = row.column(align=True)
-    row = column.row(align=True)
-    global_properties.sensor_type.prop(context.scene, row, expand=True)
-    row = column.row(align=True)
+    row.label("Sensor type:")
+    global_properties.sensor_type.prop(context.scene,row, expand=True)
     mode = global_properties.sensor_type.get(context.scene)
-    sensors.CreateOpticalSensor.place_button(row, "Create new").sensor_type = mode
 
-    box = DetachSensorBox.get(layout, context, "Detach Sensor", icon="UNLINKED")
+    box = DetachSensorBox.get(layout,context, "Detach Sensor", icon="UNLINKED")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
@@ -91,6 +85,7 @@ def draw(layout, context):
         row = box.row()
         column = row.column(align=True)
 
+
         single_segment = getSingleSegment(context)
 
         column.menu(menus.SegmentsGeometriesMenu.bl_idname,
@@ -105,13 +100,13 @@ def draw(layout, context):
 
         column = row.column(align=True)
         menus.CameraSensorMenu.putMenu(column, context)
-        # create_geometry_selection(column, context)
+        #create_geometry_selection(column, context)
         row = box.column(align=True)
         sensors.AssignCameraSensor.place_button(row, infoBox=infoBox)
         box.separator()
         infoBox.draw_info()
 
-    box = SensorPropertiesBox.get(layout, context, "Sensor Properties")
+    box = SensorPropertiesBox.get(layout,context, "Sensor Properties")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
@@ -125,12 +120,12 @@ def draw(layout, context):
             if mode == "CAMERA_SENSOR":
                 if sensor.RobotEditor.tag == 'CAMERA_SENSOR':
                     column = row.column(align=True)
-                    column.prop(sensor.data, 'angle_x', text="Horizontal field of view")
+                    column.prop(sensor.data, 'angle_x', text = "Horizontal field of view")
                     column = row.column(align=True)
                     column.prop(sensor.data, 'angle_y')
                     row = box.row()
                     column = row.column(align=True)
-                    column.prop(sensor.RobotEditor.camera, 'width', text='width (px.)')
+                    column.prop(sensor.RobotEditor.camera, 'width', text = 'width (px.)')
                     column = row.column(align=True)
                     column.prop(sensor.RobotEditor.camera, 'height', text="height (px.)")
                     row = box.row()
@@ -143,15 +138,14 @@ def draw(layout, context):
                 else:
                     infoBox.add_message('Selected object is no camera sensor')
                     if sensor.type == 'CAMERA':
-                        sensors.ConvertCameraToSensor.place_button(row, "Convert to camera sensor",
-                                                                   infoBox).sensor_type = "CAMEAR_SENSOR"
+                        sensors.ConvertCameraToSensor.place_button(row,"Convert to camera sensor",infoBox).sensor_type = "CAMEAR_SENSOR"
             elif mode == "LASER_SENSOR":
                 if sensor.RobotEditor.tag == 'LASER_SENSOR':
                     pass
                 else:
                     infoBox.add_message('Selected object is no camera sensor')
                     if sensor.type == 'CAMERA':
-                        # sensors.ConvertCameraToSensor.place_button(row,"Convert to laser scanner sensor",infoBox).sensor_type = "LASER_SENSOR"
+                        #sensors.ConvertCameraToSensor.place_button(row,"Convert to laser scanner sensor",infoBox).sensor_type = "LASER_SENSOR"
                         pass
         else:
             infoBox.add_message('No sensor (or more than one) selected')
@@ -159,3 +153,4 @@ def draw(layout, context):
         row = box.row()
         column = row.column(align=True)
         infoBox.draw_info()
+
