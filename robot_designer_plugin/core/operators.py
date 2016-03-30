@@ -41,9 +41,10 @@ import inspect
 
 import bpy
 from .config import PLUGIN_PREFIX, EXCEPTION_MESSAGE
-from .logfile import log_callstack, operator_logger as logger
+from .logfile import log_callstack, log_callstack_last, operator_logger as logger
 from .conditions import Condition
 from .gui import InfoBox
+
 
 def get_registered_operator(operator):
     """
@@ -111,7 +112,6 @@ class RDOperator(bpy.types.Operator):
     A template is located in ``<RobotDesignerDirectory>/resources/templates/operator.py`` (where you should insert
     the path to the repository) that can be used to quickly write new operators.
     """
-
 
     _pre_conditions = {}
     """Dictionary set by the :meth:`PreConditions` decorator. Stores the :class:`.conditions.Condition` that are
@@ -200,7 +200,7 @@ class RDOperator(bpy.types.Operator):
                              kwargs,
                              ', '.join(bad_kwargs), type(e).__name__,
                              '\n\t\t'.join(e.__str__().split('\n')))
-            InfoBox.global_message.append(e)
+            InfoBox.global_messages.append(e.__str__())
             raise e
 
             # todo check for keyword arguments without default value
@@ -212,11 +212,11 @@ class RDOperator(bpy.types.Operator):
             check, messages = Condition.check_conditions(*cls._pre_conditions[cls])
             cls.logger.info("Conditions set for this operator: %s\n\t%s\n\t%s", cls._pre_conditions[cls], check,
                             messages)
-            InfoBox.global_message.append(e)
+            InfoBox.global_messages.append(e.__str__())
             raise e
         except Exception as e:
             cls.logger.error('THIS CODE SHOULD NEVER BE EXECUTED: %s\n%s\n', e, log_callstack(back_trace=True))
-            InfoBox.global_message.append(e)
+            InfoBox.global_messages.append(e.__str__())
             raise e
 
     @classmethod
@@ -278,7 +278,7 @@ class RDOperator(bpy.types.Operator):
                 return result
 
             except Exception as e:
-                InfoBox.global_message.append(e)
+                InfoBox.global_messages.append("%s: %s (%s)"  % (type(e).__name__, e.__str__(), log_callstack_last(back_trace=True)))
                 message = "Operator %s (%s) threw an exception:%s\n\t%s" % (id, class_name,
                                                                             type(e).__name__, e)
                 self.logger.error("Operator %s (%s) threw an exception:\n" + EXCEPTION_MESSAGE,
@@ -313,7 +313,7 @@ class RDOperator(bpy.types.Operator):
             cls._pre_conditions[cls] = conditions
 
             cls.__doc__ += "\n    **Preconditions**:\n\n%s" % "".join(
-                    '    * :class:`%s.%s`\n' % (i.__module__, i.__name__) for i in conditions)
+                '    * :class:`%s.%s`\n' % (i.__module__, i.__name__) for i in conditions)
 
             # RDOperator.logger.debug("Decorating %s, \nArgs: %s\n %s, %s, %s", cls, args, issubclass(cls, RDOperator),
             #                        issubclass(cls, bpy.types.Operator), [RDOperator is i for i in cls.mro()])
@@ -350,8 +350,12 @@ class RDOperator(bpy.types.Operator):
                 if not check:
                     self.report({'ERROR'}, messages)
                     logger.error('Postcondition not met: %s\\n%s\n%s', messages, log_callstack(), log_callstack(True))
+                    InfoBox.global_messages.append(messages)
                 return result
 
+            doc = "\n    **Postconditions**:\n\n%s" % "".join(
+                '    * :class:`%s.%s`\n' % (i.__module__, i.__name__) for i in conditions)
+            func.__doc__ = func.__doc__ + doc if func.__doc__ else doc
             return func_wrapper
 
         return decorator

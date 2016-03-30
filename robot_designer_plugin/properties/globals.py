@@ -159,6 +159,8 @@ class RDGlobals(PropertyGroupHandlerBase):
                    # ('POSITION', 'Position sensors', 'Edit position sensors')]
         ))
 
+        self.physics_type = PropertyHandler(EnumProperty(items=[('PHYSICS_FRAME', 'Mass object', 'Mass object')]))
+
         # Holds the selection to list connected or unassigned meshes in dropdown menus
         self.list_meshes = PropertyHandler(EnumProperty(
             items=[("all", 'List all', 'Show all meshes in menu', 'RESTRICT_VIEW_OFF', 1),

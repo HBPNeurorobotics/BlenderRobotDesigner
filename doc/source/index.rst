@@ -11,7 +11,6 @@ Contents
 .. toctree::
     :maxdepth: 1
 
-    about
     user_manual/index
     developer_manual/index
     planned

@@ -59,9 +59,9 @@ class RDDynamics(bpy.types.PropertyGroup):
     #    frame.location = position
 
     # CoM = FloatVectorProperty(name = "Center of Mass", update=updateCoM, subtype = 'XYZ')
-    mass = FloatProperty(name="Mass", precision=4, step=0.1)
+    mass = FloatProperty(name="Mass (kg)", precision=4, step=0.1, default=1.0)
     inertiaTensor = FloatVectorProperty(name="Inertia Tensor", precision=10,
-                                        step=0.1)
+                                        step=0.1, default=(1.0,1.0,1.0))
 
 
 @PluginManager.register_property_group()
@@ -76,6 +76,15 @@ class RDCamera(bpy.types.PropertyGroup):
                                  ('BAYER_GBRG8', 'BAYER_GBRG8', 'BAYER_GBRG8'),
                                  ('BAYER_GRBG8', 'BAYER_GRBG8', 'BAYER_GRBG8')
                                  ])
+
+
+@PluginManager.register_property_group()
+class RDLaser(bpy.types.PropertyGroup):
+    horizontal_samples = IntProperty(name="horizontal samples", default=320, min=1)
+    vertical_samples = IntProperty(name="vertical samples", default=240, min=1)
+    resolution = EnumProperty(items=[('8-Bit', '8-Bit', '8-Bit'),
+                                     ('16-Bit', '16-Bit', '16-Bit')
+                                     ])
 
 
 @PluginManager.register_property_group(bpy.types.Object)

@@ -49,7 +49,7 @@ from bpy.props import StringProperty, BoolProperty
 # ######
 # RobotDesigner imports
 from ..core import config, PluginManager, Condition, RDOperator
-from .helpers import ModelSelected, SingleMeshSelected, ObjectMode, SingleCameraSelected
+from .helpers import ModelSelected, SingleSegmentSelected, ObjectMode, SingleCameraSelected
 
 from ..properties.globals import global_properties
 
@@ -82,7 +82,7 @@ class SelectSensor(RDOperator):
         return {'FINISHED'}
 
 
-@RDOperator.Preconditions(ModelSelected, SingleCameraSelected)
+@RDOperator.Preconditions(ModelSelected, SingleCameraSelected, SingleSegmentSelected)
 @PluginManager.register_class
 class AssignCameraSensor(RDOperator):
     """
@@ -96,6 +96,7 @@ class AssignCameraSensor(RDOperator):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected, SingleCameraSelected, SingleSegmentSelected)
     def execute(self, context):
         bpy.ops.object.parent_set(type='BONE', keep_transform=True)
         return {'FINISHED'}
@@ -148,3 +149,42 @@ class ConvertCameraToSensor(RDOperator):
 
         selected.RobotEditor.tag = "CAMERA_SENSOR"
         return {'FINISHED'}
+
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class CreateOpticalSensor(RDOperator):
+    """
+    :term:`Operator <operator>` for creating a new :term:`optical sensor`.
+    """
+
+    bl_idname = config.OPERATOR_PREFIX + "create_optical_sensor"
+    bl_label = "Create optical sensor"
+
+    sensor_type = StringProperty(default="CAMERA_SENSOR")
+    sensor_name = StringProperty(name="Sensor Name")
+
+    @classmethod
+    def run(cls, sensor_type):
+        return super().run(**cls.pass_keywords())
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected, SingleCameraSelected)
+    def execute(self, context):
+        from .model import SelectModel
+
+        model_name = context.active_object.name
+
+        bpy.ops.object.camera_add()
+
+        context.active_object.RobotEditor.tag = self.sensor_type
+        context.active_object.name = self.sensor_name
+        sensor_name = context.active_object.name
+
+        SelectModel.run(model_name=model_name)
+        SelectSensor.run(object_name=sensor_name)
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
