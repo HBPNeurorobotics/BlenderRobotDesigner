@@ -272,10 +272,12 @@ class GenerateCollisionConvexHull(RDOperator):
             bm.to_mesh(collisionMesh)
             bm.free()
           
-            orig_object.name = target_name
+            exp_object.select = True
+            
+            exp_object.RobotEditor.tag = 'COLLISION'
+            self.logger.debug("Created mesh: %s", exp_object.name)
           
-            context.active_object.RobotEditor.tag = 'COLLISION'
-            self.logger.debug("Created mesh: %s", bpy.context.active_object.name)
+            orig_object.name = target_name
             
             bpy.ops.object.select_all(action='DESELECT')
             
