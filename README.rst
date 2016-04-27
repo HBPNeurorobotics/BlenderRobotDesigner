@@ -206,7 +206,9 @@ Features
     way, it can detect the used operating system and Blender version and
     link the files to the correct location as well as select the correct
     binaries for the platform. For more information, refer to the
-    documentation.
+    documentation. *Currently, the installer is disabled and in the process
+    of development for simplification and reflect new dependencies on external software.
+    Please refer to the manual installation in the user documentation for now.*
 
 -   **Robot modeling**
 
