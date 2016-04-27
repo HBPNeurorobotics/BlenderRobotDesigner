@@ -1,7 +1,7 @@
-.. _installation:
+.. _manual_install:
 
-Installation
-============
+Manual Installation
+===================
 
 Get a copy
 ----------
@@ -23,9 +23,16 @@ Installer
 
 Current
 ^^^^^^^
+Currently, the installer is disabled and in the process
+of development for simplification and reflect new dependencies on external software.
+Please refer to the :ref:`manual installation <manual_install>` for now.
 
 Planned installer
 ^^^^^^^^^^^^^^^^^
+
+For the next version of the installer, we investigate the usage of the ``venv`` environment shipped with
+Python starting from version 3.3, which will allow the installation of external (pure python) packages to
+a Blender.
 
 Manual install (Unix)
 ---------------------
@@ -41,7 +48,7 @@ Linux
    user@hbp ~$ cd projects
    user@hbp ~/projects$ cd BlenderRobotDesigner/
    user@hbp ~/projects/BlenderRobotDesigner$ mkdir -p ~/.config/blender/<installed_blender_version>/scripts/addons/
-   user@hbp ~/projects/BlenderRobotDesigner$ ln -s robot_designer_plugin ~/.config/blender/<installed_blender_version>/scripts/addons/
+   user@hbp ~/projects/BlenderRobotDesigner$ ln -s $PWD/robot_designer_plugin ~/.config/blender/<installed_blender_version>/scripts/addons/
 
 Mac Os X
 ^^^^^^^^
@@ -51,7 +58,7 @@ Mac Os X
    user@hbp ~$ cd projects
    user@hbp ~/projects$ cd BlenderRobotDesigner/
    user@hbp ~/projects/BlenderRobotDesigner$ mkdir -p ~/Library/Application\ Support/Blender/<installed_blender_version>/scripts/addons/
-   user@hbp ~/projects/BlenderRobotDesigner$ ln -s robot_designer_pluting ~/Library/Application\ Support/Blender/<installed_blender_version>/scripts/addons/
+   user@hbp ~/projects/BlenderRobotDesigner$ ln -s $PWD/robot_designer_pluting ~/Library/Application\ Support/Blender/<installed_blender_version>/scripts/addons/
 
 Windows
 ^^^^^^^

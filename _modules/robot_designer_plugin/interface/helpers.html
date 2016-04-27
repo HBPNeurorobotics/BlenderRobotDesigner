@@ -29,7 +29,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../../../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
     <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -136,12 +135,9 @@
 <div class="viewcode-block" id="DisconnectGeometryBox"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.helpers.html#robot_designer_plugin.interface.helpers.DisconnectGeometryBox">[docs]</a><span class="k">class</span> <span class="nc">DisconnectGeometryBox</span><span class="p">(</span><span class="n">CollapsibleBase</span><span class="p">):</span>
     <span class="n">property_name</span> <span class="o">=</span> <span class="s2">&quot;disconnect_geometry_box&quot;</span></div>
 
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="CameraSensorBox"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.helpers.html#robot_designer_plugin.interface.helpers.CameraSensorBox">[docs]</a><span class="k">class</span> <span class="nc">CameraSensorBox</span><span class="p">(</span><span class="n">CollapsibleBase</span><span class="p">):</span>
-    <span class="n">property_name</span> <span class="o">=</span> <span class="s2">&quot;camera_sensor_box&quot;</span></div>
 
 <span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="ConnectGeometryBos"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.helpers.html#robot_designer_plugin.interface.helpers.ConnectGeometryBos">[docs]</a><span class="k">class</span> <span class="nc">ConnectGeometryBos</span><span class="p">(</span><span class="n">CollapsibleBase</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectGeometryBox"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.helpers.html#robot_designer_plugin.interface.helpers.ConnectGeometryBox">[docs]</a><span class="k">class</span> <span class="nc">ConnectGeometryBox</span><span class="p">(</span><span class="n">CollapsibleBase</span><span class="p">):</span>
     <span class="n">property_name</span> <span class="o">=</span> <span class="s2">&quot;connect_geometry_box&quot;</span></div>
 
 
@@ -174,6 +170,22 @@
 <div class="viewcode-block" id="MeshGenerationBox"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.helpers.html#robot_designer_plugin.interface.helpers.MeshGenerationBox">[docs]</a><span class="k">class</span> <span class="nc">MeshGenerationBox</span><span class="p">(</span><span class="n">CollisionBox</span><span class="p">):</span>
     <span class="n">property_name</span> <span class="o">=</span> <span class="s2">&quot;mesh_generation_box&quot;</span></div>
 
+<span class="nd">@PluginManager.register_class</span>
+<div class="viewcode-block" id="AttachSensorBox"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.helpers.html#robot_designer_plugin.interface.helpers.AttachSensorBox">[docs]</a><span class="k">class</span> <span class="nc">AttachSensorBox</span><span class="p">(</span><span class="n">CollapsibleBase</span><span class="p">):</span>
+    <span class="n">property_name</span> <span class="o">=</span> <span class="s2">&quot;attach_sensor_box&quot;</span></div>
+
+<span class="nd">@PluginManager.register_class</span>
+<div class="viewcode-block" id="DetachSensorBox"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.helpers.html#robot_designer_plugin.interface.helpers.DetachSensorBox">[docs]</a><span class="k">class</span> <span class="nc">DetachSensorBox</span><span class="p">(</span><span class="n">CollapsibleBase</span><span class="p">):</span>
+    <span class="n">property_name</span> <span class="o">=</span> <span class="s2">&quot;detach_sensor_box&quot;</span></div>
+
+<span class="nd">@PluginManager.register_class</span>
+<div class="viewcode-block" id="SensorPropertiesBox"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.helpers.html#robot_designer_plugin.interface.helpers.SensorPropertiesBox">[docs]</a><span class="k">class</span> <span class="nc">SensorPropertiesBox</span><span class="p">(</span><span class="n">CollapsibleBase</span><span class="p">):</span>
+    <span class="n">property_name</span> <span class="o">=</span> <span class="s2">&quot;sensor_properties_box&quot;</span></div>
+
+
+<span class="nd">@PluginManager.register_class</span>
+<div class="viewcode-block" id="DebugBox"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.helpers.html#robot_designer_plugin.interface.helpers.DebugBox">[docs]</a><span class="k">class</span> <span class="nc">DebugBox</span><span class="p">(</span><span class="n">CollapsibleBase</span><span class="p">):</span>
+    <span class="n">property_name</span> <span class="o">=</span> <span class="s2">&quot;debug_box&quot;</span></div>
 
 <span class="n">info_list</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -199,6 +211,12 @@
             <span class="n">info_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Multiple segments selected, some operators not available&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">None</span></div>
 
+<div class="viewcode-block" id="getSingleObject"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.helpers.html#robot_designer_plugin.interface.helpers.getSingleObject">[docs]</a><span class="k">def</span> <span class="nf">getSingleObject</span><span class="p">(</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">!=</span> <span class="s2">&quot;ARMATURE&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span></div>
 
 <div class="viewcode-block" id="drawInfoBox"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.helpers.html#robot_designer_plugin.interface.helpers.drawInfoBox">[docs]</a><span class="k">def</span> <span class="nf">drawInfoBox</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">infos</span><span class="o">=</span><span class="p">[]):</span>
     <span class="k">global</span> <span class="n">info_list</span>

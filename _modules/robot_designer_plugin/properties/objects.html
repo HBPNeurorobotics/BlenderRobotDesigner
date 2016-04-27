@@ -29,7 +29,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../../../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
     <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -128,10 +127,12 @@
 <span class="c1"># Blender imports</span>
 <span class="kn">import</span> <span class="nn">bpy</span>
 <span class="kn">from</span> <span class="nn">bpy.props</span> <span class="kn">import</span> <span class="n">FloatProperty</span><span class="p">,</span> <span class="n">StringProperty</span><span class="p">,</span> \
-    <span class="n">EnumProperty</span><span class="p">,</span> <span class="n">FloatVectorProperty</span><span class="p">,</span> <span class="n">PointerProperty</span>
+    <span class="n">EnumProperty</span><span class="p">,</span> <span class="n">FloatVectorProperty</span><span class="p">,</span> <span class="n">PointerProperty</span><span class="p">,</span> <span class="n">IntProperty</span>
 
 <span class="c1"># RobotDesigner imports</span>
 <span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">PluginManager</span>
+
+
 <span class="c1"># from .globals import global_properties</span>
 
 <span class="nd">@PluginManager.register_property_group</span><span class="p">()</span>
@@ -147,9 +148,33 @@
     <span class="c1">#    frame.location = position</span>
 
     <span class="c1"># CoM = FloatVectorProperty(name = &quot;Center of Mass&quot;, update=updateCoM, subtype = &#39;XYZ&#39;)</span>
-    <span class="n">mass</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Mass&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">mass</span> <span class="o">=</span> <span class="n">FloatProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Mass (kg)&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
     <span class="n">inertiaTensor</span> <span class="o">=</span> <span class="n">FloatVectorProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Inertia Tensor&quot;</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-                                        <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span></div>
+                                        <span class="n">step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">))</span></div>
+
+
+<span class="nd">@PluginManager.register_property_group</span><span class="p">()</span>
+<div class="viewcode-block" id="RDCamera"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.objects.html#robot_designer_plugin.properties.objects.RDCamera">[docs]</a><span class="k">class</span> <span class="nc">RDCamera</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PropertyGroup</span><span class="p">):</span>
+    <span class="n">width</span> <span class="o">=</span> <span class="n">IntProperty</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">320</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">height</span> <span class="o">=</span> <span class="n">IntProperty</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">240</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">format</span> <span class="o">=</span> <span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;L8&#39;</span><span class="p">,</span> <span class="s1">&#39;L8&#39;</span><span class="p">,</span> <span class="s1">&#39;L8&#39;</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="s1">&#39;R8G8B8&#39;</span><span class="p">,</span> <span class="s1">&#39;R8G8B8&#39;</span><span class="p">,</span> <span class="s1">&#39;R8G8B8&#39;</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="s1">&#39;B8G8R8&#39;</span><span class="p">,</span> <span class="s1">&#39;B8G8R8&#39;</span><span class="p">,</span> <span class="s1">&#39;B8G8R8&#39;</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="s1">&#39;BAYER_RGGB8&#39;</span><span class="p">,</span> <span class="s1">&#39;BAYER_RGGB8&#39;</span><span class="p">,</span> <span class="s1">&#39;BAYER_RGGB8&#39;</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="s1">&#39;BAYER_BGGR8&#39;</span><span class="p">,</span> <span class="s1">&#39;BAYER_BGGR8&#39;</span><span class="p">,</span> <span class="s1">&#39;BAYER_BGGR8&#39;</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="s1">&#39;BAYER_GBRG8&#39;</span><span class="p">,</span> <span class="s1">&#39;BAYER_GBRG8&#39;</span><span class="p">,</span> <span class="s1">&#39;BAYER_GBRG8&#39;</span><span class="p">),</span>
+                                 <span class="p">(</span><span class="s1">&#39;BAYER_GRBG8&#39;</span><span class="p">,</span> <span class="s1">&#39;BAYER_GRBG8&#39;</span><span class="p">,</span> <span class="s1">&#39;BAYER_GRBG8&#39;</span><span class="p">)</span>
+                                 <span class="p">])</span></div>
+
+
+<span class="nd">@PluginManager.register_property_group</span><span class="p">()</span>
+<div class="viewcode-block" id="RDLaser"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.objects.html#robot_designer_plugin.properties.objects.RDLaser">[docs]</a><span class="k">class</span> <span class="nc">RDLaser</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PropertyGroup</span><span class="p">):</span>
+    <span class="n">horizontal_samples</span> <span class="o">=</span> <span class="n">IntProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;horizontal samples&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">320</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">vertical_samples</span> <span class="o">=</span> <span class="n">IntProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;vertical samples&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">240</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">resolution</span> <span class="o">=</span> <span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;8-Bit&#39;</span><span class="p">,</span> <span class="s1">&#39;8-Bit&#39;</span><span class="p">,</span> <span class="s1">&#39;8-Bit&#39;</span><span class="p">),</span>
+                                     <span class="p">(</span><span class="s1">&#39;16-Bit&#39;</span><span class="p">,</span> <span class="s1">&#39;16-Bit&#39;</span><span class="p">,</span> <span class="s1">&#39;16-Bit&#39;</span><span class="p">)</span>
+                                     <span class="p">])</span></div>
+
 
 <span class="nd">@PluginManager.register_property_group</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Object</span><span class="p">)</span>
 <div class="viewcode-block" id="RDObjects"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.objects.html#robot_designer_plugin.properties.objects.RDObjects">[docs]</a><span class="k">class</span> <span class="nc">RDObjects</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PropertyGroup</span><span class="p">):</span>
@@ -159,14 +184,17 @@
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">fileName</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;fileName&quot;</span><span class="p">)</span>
     <span class="n">tag</span> <span class="o">=</span> <span class="n">EnumProperty</span><span class="p">(</span>
-            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;DEFAULT&#39;</span><span class="p">,</span> <span class="s1">&#39;Default&#39;</span><span class="p">,</span> <span class="s1">&#39;Default&#39;</span><span class="p">),</span>
-                   <span class="p">(</span><span class="s1">&#39;MARKER&#39;</span><span class="p">,</span> <span class="s1">&#39;Marker&#39;</span><span class="p">,</span> <span class="s1">&#39;Marker&#39;</span><span class="p">),</span>
-                   <span class="p">(</span><span class="s1">&#39;PHYSICS_FRAME&#39;</span><span class="p">,</span> <span class="s1">&#39;Physics Frame&#39;</span><span class="p">,</span> <span class="s1">&#39;Physics Frame&#39;</span><span class="p">),</span>
-                   <span class="p">(</span><span class="s1">&#39;ARMATURE&#39;</span><span class="p">,</span> <span class="s1">&#39;Armature&#39;</span><span class="p">,</span> <span class="s1">&#39;Armature&#39;</span><span class="p">),</span>
-                   <span class="p">(</span><span class="s1">&#39;COLLISION&#39;</span><span class="p">,</span> <span class="s1">&#39;Collision&#39;</span><span class="p">,</span> <span class="s1">&#39;Collision&#39;</span><span class="p">)]</span>
+        <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;DEFAULT&#39;</span><span class="p">,</span> <span class="s1">&#39;Default&#39;</span><span class="p">,</span> <span class="s1">&#39;Default&#39;</span><span class="p">),</span>
+               <span class="p">(</span><span class="s1">&#39;MARKER&#39;</span><span class="p">,</span> <span class="s1">&#39;Marker&#39;</span><span class="p">,</span> <span class="s1">&#39;Marker&#39;</span><span class="p">),</span>
+               <span class="p">(</span><span class="s1">&#39;PHYSICS_FRAME&#39;</span><span class="p">,</span> <span class="s1">&#39;Physics Frame&#39;</span><span class="p">,</span> <span class="s1">&#39;Physics Frame&#39;</span><span class="p">),</span>
+               <span class="p">(</span><span class="s1">&#39;ARMATURE&#39;</span><span class="p">,</span> <span class="s1">&#39;Armature&#39;</span><span class="p">,</span> <span class="s1">&#39;Armature&#39;</span><span class="p">),</span>
+               <span class="p">(</span><span class="s1">&#39;COLLISION&#39;</span><span class="p">,</span> <span class="s1">&#39;Collision&#39;</span><span class="p">,</span> <span class="s1">&#39;Collision&#39;</span><span class="p">),</span>
+               <span class="p">(</span><span class="s1">&#39;CAMERA_SENSOR&#39;</span><span class="p">,</span> <span class="s1">&#39;Camera sensor&#39;</span><span class="p">,</span> <span class="s1">&#39;Camera sensor&#39;</span><span class="p">),</span>
+               <span class="p">(</span><span class="s1">&#39;LASER_SENSOR&#39;</span><span class="p">,</span> <span class="s1">&#39;Laser sensor&#39;</span><span class="p">,</span> <span class="s1">&#39;Laser sensor&#39;</span><span class="p">)]</span>
     <span class="p">)</span>
 
-    <span class="n">dynamics</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDynamics</span><span class="p">)</span></div>
+    <span class="n">dynamics</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDDynamics</span><span class="p">)</span>
+    <span class="n">camera</span> <span class="o">=</span> <span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">RDCamera</span><span class="p">)</span></div>
 </pre></div>
             </div>
 

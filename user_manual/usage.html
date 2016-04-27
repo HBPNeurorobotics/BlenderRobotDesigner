@@ -29,11 +29,10 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
     <link rel="up" title="User Manual" href="index.html" />
     <link rel="next" title="Developers Manual" href="../developer_manual/index.html" />
-    <link rel="prev" title="Installation" href="installation.html" />
+    <link rel="prev" title="Manual Installation" href="installation.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
   </head>
@@ -59,9 +58,18 @@
 <li><a class="reference internal" href="#">Usage</a><ul>
 <li><a class="reference internal" href="#blender">Blender</a></li>
 <li><a class="reference internal" href="#the-robotdesigner">The RobotDesigner</a><ul>
+<li><a class="reference internal" href="#panel-overview">Panel Overview</a><ul>
+<li><a class="reference internal" href="#the-robot-properties-tab">The Robot properties tab</a></li>
+<li><a class="reference internal" href="#the-segments-properties-tab">The Segments properties tab</a></li>
+<li><a class="reference internal" href="#the-geometries-properties-tab">The Geometries properties tab</a></li>
+<li><a class="reference internal" href="#the-sensors-properties-tab">The Sensors properties tab</a></li>
+<li><a class="reference internal" href="#the-tools-properties-tab">The Tools properties tab</a></li>
+<li><a class="reference internal" href="#the-files-properties-tab">The Files properties tab</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#creating-and-maintaining-robot-models">Creating and maintaining robot models</a></li>
 <li><a class="reference internal" href="#creating-robot-joint-links">Creating Robot Joint/links</a></li>
-<li><a class="reference internal" href="#adding-geometric-models">Adding geometric models</a></li>
+<li><a class="reference internal" href="#adding-and-removing-geometric-models">Adding and removing geometric models</a></li>
 <li><a class="reference internal" href="#import-and-export">Import and export</a></li>
 </ul>
 </li>
@@ -71,7 +79,7 @@
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="installation.html"
-                        title="previous chapter">Installation</a></p>
+                        title="previous chapter">Manual Installation</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="../developer_manual/index.html"
                         title="next chapter">Developers Manual</a></p>
@@ -113,7 +121,7 @@
                 <aside class="hbpdoc-hnav hbpdoc-hnav-top">
                     
                     <span class="hbpdoc-hnav-previous">
-                        previous: <a class="hbpdoc-hnav-link" href="installation.html">Installation</a>
+                        previous: <a class="hbpdoc-hnav-link" href="installation.html">Manual Installation</a>
                     </span>
                     
                     
@@ -135,11 +143,68 @@ tutorials provided on this matter which can be found <a class="reference externa
 </div>
 <div class="section" id="the-robotdesigner">
 <h2>The RobotDesigner<a class="headerlink" href="#the-robotdesigner" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="panel-overview">
+<h3>Panel Overview<a class="headerlink" href="#panel-overview" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="the-robot-properties-tab">
+<h4>The Robot properties tab<a class="headerlink" href="#the-robot-properties-tab" title="Permalink to this headline">¶</a></h4>
+<div class="figure align-center" id="id1">
+<img alt="../_images/robot_example.png" src="../_images/robot_example.png" />
+<p class="caption"><span class="caption-text">The Robot properties tab of the NRP RobotDesigner</span></p>
+</div>
+<p>The Robot properties tab allows us to create a new robot model or select an existing one. Hier we can also rename
+it or merge with another model. New segments for expanding the robot model can be created and deleted here as well.
+These segments are called <em>bones</em> in blender.</p>
+</div>
+<div class="section" id="the-segments-properties-tab">
+<h4>The Segments properties tab<a class="headerlink" href="#the-segments-properties-tab" title="Permalink to this headline">¶</a></h4>
+<div class="figure align-center" id="id2">
+<img alt="../_images/segments_example.png" src="../_images/segments_example.png" />
+<p class="caption"><span class="caption-text">The Segments properties tab of the NRP RobotDesigner</span></p>
+</div>
+<p>In the Segments properties tab we can modify the properties of the previously created segments by setting joint type,
+joint limits, orientation and position in relation to the parent bone.</p>
+</div>
+<div class="section" id="the-geometries-properties-tab">
+<h4>The Geometries properties tab<a class="headerlink" href="#the-geometries-properties-tab" title="Permalink to this headline">¶</a></h4>
+<div class="figure align-center" id="id3">
+<img alt="../_images/geometries_example_expanded.png" src="../_images/geometries_example_expanded.png" />
+<p class="caption"><span class="caption-text">The Geometries properties tab of the NRP RobotDesigner</span></p>
+</div>
+<p>The Geometries properties tab allows us to connect the kinematics model or armature created by the NRP RobotDesigner with
+an existing geometrical model, generate such a model or disconnect it once it has been attached.</p>
+</div>
+<div class="section" id="the-sensors-properties-tab">
+<h4>The Sensors properties tab<a class="headerlink" href="#the-sensors-properties-tab" title="Permalink to this headline">¶</a></h4>
+<div class="figure align-center" id="id4">
+<img alt="../_images/sensors_empty.png" src="../_images/sensors_empty.png" />
+<p class="caption"><span class="caption-text">The Sensors properties tab of the NRP RobotDesigner</span></p>
+</div>
+</div>
+<div class="section" id="the-tools-properties-tab">
+<h4>The Tools properties tab<a class="headerlink" href="#the-tools-properties-tab" title="Permalink to this headline">¶</a></h4>
+<div class="figure align-center" id="id5">
+<img alt="../_images/tools_empty.png" src="../_images/tools_empty.png" />
+<p class="caption"><span class="caption-text">The Tools properties tab of the NRP RobotDesigner</span></p>
+</div>
+</div>
+<div class="section" id="the-files-properties-tab">
+<h4>The Files properties tab<a class="headerlink" href="#the-files-properties-tab" title="Permalink to this headline">¶</a></h4>
+<div class="figure align-center" id="id6">
+<img alt="../_images/files_example.png" src="../_images/files_example.png" />
+<p class="caption"><span class="caption-text">The Files properties tab of the NRP RobotDesigner</span></p>
+</div>
+<p>Here we can export the created robot model as a an URDF file/package or import a robot model from an URDF file/package.</p>
+</div>
+</div>
 <div class="section" id="creating-and-maintaining-robot-models">
 <h3>Creating and maintaining robot models<a class="headerlink" href="#creating-and-maintaining-robot-models" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id1">
-<img alt="../_images/RobotTab.png" src="../_images/RobotTab.png" />
+<div class="figure align-center" id="id7">
+<img alt="../_images/robot_example.png" src="../_images/robot_example.png" />
 <p class="caption"><span class="caption-text">The robot properties tab in the NRP RobotDesigner.</span></p>
+</div>
+<div class="figure align-center" id="id8">
+<img alt="../_images/create_new_model.gif" src="../_images/create_new_model.gif" />
+<p class="caption"><span class="caption-text">Creating a new armature.</span></p>
 </div>
 <p>In order to use the Robot Designer, one has first to create a blank robot model instance.
 Note that, in Blender, such robot models are called <em>armatures</em>. Through the enrichment by additional
@@ -152,22 +217,29 @@ in the kinematics tree) and modify the names.</p>
 </div>
 <div class="section" id="creating-robot-joint-links">
 <h3>Creating Robot Joint/links<a class="headerlink" href="#creating-robot-joint-links" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id2">
-<img alt="../_images/SegmentsTab.png" src="../_images/SegmentsTab.png" />
+<div class="figure align-center" id="id9">
+<img alt="../_images/segments_example.png" src="../_images/segments_example.png" />
 <p class="caption"><span class="caption-text">The kinematics settings in the segments properties tab of the NRP RobotDesigner.</span></p>
 </div>
-<div class="figure align-center" id="id3">
-<img alt="../_images/SegmentsTab2.png" src="../_images/SegmentsTab2.png" />
+<div class="figure align-center" id="id10">
+<img alt="user_manual/images/dynamics_example.png" src="user_manual/images/dynamics_example.png" />
 <p class="caption"><span class="caption-text">The dynamics settings in the segments properties tab of the NRP RobotDesigner.</span></p>
 </div>
-<div class="figure align-center" id="id4">
-<img alt="../_images/SegmentsTab3.png" src="../_images/SegmentsTab3.png" />
+<div class="figure align-center" id="id11">
+<img alt="../_images/controller_example_expanded.png" src="../_images/controller_example_expanded.png" />
 <p class="caption"><span class="caption-text">The controller settings in the segments properties tab of the NRP RobotDesigner.</span></p>
+</div>
+<div class="figure align-center" id="id12">
+<img alt="../_images/create_child_bone.gif" src="../_images/create_child_bone.gif" />
+<p class="caption"><span class="caption-text">Adding a new segment to an armature.</span></p>
 </div>
 <p>In the RobotDesigner, the smallest unit of a robot is a compound of a <em>joint</em> and a subsequent <em>link</em> called <em>segment</em>.
 That way, it becomes easy to define forked kinematics such as anthropomorphic hands. Note that, in terms of Blender,
 these are referred to as <em>bones</em>. Once a robot model has been created and selected, segments can be added
 to the structure to create a tree-shaped kinematics in the <em>robots tab</em>.</p>
+<p>To add a new segment go to the &#8216;Segment structure&#8217; field, select a <em>parent bone</em> from the drop-down menu and click on
+<strong>Create new child Bone</strong>. The new bone will be attached to the <em>parent bone</em>.
+In this field you can rename and delete segments as well.</p>
 <p>In the segments properties tab, you can modify the kinematic and dynamic properties as well as the settings for the
 control software automatically assigned to the robot model when loaded into the <em>Neurorobotics Platform</em>.
 The kinematics properties basically represent transformation to the following segment (i.e., its length and orientation
@@ -176,35 +248,49 @@ Dynamics are defined via mass objects (called <em>physics frames</em>) that repr
 The controller properties include settings for maximal velocities, torques, etc. as well as the specification about
 how the joint of the segment is to be controlled (e.g., position or velocity controlled).</p>
 </div>
-<div class="section" id="adding-geometric-models">
-<h3>Adding geometric models<a class="headerlink" href="#adding-geometric-models" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id5">
-<img alt="../_images/GeometriesTab.png" src="../_images/GeometriesTab.png" />
+<div class="section" id="adding-and-removing-geometric-models">
+<h3>Adding and removing geometric models<a class="headerlink" href="#adding-and-removing-geometric-models" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id13">
+<img alt="../_images/geometries_example_expanded.png" src="../_images/geometries_example_expanded.png" />
 <p class="caption"><span class="caption-text">The geometrical model properties tab of the NRP RobotDesigner.</span></p>
+</div>
+<div class="figure align-center" id="id14">
+<img alt="../_images/attach_meshes.gif" src="../_images/attach_meshes.gif" />
+<p class="caption"><span class="caption-text">Connecting the kinematics and geometrical models of a robot.</span></p>
 </div>
 <p>Geometric models are <em>meshes</em> that can be connected to a segment. In the <em>Geometries tab</em>. Modelling of meshes
 requires knowledge on how to design with Blender. The RobotDesigner unfortunately cannot support the user
 significantly with this task. However, existing models (e.g., those that are imported from standard CAD/Mesh file
-formats) can be conveniently be connected to the robot model using the interface provided by the RobotDesigner in
+formats) can be conveniently connected to the robot model using the interface provided by the RobotDesigner in
 this tab.</p>
+<p>In order to connect the kinematics model, created by the NRP RobotDesigner and the geometric model select the field
+<strong>Attach Geometry</strong>. First select the segment to be attached on the left and the mesh it is to be attached to on the right.
+Then click on <strong>Assign selected geometry to active segment</strong>.</p>
+<p>In a similar way geometries can be easily disconnected in the field <strong>Detach Geometry</strong>. First select the mesh to be
+disconneccted, then click on <strong>Detach selected geometry</strong>.
+Alternatively all meshes can be disconnected at once by selecting <strong>Detach all geometries</strong>.</p>
 </div>
 <div class="section" id="import-and-export">
 <h3>Import and export<a class="headerlink" href="#import-and-export" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id6">
-<img alt="../_images/FilesTab.png" src="../_images/FilesTab.png" />
+<div class="figure align-center" id="id15">
+<img alt="../_images/files_example.png" src="../_images/files_example.png" />
 <p class="caption"><span class="caption-text">The file properties tab of the NRP RobotDesigner.</span></p>
 </div>
+<div class="figure align-center" id="id16">
+<img alt="../_images/import_URDF_hollie_arm.gif" src="../_images/import_URDF_hollie_arm.gif" />
+<p class="caption"><span class="caption-text">Importing a robot model of Schunk robot arm from a plain URDF file</span></p>
+</div>
+<div class="figure align-center" id="id17">
+<img alt="../_images/export_URDF_lauron.gif" src="../_images/export_URDF_lauron.gif" />
+<p class="caption"><span class="caption-text">Exporting a robot model of the robot Lauron as a plain URDF file</span></p>
+</div>
 <p>One of the main strengths of the RobotDesigner is the possibility to import from and export to URDF files.
-These is the file format the Neurorobotics Platform (or Gazebo/ROS in general) depends on. The file format
+This is the file format the Neurorobotics Platform (or Gazebo/ROS in general) depends on. The file format
 has been extended to support for controller definitions such that loading a finished model into the NRP does not
 require the deployment of additional control software.</p>
 <p>Note that, in order to load URDF models that use the <code class="docutils literal"><span class="pre">package</span></code> directive, the environment variable has to be
 accessible in Blender (i.e., blender has to be invoked from a shell) or a model folder has to be specified
 in the respective text box (which is also used for export).</p>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Improve the part of the documentation describing the GIT elements once the method of file upload has been clarified.</p>
-</div>
 </div>
 </div>
 </div>
@@ -214,7 +300,7 @@ in the respective text box (which is also used for export).</p>
             <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
                 
                 <span class="hbpdoc-hnav-previous">
-                    previous: <a class="hbpdoc-hnav-link" href="installation.html">Installation</a>
+                    previous: <a class="hbpdoc-hnav-link" href="installation.html">Manual Installation</a>
                 </span>
                 
                 

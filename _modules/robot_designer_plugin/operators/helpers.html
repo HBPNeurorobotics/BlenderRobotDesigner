@@ -29,7 +29,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../../../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
     <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -131,8 +130,11 @@
 
 <span class="c1"># Blender imports</span>
 <span class="kn">import</span> <span class="nn">bpy</span>
+<span class="kn">from</span> <span class="nn">bpy.props</span> <span class="kn">import</span> <span class="n">StringProperty</span>
 
-<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">Condition</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">Condition</span><span class="p">,</span> <span class="n">PluginManager</span>
+<span class="kn">from</span> <span class="nn">..core.constants</span> <span class="kn">import</span> <span class="n">StringConstants</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">RDOperator</span>
 
 
 <span class="k">def</span> <span class="nf">_vec_roll_to_mat3</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="n">roll</span><span class="p">):</span>
@@ -263,7 +265,69 @@
             <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="s2">&quot;&quot;</span></div></div>
 
 
+<div class="viewcode-block" id="SingleCameraSelected"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleCameraSelected">[docs]</a><span class="k">class</span> <span class="nc">SingleCameraSelected</span><span class="p">(</span><span class="n">Condition</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="SingleCameraSelected.check"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleCameraSelected.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :term:`condition` that assures that a :class:`bpy.types.Camera` associated object is selected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">StringConstants</span><span class="o">.</span><span class="n">camera</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Single camera object must be selected.&quot;</span></div></div>
 
+
+<div class="viewcode-block" id="SingleMassObjectSelected"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleMassObjectSelected">[docs]</a><span class="k">class</span> <span class="nc">SingleMassObjectSelected</span><span class="p">(</span><span class="n">Condition</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="SingleMassObjectSelected.check"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleMassObjectSelected.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :term:`condition` that assures that a :class:`bpy.types.Camera` associated object is selected.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span> <span class="k">if</span>
+                    <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">StringConstants</span><span class="o">.</span><span class="n">empty</span> <span class="ow">and</span> <span class="n">i</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s2">&quot;PHYSICS_FRAME&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Single mass object must be selected.&quot;</span></div></div>
+
+
+<div class="viewcode-block" id="SelectObjectBase"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SelectObjectBase">[docs]</a><span class="k">class</span> <span class="nc">SelectObjectBase</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for :ref:`operators &lt;operator&gt;` for selecting an object (:class:`bpy.types.Object`)</span>
+<span class="sd">    second to the selected model (Blender object with :class:`bpy.types.Armature` data)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">object_name</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">()</span>
+    <span class="n">object_data_type</span> <span class="o">=</span> <span class="s1">&#39;MESH&#39;</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="SelectObjectBase.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SelectObjectBase.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">object_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+
+    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">mesh</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">object_name</span><span class="p">]</span>
+
+        <span class="n">arm</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
+
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="n">mesh</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">arm</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="AssignObjectBase"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.AssignObjectBase">[docs]</a><span class="k">class</span> <span class="nc">AssignObjectBase</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base class for :ref:`operators &lt;operator&gt;` for assigning an object to the currently selected</span>
+<span class="sd">    segment segment.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="AssignObjectBase.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.AssignObjectBase.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+
+    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">parent_set</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;BONE&#39;</span><span class="p">,</span> <span class="n">keep_transform</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
 </pre></div>
             </div>
 

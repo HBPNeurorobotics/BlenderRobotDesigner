@@ -29,7 +29,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../../../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
     <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -133,6 +132,9 @@
 <span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">menus</span>
 <span class="kn">from</span> <span class="nn">.model</span> <span class="kn">import</span> <span class="n">check_armature</span>
 <span class="kn">from</span> <span class="nn">..properties.globals</span> <span class="kn">import</span> <span class="n">global_properties</span>
+<span class="kn">from</span> <span class="nn">..core.gui</span> <span class="kn">import</span> <span class="n">InfoBox</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">getSingleSegment</span><span class="p">,</span> <span class="n">getSingleObject</span>
+
 
 <div class="viewcode-block" id="draw"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.dynamics.html#robot_designer_plugin.interface.dynamics.draw">[docs]</a><span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -143,33 +145,45 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">check_armature</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="k">return</span>
-    <span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="n">dynamics</span><span class="o">.</span><span class="n">CreatePhysical</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">)</span>
-    <span class="n">layout</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s2">&quot;Select Physics Frame:&quot;</span><span class="p">)</span>
-    <span class="n">topRow</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">frameMenuText</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-    <span class="n">frame_name</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">physics_frame_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span> <span class="ow">and</span> <span class="n">frame_name</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">frame_name</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
-            <span class="n">frame</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">frame_name</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="n">frame</span><span class="o">.</span><span class="n">parent_bone</span><span class="p">:</span>
-                <span class="n">frameMenuText</span> <span class="o">=</span> <span class="n">frame_name</span> <span class="o">+</span> <span class="s2">&quot; --&gt; &quot;</span> <span class="o">+</span> <span class="n">frame</span><span class="o">.</span><span class="n">parent_bone</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">frameMenuText</span> <span class="o">=</span> <span class="n">frame_name</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">box</span><span class="p">()</span>
+    <span class="n">box</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s2">&quot;Select mass object&quot;</span><span class="p">)</span>
+    <span class="n">infoBox</span> <span class="o">=</span> <span class="n">InfoBox</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">row</span><span class="p">()</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-    <span class="n">topRow</span><span class="o">.</span><span class="n">menu</span><span class="p">(</span><span class="n">menus</span><span class="o">.</span><span class="n">MassObjectMenu</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">frameMenuText</span><span class="p">)</span>
-    <span class="n">topRow</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="n">dynamics</span><span class="o">.</span><span class="n">DetachPhysical</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">)</span>
+    <span class="n">single_segment</span> <span class="o">=</span> <span class="n">getSingleSegment</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">frame_name</span><span class="p">:</span>
+    <span class="n">column</span><span class="o">.</span><span class="n">menu</span><span class="p">(</span><span class="n">menus</span><span class="o">.</span><span class="n">SegmentsGeometriesMenu</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">,</span>
+                <span class="n">text</span><span class="o">=</span><span class="n">single_segment</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">single_segment</span> <span class="k">else</span> <span class="s2">&quot;Select Segment&quot;</span><span class="p">)</span>
+
+    <span class="n">row2</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="n">global_properties</span><span class="o">.</span><span class="n">list_segments</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="n">row2</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">icon_only</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">row2</span><span class="o">.</span><span class="n">separator</span><span class="p">()</span>
+    <span class="n">global_properties</span><span class="o">.</span><span class="n">segment_name</span><span class="o">.</span><span class="n">prop_search</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="n">row2</span><span class="p">,</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;bones&#39;</span><span class="p">,</span>
+                                               <span class="n">icon</span><span class="o">=</span><span class="s1">&#39;VIEWZOOM&#39;</span><span class="p">,</span>
+                                               <span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="n">column</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">menus</span><span class="o">.</span><span class="n">MassObjectMenu</span><span class="o">.</span><span class="n">putMenu</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+    <span class="c1"># create_geometry_selection(column, context)</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">dynamics</span><span class="o">.</span><span class="n">AssignPhysical</span><span class="o">.</span><span class="n">place_button</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">infoBox</span><span class="o">=</span><span class="n">infoBox</span><span class="p">)</span>
+    <span class="n">dynamics</span><span class="o">.</span><span class="n">DetachPhysical</span><span class="o">.</span><span class="n">place_button</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">infoBox</span><span class="o">=</span><span class="n">infoBox</span><span class="p">)</span>
+    <span class="n">dynamics</span><span class="o">.</span><span class="n">CreatePhysical</span><span class="o">.</span><span class="n">place_button</span><span class="p">(</span><span class="n">row</span><span class="p">,</span><span class="n">infoBox</span><span class="o">=</span><span class="n">infoBox</span><span class="p">)</span>
+
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">getSingleObject</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">obj</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span><span class="o">==</span><span class="s2">&quot;PHYSICS_FRAME&quot;</span><span class="p">:</span>
+        <span class="n">frame_name</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">physics_frame_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
+        <span class="n">box</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">box</span><span class="p">()</span>
+        <span class="n">box</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s2">&quot;Properties&quot;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;MODIFIER&quot;</span><span class="p">)</span>
         <span class="n">frame</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">frame_name</span><span class="p">]</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;mass&quot;</span><span class="p">)</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">separator</span><span class="p">()</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;inertiaTensor&quot;</span><span class="p">)</span>
+        <span class="n">box</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;mass&quot;</span><span class="p">)</span>
+        <span class="n">box</span><span class="o">.</span><span class="n">separator</span><span class="p">()</span>
+        <span class="n">box</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;inertiaTensor&quot;</span><span class="p">)</span>
 
-    <span class="n">layout</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s2">&quot;Select Bone:&quot;</span><span class="p">)</span>
-    <span class="n">lower_row</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">column</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">lower_row</span><span class="o">.</span><span class="n">menu</span><span class="p">(</span><span class="n">menus</span><span class="o">.</span><span class="n">SegmentsMenu</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-    <span class="n">lower_row</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="n">dynamics</span><span class="o">.</span><span class="n">AssignPhysical</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">)</span></div>
+    <span class="n">infoBox</span><span class="o">.</span><span class="n">draw_info</span><span class="p">()</span></div>
 </pre></div>
             </div>
 

@@ -29,7 +29,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../../../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
     <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -143,15 +142,15 @@
 
 <span class="c1"># ######</span>
 <span class="c1"># RobotDesigner imports</span>
-<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">PluginManager</span><span class="p">,</span> <span class="n">RDOperator</span><span class="p">,</span> <span class="n">Condition</span>
-<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">ModelSelected</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">PluginManager</span><span class="p">,</span> <span class="n">RDOperator</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleSegmentSelected</span><span class="p">,</span> <span class="n">SingleMassObjectSelected</span>
 
 <span class="kn">from</span> <span class="nn">..properties.globals</span> <span class="kn">import</span> <span class="n">global_properties</span>
 
 <span class="c1"># operator to create physics frame</span>
 <span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
 <span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="CreatePhysical"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.CreatePhysical">[docs]</a><span class="k">class</span> <span class="nc">CreatePhysical</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+<div class="viewcode-block" id="CreatePhysical"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.interface.menus.CreatePhysical">[docs]</a><span class="k">class</span> <span class="nc">CreatePhysical</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`operator` for ...</span>
 
@@ -165,7 +164,7 @@
     <span class="n">frameName</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="CreatePhysical.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.CreatePhysical.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">frameName</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="CreatePhysical.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.interface.menus.CreatePhysical.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">frameName</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
 
     <span class="nd">@RDOperator.OperatorLogger</span>
@@ -182,14 +181,14 @@
 
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
 
-<div class="viewcode-block" id="CreatePhysical.invoke"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.CreatePhysical.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<div class="viewcode-block" id="CreatePhysical.invoke"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.interface.menus.CreatePhysical.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span><span class="o">.</span><span class="n">invoke_props_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
 
 
 <span class="c1"># operator to select a physics frame</span>
 <span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
 <span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="SelectPhysical"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.SelectPhysical">[docs]</a><span class="k">class</span> <span class="nc">SelectPhysical</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+<div class="viewcode-block" id="SelectPhysical"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.interface.menus.SelectPhysical">[docs]</a><span class="k">class</span> <span class="nc">SelectPhysical</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`operator` for ...</span>
 
@@ -203,7 +202,7 @@
     <span class="n">frameName</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SelectPhysical.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.SelectPhysical.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">frameName</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="SelectPhysical.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.interface.menus.SelectPhysical.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">frameName</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
 
     <span class="nd">@RDOperator.OperatorLogger</span>
@@ -226,9 +225,9 @@
 
 
 <span class="c1"># operator to assign selected physics frame to active bone</span>
-<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleSegmentSelected</span><span class="p">,</span> <span class="n">SingleMassObjectSelected</span><span class="p">)</span>
 <span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="AssignPhysical"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.AssignPhysical">[docs]</a><span class="k">class</span> <span class="nc">AssignPhysical</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+<div class="viewcode-block" id="AssignPhysical"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.interface.menus.AssignPhysical">[docs]</a><span class="k">class</span> <span class="nc">AssignPhysical</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`operator` for ...</span>
 
@@ -240,11 +239,11 @@
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Assign selected physics frame to active bone&quot;</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="AssignPhysical.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.AssignPhysical.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="AssignPhysical.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.interface.menus.AssignPhysical.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
 
     <span class="nd">@RDOperator.OperatorLogger</span>
-    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleSegmentSelected</span><span class="p">,</span> <span class="n">SingleMassObjectSelected</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">parent_set</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;BONE&#39;</span><span class="p">)</span>
 
@@ -265,7 +264,7 @@
         <span class="c1"># frame.matrix_basis = parent_matrix*armature_matrix*bone_matrix</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
 
-<div class="viewcode-block" id="AssignPhysical.invoke"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.AssignPhysical.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<div class="viewcode-block" id="AssignPhysical.invoke"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.interface.menus.AssignPhysical.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span><span class="o">.</span><span class="n">invoke_props_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
 
 
@@ -273,9 +272,9 @@
 
 
 <span class="c1"># operator to unassign selected physics frame</span>
-<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMassObjectSelected</span><span class="p">)</span>
 <span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="DetachPhysical"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.DetachPhysical">[docs]</a><span class="k">class</span> <span class="nc">DetachPhysical</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+<div class="viewcode-block" id="DetachPhysical"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.interface.menus.DetachPhysical">[docs]</a><span class="k">class</span> <span class="nc">DetachPhysical</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`operator` for ...</span>
 
@@ -289,16 +288,19 @@
     <span class="n">frameName</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="DetachPhysical.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.operators.dynamics.DetachPhysical.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">frameName</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="DetachPhysical.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.dynamics.html#robot_designer_plugin.interface.menus.DetachPhysical.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">frameName</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
 
     <span class="nd">@RDOperator.OperatorLogger</span>
-    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>  <span class="c1"># todo condition for physicframe</span>
+    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMassObjectSelected</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="n">currentFrame</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">physics_frame_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
-        <span class="n">physNode_global</span> <span class="o">=</span> <span class="n">currentFrame</span><span class="o">.</span><span class="n">matrix_world</span>
-        <span class="n">currentFrame</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="n">currentFrame</span><span class="o">.</span><span class="n">matrix_world</span> <span class="o">=</span> <span class="n">physNode_global</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">frameName</span><span class="p">:</span>
+            <span class="n">current_frame</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">frameName</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">current_frame</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">global_properties</span><span class="o">.</span><span class="n">physics_frame_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)]</span>
+        <span class="n">physNode_global</span> <span class="o">=</span> <span class="n">current_frame</span><span class="o">.</span><span class="n">matrix_world</span>
+        <span class="n">current_frame</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">current_frame</span><span class="o">.</span><span class="n">matrix_world</span> <span class="o">=</span> <span class="n">physNode_global</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
 </pre></div>
             </div>

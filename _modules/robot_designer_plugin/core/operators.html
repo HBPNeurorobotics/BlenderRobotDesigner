@@ -29,7 +29,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../../../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
     <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -131,9 +130,10 @@
 
 <span class="kn">import</span> <span class="nn">bpy</span>
 <span class="kn">from</span> <span class="nn">.config</span> <span class="kn">import</span> <span class="n">PLUGIN_PREFIX</span><span class="p">,</span> <span class="n">EXCEPTION_MESSAGE</span>
-<span class="kn">from</span> <span class="nn">.logfile</span> <span class="kn">import</span> <span class="n">log_callstack</span><span class="p">,</span> <span class="n">operator_logger</span> <span class="k">as</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">.logfile</span> <span class="kn">import</span> <span class="n">log_callstack</span><span class="p">,</span> <span class="n">log_callstack_last</span><span class="p">,</span> <span class="n">operator_logger</span> <span class="k">as</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">.conditions</span> <span class="kn">import</span> <span class="n">Condition</span>
 <span class="kn">from</span> <span class="nn">.gui</span> <span class="kn">import</span> <span class="n">InfoBox</span>
+
 
 <div class="viewcode-block" id="get_registered_operator"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.get_registered_operator">[docs]</a><span class="k">def</span> <span class="nf">get_registered_operator</span><span class="p">(</span><span class="n">operator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -289,7 +289,7 @@
                              <span class="n">kwargs</span><span class="p">,</span>
                              <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bad_kwargs</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
                              <span class="s1">&#39;</span><span class="se">\n\t\t</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">__str__</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)))</span>
-            <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_message</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">__str__</span><span class="p">())</span>
             <span class="k">raise</span> <span class="n">e</span>
 
             <span class="c1"># todo check for keyword arguments without default value</span>
@@ -301,11 +301,11 @@
             <span class="n">check</span><span class="p">,</span> <span class="n">messages</span> <span class="o">=</span> <span class="n">Condition</span><span class="o">.</span><span class="n">check_conditions</span><span class="p">(</span><span class="o">*</span><span class="n">cls</span><span class="o">.</span><span class="n">_pre_conditions</span><span class="p">[</span><span class="n">cls</span><span class="p">])</span>
             <span class="n">cls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Conditions set for this operator: </span><span class="si">%s</span><span class="se">\n\t</span><span class="si">%s</span><span class="se">\n\t</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cls</span><span class="o">.</span><span class="n">_pre_conditions</span><span class="p">[</span><span class="n">cls</span><span class="p">],</span> <span class="n">check</span><span class="p">,</span>
                             <span class="n">messages</span><span class="p">)</span>
-            <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_message</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">__str__</span><span class="p">())</span>
             <span class="k">raise</span> <span class="n">e</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">cls</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;THIS CODE SHOULD NEVER BE EXECUTED: </span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">log_callstack</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
-            <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_message</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">__str__</span><span class="p">())</span>
             <span class="k">raise</span> <span class="n">e</span></div>
 
     <span class="nd">@classmethod</span>
@@ -367,7 +367,7 @@
                 <span class="k">return</span> <span class="n">result</span>
 
             <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_message</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: </span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">)&quot;</span>  <span class="o">%</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">__str__</span><span class="p">(),</span> <span class="n">log_callstack_last</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="bp">True</span><span class="p">)))</span>
                 <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Operator </span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">) threw an exception:</span><span class="si">%s</span><span class="se">\n\t</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">class_name</span><span class="p">,</span>
                                                                             <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Operator </span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">) threw an exception:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">EXCEPTION_MESSAGE</span><span class="p">,</span>
@@ -402,7 +402,7 @@
             <span class="n">cls</span><span class="o">.</span><span class="n">_pre_conditions</span><span class="p">[</span><span class="n">cls</span><span class="p">]</span> <span class="o">=</span> <span class="n">conditions</span>
 
             <span class="n">cls</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    **Preconditions**:</span><span class="se">\n\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-                    <span class="s1">&#39;    * :class:`</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">`</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">__module__</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">)</span>
+                <span class="s1">&#39;    * :class:`</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">`</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">__module__</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">)</span>
 
             <span class="c1"># RDOperator.logger.debug(&quot;Decorating %s, \nArgs: %s\n %s, %s, %s&quot;, cls, args, issubclass(cls, RDOperator),</span>
             <span class="c1">#                        issubclass(cls, bpy.types.Operator), [RDOperator is i for i in cls.mro()])</span>
@@ -439,8 +439,12 @@
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">check</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">({</span><span class="s1">&#39;ERROR&#39;</span><span class="p">},</span> <span class="n">messages</span><span class="p">)</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Postcondition not met: </span><span class="si">%s</span><span class="se">\\</span><span class="s1">n</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">messages</span><span class="p">,</span> <span class="n">log_callstack</span><span class="p">(),</span> <span class="n">log_callstack</span><span class="p">(</span><span class="bp">True</span><span class="p">))</span>
+                    <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">result</span>
 
+            <span class="n">doc</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    **Postconditions**:</span><span class="se">\n\n</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="s1">&#39;    * :class:`</span><span class="si">%s</span><span class="s1">.</span><span class="si">%s</span><span class="s1">`</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">__module__</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">conditions</span><span class="p">)</span>
+            <span class="n">func</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">+</span> <span class="n">doc</span> <span class="k">if</span> <span class="n">func</span><span class="o">.</span><span class="n">__doc__</span> <span class="k">else</span> <span class="n">doc</span>
             <span class="k">return</span> <span class="n">func_wrapper</span>
 
         <span class="k">return</span> <span class="n">decorator</span></div></div>

@@ -29,7 +29,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../../../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
     <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -141,6 +140,7 @@
 <span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">PluginManager</span>
 <span class="kn">from</span> <span class="nn">..core.gui</span> <span class="kn">import</span> <span class="n">InfoBox</span>
 <span class="kn">from</span> <span class="nn">..properties.globals</span> <span class="kn">import</span> <span class="n">global_properties</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">DebugBox</span>
 
 <span class="nd">@PluginManager.register_class</span>
 <div class="viewcode-block" id="UserInterface"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.main.html#robot_designer_plugin.interface.main.UserInterface">[docs]</a><span class="k">class</span> <span class="nc">UserInterface</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Panel</span><span class="p">):</span>
@@ -192,8 +192,14 @@
                 <span class="n">row</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="s2">&quot;object.mode_set&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Pose Mode&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;POSE&#39;</span>
 
 
+        <span class="n">layout</span><span class="o">.</span><span class="n">separator</span><span class="p">()</span>
         <span class="n">row</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="n">InfoBox</span><span class="o">.</span><span class="n">draw_global_info</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_messages</span><span class="p">:</span>
+            <span class="n">box</span> <span class="o">=</span> <span class="n">DebugBox</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="s2">&quot;Debug&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">box</span><span class="p">:</span>
+                <span class="n">box</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s2">&quot;press &lt;F8&gt; to clear&quot;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s2">&quot;INFO&quot;</span><span class="p">)</span>
+                <span class="n">InfoBox</span><span class="o">.</span><span class="n">draw_global_info</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="UserInterface.draw_header"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.main.html#robot_designer_plugin.interface.main.UserInterface.draw_header">[docs]</a>    <span class="k">def</span> <span class="nf">draw_header</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>

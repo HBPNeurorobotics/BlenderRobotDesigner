@@ -29,7 +29,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../../../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
     <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -138,6 +137,11 @@
 <span class="kn">from</span> <span class="nn">..operators.segments</span> <span class="kn">import</span> <span class="n">SelectSegment</span><span class="p">,</span> <span class="n">UpdateSegments</span>
 <span class="kn">from</span> <span class="nn">..core.property</span> <span class="kn">import</span> <span class="n">PropertyGroupHandlerBase</span><span class="p">,</span> <span class="n">PropertyHandler</span>
 
+<div class="viewcode-block" id="RDSelectedObjects"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.globals.html#robot_designer_plugin.properties.globals.RDSelectedObjects">[docs]</a><span class="k">class</span> <span class="nc">RDSelectedObjects</span><span class="p">(</span><span class="n">PropertyGroupHandlerBase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="RDGlobals"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.globals.html#robot_designer_plugin.properties.globals.RDGlobals">[docs]</a><span class="k">class</span> <span class="nc">RDGlobals</span><span class="p">(</span><span class="n">PropertyGroupHandlerBase</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -181,22 +185,24 @@
             <span class="k">pass</span>  <span class="c1"># This happens when the search title is selected</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="RDGlobals.displayMeshes"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.globals.html#robot_designer_plugin.properties.globals.RDGlobals.displayMeshes">[docs]</a>    <span class="k">def</span> <span class="nf">displayMeshes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+<div class="viewcode-block" id="RDGlobals.display_geometries"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.properties.globals.html#robot_designer_plugin.properties.globals.RDGlobals.display_geometries">[docs]</a>    <span class="k">def</span> <span class="nf">display_geometries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Hides/Shows mesh objects in dependence of the respective Global property</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="n">hide_mesh</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">display_mesh_selection</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
-        <span class="n">meshNames</span> <span class="o">=</span> <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span>
+        <span class="n">hide_geometry</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">display_mesh_selection</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
+        <span class="n">geometry_name</span> <span class="o">=</span> <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span>
                      <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent_bone</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span>
                      <span class="n">obj</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;MESH&#39;</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">mesh</span> <span class="ow">in</span> <span class="n">meshNames</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">mesh</span> <span class="ow">in</span> <span class="n">geometry_name</span><span class="p">:</span>
             <span class="n">obj</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">mesh</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">hide_mesh</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">hide_geometry</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
                 <span class="n">obj</span><span class="o">.</span><span class="n">hide</span> <span class="o">=</span> <span class="bp">False</span>
-            <span class="k">elif</span> <span class="n">hide_mesh</span> <span class="o">==</span> <span class="s1">&#39;collision&#39;</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;COLLISION&#39;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">hide_geometry</span> <span class="o">==</span> <span class="s1">&#39;collision&#39;</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;COLLISION&#39;</span><span class="p">:</span>
                 <span class="n">obj</span><span class="o">.</span><span class="n">hide</span> <span class="o">=</span> <span class="bp">False</span>
-            <span class="k">elif</span> <span class="n">hide_mesh</span> <span class="o">==</span> <span class="s1">&#39;visual&#39;</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;DEFAULT&#39;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">hide_geometry</span> <span class="o">==</span> <span class="s1">&#39;visual&#39;</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;DEFAULT&#39;</span><span class="p">:</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">hide</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">elif</span> <span class="n">hide_geometry</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">:</span>
                 <span class="n">obj</span><span class="o">.</span><span class="n">hide</span> <span class="o">=</span> <span class="bp">False</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">obj</span><span class="o">.</span><span class="n">hide</span> <span class="o">=</span> <span class="bp">True</span></div>
@@ -215,6 +221,9 @@
         <span class="c1"># Holds the name of the currently selected physics frame (Empty object)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">physics_frame_name</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">StringProperty</span><span class="p">())</span>
 
+        <span class="c1"># Holds the name of the currently selected physics frame (Empty object)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">camera_sensor_name</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">StringProperty</span><span class="p">())</span>
+
         <span class="c1"># Used to realize the main tab in the GUI</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">gui_tab</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span>
             <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;armatures&#39;</span><span class="p">,</span> <span class="s1">&#39;Robot&#39;</span><span class="p">,</span> <span class="s1">&#39;Modify the Robot&#39;</span><span class="p">),</span>
@@ -229,9 +238,17 @@
 
         <span class="c1"># Holds the selection to operate on colission geometries OR visual geometries</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mesh_type</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span>
-            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;DEFAULT&#39;</span><span class="p">,</span> <span class="s1">&#39;Visual&#39;</span><span class="p">,</span> <span class="s1">&#39;Set visual meshes&#39;</span><span class="p">),</span>
-                   <span class="p">(</span><span class="s1">&#39;COLLISION&#39;</span><span class="p">,</span> <span class="s1">&#39;Collision&#39;</span><span class="p">,</span> <span class="s1">&#39;Set collision meshes&#39;</span><span class="p">)]</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;DEFAULT&#39;</span><span class="p">,</span> <span class="s1">&#39;Visual geometries&#39;</span><span class="p">,</span> <span class="s1">&#39;Edit visual geometries&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;COLLISION&#39;</span><span class="p">,</span> <span class="s1">&#39;Collision geometries&#39;</span><span class="p">,</span> <span class="s1">&#39;Edit collision geometries&#39;</span><span class="p">)]</span>
         <span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sensor_type</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;CAMERA_SENSOR&#39;</span><span class="p">,</span><span class="s1">&#39;Cameras&#39;</span><span class="p">,</span> <span class="s1">&#39;Edit camera sensors&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;LASER_SENSOR&#39;</span><span class="p">,</span> <span class="s1">&#39;Laser scanners&#39;</span><span class="p">,</span> <span class="s1">&#39;Edit laser scanners&#39;</span><span class="p">)]</span>
+                   <span class="c1"># (&#39;POSITION&#39;, &#39;Position sensors&#39;, &#39;Edit position sensors&#39;)]</span>
+        <span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">physics_type</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span><span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;PHYSICS_FRAME&#39;</span><span class="p">,</span> <span class="s1">&#39;Mass object&#39;</span><span class="p">,</span> <span class="s1">&#39;Mass object&#39;</span><span class="p">)]))</span>
 
         <span class="c1"># Holds the selection to list connected or unassigned meshes in dropdown menus</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">list_meshes</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span>
@@ -242,13 +259,14 @@
 
         <span class="c1"># Holds the selection of wheter do hide/display connected/unassigned meshes in the 3D viewport</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">display_mesh_selection</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span>
-            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;Show All connected&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;Show all mesh objects in viewport&#39;</span><span class="p">),</span>
-                   <span class="p">(</span><span class="s1">&#39;collision&#39;</span><span class="p">,</span> <span class="s1">&#39;Show collision models&#39;</span><span class="p">,</span>
+            <span class="n">items</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;All&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Show all objects in viewport&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;collision&#39;</span><span class="p">,</span> <span class="s1">&#39;Collision&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;Show only connected collision models&#39;</span><span class="p">),</span>
-                   <span class="p">(</span><span class="s1">&#39;visual&#39;</span><span class="p">,</span> <span class="s1">&#39;Show visual models&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;Show only connected visual models&#39;</span><span class="p">)],</span>
-            <span class="n">update</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">displayMeshes</span><span class="p">))</span>
+                   <span class="p">(</span><span class="s1">&#39;visual&#39;</span><span class="p">,</span> <span class="s1">&#39;Visual&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Show only connected visual models&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s1">&#39;none&#39;</span><span class="p">,</span> <span class="s2">&quot;None&quot;</span><span class="p">,</span> <span class="s2">&quot;Show no connected model&quot;</span><span class="p">)],</span>
+            <span class="n">update</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">display_geometries</span><span class="p">))</span>
 
         <span class="c1"># Holds the selection to list connected or unassigned segments in dropdown menus</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">list_segments</span> <span class="o">=</span> <span class="n">PropertyHandler</span><span class="p">(</span><span class="n">EnumProperty</span><span class="p">(</span>
