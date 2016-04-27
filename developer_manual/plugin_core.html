@@ -29,7 +29,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
     <link rel="up" title="Developers Manual" href="index.html" />
     <link rel="next" title="robot_designer_plugin.core.conditions module" href="../apidoc/robot_designer_plugin.core.conditions.html" />
@@ -156,15 +155,15 @@ for information and examples on how to use it. All functionality in the RobotDes
 encapsulated in classes derived from it.</p>
 </dd>
 <dt>Objects</dt>
-<dd><p class="first">All entitis in a <span class="xref std std-term">scene</span> are <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Object.html#bpy.types.Object" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Object</span></code></a> in Blender. Their possible types (that is
-their associated <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Object.html#bpy.types.Object.data" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-attr docutils literal"><span class="pre">bpy.types.Object.data</span></code></a>) include</p>
+<dd><p class="first">All entitis in a <span class="xref std std-term">scene</span> are <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Object.html#bpy.types.Object" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Object</span></code></a> in Blender. Their possible types (that is
+their associated <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Object.html#bpy.types.Object.data" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-attr docutils literal"><span class="pre">bpy.types.Object.data</span></code></a>) include</p>
 <dl class="docutils">
-<dt>Armatures (<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Armature.html#bpy.types.Armature" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Armature</span></code></a>)</dt>
+<dt>Armatures (<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Armature.html#bpy.types.Armature" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Armature</span></code></a>)</dt>
 <dd>Skeleton-based articulated objects. In the RobotDesigner they are referred to as (<em>kinematic</em> or <em>robot</em>)
 <em>models</em>. They include nested data objects called <em>bones</em> (<code class="xref py py-attr docutils literal"><span class="pre">bpy.types.Armature.bones</span></code>) which define
 the kinematic structure of the articulated object. In the RobotDesigner, they are referred to as <em>segments</em>.
 See section <span class="xref std std-ref">segments</span> in the user manual)</dd>
-<dt>Meshes (<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Mesh.html#bpy.types.Mesh" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Mesh</span></code></a>)</dt>
+<dt>Meshes (<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Mesh.html#bpy.types.Mesh" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Mesh</span></code></a>)</dt>
 <dd>Mesh objects have assiciated 3D data in form of connected vertices that define a <em>surface</em> in form of
 polygonial meshes. In the Robot designer, they are referred to (<em>rigid body</em>) <em>geometries</em>.</dd>
 <dt>Empty (no data assiciated):</dt>
@@ -177,24 +176,24 @@ distributions for instance.</dd>
 </dd>
 <dt>Properties</dt>
 <dd><p class="first">All values / structures that should be stored in the <em>current</em> file have to be stored in classes derived from
-<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Property.html#bpy.types.Property" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Property</span></code></a>. They can be inserted as input fields in a GUI defined in the plugin.</p>
+<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Property.html#bpy.types.Property" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Property</span></code></a>. They can be inserted as input fields in a GUI defined in the plugin.</p>
 <p>There are different predefined types for common data types (e.g.,
-<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.StringProperty.html#bpy.types.StringProperty" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.StringProperty</span></code></a> and <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.FloatProperty.html#bpy.types.FloatProperty" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.FloatProperty</span></code></a>) but also structures can be user-defined
-by subclasses of <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.PropertyGroup</span></code></a> which have to be registered to Blender when the plugin is loaded.
+<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.StringProperty.html#bpy.types.StringProperty" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.StringProperty</span></code></a> and <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.FloatProperty.html#bpy.types.FloatProperty" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.FloatProperty</span></code></a>) but also structures can be user-defined
+by subclasses of <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.PropertyGroup</span></code></a> which have to be registered to Blender when the plugin is loaded.
 Properties must be associated with objects. That way, <em>global</em> properties are associated with the current
-<em>scene object</em> (of type <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Scene.html#bpy.types.Scene" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Scene</span></code></a> in <code class="xref py py-attr docutils literal"><span class="pre">bpy.context.scene</span></code>), information about models are
+<em>scene object</em> (of type <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Scene.html#bpy.types.Scene" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Scene</span></code></a> in <code class="xref py py-attr docutils literal"><span class="pre">bpy.context.scene</span></code>), information about models are
 with <em>armature object</em> and segment specifications with <em>bone data</em>.</p>
 <p class="last">Facilities for registering user-defined data structures are provided by the
 <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code> class in the core package.</p>
 </dd>
 <dt>Panels</dt>
-<dd><p class="first">Panels (<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Panel.html#bpy.types.Panel" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Panel</span></code></a>) represent a <em>canvas</em> where a plugin can place its GUI elements on. Like all
+<dd><p class="first">Panels (<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Panel.html#bpy.types.Panel" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Panel</span></code></a>) represent a <em>canvas</em> where a plugin can place its GUI elements on. Like all
 classes that should be usable by Blender, these have to be registered as well on plugin initialization.
-In the <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Panel.html#bpy.types.Panel.draw" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.Panel.draw()</span></code></a> the GUI elements, different graphical types of elements can be placed:</p>
+In the <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Panel.html#bpy.types.Panel.draw" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.Panel.draw()</span></code></a> the GUI elements, different graphical types of elements can be placed:</p>
 <ul class="simple">
 <li>Static: e.g. labels, boxes, icons, etc.</li>
 <li>Properties: Registered properties can be used to enable user input (e.g., check boxes
-(<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.BoolProperty.html#bpy.types.BoolProperty" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.BoolProperty</span></code></a>), or numerical value fields)</li>
+(<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.BoolProperty.html#bpy.types.BoolProperty" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.BoolProperty</span></code></a>), or numerical value fields)</li>
 <li>Operators: Are represented as buttons that executes the operator&#8217;s functionality on button press.</li>
 </ul>
 <p class="last">The elements are defined <em>sequentially</em>, that is, they are described in the order they should appear. Support

@@ -29,7 +29,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
     <link rel="up" title="The Plugin Core" href="../developer_manual/plugin_core.html" />
     <link rel="next" title="robot_designer_plugin.core.logfile module" href="robot_designer_plugin.core.logfile.html" />
@@ -121,7 +120,7 @@
 <a class="reference internal" href="robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.register" title="robot_designer_plugin.core.pluginmanager.PluginManager.register"><code class="xref py py-meth docutils literal"><span class="pre">pluginmanager.PluginManager.register()</span></code></a> decorator. This decorator creates a boolean property
 that is stored with the <span class="xref std std-term">scene</span> object (and is therefore persistent with your current file)
 that is used for remembering the state of the box.
-The subclass needs to specify a unique identifier for a <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.BoolProperty.html#bpy.types.BoolProperty" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.BoolProperty</span></code></a> in the attribute
+The subclass needs to specify a unique identifier for a <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.BoolProperty.html#bpy.types.BoolProperty" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.BoolProperty</span></code></a> in the attribute
 <code class="docutils literal"><span class="pre">property_name</span></code> attribute, for instance:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@PluginManager.register_class</span>
 <span class="k">class</span> <span class="nc">ControllerBox</span><span class="p">(</span><span class="n">CollapsibleBase</span><span class="p">):</span>
@@ -140,7 +139,7 @@ The subclass needs to specify a unique identifier for a <a class="reference exte
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>layout</strong> &#8211; Blender gui element as passed to the
-<code class="xref py py-meth docutils literal"><span class="pre">robot_designer_plugin.interface.main.UserInterface.draw()</span></code> method.</li>
+<a class="reference internal" href="robot_designer_plugin.interface.main.html#robot_designer_plugin.interface.main.UserInterface.draw" title="robot_designer_plugin.interface.main.UserInterface.draw"><code class="xref py py-meth docutils literal"><span class="pre">robot_designer_plugin.interface.main.UserInterface.draw()</span></code></a> method.</li>
 <li><strong>context</strong> &#8211; Blender context object (see above)</li>
 <li><strong>label</strong> &#8211; Label label of the box</li>
 <li><strong>icon</strong> &#8211; optionally place a label (must be a name known to Blender)</li>
@@ -181,7 +180,7 @@ with an info, either in a separated box or the current layout.</p>
 
 <dl class="method">
 <dt id="robot_designer_plugin.core.gui.InfoBox.draw_info">
-<code class="descname">draw_info</code><span class="sig-paren">(</span><em>additional_messages=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/gui.html#InfoBox.draw_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.gui.InfoBox.draw_info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">draw_info</code><span class="sig-paren">(</span><em>additional_messages=[]</em>, <em>icon='INFO'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/gui.html#InfoBox.draw_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.gui.InfoBox.draw_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draws the info box onto the layout.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -194,8 +193,8 @@ with an info, either in a separated box or the current layout.</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="robot_designer_plugin.core.gui.InfoBox.global_message">
-<code class="descname">global_message</code><em class="property"> = []</em><a class="headerlink" href="#robot_designer_plugin.core.gui.InfoBox.global_message" title="Permalink to this definition">¶</a></dt>
+<dt id="robot_designer_plugin.core.gui.InfoBox.global_messages">
+<code class="descname">global_messages</code><em class="property"> = []</em><a class="headerlink" href="#robot_designer_plugin.core.gui.InfoBox.global_messages" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

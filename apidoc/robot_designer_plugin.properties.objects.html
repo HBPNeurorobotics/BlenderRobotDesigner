@@ -29,7 +29,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
     <link rel="up" title="robot_designer_plugin.properties package" href="robot_designer_plugin.properties.html" />
     <link rel="next" title="robot_designer_plugin.properties.segments module" href="robot_designer_plugin.properties.segments.html" />
@@ -117,9 +116,30 @@
                 <div class="section" id="module-robot_designer_plugin.properties.objects">
 <span id="robot-designer-plugin-properties-objects-module"></span><h1>robot_designer_plugin.properties.objects module<a class="headerlink" href="#module-robot_designer_plugin.properties.objects" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
+<dt id="robot_designer_plugin.properties.objects.RDCamera">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.properties.objects.</code><code class="descname">RDCamera</code><a class="reference internal" href="../_modules/robot_designer_plugin/properties/objects.html#RDCamera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDCamera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.PropertyGroup</span></code></a></p>
+<dl class="attribute">
+<dt id="robot_designer_plugin.properties.objects.RDCamera.format">
+<code class="descname">format</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDCamera.format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.properties.objects.RDCamera.height">
+<code class="descname">height</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDCamera.height" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.properties.objects.RDCamera.width">
+<code class="descname">width</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDCamera.width" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="robot_designer_plugin.properties.objects.RDDynamics">
 <em class="property">class </em><code class="descclassname">robot_designer_plugin.properties.objects.</code><code class="descname">RDDynamics</code><a class="reference internal" href="../_modules/robot_designer_plugin/properties/objects.html#RDDynamics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDDynamics" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.PropertyGroup</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.PropertyGroup</span></code></a></p>
 <p>Property group that contains dynamics values</p>
 <dl class="attribute">
 <dt id="robot_designer_plugin.properties.objects.RDDynamics.inertiaTensor">
@@ -134,11 +154,37 @@
 </dd></dl>
 
 <dl class="class">
+<dt id="robot_designer_plugin.properties.objects.RDLaser">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.properties.objects.</code><code class="descname">RDLaser</code><a class="reference internal" href="../_modules/robot_designer_plugin/properties/objects.html#RDLaser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDLaser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.PropertyGroup</span></code></a></p>
+<dl class="attribute">
+<dt id="robot_designer_plugin.properties.objects.RDLaser.horizontal_samples">
+<code class="descname">horizontal_samples</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDLaser.horizontal_samples" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.properties.objects.RDLaser.resolution">
+<code class="descname">resolution</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDLaser.resolution" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.properties.objects.RDLaser.vertical_samples">
+<code class="descname">vertical_samples</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDLaser.vertical_samples" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="robot_designer_plugin.properties.objects.RDObjects">
 <em class="property">class </em><code class="descclassname">robot_designer_plugin.properties.objects.</code><code class="descname">RDObjects</code><a class="reference internal" href="../_modules/robot_designer_plugin/properties/objects.html#RDObjects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDObjects" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.PropertyGroup</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.PropertyGroup</span></code></a></p>
 <p>Property group that stores general information for individual Blender
 objects with respect to the RobotEditor</p>
+<dl class="attribute">
+<dt id="robot_designer_plugin.properties.objects.RDObjects.camera">
+<code class="descname">camera</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDObjects.camera" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="robot_designer_plugin.properties.objects.RDObjects.dynamics">
 <code class="descname">dynamics</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDObjects.dynamics" title="Permalink to this definition">¶</a></dt>

@@ -29,7 +29,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
     <link rel="up" title="robot_designer_plugin.interface package" href="robot_designer_plugin.interface.html" />
     <link rel="next" title="robot_designer_plugin.interface.kinematics module" href="robot_designer_plugin.interface.kinematics.html" />
@@ -117,14 +116,14 @@
                 <div class="section" id="module-robot_designer_plugin.interface.helpers">
 <span id="robot-designer-plugin-interface-helpers-module"></span><h1>robot_designer_plugin.interface.helpers module<a class="headerlink" href="#module-robot_designer_plugin.interface.helpers" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="robot_designer_plugin.interface.helpers.CameraSensorBox">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.helpers.</code><code class="descname">CameraSensorBox</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/helpers.html#CameraSensorBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.helpers.CameraSensorBox" title="Permalink to this definition">¶</a></dt>
+<dt id="robot_designer_plugin.interface.helpers.AttachSensorBox">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.helpers.</code><code class="descname">AttachSensorBox</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/helpers.html#AttachSensorBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.helpers.AttachSensorBox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.gui.html#robot_designer_plugin.core.gui.CollapsibleBase" title="robot_designer_plugin.core.gui.CollapsibleBase"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.gui.CollapsibleBase</span></code></a></p>
 <p>Missing documentation.</p>
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <dl class="attribute">
-<dt id="robot_designer_plugin.interface.helpers.CameraSensorBox.property_name">
-<code class="descname">property_name</code><em class="property"> = 'camera_sensor_box'</em><a class="headerlink" href="#robot_designer_plugin.interface.helpers.CameraSensorBox.property_name" title="Permalink to this definition">¶</a></dt>
+<dt id="robot_designer_plugin.interface.helpers.AttachSensorBox.property_name">
+<code class="descname">property_name</code><em class="property"> = 'attach_sensor_box'</em><a class="headerlink" href="#robot_designer_plugin.interface.helpers.AttachSensorBox.property_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -143,14 +142,14 @@
 </dd></dl>
 
 <dl class="class">
-<dt id="robot_designer_plugin.interface.helpers.ConnectGeometryBos">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.helpers.</code><code class="descname">ConnectGeometryBos</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/helpers.html#ConnectGeometryBos"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.helpers.ConnectGeometryBos" title="Permalink to this definition">¶</a></dt>
+<dt id="robot_designer_plugin.interface.helpers.ConnectGeometryBox">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.helpers.</code><code class="descname">ConnectGeometryBox</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/helpers.html#ConnectGeometryBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.helpers.ConnectGeometryBox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.gui.html#robot_designer_plugin.core.gui.CollapsibleBase" title="robot_designer_plugin.core.gui.CollapsibleBase"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.gui.CollapsibleBase</span></code></a></p>
 <p>Missing documentation.</p>
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <dl class="attribute">
-<dt id="robot_designer_plugin.interface.helpers.ConnectGeometryBos.property_name">
-<code class="descname">property_name</code><em class="property"> = 'connect_geometry_box'</em><a class="headerlink" href="#robot_designer_plugin.interface.helpers.ConnectGeometryBos.property_name" title="Permalink to this definition">¶</a></dt>
+<dt id="robot_designer_plugin.interface.helpers.ConnectGeometryBox.property_name">
+<code class="descname">property_name</code><em class="property"> = 'connect_geometry_box'</em><a class="headerlink" href="#robot_designer_plugin.interface.helpers.ConnectGeometryBox.property_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -182,6 +181,19 @@
 </dd></dl>
 
 <dl class="class">
+<dt id="robot_designer_plugin.interface.helpers.DebugBox">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.helpers.</code><code class="descname">DebugBox</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/helpers.html#DebugBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.helpers.DebugBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.gui.html#robot_designer_plugin.core.gui.CollapsibleBase" title="robot_designer_plugin.core.gui.CollapsibleBase"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.gui.CollapsibleBase</span></code></a></p>
+<p>Missing documentation.</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<dl class="attribute">
+<dt id="robot_designer_plugin.interface.helpers.DebugBox.property_name">
+<code class="descname">property_name</code><em class="property"> = 'debug_box'</em><a class="headerlink" href="#robot_designer_plugin.interface.helpers.DebugBox.property_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="robot_designer_plugin.interface.helpers.DeformableBox">
 <em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.helpers.</code><code class="descname">DeformableBox</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/helpers.html#DeformableBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.helpers.DeformableBox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.gui.html#robot_designer_plugin.core.gui.CollapsibleBase" title="robot_designer_plugin.core.gui.CollapsibleBase"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.gui.CollapsibleBase</span></code></a></p>
@@ -190,6 +202,19 @@
 <dl class="attribute">
 <dt id="robot_designer_plugin.interface.helpers.DeformableBox.property_name">
 <code class="descname">property_name</code><em class="property"> = 'deformable_box'</em><a class="headerlink" href="#robot_designer_plugin.interface.helpers.DeformableBox.property_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="robot_designer_plugin.interface.helpers.DetachSensorBox">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.helpers.</code><code class="descname">DetachSensorBox</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/helpers.html#DetachSensorBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.helpers.DetachSensorBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.gui.html#robot_designer_plugin.core.gui.CollapsibleBase" title="robot_designer_plugin.core.gui.CollapsibleBase"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.gui.CollapsibleBase</span></code></a></p>
+<p>Missing documentation.</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<dl class="attribute">
+<dt id="robot_designer_plugin.interface.helpers.DetachSensorBox.property_name">
+<code class="descname">property_name</code><em class="property"> = 'detach_sensor_box'</em><a class="headerlink" href="#robot_designer_plugin.interface.helpers.DetachSensorBox.property_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -233,6 +258,19 @@
 
 </dd></dl>
 
+<dl class="class">
+<dt id="robot_designer_plugin.interface.helpers.SensorPropertiesBox">
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.helpers.</code><code class="descname">SensorPropertiesBox</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/helpers.html#SensorPropertiesBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.helpers.SensorPropertiesBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.gui.html#robot_designer_plugin.core.gui.CollapsibleBase" title="robot_designer_plugin.core.gui.CollapsibleBase"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.gui.CollapsibleBase</span></code></a></p>
+<p>Missing documentation.</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<dl class="attribute">
+<dt id="robot_designer_plugin.interface.helpers.SensorPropertiesBox.property_name">
+<code class="descname">property_name</code><em class="property"> = 'sensor_properties_box'</em><a class="headerlink" href="#robot_designer_plugin.interface.helpers.SensorPropertiesBox.property_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="function">
 <dt id="robot_designer_plugin.interface.helpers.create_segment_selector">
 <code class="descclassname">robot_designer_plugin.interface.helpers.</code><code class="descname">create_segment_selector</code><span class="sig-paren">(</span><em>layout</em>, <em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/interface/helpers.html#create_segment_selector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.helpers.create_segment_selector" title="Permalink to this definition">¶</a></dt>
@@ -241,6 +279,11 @@
 <dl class="function">
 <dt id="robot_designer_plugin.interface.helpers.drawInfoBox">
 <code class="descclassname">robot_designer_plugin.interface.helpers.</code><code class="descname">drawInfoBox</code><span class="sig-paren">(</span><em>layout</em>, <em>context</em>, <em>infos=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/interface/helpers.html#drawInfoBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.helpers.drawInfoBox" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="robot_designer_plugin.interface.helpers.getSingleObject">
+<code class="descclassname">robot_designer_plugin.interface.helpers.</code><code class="descname">getSingleObject</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/interface/helpers.html#getSingleObject"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.helpers.getSingleObject" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">

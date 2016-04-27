@@ -29,7 +29,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
     <link rel="up" title="robot_designer_plugin.interface package" href="robot_designer_plugin.interface.html" />
     <link rel="next" title="robot_designer_plugin.interface.model module" href="robot_designer_plugin.interface.model.html" />
@@ -119,7 +118,7 @@
 <dl class="class">
 <dt id="robot_designer_plugin.interface.menus.AssignParentMenu">
 <em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.menus.</code><code class="descname">AssignParentMenu</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/menus.html#AssignParentMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.menus.AssignParentMenu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
 <p><span class="xref std std-ref">menu</span> for re-assigning the parent of a robot segments.</p>
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <dl class="attribute">
@@ -184,12 +183,12 @@
 <dl class="attribute">
 <dt id="robot_designer_plugin.interface.menus.CameraSensorMenu.operator">
 <code class="descname">operator</code><a class="headerlink" href="#robot_designer_plugin.interface.menus.CameraSensorMenu.operator" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">SelectGeometry</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">SelectSensor</span></code></p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.interface.menus.CameraSensorMenu.operator_property">
-<code class="descname">operator_property</code><em class="property"> = 'geometry_name'</em><a class="headerlink" href="#robot_designer_plugin.interface.menus.CameraSensorMenu.operator_property" title="Permalink to this definition">¶</a></dt>
+<code class="descname">operator_property</code><em class="property"> = 'object_name'</em><a class="headerlink" href="#robot_designer_plugin.interface.menus.CameraSensorMenu.operator_property" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -202,12 +201,17 @@
 <code class="descname">show_connected</code><em class="property"> = &lt;robot_designer_plugin.core.property.PropertyHandler object&gt;</em><a class="headerlink" href="#robot_designer_plugin.interface.menus.CameraSensorMenu.show_connected" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="robot_designer_plugin.interface.menus.CameraSensorMenu.text">
+<code class="descname">text</code><em class="property"> = 'Select sensor'</em><a class="headerlink" href="#robot_designer_plugin.interface.menus.CameraSensorMenu.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="robot_designer_plugin.interface.menus.ConnectedObjectsMenu">
 <em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.menus.</code><code class="descname">ConnectedObjectsMenu</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/menus.html#ConnectedObjectsMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.menus.ConnectedObjectsMenu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
 <p><span class="xref std std-ref">menu</span> for selecting sensors while displaying connections to robot segments in the scene.</p>
 <dl class="attribute">
 <dt id="robot_designer_plugin.interface.menus.ConnectedObjectsMenu.bl_idname">
@@ -265,7 +269,7 @@
 <dl class="class">
 <dt id="robot_designer_plugin.interface.menus.CoordinateFrameMenu">
 <em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.menus.</code><code class="descname">CoordinateFrameMenu</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/menus.html#CoordinateFrameMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.menus.CoordinateFrameMenu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
 <p><span class="xref std std-ref">menu</span> to select alternative display for the coordinate frames.</p>
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <dl class="attribute">
@@ -342,7 +346,7 @@
 <dl class="class">
 <dt id="robot_designer_plugin.interface.menus.JoinModelMenu">
 <em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.menus.</code><code class="descname">JoinModelMenu</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/menus.html#JoinModelMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.menus.JoinModelMenu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
 <p><span class="xref std std-ref">menu</span> for joining two robot models.</p>
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <dl class="attribute">
@@ -365,22 +369,53 @@
 <dl class="class">
 <dt id="robot_designer_plugin.interface.menus.MassObjectMenu">
 <em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.menus.</code><code class="descname">MassObjectMenu</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/menus.html#MassObjectMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.menus.MassObjectMenu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
-<p><span class="xref std std-ref">menu</span> for selecting physical instances.</p>
+<dd><p>Bases: <a class="reference internal" href="#robot_designer_plugin.interface.menus.ConnectedObjectsMenu" title="robot_designer_plugin.interface.menus.ConnectedObjectsMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.ConnectedObjectsMenu</span></code></a></p>
+<p><span class="xref std std-ref">menu</span> for selecting <span class="xref std std-term">mass entities</span> while displaying connections to robot segments in the scene.</p>
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <dl class="attribute">
 <dt id="robot_designer_plugin.interface.menus.MassObjectMenu.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.physicsframemenu'</em><a class="headerlink" href="#robot_designer_plugin.interface.menus.MassObjectMenu.bl_idname" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.mass_object_menu'</em><a class="headerlink" href="#robot_designer_plugin.interface.menus.MassObjectMenu.bl_idname" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.interface.menus.MassObjectMenu.bl_label">
-<code class="descname">bl_label</code><em class="property"> = 'SelectPhysics Frame'</em><a class="headerlink" href="#robot_designer_plugin.interface.menus.MassObjectMenu.bl_label" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_label</code><em class="property"> = 'Select mass object'</em><a class="headerlink" href="#robot_designer_plugin.interface.menus.MassObjectMenu.bl_label" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="robot_designer_plugin.interface.menus.MassObjectMenu.draw">
-<code class="descname">draw</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.interface.menus.MassObjectMenu.draw" title="Permalink to this definition">¶</a></dt>
+<dl class="attribute">
+<dt id="robot_designer_plugin.interface.menus.MassObjectMenu.blender_type">
+<code class="descname">blender_type</code><em class="property"> = 'EMPTY'</em><a class="headerlink" href="#robot_designer_plugin.interface.menus.MassObjectMenu.blender_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.interface.menus.MassObjectMenu.obj_tag">
+<code class="descname">obj_tag</code><em class="property"> = &lt;robot_designer_plugin.core.property.PropertyHandler object&gt;</em><a class="headerlink" href="#robot_designer_plugin.interface.menus.MassObjectMenu.obj_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.interface.menus.MassObjectMenu.operator">
+<code class="descname">operator</code><a class="headerlink" href="#robot_designer_plugin.interface.menus.MassObjectMenu.operator" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">SelectPhysical</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.interface.menus.MassObjectMenu.operator_property">
+<code class="descname">operator_property</code><em class="property"> = 'frameName'</em><a class="headerlink" href="#robot_designer_plugin.interface.menus.MassObjectMenu.operator_property" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.interface.menus.MassObjectMenu.quick_search">
+<code class="descname">quick_search</code><em class="property"> = &lt;robot_designer_plugin.core.property.PropertyHandler object&gt;</em><a class="headerlink" href="#robot_designer_plugin.interface.menus.MassObjectMenu.quick_search" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.interface.menus.MassObjectMenu.show_connected">
+<code class="descname">show_connected</code><em class="property"> = &lt;robot_designer_plugin.core.property.PropertyHandler object&gt;</em><a class="headerlink" href="#robot_designer_plugin.interface.menus.MassObjectMenu.show_connected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.interface.menus.MassObjectMenu.text">
+<code class="descname">text</code><em class="property"> = 'Select mass object'</em><a class="headerlink" href="#robot_designer_plugin.interface.menus.MassObjectMenu.text" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -388,7 +423,7 @@
 <dl class="class">
 <dt id="robot_designer_plugin.interface.menus.ModelMenu">
 <em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.menus.</code><code class="descname">ModelMenu</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/menus.html#ModelMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.menus.ModelMenu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
 <p><span class="xref std std-ref">menu</span> for selecting robot models or optionally create new ones.</p>
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <dl class="attribute">
@@ -411,7 +446,7 @@
 <dl class="class">
 <dt id="robot_designer_plugin.interface.menus.SegmentsGeometriesMenu">
 <em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.menus.</code><code class="descname">SegmentsGeometriesMenu</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/menus.html#SegmentsGeometriesMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.menus.SegmentsGeometriesMenu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
 <p><span class="xref std std-ref">menu</span> for selecting robot segments while displaying connections to geometries in the scene.</p>
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <dl class="attribute">
@@ -439,7 +474,7 @@
 <dl class="class">
 <dt id="robot_designer_plugin.interface.menus.SegmentsMenu">
 <em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.menus.</code><code class="descname">SegmentsMenu</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/menus.html#SegmentsMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.menus.SegmentsMenu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 22a2853 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>, <a class="reference internal" href="#robot_designer_plugin.interface.menus.BaseMenu" title="robot_designer_plugin.interface.menus.BaseMenu"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.interface.menus.BaseMenu</span></code></a></p>
 <p><span class="xref std std-ref">menu</span> for selecting robot segments.</p>
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <dl class="attribute">

@@ -29,7 +29,6 @@
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
-    <link rel="author" title="About these documents" href="../about.html" />
     <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
     <link rel="up" title="The Plugin Core" href="../developer_manual/plugin_core.html" />
     <link rel="next" title="robot_designer_plugin.core.operators module" href="robot_designer_plugin.core.operators.html" />
@@ -172,7 +171,7 @@ The log file is stored in the path stored in the plugin directory (<code class="
 		Converting py args to operator properties: : keyword &quot;model_name&quot; unrecognized
 </pre></div>
 </div>
-<p>Logging of operators can be automated with the decorators and base classes in the <a class="reference internal" href="robot_designer_plugin.operators.html#module-robot_designer_plugin.operators" title="robot_designer_plugin.operators"><code class="xref py py-mod docutils literal"><span class="pre">operators</span></code></a> module.</p>
+<p>Logging of operators can be automated with the decorators and base classes in the <a class="reference internal" href="robot_designer_plugin.core.operators.html#module-robot_designer_plugin.core.operators" title="robot_designer_plugin.core.operators"><code class="xref py py-mod docutils literal"><span class="pre">operators</span></code></a> module.</p>
 <dl class="function">
 <dt id="robot_designer_plugin.core.logfile.LogFunction">
 <code class="descclassname">robot_designer_plugin.core.logfile.</code><code class="descname">LogFunction</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/logfile.html#LogFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.logfile.LogFunction" title="Permalink to this definition">¶</a></dt>
@@ -217,6 +216,11 @@ are filtered such that errors in the own code can be detected more easily.</p>
 </tbody>
 </table>
 </dd></dl>
+
+<dl class="function">
+<dt id="robot_designer_plugin.core.logfile.log_callstack_last">
+<code class="descclassname">robot_designer_plugin.core.logfile.</code><code class="descname">log_callstack_last</code><span class="sig-paren">(</span><em>back_trace=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/logfile.html#log_callstack_last"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.logfile.log_callstack_last" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="data">
 <dt id="robot_designer_plugin.core.logfile.operator_logger">
