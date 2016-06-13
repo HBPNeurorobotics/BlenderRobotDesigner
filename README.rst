@@ -201,7 +201,7 @@ manual with further information.
 Troubleshooting
 --------
 
-If you get some comilation issues with any of Python libraries, you can try downloading precompiled .whl files from here: http://www.lfd.uci.edu/~gohlke/pythonlibs/
+If you get some compilation issues with any of Python libraries, you can try downloading precompiled .whl files from here: http://www.lfd.uci.edu/~gohlke/pythonlibs/
 
 Features
 --------
