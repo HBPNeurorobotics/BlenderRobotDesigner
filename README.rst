@@ -198,6 +198,11 @@ On Linux, for instance, you can run:
 This will build the documentation including the user's and developers
 manual with further information.
 
+Troubleshooting
+--------
+
+If you get some comilation issues with any of Python libraries, you can try downloading precompiled .whl files from here: http://www.lfd.uci.edu/~gohlke/pythonlibs/
+
 Features
 --------
 
