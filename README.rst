@@ -188,8 +188,6 @@ On Linux, for instance, you can run:
 
     $ git clone git@github.com:HBPNeurorobotics/BlenderRobotDesigner.git
     $ cd BlenderRobotDesigner
-    $ virtualenv -p python3 rd_venv
-    $ . ./rd_venv/bin/activate
     $ pip install -r robot_designer_plugin/requirements.txt
     $ cd doc
     $ make html
