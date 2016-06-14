@@ -186,15 +186,20 @@ On Linux, for instance, you can run:
 
 .. code-block:: console
 
-    user@host ~/Projects $ git clone git@github.com:HBPNeurorobotics/BlenderRobotDesigner.git
-    user@host ~/Projects $ cd BlenderRobotDesigner
-    user@host ~/Projects/BlenderRobotDesigner $ pip install -r robotde_signer_plugin/requirements.txt
-    user@host ~/Projects/BlenderRobotDesigner $ cd doc
-    user@host ~/Projects/BlenderRobotDesigner/doc $ make html
+    $ git clone git@github.com:HBPNeurorobotics/BlenderRobotDesigner.git
+    $ cd BlenderRobotDesigner
+    $ pip install -r robot_designer_plugin/requirements.txt
+    $ cd doc
+    $ make html
 
 
 This will build the documentation including the user's and developers
 manual with further information.
+
+Troubleshooting
+--------
+
+If you get some compilation issues with any of Python libraries, you can try downloading precompiled .whl files from here: http://www.lfd.uci.edu/~gohlke/pythonlibs/
 
 Features
 --------

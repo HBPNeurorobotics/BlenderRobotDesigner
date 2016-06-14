@@ -136,6 +136,8 @@ def draw(layout, context):
             column = row.column(align=True)
             collision.GenerateAllCollisionMeshes.place_button(column, infoBox=infoBox)
             collision.GenerateCollisionMesh.place_button(column, infoBox=infoBox)
+            collision.GenerateAllCollisionConvexHull.place_button(column, infoBox=infoBox)
+            collision.GenerateCollisionConvexHull.place_button(column, infoBox=infoBox)
 
             box.row()
             infoBox.draw_info()
