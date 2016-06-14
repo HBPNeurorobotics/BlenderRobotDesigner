@@ -231,11 +231,17 @@ def create_urdf(operator: RDOperator, context, base_link_name,
         # todo: pick up the real values from Physics Frame?
 
         frame_names = [
-            frame.name for frame in bpy.data.objects if frame.RobotEditor.tag == 'PHYSICS_FRAME']
+            frame.name for frame in bpy.data.objects if frame.RobotEditor.tag == 'PHYSICS_FRAME' and frame.parent_bone==segment.name]
+
+	# If no frame is connected create a default one. This is required for Gazebo!
+        if not frame_names:
+            child.add_inertial()
+	
 
         for frame in frame_names:
             # Add inertial definitions (for Gazebo)
             inertial = child.add_inertial()
+            print(inertial, inertial.__dict__)
             if bpy.data.objects[frame].parent_bone == segment.name:
                 inertial.mass.value_ = bpy.data.objects[
                     frame].RobotEditor.dynamics.mass

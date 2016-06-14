@@ -305,7 +305,10 @@ class URDFTree(object):
         inertial = urdf_dom.InertialType()
         self.link.inertial.append(inertial)
         inertial.mass = urdf_dom.MassType()
+        inertial.mass.value_ = "1.0"
         inertial.inertia = urdf_dom.InertiaType()
+        inertial.inertia.ixx = inertial.inertia.izz =  inertial.inertia.iyy = "1.0"
+        inertial.inertia.ixy = inertial.inertia.ixz =  inertial.inertia.iyz = "0.0"
         inertial.origin = urdf_dom.PoseType()
         inertial.origin.xyz = "0 0 0"
         inertial.origin.rpy = "0 0 0"
