@@ -103,12 +103,22 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
     for mesh in meshes:
         operator.logger.debug("Processing mesh: %s", mesh)
 
-        file_path = os.path.join(directory, mesh + '.dae')
+        if '.' in mesh:
+            file_path = os.path.join(directory, mesh.replace('.', '_') + '.dae')
+        else:
+            file_path = os.path.join(directory, mesh + '.dae')
+
         model_name = bpy.context.active_object.name
         bpy.ops.object.select_all(action='DESELECT')
         bpy.data.objects[mesh].select=True
         bpy.context.scene.objects.active = bpy.data.objects[mesh]
         #bpy.context.active_object.select = True
+
+        #get the mesh vertices number
+        #bm = bpy.context.scene.objects.active.data
+        #print("# of vertices=%d" % len(bm.vertices))
+
+
         bpy.ops.wm.collada_export(
             filepath=file_path, selected=True, use_texture_copies=True)
 
@@ -159,6 +169,13 @@ def create_urdf(operator: RDOperator, context, base_link_name,
         trafo, dummy = segment.RobotEditor.getTransform()
         child.joint.origin.rpy = list_to_string(trafo.to_euler())
         child.joint.origin.xyz = list_to_string([i * j for i, j in zip(trafo.translation, blender_scale_factor)])
+
+
+        if '_joint' in segment.name:
+            segment.name = segment.name.replace("_joint", "")
+        if '.' in segment.name:
+            segment.name = segment.name.replace('.', '_')
+
         child.joint.name = segment.name + '_joint'
         child.link.name = segment.name + '_link'
         if segment.RobotEditor.axis_revert:
@@ -255,7 +272,7 @@ def create_urdf(operator: RDOperator, context, base_link_name,
         # add joint controllers
         if operator.gazebo and segment.RobotEditor.jointController.isActive is True:
             controller = child.add_joint_controller(root.control_plugin)
-            controller.joint_name = segment.name
+            controller.joint_name = child.joint.name
             controller.type = segment.RobotEditor.jointController.controllerType
             if segment.RobotEditor.jointController.P <= 1.0:
                 segment.RobotEditor.jointController.P = 100
