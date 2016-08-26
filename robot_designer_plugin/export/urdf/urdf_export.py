@@ -103,23 +103,38 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
     for mesh in meshes:
         operator.logger.debug("Processing mesh: %s", mesh)
 
-        file_path = os.path.join(directory, mesh + '.dae')
         model_name = bpy.context.active_object.name
         bpy.ops.object.select_all(action='DESELECT')
         bpy.data.objects[mesh].select=True
         bpy.context.scene.objects.active = bpy.data.objects[mesh]
         #bpy.context.active_object.select = True
-        bpy.ops.wm.collada_export(
-            filepath=file_path, selected=True, use_texture_copies=True)
 
-        # quick fix for dispersed meshes
-        # todo: find appropriate solution
-        with open(file_path, "r") as file:
-            lines = file.readlines()
-        with open(file_path, "w") as file:
-            for line in lines:
-                if "matrix" not in line:
-                    file.write(line)
+        #get the mesh vertices number
+        bm = bpy.context.scene.objects.active.data
+        #print("# of vertices=%d" % len(bm.vertices))
+
+        if len(bm.vertices) > 1:
+            if '.' in mesh:
+                file_path = os.path.join(directory, mesh.replace('.', '_') + '.dae')
+            else:
+                file_path = os.path.join(directory, mesh + '.dae')
+
+            bpy.ops.wm.collada_export(
+                filepath=file_path, selected=True, use_texture_copies=True)
+
+            # quick fix for dispersed meshes
+            # todo: find appropriate solution
+            with open(file_path, "r") as file:
+                lines = file.readlines()
+            with open(file_path, "w") as file:
+                for line in lines:
+                    if "matrix" not in line:
+                        file.write(line)
+        else:
+            if '.' in mesh:
+                file_path = os.path.join(directory, mesh.replace('.', '_') + '_vertices' + str(len(bm.vertices)) + '.dae')
+            else:
+                file_path = os.path.join(directory, mesh + '_vertices' + str(len(bm.vertices)) + '.dae')
 
         SelectModel.run(model_name=model_name)
         if in_ros_package:
@@ -159,6 +174,12 @@ def create_urdf(operator: RDOperator, context, base_link_name,
         trafo, dummy = segment.RobotEditor.getTransform()
         child.joint.origin.rpy = list_to_string(trafo.to_euler())
         child.joint.origin.xyz = list_to_string([i * j for i, j in zip(trafo.translation, blender_scale_factor)])
+
+        if '_joint' in segment.name:
+            segment.name = segment.name.replace("_joint", "")
+        if '.' in segment.name:
+            segment.name = segment.name.replace('.', '_')
+
         child.joint.name = segment.name + '_joint'
         child.link.name = segment.name + '_link'
         if segment.RobotEditor.axis_revert:
@@ -210,7 +231,7 @@ def create_urdf(operator: RDOperator, context, base_link_name,
 
             visual_path = export_mesh(operator, context, mesh, meshpath, toplevel_directory,
                                       in_ros_package, abs_filepaths, export_collision=False)
-            if visual_path:
+            if visual_path and "_vertices1.dae" not in visual_path:
                 visual = child.add_mesh(visual_path,
                                         [i * j for i, j in zip(bpy.data.objects[mesh].scale, blender_scale_factor)])
                 visual.origin.xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
@@ -220,7 +241,7 @@ def create_urdf(operator: RDOperator, context, base_link_name,
 
             collision_path = export_mesh(operator, context, mesh, meshpath, toplevel_directory,
                                          in_ros_package, abs_filepaths, export_collision=True)
-            if collision_path:
+            if collision_path and "_vertices1.dae" not in collision_path:
                 collision = child.add_collisionmodel(collision_path,
                     [i * j for i, j in zip(bpy.data.objects[mesh].scale, blender_scale_factor)])
                 collision.origin.xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
@@ -255,7 +276,7 @@ def create_urdf(operator: RDOperator, context, base_link_name,
         # add joint controllers
         if operator.gazebo and segment.RobotEditor.jointController.isActive is True:
             controller = child.add_joint_controller(root.control_plugin)
-            controller.joint_name = segment.name
+            controller.joint_name = child.joint.name
             controller.type = segment.RobotEditor.jointController.controllerType
             if segment.RobotEditor.jointController.P <= 1.0:
                 segment.RobotEditor.jointController.P = 100
