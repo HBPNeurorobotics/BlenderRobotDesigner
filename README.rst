@@ -183,13 +183,10 @@ Important: You should have a latest blender (version>=2.77) in your computer. Yo
 Install on linux and windows:
 
 1. Download daily-built blender from this link: https://builder.blender.org/download/
-2. Download "installer.blend" from our github https://github.com/HBPNeurorobotics/BlenderRobotDesigner
-3. Launch blender from terminal
-(Note: launching blender from terminal makes sure that you choose the right version of blender if you have multiple blenders in your computer)
-4. Open installer.blend file, click "run script"
-(Note: for windows users, directly open the blender file. Please make sure that you choose the right version of blender, if you have multiple blender version in your computer)
-5. Close and launch blender again, you will find HBP addon on the top left of blender GUI
-(Note: if the HBP tab does not appear in the tool shelf, navigate to File->User Preferences->Add-Ons tab, search for and select the NRP Robot Designer add-on, and click save.)
+2. Download "installer.blend" from our github： https://github.com/HBPNeurorobotics/BlenderRobotDesigner
+3. Launch blender from terminal (Note: launching blender from terminal makes sure that you choose the right version of blender if you have multiple blenders in your computer)
+4. Open installer.blend file, click "run script" (Note: for windows users, directly open the blender file. Please make sure that you choose the right version of blender, if you have multiple blender version in your computer)
+5. Close and launch blender again, you will find HBP addon on the top left of blender GUI (Note: if the HBP tab does not appear in the tool shelf, navigate to File->User Preferences->Add-Ons tab, search for and select the NRP Robot Designer add-on, and click save.)
 
 This will build the documentation including the user's and developers
 manual with further information.
