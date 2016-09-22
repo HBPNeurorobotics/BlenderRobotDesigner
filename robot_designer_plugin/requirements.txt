@@ -1,4 +1,7 @@
-mathutils
+wheel
+pyxb
+gitpython
+gitdb
 sphinx
 sphinx-autodoc-typehints
 hbp-sphinx-theme
