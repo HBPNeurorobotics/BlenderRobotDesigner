@@ -178,20 +178,18 @@ sub-projects.
 Installation
 ------------
 
-Obtain the current master branch by downloading the `zipped file <https://github.com/HBPNeurorobotics/BlenderRobotDesigner/archive/master.zip>`__
-or using git (you need Python 3 installed, best using `a virtual
-environment <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`__).
-On Linux, for instance, you can run:
+Important: You should have a latest blender (version>=2.77) in your computer. Your version of blender should have a built-in python.
+(updated 23.06.2016: download a daily-built blender version instead of official blender because right now official blender has no built-in python.)
+Install on linux and windows:
 
-
-.. code-block:: console
-
-    $ git clone git@github.com:HBPNeurorobotics/BlenderRobotDesigner.git
-    $ cd BlenderRobotDesigner
-    $ pip install -r robot_designer_plugin/requirements.txt
-    $ cd doc
-    $ make html
-
+1. Download daily-built blender from this link: https://builder.blender.org/download/
+2. Download "installer.blend" from our github https://github.com/HBPNeurorobotics/BlenderRobotDesigner
+3. Launch blender from terminal
+(Note: launching blender from terminal makes sure that you choose the right version of blender if you have multiple blenders in your computer)
+4. Open installer.blend file, click "run script"
+(Note: for windows users, directly open the blender file. Please make sure that you choose the right version of blender, if you have multiple blender version in your computer)
+5. Close and launch blender again, you will find HBP addon on the top left of blender GUI
+(Note: if the HBP tab does not appear in the tool shelf, navigate to File->User Preferences->Add-Ons tab, search for and select the NRP Robot Designer add-on, and click save.)
 
 This will build the documentation including the user's and developers
 manual with further information.
@@ -211,9 +209,7 @@ Features
     way, it can detect the used operating system and Blender version and
     link the files to the correct location as well as select the correct
     binaries for the platform. For more information, refer to the
-    documentation. *Currently, the installer is disabled and in the process
-    of development for simplification and reflect new dependencies on external software.
-    Please refer to the manual installation in the user documentation for now.*
+    documentation. 
 
 -   **Robot modeling**
 
