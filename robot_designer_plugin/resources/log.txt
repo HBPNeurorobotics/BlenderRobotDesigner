@@ -1,0 +1,86 @@
+[DEBUG|      Core| property.py:202|register()] Registering generated property group: RDGlobals_unwrapped
+
+[DEBUG|      Core| property.py:208|register()] Assigning property to: <class 'bpy.types.Scene'>
+
+[DEBUG|      Core| property.py:202|register()] Registering generated property group: RDGlobals_unwrapped
+
+[DEBUG|      Core| property.py:208|register()] Assigning property to: <class 'bpy.types.Scene'>
+
+[DEBUG|      Core| property.py:202|register()] Registering generated property group: RDGlobals_unwrapped
+
+[DEBUG|      Core| property.py:208|register()] Assigning property to: <class 'bpy.types.Scene'>
+
+[ INFO|      Core|pluginmanager.py:248|register()] Done
+
+[DEBUG|      Core|pluginmanager.py:250|register()] Properties: [(<class 'robot_designer_plugin.properties.segments.RDActuator'>, None), (<class 'robot_designer_plugin.properties.segments.RDDegreeOfFreedom'>, None), (<class 'robot_designer_plugin.properties.segments.RDJointController'>, None), (<class 'robot_designer_plugin.properties.segments.RDEulerAnglesSegment'>, None), (<class 'robot_designer_plugin.properties.segments.RDDenavitHartenbergSegment'>, None), (<class 'robot_designer_plugin.properties.segments.RDSegment'>, <class 'bpy_types.Bone'>), (<class 'robot_designer_plugin.properties.objects.RDDynamics'>, None), (<class 'robot_designer_plugin.properties.objects.RDCamera'>, None), (<class 'robot_designer_plugin.properties.objects.RDLaser'>, None), (<class 'robot_designer_plugin.properties.objects.RDObjects'>, <class 'bpy_types.Object'>)]
+
+[ INFO|      Core|pluginmanager.py:274|register()] 
+
+	+ class GenerateAPI                         in operators/api                           
+	+ class GenerateAllCollisionMeshes          in operators/collision                     
+	+ class GenerateAllCollisionConvexHull      in operators/collision                     
+	+ class GenerateCollisionMesh               in operators/collision                     
+	+ class GenerateCollisionConvexHull         in operators/collision                     
+	+ class CreatePhysical                      in operators/dynamics                      
+	+ class SelectPhysical                      in operators/dynamics                      
+	+ class AssignPhysical                      in operators/dynamics                      
+	+ class DetachPhysical                      in operators/dynamics                      
+	+ class PrintTransformations                in operators/gui                           
+	+ class SelectCoordinateFrame               in operators/model                         
+	+ class RebuildModel                        in operators/model                         
+	+ class SelectModel                         in operators/model                         
+	+ class RenameModel                         in operators/model                         
+	+ class JoinModels                          in operators/model                         
+	+ class CreateNewModel                      in operators/model                         
+	+ class SelectGeometry                      in operators/rigid_bodies                  
+	+ class AssignGeometry                      in operators/rigid_bodies                  
+	+ class RenameAllGeometries                 in operators/rigid_bodies                  
+	+ class DetachGeometry                      in operators/rigid_bodies                  
+	+ class DetachAllGeometries                 in operators/rigid_bodies                  
+	+ class SelectAllGeometries                 in operators/rigid_bodies                  
+	+ class SetGeometryActive                   in operators/rigid_bodies                  
+	+ class SelectSegment                       in operators/segments                      
+	+ class RenameSegment                       in operators/segments                      
+	+ class InsertNewParentSegment              in operators/segments                      
+	+ class AssignParentSegment                 in operators/segments                      
+	+ class ImportBlenderArmature               in operators/segments                      
+	+ class DeleteSegment                       in operators/segments                      
+	+ class CreateNewSegment                    in operators/segments                      
+	+ class UpdateSegments                      in operators/segments                      
+	+ class ConvertSoftBodies                   in operators/soft_bodies                   
+	+ class GenerateMeshFromAllSegment          in operators/mesh_generation               
+	+ class GenerateMeshFromSegment             in operators/mesh_generation               
+	+ class GenerateMeshFromJoint               in operators/mesh_generation               
+	+ class SelectSensor                        in operators/sensors                       
+	+ class AssignCameraSensor                  in operators/sensors                       
+	+ class DetachCameraSensor                  in operators/sensors                       
+	+ class ConvertCameraToSensor               in operators/sensors                       
+	+ class CreateOpticalSensor                 in operators/sensors                       
+	+ class ExportZippedPackage                 in export/urdf/urdf_export                 
+	+ class ExportPackage                       in export/urdf/urdf_export                 
+	+ class ExportPlain                         in export/urdf/urdf_export                 
+	+ class ImportPackage                       in export/urdf/urdf_import                 
+	+ class ImportZippedPackage                 in export/urdf/urdf_import                 
+	+ class ImportPlain                         in export/urdf/urdf_import                 
+	+ class SegmentsGeometriesMenu              in interface/menus                         
+	+ class GeometriesMenu                      in interface/menus                         
+	+ class CameraSensorMenu                    in interface/menus                         
+	+ class MassObjectMenu                      in interface/menus                         
+	+ class ModelMenu                           in interface/menus                         
+	+ class JoinModelMenu                       in interface/menus                         
+	+ class CoordinateFrameMenu                 in interface/menus                         
+	+ class SegmentsMenu                        in interface/menus                         
+	+ class AssignParentMenu                    in interface/menus                         
+	+ class UserInterface                       in interface/main                          
+	+ propery RDActuator                                 in properties/segments                     
+	+ propery RDDegreeOfFreedom                          in properties/segments                     
+	+ propery RDJointController                          in properties/segments                     
+	+ propery RDEulerAnglesSegment                       in properties/segments                     
+	+ propery RDDenavitHartenbergSegment                 in properties/segments                     
+	+ propery RDSegment                         (Bone)   in properties/segments                     
+	+ propery RDDynamics                                 in properties/objects                      
+	+ propery RDCamera                                   in properties/objects                      
+	+ propery RDLaser                                    in properties/objects                      
+	+ propery RDObjects                         (Object) in properties/objects                      
+	+ icon hbp                                  from /home/gchen/.config/blender/2.78/scripts/addons/robot_designer_plugin/resources/icons/hbp.png
+

@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+  <xsd:annotation>
+    <xsd:documentation xml:lang='en'>
+      <![CDATA[The model element defines a complete robot or any other physical object.]]>
+    </xsd:documentation>
+  </xsd:annotation>
+  <xsd:include schemaLocation='http://sdformat.org/schemas/types.xsd'/>
+  <xsd:include schemaLocation='http://sdformat.org/schemas/link.xsd'/>
+  <xsd:include schemaLocation='http://sdformat.org/schemas/joint.xsd'/>
+  <xsd:include schemaLocation='http://sdformat.org/schemas/plugin.xsd'/>
+  <xsd:include schemaLocation='http://sdformat.org/schemas/gripper.xsd'/>
+  <xsd:element name='model'>
+    <xsd:complexType>
+      <xsd:choice maxOccurs='unbounded'>
+        <xsd:choice  minOccurs='0' maxOccurs='1'>
+        <xsd:element name='static' type='xsd:boolean'>
+          <xsd:annotation>
+            <xsd:documentation xml:lang='en'>
+              <![CDATA[If set to true, the model is immovable. Otherwise the model is simulated in the dynamics engine.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice  minOccurs='0' maxOccurs='1'>
+        <xsd:element name='self_collide' type='xsd:boolean'>
+          <xsd:annotation>
+            <xsd:documentation xml:lang='en'>
+              <![CDATA[If set to true, all links in the model will collide with each other (except those connected by a joint). Can be overridden by the link or collision element self_collide property. Two links within a model will collide if link1.self_collide OR link2.self_collide. Links connected by a joint will never collide.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice  minOccurs='0' maxOccurs='1'>
+        <xsd:element name='allow_auto_disable' type='xsd:boolean'>
+          <xsd:annotation>
+            <xsd:documentation xml:lang='en'>
+              <![CDATA[Allows a model to auto-disable, which is means the physics engine can skip updating the model when the model is at rest. This parameter is only used by models with no joints.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice  minOccurs='0' maxOccurs='1'>
+        <xsd:element name='pose' type='pose'>
+          <xsd:annotation>
+            <xsd:documentation xml:lang='en'>
+              <![CDATA[A position and orientation in the global coordinate frame for the model. Position(x,y,z) and rotation (roll, pitch yaw) in the global coordinate frame.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice  minOccurs='0' maxOccurs='unbounded'>
+        <xsd:element name='include'>
+          <xsd:annotation>
+            <xsd:documentation xml:lang='en'>
+              <![CDATA[Include resources from a URI. This can be used to nest models.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:choice maxOccurs='unbounded'>
+              <xsd:choice  minOccurs='1' maxOccurs='1'>
+              <xsd:element name='uri' type='xsd:string'>
+                <xsd:annotation>
+                  <xsd:documentation xml:lang='en'>
+                    <![CDATA[URI to a resource, such as a model]]>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              </xsd:choice>
+              <xsd:choice  minOccurs='0' maxOccurs='1'>
+              <xsd:element name='pose' type='pose'>
+                <xsd:annotation>
+                  <xsd:documentation xml:lang='en'>
+                    <![CDATA[Override the pose of the included model. A position and orientation in the global coordinate frame for the model. Position(x,y,z) and rotation (roll, pitch yaw) in the global coordinate frame.]]>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              </xsd:choice>
+              <xsd:choice  minOccurs='0' maxOccurs='1'>
+              <xsd:element name='name' type='xsd:string'>
+                <xsd:annotation>
+                  <xsd:documentation xml:lang='en'>
+                    <![CDATA[Override the name of the included model.]]>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              </xsd:choice>
+              <xsd:choice  minOccurs='0' maxOccurs='1'>
+              <xsd:element name='static' type='xsd:boolean'>
+                <xsd:annotation>
+                  <xsd:documentation xml:lang='en'>
+                    <![CDATA[Override the static value of the included model.]]>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              </xsd:choice>
+            </xsd:choice>
+          </xsd:complexType>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:element ref='link'/>
+        <xsd:element ref='joint'/>
+        <xsd:element ref='plugin'/>
+        <xsd:element ref='gripper'/>
+      </xsd:choice>
+      <xsd:attribute name='name' type='xsd:string' use='required' >
+        <xsd:annotation>
+          <xsd:documentation xml:lang='en'>
+            <![CDATA[A unique name for the model. This name must not match another model in the world.]]>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>
