@@ -25,11 +25,6 @@ try:
     from . import core
     reload(core)  # Must be the first to reload
 
-
-    third_party_path = os.path.join(core.config.resource_path,'third-party')
-    if third_party_path not in sys.path:
-        sys.path.append(third_party_path)
-
 except Exception as e:
     print("Could not load core functionality!", type(e).__name__, e)
     raise e
@@ -94,7 +89,7 @@ bl_info = {
     "name": "NRP Robot Designer",
     "author": "Stefan Ulbrich (FZI), Michael Bechtel",
     "version": (0, 1),
-    "blender": (2, 69, 0),
+    "blender": (2, 78, 1),
     "location": "View3D > Tools",
     "category": "Editor"}
 
