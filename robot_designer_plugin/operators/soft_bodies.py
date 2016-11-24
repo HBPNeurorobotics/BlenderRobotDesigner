@@ -50,10 +50,10 @@ from bpy.props import FloatProperty, BoolProperty
 # RobotDesigner imports
 from ..core import config, PluginManager, RDOperator, Condition
 
-from .helpers import SingleMeshSelected, ModelSelected
+from .helpers import SingleMeshSelected, ModelSelected, ObjectScaled
 
 
-@RDOperator.Preconditions(SingleMeshSelected, ModelSelected)
+@RDOperator.Preconditions(SingleMeshSelected, ModelSelected, ObjectScaled)
 @PluginManager.register_class
 class ConvertSoftBodies(RDOperator):
     """
@@ -74,7 +74,7 @@ class ConvertSoftBodies(RDOperator):
     t2 = FloatProperty(name="Maximum common weight", default=0.5, min=0.0,
                        max=1.0)
 
-    thickness = FloatProperty(name="Thickness", unit='LENGTH')
+    thickness = FloatProperty(name="Thickness", unit='LENGTH', min=0.0, max=1.0, default=0.2)
 
     @RDOperator.OperatorLogger
     def execute(self, context):

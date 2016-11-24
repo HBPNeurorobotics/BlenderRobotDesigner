@@ -239,3 +239,15 @@ class AssignObjectBase(RDOperator):
     def execute(self, context):
         bpy.ops.object.parent_set(type='BONE', keep_transform=True)
         return {'FINISHED'}
+
+		
+class ObjectScaled(Condition):
+    @staticmethod
+    def check():
+        """
+        :term:`condition` that assures that model has been scaled before the operation.
+        """
+        if bpy.context.active_object:
+            return (bpy.context.active_object.scale.x == bpy.context.active_object.scale.y == bpy.context.active_object.scale.z == 1.0), "Object has to be scaled!"
+        else:
+            return True, ""
