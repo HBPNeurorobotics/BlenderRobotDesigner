@@ -1,0 +1,32 @@
+<?xml version="1.0" ?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+      <![CDATA[Plane shape]]>
+    </xsd:documentation>
+  </xsd:annotation>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+  <xsd:element name="plane">
+    <xsd:complexType>
+      <xsd:choice maxOccurs="unbounded">
+        <xsd:choice maxOccurs="1" minOccurs="1">
+        <xsd:element name="normal" type="vector3">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[Normal direction for the plane]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="1">
+        <xsd:element name="size" type="vector2d">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[Length of each side of the plane]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

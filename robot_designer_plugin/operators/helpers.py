@@ -47,7 +47,6 @@ from ..core import Condition, PluginManager
 from ..core.constants import StringConstants
 from ..core import RDOperator
 
-
 def _vec_roll_to_mat3(vec, roll):
     """
     Function to convert a given rotation vector and a roll angle along this axis into a 3x3 rotation matrix
@@ -108,7 +107,7 @@ class ModelSelected(Condition):
         :return: True if the condition is met, else false. String with error message.
         """
         if bpy.context.active_object:
-            return bpy.context.active_object.type == 'ARMATURE', "Model not selected and active."
+            return bpy.context.active_object.type == 'ARMATURE', "Model not selected and active." #or bpy.context.active_object.type == 'MESH'
         else:
             return False, "No model selected"
 

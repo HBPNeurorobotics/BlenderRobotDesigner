@@ -33,15 +33,18 @@
 #   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
-
 """
-Generic (Blender-independent) parsing of URDF files.
+This module adds SDF support to the RobotDesigner
 """
 
-from . import helpers
-from . import urdf_dom
-from . import urdf_tree
+
+from . import sdf_export, sdf_import, generic
+
 from importlib import reload
-reload(helpers)
-reload(urdf_dom)
-reload(urdf_tree)
+reload(generic)
+reload(sdf_export)
+reload(sdf_import)
+
+from .sdf_import import ImportPlain, ImportZippedPackage
+#from .urdf_export import ExportPackage, ExportZippedPackage, ExportPlain
+__author__ = 'ulbrich'

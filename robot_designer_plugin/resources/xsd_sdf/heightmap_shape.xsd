@@ -1,0 +1,124 @@
+<?xml version="1.0" ?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+      <![CDATA[A heightmap based on a 2d grayscale image.]]>
+    </xsd:documentation>
+  </xsd:annotation>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+  <xsd:element name="heightmap">
+    <xsd:complexType>
+      <xsd:choice maxOccurs="unbounded">
+        <xsd:choice maxOccurs="1" minOccurs="1">
+        <xsd:element name="uri" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[URI to a grayscale image file]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="size" type="vector3">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[The size of the heightmap in world units.
+      When loading an image: "size" is used if present, otherwise defaults to 1x1x1.
+      When loading a DEM: "size" is used if present, otherwise defaults to true size of DEM.
+  ]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="pos" type="vector3">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[A position offset.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="unbounded" minOccurs="0">
+        <xsd:element name="texture">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[The heightmap can contain multiple textures. The order of the texture matters. The first texture will appear at the lowest height, and the last texture at the highest height. Use blend to control the height thresholds and fade between textures.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:choice maxOccurs="unbounded">
+              <xsd:choice maxOccurs="1" minOccurs="1">
+              <xsd:element name="size" type="xsd:double">
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="en">
+                    <![CDATA[Size of the applied texture in meters.]]>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              </xsd:choice>
+              <xsd:choice maxOccurs="1" minOccurs="1">
+              <xsd:element name="diffuse" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="en">
+                    <![CDATA[Diffuse texture image filename]]>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              </xsd:choice>
+              <xsd:choice maxOccurs="1" minOccurs="1">
+              <xsd:element name="normal" type="xsd:string">
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="en">
+                    <![CDATA[Normalmap texture image filename]]>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              </xsd:choice>
+            </xsd:choice>
+          </xsd:complexType>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="unbounded" minOccurs="0">
+        <xsd:element name="blend">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[The blend tag controls how two adjacent textures are mixed. The number of blend elements should equal one less than the number of textures.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:choice maxOccurs="unbounded">
+              <xsd:choice maxOccurs="1" minOccurs="1">
+              <xsd:element name="min_height" type="xsd:double">
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="en">
+                    <![CDATA[Min height of a blend layer]]>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              </xsd:choice>
+              <xsd:choice maxOccurs="1" minOccurs="1">
+              <xsd:element name="fade_dist" type="xsd:double">
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="en">
+                    <![CDATA[Distance over which the blend occurs]]>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              </xsd:choice>
+            </xsd:choice>
+          </xsd:complexType>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="use_terrain_paging" type="xsd:boolean">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[Set if the rendering engine will use terrain paging]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

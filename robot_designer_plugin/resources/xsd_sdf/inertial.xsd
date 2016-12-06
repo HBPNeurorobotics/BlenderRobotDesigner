@@ -1,0 +1,69 @@
+<?xml version="1.0" ?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+      <![CDATA[The inertial properties of the link.]]>
+    </xsd:documentation>
+  </xsd:annotation>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+  <xsd:element name="inertial">
+    <xsd:complexType>
+      <xsd:choice maxOccurs="unbounded">
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="mass" type="xsd:double">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[The mass of the link.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="pose" type="pose">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[This is the pose of the inertial reference frame, relative to the link reference frame. The origin of the inertial reference frame needs to be at the center of gravity. The axes of the inertial reference frame do not need to be aligned with the principal axes of the inertia.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="inertia">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[The 3x3 rotational inertia matrix. Because the rotational inertia matrix is symmetric, only 6 above-diagonal elements of this matrix are specified here, using the attributes ixx, ixy, ixz, iyy, iyz, izz.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:choice maxOccurs="unbounded">
+              <xsd:choice maxOccurs="1" minOccurs="1">
+              <xsd:element name="ixx" type="xsd:double">
+              </xsd:element>
+              </xsd:choice>
+              <xsd:choice maxOccurs="1" minOccurs="1">
+              <xsd:element name="ixy" type="xsd:double">
+              </xsd:element>
+              </xsd:choice>
+              <xsd:choice maxOccurs="1" minOccurs="1">
+              <xsd:element name="ixz" type="xsd:double">
+              </xsd:element>
+              </xsd:choice>
+              <xsd:choice maxOccurs="1" minOccurs="1">
+              <xsd:element name="iyy" type="xsd:double">
+              </xsd:element>
+              </xsd:choice>
+              <xsd:choice maxOccurs="1" minOccurs="1">
+              <xsd:element name="iyz" type="xsd:double">
+              </xsd:element>
+              </xsd:choice>
+              <xsd:choice maxOccurs="1" minOccurs="1">
+              <xsd:element name="izz" type="xsd:double">
+              </xsd:element>
+              </xsd:choice>
+            </xsd:choice>
+          </xsd:complexType>
+        </xsd:element>
+        </xsd:choice>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

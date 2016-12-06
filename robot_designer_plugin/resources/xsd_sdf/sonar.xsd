@@ -1,0 +1,41 @@
+<?xml version="1.0" ?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+      <![CDATA[These elements are specific to the sonar sensor.]]>
+    </xsd:documentation>
+  </xsd:annotation>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+  <xsd:element name="sonar">
+    <xsd:complexType>
+      <xsd:choice maxOccurs="unbounded">
+        <xsd:choice maxOccurs="1" minOccurs="1">
+        <xsd:element name="min" type="xsd:double">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[Minimum range]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="1">
+        <xsd:element name="max" type="xsd:double">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[Max range]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="1">
+        <xsd:element name="radius" type="xsd:double">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[Radius of the sonar cone at max range.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+      </xsd:choice>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

@@ -43,6 +43,8 @@ The module that encapsulates all blender calls and offers the importer and expor
 import os
 from math import *
 from mathutils import Euler, Matrix, Vector
+from pathlib import Path
+
 
 # ######
 # Blender imports
@@ -62,6 +64,7 @@ from ...operators.dynamics import AssignPhysical, CreatePhysical, SelectPhysical
 # URDF-specific imports
 
 from .generic import urdf_tree
+
 from .generic.helpers import string_to_list, get_value
 
 from ...properties.globals import global_properties
@@ -73,7 +76,7 @@ __author__ = 'Stefan Ulbrich(FZI), Igor Peric (FZI), Maximillian Stauss (FZI)'
 
 class Importer(object):
     PACKAGE_URL = 'package://'
-    FILE_URL_RELATIVE = 'file://'
+    FILE_URL_RELATIVE = 'model://'
     FILE_URL_ABSOLUTE = 'file:///'
 
     def __init__(self, operator: RDOperator, file_path: str, base_dir=""):
@@ -97,21 +100,32 @@ class Importer(object):
         prefix_folder = ""
         mesh_url = model.geometry.mesh.filename
 
+        self.logger.info("base dir: %s", self.base_dir)
+        self.logger.info("mesh url: %s", mesh_url)
+
         # check for absolute file path
         if mesh_url.startswith(self.FILE_URL_ABSOLUTE):
             mesh_path = mesh_url.replace(self.FILE_URL_ABSOLUTE, '')
         elif mesh_url.startswith(self.FILE_URL_RELATIVE) or mesh_url.startswith(self.PACKAGE_URL):
             mesh_path = mesh_url.replace(self.FILE_URL_RELATIVE, '').replace(self.PACKAGE_URL, '')
-            mesh_path = os.path.join(self.base_dir, mesh_path)
+            mesh_path = os.path.join(str(Path(self.base_dir).parent), mesh_path)
         else:
             self.operator.report({'ERROR'}, "Unsupported URL schema")
             self.logger.error("Unsupported URL schema")
             return
 
+        model_name = bpy.context.active_object.name
+        #bpy.context.active_object.type = 'ARMATURE'
+        model_type = bpy.context.active_object.type
+
+        self.logger.debug('model_name (geometry): %s', model_name)
+        self.logger.debug('model_type (geometry): %s', model_type)
+
         fn, extension = os.path.splitext(mesh_path)
         if extension == ".stl":
             bpy.ops.import_mesh.stl(filepath=mesh_path)
         elif extension == ".dae":
+            self.logger.info("mesh file: %s", mesh_path)
             bpy.ops.wm.collada_import(filepath=mesh_path, import_units=True)
 
         bpy.context.active_object.RobotEditor.fileName = os.path.basename(os.path.splitext(mesh_path)[0])
@@ -123,6 +137,7 @@ class Importer(object):
         return Matrix.Translation(Vector(string_to_list(model.origin.xyz))) * \
                Euler(string_to_list(model.origin.rpy), 'XYZ').to_matrix().to_4x4() * scale_matrix
 
+
     def parse(self, node: urdf_tree.URDFTree, parent_name=""):
         """
         Recursively parses the URDF tree elements.
@@ -132,6 +147,17 @@ class Importer(object):
         """
 
         C = bpy.context
+
+        self.logger.info("parent name: %s", parent_name)
+        #self.logger.debug('active bone name : %s', C.active_bone.name)
+        self.logger.debug('active object name (parse): %s', C.active_object.name)
+
+        self.logger.debug('active object type (parse): %s', C.active_object.type)
+
+        if bpy.context.active_object:
+            self.logger.debug('active object type == Armature: %s, %s', bpy.context.active_object.type == 'ARMATURE', "Model not selected and active.")
+        else:
+            self.logger.debug('active object type == Armature: %s, %s', False, "No model selected")
 
         SelectSegment.run(segment_name=parent_name)
 
