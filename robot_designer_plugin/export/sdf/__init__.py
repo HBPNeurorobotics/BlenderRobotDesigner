@@ -2,8 +2,7 @@
 # This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
 # in the Human Brain Project (HBP).
 # It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+# developed at the Technical University of Munich at the chair of embedded and robotic system.
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -30,7 +29,7 @@
 #
 # Changes:
 #
-#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#   2016-12-08: Guang Chen (TUM), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
 """
@@ -46,5 +45,5 @@ reload(sdf_export)
 reload(sdf_import)
 
 from .sdf_import import ImportPlain, ImportZippedPackage
-#from .urdf_export import ExportPackage, ExportZippedPackage, ExportPlain
-__author__ = 'ulbrich'
+from .sdf_export import ExportPlain, ExportZippedPackage  #ExportPackage, ExportZippedPackage,
+__author__ = 'gchen'

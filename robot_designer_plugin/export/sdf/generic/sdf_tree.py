@@ -1,5 +1,5 @@
 import logging
-
+import pyxb
 from . import sdf_dom
 from .helpers import list_to_string
 from pyxb import ContentNondeterminismExceededError
@@ -42,6 +42,7 @@ class SDFTree(object):
         self.robot = robot
         self.joint = None
         self.link = None
+        self.sdf = None
 
         self.connectedLinks = connected_links
         self.connectedJoints = connected_joints
@@ -134,7 +135,7 @@ class SDFTree(object):
             tree.build(self.connectedLinks[joint], joint, depth + 1)
 
     @staticmethod
-    def create_empty(name, base_link_name="base_link"):
+    def create_empty(name, virtual_joint_name="virtual_joint"):
         """
         Creates an empty tree object.
 
@@ -142,13 +143,19 @@ class SDFTree(object):
         :type name: string
         :return: The tree instance.
         """
+        sdf = sdf_dom.sdf()
+        sdf.version = '1.5'
+        if not sdf.model:
+            sdf.model.append(sdf_dom.model())
+        tree = SDFTree(connected_links={}, connected_joints={}, robot=sdf.model[0])
+        tree.sdf = sdf
 
-        tree = SDFTree(connected_links={}, connected_joints={}, robot=sdf_dom.model())
         tree.robot.name = name
-        tree.link = sdf_dom.CTD_ANON_58()
-        tree.link.name = base_link_name
-        tree.robot.link.append(tree.link)
-        tree.joint = sdf_dom.CTD_ANON_46()
+        tree.link = sdf_dom.link()
+
+        tree.joint = sdf_dom.joint()
+        tree.joint.name = virtual_joint_name
+        #tree.robot.joint.append(tree.joint)
 
         #tree.set_defaults() # todo set defaults
 
@@ -164,26 +171,46 @@ class SDFTree(object):
         :param file_name:
         :return:
         """
+        print("connected joints: ", {j.name: l for j, l in self.connectedJoints.items()})
+
+        print("connected links: ", {j.name: l.name for j, l in self.connectedLinks.items()})
+
+        print("root link name: ", self.link.name)
+
 
         for joint, link in self.connectedLinks.items():
-            joint.child.link = link.name
+            joint.child.append(link.name)
 
         for link, joints in self.connectedJoints.items():
             for joint in joints:
-                joint.parent.link = link.name
+                print("connected link name:", link.name)
+                print("connected link linked joint name: ", joint.name)
+                joint.parent.append(link.name)
 
-        # Connect root joints to self.link (the root link)
-        for joint in self.robot.joint:
-            if joint.parent is None:
-                joint.parent = self.link.name
+        # # Connect root joints to self.link (the root link)
+        # for joint in self.robot.joint:
+        #     print("robot joint name: ", joint.name)
+        #
+        #     if joint.parent is None:
+        #         joint.parent = self.link.name
+
+        # self.connectedLinks = {key: value for key, value in self.sdf.model[0].items() if key.name != 'rd_virtual_joint'}
+
+        self.sdf.model[0].joint = [j for j in self.sdf.model[0].joint if j.name != 'rd_virtual_joint']
+        # for j in self.sdf.model[0].joint:
+        #
+        #     print(j.name)
 
         if not os.path.exists(os.path.dirname(file_name)):
             os.makedirs(os.path.dirname(file_name))
 
         with open(file_name, "w") as f:
             # f.write('<?xml version="1.0" ?>')
-            output = self.robot.toxml("utf-8", element_name="model").decode("utf-8")
-            # output = output.replace(">", ">\n")
+
+            output = self.sdf.toDOM().toprettyxml()
+            # output = self.sdf.toprettyxml()
+            # output = self.sdf.toxml("utf-8", element_name="sdf").decode("utf-8")
+            #output = output.replace(">", ">\n")
             f.write(output)
             # self.robot.export(f,0)
 
@@ -196,28 +223,47 @@ class SDFTree(object):
 
     def add(self):
         """
-        Creates and adds another URDFTree instance to this node. Do not add children to the subtree manually as
+        Creates and adds another SDFTree instance to this node. Do not add children to the subtree manually as
         references are not created then. Note that if there is no robot member defined yet (i.e., you are *exporting*),
         it will be created automatically.
-        :param link: a urdf_dom link element
-        :param joint: a urdf_dom joint element
-        :return: a reference to the newly created URDFTree instance.
+        :param link: a sdf_dom link element
+        :param joint: a sdf_dom joint element
+        :return: a reference to the newly created SDFTree instance.
         """
 
         tree = SDFTree(connected_links=self.connectedLinks, connected_joints=self.connectedJoints, robot=self.robot)
-        tree.joint = sdf_dom.CTD_ANON_46()
-        tree.link = sdf_dom.CTD_ANON_58()
+        tree.joint = sdf_dom.joint()
+        tree.link = sdf_dom.link()
         tree.robot.link.append(tree.link)
         tree.robot.joint.append(tree.joint)
         tree.set_defaults()
-        tree.joint.child = sdf_dom.CTD_ANON_46.child()
-        tree.joint.parent = sdf_dom.CTD_ANON_46.parent()
 
+
+        # self.connectedLinks[tree.joint] = tree.link
+        # if self.link in self.connectedJoints:
+        #     self.connectedJoints[self.link].append(tree.joint)
+        # else:
+        #     self.connectedJoints[self.link] = [tree.joint]
+
+        # e.g., virtual joint --> base link
         self.connectedLinks[tree.joint] = tree.link
-        if self.link in self.connectedJoints:
-            self.connectedJoints[self.link].append(tree.joint)
-        else:
-            self.connectedJoints[self.link] = [tree.joint]
+        print("connected links (joint->link): ", {j.name: l.name for j, l in self.connectedLinks.items()})
+
+        # if self.link not in self.connectedJoints:
+        #     self.connectedJoints[self.link] = []
+
+        # for j, l in self.connectedJoints.items():
+        #     if j.name == tree.joint.:
+        #         self.connectedJoints[j].append(tree.joint)
+        #
+        #     print("connected joints: ", {j.name: l for j, l in connected_joints.items()})
+
+
+        #
+        # if self.link in self.connectedJoints:
+        #     self.connectedJoints[self.link].append(tree.link)
+        # else:
+        #     self.connectedJoints[self.link] = [tree.link]
 
         return tree
 
@@ -229,32 +275,38 @@ class SDFTree(object):
         :type file_name: string
         :return:
         """
-        visual = sdf_dom.CTD_ANON_97()   # CTD_ANON_60_visual  CTD_ANON_97--sdf
-        self.link.visual.append(visual)
-        visual.geometry = sdf_dom.CTD_ANON_97.geometry()
-        visual.origin = sdf_dom.CTD_ANON_96.pose()
-        visual.geometry.mesh = sdf_dom.CTD_ANON_68()
-        visual.geometry.mesh.filename = file_name
-        visual.geometry.mesh.scale = sdf_dom.CTD_ANON_68().scale()  #list_to_string(scale_factor)
-        return visual
+        link_visual = sdf_dom.visual()#CTD_ANON_97()   # CTD_ANON_60_visual  CTD_ANON_97--sdf
+        link_geometry = sdf_dom.geometry()  #CTD_ANON_17()
+        self.link.visual.append(link_visual)
+        link_visual.geometry.append(link_geometry) #sdf_dom.CTD_ANON_97.geometry()
+        # visual. = sdf_dom.CTD_ANON_96.pose()
+        link_visual.geometry[0].mesh.append(sdf_dom.mesh())
+        link_visual.geometry[0].mesh[0].uri.append(file_name)
+        # link_visual.geometry[0].mesh[0].scale.append(sdf_dom.CTD_ANON_68().scale()  #list_to_string(scale_factor)
+        return link_visual
 
-    def add_collisionmodel(self, file_name,scale_factor=(1.0,1.0,1.0)):
+    def add_collision(self, file_name, scale_factor=(1.0,1.0,1.0)):
         """
         Add a collision model to a mesh object
 
         :param   file_name:  name of the mesh object for which the col_model is generated
         :type    file_name:  string
-        :return: string:     Collision file that is used in the urdf
+        :return: string:     Collision file that is used in the sdf
         """
-        collision = sdf_dom.CTD_ANON_15()
-        self.link.collision.append(collision)
-        collision.geometry = sdf_dom.CTD_ANON_15.geometry()
-        collision.origin = sdf_dom.CTD_ANON_15.pose()
-        collision.geometry.mesh = sdf_dom.CTD_ANON_70()
+        link_collision = sdf_dom.collision()#CTD_ANON_15()
+        link_geometry = sdf_dom.geometry()
+        self.link.collision.append(link_collision)
+        link_collision.geometry.append(link_geometry)
+
+        link_collision.geometry[0].mesh.append(sdf_dom.mesh())
+        link_collision.geometry[0].mesh[0].uri.append(file_name)
+
+        # collision.origin = sdf_dom.CTD_ANON_15.pose()
+        # collision.geometry.mesh = sdf_dom.CTD_ANON_70()
         # print('debug add_collisionmodel: ' + file_name)
-        collision.geometry.mesh.filename = file_name
-        collision.geometry.mesh.scale = list_to_string(scale_factor)
-        return collision
+        # collision.geometry.mesh.filename = file_name
+        # collision.geometry.mesh.scale = list_to_string(scale_factor)
+        return link_collision
 
     def add_inertial(self):
         """
@@ -262,19 +314,28 @@ class SDFTree(object):
 
         :return: string:     reference to inertial object
         """
-        inertial = sdf_dom.CTD_ANON_46()
-        self.link.inertial.append(inertial)
-        inertial.mass = sdf_dom.CTD_ANON_46.mass()
-        inertial.mass.value_ = "1.0"
-        inertial.inertia = sdf_dom.CTD_ANON_46()
-        inertial.inertia.ixx = inertial.inertia.izz =  inertial.inertia.iyy = "1.0"
-        inertial.inertia.ixy = inertial.inertia.ixz =  inertial.inertia.iyz = "0.0"
-        inertial.origin = sdf_dom.CTD_ANON_46.pose()
-        inertial.origin.xyz = "0 0 0"
-        inertial.origin.rpy = "0 0 0"
+        #inertial = sdf_dom.inertial()#CTD_ANON_46()
+        #self.link.inertial.append(inertial)
+        self.link.inertial[0].mass.append('1.0')
+        self.link.inertial[0].pose.append('0 0 0 0 0 0')
+        # inertial.mass.value_ = "1.0"
+        # inertial.inertia = sdf_dom.inertia() #CTD_ANON_45()
+        self.link.inertial[0].inertia.ixx = '1.0'
+        self.link.inertial[0].inertia.iyy = '1.0'
+        self.link.inertial[0].inertia.izz = '1.0'
+        self.link.inertial[0].inertia.ixy = '0.0'
+        self.link.inertial[0].inertia.ixz = '0.0'
+        self.link.inertial[0].inertia.iyz = '0.0'
+
+
+        #     = inertial.inertia.izz =  inertial.inertia.iyy = "1.0"
+        # inertial.inertia.ixy = inertial.inertia.ixz =  inertial.inertia.iyz = "0.0"
+        # inertial.origin = sdf_dom.CTD_ANON_46.pose()
+        # inertial.origin.xyz = "0 0 0"
+        # inertial.origin.rpy = "0 0 0"
 
         # print('debug add_inertial: ')
-        return inertial
+        return self.link.inertial[0]
 
     #def add_joint_control_plugin(self):
      #    """
@@ -312,50 +373,90 @@ class SDFTree(object):
 
         joint = self.joint
         link = self.link
-        if joint.axis is None:
-            joint.axis = sdf_dom.CTD_ANON_47()
 
-        if joint.limit is None:
-            joint.limit = sdf_dom.CTD_ANON_51()
-            # this had to be completely defined (missing effor argument caused conversion to SDF to fail)
-            joint.limit.effort = 100.0
-            joint.limit.lower = joint.limit.upper = joint.limit.velocity = 1.0
+        joint.child = ''
+        joint.parent = ''
 
-        #if joint.calibration is None:  # todo calibration tag ignored
-        #    joint.calibration = sdf_model_dom.CalibrationType()
-        #    joint.calibration.reference_position = 0.0
-        #    joint.calibration.rising = 0.0  # there are no default values in the XSD?
-        #    joint.calibration.falling = 0.0
+        joint_axis = sdf_dom.CTD_ANON_47()
+        # if not joint_axis.xyz:
+        #     print(vars(joint_axis.xyz))
+        #     joint_axis.xyz.append('0 0 0 0')
+        joint_axis_limit = sdf_dom.CTD_ANON_49()
 
-        if joint.origin is None:
-            joint.origin = sdf_dom.CTD_ANON_48.pose()
-            # joint.rpy =
+        link_inertial = sdf_dom.inertial()
+        link_inertial_inertia = sdf_dom.CTD_ANON_45()
+        # joint_axis_xyz = joint_axis.xyz.vector3
+        print('Joint Axis')
+        if not joint.axis:
+            joint.axis.append(joint_axis)
 
-        for visual in link.visual:
-            if visual.origin is None:
-                visual.origin = sdf_dom.CTD_ANON_96.pose()
+        if not joint.axis[0].limit:
+            print('Set defaults: Joint Axis Limit ')
+            joint.axis[0].limit.append(joint_axis_limit)
+            # joint.axis[0].limit.append(BIND())
 
-        for collision in link.collision:
-            if collision.origin is None:
-                collision.origin = sdf_dom.CTD_ANON_15.pose()
+        if not link.inertial:
+            print('Set defaults: Joint Axis Limit ')
+            link.inertial.append(link_inertial)
 
-        if joint.dynamics is None:
-            joint.dynamics = sdf_dom.CTD_ANON_49.dynamics()
-            joint.dynamics.damping = 1.0
+        if not link.inertial[0].inertia:
+            link.inertial[0].inertia.append(link_inertial_inertia)
 
-        if link.pose is None:
-            logger.debug("Link pose is None, creating default one.")
-            link.inertial = sdf_dom.CTD_ANON_58.pose()
+        link.inertial[0].mass.append('1.0')
+        link.inertial[0].pose.append('0 0 0 0 0 0')
+        link.inertial[0].inertia[0].ixx.append(1.0)
+        link.inertial[0].inertia[0].iyy.append(1.0)
+        link.inertial[0].inertia[0].izz.append(1.0)
+        link.inertial[0].inertia[0].ixy.append(0.0)
+        link.inertial[0].inertia[0].ixz.append(0.0)
+        link.inertial[0].inertia[0].iyz.append(0.0)
 
-        if link.inertial is None:
-            logger.debug("Inertial is None, creating default one.")
-            link.inertial = sdf_dom.CTD_ANON_58.inertial()
+        # if not joint.axis[0].xyz:
+            # print('Set defaults: Joint Axis xyz ')
+            # print(joint.axis[0].xyz)
+            # joint.axis[0].xyz.append(joint_axis_xyz)
 
-        for inertial in link.inertial:
-            if inertial.mass is None:
-                inertial.mass = sdf_dom.CTD_ANON_46.mass()
-            if inertial.inertia is None:
-                inertial.inertia = sdf_dom.CTD_ANON_46()
+        # if joint.limit is None:
+        #     joint.limit = sdf_dom.CTD_ANON_51()
+        #     # this had to be completely defined (missing effor argument caused conversion to SDF to fail)
+        #     joint.limit.effort = 100.0
+        #     joint.limit.lower = joint.limit.upper = joint.limit.velocity = 1.0
+        #
+        # #if joint.calibration is None:  # todo calibration tag ignored
+        # #    joint.calibration = sdf_model_dom.CalibrationType()
+        # #    joint.calibration.reference_position = 0.0
+        # #    joint.calibration.rising = 0.0  # there are no default values in the XSD?
+        # #    joint.calibration.falling = 0.0
+        #
+        # if joint.origin is None:
+        #     joint.origin = sdf_dom.CTD_ANON_48.pose()
+        #     # joint.rpy =
+        #
+        # for visual in link.visual:
+        #     if visual.origin is None:
+        #         visual.origin = sdf_dom.CTD_ANON_96.pose()
+        #
+        # for collision in link.collision:
+        #     if collision.origin is None:
+        #         collision.origin = sdf_dom.CTD_ANON_15.pose()
+        #
+        # if joint.dynamics is None:
+        #     joint.dynamics = sdf_dom.CTD_ANON_49.dynamics()
+        #     joint.dynamics.damping = 1.0
+        #
+        # if link.pose is None:
+        #     logger.debug("Link pose is None, creating default one.")
+        #     link.inertial = sdf_dom.CTD_ANON_58.pose()
+        #
+        # if link.inertial is None:
+        #     logger.debug("Inertial is None, creating default one.")
+        #     link.inertial = sdf_dom.CTD_ANON_58.inertial()
+        #
+        # for inertial in link.inertial:
+        #     if inertial.mass is None:
+        #         inertial.mass = sdf_dom.CTD_ANON_46.mass()
+        #     if inertial.inertia is None:
+        #         inertial.inertia = sdf_dom.CTD_ANON_46()
 
                 # if joint.mimic is None: # truely optional
                 # if joint.safety_controller is None: # ignored

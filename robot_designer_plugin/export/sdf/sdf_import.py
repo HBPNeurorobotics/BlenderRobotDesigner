@@ -4,7 +4,6 @@ import os
 from math import *
 from mathutils import Euler, Matrix, Vector
 from pathlib import Path
-
 # ######
 # Blender imports
 import bpy
@@ -74,6 +73,13 @@ class Importer(object):
             self.operator.report({'ERROR'}, "Unsupported URL schema")
             self.logger.error("Unsupported URL schema")
             return
+        # if len(model.geometry[0].cylinder) > 0:
+        #     self.logger.debug('Cylinder Existing')
+        #     c_radius = model.geometry[0].cylinder[0].radius[0]
+        #     c_depth = model.geometry[0].cylinder[0].length[0]
+        #
+        #     bpy.ops.mesh.primitive_cylinder_add(depth=c_depth, radius=c_radius)
+        #     bpy.context.active_object.RobotEditor.fileName = os.path.basename(model.name)
 
         fn, extension = os.path.splitext(mesh_path)
         if extension == ".stl":
@@ -153,7 +159,7 @@ class Importer(object):
         if parent_name:
             CreateNewSegment.run(segment_name=node.joint.name)
         else:
-            CreateNewSegment.run(segment_name='virtual_joint')
+            CreateNewSegment.run(segment_name='rd_virtual_joint')
         segment_name = C.active_bone.name
 
         self.logger.info("%s -> %s", parent_name, segment_name)
@@ -244,6 +250,23 @@ class Importer(object):
         else:
             bpy.context.active_bone.RobotEditor.jointMode = 'FIXED'
 
+            # todo set the dynamics properties
+        if len(node.link.inertial) > 0:
+            i = node.link.inertial[0].inertia[0]
+            CreatePhysical.run(frameName=node.link.name)
+            SelectPhysical.run(frameName=node.link.name)
+            SelectSegment.run(segment_name=segment_name)
+            AssignPhysical.run()
+
+            bpy.data.objects[node.link.name].RobotEditor.dynamics.mass = node.link.inertial[0].mass[0]
+
+            if i.ixy[0] != 0 or i.ixz[0] != 0 or i.iyz[0] != 0:
+                self.operator.report({'ERROR'}, 'Only diogonal inertia matrices currently supported')
+                self.logger.error('Only diogonal inertia matrices currently supported')
+
+            matrix = [i.ixx[0], i.iyy[0], i.izz[0]]
+            bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaTensor = matrix
+
         model = bpy.context.active_object
         model_name = model.name
 
@@ -267,10 +290,8 @@ class Importer(object):
             for nr, model in enumerate(geometric_models):
                 if not len(model.geometry):
                     continue
-                # geometry is not optional in the xml
-                if len(model.geometry[0].mesh) > 0:
-                    #if not model.pose:
-                    #    model.pose =
+
+                if len(model.geometry[0].mesh) > 0: #or len(model.geometry[0].cylinder) > 0 or len(model.geometry[0].box) > 0:
 
                     trafo_sdf = self.import_geometry(model)
                     # if there are multiple objects in the COLLADA file, they will be selected
@@ -280,6 +301,7 @@ class Importer(object):
                         bpy.ops.object.parent_clear(type="CLEAR_KEEP_TRANSFORM")
                     for object in selected_objects:
                         if object.type != 'MESH':
+                            self.logger.debug("object type not mesh): %s", object.type)
                             continue
 
                         # Select the object (and deselect others)
@@ -290,23 +312,12 @@ class Importer(object):
                         #bpy.context.active_object.matrix_world = pose_float2homogeneous(rounded(string_to_list("0 0 0 0 0 0")))
                         self.logger.debug("bpy.context.active_object name: %s", bpy.context.active_object.name)
                         self.logger.debug("active object matrix world (before transfer): %s", homo2origin(bpy.context.active_object.matrix_world))
+                        #if len(model.geometry[0].mesh) > 0:
                         bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
                         # after applying transform, matrix world becomes zero again
                         bpy.context.active_object.matrix_world =  segment_world * trafo_sdf * bpy.context.active_object.matrix_world#* inverse_matrix(bpy.context.active_object.matrix_world)#* \
                                                                #  bpy.context.active_object.matrix_world
                         self.logger.debug("active object matrix world (after transfer): %s", homo2origin(bpy.context.active_object.matrix_world))
-
-                        # # Can be removed once collada import has been proven to be stable
-                        # scale_object = bpy.context.active_object.scale
-                        # scale_matrix = Matrix([[scale_urdf[0] * scale_object[0], 0, 0, 0],
-                        #                 [0, scale_urdf[1] * scale_object[1], 0, 0],
-                        #                 [0, 0, scale_urdf[2] * scale_object[2], 0], [0, 0, 0, 1]])
-                        # bpy.context.active_object.matrix_world = bone_transformation * trafo_urdf * scale_matrix
-                        # self.logger.debug("Scale: %s,%s, Matrix world: \n%s", scale_urdf, scale_object,
-                        #              bpy.context.active_object.matrix_world)
-
-                        # if the loop continues the name will be suffixed by a number
-
                         self.logger.info("Model type: " + str(model_type))
                         # Remove multiple "COL_" and "VIS_" strings before renaming
                         if model_type == COLLISON:

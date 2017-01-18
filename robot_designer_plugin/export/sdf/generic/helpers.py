@@ -79,8 +79,18 @@ def pose_float2homogeneous(pose_float):
     homogeneous = compose_matrix(None, None, angles, translate)
     return homogeneous
 
+def localpose2globalpose(ref_pose_global, angles, translate):
+    localhomo = compose_matrix(None, None, string2float_list(angles), string2float_list(translate))
+    translate = ref_pose_global[:3]
+    angles = ref_pose_global[3:]
+    refghomo = compose_matrix(None, None, angles, translate)
+    relative_matrix = concatenate_matrices(refghomo, localhomo)
+    glb_xyz = translation_from_matrix(relative_matrix)
+    glb_rpy = euler_from_matrix(relative_matrix)
+    return list_to_string(glb_xyz), list_to_string(glb_rpy)
 
-def pose2origin(parent_pose_homo,self_pose_homo):
+
+def pose2origin(parent_pose_homo, self_pose_homo):
     relative_matrix = concatenate_matrices(inverse_matrix(parent_pose_homo), self_pose_homo)
     org_xyz = translation_from_matrix(relative_matrix)
     org_rpy = euler_from_matrix(relative_matrix)
@@ -134,7 +144,8 @@ def list_to_string(l):
     :return:
     """
     print("HERER", l)
-    return " ".join([str(i).rstrip('0').rstrip('.') for i in l])
+    #return " ".join([str(i).rstrip('0').rstrip('.') for i in l])  BUG e10 ->  e1
+    return " ".join([str(i) for i in l])
 
 
 def string_to_list(s):

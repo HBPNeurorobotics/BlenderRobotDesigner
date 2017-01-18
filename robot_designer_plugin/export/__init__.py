@@ -46,7 +46,7 @@ from . import sdf
 reload(urdf)
 reload(sdf)
 
-PluginManager.register_plugin("SDF", [sdf.ImportPlain, sdf.ImportZippedPackage])
+PluginManager.register_plugin("SDF", [sdf.ImportPlain, sdf.ImportZippedPackage, sdf.ExportPlain, sdf.ExportZippedPackage])
 
 
 # PluginManager.register_plugin("SDF", [
@@ -58,7 +58,7 @@ PluginManager.register_plugin("SDF", [sdf.ImportPlain, sdf.ImportZippedPackage])
 # The file dialog should have a selection box for the format
 # todo that includes all plugins and draw the operators and arguments
 # required (a draw function has to be included)
-__author__ = 'ulbrich'
+__author__ = 'ulbrich-gchen'
 
 
 # draft for creating a plugin mechanism
