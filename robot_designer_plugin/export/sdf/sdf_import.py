@@ -49,6 +49,192 @@ class Importer(object):
         self.operator = operator
         self.controllers = None
 
+    def add_box(self, model):
+        """
+        This function takes inputs and returns vertex and face arrays.
+        no actual mesh data creation is done here.
+        """
+        width = model.geometry[0].cylinder[0].size[0][0]
+        depth = model.geometry[0].cylinder[0].size[0][1]
+        height = model.geometry[0].cylinder[0].size[0][2]
+        verts = [(+1.0, +1.0, -1.0),
+                 (+1.0, -1.0, -1.0),
+                 (-1.0, -1.0, -1.0),
+                 (-1.0, +1.0, -1.0),
+                 (+1.0, +1.0, +1.0),
+                 (+1.0, -1.0, +1.0),
+                 (-1.0, -1.0, +1.0),
+                 (-1.0, +1.0, +1.0),
+                 ]
+
+        faces = [(0, 1, 2, 3),
+                 (4, 7, 6, 5),
+                 (0, 4, 5, 1),
+                 (1, 5, 6, 2),
+                 (2, 6, 7, 3),
+                 (4, 0, 3, 7),
+                 ]
+
+        # apply size
+        for i, v in enumerate(verts):
+            verts[i] = v[0] * width, v[1] * depth, v[2] * height
+
+        return verts, faces
+
+    def import_box(self, model):
+        """
+        Adds a geometry to the blender scene. Uses the self.file_name variable of the parenting context
+        :param model: A sdf_dom.visual object.
+        :return: Returns the transformation in the origin element (a 4x4 blender matrix).
+        """
+
+        # determine prefix path for loading meshes in case of paths relative to ROS_PACKAGE_PATH
+        prefix_folder = ""
+        self.logger.debug('model_geometry_bbox: %s', model.geometry[0].box[0].size[0])
+        width = string_to_list(model.geometry[0].box[0].size[0])[0]/2
+        depth = string_to_list(model.geometry[0].box[0].size[0])[1]/2
+        height = string_to_list(model.geometry[0].box[0].size[0])[2]/2
+        verts = [(+1.0, +1.0, -1.0),
+                 (+1.0, -1.0, -1.0),
+                 (-1.0, -1.0, -1.0),
+                 (-1.0, +1.0, -1.0),
+                 (+1.0, +1.0, +1.0),
+                 (+1.0, -1.0, +1.0),
+                 (-1.0, -1.0, +1.0),
+                 (-1.0, +1.0, +1.0),
+                 ]
+
+        faces = [(0, 1, 2, 3),
+                 (4, 7, 6, 5),
+                 (0, 4, 5, 1),
+                 (1, 5, 6, 2),
+                 (2, 6, 7, 3),
+                 (4, 0, 3, 7),
+                 ]
+
+        # apply size
+        for i, v in enumerate(verts):
+            verts[i] = v[0] * (width), v[1] * (depth), v[2] * (height)
+
+        mesh_data = bpy.data.meshes.new("bbox_mesh_data")
+        mesh_data.from_pydata(verts, [], faces)
+        mesh_data.update()
+
+
+        obj = bpy.data.objects.new(os.path.basename(model.name), mesh_data)
+        bpy.context.scene.objects.link(obj)
+        # obj.select = True
+
+        bpy.ops.object.select_all(False)
+        bpy.context.scene.objects.active = obj  # bpy.data.objects[object]
+        bpy.context.active_object.select = True
+
+
+
+        # bpy.context.scene.objects.active = obj
+
+
+        bpy.context.active_object.RobotEditor.fileName = os.path.basename(model.name)
+
+        self.logger.debug('Active robot name: %s', bpy.context.active_object.RobotEditor.fileName)
+
+        model_name = bpy.context.active_object.name
+        model_type = bpy.context.active_object.type
+
+        self.logger.debug('model_name (geometry): %s', model_name)
+        self.logger.debug('model_type (geometry): %s', model_type)
+
+        self.logger.debug('model_geometry_bbox: %s', model.geometry[0].box[0].size[0])
+
+        # todo: if geometry pose is missing
+        if not model.pose:
+            model_posexyz = [0, 0, 0]
+            model_poserpy = [0, 0, 0]
+        else:
+            self.logger.debug('model_pose (geometry): %s', model.pose[0])
+            model_posexyz = string_to_list(model.pose[0])[0:3]
+            model_poserpy = string_to_list(model.pose[0])[3:]
+
+        return Matrix.Translation(Vector(model_posexyz)) * \
+               Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
+
+
+    def import_sphere(self, model):
+        """
+        Adds a geometry to the blender scene. Uses the self.file_name variable of the parenting context
+        :param model: A sdf_dom.visual object.
+        :return: Returns the transformation in the origin element (a 4x4 blender matrix).
+        """
+
+        # determine prefix path for loading meshes in case of paths relative to ROS_PACKAGE_PATH
+        prefix_folder = ""
+        c_radius = model.geometry[0].sphere[0].radius[0]
+
+        bpy.ops.mesh.primitive_uv_sphere_add(segments=8, ring_count=4, size=c_radius, location=(0, 0, 0))
+        # bpy.ops.mesh.primitive_cylinder_add(depth=c_depth,radius=c_radius, location=(0, 0, 0))
+        bpy.context.active_object.RobotEditor.fileName = os.path.basename(model.name)
+
+        self.logger.debug('Active robot name: %s', bpy.context.active_object.RobotEditor.fileName)
+
+        model_name = bpy.context.active_object.name
+        #bpy.context.active_object.type = 'ARMATURE'
+        model_type = bpy.context.active_object.type
+
+        self.logger.debug('model_name (geometry): %s', model_name)
+        self.logger.debug('model_type (geometry): %s', model_type)
+
+        self.logger.debug('model_geometry_sphere: radius %s, depth %s', c_radius)
+
+        # todo: if geometry pose is missing
+        if not model.pose:
+            model_posexyz = [0, 0, 0]
+            model_poserpy = [0, 0, 0]
+        else:
+            self.logger.debug('model_pose (geometry): %s', model.pose[0])
+            model_posexyz = string_to_list(model.pose[0])[0:3]
+            model_poserpy = string_to_list(model.pose[0])[3:]
+
+        return Matrix.Translation(Vector(model_posexyz)) * \
+               Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
+
+    def import_cylinder(self, model):
+        """
+        Adds a geometry to the blender scene. Uses the self.file_name variable of the parenting context
+        :param model: A sdf_dom.visual object.
+        :return: Returns the transformation in the origin element (a 4x4 blender matrix).
+        """
+
+        # determine prefix path for loading meshes in case of paths relative to ROS_PACKAGE_PATH
+        prefix_folder = ""
+        c_radius = model.geometry[0].cylinder[0].radius[0]
+        c_depth = model.geometry[0].cylinder[0].length[0]
+
+        bpy.ops.mesh.primitive_cylinder_add(depth=c_depth,radius=c_radius, location=(0, 0, 0))
+        bpy.context.active_object.RobotEditor.fileName = os.path.basename(model.name)
+
+        self.logger.debug('Active robot name: %s', bpy.context.active_object.RobotEditor.fileName)
+
+        model_name = bpy.context.active_object.name
+        #bpy.context.active_object.type = 'ARMATURE'
+        model_type = bpy.context.active_object.type
+
+        self.logger.debug('model_name (geometry): %s', model_name)
+        self.logger.debug('model_type (geometry): %s', model_type)
+
+        self.logger.debug('model_geometry_cylinder: radius %s, depth %s', c_radius, c_depth)
+
+        # todo: if geometry pose is missing
+        if not model.pose:
+            model_posexyz = [0, 0, 0]
+            model_poserpy = [0, 0, 0]
+        else:
+            self.logger.debug('model_pose (geometry): %s', model.pose[0])
+            model_posexyz = string_to_list(model.pose[0])[0:3]
+            model_poserpy = string_to_list(model.pose[0])[3:]
+
+        return Matrix.Translation(Vector(model_posexyz)) * \
+               Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
+
     def import_geometry(self, model):
         """
         Adds a geometry to the blender scene. Uses the self.file_name variable of the parenting context
@@ -290,10 +476,69 @@ class Importer(object):
             for nr, model in enumerate(geometric_models):
                 if not len(model.geometry):
                     continue
+                # geometry is not optional in the xml
+                # geometry element: "box", "cylinder", "heightmap", "image", "mesh", "plane", "polyline", "sphere"
+                # if len(model.geometry[0].box) > 0:
+                #     self.logger.debug("[VISUAL] box size: " + str(model.geometry[0].box[0].size[0]))
+                # if len(model.geometry[0].cylinder) > 0:
+                #     trafo_sdf = self.import_cylinder(model)
+                #     # if there are multiple objects in the COLLADA file, they will be selected
+                #     selected_objects = [i for i in bpy.context.selected_objects]
+                #     for object in selected_objects:
+                #         bpy.context.scene.objects.active = object  # bpy.data.objects[object]
+                #         bpy.ops.object.parent_clear(type="CLEAR_KEEP_TRANSFORM")
+                #     for object in selected_objects:
+                #         #if object.type != 'MESH':
+                #         #    self.logger.debug("object type): %s", object.type)
+                #         #    continue
+                #
+                #         # Select the object (and deselect others)
+                #         bpy.ops.object.select_all(False)
+                #         bpy.context.scene.objects.active = object  # bpy.data.objects[object]
+                #         bpy.context.active_object.select = True
+                #         self.logger.debug("active object matrix world (from mesh): %s", homo2origin(bpy.context.active_object.matrix_world))
+                #         #bpy.context.active_object.matrix_world = pose_float2homogeneous(rounded(string_to_list("0 0 0 0 0 0")))
+                #         self.logger.debug("bpy.context.active_object name: %s", bpy.context.active_object.name)
+                #         self.logger.debug("active object matrix world (before transfer): %s", homo2origin(bpy.context.active_object.matrix_world))
+                #         bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+                #         # after applying transform, matrix world becomes zero again
+                #         bpy.context.active_object.matrix_world =  segment_world * trafo_sdf * bpy.context.active_object.matrix_world#* inverse_matrix(bpy.context.active_object.matrix_world)#* \
+                #                                                #  bpy.context.active_object.matrix_world
+                #         self.logger.debug("active object matrix world (after transfer): %s", homo2origin(bpy.context.active_object.matrix_world))
+                #         self.logger.info("Model type: " + str(model_type))
+                #         # Remove multiple "COL_" and "VIS_" strings before renaming
+                #         if model_type == COLLISON:
+                #             # %2d changed to %d because it created unwanted space with one digit numbers
+                #             bpy.context.active_object.name = "COL_%s_%d" % (node.link.name, nr)
+                #             bpy.context.active_object.RobotEditor.tag = 'COLLISION'
+                #         else:
+                #             bpy.context.active_object.name = "VIZ_%s_%d" % (node.link.name, nr)
+                #
+                #         # remove spaces from link name
+                #         bpy.context.active_object.name = bpy.context.active_object.name.replace(" ", "")
+                #
+                #         # The name might be altered by blender
+                #         assigned_name = bpy.context.active_object.name
+                #
+                #         bpy.ops.object.transform_apply(location=False,
+                #                                        rotation=False,
+                #                                        scale=True)
+                #         SelectModel.run(model_name=model_name)
+                #         SelectSegment.run(segment_name=segment_name)
+                #         SelectGeometry.run(geometry_name=assigned_name)
+                #         AssignGeometry.run()
 
-                if len(model.geometry[0].mesh) > 0: #or len(model.geometry[0].cylinder) > 0 or len(model.geometry[0].box) > 0:
+                if len(model.geometry[0].mesh) > 0 or len(model.geometry[0].cylinder) > 0 or len(model.geometry[0].box) > 0 or len(model.geometry[0].sphere) > 0:
+                    self.logger.debug("geometry %s", model.geometry[0])
 
-                    trafo_sdf = self.import_geometry(model)
+                    if len(model.geometry[0].cylinder) > 0:
+                        trafo_sdf = self.import_cylinder(model)
+                    elif len(model.geometry[0].box) > 0:
+                        trafo_sdf = self.import_box(model)
+                    elif len(model.geometry[0].sphere) > 0:
+                        trafo_sdf = self.import_sphere(model)
+                    else:
+                        trafo_sdf = self.import_geometry(model)
                     # if there are multiple objects in the COLLADA file, they will be selected
                     selected_objects = [i for i in bpy.context.selected_objects]
                     for object in selected_objects:
