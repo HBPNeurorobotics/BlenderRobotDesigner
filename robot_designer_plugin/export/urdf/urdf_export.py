@@ -244,6 +244,7 @@ def create_urdf(operator: RDOperator, context, base_link_name,
             if collision_path and "_vertices1.dae" not in collision_path:
                 collision = child.add_collisionmodel(collision_path,
                     [i * j for i, j in zip(bpy.data.objects[mesh].scale, blender_scale_factor)])
+
                 collision.origin.xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
                 collision.origin.rpy = list_to_string(pose.to_euler())
             else:

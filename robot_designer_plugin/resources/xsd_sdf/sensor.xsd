@@ -1,0 +1,118 @@
+<?xml version="1.0" ?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+      <![CDATA[The sensor tag describes the type and properties of a sensor.]]>
+    </xsd:documentation>
+  </xsd:annotation>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/plugin.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/altimeter.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/camera.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/contact.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/gps.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/imu.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/logical_camera.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/magnetometer.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/ray.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/rfid.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/rfidtag.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/sonar.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/transceiver.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/forcetorque.xsd"/>
+  <xsd:element name="sensor">
+    <xsd:complexType>
+      <xsd:choice maxOccurs="unbounded">
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="always_on" type="xsd:boolean">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[If true the sensor will always be updated according to the update rate.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="update_rate" type="xsd:double">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[The frequency at which the sensor data is generated. If left unspecified, the sensor will generate data every cycle.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="visualize" type="xsd:boolean">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[If true, the sensor is visualized in the GUI]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="pose" type="pose">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[This is the pose of the sensor, relative to the parent (link or joint) reference frame.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="topic" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[Name of the topic on which data is published. This is necessary for visualization]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:element ref="plugin"/>
+        <xsd:element ref="altimeter"/>
+        <xsd:element ref="camera"/>
+        <xsd:element ref="contact"/>
+        <xsd:element ref="gps"/>
+        <xsd:element ref="imu"/>
+        <xsd:element ref="logical_camera"/>
+        <xsd:element ref="magnetometer"/>
+        <xsd:element ref="ray"/>
+        <xsd:element ref="rfidtag"/>
+        <xsd:element ref="rfid"/>
+        <xsd:element ref="sonar"/>
+        <xsd:element ref="transceiver"/>
+        <xsd:element ref="force_torque"/>
+      </xsd:choice>
+      <xsd:attribute name="name" type="xsd:string" use="required">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            <![CDATA[A unique name for the sensor. This name must not match another model in the model.]]>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+      <xsd:attribute name="type" type="xsd:string" use="required">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            <![CDATA[The type name of the sensor. By default, SDF supports types
+                  altimeter,
+                  camera,
+                  contact,
+                  depth,
+                  force_torque,
+                  gps,
+                  gpu_ray,
+                  imu,
+                  logical_camera,
+                  magnetometer,
+                  multicamera,
+                  ray,
+                  rfid,
+                  rfidtag,
+                  sonar,
+                  wireless_receiver, and
+                  wireless_transmitter.]]>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

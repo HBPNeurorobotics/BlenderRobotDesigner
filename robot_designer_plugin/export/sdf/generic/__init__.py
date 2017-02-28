@@ -35,13 +35,14 @@
 # ######
 
 """
-Generic (Blender-independent) parsing of URDF files.
+Generic (Blender-independent) parsing of SDF files.
 """
 
 from . import helpers
-from . import urdf_dom
-from . import urdf_tree
+from . import sdf_dom
+from . import sdf_tree
 from importlib import reload
 reload(helpers)
-reload(urdf_dom)
-reload(urdf_tree)
+reload(sdf_dom)
+reload(sdf_tree)
+

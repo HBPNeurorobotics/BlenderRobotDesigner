@@ -66,7 +66,7 @@ class SelectSegment(RDOperator):
 
     @RDOperator.OperatorLogger
     def execute(self, context):
-        if not context.active_object.type == 'ARMATURE':
+        if not (context.active_object.type == 'ARMATURE'):  #or context.active_object.type == 'MESH'
             raise Exception("BoneSelectionException")
 
         model = bpy.context.active_object

@@ -1,0 +1,85 @@
+<?xml version="1.0" ?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:annotation>
+    <xsd:documentation xml:lang="en">
+      <![CDATA[The visual properties of the link. This element specifies the shape of the object (box, cylinder, etc.) for visualization purposes.]]>
+    </xsd:documentation>
+  </xsd:annotation>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/material.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/geometry.xsd"/>
+  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/plugin.xsd"/>
+  <xsd:element name="visual">
+    <xsd:complexType>
+      <xsd:choice maxOccurs="unbounded">
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="cast_shadows" type="xsd:boolean">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[If true the visual will cast shadows.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="laser_retro" type="xsd:double">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[will be implemented in the future release.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="transparency" type="xsd:double">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[The amount of transparency( 0=opaque, 1 = fully transparent)]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="pose" type="pose">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[The reference frame of the visual element, relative to the reference frame of the link.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:choice maxOccurs="1" minOccurs="0">
+        <xsd:element name="meta">
+          <xsd:annotation>
+            <xsd:documentation xml:lang="en">
+              <![CDATA[Optional meta information for the visual. The information contained within this element should be used to provide additional feedback to an end user.]]>
+            </xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:choice maxOccurs="unbounded">
+              <xsd:choice maxOccurs="1" minOccurs="0">
+              <xsd:element name="layer" type="xsd:int">
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="en">
+                    <![CDATA[The layer in which this visual is displayed. The layer number is useful for programs, such as Gazebo, that put visuals in different layers for enhanced visualization.]]>
+                  </xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+              </xsd:choice>
+            </xsd:choice>
+          </xsd:complexType>
+        </xsd:element>
+        </xsd:choice>
+        <xsd:element ref="material"/>
+        <xsd:element ref="geometry"/>
+        <xsd:element ref="plugin"/>
+      </xsd:choice>
+      <xsd:attribute name="name" type="xsd:string" use="required">
+        <xsd:annotation>
+          <xsd:documentation xml:lang="en">
+            <![CDATA[Unique name for the visual element within the scope of the parent link.]]>
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

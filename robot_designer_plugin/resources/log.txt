@@ -62,6 +62,10 @@
 	+ class ImportPackage                       in export/urdf/urdf_import                 
 	+ class ImportZippedPackage                 in export/urdf/urdf_import                 
 	+ class ImportPlain                         in export/urdf/urdf_import                 
+	+ class ExportPlain                         in export/sdf/sdf_export                   
+	+ class ExportZippedPackage                 in export/sdf/sdf_export                   
+	+ class ImportPlain                         in export/sdf/sdf_import                   
+	+ class ImportZippedPackage                 in export/sdf/sdf_import                   
 	+ class SegmentsGeometriesMenu              in interface/menus                         
 	+ class GeometriesMenu                      in interface/menus                         
 	+ class CameraSensorMenu                    in interface/menus                         

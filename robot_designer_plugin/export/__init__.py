@@ -41,17 +41,24 @@ from importlib import reload
 from ..core import PluginManager
 
 from . import urdf
+from . import sdf
+
 reload(urdf)
-PluginManager.register_plugin("URDF", [
-                              urdf.ExportPackage, urdf.ExportZippedPackage, urdf.ExportPlain, urdf.ImportPackage,
-    urdf.ImportPlain, urdf.ImportZippedPackage])
+reload(sdf)
+
+PluginManager.register_plugin("SDF", [sdf.ImportPlain, sdf.ImportZippedPackage, sdf.ExportPlain, sdf.ExportZippedPackage])
+
+
+# PluginManager.register_plugin("SDF", [
+#                               urdf.ExportPackage, urdf.ExportZippedPackage, urdf.ExportPlain, urdf.ImportPackage,
+#     urdf.ImportPlain, urdf.ImportZippedPackage, sdf.ImportPlain, sdf.ImportZippedPackage])
 
 
 # todo add all import export plugins into this directory.
 # The file dialog should have a selection box for the format
 # todo that includes all plugins and draw the operators and arguments
 # required (a draw function has to be included)
-__author__ = 'ulbrich'
+__author__ = 'ulbrich-gchen'
 
 
 # draft for creating a plugin mechanism

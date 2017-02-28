@@ -54,6 +54,8 @@ def get_registered_operator(operator):
     :return: The actually callable operator function. One has to pass :term:`keyword arguments` that match the name
         of the classes attributes.
     """
+
+    #logger.debug('For debug only')
     return getattr(getattr(bpy.ops, PLUGIN_PREFIX), operator.bl_idname.replace(PLUGIN_PREFIX + '.', ''))
 
 
@@ -135,8 +137,8 @@ class RDOperator(bpy.types.Operator):
         """
         if cls in cls._pre_conditions:
             check, messages = Condition.check_conditions(*cls._pre_conditions[cls])
-            # if not check:
-            #    cls.logger.debug("Unmet preconditions: \n%s", messages)
+            if not check:
+                cls.logger.debug("Unmet preconditions: \n%s", messages)
             return check
         return True
 
@@ -184,6 +186,7 @@ class RDOperator(bpy.types.Operator):
         :return: The return values of :meth:`bpy.types.Operator.execute`.
         """
         try:
+            #cls.logger.debug('get registered operator')
             return get_registered_operator(cls)(**kwargs)
 
 
