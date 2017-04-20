@@ -235,24 +235,26 @@ Features
     In order to interchange models with the *Neurorobotics platform* the
     Robot designer has to support additional file formats.
 
-    At first, this will be limited to the `unified robot description format
+    .. At first, this will be limited to the `unified robot description format
     (URDF) <http://wiki.ros.org/urdf/XML>`__ format which is very popular
     among the `Robot Operating System (ROS) <http://wiki.ros.org>`__
-    community. It will be enriched by additional information tags supported
+    community. 
+    In the file section robot models can be imported and exported as single files or zipped packages in the
+    `Simulator Description Format (SDF) <http://sdformat.org/spec?elem=sdf>`__ file format.
+    It will be enriched by additional information tags supported
     by the `Gazebo <http://gazebosim.org/>`__ simulator–especially for
     supporting a plugin developed for the NRP to include joint controllers
     directly in the robot description file. This file support relies on `the
     PyXB package <http://pyxb.sourceforge.net/>`__–a software that
     translates XML scheme definitions (XSD) into a Python document object
-    model. Currently, the RobotDesigner supports export and limited import
-    of these files. Currently, the abstraction from PyXB is in the process
+    model. Currently, the RobotDesigner supports limited export and import
+    of these files. 
+    .. Currently, the abstraction from PyXB is in the process
     of being refactored in order to release URDF support as an independent
     package and make support of additional file formats much simpler.
 
-    In the future, support for the `Simulator Description Format
-    (SDF) <http://sdformat.org/spec?elem=sdf>`__ file format is planned
-    although conversion in between URDF and SDF `is already
-    possible <http://gazebosim.org/tutorials/?tut=ros_urdf>`__ with Gazebo.
+    .. In the future, support for the  is planned although conversion in between URDF and SDF `is already
+    .. possible <http://gazebosim.org/tutorials/?tut=ros_urdf>`__ with Gazebo.
 
 -   **Plugin Core Framework**
 
@@ -302,14 +304,20 @@ Planned features
 
 One of the key aspects of the ongoing development is data persistence,
 that is, the ability to store robot models in different file formats and
-different storage mechanisms. \* GIT integration: The distributed
-version control system `GIT <https://git-scm.com/>`__ will be used to
-directly upload exported models to a remote repository that can be
-accessed by the *Neurorobotics Platform*. That way, it will not be
-necessary to upload and store robot models and create a seamless
-integration of the RobotDesigner in the web-based NRP. \* File formats
-\* Simulation Description Format (see above's section) \* More file
-formats will be supported upon demand. By the inclusion and abstraction
+different storage mechanisms. \* Human Brain Project Collaboratory Upload: 
+The zipped Robot model package can be directly uploaded to the 
+Neurorobotics platform to be used in the web-based simulator. As well 
+a robot model can be downloaded from a collaboratory to be modified and adapted
+in the Blender Robot Designer.
+
+.. \* GIT integration: The distributed
+.. version control system `GIT <https://git-scm.com/>`__ will be used to
+.. directly upload exported models to a remote repository that can be
+.. accessed by the *Neurorobotics Platform*. That way, it will not be
+.. necessary to upload and store robot models and create a seamless
+.. integration of the RobotDesigner in the web-based NRP. \* File formats
+.. \* Simulation Description Format (see above's section) \* 
+More file formats will be supported upon demand. By the inclusion and abstraction
 of the ``PyXB`` interface XML-based systems can be integrated easily.
 
 Furthermore, the *plugin core* framework will be separated from the main
