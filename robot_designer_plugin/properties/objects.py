@@ -87,6 +87,25 @@ class RDLaser(bpy.types.PropertyGroup):
                                      ])
 
 
+@PluginManager.register_property_group()
+class RDModelMeta(bpy.types.PropertyGroup):
+   '''
+   Property group that contains model meta data suc as name, version and description
+   '''
+   model_config_name = StringProperty(name='Name')
+   model_version = StringProperty(name='Version', default="1.0")
+   model_description = StringProperty(name='Description')
+
+
+@PluginManager.register_property_group()
+class RDAuthor(bpy.types.PropertyGroup):
+   '''
+   Property group that contains author details such as name and email
+   '''
+   authorName = StringProperty(name="author name")
+   authorEmail = StringProperty(name ="author email")
+
+
 @PluginManager.register_property_group(bpy.types.Object)
 class RDObjects(bpy.types.PropertyGroup):
     '''
@@ -106,3 +125,6 @@ class RDObjects(bpy.types.PropertyGroup):
 
     dynamics = PointerProperty(type=RDDynamics)
     camera = PointerProperty(type=RDCamera)
+    modelMeta = PointerProperty(type=RDModelMeta)
+    author = PointerProperty(type=RDAuthor)
+
