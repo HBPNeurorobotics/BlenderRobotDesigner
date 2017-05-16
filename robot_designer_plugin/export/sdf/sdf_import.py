@@ -31,6 +31,10 @@ from ...properties.globals import global_properties
 
 import logging
 
+# model.config file reading
+from .generic import model_config_dom
+
+
 __author__ = 'Guang Chen(TUM), Stefan Ulbrich(FZI)'
 
 
@@ -682,6 +686,28 @@ class Importer(object):
 #         return {'FINISHED'}
 
 
+    def import_config(self):
+        """
+        imports the model.config file and sets the RDObject variables
+        :param self:
+        :return:
+        """
+
+        print("---------- here  --------------------")
+
+        model_config_xml = open(self.base_dir + '/model.config').read()
+        model = model_config_dom.CreateFromDocument(model_config_xml)
+
+        # read model data
+        bpy.context.active_object.RobotEditor.modelMeta.model_config_name = model.name
+        bpy.context.active_object.RobotEditor.modelMeta.model_version = str(model.version)
+
+        # read author todo multiple authors
+        bpy.context.active_object.RobotEditor.author.authorName = model.author.name[0]
+        bpy.context.active_object.RobotEditor.author.authorEmail = model.author.email[0]
+
+        bpy.context.active_object.RobotEditor.modelMeta.model_description = model.description
+
 
 @RDOperator.Preconditions(ObjectMode)
 @PluginManager.register_class
@@ -706,6 +732,7 @@ class ImportPlain(RDOperator):
         import os
         importer = Importer(self, self.filepath)
         importer.import_file()
+        importer.import_config()
         return {'FINISHED'}
 
 @RDOperator.Preconditions(ObjectMode)
@@ -748,6 +775,7 @@ class ImportZippedPackage(RDOperator):
                 self.logger.debug("Importing: %s", file_path)
                 importer = Importer(operator=self, file_path=file_path)
                 importer.import_file()
+                importer.import_config()
             else:
                 self.report({'ERROR'}, "No SDF file found in package")
                 self.logger.error("No SDF file found in package")

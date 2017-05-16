@@ -67,6 +67,13 @@ from ...properties.globals import global_properties
 
 from pyxb import ContentNondeterminismExceededError, BIND
 
+# config file generation
+from .generic import model_config_dom
+from pyxb.namespace import XMLSchema_instance as xsi
+import pyxb
+
+
+
 
 def export_mesh(operator: RDOperator, context, name: str, directory: str, toplevel_dir: str, in_ros_package: bool,
                 abs_file_paths=False, export_collision=False):
@@ -559,6 +566,57 @@ def create_sdf(operator: RDOperator, context, virtual_joint_name,
 #         return {'RUNNING_MODAL'}
 
 
+def create_config(operator: RDOperator, context, virtual_joint_name,
+                filepath: str, meshpath: str, toplevel_directory: str, in_ros_package: bool, abs_filepaths=False):
+    """
+    Creates the model.config file and exports it
+
+    :param operator: The calling operator
+    :param context: The current context
+    #   :param filepath: path to the SDF file
+    #   :param meshpath: Path to the mesh directory
+    :param toplevel_directory: The directory in which to export
+    :param in_ros_package: Whether to export into a ros package or plain files
+    :param abs_filepaths: If not intstalled into a ros package decides whether to use absolute file paths.
+    :return:
+    """
+
+    # set namespace
+    pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace("http://schemas.humanbrainproject.eu/SP10/2017/model_config")
+
+    # create model config element
+    modelI = model_config_dom.model()
+
+    # get model data
+    modelI.name = bpy.context.active_object.RobotEditor.modelMeta.model_config_name
+    modelI.version = bpy.context.active_object.RobotEditor.modelMeta.model_version
+
+    # get thumbnail data
+    modelI.thumbnail = "thumbnail.png"
+
+    # set sdf fixed name
+    sdf = model_config_dom.sdf_versioned()
+    sdf._setValue("model.sdf")
+    sdf.version = 1.5
+
+    modelI.sdf = sdf
+
+    # get author data
+    author = model_config_dom.author_type(bpy.context.active_object.RobotEditor.author.authorName,bpy.context.active_object.RobotEditor.author.authorEmail)
+    modelI.author = author
+
+    modelI.description = bpy.context.active_object.RobotEditor.modelMeta.model_description
+
+
+    # export model.config file
+    with open(toplevel_directory + "/model.config", "w") as f:
+        output = modelI.toDOM()
+        output.documentElement.setAttributeNS(xsi.uri(), 'xsi:schemaLocation','http://schemas.humanbrainproject.eu/SP10/2017/model_config ../model_configuration.xsd')
+        output.documentElement.setAttributeNS(xsi.uri(), 'xmlns:xsi','http://www.w3.org/2001/XMLSchema-instance')
+        output = output.toprettyxml()
+        f.write(output)
+
+
 @RDOperator.Preconditions(ModelSelected, ObjectMode)
 @PluginManager.register_class
 class ExportPlain(RDOperator):
@@ -588,6 +646,10 @@ class ExportPlain(RDOperator):
         create_sdf(self, context, virtual_joint_name=self.virtual_joint_name, filepath=self.filepath,
                     meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                     in_ros_package=False, abs_filepaths=self.abs_file_paths)
+        create_config(self, context, virtual_joint_name=self.virtual_joint_name, filepath=self.filepath,
+                      meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
+                      in_ros_package=False, abs_filepaths=self.abs_file_paths)
+
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -648,6 +710,9 @@ class ExportZippedPackage(RDOperator):
             create_sdf(self, context, virtual_joint_name=self.virtual_joint_name, filepath=temp_file,
                        meshpath=temp_dir, toplevel_directory=temp_dir,
                        in_ros_package=False, abs_filepaths=self.abs_file_paths)
+            create_config(self, context, virtual_joint_name=self.virtual_joint_name, filepath=self.filepath,
+                          meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
+                          in_ros_package=False, abs_filepaths=self.abs_file_paths)
 
             self.logger.debug(temp_file)
             with zipfile.ZipFile(self.filepath, 'w') as zipf:
