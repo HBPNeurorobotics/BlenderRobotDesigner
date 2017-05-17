@@ -2,14 +2,6 @@
 
 [DEBUG|      Core| property.py:208|register()] Assigning property to: <class 'bpy.types.Scene'>
 
-[DEBUG|      Core| property.py:202|register()] Registering generated property group: RDGlobals_unwrapped
-
-[DEBUG|      Core| property.py:208|register()] Assigning property to: <class 'bpy.types.Scene'>
-
-[DEBUG|      Core| property.py:202|register()] Registering generated property group: RDGlobals_unwrapped
-
-[DEBUG|      Core| property.py:208|register()] Assigning property to: <class 'bpy.types.Scene'>
-
 [ INFO|      Core|pluginmanager.py:248|register()] Done
 
 [DEBUG|      Core|pluginmanager.py:250|register()] Properties: [(<class 'robot_designer_plugin.properties.segments.RDActuator'>, None), (<class 'robot_designer_plugin.properties.segments.RDDegreeOfFreedom'>, None), (<class 'robot_designer_plugin.properties.segments.RDJointController'>, None), (<class 'robot_designer_plugin.properties.segments.RDEulerAnglesSegment'>, None), (<class 'robot_designer_plugin.properties.segments.RDDenavitHartenbergSegment'>, None), (<class 'robot_designer_plugin.properties.segments.RDSegment'>, <class 'bpy_types.Bone'>), (<class 'robot_designer_plugin.properties.objects.RDDynamics'>, None), (<class 'robot_designer_plugin.properties.objects.RDCamera'>, None), (<class 'robot_designer_plugin.properties.objects.RDLaser'>, None), (<class 'robot_designer_plugin.properties.objects.RDObjects'>, <class 'bpy_types.Object'>)]
@@ -86,5 +78,5 @@
 	+ propery RDCamera                                   in properties/objects                      
 	+ propery RDLaser                                    in properties/objects                      
 	+ propery RDObjects                         (Object) in properties/objects                      
-	+ icon hbp                                  from /home/gchen/.config/blender/2.78/scripts/addons/robot_designer_plugin/resources/icons/hbp.png
+	+ icon hbp                                  from /home/user/.config/blender/2.78/scripts/addons/robot_designer_plugin/resources/icons/hbp.png
 
