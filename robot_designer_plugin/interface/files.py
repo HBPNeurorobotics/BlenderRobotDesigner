@@ -51,6 +51,29 @@ def draw(layout, context):
     :param layout: Current GUI element (e.g., collapsible box, row, etc.)
     :param context: Blender context
     """
+
+    if context.active_object and context.active_object.type == 'ARMATURE':
+        box = layout.box()
+        box.label(text="Model Meta Data")
+
+        model_box = box.box()
+        model_box.label(text="Description")
+
+        model_box.prop(bpy.context.active_object.RobotEditor.modelMeta, 'model_config_name', text="Name")
+        model_box.prop(bpy.context.active_object.RobotEditor.modelMeta, 'model_version', text='Version')
+        model_box.prop(bpy.context.active_object.RobotEditor.modelMeta, 'model_description', text='Description')
+
+        author_box = box.box()
+        author_box.label(text="Author")
+
+        ## to support multiple authors
+        # file.CreateAuthor.place_button(author_box, "Create new")
+        # author_box.menu(menus.AuthorMenu.bl_idname, text="Author 1")
+
+        author_box.prop(bpy.context.active_object.RobotEditor.author, 'authorName', text='Name')
+        author_box.prop(bpy.context.active_object.RobotEditor.author, 'authorEmail', text='Email')
+
+
     layout = layout.box()
     layout.label('Import/Export')
 
