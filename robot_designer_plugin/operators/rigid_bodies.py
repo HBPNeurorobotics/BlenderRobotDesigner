@@ -113,6 +113,10 @@ class AssignGeometry(RDOperator):
     @RDOperator.Postconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
     def execute(self, context):
         bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+
+        obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
+        if not obj.name.startswith("VIS_"):
+            bpy.data.objects[global_properties.mesh_name.get(context.scene)].name = "VIS_" + obj.name
         return {'FINISHED'}
 
 
@@ -140,9 +144,9 @@ class RenameAllGeometries(RDOperator):
         current_mesh = bpy.data.objects[mesh_name]
         for i in bpy.data.objects:
             if i.parent_bone != '' and i.type == 'MESH':
+                bpy.data.objects[mesh_name].name = 'VIS_' + i.parent_bone
                 if i.name == current_mesh:
-                    global_properties.mesh_name.set(context.scene, i.parent_bone)
-                i.name = 'Visualization_' + i.parent_bone
+                    global_properties.mesh_name.set(context.scene, i.name)
 
         return {'FINISHED'}
 
@@ -172,6 +176,8 @@ class DetachGeometry(RDOperator):
         current_mesh = bpy.data.objects[mesh_name]
         mesh_global = current_mesh.matrix_world
         current_mesh.parent = None
+        if current_mesh.name.startswith("VIS_"):
+            current_mesh.name = current_mesh.name[4:]
         current_mesh.matrix_world = mesh_global
 
         return {'FINISHED'}
@@ -212,6 +218,8 @@ class DetachAllGeometries(RDOperator):
             for mesh in meshes:
                 SelectGeometry.run(geometry_name=mesh.name)
                 DetachGeometry.run()
+                if mesh.name.startswith("VIS_"):
+                    mesh.name = mesh.name[4:]
 
         return {'FINISHED'}
 

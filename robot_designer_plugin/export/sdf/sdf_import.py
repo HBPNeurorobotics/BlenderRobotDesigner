@@ -516,7 +516,7 @@ class Importer(object):
                 #             bpy.context.active_object.name = "COL_%s_%d" % (node.link.name, nr)
                 #             bpy.context.active_object.RobotEditor.tag = 'COLLISION'
                 #         else:
-                #             bpy.context.active_object.name = "VIZ_%s_%d" % (node.link.name, nr)
+                #             bpy.context.active_object.name = "VIS_%s_%d" % (node.link.name, nr)
                 #
                 #         # remove spaces from link name
                 #         bpy.context.active_object.name = bpy.context.active_object.name.replace(" ", "")
@@ -571,10 +571,16 @@ class Importer(object):
                         # Remove multiple "COL_" and "VIS_" strings before renaming
                         if model_type == COLLISON:
                             # %2d changed to %d because it created unwanted space with one digit numbers
-                            bpy.context.active_object.name = "COL_%s_%d" % (node.link.name, nr)
+                            if not node.link.name.startswith("COL_"):
+                                bpy.context.active_object.name = "COL_%s_%d" % (node.link.name, nr)
+                            else:
+                                bpy.context.active_object.name = "%s_%d" % (node.link.name, nr)
                             bpy.context.active_object.RobotEditor.tag = 'COLLISION'
                         else:
-                            bpy.context.active_object.name = "VIZ_%s_%d" % (node.link.name, nr)
+                            if not node.link.name.startswith("VIS_"):
+                                bpy.context.active_object.name = "VIS_%s_%d" % (node.link.name, nr)
+                            else:
+                                bpy.context.active_object.name = "%s_%d" % (node.link.name, nr)
 
                         # remove spaces from link name
                         bpy.context.active_object.name = bpy.context.active_object.name.replace(" ", "")
