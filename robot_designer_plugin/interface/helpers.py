@@ -61,6 +61,9 @@ class CollisionBox(CollapsibleBase):
 class DeformableBox(CollapsibleBase):
     property_name = "deformable_box"
 
+@PluginManager.register_class
+class PolygonReductionBox(CollapsibleBase):
+    property_name = "polygon_reduction_box"
 
 @PluginManager.register_class
 class ModelPropertiesBox(CollapsibleBase):

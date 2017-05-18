@@ -120,7 +120,7 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
                 file_path = os.path.join(directory, mesh + '.dae')
 
             bpy.ops.wm.collada_export(
-                filepath=file_path, selected=True, use_texture_copies=True)
+                filepath=file_path, apply_modifiers=True, selected=True, use_texture_copies=True)
 
             # quick fix for dispersed meshes
             # todo: find appropriate solution

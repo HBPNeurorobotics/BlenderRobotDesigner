@@ -91,6 +91,8 @@ class SelectGeometry(RDOperator):
         mesh.select = True
         arm.select = True
 
+        context.region.tag_redraw()
+        context.area.tag_redraw()
         return {'FINISHED'}
 
 
@@ -272,4 +274,34 @@ class SetGeometryActive(RDOperator):
         bpy.ops.object.select_all(action='DESELECT')
         bpy.data.objects[selected].select = True
         context.scene.objects.active = bpy.data.objects[selected]
+        return {'FINISHED'}
+
+
+@RDOperator.Preconditions(ModelSelected, SingleMeshSelected)
+@PluginManager.register_class
+class ReduceAllGeometry(RDOperator):
+    """
+    :term:`operator` for reducing the polygon number of all meshes in the scene.
+
+
+    """
+    bl_idname = config.OPERATOR_PREFIX + "polygonallreduction"
+    bl_label = "Apply to all meshes in scene"
+
+    @classmethod
+    def run(cls):
+        return super().run(**cls.pass_keywords())
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected, SingleMeshSelected)
+    def execute(self, context):
+        all_meshes = [item.name for item in bpy.data.objects if item.type == "MESH"]
+        ratio_act = bpy.data.objects[global_properties.mesh_name.get(context.scene)].modifiers["Decimate"].ratio
+        for selected_mesh in all_meshes:
+                obj = bpy.data.objects[selected_mesh]
+                try:
+                    obj.modifiers["Decimate"].ratio = ratio_act
+                except KeyError:
+                    obj.modifiers.new("Decimate", 'DECIMATE').ratio = ratio_act
+
         return {'FINISHED'}

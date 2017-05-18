@@ -44,7 +44,7 @@ from .model import check_armature
 from . import menus
 from ..operators import rigid_bodies, soft_bodies, collision, mesh_generation
 from .helpers import drawInfoBox, info_list, getSingleSegment, ConnectGeometryBox, DisconnectGeometryBox, \
-    CollisionBox, DeformableBox, MeshGenerationBox, create_segment_selector
+    CollisionBox, DeformableBox, PolygonReductionBox, MeshGenerationBox, create_segment_selector
 from ..core.logfile import LogFunction
 from ..core.gui import InfoBox
 from ..core import PluginManager
@@ -165,5 +165,29 @@ def draw(layout, context):
         soft_bodies.ConvertSoftBodies.place_button(column, infoBox=infoBox)
         box.separator()
         infoBox.draw_info()
+
+
+    box = PolygonReductionBox.get(layout, context, "Polygon Reduction", icon="MOD_DECIM")
+    if box:
+        infoBox = InfoBox(box)
+        row = box.row()
+        row.alignment = 'EXPAND'
+        column = row.column(align=True)
+        menus.GeometriesMenu.putMenu(column, context)
+        column = row.column(align=True)
+
+        obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
+        try:
+            column.prop(obj.modifiers["Decimate"], "ratio", slider=False, text="Ratio")
+        except KeyError:
+            obj.modifiers.new('Decimate', 'DECIMATE')
+            column.prop(obj.modifiers["Decimate"], "ratio", slider=False, text="Ratio")
+
+        row2 = column.row()
+        rigid_bodies.ReduceAllGeometry.place_button(row2, infoBox=infoBox)
+
+        box.separator()
+        infoBox.draw_info()
+
 
     drawInfoBox(layout,context)

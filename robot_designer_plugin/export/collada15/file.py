@@ -186,6 +186,7 @@ class RobotEditor_exportCollada(RDOperator):
                                   filter_python=False, filter_font=False,
                                   filter_sound=False, filter_text=False,
                                   filter_btx=False, filter_collada=True,
+                                  apply_modifiers=True,
                                   filter_folder=True)
 
         fix.fixCollada(self.filepath, self.filepath)
