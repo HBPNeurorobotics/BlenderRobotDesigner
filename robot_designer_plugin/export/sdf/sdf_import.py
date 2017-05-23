@@ -478,6 +478,7 @@ class Importer(object):
         for model_type, geometric_models in enumerate((node.link.visual, node.link.collision)):
             # Iterate over the geometric models that are declared for the link
             for nr, model in enumerate(geometric_models):
+                self.logger.debug("name = %s", model.name)
                 if not len(model.geometry):
                     continue
                 # geometry is not optional in the xml
@@ -571,16 +572,22 @@ class Importer(object):
                         # Remove multiple "COL_" and "VIS_" strings before renaming
                         if model_type == COLLISON:
                             # %2d changed to %d because it created unwanted space with one digit numbers
-                            if not node.link.name.startswith("COL_"):
-                                bpy.context.active_object.name = "COL_%s_%d" % (node.link.name, nr)
+                            self.logger.info("this is a collision " + model.name)
+                            if not model.name.startswith("COL_"):
+                                bpy.context.active_object.name = "COL_%s" % (model.name)
                             else:
-                                bpy.context.active_object.name = "%s_%d" % (node.link.name, nr)
+                                bpy.context.active_object.name = "%s" % (model.name)
                             bpy.context.active_object.RobotEditor.tag = 'COLLISION'
+
                         else:
-                            if not node.link.name.startswith("VIS_"):
-                                bpy.context.active_object.name = "VIS_%s_%d" % (node.link.name, nr)
+                            self.logger.info("this is a visual " + model.name)
+                            if not model.name.startswith("VIS_"):
+                                bpy.context.active_object.name = "VIS_%s" % (model.name)
                             else:
-                                bpy.context.active_object.name = "%s_%d" % (node.link.name, nr)
+                                bpy.context.active_object.name = "%s" % (model.name)
+
+                        if not model.name.endswith("_" + str(nr)) and nr != 0:
+                               bpy.context.active_object.name = "%s_%d" % (model.name, nr)
 
                         # remove spaces from link name
                         bpy.context.active_object.name = bpy.context.active_object.name.replace(" ", "")
@@ -594,6 +601,7 @@ class Importer(object):
                         SelectModel.run(model_name=model_name)
                         SelectSegment.run(segment_name=segment_name)
                         SelectGeometry.run(geometry_name=assigned_name)
+
                         AssignGeometry.run()
                 else:
                     self.logger.error("Mesh file not found")

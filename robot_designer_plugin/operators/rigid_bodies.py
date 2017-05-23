@@ -115,8 +115,20 @@ class AssignGeometry(RDOperator):
         bpy.ops.object.parent_set(type='BONE', keep_transform=True)
 
         obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
-        if not obj.name.startswith("VIS_"):
-            bpy.data.objects[global_properties.mesh_name.get(context.scene)].name = "VIS_" + obj.name
+
+        if global_properties.assign_collision.get(context.scene) == True or obj.RobotEditor.tag == 'COLLISION':
+            obj.RobotEditor.tag = 'COLLISION'
+            if not obj.name.startswith("COL_"):
+                obj.name = "COL_" + obj.name
+        else:
+            obj.RobotEditor.tag == 'DEFAULT'
+            if not obj.name.startswith("VIS_"):
+                obj.name = "VIS_" + obj.name
+
+        obj.RobotEditor.fileName = obj.name
+
+        global_properties.assign_collision.set(context.scene, False)
+
         return {'FINISHED'}
 
 
@@ -131,7 +143,7 @@ class RenameAllGeometries(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "rename_geometries"
-    bl_label = "Renames geometries after segments"
+    bl_label = "Rename geometries after segments"
 
     @classmethod
     def run(cls):
@@ -144,9 +156,12 @@ class RenameAllGeometries(RDOperator):
         current_mesh = bpy.data.objects[mesh_name]
         for i in bpy.data.objects:
             if i.parent_bone != '' and i.type == 'MESH':
-                bpy.data.objects[mesh_name].name = 'VIS_' + i.parent_bone
+                i.name = i.name[:4] + i.parent_bone
+
                 if i.name == current_mesh:
                     global_properties.mesh_name.set(context.scene, i.name)
+
+                i.RobotEditor.fileName = i.name
 
         return {'FINISHED'}
 
@@ -172,13 +187,16 @@ class DetachGeometry(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleMeshSelected)
     def execute(self, context):
+        from . import segments, model
         mesh_name = global_properties.mesh_name.get(context.scene)
         current_mesh = bpy.data.objects[mesh_name]
         mesh_global = current_mesh.matrix_world
         current_mesh.parent = None
-        if current_mesh.name.startswith("VIS_"):
+        if current_mesh.name.startswith("VIS_") or current_mesh.name.startswith("COL_") :
             current_mesh.name = current_mesh.name[4:]
+
         current_mesh.matrix_world = mesh_global
+
 
         return {'FINISHED'}
 
@@ -218,7 +236,7 @@ class DetachAllGeometries(RDOperator):
             for mesh in meshes:
                 SelectGeometry.run(geometry_name=mesh.name)
                 DetachGeometry.run()
-                if mesh.name.startswith("VIS_"):
+                if mesh.name.startswith("VIS_") or mesh.name.startswith("COL_"):
                     mesh.name = mesh.name[4:]
 
         return {'FINISHED'}
@@ -250,8 +268,7 @@ class SelectAllGeometries(RDOperator):
         mesh_type =  global_properties.mesh_type.get(context.scene)
         meshes = {obj.name for obj in bpy.data.objects if
                   not obj.parent_bone is None and
-                  obj.type == 'MESH' and
-                  obj.RobotEditor.tag == mesh_type}
+                  obj.type == 'MESH' }
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.ops.object.select_all(action='DESELECT')
 
@@ -294,7 +311,7 @@ class ReduceAllGeometry(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "polygonallreduction"
-    bl_label = "Apply to all meshes in scene"
+    bl_label = "Apply to all meshes"
 
     @classmethod
     def run(cls):
@@ -303,9 +320,19 @@ class ReduceAllGeometry(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleMeshSelected)
     def execute(self, context):
-        all_meshes = [item.name for item in bpy.data.objects if item.type == "MESH"]
+
+        hide_geometry = global_properties.display_mesh_selection.get(context.scene)
+        geometry_names = [obj.name for obj in bpy.data.objects if
+                         not obj.parent_bone is None and
+                         obj.type == 'MESH']
+
+        meshes = [item.name for item in geometry_names if hide_geometry == 'collision' and item.RobotEditor.tag == 'COLLISION' if hide_geometry == 'visual' and item.RobotEditor.tag == 'DEFAULT']
+
+        if hide_geometry == 'all':
+            meshes = geometry_names
+
         ratio_act = bpy.data.objects[global_properties.mesh_name.get(context.scene)].modifiers["Decimate"].ratio
-        for selected_mesh in all_meshes:
+        for selected_mesh in meshes:
                 obj = bpy.data.objects[selected_mesh]
                 try:
                     obj.modifiers["Decimate"].ratio = ratio_act

@@ -305,7 +305,6 @@ class Importer(object):
                                 bpy.context.active_object.name = "%s_%d" % (node.link.name, nr)
                             bpy.context.active_object.RobotEditor.tag = 'COLLISION'
                         else:
-                            else:
                             if not node.link.name.startswith("VIS_"):
                                 bpy.context.active_object.name = "VIS_%s_%d" % (node.link.name, nr)
                             else:

@@ -176,7 +176,8 @@ class GenerateCollisionMesh(RDOperator):
         mod.target = bpy.data.objects[target_name]
         bpy.ops.object.modifier_apply(modifier='shrink_wrap')
 
-        bpy.context.object.name = 'COL_' + target_name[4:]
+        if not bpy.context.object.name.startswith("COL_"):
+            bpy.context.object.name = 'COL_' + target_name[4:]
         name = bpy.context.object.name
 
         context.active_object.RobotEditor.tag = 'COLLISION'

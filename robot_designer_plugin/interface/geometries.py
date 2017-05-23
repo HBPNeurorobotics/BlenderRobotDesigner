@@ -44,7 +44,7 @@ from .model import check_armature
 from . import menus
 from ..operators import rigid_bodies, soft_bodies, collision, mesh_generation
 from .helpers import drawInfoBox, info_list, getSingleSegment, ConnectGeometryBox, DisconnectGeometryBox, \
-    CollisionBox, DeformableBox, PolygonReductionBox, MeshGenerationBox, create_segment_selector
+    CollisionBox, GeometrySettingsBox, PolygonReductionBox, MeshGenerationBox, create_segment_selector
 from ..core.logfile import LogFunction
 from ..core.gui import InfoBox
 from ..core import PluginManager
@@ -74,6 +74,25 @@ def draw(layout, context):
     row.label("Show:")
     global_properties.display_mesh_selection.prop(context.scene, row, expand=True)
 
+    box = GeometrySettingsBox.get(layout, context, "Geometry Settings", icon="SCRIPTWIN")
+    if box:
+        infoBox = InfoBox(box)
+        row = box.row()
+        column = row.column(align=True)
+        menus.GeometriesMenu.putMenu(column, context)
+        # create_geometry_selection(column, context)
+
+        column = row.column(align=True)
+        rigid_bodies.RenameAllGeometries.place_button(column, infoBox=infoBox)
+        rigid_bodies.SetGeometryActive.place_button(column, infoBox=infoBox)
+        rigid_bodies.SelectAllGeometries.place_button(column, infoBox=infoBox)
+        selected_objects = [i for i in context.selected_objects if i.name != context.active_object.name]
+        if len(selected_objects):
+            box.prop(selected_objects[0].RobotEditor, 'fileName')
+        box.separator()
+        infoBox.draw_info()
+
+
     box = DisconnectGeometryBox.get(layout, context, "Detach Geometry", icon="UNLINKED")
     if box:
         infoBox = InfoBox(box)
@@ -85,12 +104,7 @@ def draw(layout, context):
         column = row.column(align=True)
         rigid_bodies.DetachGeometry.place_button(column, infoBox=infoBox)
         rigid_bodies.DetachAllGeometries.place_button(column, infoBox=infoBox)
-        rigid_bodies.RenameAllGeometries.place_button(column, infoBox=infoBox)
-        rigid_bodies.SetGeometryActive.place_button(column, infoBox=infoBox)
-        rigid_bodies.SelectAllGeometries.place_button(column, infoBox=infoBox)
-        selected_objects = [i for i in context.selected_objects if i.name != context.active_object.name]
-        if len(selected_objects):
-            box.prop(selected_objects[0].RobotEditor, 'fileName')
+
         box.separator()
         infoBox.draw_info()
 
@@ -110,15 +124,20 @@ def draw(layout, context):
 
         global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
         row2.separator()
+
         global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
                          icon='VIEWZOOM',
                          text='')
 
+
         column = row.column(align=True)
         menus.GeometriesMenu.putMenu(column, context)
         #create_geometry_selection(column, context)
+
         row = box.column(align=True)
+        global_properties.assign_collision.prop(context.scene, row)
         rigid_bodies.AssignGeometry.place_button(row, infoBox=infoBox)
+
         box.separator()
         infoBox.draw_info()
 

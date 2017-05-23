@@ -125,9 +125,24 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
         obj_tag = self.obj_tag.get(context.scene)
         obj_hidden = self.show_connected.get(context.scene)
         layout = self.layout
-        obj_names = [obj.name for obj in bpy.data.objects if
-                          obj.type == self.blender_type and
-                          obj.RobotEditor.tag == obj_tag and not obj.hide]
+        type = global_properties.display_mesh_selection.get(context.scene)
+        if type == 'all':
+            obj_names = [obj.name for obj in bpy.data.objects if
+                         obj.type == self.blender_type and
+                         not obj.hide]
+        elif type == 'collision':
+            obj_names = [obj.name for obj in bpy.data.objects if
+                         obj.type == self.blender_type and
+                         obj.RobotEditor.tag == 'COLLISION' and
+                         not obj.hide]
+        elif type == 'visual':
+            obj_names = [obj.name for obj in bpy.data.objects if
+                         obj.type == self.blender_type and
+                         obj.RobotEditor.tag == 'DEFAULT' and
+                         not obj.hide]
+        elif type == 'none':
+            obj_names = []
+
         self.logger.debug(obj_names)
 
         for obj in obj_names:

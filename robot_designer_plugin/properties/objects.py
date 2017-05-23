@@ -112,7 +112,7 @@ class RDObjects(bpy.types.PropertyGroup):
     Property group that stores general information for individual Blender
     objects with respect to the RobotEditor
     '''
-    fileName = StringProperty(name="fileName")
+    fileName = StringProperty(name="Mesh File Name")
     tag = EnumProperty(
         items=[('DEFAULT', 'Default', 'Default'),
                ('MARKER', 'Marker', 'Marker'),
