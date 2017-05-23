@@ -642,7 +642,9 @@ class ExportPlain(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, ObjectMode)
     def execute(self, context):
-        toplevel_dir = os.path.dirname(self.filepath)
+        toplevel_dir = self.filepath
+        self.filepath = os.path.join(self.filepath, 'model.sdf')
+
         create_sdf(self, context, virtual_joint_name=self.virtual_joint_name, filepath=self.filepath,
                     meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                     in_ros_package=False, abs_filepaths=self.abs_file_paths)
@@ -711,7 +713,7 @@ class ExportZippedPackage(RDOperator):
                        meshpath=temp_dir, toplevel_directory=temp_dir,
                        in_ros_package=False, abs_filepaths=self.abs_file_paths)
             create_config(self, context, virtual_joint_name=self.virtual_joint_name, filepath=self.filepath,
-                          meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
+                          meshpath=temp_dir, toplevel_directory=temp_dir,
                           in_ros_package=False, abs_filepaths=self.abs_file_paths)
 
             self.logger.debug(temp_file)
