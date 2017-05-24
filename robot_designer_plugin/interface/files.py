@@ -44,6 +44,7 @@ from ..core import PluginManager
 from ..core.gui import InfoBox
 from ..properties.globals import global_properties
 
+
 def draw(layout, context):
     """
     Draws the user interface for file operations (i.e., import/export)
@@ -58,6 +59,8 @@ def draw(layout, context):
 
         model_box = box.box()
         model_box.label(text="Description")
+
+        bpy.context.active_object.RobotEditor.modelMeta.new("hallo")
 
         model_box.prop(bpy.context.active_object.RobotEditor.modelMeta, 'model_config_name', text="Name")
         model_box.prop(bpy.context.active_object.RobotEditor.modelMeta, 'model_version', text='Version')

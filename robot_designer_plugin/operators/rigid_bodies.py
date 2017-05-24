@@ -127,6 +127,8 @@ class AssignGeometry(RDOperator):
 
         obj.RobotEditor.fileName = obj.name
 
+        global_properties.mesh_name.set(context.scene, obj.name)
+
         global_properties.assign_collision.set(context.scene, False)
 
         return {'FINISHED'}
@@ -157,11 +159,9 @@ class RenameAllGeometries(RDOperator):
         for i in bpy.data.objects:
             if i.parent_bone != '' and i.type == 'MESH':
                 i.name = i.name[:4] + i.parent_bone
-
-                if i.name == current_mesh:
-                    global_properties.mesh_name.set(context.scene, i.name)
-
                 i.RobotEditor.fileName = i.name
+
+        global_properties.mesh_name.set(context.scene, current_mesh.name[:4] + current_mesh.parent_bone )
 
         return {'FINISHED'}
 
@@ -197,6 +197,7 @@ class DetachGeometry(RDOperator):
 
         current_mesh.matrix_world = mesh_global
 
+        global_properties.mesh_name.set(context.scene, current_mesh.name)
 
         return {'FINISHED'}
 

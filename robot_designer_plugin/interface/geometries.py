@@ -44,7 +44,7 @@ from .model import check_armature
 from . import menus
 from ..operators import rigid_bodies, soft_bodies, collision, mesh_generation
 from .helpers import drawInfoBox, info_list, getSingleSegment, ConnectGeometryBox, DisconnectGeometryBox, \
-    CollisionBox, GeometrySettingsBox, PolygonReductionBox, MeshGenerationBox, create_segment_selector
+    CollisionBox, GeometrySettingsBox, PolygonReductionBox, MeshGenerationBox, create_segment_selector, DeformableBox
 from ..core.logfile import LogFunction
 from ..core.gui import InfoBox
 from ..core import PluginManager
