@@ -60,8 +60,6 @@ def draw(layout, context):
         model_box = box.box()
         model_box.label(text="Description")
 
-        bpy.context.active_object.RobotEditor.modelMeta.new("hallo")
-
         model_box.prop(bpy.context.active_object.RobotEditor.modelMeta, 'model_config_name', text="Name")
         model_box.prop(bpy.context.active_object.RobotEditor.modelMeta, 'model_version', text='Version')
         model_box.prop(bpy.context.active_object.RobotEditor.modelMeta, 'model_description', text='Description')
@@ -96,18 +94,25 @@ def draw(layout, context):
     row = layout.row()
     column = row.column()
 
+    plugins = []
     for plugin in PluginManager.getFilePlugins(PluginManager.PluginTypes.FILE):
         label, operators, draw_function, _ = plugin
 
-        box = column.box()
-        row2 =box.row(align=True)
-        infoBox = InfoBox(row2)
-        column2 = row2.column(align=True)
-        column2.label(text=label)
-        column2 = row2.column(align=True)
-        if not draw_function:
-            for operator in operators:
-                operator.place_button(layout=column2, infoBox=infoBox)
-        row2=box.row(align=True)
-        infoBox.draw_info()
+        if not label in plugins:
+            box = column.box()
+            row2 = box.row(align=True)
+            infoBox = InfoBox(row2)
+            column2 = row2.column(align=True)
+            column2.label(text=label)
+            column2 = row2.column(align=True)
+            if not draw_function:
+                for operator in operators:
+                    operator.place_button(layout=column2, infoBox=infoBox)
+            row2=box.row(align=True)
+            infoBox.draw_info()
+        plugins.append(label)
+
+
+
+
 

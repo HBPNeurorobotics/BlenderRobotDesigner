@@ -74,7 +74,7 @@ def draw(layout, context):
     row.label("Show:")
     global_properties.display_mesh_selection.prop(context.scene, row, expand=True)
 
-    box = GeometrySettingsBox.get(layout, context, "Geometry Settings", icon="SCRIPTWIN")
+    box = GeometrySettingsBox.get(layout, context, "Geometry Properties", icon="SCRIPTWIN")
     if box:
         infoBox = InfoBox(box)
         row = box.row()

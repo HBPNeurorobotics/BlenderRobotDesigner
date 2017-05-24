@@ -300,15 +300,18 @@ class Importer(object):
                         if model_type == COLLISON:
                             # %2d changed to %d because it created unwanted space with one digit numbers
                             if not node.link.name.startswith("COL_"):
-                                bpy.context.active_object.name = "COL_%s_%d" % (node.link.name, nr)
+                                bpy.context.active_object.name = "COL_%s" % (node.link.name)
                             else:
-                                bpy.context.active_object.name = "%s_%d" % (node.link.name, nr)
+                                bpy.context.active_object.name = "%s" % (node.link.name)
                             bpy.context.active_object.RobotEditor.tag = 'COLLISION'
                         else:
                             if not node.link.name.startswith("VIS_"):
-                                bpy.context.active_object.name = "VIS_%s_%d" % (node.link.name, nr)
+                                bpy.context.active_object.name = "VIS_%s" % (node.link.name)
                             else:
-                                bpy.context.active_object.name = "%s_%d" % (node.link.name, nr)
+                                bpy.context.active_object.name = "%s" % (node.link.name)
+
+                        if not node.link.name.endswith("_" + str(nr)) and nr != 0:
+                            bpy.context.active_object.name = "%s_%d" % (bpy.context.active_object.name, nr)
 
 
                         # remove spaces from link name
@@ -403,7 +406,7 @@ class ImportPackage(RDOperator):
 
     # Obligatory class attributes
     bl_idname = config.OPERATOR_PREFIX + "import_urdf_package"
-    bl_label = "URDF import (ROS package)"
+    bl_label = "Import ROS/URDF package"
 
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
 
@@ -431,7 +434,7 @@ class ImportZippedPackage(RDOperator):
 
     # Obligatory class attributes
     bl_idname = config.OPERATOR_PREFIX + "import_urdf_zipped_package"
-    bl_label = "URDF import (zipped ROS package)"
+    bl_label = "Import zipped ROS/URDF package"
 
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
 
@@ -478,7 +481,7 @@ class ImportPlain(RDOperator):
 
     # Obligatory class attributes
     bl_idname = config.OPERATOR_PREFIX + "import_urdf_plain"
-    bl_label = "URDF import (plain file)"
+    bl_label = "Import URDF plain"
 
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
 

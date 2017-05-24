@@ -625,7 +625,46 @@ class ExportPlain(RDOperator):
     """
 
     bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_plain'
-    bl_label = "Export plain SDF"
+    bl_label = "Export SDF plain"
+
+    filter_glob = StringProperty(
+        default="*.sdf",
+        options={'HIDDEN'},
+    )
+
+    abs_file_paths = BoolProperty(name="Absolute Filepaths", default=False)
+    package_url = False
+
+    gazebo = BoolProperty(name="Export Gazebo tags", default=True)
+    filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+    virtual_joint_name = StringProperty(name="Virtual Joint:", default="rd_virtual_joint")
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected, ObjectMode)
+    def execute(self, context):
+        toplevel_dir = self.filepath
+        self.filepath = os.path.join(self.filepath, 'model.sdf')
+
+        create_sdf(self, context, virtual_joint_name=self.virtual_joint_name, filepath=self.filepath,
+                    meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
+                    in_ros_package=False, abs_filepaths=self.abs_file_paths)
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        context.window_manager.fileselect_add(self)
+        return {'RUNNING_MODAL'}
+
+
+@RDOperator.Preconditions(ModelSelected, ObjectMode)
+@PluginManager.register_class
+class ExportPackage(RDOperator):
+    """
+    :ref:`operator` for exporting  the selected robot to an SDF File into a ROS package including model.config file.
+    """
+
+    bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_plain'
+    bl_label = "Export ROS/SDF package"
 
     filter_glob = StringProperty(
         default="*.sdf",

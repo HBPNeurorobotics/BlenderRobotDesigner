@@ -46,12 +46,8 @@ from . import sdf
 reload(urdf)
 reload(sdf)
 
-PluginManager.register_plugin("SDF", [sdf.ImportPlain, sdf.ImportZippedPackage, sdf.ExportPlain, sdf.ExportZippedPackage])
-
-
-# PluginManager.register_plugin("SDF", [
-#                               urdf.ExportPackage, urdf.ExportZippedPackage, urdf.ExportPlain, urdf.ImportPackage,
-#     urdf.ImportPlain, urdf.ImportZippedPackage, sdf.ImportPlain, sdf.ImportZippedPackage])
+PluginManager.register_plugin("SDF", [sdf.ImportPlain, sdf.ImportPackage, sdf.ImportZippedPackage, sdf.ExportPlain, sdf.ExportPackage, sdf.ExportZippedPackage])
+PluginManager.register_plugin("URDF", [urdf.ImportPlain, urdf.ImportPackage, urdf.ImportZippedPackage, urdf.ExportPlain, urdf.ExportPackage, urdf.ExportZippedPackage])
 
 
 # todo add all import export plugins into this directory.

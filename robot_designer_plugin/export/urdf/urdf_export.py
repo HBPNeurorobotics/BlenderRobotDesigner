@@ -468,7 +468,7 @@ class ExportPlain(RDOperator):
     """
 
     bl_idname = config.OPERATOR_PREFIX + 'export_to_urdf_plain'
-    bl_label = "Export plain URDF"
+    bl_label = "Export URDF plain"
 
     filter_glob = StringProperty(
         default="*.urdf",
