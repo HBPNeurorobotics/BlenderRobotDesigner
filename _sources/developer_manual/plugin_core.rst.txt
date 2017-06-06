@@ -43,7 +43,7 @@ Objects
         See section :ref:`segments` in the user manual)
 
     Meshes (:class:`bpy.types.Mesh`)
-        Mesh objects have assiciated 3D data in form of connected vertices that define a *surface* in form of
+        Mesh objects have associated 3D data in form of connected vertices that define a *surface* in form of
         polygonial meshes. In the Robot designer, they are referred to (*rigid body*) *geometries*.
 
     Empty (no data assiciated):

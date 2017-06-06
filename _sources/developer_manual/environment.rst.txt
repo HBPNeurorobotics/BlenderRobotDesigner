@@ -60,9 +60,9 @@ for the work with Python projects.
 Editing with PyCharm (TM)
 -------------------------
 
-.. sidebar:: `Pycharm <https://www.jetbrains.com/pycharm>`_
+.. .. sidebar:: `Pycharm <https://www.jetbrains.com/pycharm>`_
 
-    .. image:: images/pycharm.svg
+..    .. image:: images/pycharm.svg
         :width: 200px
         :align: center
 
@@ -77,9 +77,9 @@ Main text
 Editing with Atom
 -----------------
 
-.. sidebar:: `Atom.io <https://atom.io>`_
+.. .. sidebar:: `Atom.io <https://atom.io>`_
 
-    .. image:: images/atom.png
+..    .. image:: images/atom.png
         :width: 200px
         :align: center
 

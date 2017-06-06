@@ -6,8 +6,8 @@ Manual Installation
 Get a copy
 ----------
 
-The RobotDesigner of the *HBP-SP10: Neurorobotics* is hosted on
-`GitHUB <https://github.com/HBPNeurorobotics/BlenderRobotDesigner>`_ and its newest version can be downloaded
+The RobotDesigner of the *HBP-SP10: Neurorobotics* is open source and hosted on
+`GitHUB <https://github.com/HBPNeurorobotics/BlenderRobotDesigner>`_.  The source code of the newest version can be downloaded
 as a zipped file from `here <https://github.com/HBPNeurorobotics/BlenderRobotDesigner/archive/master.zip>`_, or
 if the GIT version control system is installed, like this:
 
@@ -23,16 +23,22 @@ Installer
 
 Current
 ^^^^^^^
-Currently, the installer is disabled and in the process
-of development for simplification and reflect new dependencies on external software.
-Please refer to the :ref:`manual installation <manual_install>` for now.
+Important: You should have a latest blender (version>=2.77) on your computer. Your version of blender should have a built-in python.
+Installation steps on Linux and Windows:
+
+1. Download blender from the dedicated website: https://www.blender.org/download/
+2. Download "installer.blend" from our github: https://github.com/HBPNeurorobotics/BlenderRobotDesigner/blob/master/installer.blend
+3. Launch blender and open the installer.blend file, click "run script" and wait until "RD Installation Done!" appears
+4. Close and launch blender again, you will find HBP addon on the top left of blender GUI (Note: if the HBP tab does not appear in the tool shelf, navigate to File->User Preferences->Add-Ons tab, search for and select the NRP Robot Designer add-on, and click "Save User Settings".)
+
+(Note: You can launch blender from terminal to make sure that you choose the right version of blender if you have multiple blenders on your computer)
+
 
 Planned installer
 ^^^^^^^^^^^^^^^^^
 
 For the next version of the installer, we investigate the usage of the ``venv`` environment shipped with
-Python starting from version 3.3, which will allow the installation of external (pure python) packages to
-a Blender.
+Python starting from version 3.3, which will allow the installation of external (pure python) packages to Blender.
 
 Manual install (Unix)
 ---------------------

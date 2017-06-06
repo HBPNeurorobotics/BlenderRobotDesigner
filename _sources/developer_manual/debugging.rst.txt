@@ -1,5 +1,5 @@
 Debugging
 =========
-
+Find an example of a possible logging output below.
 
 .. literalinclude:: log_example.txt
