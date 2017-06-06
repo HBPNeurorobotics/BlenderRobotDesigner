@@ -7,6 +7,8 @@ __pycache__/
 *.dae
 .rope*
 screencast*
+.idea/*
+robot_designer_plugin/resources/log.txt
 
 # this is now a generated file (prepending of absolute module path during installation)
 robot_designer_plugin/generatedAdditionalModulePath.py

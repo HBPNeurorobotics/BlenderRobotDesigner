@@ -478,6 +478,7 @@ class Importer(object):
         for model_type, geometric_models in enumerate((node.link.visual, node.link.collision)):
             # Iterate over the geometric models that are declared for the link
             for nr, model in enumerate(geometric_models):
+                self.logger.debug("name = %s", model.name)
                 if not len(model.geometry):
                     continue
                 # geometry is not optional in the xml
@@ -516,7 +517,7 @@ class Importer(object):
                 #             bpy.context.active_object.name = "COL_%s_%d" % (node.link.name, nr)
                 #             bpy.context.active_object.RobotEditor.tag = 'COLLISION'
                 #         else:
-                #             bpy.context.active_object.name = "VIZ_%s_%d" % (node.link.name, nr)
+                #             bpy.context.active_object.name = "VIS_%s_%d" % (node.link.name, nr)
                 #
                 #         # remove spaces from link name
                 #         bpy.context.active_object.name = bpy.context.active_object.name.replace(" ", "")
@@ -571,10 +572,20 @@ class Importer(object):
                         # Remove multiple "COL_" and "VIS_" strings before renaming
                         if model_type == COLLISON:
                             # %2d changed to %d because it created unwanted space with one digit numbers
-                            bpy.context.active_object.name = "COL_%s_%d" % (node.link.name, nr)
+                            if not model.name.startswith("COL_"):
+                                bpy.context.active_object.name = "COL_%s" % (model.name)
+                            else:
+                                bpy.context.active_object.name = "%s" % (model.name)
                             bpy.context.active_object.RobotEditor.tag = 'COLLISION'
+
                         else:
-                            bpy.context.active_object.name = "VIZ_%s_%d" % (node.link.name, nr)
+                            if not model.name.startswith("VIS_"):
+                                bpy.context.active_object.name = "VIS_%s" % (model.name)
+                            else:
+                                bpy.context.active_object.name = "%s" % (model.name)
+
+                        if not model.name.endswith("_" + str(nr)) and nr != 0:
+                               bpy.context.active_object.name = "%s_%d" % (model.name, nr)
 
                         # remove spaces from link name
                         bpy.context.active_object.name = bpy.context.active_object.name.replace(" ", "")
@@ -588,6 +599,7 @@ class Importer(object):
                         SelectModel.run(model_name=model_name)
                         SelectSegment.run(segment_name=segment_name)
                         SelectGeometry.run(geometry_name=assigned_name)
+
                         AssignGeometry.run()
                 else:
                     self.logger.error("Mesh file not found")
@@ -718,7 +730,33 @@ class ImportPlain(RDOperator):
 
     # Obligatory class attributes
     bl_idname = config.OPERATOR_PREFIX + "import_sdf_plain"
-    bl_label = "SDF import (plain file)"
+    bl_label = "Import SDF plain"
+
+    filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+
+    def invoke(self, context, event):
+        context.window_manager.fileselect_add(self)
+        return {'RUNNING_MODAL'}
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected, ObjectMode)
+    def execute(self, context):
+        import os
+        importer = Importer(self, self.filepath)
+        importer.import_file()
+        return {'FINISHED'}
+
+
+@RDOperator.Preconditions(ObjectMode)
+@PluginManager.register_class
+class ImportPackage(RDOperator):
+    """
+    :term:`Operator<operator>` for importing a robot from a ROS/SDF package
+    """
+
+    # Obligatory class attributes
+    bl_idname = config.OPERATOR_PREFIX + "import_sdf_plain"
+    bl_label = "Import ROS/SDF Package"
 
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
 
@@ -735,6 +773,7 @@ class ImportPlain(RDOperator):
         importer.import_config()
         return {'FINISHED'}
 
+
 @RDOperator.Preconditions(ObjectMode)
 @PluginManager.register_class
 class ImportZippedPackage(RDOperator):
@@ -744,7 +783,7 @@ class ImportZippedPackage(RDOperator):
 
     # Obligatory class attributes
     bl_idname = config.OPERATOR_PREFIX + "import_sdf_zipped_package"
-    bl_label = "SDF import (Zipped package)"
+    bl_label = "Import zipped ROS/SDF package"
 
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
 

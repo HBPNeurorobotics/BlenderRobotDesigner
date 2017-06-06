@@ -176,7 +176,8 @@ class GenerateCollisionMesh(RDOperator):
         mod.target = bpy.data.objects[target_name]
         bpy.ops.object.modifier_apply(modifier='shrink_wrap')
 
-        bpy.context.object.name = 'COL_' + target_name
+        if not bpy.context.object.name.startswith("COL_"):
+            bpy.context.object.name = 'COL_' + target_name[4:]
         name = bpy.context.object.name
 
         context.active_object.RobotEditor.tag = 'COLLISION'
@@ -232,7 +233,7 @@ class GenerateCollisionConvexHull(RDOperator):
         self.logger.debug("Creating Collision mesh for: %s", target_name)
         armature = context.active_object.name
         
-        cv_hull_obj_name = 'COL_' + target_name + "_convex_hull"
+        cv_hull_obj_name = 'COL_' + target_name[4:] + "_convex_hull"
         
         bpy.ops.object.select_all(action='DESELECT')
         

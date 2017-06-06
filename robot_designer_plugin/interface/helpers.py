@@ -43,6 +43,10 @@ from ..core.pluginmanager import PluginManager
 from ..properties.globals import global_properties
 
 @PluginManager.register_class
+class GeometrySettingsBox(CollapsibleBase):
+    property_name = "geometry_settings_box"
+
+@PluginManager.register_class
 class DisconnectGeometryBox(CollapsibleBase):
     property_name = "disconnect_geometry_box"
 
@@ -61,6 +65,9 @@ class CollisionBox(CollapsibleBase):
 class DeformableBox(CollapsibleBase):
     property_name = "deformable_box"
 
+@PluginManager.register_class
+class PolygonReductionBox(CollapsibleBase):
+    property_name = "polygon_reduction_box"
 
 @PluginManager.register_class
 class ModelPropertiesBox(CollapsibleBase):

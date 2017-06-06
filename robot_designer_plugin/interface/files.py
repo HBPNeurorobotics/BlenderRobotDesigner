@@ -44,6 +44,7 @@ from ..core import PluginManager
 from ..core.gui import InfoBox
 from ..properties.globals import global_properties
 
+
 def draw(layout, context):
     """
     Draws the user interface for file operations (i.e., import/export)
@@ -93,18 +94,25 @@ def draw(layout, context):
     row = layout.row()
     column = row.column()
 
+    plugins = []
     for plugin in PluginManager.getFilePlugins(PluginManager.PluginTypes.FILE):
         label, operators, draw_function, _ = plugin
 
-        box = column.box()
-        row2 =box.row(align=True)
-        infoBox = InfoBox(row2)
-        column2 = row2.column(align=True)
-        column2.label(text=label)
-        column2 = row2.column(align=True)
-        if not draw_function:
-            for operator in operators:
-                operator.place_button(layout=column2, infoBox=infoBox)
-        row2=box.row(align=True)
-        infoBox.draw_info()
+        if not label in plugins:
+            box = column.box()
+            row2 = box.row(align=True)
+            infoBox = InfoBox(row2)
+            column2 = row2.column(align=True)
+            column2.label(text=label)
+            column2 = row2.column(align=True)
+            if not draw_function:
+                for operator in operators:
+                    operator.place_button(layout=column2, infoBox=infoBox)
+            row2=box.row(align=True)
+            infoBox.draw_info()
+        plugins.append(label)
+
+
+
+
 

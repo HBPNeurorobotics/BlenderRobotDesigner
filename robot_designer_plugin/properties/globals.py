@@ -114,7 +114,7 @@ class RDGlobals(PropertyGroupHandlerBase):
             elif hide_geometry == 'visual' and obj.RobotEditor.tag == 'DEFAULT':
                 obj.hide = False
             elif hide_geometry == 'none':
-                obj.hide = False
+                obj.hide = True
             else:
                 obj.hide = True
 
@@ -167,6 +167,8 @@ class RDGlobals(PropertyGroupHandlerBase):
                    ("connected", 'List connected', 'Show only connected meshes in menu', 'OUTLINER_OB_ARMATURE', 2),
                    ('disconnected', 'List disconnected', 'Show only disconnected meshes in menu',
                     'ARMATURE_DATA', 3)]))
+
+        self.assign_collision = PropertyHandler(BoolProperty(name="Assign as Collision Mesh", description="Adds a collision tag to the mesh", default=False))
 
         # Holds the selection of wheter do hide/display connected/unassigned meshes in the 3D viewport
         self.display_mesh_selection = PropertyHandler(EnumProperty(

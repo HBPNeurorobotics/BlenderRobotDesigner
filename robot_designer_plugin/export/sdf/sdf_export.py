@@ -125,12 +125,12 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
 
         if len(bm.vertices) > 1:
             if '.' in mesh:
-                file_path = os.path.join(directory, mesh.replace('.', '_') + '.dae')
+                file_path = os.path.join(directory, bpy.data.objects[mesh].RobotEditor.fileName.replace('.', '_') + '.dae')
             else:
-                file_path = os.path.join(directory, mesh + '.dae')
+                file_path = os.path.join(directory, bpy.data.objects[mesh].RobotEditor.fileName + '.dae')
 
-            bpy.ops.wm.collada_export(
-                filepath=file_path, selected=True, use_texture_copies=True)
+            print("export this one")
+            bpy.ops.wm.collada_export(filepath=file_path, apply_modifiers=True, selected=True, use_texture_copies=True)
 
             # quick fix for dispersed meshes
             # todo: find appropriate solution
@@ -143,9 +143,9 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
         else:
             if '.' in mesh:
                 file_path = os.path.join(directory,
-                                         mesh.replace('.', '_') + '_vertices' + str(len(bm.vertices)) + '.dae')
+                                         bpy.data.objects[mesh].RobotEditor.fileName.replace('.', '_') + '_vertices' + str(len(bm.vertices)) + '.dae')
             else:
-                file_path = os.path.join(directory, mesh + '_vertices' + str(len(bm.vertices)) + '.dae')
+                file_path = os.path.join(directory, bpy.data.objects[mesh].RobotEditor.fileName + '_vertices' + str(len(bm.vertices)) + '.dae')
 
         SelectModel.run(model_name=model_name)
         if in_ros_package:
@@ -319,7 +319,7 @@ def create_sdf(operator: RDOperator, context, virtual_joint_name,
                 visual_pose_rpy = list_to_string(pose.to_euler())
 
                 visual.pose.append(' '.join([visual_pose_xyz, visual_pose_rpy]))
-                visual.name = child.link.name
+                visual.name = bpy.data.objects[mesh].name #child.link.name
             else:
                 operator.logger.info("No visual model for: %s", mesh)
 
@@ -341,7 +341,7 @@ def create_sdf(operator: RDOperator, context, virtual_joint_name,
                 collision_pose_rpy = list_to_string(pose.to_euler())
 
                 collision.pose.append(' '.join([collision_pose_xyz, collision_pose_rpy]))
-                collision.name = child.link.name + '_collision'
+                collision.name = bpy.data.objects[mesh].name #           child.link.name + '_collision'
                 operator.logger.info(" collision mesh pose'%s'" % collision.pose[0])
 
 
@@ -625,7 +625,7 @@ class ExportPlain(RDOperator):
     """
 
     bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_plain'
-    bl_label = "Export plain SDF"
+    bl_label = "Export SDF plain"
 
     filter_glob = StringProperty(
         default="*.sdf",
@@ -642,7 +642,48 @@ class ExportPlain(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, ObjectMode)
     def execute(self, context):
-        toplevel_dir = os.path.dirname(self.filepath)
+        toplevel_dir = self.filepath
+        self.filepath = os.path.join(self.filepath, 'model.sdf')
+
+        create_sdf(self, context, virtual_joint_name=self.virtual_joint_name, filepath=self.filepath,
+                    meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
+                    in_ros_package=False, abs_filepaths=self.abs_file_paths)
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        context.window_manager.fileselect_add(self)
+        return {'RUNNING_MODAL'}
+
+
+@RDOperator.Preconditions(ModelSelected, ObjectMode)
+@PluginManager.register_class
+class ExportPackage(RDOperator):
+    """
+    :ref:`operator` for exporting  the selected robot to an SDF File into a ROS package including model.config file.
+    """
+
+    bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_plain'
+    bl_label = "Export ROS/SDF package"
+
+    filter_glob = StringProperty(
+        default="*.sdf",
+        options={'HIDDEN'},
+    )
+
+    abs_file_paths = BoolProperty(name="Absolute Filepaths", default=False)
+    package_url = False
+
+    gazebo = BoolProperty(name="Export Gazebo tags", default=True)
+    filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+    virtual_joint_name = StringProperty(name="Virtual Joint:", default="rd_virtual_joint")
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected, ObjectMode)
+    def execute(self, context):
+        toplevel_dir = self.filepath
+        self.filepath = os.path.join(self.filepath, 'model.sdf')
+
         create_sdf(self, context, virtual_joint_name=self.virtual_joint_name, filepath=self.filepath,
                     meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                     in_ros_package=False, abs_filepaths=self.abs_file_paths)
@@ -711,7 +752,7 @@ class ExportZippedPackage(RDOperator):
                        meshpath=temp_dir, toplevel_directory=temp_dir,
                        in_ros_package=False, abs_filepaths=self.abs_file_paths)
             create_config(self, context, virtual_joint_name=self.virtual_joint_name, filepath=self.filepath,
-                          meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
+                          meshpath=temp_dir, toplevel_directory=temp_dir,
                           in_ros_package=False, abs_filepaths=self.abs_file_paths)
 
             self.logger.debug(temp_file)
