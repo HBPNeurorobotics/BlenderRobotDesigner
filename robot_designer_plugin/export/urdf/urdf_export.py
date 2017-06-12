@@ -378,7 +378,7 @@ class ExportZippedPackage(RDOperator):
     """
 
     bl_idname = config.OPERATOR_PREFIX + 'export_to_urdf_package_zipped'
-    bl_label = "Export zipped ROS/URDF Package"
+    bl_label = "Export URDF - ROS zipped Package"
 
     filter_glob = StringProperty(
         default="*.zip",
@@ -439,7 +439,7 @@ class ExportPackage(RDOperator):
 
     # Obligatory class attributes
     bl_idname = config.OPERATOR_PREFIX + "export_to_urdf_package"
-    bl_label = "Export ROS/URDF Package"
+    bl_label = "Export URDF - ROS package"
 
     directory = StringProperty(
         name="Mesh directory", subtype='DIR_PATH', default="")
@@ -468,7 +468,7 @@ class ExportPlain(RDOperator):
     """
 
     bl_idname = config.OPERATOR_PREFIX + 'export_to_urdf_plain'
-    bl_label = "Export URDF plain"
+    bl_label = "Export URDF - plain"
 
     filter_glob = StringProperty(
         default="*.urdf",

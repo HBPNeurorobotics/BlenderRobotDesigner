@@ -406,7 +406,7 @@ class ImportPackage(RDOperator):
 
     # Obligatory class attributes
     bl_idname = config.OPERATOR_PREFIX + "import_urdf_package"
-    bl_label = "Import ROS/URDF package"
+    bl_label = "Import URDF - ROS package"
 
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
 
@@ -434,7 +434,7 @@ class ImportZippedPackage(RDOperator):
 
     # Obligatory class attributes
     bl_idname = config.OPERATOR_PREFIX + "import_urdf_zipped_package"
-    bl_label = "Import zipped ROS/URDF package"
+    bl_label = "Import URDF - ROS zipped package"
 
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
 
@@ -481,7 +481,7 @@ class ImportPlain(RDOperator):
 
     # Obligatory class attributes
     bl_idname = config.OPERATOR_PREFIX + "import_urdf_plain"
-    bl_label = "Import URDF plain"
+    bl_label = "Import URDF - plain"
 
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
 
