@@ -588,7 +588,7 @@ def create_config(operator: RDOperator, context, virtual_joint_name,
     modelI = model_config_dom.model()
 
     # get model data
-    modelI.name = bpy.context.active_object.RobotEditor.modelMeta.model_config_name
+    modelI.name = bpy.context.active_object.name
     modelI.version = bpy.context.active_object.RobotEditor.modelMeta.model_version
 
     # get thumbnail data
@@ -694,6 +694,7 @@ class ExportPackage(RDOperator):
         return {'FINISHED'}
 
     def invoke(self, context, event):
+        self.filepath = context.active_object.name.replace(" ", "_")
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
 
