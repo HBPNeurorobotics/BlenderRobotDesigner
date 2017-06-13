@@ -93,22 +93,6 @@ def draw(layout, context):
         infoBox.draw_info()
 
 
-    box = DisconnectGeometryBox.get(layout, context, "Detach Geometry", icon="UNLINKED")
-    if box:
-        infoBox = InfoBox(box)
-        row = box.row()
-        column = row.column(align=True)
-        menus.GeometriesMenu.putMenu(column, context)
-        #create_geometry_selection(column, context)
-
-        column = row.column(align=True)
-        rigid_bodies.DetachGeometry.place_button(column, infoBox=infoBox)
-        rigid_bodies.DetachAllGeometries.place_button(column, infoBox=infoBox)
-
-        box.separator()
-        infoBox.draw_info()
-
-
     box = ConnectGeometryBox.get(layout, context, "Attach Geometry", icon="LINKED")
     if box:
         infoBox = InfoBox(box)
@@ -141,6 +125,21 @@ def draw(layout, context):
         box.separator()
         infoBox.draw_info()
 
+
+    box = DisconnectGeometryBox.get(layout, context, "Detach Geometry", icon="UNLINKED")
+    if box:
+        infoBox = InfoBox(box)
+        row = box.row()
+        column = row.column(align=True)
+        menus.GeometriesMenu.putMenu(column, context)
+        #create_geometry_selection(column, context)
+
+        column = row.column(align=True)
+        rigid_bodies.DetachGeometry.place_button(column, infoBox=infoBox)
+        rigid_bodies.DetachAllGeometries.place_button(column, infoBox=infoBox)
+
+        box.separator()
+        infoBox.draw_info()
 
 
     if global_properties.mesh_type.get(context.scene) == "DEFAULT":

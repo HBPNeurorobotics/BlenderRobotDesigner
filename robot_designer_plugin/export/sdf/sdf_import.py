@@ -345,11 +345,8 @@ class Importer(object):
 
         SelectSegment.run(segment_name=parent_name)
 
-        # to add the root link into the kinematic chain, we create a node.virtual.joint -> root link
-        if parent_name:
-            CreateNewSegment.run(segment_name=node.joint.name)
-        else:
-            CreateNewSegment.run(segment_name='rd_virtual_joint')
+        CreateNewSegment.run(segment_name=node.link.name)
+
         segment_name = C.active_bone.name
 
         self.logger.info("%s -> %s", parent_name, segment_name)

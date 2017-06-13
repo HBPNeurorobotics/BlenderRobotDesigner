@@ -135,7 +135,7 @@ class SDFTree(object):
             tree.build(self.connectedLinks[joint], joint, depth + 1)
 
     @staticmethod
-    def create_empty(name, virtual_joint_name="virtual_joint"):
+    def create_empty(name):
         """
         Creates an empty tree object.
 
@@ -145,6 +145,8 @@ class SDFTree(object):
         """
         sdf = sdf_dom.sdf()
         sdf.version = '1.5'
+        pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(None)
+
         if not sdf.model:
             sdf.model.append(sdf_dom.model())
         tree = SDFTree(connected_links={}, connected_joints={}, robot=sdf.model[0])
@@ -152,10 +154,6 @@ class SDFTree(object):
 
         tree.robot.name = name
         tree.link = sdf_dom.link()
-
-        tree.joint = sdf_dom.joint()
-        tree.joint.name = virtual_joint_name
-        #tree.robot.joint.append(tree.joint)
 
         #tree.set_defaults() # todo set defaults
 
@@ -196,7 +194,7 @@ class SDFTree(object):
 
         # self.connectedLinks = {key: value for key, value in self.sdf.model[0].items() if key.name != 'rd_virtual_joint'}
 
-        self.sdf.model[0].joint = [j for j in self.sdf.model[0].joint if j.name != 'rd_virtual_joint']
+        self.sdf.model[0].joint = [j for j in self.sdf.model[0].joint if j.parent]
         # for j in self.sdf.model[0].joint:
         #
         #     print(j.name)
