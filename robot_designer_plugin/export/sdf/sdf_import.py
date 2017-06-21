@@ -752,7 +752,7 @@ class ImportPackage(RDOperator):
     """
 
     # Obligatory class attributes
-    bl_idname = config.OPERATOR_PREFIX + "import_sdf_plain"
+    bl_idname = config.OPERATOR_PREFIX + "import_sdf_package"
     bl_label = "Import SDF - ROS Package"
 
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
