@@ -345,11 +345,8 @@ class Importer(object):
 
         SelectSegment.run(segment_name=parent_name)
 
-        # to add the root link into the kinematic chain, we create a node.virtual.joint -> root link
-        if parent_name:
-            CreateNewSegment.run(segment_name=node.joint.name)
-        else:
-            CreateNewSegment.run(segment_name='rd_virtual_joint')
+        CreateNewSegment.run(segment_name=node.link.name)
+
         segment_name = C.active_bone.name
 
         self.logger.info("%s -> %s", parent_name, segment_name)
@@ -711,7 +708,7 @@ class Importer(object):
         model = model_config_dom.CreateFromDocument(model_config_xml)
 
         # read model data
-        bpy.context.active_object.RobotEditor.modelMeta.model_config_name = model.name
+        bpy.context.active_object.name = model.name
         bpy.context.active_object.RobotEditor.modelMeta.model_version = str(model.version)
 
         # read author todo multiple authors
@@ -730,7 +727,7 @@ class ImportPlain(RDOperator):
 
     # Obligatory class attributes
     bl_idname = config.OPERATOR_PREFIX + "import_sdf_plain"
-    bl_label = "Import SDF plain"
+    bl_label = "Import SDF - plain"
 
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
 
@@ -755,8 +752,8 @@ class ImportPackage(RDOperator):
     """
 
     # Obligatory class attributes
-    bl_idname = config.OPERATOR_PREFIX + "import_sdf_plain"
-    bl_label = "Import ROS/SDF Package"
+    bl_idname = config.OPERATOR_PREFIX + "import_sdf_package"
+    bl_label = "Import SDF - ROS Package"
 
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
 
@@ -783,7 +780,7 @@ class ImportZippedPackage(RDOperator):
 
     # Obligatory class attributes
     bl_idname = config.OPERATOR_PREFIX + "import_sdf_zipped_package"
-    bl_label = "Import zipped ROS/SDF package"
+    bl_label = "Import SDF - ROS zipped package"
 
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
 

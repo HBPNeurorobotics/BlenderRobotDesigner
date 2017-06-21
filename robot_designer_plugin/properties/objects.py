@@ -92,7 +92,6 @@ class RDModelMeta(bpy.types.PropertyGroup):
    '''
    Property group that contains model meta data suc as name, version and description
    '''
-   model_config_name = StringProperty(name='Name')
    model_version = StringProperty(name='Version', default="1.0")
    model_description = StringProperty(name='Description')
 

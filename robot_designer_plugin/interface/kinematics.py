@@ -35,7 +35,7 @@
 #
 # ######
 
-
+import bpy
 
 def draw(layout, context):
     """
@@ -72,19 +72,21 @@ def draw(layout, context):
     axis_row.prop(context.active_bone.RobotEditor, "axis", expand=True)
     axis_row.prop(context.active_bone.RobotEditor, "axis_revert")
 
-    layout.label("Joint Type:")
-    layout.prop(context.active_bone.RobotEditor, "jointMode", expand=True)
-    joint_column = layout.column(align=True)
+    # Only show joint if not root bone
+    if not context.active_bone.parent == None:
+        layout.label("Joint Type:")
+        layout.prop(context.active_bone.RobotEditor, "jointMode", expand=True)
+        joint_column = layout.column(align=True)
 
-    if context.active_bone.RobotEditor.jointMode == 'REVOLUTE':
-        joint_column.label("theta:")
-        joint_column.prop(context.active_bone.RobotEditor.theta, "value", slider=False)
-        joint_column.prop(context.active_bone.RobotEditor.theta, "offset", slider=False)
-        joint_column.prop(context.active_bone.RobotEditor.theta, "min", slider=False)
-        joint_column.prop(context.active_bone.RobotEditor.theta, "max", slider=False)
-    else:  # jointMode == 'PRISMATIC'
-        joint_column.label("d:")
-        joint_column.prop(context.active_bone.RobotEditor.d, "value", slider=False)
-        joint_column.prop(context.active_bone.RobotEditor.d, "offset", slider=False)
-        joint_column.prop(context.active_bone.RobotEditor.d, "min", slider=False)
-        joint_column.prop(context.active_bone.RobotEditor.d, "max", slider=False)
+        if context.active_bone.RobotEditor.jointMode == 'REVOLUTE':
+            joint_column.label("theta:")
+            joint_column.prop(context.active_bone.RobotEditor.theta, "value", slider=False)
+            joint_column.prop(context.active_bone.RobotEditor.theta, "offset", slider=False)
+            joint_column.prop(context.active_bone.RobotEditor.theta, "min", slider=False)
+            joint_column.prop(context.active_bone.RobotEditor.theta, "max", slider=False)
+        else:  # jointMode == 'PRISMATIC'
+            joint_column.label("d:")
+            joint_column.prop(context.active_bone.RobotEditor.d, "value", slider=False)
+            joint_column.prop(context.active_bone.RobotEditor.d, "offset", slider=False)
+            joint_column.prop(context.active_bone.RobotEditor.d, "min", slider=False)
+            joint_column.prop(context.active_bone.RobotEditor.d, "max", slider=False)

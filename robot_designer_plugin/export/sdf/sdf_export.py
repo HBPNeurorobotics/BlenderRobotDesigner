@@ -159,8 +159,7 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
             # mesh + ".dae"))
 
 
-def create_sdf(operator: RDOperator, context, virtual_joint_name,
-                filepath: str, meshpath: str, toplevel_directory: str, in_ros_package: bool, abs_filepaths=False):
+def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, toplevel_directory: str, in_ros_package: bool, abs_filepaths=False):
     """
     Creates the SDF XML file and exports the meshes
 
@@ -249,7 +248,6 @@ def create_sdf(operator: RDOperator, context, virtual_joint_name,
         print('Axis limit:', child.joint.axis[0].limit)
         print('Axis xyz:', child.joint.axis[0].xyz)
 
-
         #
         # if segment.parent is None:
         #     print("Debug: parent bone is none", segment,
@@ -269,8 +267,7 @@ def create_sdf(operator: RDOperator, context, virtual_joint_name,
         #     if segment.RobotEditor.jointMode == 'FIXED':
         #         child.joint.type = 'fixed'
         if segment.parent is None:
-            print("Info: parent bone of rd virtual joint is none", segment,
-                  segment.RobotEditor.jointMode)
+            #print("Info: Root joint has no parent", segment, segment.RobotEditor.jointMode)
             child.joint.type = 'fixed'
         else:
             if segment.RobotEditor.jointMode == 'REVOLUTE':
@@ -395,7 +392,7 @@ def create_sdf(operator: RDOperator, context, virtual_joint_name,
 
     blender_scale_factor = context.active_object.scale
 
-    root = sdf_tree.SDFTree.create_empty(robot_name, virtual_joint_name)
+    root = sdf_tree.SDFTree.create_empty(robot_name)
 
     # todo SDF Plugin
     # build control plugin element
@@ -566,7 +563,7 @@ def create_sdf(operator: RDOperator, context, virtual_joint_name,
 #         return {'RUNNING_MODAL'}
 
 
-def create_config(operator: RDOperator, context, virtual_joint_name,
+def create_config(operator: RDOperator, context,
                 filepath: str, meshpath: str, toplevel_directory: str, in_ros_package: bool, abs_filepaths=False):
     """
     Creates the model.config file and exports it
@@ -588,7 +585,7 @@ def create_config(operator: RDOperator, context, virtual_joint_name,
     modelI = model_config_dom.model()
 
     # get model data
-    modelI.name = bpy.context.active_object.RobotEditor.modelMeta.model_config_name
+    modelI.name = bpy.context.active_object.name
     modelI.version = bpy.context.active_object.RobotEditor.modelMeta.model_version
 
     # get thumbnail data
@@ -625,7 +622,7 @@ class ExportPlain(RDOperator):
     """
 
     bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_plain'
-    bl_label = "Export SDF plain"
+    bl_label = "Export SDF - plain"
 
     filter_glob = StringProperty(
         default="*.sdf",
@@ -637,7 +634,6 @@ class ExportPlain(RDOperator):
 
     gazebo = BoolProperty(name="Export Gazebo tags", default=True)
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
-    virtual_joint_name = StringProperty(name="Virtual Joint:", default="rd_virtual_joint")
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, ObjectMode)
@@ -645,7 +641,7 @@ class ExportPlain(RDOperator):
         toplevel_dir = self.filepath
         self.filepath = os.path.join(self.filepath, 'model.sdf')
 
-        create_sdf(self, context, virtual_joint_name=self.virtual_joint_name, filepath=self.filepath,
+        create_sdf(self, context, filepath=self.filepath,
                     meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                     in_ros_package=False, abs_filepaths=self.abs_file_paths)
 
@@ -663,8 +659,8 @@ class ExportPackage(RDOperator):
     :ref:`operator` for exporting  the selected robot to an SDF File into a ROS package including model.config file.
     """
 
-    bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_plain'
-    bl_label = "Export ROS/SDF package"
+    bl_idname = config.OPERATOR_PREFIX + 'export_to_package'
+    bl_label = "Export SDF - ROS package"
 
     filter_glob = StringProperty(
         default="*.sdf",
@@ -676,7 +672,6 @@ class ExportPackage(RDOperator):
 
     gazebo = BoolProperty(name="Export Gazebo tags", default=True)
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
-    virtual_joint_name = StringProperty(name="Virtual Joint:", default="rd_virtual_joint")
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, ObjectMode)
@@ -684,16 +679,17 @@ class ExportPackage(RDOperator):
         toplevel_dir = self.filepath
         self.filepath = os.path.join(self.filepath, 'model.sdf')
 
-        create_sdf(self, context, virtual_joint_name=self.virtual_joint_name, filepath=self.filepath,
+        create_sdf(self, context, filepath=self.filepath,
                     meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                     in_ros_package=False, abs_filepaths=self.abs_file_paths)
-        create_config(self, context, virtual_joint_name=self.virtual_joint_name, filepath=self.filepath,
+        create_config(self, context, filepath=self.filepath,
                       meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                       in_ros_package=False, abs_filepaths=self.abs_file_paths)
 
         return {'FINISHED'}
 
     def invoke(self, context, event):
+        self.filepath = context.active_object.name.replace(" ", "_")
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
 
@@ -706,7 +702,7 @@ class ExportZippedPackage(RDOperator):
     """
 
     bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_package_zipped'
-    bl_label = "Export zipped ROS/SDF Package"
+    bl_label = "Export SDF - ROS zipped package"
 
     filter_glob = StringProperty(
         default="*.zip",
@@ -718,7 +714,6 @@ class ExportZippedPackage(RDOperator):
 
     gazebo = BoolProperty(name="Export Gazebo tags", default=True)
     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
-    virtual_joint_name = StringProperty(name="Virtual Joint:", default="rd_virtual_joint")
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, ObjectMode)
@@ -748,10 +743,10 @@ class ExportZippedPackage(RDOperator):
             temp_file = os.path.join(temp_dir, 'model.sdf')
             if not os.path.exists(temp_dir):
                 os.makedirs(temp_dir)
-            create_sdf(self, context, virtual_joint_name=self.virtual_joint_name, filepath=temp_file,
+            create_sdf(self, context, filepath=temp_file,
                        meshpath=temp_dir, toplevel_directory=temp_dir,
                        in_ros_package=False, abs_filepaths=self.abs_file_paths)
-            create_config(self, context, virtual_joint_name=self.virtual_joint_name, filepath=self.filepath,
+            create_config(self, context, filepath=self.filepath,
                           meshpath=temp_dir, toplevel_directory=temp_dir,
                           in_ros_package=False, abs_filepaths=self.abs_file_paths)
 
