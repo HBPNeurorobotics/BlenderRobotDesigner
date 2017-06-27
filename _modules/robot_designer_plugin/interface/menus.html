@@ -4,12 +4,11 @@
 <!DOCTYPE html>
 
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>robot_designer_plugin.interface.menus &mdash; NRP RobotDesigner 0.1 documentation</title>
+    <title>robot_designer_plugin.interface.menus &#8212; NRP RobotDesigner 0.1 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/hbpdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -20,21 +19,36 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
-    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
-    <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
   </head>
-  <body role="document">
+  <body>
 <div class="hbpdoc-page">
     <section class="hbpdoc-title page-header">
         <a class="project-title" href="../../../index.html">NRP RobotDesigner</a>
@@ -54,14 +68,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -132,39 +143,39 @@
 <span class="c1"># ######</span>
 <span class="c1"># Blender imports</span>
 <span class="kn">import</span> <span class="nn">bpy</span>
-<span class="kn">from</span> <span class="nn">bpy.props</span> <span class="kn">import</span> <span class="n">IntProperty</span><span class="p">,</span> <span class="n">StringProperty</span><span class="p">,</span> <span class="n">CollectionProperty</span>
+<span class="kn">from</span> <span class="nn">bpy.props</span> <span class="k">import</span> <span class="n">IntProperty</span><span class="p">,</span> <span class="n">StringProperty</span><span class="p">,</span> <span class="n">CollectionProperty</span>
 
 <span class="c1"># ######</span>
 <span class="c1"># RobotDesigner imports</span>
 
-<span class="kn">from</span> <span class="nn">..operators</span> <span class="kn">import</span> <span class="n">segments</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">rigid_bodies</span><span class="p">,</span> <span class="n">dynamics</span><span class="p">,</span> <span class="n">sensors</span>
+<span class="kn">from</span> <span class="nn">..operators</span> <span class="k">import</span> <span class="n">segments</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">rigid_bodies</span><span class="p">,</span> <span class="n">dynamics</span><span class="p">,</span> <span class="n">sensors</span>
 
-<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">PluginManager</span>
-<span class="kn">from</span> <span class="nn">..core.config</span> <span class="kn">import</span> <span class="n">OPERATOR_PREFIX</span>
-<span class="kn">from</span> <span class="nn">..core.operators</span> <span class="kn">import</span> <span class="n">RDOperator</span>
-<span class="kn">from</span> <span class="nn">..core.logfile</span> <span class="kn">import</span> <span class="n">gui_logger</span>
-<span class="kn">from</span> <span class="nn">..properties.globals</span> <span class="kn">import</span> <span class="n">global_properties</span>
-<span class="kn">from</span> <span class="nn">..core.constants</span> <span class="kn">import</span> <span class="n">StringConstants</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="k">import</span> <span class="n">PluginManager</span>
+<span class="kn">from</span> <span class="nn">..core.config</span> <span class="k">import</span> <span class="n">OPERATOR_PREFIX</span>
+<span class="kn">from</span> <span class="nn">..core.operators</span> <span class="k">import</span> <span class="n">RDOperator</span>
+<span class="kn">from</span> <span class="nn">..core.logfile</span> <span class="k">import</span> <span class="n">gui_logger</span>
+<span class="kn">from</span> <span class="nn">..properties.globals</span> <span class="k">import</span> <span class="n">global_properties</span>
+<span class="kn">from</span> <span class="nn">..core.constants</span> <span class="k">import</span> <span class="n">StringConstants</span>
 
 <div class="viewcode-block" id="BaseMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.BaseMenu">[docs]</a><span class="k">class</span> <span class="nc">BaseMenu</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="n">logger</span> <span class="o">=</span> <span class="n">gui_logger</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="BaseMenu.putMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.BaseMenu.putMenu">[docs]</a>    <span class="k">def</span> <span class="nf">putMenu</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="n">layout</span><span class="p">,</span><span class="n">context</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="c1"># todo which kwargs are possible</span>
-        <span class="n">layout</span><span class="o">.</span><span class="n">menu</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">)</span></div></div>
+<div class="viewcode-block" id="BaseMenu.putMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.BaseMenu.putMenu">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">putMenu</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">layout</span><span class="p">,</span><span class="n">context</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="c1"># todo which kwargs are possible</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">menu</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">)</span></div></div>
 
 <span class="c1"># dynamic menu to select mesh</span>
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="SegmentsGeometriesMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.SegmentsGeometriesMenu">[docs]</a><span class="k">class</span> <span class="nc">SegmentsGeometriesMenu</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Menu</span><span class="p">,</span> <span class="n">BaseMenu</span><span class="p">):</span>
+<div class="viewcode-block" id="SegmentsGeometriesMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.SegmentsGeometriesMenu">[docs]</a><span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">SegmentsGeometriesMenu</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Menu</span><span class="p">,</span> <span class="n">BaseMenu</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`menu` for selecting robot segments while displaying connections to geometries in the scene.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;bonemeshmenu&quot;</span>
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Select Bone&quot;</span>
-    <span class="nb">filter</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="nb">filter</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
     <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">mesh_type</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">mesh_type</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
         <span class="n">hide_bone</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">display_mesh_selection</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
@@ -173,7 +184,7 @@
         <span class="n">current_model</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
         <span class="n">segment_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">bone</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">bone</span> <span class="ow">in</span> <span class="n">current_model</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span><span class="p">]</span>
         <span class="n">meshes</span> <span class="o">=</span> <span class="p">{</span><span class="n">obj</span><span class="o">.</span><span class="n">parent_bone</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span>
-                  <span class="n">obj</span><span class="o">.</span><span class="n">parent_bone</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span>
+                  <span class="n">obj</span><span class="o">.</span><span class="n">parent_bone</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
                   <span class="n">obj</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;MESH&#39;</span> <span class="ow">and</span>
                   <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="n">mesh_type</span><span class="p">}</span>
 
@@ -201,22 +212,37 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="s2">&quot;Override&quot;</span>
 
-    <span class="n">obj_tag</span> <span class="o">=</span> <span class="bp">None</span> <span class="c1"># can be set to scene property</span>
-    <span class="n">show_connected</span> <span class="o">=</span> <span class="bp">None</span> <span class="c1"># set to scene property</span>
+    <span class="n">obj_tag</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># can be set to scene property</span>
+    <span class="n">show_connected</span> <span class="o">=</span> <span class="kc">None</span> <span class="c1"># set to scene property</span>
     <span class="n">blender_type</span> <span class="o">=</span> <span class="s2">&quot;CAMERA&quot;</span>
-    <span class="n">quick_search</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">quick_search</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">operator_property</span> <span class="o">=</span> <span class="s2">&quot;geometry_name&quot;</span>
     <span class="n">operator</span> <span class="o">=</span> <span class="n">rigid_bodies</span><span class="o">.</span><span class="n">SelectGeometry</span>
     <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Select Mesh&quot;</span>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
     <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">obj_tag</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">obj_tag</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
         <span class="n">obj_hidden</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_connected</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
         <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span>
-        <span class="n">obj_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span>
-                          <span class="n">obj</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">blender_type</span> <span class="ow">and</span>
-                          <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="n">obj_tag</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">hide</span><span class="p">]</span>
+        <span class="nb">type</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">display_mesh_selection</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+            <span class="n">obj_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span>
+                         <span class="n">obj</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">blender_type</span> <span class="ow">and</span>
+                         <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">hide</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;collision&#39;</span><span class="p">:</span>
+            <span class="n">obj_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span>
+                         <span class="n">obj</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">blender_type</span> <span class="ow">and</span>
+                         <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;COLLISION&#39;</span> <span class="ow">and</span>
+                         <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">hide</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;visual&#39;</span><span class="p">:</span>
+            <span class="n">obj_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span>
+                         <span class="n">obj</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">blender_type</span> <span class="ow">and</span>
+                         <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;DEFAULT&#39;</span> <span class="ow">and</span>
+                         <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">hide</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;none&#39;</span><span class="p">:</span>
+            <span class="n">obj_names</span> <span class="o">=</span> <span class="p">[]</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">obj_names</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj_names</span><span class="p">:</span>
@@ -230,15 +256,15 @@
                     <span class="k">continue</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">operator</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">),</span><span class="bp">self</span><span class="o">.</span><span class="n">operator_property</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="ConnectedObjectsMenu.putMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.ConnectedObjectsMenu.putMenu">[docs]</a>    <span class="k">def</span> <span class="nf">putMenu</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="n">layout</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ConnectedObjectsMenu.putMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.ConnectedObjectsMenu.putMenu">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">putMenu</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span><span class="n">layout</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-        <span class="n">hide_obj</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">show_connected</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
+        <span class="n">hide_obj</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">show_connected</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
 
         <span class="c1"># Get selected meshes</span>
-        <span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">cls</span><span class="o">.</span><span class="n">blender_type</span><span class="p">]</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="bp">cls</span><span class="o">.</span><span class="n">blender_type</span><span class="p">]</span>
 
-        <span class="n">text</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">text</span>
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="nb">object</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -247,18 +273,18 @@
             <span class="k">elif</span> <span class="ow">not</span> <span class="nb">object</span><span class="o">.</span><span class="n">parent_bone</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">hide_obj</span> <span class="o">==</span> <span class="s1">&#39;connected&#39;</span><span class="p">:</span>
                 <span class="n">text</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="n">name</span>
 
-        <span class="n">layout</span><span class="o">.</span><span class="n">menu</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">)</span>
-        <span class="n">row</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">show_connected</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span>  <span class="n">expand</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">icon_only</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">menu</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">row</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">show_connected</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span>  <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">icon_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">row</span><span class="o">.</span><span class="n">separator</span><span class="p">()</span>
 
-        <span class="n">cls</span><span class="o">.</span><span class="n">quick_search</span><span class="o">.</span><span class="n">prop_search</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">quick_search</span><span class="o">.</span><span class="n">prop_search</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span>
                                      <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="p">,</span><span class="s1">&#39;objects&#39;</span><span class="p">,</span> <span class="n">icon</span><span class="o">=</span><span class="s1">&#39;VIEWZOOM&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span></div></div>
         <span class="c1">#row.prop_search(bpy.context.scene.RobotEditor, cls.quick_search, bpy.data, &#39;objects&#39;,</span>
         <span class="c1">#                icon=&#39;VIEWZOOM&#39;, text=&#39;&#39;)</span>
 
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="GeometriesMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.GeometriesMenu">[docs]</a><span class="k">class</span> <span class="nc">GeometriesMenu</span><span class="p">(</span><span class="n">ConnectedObjectsMenu</span><span class="p">):</span>
+<div class="viewcode-block" id="GeometriesMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.GeometriesMenu">[docs]</a><span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">GeometriesMenu</span><span class="p">(</span><span class="n">ConnectedObjectsMenu</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`menu` for selecting geometries while displaying connections to robot segments in the scene.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -272,8 +298,8 @@
     <span class="n">operator_property</span> <span class="o">=</span> <span class="s2">&quot;geometry_name&quot;</span>
     <span class="n">operator</span> <span class="o">=</span> <span class="n">rigid_bodies</span><span class="o">.</span><span class="n">SelectGeometry</span></div>
 
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="CameraSensorMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.CameraSensorMenu">[docs]</a><span class="k">class</span> <span class="nc">CameraSensorMenu</span><span class="p">(</span><span class="n">ConnectedObjectsMenu</span><span class="p">):</span>
+<div class="viewcode-block" id="CameraSensorMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.CameraSensorMenu">[docs]</a><span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">CameraSensorMenu</span><span class="p">(</span><span class="n">ConnectedObjectsMenu</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`menu` for selecting geometries while displaying connections to robot segments in the scene.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -288,8 +314,8 @@
     <span class="n">operator</span> <span class="o">=</span> <span class="n">sensors</span><span class="o">.</span><span class="n">SelectSensor</span>
     <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Select sensor&quot;</span></div>
 
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="MassObjectMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.MassObjectMenu">[docs]</a><span class="k">class</span> <span class="nc">MassObjectMenu</span><span class="p">(</span><span class="n">ConnectedObjectsMenu</span><span class="p">):</span>
+<div class="viewcode-block" id="MassObjectMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.MassObjectMenu">[docs]</a><span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">MassObjectMenu</span><span class="p">(</span><span class="n">ConnectedObjectsMenu</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`menu` for selecting :term:`mass entities` while displaying connections to robot segments in the scene.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -304,8 +330,8 @@
     <span class="n">operator</span> <span class="o">=</span> <span class="n">dynamics</span><span class="o">.</span><span class="n">SelectPhysical</span>
     <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Select mass object&quot;</span></div>
 
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="ModelMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.ModelMenu">[docs]</a><span class="k">class</span> <span class="nc">ModelMenu</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Menu</span><span class="p">,</span> <span class="n">BaseMenu</span><span class="p">):</span>
+<div class="viewcode-block" id="ModelMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.ModelMenu">[docs]</a><span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">ModelMenu</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Menu</span><span class="p">,</span> <span class="n">BaseMenu</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`menu` for selecting robot models or optionally create new ones.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -313,7 +339,7 @@
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;armaturemenu&quot;</span>
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Selecht Model&quot;</span>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
     <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span>
         <span class="n">armatures</span> <span class="o">=</span> <span class="p">[</span><span class="n">obj</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span> <span class="n">obj</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;ARMATURE&#39;</span><span class="p">]</span>
@@ -326,15 +352,15 @@
 
 
 
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="JoinModelMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.JoinModelMenu">[docs]</a><span class="k">class</span> <span class="nc">JoinModelMenu</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Menu</span><span class="p">,</span> <span class="n">BaseMenu</span><span class="p">):</span>
+<div class="viewcode-block" id="JoinModelMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.JoinModelMenu">[docs]</a><span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">JoinModelMenu</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Menu</span><span class="p">,</span> <span class="n">BaseMenu</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`menu` for joining two robot models.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;joinarmaturemenu&quot;</span>
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Join selected armature with different armature&quot;</span>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
     <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span>
 
@@ -346,8 +372,8 @@
             <span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">JoinModels</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">targetArmatureName</span> <span class="o">=</span> <span class="n">text</span></div>
 
 
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="CoordinateFrameMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.CoordinateFrameMenu">[docs]</a><span class="k">class</span> <span class="nc">CoordinateFrameMenu</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Menu</span><span class="p">,</span> <span class="n">BaseMenu</span><span class="p">):</span>
+<div class="viewcode-block" id="CoordinateFrameMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.CoordinateFrameMenu">[docs]</a><span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">CoordinateFrameMenu</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Menu</span><span class="p">,</span> <span class="n">BaseMenu</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`menu` to select alternative display for the coordinate frames.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -356,33 +382,33 @@
 
     <span class="n">axis</span> <span class="o">=</span> <span class="n">IntProperty</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
     <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span>
         <span class="n">geometry_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span>
                           <span class="n">obj</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;MESH&#39;</span><span class="p">,</span> <span class="s1">&#39;EMPTY&#39;</span><span class="p">)</span> <span class="ow">and</span>
-                          <span class="n">obj</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span>
+                          <span class="n">obj</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span>
                           <span class="n">obj</span><span class="o">.</span><span class="n">parent_bone</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
 
         <span class="k">for</span> <span class="n">mesh</span> <span class="ow">in</span> <span class="n">geometry_names</span><span class="p">:</span>
             <span class="n">model</span><span class="o">.</span><span class="n">SelectCoordinateFrame</span><span class="o">.</span><span class="n">place_button</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span><span class="n">text</span><span class="o">=</span><span class="n">mesh</span><span class="p">)</span><span class="o">.</span><span class="n">mesh_name</span> <span class="o">=</span> <span class="n">mesh</span></div>
 
 
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="SegmentsMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.SegmentsMenu">[docs]</a><span class="k">class</span> <span class="nc">SegmentsMenu</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Menu</span><span class="p">,</span> <span class="n">BaseMenu</span><span class="p">):</span>
+<div class="viewcode-block" id="SegmentsMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.SegmentsMenu">[docs]</a><span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">SegmentsMenu</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Menu</span><span class="p">,</span> <span class="n">BaseMenu</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`menu` for selecting robot segments.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;bonemenu&quot;</span>
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Select Segment&quot;</span>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
     <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">current_model</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
 
         <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span>
 
-        <span class="k">for</span> <span class="n">root</span> <span class="ow">in</span> <span class="p">[</span><span class="n">bone</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">bone</span> <span class="ow">in</span> <span class="n">current_model</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span> <span class="k">if</span> <span class="n">bone</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">root</span> <span class="ow">in</span> <span class="p">[</span><span class="n">bone</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">bone</span> <span class="ow">in</span> <span class="n">current_model</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span> <span class="k">if</span> <span class="n">bone</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">]:</span>
             <span class="n">layout</span><span class="o">.</span><span class="n">operator</span><span class="p">(</span><span class="n">segments</span><span class="o">.</span><span class="n">SelectSegment</span><span class="o">.</span><span class="n">bl_idname</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">root</span><span class="p">)</span><span class="o">.</span><span class="n">segment_name</span> <span class="o">=</span> <span class="n">root</span>
 
             <span class="k">def</span> <span class="nf">recursion</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
@@ -397,15 +423,15 @@
 
 
 
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="AssignParentMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.AssignParentMenu">[docs]</a><span class="k">class</span> <span class="nc">AssignParentMenu</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Menu</span><span class="p">,</span> <span class="n">BaseMenu</span><span class="p">):</span>
+<div class="viewcode-block" id="AssignParentMenu"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.interface.menus.html#robot_designer_plugin.interface.menus.AssignParentMenu">[docs]</a><span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">AssignParentMenu</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Menu</span><span class="p">,</span> <span class="n">BaseMenu</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`menu` for re-assigning the parent of a robot segments.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;assignparentbonemenu&quot;</span>
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Assign parent to bone&quot;</span>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
     <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">arm</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
         <span class="n">current_segment</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span>
@@ -461,8 +487,8 @@
     <div class="hbpdoc-footer">
         NRP RobotDesigner <small>0.1</small> 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
     </div>
 </div>

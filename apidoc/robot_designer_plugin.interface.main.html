@@ -4,12 +4,11 @@
 <!DOCTYPE html>
 
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>robot_designer_plugin.interface.main module &mdash; NRP RobotDesigner 0.1 documentation</title>
+    <title>robot_designer_plugin.interface.main module &#8212; NRP RobotDesigner 0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -20,23 +19,24 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
-    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
-    <link rel="up" title="robot_designer_plugin.interface package" href="robot_designer_plugin.interface.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="robot_designer_plugin.interface.menus module" href="robot_designer_plugin.interface.menus.html" />
     <link rel="prev" title="robot_designer_plugin.interface.kinematics module" href="robot_designer_plugin.interface.kinematics.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
   </head>
-  <body role="document">
+  <body>
 <div class="hbpdoc-page">
     <section class="hbpdoc-title page-header">
         <a class="project-title" href="../index.html">NRP RobotDesigner</a>
@@ -62,21 +62,18 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/apidoc/robot_designer_plugin.interface.main.txt"
+      <li><a href="../_sources/apidoc/robot_designer_plugin.interface.main.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -117,8 +114,8 @@
 <span id="robot-designer-plugin-interface-main-module"></span><h1>robot_designer_plugin.interface.main module<a class="headerlink" href="#module-robot_designer_plugin.interface.main" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="robot_designer_plugin.interface.main.UserInterface">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.main.</code><code class="descname">UserInterface</code><a class="reference internal" href="../_modules/robot_designer_plugin/interface/main.html#UserInterface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.main.UserInterface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Panel.html#bpy.types.Panel" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Panel</span></code></a></p>
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.interface.main.</code><code class="descname">UserInterface</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/interface/main.html#UserInterface"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.interface.main.UserInterface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bpy_types.Panel</span></code></p>
 <p>Missing documentation.</p>
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <dl class="method">
@@ -129,7 +126,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> &#8211; The function to decorate</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> – The function to decorate</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A <a class="reference internal" href="../developer_manual/glossary.html#term-decorator"><span class="xref std std-term">decorator</span></a></td>
 </tr>
@@ -139,27 +136,32 @@
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.interface.main.UserInterface.bl_category">
-<code class="descname">bl_category</code><em class="property"> = 'HBP'</em><a class="headerlink" href="#robot_designer_plugin.interface.main.UserInterface.bl_category" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_category</code><em class="property"> = ‘HBP’</em><a class="headerlink" href="#robot_designer_plugin.interface.main.UserInterface.bl_category" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.interface.main.UserInterface.bl_label">
-<code class="descname">bl_label</code><em class="property"> = 'NRP Robot Designer'</em><a class="headerlink" href="#robot_designer_plugin.interface.main.UserInterface.bl_label" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_label</code><em class="property"> = ‘NRP Robot Designer’</em><a class="headerlink" href="#robot_designer_plugin.interface.main.UserInterface.bl_label" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.interface.main.UserInterface.bl_options">
-<code class="descname">bl_options</code><em class="property"> = {'HIDE_HEADER'}</em><a class="headerlink" href="#robot_designer_plugin.interface.main.UserInterface.bl_options" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_options</code><em class="property"> = {‘HIDE_HEADER’}</em><a class="headerlink" href="#robot_designer_plugin.interface.main.UserInterface.bl_options" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.interface.main.UserInterface.bl_region_type">
-<code class="descname">bl_region_type</code><em class="property"> = 'TOOLS'</em><a class="headerlink" href="#robot_designer_plugin.interface.main.UserInterface.bl_region_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_region_type</code><em class="property"> = ‘TOOLS’</em><a class="headerlink" href="#robot_designer_plugin.interface.main.UserInterface.bl_region_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.interface.main.UserInterface.bl_rna">
+<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“UserInterface”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.interface.main.UserInterface.bl_rna" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.interface.main.UserInterface.bl_space_type">
-<code class="descname">bl_space_type</code><em class="property"> = 'VIEW_3D'</em><a class="headerlink" href="#robot_designer_plugin.interface.main.UserInterface.bl_space_type" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_space_type</code><em class="property"> = ‘VIEW_3D’</em><a class="headerlink" href="#robot_designer_plugin.interface.main.UserInterface.bl_space_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -197,8 +199,8 @@
     <div class="hbpdoc-footer">
         NRP RobotDesigner <small>0.1</small> 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
     </div>
 </div>

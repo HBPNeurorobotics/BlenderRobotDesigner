@@ -4,12 +4,11 @@
 <!DOCTYPE html>
 
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>robot_designer_plugin.core.pluginmanager module &mdash; NRP RobotDesigner 0.1 documentation</title>
+    <title>robot_designer_plugin.core.pluginmanager module &#8212; NRP RobotDesigner 0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -20,23 +19,24 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
-    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
-    <link rel="up" title="The Plugin Core" href="../developer_manual/plugin_core.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="robot_designer_plugin.core.property module" href="robot_designer_plugin.core.property.html" />
     <link rel="prev" title="robot_designer_plugin.core.operators module" href="robot_designer_plugin.core.operators.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
   </head>
-  <body role="document">
+  <body>
 <div class="hbpdoc-page">
     <section class="hbpdoc-title page-header">
         <a class="project-title" href="../index.html">NRP RobotDesigner</a>
@@ -62,21 +62,18 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/apidoc/robot_designer_plugin.core.pluginmanager.txt"
+      <li><a href="../_sources/apidoc/robot_designer_plugin.core.pluginmanager.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -114,7 +111,7 @@
 <p>This sub module contains the <a class="reference internal" href="#robot_designer_plugin.core.pluginmanager.PluginManager" title="robot_designer_plugin.core.pluginmanager.PluginManager"><code class="xref py py-class docutils literal"><span class="pre">PluginManager</span></code></a> that handles automatic registration of classes.</p>
 <dl class="class">
 <dt id="robot_designer_plugin.core.pluginmanager.PluginManager">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.core.pluginmanager.</code><code class="descname">PluginManager</code><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.core.pluginmanager.</code><code class="descname">PluginManager</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>This class handles the automatic registration of classes to Blender.</p>
 <dl class="attribute">
@@ -132,7 +129,7 @@ twice. Therefore, this method is called before the modules are reloaded.</p>
 
 <dl class="classmethod">
 <dt id="robot_designer_plugin.core.pluginmanager.PluginManager.getFilePlugins">
-<em class="property">classmethod </em><code class="descname">getFilePlugins</code><span class="sig-paren">(</span><em>type_=&lt;PluginType.FILE: 1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.getFilePlugins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.getFilePlugins" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">getFilePlugins</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.getFilePlugins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.getFilePlugins" title="Permalink to this definition">¶</a></dt>
 <dd><div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">The plugin system is still under development.</p>
@@ -141,12 +138,12 @@ twice. Therefore, this method is called before the modules are reloaded.</p>
 
 <dl class="classmethod">
 <dt id="robot_designer_plugin.core.pluginmanager.PluginManager.get_icon">
-<em class="property">classmethod </em><code class="descname">get_icon</code><span class="sig-paren">(</span><em>id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.get_icon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.get_icon" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.get_icon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.get_icon" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> (<code class="xref py py-class docutils literal"><span class="pre">str</span></code>) &#8211; </td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>id</strong> (<code class="xref py py-class docutils literal"><span class="pre">str</span></code>) – </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
 </tr>
@@ -156,14 +153,14 @@ twice. Therefore, this method is called before the modules are reloaded.</p>
 
 <dl class="classmethod">
 <dt id="robot_designer_plugin.core.pluginmanager.PluginManager.get_property">
-<em class="property">classmethod </em><code class="descname">get_property</code><span class="sig-paren">(</span><em>obj</em>, <em>prop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.get_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.get_property" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">get_property</code><span class="sig-paren">(</span><em>prop</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.get_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.get_property" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>obj</strong> &#8211; </li>
-<li><strong>prop</strong> &#8211; </li>
+<li><strong>obj</strong> – </li>
+<li><strong>prop</strong> – </li>
 </ul>
 </td>
 </tr>
@@ -176,14 +173,14 @@ twice. Therefore, this method is called before the modules are reloaded.</p>
 
 <dl class="classmethod">
 <dt id="robot_designer_plugin.core.pluginmanager.PluginManager.load_icon">
-<em class="property">classmethod </em><code class="descname">load_icon</code><span class="sig-paren">(</span><em>id</em>, <em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.load_icon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.load_icon" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">load_icon</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.load_icon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.load_icon" title="Permalink to this definition">¶</a></dt>
 <dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>id</strong> (<code class="xref py py-class docutils literal"><span class="pre">str</span></code>) &#8211; ID of the label</li>
-<li><strong>filename</strong> (<code class="xref py py-class docutils literal"><span class="pre">str</span></code>) &#8211; Relative to <code class="xref py py-data docutils literal"><span class="pre">config/resource_path</span></code></li>
+<li><strong>id</strong> (<code class="xref py py-class docutils literal"><span class="pre">str</span></code>) – ID of the label</li>
+<li><strong>filename</strong> (<code class="xref py py-class docutils literal"><span class="pre">str</span></code>) – Relative to <code class="xref py py-data docutils literal"><span class="pre">config/resource_path</span></code></li>
 </ul>
 </td>
 </tr>
@@ -204,14 +201,14 @@ Registers all data collected during import.</p>
 <dl class="staticmethod">
 <dt id="robot_designer_plugin.core.pluginmanager.PluginManager.register_class">
 <em class="property">static </em><code class="descname">register_class</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.register_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.register_class" title="Permalink to this definition">¶</a></dt>
-<dd><p><span class="xref std std-term">Class decorator</span> for <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">operators.RDOperator</span></code></a>, <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>,
-<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.PropertyGroup</span></code></a> (and more <code class="docutils literal"><span class="pre">bpy</span></code> classes) and <code class="xref py py-class docutils literal"><span class="pre">gui.CollapsibleBox</span></code>.</p>
+<dd><p><span class="xref std std-term">Class decorator</span> for <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">operators.RDOperator</span></code></a>, <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Menu.html#bpy.types.Menu" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Menu</span></code></a>,
+<a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.PropertyGroup</span></code></a> (and more <code class="docutils literal"><span class="pre">bpy</span></code> classes) and <code class="xref py py-class docutils literal"><span class="pre">gui.CollapsibleBox</span></code>.</p>
 <p>An example of how to use this decorator is given in <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">operators.RDOperator</span></code></a>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> &#8211; For now, no arguments should be passed to the decorator.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> – For now, no arguments should be passed to the decorator.</td>
 </tr>
 </tbody>
 </table>
@@ -219,13 +216,13 @@ Registers all data collected during import.</p>
 
 <dl class="classmethod">
 <dt id="robot_designer_plugin.core.pluginmanager.PluginManager.register_collapsible">
-<em class="property">classmethod </em><code class="descname">register_collapsible</code><span class="sig-paren">(</span><em>property_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.register_collapsible"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.register_collapsible" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">register_collapsible</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.register_collapsible"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.register_collapsible" title="Permalink to this definition">¶</a></dt>
 <dd><p>Called when a class of type <code class="xref py py-class docutils literal"><span class="pre">gui.CollapsibleBox</span></code> is created.</p>
 </dd></dl>
 
 <dl class="classmethod">
 <dt id="robot_designer_plugin.core.pluginmanager.PluginManager.register_plugin">
-<em class="property">classmethod </em><code class="descname">register_plugin</code><span class="sig-paren">(</span><em>label</em>, <em>operators</em>, <em>draw_function=None</em>, <em>type_=&lt;PluginType.FILE: 1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.register_plugin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.register_plugin" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">register_plugin</code><span class="sig-paren">(</span><em>operators</em>, <em>draw_function=None</em>, <em>type_=&lt;PluginType.FILE: 1&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.register_plugin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.register_plugin" title="Permalink to this definition">¶</a></dt>
 <dd><div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">The plugin system is still under development.</p>
@@ -239,7 +236,7 @@ Registers all data collected during import.</p>
 
 <dl class="classmethod">
 <dt id="robot_designer_plugin.core.pluginmanager.PluginManager.register_property_groups">
-<em class="property">classmethod </em><code class="descname">register_property_groups</code><span class="sig-paren">(</span><em>property_group</em>, <em>btype</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.register_property_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.register_property_groups" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">register_property_groups</code><span class="sig-paren">(</span><em>btype</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/pluginmanager.html#PluginManager.register_property_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.pluginmanager.PluginManager.register_property_groups" title="Permalink to this definition">¶</a></dt>
 <dd><p><a class="reference internal" href="../developer_manual/glossary.html#term-property"><span class="xref std std-term">Properties</span></a> have to be assigned to blender types.
 This function collects all properties and assigns them when <a class="reference internal" href="#robot_designer_plugin.core.pluginmanager.PluginManager.register" title="robot_designer_plugin.core.pluginmanager.PluginManager.register"><code class="xref py py-meth docutils literal"><span class="pre">register()</span></code></a> is called
 and unloads them when <a class="reference internal" href="#robot_designer_plugin.core.pluginmanager.PluginManager.unregister" title="robot_designer_plugin.core.pluginmanager.PluginManager.unregister"><code class="xref py py-meth docutils literal"><span class="pre">unregister()</span></code></a> is called.</p>
@@ -248,8 +245,8 @@ and unloads them when <a class="reference internal" href="#robot_designer_plugin
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>property_group</strong> &#8211; A class derived from <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.PropertyGroup</span></code></a>.</li>
-<li><strong>btype</strong> &#8211; Any type defined in <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.bpy_struct.html#module-bpy.types" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-mod docutils literal"><span class="pre">bpy.types</span></code></a>.</li>
+<li><strong>property_group</strong> – A class derived from <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.PropertyGroup.html#bpy.types.PropertyGroup" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.PropertyGroup</span></code></a>.</li>
+<li><strong>btype</strong> – Any type defined in <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.bpy_struct.html#module-bpy.types" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-mod docutils literal"><span class="pre">bpy.types</span></code></a>.</li>
 </ul>
 </td>
 </tr>
@@ -293,8 +290,8 @@ Removes all data collected during import.</p>
     <div class="hbpdoc-footer">
         NRP RobotDesigner <small>0.1</small> 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
     </div>
 </div>

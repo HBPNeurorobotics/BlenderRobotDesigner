@@ -4,12 +4,11 @@
 <!DOCTYPE html>
 
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>robot_designer_plugin.core.gui module &mdash; NRP RobotDesigner 0.1 documentation</title>
+    <title>robot_designer_plugin.core.gui module &#8212; NRP RobotDesigner 0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -20,23 +19,24 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
-    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
-    <link rel="up" title="The Plugin Core" href="../developer_manual/plugin_core.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="robot_designer_plugin.core.logfile module" href="robot_designer_plugin.core.logfile.html" />
     <link rel="prev" title="robot_designer_plugin.core.config module" href="robot_designer_plugin.core.config.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
   </head>
-  <body role="document">
+  <body>
 <div class="hbpdoc-page">
     <section class="hbpdoc-title page-header">
         <a class="project-title" href="../index.html">NRP RobotDesigner</a>
@@ -62,21 +62,18 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/apidoc/robot_designer_plugin.core.gui.txt"
+      <li><a href="../_sources/apidoc/robot_designer_plugin.core.gui.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -114,13 +111,13 @@
 <p>This submodule provides helper classes for creating blender guis.</p>
 <dl class="class">
 <dt id="robot_designer_plugin.core.gui.CollapsibleBase">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.core.gui.</code><code class="descname">CollapsibleBase</code><a class="reference internal" href="../_modules/robot_designer_plugin/core/gui.html#CollapsibleBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.gui.CollapsibleBase" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.core.gui.</code><code class="descname">CollapsibleBase</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/gui.html#CollapsibleBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.gui.CollapsibleBase" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>By default, Blender does not offer collapsible boxes. For this, this create subclasses and use the
 <a class="reference internal" href="robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.register" title="robot_designer_plugin.core.pluginmanager.PluginManager.register"><code class="xref py py-meth docutils literal"><span class="pre">pluginmanager.PluginManager.register()</span></code></a> decorator. This decorator creates a boolean property
 that is stored with the <span class="xref std std-term">scene</span> object (and is therefore persistent with your current file)
 that is used for remembering the state of the box.
-The subclass needs to specify a unique identifier for a <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.BoolProperty.html#bpy.types.BoolProperty" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.BoolProperty</span></code></a> in the attribute
+The subclass needs to specify a unique identifier for a <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.BoolProperty.html#bpy.types.BoolProperty" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.BoolProperty</span></code></a> in the attribute
 <code class="docutils literal"><span class="pre">property_name</span></code> attribute, for instance:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@PluginManager.register_class</span>
 <span class="k">class</span> <span class="nc">ControllerBox</span><span class="p">(</span><span class="n">CollapsibleBase</span><span class="p">):</span>
@@ -131,18 +128,18 @@ The subclass needs to specify a unique identifier for a <a class="reference exte
 <a class="reference internal" href="robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.register_collapsible" title="robot_designer_plugin.core.pluginmanager.PluginManager.register_collapsible"><code class="xref py py-meth docutils literal"><span class="pre">pluginmanager.PluginManager.register_collapsible()</span></code></a></p>
 <dl class="classmethod">
 <dt id="robot_designer_plugin.core.gui.CollapsibleBase.get">
-<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>layout</em>, <em>context</em>, <em>label</em>, <em>icon='NONE'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/gui.html#CollapsibleBase.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.gui.CollapsibleBase.get" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>context</em>, <em>label</em>, <em>icon=’NONE’</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/gui.html#CollapsibleBase.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.gui.CollapsibleBase.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a collapsible box element and adds it to the gui element</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>layout</strong> &#8211; Blender gui element as passed to the
+<li><strong>layout</strong> – Blender gui element as passed to the
 <a class="reference internal" href="robot_designer_plugin.interface.main.html#robot_designer_plugin.interface.main.UserInterface.draw" title="robot_designer_plugin.interface.main.UserInterface.draw"><code class="xref py py-meth docutils literal"><span class="pre">robot_designer_plugin.interface.main.UserInterface.draw()</span></code></a> method.</li>
-<li><strong>context</strong> &#8211; Blender context object (see above)</li>
-<li><strong>label</strong> &#8211; Label label of the box</li>
-<li><strong>icon</strong> &#8211; optionally place a label (must be a name known to Blender)</li>
+<li><strong>context</strong> – Blender context object (see above)</li>
+<li><strong>label</strong> – Label label of the box</li>
+<li><strong>icon</strong> – optionally place a label (must be a name known to Blender)</li>
 </ul>
 </td>
 </tr>
@@ -167,7 +164,7 @@ with an info, either in a separated box or the current layout.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> (<em>str</em>) &#8211; message</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> (<em>str</em>) – message</td>
 </tr>
 </tbody>
 </table>
@@ -175,18 +172,18 @@ with an info, either in a separated box or the current layout.</p>
 
 <dl class="classmethod">
 <dt id="robot_designer_plugin.core.gui.InfoBox.draw_global_info">
-<em class="property">classmethod </em><code class="descname">draw_global_info</code><span class="sig-paren">(</span><em>layout</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/gui.html#InfoBox.draw_global_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.gui.InfoBox.draw_global_info" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">draw_global_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/gui.html#InfoBox.draw_global_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.gui.InfoBox.draw_global_info" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="robot_designer_plugin.core.gui.InfoBox.draw_info">
-<code class="descname">draw_info</code><span class="sig-paren">(</span><em>additional_messages=[]</em>, <em>icon='INFO'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/gui.html#InfoBox.draw_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.gui.InfoBox.draw_info" title="Permalink to this definition">¶</a></dt>
+<code class="descname">draw_info</code><span class="sig-paren">(</span><em>additional_messages=[]</em>, <em>icon=’INFO’</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/gui.html#InfoBox.draw_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.gui.InfoBox.draw_info" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draws the info box onto the layout.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>additional_messages</strong> &#8211; Additional messages can be appended.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>additional_messages</strong> – Additional messages can be appended.</td>
 </tr>
 </tbody>
 </table>
@@ -222,8 +219,8 @@ with an info, either in a separated box or the current layout.</p>
     <div class="hbpdoc-footer">
         NRP RobotDesigner <small>0.1</small> 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
     </div>
 </div>

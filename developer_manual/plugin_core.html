@@ -27,6 +27,20 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -119,7 +133,20 @@
 <h1>The Plugin Core<a class="headerlink" href="#the-plugin-core" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>The core of the <em>HBP/NRP RobotDesigner</em> is a package located at <code class="xref py py-mod docutils literal"><span class="pre">robot_designer_plugin.core</span></code>.</p>
+<p>The core of the <em>HBP/NRP RobotDesigner</em> is a package located at <a class="reference internal" href="#module-robot_designer_plugin.core" title="robot_designer_plugin.core"><code class="xref py py-mod docutils literal"><span class="pre">robot_designer_plugin.core</span></code></a>.</p>
+<span class="target" id="module-robot_designer_plugin.core"></span><p>This package is a framework for creating large application-like plugins for Blender. It provides the
+Base classes and Python decorators for automatic registration, log files, resource management and
+much more.</p>
+<p>In the future, it is planned to release this package independently from the HRP/NRP RobotDesigner and
+provide mechanisms for the creation of web-based applications for editing.</p>
+<p>It consists of submodules for:</p>
+<ol class="arabic simple">
+<li>working with <a class="reference internal" href="glossary.html#term-operator"><span class="xref std std-term">operators</span></a> (<a class="reference internal" href="../apidoc/robot_designer_plugin.core.operators.html#module-robot_designer_plugin.core.operators" title="robot_designer_plugin.core.operators"><code class="xref py py-mod docutils literal"><span class="pre">robot_designer_plugin.core.operators</span></code></a>),</li>
+<li>simplify Gui development (<a class="reference internal" href="../apidoc/robot_designer_plugin.core.gui.html#module-robot_designer_plugin.core.gui" title="robot_designer_plugin.core.gui"><code class="xref py py-mod docutils literal"><span class="pre">robot_designer_plugin.core.gui</span></code></a>),</li>
+<li>logging and debugging (<a class="reference internal" href="../apidoc/robot_designer_plugin.core.logfile.html#module-robot_designer_plugin.core.logfile" title="robot_designer_plugin.core.logfile"><code class="xref py py-mod docutils literal"><span class="pre">robot_designer_plugin.core.logfile</span></code></a>),</li>
+<li>configuration variables (<a class="reference internal" href="../apidoc/robot_designer_plugin.core.config.html#module-robot_designer_plugin.core.config" title="robot_designer_plugin.core.config"><code class="xref py py-mod docutils literal"><span class="pre">robot_designer_plugin.core.config</span></code></a>),</li>
+<li>automated plugin setup (registration to blender) (<a class="reference internal" href="../apidoc/robot_designer_plugin.core.pluginmanager.html#module-robot_designer_plugin.core.pluginmanager" title="robot_designer_plugin.core.pluginmanager"><code class="xref py py-mod docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager</span></code></a>)</li>
+</ol>
 </div>
 <div class="section" id="blender-concepts">
 <span id="id1"></span><h2>Blender concepts<a class="headerlink" href="#blender-concepts" title="Permalink to this headline">¶</a></h2>
@@ -128,18 +155,18 @@
 and <a class="reference external" href="https://www.blender.org/manual/">Blender user manual</a>.</p>
 <dl class="docutils">
 <dt>Operators</dt>
-<dd><p class="first">All functionality that modifies a <span class="xref std std-term">scene</span> in Blender is (or at least, should be) encapsulated in
+<dd><p class="first">All functionality that modifies a <a class="reference internal" href="glossary.html#term-scene"><span class="xref std std-term">scene</span></a> in Blender is (or at least, should be) encapsulated in
 <a class="reference internal" href="glossary.html#term-operator"><span class="xref std std-term">operators</span></a>. These are Python class objects with methods which implement the desired functionality.
 In addition, operators can be added as buttons to a GUI defined by the plugin.</p>
 <p class="last">These classes have to be <em>registered</em> to Blender, that is, Blender adds the functionality to its namespace (under
 a different name). This concept is makes it difficult to exploit the full power provided by modern
-<span class="xref std std-term">IDEs</span> which offer auto completion, introspection and refactoring.
-This gap is filled by the <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code> class. See its documentation
+<a class="reference internal" href="glossary.html#term-ide"><span class="xref std std-term">IDEs</span></a> which offer auto completion, introspection and refactoring.
+This gap is filled by the <a class="reference internal" href="../apidoc/robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a> class. See its documentation
 for information and examples on how to use it. All functionality in the RobotDesigner is supposed to be
 encapsulated in classes derived from it.</p>
 </dd>
 <dt>Objects</dt>
-<dd><p class="first">All entitis in a <span class="xref std std-term">scene</span> are <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Object.html#bpy.types.Object" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Object</span></code></a> in Blender. Their possible types (that is
+<dd><p class="first">All entitis in a <a class="reference internal" href="glossary.html#term-scene"><span class="xref std std-term">scene</span></a> are <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Object.html#bpy.types.Object" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Object</span></code></a> in Blender. Their possible types (that is
 their associated <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Object.html#bpy.types.Object.data" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-attr docutils literal"><span class="pre">bpy.types.Object.data</span></code></a>) include</p>
 <dl class="docutils">
 <dt>Armatures (<a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Armature.html#bpy.types.Armature" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Armature</span></code></a>)</dt>
@@ -148,7 +175,7 @@ their associated <a class="reference external" href="https://docs.blender.org/ap
 the kinematic structure of the articulated object. In the RobotDesigner, they are referred to as <em>segments</em>.
 See section <span class="xref std std-ref">segments</span> in the user manual)</dd>
 <dt>Meshes (<a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Mesh.html#bpy.types.Mesh" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Mesh</span></code></a>)</dt>
-<dd>Mesh objects have associated 3D data in form of connected vertices that define a <em>surface</em> in form of
+<dd>Mesh objects have assiciated 3D data in form of connected vertices that define a <em>surface</em> in form of
 polygonial meshes. In the Robot designer, they are referred to (<em>rigid body</em>) <em>geometries</em>.</dd>
 <dt>Empty (no data assiciated):</dt>
 <dd>Can be used to mark coordinate frames. The RobotDesigner uses them to mark the <span class="xref std std-term">pose</span> of mass
@@ -182,7 +209,7 @@ In the <a class="reference external" href="https://docs.blender.org/api/blender_
 </ul>
 <p class="last">The elements are defined <em>sequentially</em>, that is, they are described in the order they should appear. Support
 for column and row layouts are given.
-In the <code class="xref py py-mod docutils literal"><span class="pre">robot_designer_plugin.core.gui</span></code> module some additional classes are given that help defining a gui.
+In the <a class="reference internal" href="../apidoc/robot_designer_plugin.core.gui.html#module-robot_designer_plugin.core.gui" title="robot_designer_plugin.core.gui"><code class="xref py py-mod docutils literal"><span class="pre">robot_designer_plugin.core.gui</span></code></a> module some additional classes are given that help defining a gui.
 Currently, these are collapsible boxes and automatic display of status messages of operators.</p>
 </dd>
 </dl>

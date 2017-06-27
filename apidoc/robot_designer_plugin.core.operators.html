@@ -4,12 +4,11 @@
 <!DOCTYPE html>
 
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>robot_designer_plugin.core.operators module &mdash; NRP RobotDesigner 0.1 documentation</title>
+    <title>robot_designer_plugin.core.operators module &#8212; NRP RobotDesigner 0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -20,23 +19,24 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
-    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
-    <link rel="up" title="The Plugin Core" href="../developer_manual/plugin_core.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="robot_designer_plugin.core.pluginmanager module" href="robot_designer_plugin.core.pluginmanager.html" />
     <link rel="prev" title="robot_designer_plugin.core.logfile module" href="robot_designer_plugin.core.logfile.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
   </head>
-  <body role="document">
+  <body>
 <div class="hbpdoc-page">
     <section class="hbpdoc-title page-header">
         <a class="project-title" href="../index.html">NRP RobotDesigner</a>
@@ -62,21 +62,18 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/apidoc/robot_designer_plugin.core.operators.txt"
+      <li><a href="../_sources/apidoc/robot_designer_plugin.core.operators.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -115,15 +112,15 @@
 register automatically.</p>
 <dl class="class">
 <dt id="robot_designer_plugin.core.operators.RDOperator">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.core.operators.</code><code class="descname">RDOperator</code><a class="reference internal" href="../_modules/robot_designer_plugin/core/operators.html#RDOperator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.operators.RDOperator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Operator</span></code></a></p>
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.core.operators.</code><code class="descname">RDOperator</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/operators.html#RDOperator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.operators.RDOperator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bpy_types.Operator</span></code></p>
 <p>Base class for the <a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">operators</span></a> in the RobotDesigner.</p>
-<p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">Blender operators</span></a> are defined as <span class="xref std std-term">class objects</span> derived from <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Operator</span></code></a>.
+<p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">Blender operators</span></a> are defined as <span class="xref std std-term">class objects</span> derived from <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Operator</span></code></a>.
 A plugin must <em>register</em> these classes by calling <code class="xref py py-func docutils literal"><span class="pre">bpy.utils.register_class()</span></code> which causes blender to
-create a callable function <em>out of a method</em> (<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.execute" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.Operator.execute()</span></code></a>) that accepts
-<span class="xref std std-term">keyword arguments</span> that are bound to the class&#8217; attributes &#8211; if they are
+create a callable function <em>out of a method</em> (<a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.execute" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.Operator.execute()</span></code></a>) that accepts
+<span class="xref std std-term">keyword arguments</span> that are bound to the class’ attributes – if they are
 subclasses
-of <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Property.html#bpy.types.Property" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Property</span></code></a>. Note that the static method has not the same arguments and operates on its
+of <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Property.html#bpy.types.Property" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Property</span></code></a>. Note that the static method has not the same arguments and operates on its
 attributes.
 Finally, the operator is addressed to by its ID. For example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NewOp</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Operator</span><span class="p">):</span>
@@ -145,18 +142,18 @@ Finally, the operator is addressed to by its ID. For example:</p>
 <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">plugin_name</span><span class="o">.</span><span class="n">newop</span><span class="p">(</span><span class="n">test</span><span class="o">=</span><span class="s2">&quot;Hello World)</span>
 </pre></div>
 </div>
-<p>This example show an operator that opens a window containing the message <em>&#8220;Hello World&#8221;</em>. While this is feasible
+<p>This example show an operator that opens a window containing the message <em>“Hello World”</em>. While this is feasible
 for smaller plugins, what happens, if you have a lot of operators written, and you want to have code completion.
 What happens if you want to refactor the names of of the identifier or class attributes. While for the latter there
 is no simple solution available, the <a class="reference internal" href="../developer_manual/plugin_core.html#module-robot_designer_plugin.core" title="robot_designer_plugin.core"><code class="xref py py-mod docutils literal"><span class="pre">robot_designer_plugin.core</span></code></a> provides this wrapper class with
-an additional <code class="docutils literal"><span class="pre">run(**kwargs)</span></code> method (that can&#8212;and should&#8212;be overridden to provide keyword completion).
+an additional <code class="docutils literal"><span class="pre">run(**kwargs)</span></code> method (that can—and should—be overridden to provide keyword completion).
 Furthermore, it provides decorators for automatically setting preconditions (that define the
-<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.poll" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.Operator.poll()</span></code></a> method) for automatic condition checking, logging functionality and post condition
+<a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.poll" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.Operator.poll()</span></code></a> method) for automatic condition checking, logging functionality and post condition
 checking. Together with the <a class="reference internal" href="robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.register" title="robot_designer_plugin.core.pluginmanager.PluginManager.register"><code class="xref py py-meth docutils literal"><span class="pre">pluginmanager.PluginManager.register()</span></code></a> method, this makes developing faster (
 code completion,
-code navigation, less verbosity, ...) and safer.</p>
+code navigation, less verbosity, …) and safer.</p>
 <p>An examplary <a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">operator</span></a> looks like this:</p>
-<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<div class="highlight-default"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -219,21 +216,21 @@ code navigation, less verbosity, ...) and safer.</p>
 61
 62</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1"># Blender imports</span>
 <span class="kn">import</span> <span class="nn">bpy</span>
-<span class="kn">from</span> <span class="nn">bpy.props</span> <span class="kn">import</span> <span class="n">StringProperty</span>
+<span class="kn">from</span> <span class="nn">bpy.props</span> <span class="k">import</span> <span class="n">StringProperty</span>
 <span class="c1"># import mathutils</span>
 
 <span class="c1"># ######</span>
 <span class="hll"><span class="c1"># RobotDesigner imports</span>
-</span><span class="hll"><span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">PluginManager</span>
-</span><span class="hll"><span class="kn">from</span> <span class="nn">..core.operators</span> <span class="kn">import</span> <span class="n">RDOperator</span><span class="p">,</span> <span class="n">OperatorLogger</span><span class="p">,</span> <span class="n">Postconditions</span><span class="p">,</span> <span class="n">checkConditions</span>
+</span><span class="hll"><span class="kn">from</span> <span class="nn">..core</span> <span class="k">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">PluginManager</span>
+</span><span class="hll"><span class="kn">from</span> <span class="nn">..core.operators</span> <span class="k">import</span> <span class="n">RDOperator</span><span class="p">,</span> <span class="n">OperatorLogger</span><span class="p">,</span> <span class="n">Postconditions</span><span class="p">,</span> <span class="n">checkConditions</span>
 </span><span class="hll">
-</span><span class="hll"><span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span>
+</span><span class="hll"><span class="kn">from</span> <span class="nn">.helpers</span> <span class="k">import</span> <span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span>
 </span>
 <span class="c1"># NEVER import oder operators in the toplevel (avaid circular depedencies)</span>
 <span class="c1"># and, above all, not with the from .. import statement (multiple registration)</span>
 
-<span class="hll"><span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">)</span>
-</span><span class="hll"><span class="nd">@PluginManager.register_class</span>
+<span class="hll"><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">)</span>
+</span><span class="hll"><span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
 </span><span class="hll"><span class="k">class</span> <span class="nc">OperatorTemplate</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
 </span>    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`operator` for ...</span>
@@ -250,7 +247,7 @@ code navigation, less verbosity, ...) and safer.</p>
 <span class="hll">    <span class="nd">@OperatorLogger</span>
 </span><span class="hll">    <span class="c1"># @Postconditions(ModelSelected)</span>
 </span><span class="hll">    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-</span>        <span class="kn">from</span> <span class="nn">.segments</span> <span class="kn">import</span> <span class="n">SelectSegment</span>
+</span>        <span class="kn">from</span> <span class="nn">.segments</span> <span class="k">import</span> <span class="n">SelectSegment</span>
         <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;info&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;printing </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
 
@@ -277,8 +274,8 @@ code navigation, less verbosity, ...) and safer.</p>
     <span class="c1"># parameters. Keep in mind, that you have to take care of the synchronization</span>
     <span class="c1"># of the names (parameter must exactly *match* the class&#39;s attributes *names*)</span>
 <span class="hll">    <span class="nd">@classmethod</span>
-</span><span class="hll">    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">operator_parameter</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
-</span><span class="hll">        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span>
+</span><span class="hll">    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">operator_parameter</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+</span><span class="hll">        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="bp">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span>
 </span></pre></div>
 </td></tr></table></div>
 <p>A template is located in <code class="docutils literal"><span class="pre">&lt;RobotDesignerDirectory&gt;/resources/templates/operator.py</span></code> (where you should insert
@@ -293,7 +290,7 @@ the path to the repository) that can be used to quickly write new operators.</p>
 <dl class="staticmethod">
 <dt id="robot_designer_plugin.core.operators.RDOperator.Postconditions">
 <em class="property">static </em><code class="descname">Postconditions</code><span class="sig-paren">(</span><em>*conditions</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/operators.html#RDOperator.Postconditions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.operators.RDOperator.Postconditions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method decorator for the <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.execute" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.Operator.execute()</span></code></a> method. Works only with <a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">operators</span></a>
+<dd><p>Method decorator for the <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.execute" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.Operator.execute()</span></code></a> method. Works only with <a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">operators</span></a>
 derived <a class="reference internal" href="#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">RDOperator</span></code></a>.</p>
 <p>Checks whether post conditions are met after calling the operator. Reports an error message to the log file
 (see <a class="reference internal" href="robot_designer_plugin.core.logfile.html#module-robot_designer_plugin.core.logfile" title="robot_designer_plugin.core.logfile"><code class="xref py py-mod docutils literal"><span class="pre">logfile</span></code></a>)</p>
@@ -301,7 +298,7 @@ derived <a class="reference internal" href="#robot_designer_plugin.core.operator
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>conditions</strong> &#8211; a number of subclasses of <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal"><span class="pre">conditions.Condition</span></code></a>.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>conditions</strong> – a number of subclasses of <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal"><span class="pre">conditions.Condition</span></code></a>.</td>
 </tr>
 </tbody>
 </table>
@@ -317,7 +314,7 @@ checked within the <a class="reference internal" href="#robot_designer_plugin.co
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>conditions</strong> &#8211; a number of subclasses of <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal"><span class="pre">conditions.Condition</span></code></a>.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>conditions</strong> – a number of subclasses of <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal"><span class="pre">conditions.Condition</span></code></a>.</td>
 </tr>
 </tbody>
 </table>
@@ -329,6 +326,11 @@ checked within the <a class="reference internal" href="#robot_designer_plugin.co
 <dd><p>For convenience, every the operators share a logging instance.</p>
 </dd></dl>
 
+<dl class="attribute">
+<dt id="robot_designer_plugin.core.operators.RDOperator.order">
+<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘_pre_conditions’, ‘logger’, ‘poll’, ‘pass_keywords’, ‘run’, ‘place_button’, ‘OperatorLogger’, ‘Preconditions’, ‘Postconditions’]</em><a class="headerlink" href="#robot_designer_plugin.core.operators.RDOperator.order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="staticmethod">
 <dt id="robot_designer_plugin.core.operators.RDOperator.pass_keywords">
 <em class="property">static </em><code class="descname">pass_keywords</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/operators.html#RDOperator.pass_keywords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.operators.RDOperator.pass_keywords" title="Permalink to this definition">¶</a></dt>
@@ -338,9 +340,9 @@ checked within the <a class="reference internal" href="#robot_designer_plugin.co
 
 <dl class="classmethod">
 <dt id="robot_designer_plugin.core.operators.RDOperator.place_button">
-<em class="property">classmethod </em><code class="descname">place_button</code><span class="sig-paren">(</span><em>layout</em>, <em>text=None</em>, <em>infoBox=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/operators.html#RDOperator.place_button"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.operators.RDOperator.place_button" title="Permalink to this definition">¶</a></dt>
-<dd><p>This is a convenience method that let&#8217;s the developer create a button executing the operator from the gui.
-The results of the <a class="reference internal" href="#robot_designer_plugin.core.operators.RDOperator.poll" title="robot_designer_plugin.core.operators.RDOperator.poll"><code class="xref py py-meth docutils literal"><span class="pre">poll()</span></code></a> method (i.e., checking it&#8217;s conditions) can be optionally passed to an
+<em class="property">classmethod </em><code class="descname">place_button</code><span class="sig-paren">(</span><em>text=None</em>, <em>infoBox=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/operators.html#RDOperator.place_button"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.operators.RDOperator.place_button" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a convenience method that let’s the developer create a button executing the operator from the gui.
+The results of the <a class="reference internal" href="#robot_designer_plugin.core.operators.RDOperator.poll" title="robot_designer_plugin.core.operators.RDOperator.poll"><code class="xref py py-meth docutils literal"><span class="pre">poll()</span></code></a> method (i.e., checking it’s conditions) can be optionally passed to an
 <a class="reference internal" href="robot_designer_plugin.core.gui.html#robot_designer_plugin.core.gui.InfoBox" title="robot_designer_plugin.core.gui.InfoBox"><code class="xref py py-class docutils literal"><span class="pre">gui.InfoBox</span></code></a> instance such that a report for a group of operators can be displayed (i.e., why
 it is not executable)</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -348,14 +350,14 @@ it is not executable)</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>layout</strong> &#8211; the gui element to place the button (see <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Panel.html#bpy.types.Panel.draw" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.Panel.draw()</span></code></a>)</li>
-<li><strong>text</strong> &#8211; Optionally override the text in the <code class="docutils literal"><span class="pre">bl_label</span></code> attribute.</li>
-<li><strong>infoBox</strong> &#8211; Optional instance of <a class="reference internal" href="robot_designer_plugin.core.gui.html#robot_designer_plugin.core.gui.InfoBox" title="robot_designer_plugin.core.gui.InfoBox"><code class="xref py py-class docutils literal"><span class="pre">gui.InfoBox</span></code></a></li>
-<li><strong>kwargs</strong> &#8211; Additional keyword arguments to <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.UILayout.html#bpy.types.UILayout.operator" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.UILayout.operator()</span></code></a>)</li>
+<li><strong>layout</strong> – the gui element to place the button (see <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Panel.html#bpy.types.Panel.draw" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.Panel.draw()</span></code></a>)</li>
+<li><strong>text</strong> – Optionally override the text in the <code class="docutils literal"><span class="pre">bl_label</span></code> attribute.</li>
+<li><strong>infoBox</strong> – Optional instance of <a class="reference internal" href="robot_designer_plugin.core.gui.html#robot_designer_plugin.core.gui.InfoBox" title="robot_designer_plugin.core.gui.InfoBox"><code class="xref py py-class docutils literal"><span class="pre">gui.InfoBox</span></code></a></li>
+<li><strong>kwargs</strong> – Additional keyword arguments to <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.UILayout.html#bpy.types.UILayout.operator" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.UILayout.operator()</span></code></a>)</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The operator instance (this can be used to set one of the class&#8217;s attributes)</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The operator instance (this can be used to set one of the class’s attributes)</p>
 </td>
 </tr>
 </tbody>
@@ -364,17 +366,17 @@ it is not executable)</p>
 
 <dl class="classmethod">
 <dt id="robot_designer_plugin.core.operators.RDOperator.poll">
-<em class="property">classmethod </em><code class="descname">poll</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/operators.html#RDOperator.poll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.operators.RDOperator.poll" title="Permalink to this definition">¶</a></dt>
-<dd><p>The <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.poll" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.Operator.poll()</span></code></a> class method is called every time, an operator is to be executed, but
+<em class="property">classmethod </em><code class="descname">poll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/operators.html#RDOperator.poll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.operators.RDOperator.poll" title="Permalink to this definition">¶</a></dt>
+<dd><p>The <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.poll" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.Operator.poll()</span></code></a> class method is called every time, an operator is to be executed, but
 also when it is placed in a guy (it becomes greyed out). This method is defined in this base class and
 the checks are defined by a list of <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal"><span class="pre">conditions.Condition</span></code></a> derived classes that are given by
 the <a class="reference internal" href="#robot_designer_plugin.core.operators.RDOperator.Preconditions" title="robot_designer_plugin.core.operators.RDOperator.Preconditions"><code class="xref py py-meth docutils literal"><span class="pre">Preconditions()</span></code></a> decorator. Derived classes do not need to override this method and should
-call the parent&#8217;s method otherwise.</p>
+call the parent’s method otherwise.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Context.html#bpy.types.Context" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Context</span></code></a>) &#8211; The actual Blender <span class="xref std std-term">context</span>.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>context</strong> (<a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Context.html#bpy.types.Context" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Context</span></code></a>) – The actual Blender <span class="xref std std-term">context</span>.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
 </tr>
@@ -388,17 +390,17 @@ call the parent&#8217;s method otherwise.</p>
 <dd><p>Enables to run an <span class="xref std std-ref">operator</span> by calling its class object.
 Child classes <em>should</em> override this method with keywords. Then your <span class="xref std std-term">IDE</span> will be able to assist you
 The <a class="reference internal" href="#robot_designer_plugin.core.operators.RDOperator.pass_keywords" title="robot_designer_plugin.core.operators.RDOperator.pass_keywords"><code class="xref py py-meth docutils literal"><span class="pre">pass_keywords()</span></code></a> function makes
-overriding very convenient (just copy the method&#8217;s body):</p>
+overriding very convenient (just copy the method’s body):</p>
 <p>In addition, this method also does extensive error and exception handling writing everything to the log file
 (see <a class="reference internal" href="robot_designer_plugin.core.logfile.html#module-robot_designer_plugin.core.logfile" title="robot_designer_plugin.core.logfile"><code class="xref py py-mod docutils literal"><span class="pre">logfile</span></code></a>).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> &#8211; The keyword arguments passed to the <span class="xref std std-ref">Operator</span> (<strong>must</strong> match the names of the class&#8217;s
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> – The keyword arguments passed to the <span class="xref std std-ref">Operator</span> (<strong>must</strong> match the names of the class’s
 attributes (only of type :class:<a href="#id1"><span class="problematic" id="id2">`</span></a>bpy.types.Property).</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The return values of <a class="reference external" href="https://www.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.execute" title="(in Blender v2.77.0 abf6f08 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.Operator.execute()</span></code></a>.</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The return values of <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.execute" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-meth docutils literal"><span class="pre">bpy.types.Operator.execute()</span></code></a>.</td>
 </tr>
 </tbody>
 </table>
@@ -414,7 +416,7 @@ attributes (only of type :class:<a href="#id1"><span class="problematic" id="id2
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>operator</strong> &#8211; A subclass of <a class="reference internal" href="#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">RDOperator</span></code></a> class.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>operator</strong> – A subclass of <a class="reference internal" href="#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">RDOperator</span></code></a> class.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The actually callable operator function. One has to pass <span class="xref std std-term">keyword arguments</span> that match the name
 of the classes attributes.</td>
@@ -446,8 +448,8 @@ of the classes attributes.</td>
     <div class="hbpdoc-footer">
         NRP RobotDesigner <small>0.1</small> 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
     </div>
 </div>

@@ -4,12 +4,11 @@
 <!DOCTYPE html>
 
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>robot_designer_plugin.export.urdf.urdf_import module &mdash; NRP RobotDesigner 0.1 documentation</title>
+    <title>robot_designer_plugin.export.urdf.urdf_import module &#8212; NRP RobotDesigner 0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -20,23 +19,24 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
-    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
-    <link rel="up" title="robot_designer_plugin.export.urdf package" href="robot_designer_plugin.export.urdf.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="robot_designer_plugin.interface package" href="robot_designer_plugin.interface.html" />
     <link rel="prev" title="robot_designer_plugin.export.urdf.urdf_export module" href="robot_designer_plugin.export.urdf.urdf_export.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
   </head>
-  <body role="document">
+  <body>
 <div class="hbpdoc-page">
     <section class="hbpdoc-title page-header">
         <a class="project-title" href="../index.html">NRP RobotDesigner</a>
@@ -62,21 +62,18 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/apidoc/robot_designer_plugin.export.urdf.urdf_import.txt"
+      <li><a href="../_sources/apidoc/robot_designer_plugin.export.urdf.urdf_import.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -120,7 +117,7 @@
 <p>The module that encapsulates all blender calls and offers the importer and exporter for the RobotDesigner</p>
 <dl class="class">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.ImportPackage">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.export.urdf.urdf_import.</code><code class="descname">ImportPackage</code><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_import.html#ImportPackage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPackage" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.export.urdf.urdf_import.</code><code class="descname">ImportPackage</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_import.html#ImportPackage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPackage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">Operator</span></a> for importing a robot from a ROS package (URDF)</p>
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
@@ -130,12 +127,17 @@
 </ul>
 <dl class="attribute">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.ImportPackage.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.import_urdf_package'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPackage.bl_idname" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.import_urdf_package’</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPackage.bl_idname" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.ImportPackage.bl_label">
-<code class="descname">bl_label</code><em class="property"> = 'URDF import (ROS package)'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPackage.bl_label" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_label</code><em class="property"> = ‘Import URDF - ROS package’</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPackage.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_import.ImportPackage.bl_rna">
+<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_import_urdf_package”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPackage.bl_rna" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -145,7 +147,7 @@
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.ImportPackage.filepath">
-<code class="descname">filepath</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPackage.filepath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">filepath</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘subtype’: ‘FILE_PATH’, ‘attr’: ‘filepath’, ‘name’: ‘Filename’})</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPackage.filepath" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -153,11 +155,16 @@
 <code class="descname">invoke</code><span class="sig-paren">(</span><em>context</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_import.html#ImportPackage.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPackage.invoke" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_import.ImportPackage.order">
+<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘filepath’, ‘invoke’, ‘execute’]</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPackage.order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.ImportPlain">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.export.urdf.urdf_import.</code><code class="descname">ImportPlain</code><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_import.html#ImportPlain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPlain" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.export.urdf.urdf_import.</code><code class="descname">ImportPlain</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_import.html#ImportPlain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPlain" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">Operator</span></a> for importing a robot from a ROS package (URDF)</p>
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
@@ -167,12 +174,17 @@
 </ul>
 <dl class="attribute">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.ImportPlain.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.import_urdf_plain'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPlain.bl_idname" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.import_urdf_plain’</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPlain.bl_idname" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.ImportPlain.bl_label">
-<code class="descname">bl_label</code><em class="property"> = 'URDF import (plain file)'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPlain.bl_label" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_label</code><em class="property"> = ‘Import URDF - plain’</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPlain.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_import.ImportPlain.bl_rna">
+<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_import_urdf_plain”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPlain.bl_rna" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -182,7 +194,7 @@
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.ImportPlain.filepath">
-<code class="descname">filepath</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPlain.filepath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">filepath</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘subtype’: ‘FILE_PATH’, ‘attr’: ‘filepath’, ‘name’: ‘Filename’})</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPlain.filepath" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -190,11 +202,16 @@
 <code class="descname">invoke</code><span class="sig-paren">(</span><em>context</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_import.html#ImportPlain.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPlain.invoke" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_import.ImportPlain.order">
+<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘filepath’, ‘invoke’, ‘execute’]</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportPlain.order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.export.urdf.urdf_import.</code><code class="descname">ImportZippedPackage</code><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_import.html#ImportZippedPackage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.export.urdf.urdf_import.</code><code class="descname">ImportZippedPackage</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_import.html#ImportZippedPackage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">Operator</span></a> for importing a robot from a ROS package (URDF)</p>
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
@@ -204,12 +221,17 @@
 </ul>
 <dl class="attribute">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.import_urdf_zipped_package'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.bl_idname" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.import_urdf_zipped_package’</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.bl_idname" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.bl_label">
-<code class="descname">bl_label</code><em class="property"> = 'URDF import (zipped ROS package)'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.bl_label" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_label</code><em class="property"> = ‘Import URDF - ROS zipped package’</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.bl_rna">
+<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_import_urdf_zipped_package”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.bl_rna" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -219,7 +241,7 @@
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.filepath">
-<code class="descname">filepath</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.filepath" title="Permalink to this definition">¶</a></dt>
+<code class="descname">filepath</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘subtype’: ‘FILE_PATH’, ‘attr’: ‘filepath’, ‘name’: ‘Filename’})</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.filepath" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -227,25 +249,30 @@
 <code class="descname">invoke</code><span class="sig-paren">(</span><em>context</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_import.html#ImportZippedPackage.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.invoke" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.order">
+<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘filepath’, ‘invoke’, ‘execute’]</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.ImportZippedPackage.order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.Importer">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.export.urdf.urdf_import.</code><code class="descname">Importer</code><span class="sig-paren">(</span><em>operator</em>, <em>file_path</em>, <em>base_dir=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_import.html#Importer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.Importer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.export.urdf.urdf_import.</code><code class="descname">Importer</code><span class="sig-paren">(</span><em>operator</em>, <em>file_path</em>, <em>base_dir=”</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_import.html#Importer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.Importer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="attribute">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.Importer.FILE_URL_ABSOLUTE">
-<code class="descname">FILE_URL_ABSOLUTE</code><em class="property"> = 'file:///'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.Importer.FILE_URL_ABSOLUTE" title="Permalink to this definition">¶</a></dt>
+<code class="descname">FILE_URL_ABSOLUTE</code><em class="property"> = ‘file:///’</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.Importer.FILE_URL_ABSOLUTE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.Importer.FILE_URL_RELATIVE">
-<code class="descname">FILE_URL_RELATIVE</code><em class="property"> = 'file://'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.Importer.FILE_URL_RELATIVE" title="Permalink to this definition">¶</a></dt>
+<code class="descname">FILE_URL_RELATIVE</code><em class="property"> = ‘model://’</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.Importer.FILE_URL_RELATIVE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.Importer.PACKAGE_URL">
-<code class="descname">PACKAGE_URL</code><em class="property"> = 'package://'</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.Importer.PACKAGE_URL" title="Permalink to this definition">¶</a></dt>
+<code class="descname">PACKAGE_URL</code><em class="property"> = ‘package://’</em><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.Importer.PACKAGE_URL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -270,15 +297,15 @@ as base path for finding models.</p>
 
 <dl class="method">
 <dt id="robot_designer_plugin.export.urdf.urdf_import.Importer.parse">
-<code class="descname">parse</code><span class="sig-paren">(</span><em>node</em>, <em>parent_name=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_import.html#Importer.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.Importer.parse" title="Permalink to this definition">¶</a></dt>
+<code class="descname">parse</code><span class="sig-paren">(</span><em>node</em>, <em>parent_name=”</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/urdf_import.html#Importer.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.urdf_import.Importer.parse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recursively parses the URDF tree elements.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>node</strong> (<a class="reference internal" href="robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree" title="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree"><code class="xref py py-class docutils literal"><span class="pre">URDFTree</span></code></a>) &#8211; The actual segment</li>
-<li><strong>parent_name</strong> &#8211; Name of the parent segment (if None the segment is a root element)</li>
+<li><strong>node</strong> (<a class="reference internal" href="robot_designer_plugin.export.urdf.generic.urdf_tree.html#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree" title="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree"><code class="xref py py-class docutils literal"><span class="pre">URDFTree</span></code></a>) – The actual segment</li>
+<li><strong>parent_name</strong> – Name of the parent segment (if None the segment is a root element)</li>
 </ul>
 </td>
 </tr>
@@ -311,8 +338,8 @@ as base path for finding models.</p>
     <div class="hbpdoc-footer">
         NRP RobotDesigner <small>0.1</small> 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
     </div>
 </div>

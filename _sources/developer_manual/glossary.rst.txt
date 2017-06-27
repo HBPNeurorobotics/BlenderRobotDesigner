@@ -53,3 +53,8 @@ Glossary
         A collision mesh will be used for physical contact detection in gazebo simulator.
 
 
+    scene
+        The blender environment containing the objects is called the scene.
+
+    IDE
+        Integrated Development Environment
