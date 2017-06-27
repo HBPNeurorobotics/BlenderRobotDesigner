@@ -1,0 +1,1906 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="dc7087d7-98c5-45a3-85c3-43e8c83829e4" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/modules.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.core.conditions.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.core.config.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.core.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.core.gui.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.core.logfile.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.core.operators.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.core.pluginmanager.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.core.property.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.core.resources.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.collada15.collada.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.collada15.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.collada15.file.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.collada15.fix.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.sd.sdf_export.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.sdf.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.sdf.generic.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.sdf.generic.helpers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.sdf.generic.model_config_dom.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.sdf.generic.sdf_dom.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.sdf.generic.sdf_tree.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.sdf.sdf_export.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.sdf.sdf_import.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.urdf.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.urdf.generic.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.urdf.generic.helpers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.urdf.generic.urdf_dom.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.urdf.urdf_export.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.export.urdf.urdf_import.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.interface.controllers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.interface.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.interface.dynamics.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.interface.files.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.interface.geometries.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.interface.helpers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.interface.kinematics.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.interface.main.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.interface.menus.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.interface.model.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.interface.segments.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.operators.api.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.operators.collision.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.operators.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.operators.dynamics.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.operators.file.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.operators.gui.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.operators.helpers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.operators.model.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.operators.rigid_bodies.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.operators.segments.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.operators.soft_bodies.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.properties.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.properties.globals.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.properties.objects.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/apidoc/robot_designer_plugin.properties.segments.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/developer_manual/coding_standards.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/developer_manual/debugging.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/developer_manual/environment.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/developer_manual/glossary.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/developer_manual/importers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/developer_manual/index.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/developer_manual/modules.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/developer_manual/plugin_core.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/developer_manual/plugin_structure.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/environment.pickle" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/index.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/planned.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/user_manual/index.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/user_manual/installation.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/user_manual/installation_old.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.doctrees/user_manual/usage.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_images/attach_meshes.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_images/controller_example_expanded.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_images/create_child_bone.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_images/create_new_model.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_images/export_URDF_lauron.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_images/files_empty.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_images/geometries_example_expanded.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_images/import_URDF_hollie_arm.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_images/import_sdf_hollie_arm.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_images/interpreter.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_images/robot_example.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_images/segments_example.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_images/sensors_empty.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_images/tools_empty.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/ajax-loader.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/bower_components/hbp-collaboratory-theme/dist/fonts/glyphicons-halflings-regular.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/bower_components/hbp-collaboratory-theme/dist/fonts/glyphicons-halflings-regular.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/bower_components/hbp-collaboratory-theme/dist/fonts/glyphicons-halflings-regular.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/bower_components/material-design-iconic-font/dist/fonts/Material-Design-Iconic-Font.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/bower_components/material-design-iconic-font/dist/fonts/Material-Design-Iconic-Font.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/bower_components/material-design-iconic-font/dist/fonts/Material-Design-Iconic-Font.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/comment-bright.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/comment-close.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/comment.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/down-pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/file.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/hbp_32x32.ico" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/minus.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/plus.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/up-pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/up.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/modules.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.core.conditions.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.core.config.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.core.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.core.gui.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.core.logfile.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.core.operators.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.core.pluginmanager.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.core.property.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.core.resources.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.collada15.collada.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.collada15.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.collada15.file.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.collada15.fix.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.sd.sdf_export.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.sdf.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.sdf.generic.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.sdf.generic.helpers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.sdf.generic.model_config_dom.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.sdf.generic.sdf_dom.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.sdf.generic.sdf_tree.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.sdf.sdf_import.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.urdf.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.urdf.generic.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.urdf.generic.helpers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.urdf.generic.urdf_dom.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.urdf.urdf_export.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.export.urdf.urdf_import.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.interface.controllers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.interface.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.interface.dynamics.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.interface.files.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.interface.geometries.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.interface.helpers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.interface.kinematics.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.interface.main.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.interface.menus.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.interface.model.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.interface.segments.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.operators.api.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.operators.collision.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.operators.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.operators.dynamics.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.operators.file.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.operators.gui.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.operators.helpers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.operators.model.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.operators.rigid_bodies.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.operators.segments.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.operators.soft_bodies.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.properties.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.properties.globals.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.properties.objects.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/apidoc/robot_designer_plugin.properties.segments.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/developer_manual/coding_standards.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/developer_manual/debugging.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/developer_manual/environment.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/developer_manual/glossary.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/developer_manual/importers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/developer_manual/index.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/developer_manual/modules.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/developer_manual/plugin_core.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/developer_manual/plugin_structure.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/environment.pickle" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/index.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/planned.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/user_manual/index.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/user_manual/installation.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/user_manual/installation_old.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/doctrees/user_manual/usage.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_images/attach_meshes.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_images/controller_example_expanded.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_images/create_child_bone.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_images/create_new_model.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_images/export_URDF_lauron.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_images/files_example.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_images/geometries_example_expanded.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_images/import_URDF_hollie_arm.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_images/interpreter.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_images/robot_example.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_images/segments_example.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_images/sensors_empty.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_images/tools_empty.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/ajax-loader.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/bower_components/hbp-collaboratory-theme/dist/fonts/glyphicons-halflings-regular.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/bower_components/hbp-collaboratory-theme/dist/fonts/glyphicons-halflings-regular.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/bower_components/hbp-collaboratory-theme/dist/fonts/glyphicons-halflings-regular.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/bower_components/material-design-iconic-font/dist/fonts/Material-Design-Iconic-Font.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/bower_components/material-design-iconic-font/dist/fonts/Material-Design-Iconic-Font.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/bower_components/material-design-iconic-font/dist/fonts/Material-Design-Iconic-Font.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/comment-bright.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/comment-close.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/comment.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/down-pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/file.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/hbp_32x32.ico" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/minus.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/plus.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/up-pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/up.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/objects.inv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/objects.inv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/modules.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.core.conditions.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.core.config.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.core.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.core.gui.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.core.logfile.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.core.operators.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.core.pluginmanager.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.core.property.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.core.resources.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.collada15.collada.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.collada15.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.collada15.file.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.collada15.fix.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.sd.sdf_export.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.sdf.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.sdf.generic.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.sdf.generic.helpers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.sdf.generic.model_config_dom.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.sdf.generic.sdf_dom.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.sdf.generic.sdf_tree.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.sdf.sdf_import.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.urdf.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.urdf.generic.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.urdf.generic.helpers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.urdf.generic.urdf_dom.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.urdf.urdf_export.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.export.urdf.urdf_import.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.interface.controllers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.interface.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.interface.dynamics.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.interface.files.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.interface.geometries.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.interface.helpers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.interface.kinematics.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.interface.main.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.interface.menus.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.interface.model.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.interface.segments.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.operators.api.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.operators.collision.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.operators.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.operators.dynamics.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.operators.file.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.operators.gui.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.operators.helpers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.operators.model.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.operators.rigid_bodies.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.operators.segments.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.operators.soft_bodies.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.properties.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.properties.globals.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.properties.objects.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/apidoc/robot_designer_plugin.properties.segments.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/developer_manual/coding_standards.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/developer_manual/debugging.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/developer_manual/environment.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/developer_manual/glossary.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/developer_manual/importers.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/developer_manual/index.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/developer_manual/modules.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/developer_manual/plugin_core.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/developer_manual/plugin_structure.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/environment.pickle" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/index.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/planned.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/user_manual/index.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/user_manual/installation.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/user_manual/installation_old.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.doctrees/user_manual/usage.doctree" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_images/attach_meshes.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_images/controller_example_expanded.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_images/create_child_bone.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_images/create_new_model.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_images/export_URDF_lauron.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_images/files_example.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_images/geometries_example_expanded.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_images/import_URDF_hollie_arm.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_images/interpreter.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_images/robot_example.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_images/segments_example.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_images/sensors_empty.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_images/tools_empty.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/ajax-loader.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/bower_components/hbp-collaboratory-theme/dist/fonts/glyphicons-halflings-regular.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/bower_components/hbp-collaboratory-theme/dist/fonts/glyphicons-halflings-regular.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/bower_components/hbp-collaboratory-theme/dist/fonts/glyphicons-halflings-regular.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/bower_components/material-design-iconic-font/dist/fonts/Material-Design-Iconic-Font.eot" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/bower_components/material-design-iconic-font/dist/fonts/Material-Design-Iconic-Font.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/bower_components/material-design-iconic-font/dist/fonts/Material-Design-Iconic-Font.woff" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/comment-bright.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/comment-close.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/comment.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/down-pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/down.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/file.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/hbp_32x32.ico" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/minus.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/plus.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/up-pressed.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/up.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/objects.inv" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/source/user_manual/gifs/import_sdf_hollie_arm.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/.buildinfo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/logging.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/core/conditions.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/core/gui.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/core/logfile.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/core/operators.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/core/pluginmanager.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/core/property.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/core/resources.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/export/collada15/collada.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/export/collada15/file.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/export/collada15/fix.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/export/sdf/generic/helpers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/export/sdf/generic/model_config_dom.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/export/sdf/generic/sdf_dom.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/export/sdf/generic/sdf_tree.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/export/sdf/sdf_export.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/export/sdf/sdf_import.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/export/urdf/generic/helpers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/export/urdf/generic/urdf_dom.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/export/urdf/urdf_export.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/export/urdf/urdf_import.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/interface/controllers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/interface/dynamics.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/interface/files.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/interface/geometries.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/interface/helpers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/interface/kinematics.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/interface/main.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/interface/menus.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/interface/segments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/operators/api.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/operators/collision.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/operators/dynamics.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/operators/file.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/operators/gui.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/operators/helpers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/operators/model.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/operators/rigid_bodies.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/operators/segments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/operators/sensors.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/operators/soft_bodies.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/properties/globals.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/properties/objects.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_modules/robot_designer_plugin/properties/segments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/modules.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.core.conditions.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.core.config.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.core.gui.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.core.logfile.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.core.operators.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.core.pluginmanager.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.core.property.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.core.resources.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.core.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.collada15.collada.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.collada15.file.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.collada15.fix.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.collada15.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.sd.sdf_export.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.sdf.generic.helpers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.sdf.generic.model_config_dom.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.sdf.generic.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.sdf.generic.sdf_dom.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.sdf.generic.sdf_tree.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.sdf.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.sdf.sdf_export.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.sdf.sdf_import.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.urdf.generic.helpers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.urdf.generic.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.urdf.generic.urdf_dom.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.urdf.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.urdf.urdf_export.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.export.urdf.urdf_import.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.interface.controllers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.interface.dynamics.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.interface.files.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.interface.geometries.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.interface.helpers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.interface.kinematics.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.interface.main.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.interface.menus.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.interface.model.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.interface.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.interface.segments.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.operators.api.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.operators.collision.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.operators.dynamics.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.operators.file.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.operators.gui.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.operators.helpers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.operators.model.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.operators.rigid_bodies.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.operators.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.operators.segments.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.operators.soft_bodies.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.properties.globals.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.properties.objects.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.properties.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.properties.segments.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/apidoc/robot_designer_plugin.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/developer_manual/coding_standards.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/developer_manual/debugging.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/developer_manual/environment.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/developer_manual/glossary.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/developer_manual/importers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/developer_manual/index.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/developer_manual/modules.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/developer_manual/plugin_core.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/developer_manual/plugin_structure.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/index.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/planned.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/user_manual/index.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/user_manual/installation.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/user_manual/installation_old.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_sources/user_manual/usage.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/basic.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/bower_components/hbp-collaboratory-theme/dist/fonts/glyphicons-halflings-regular.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/bower_components/material-design-iconic-font/dist/fonts/Material-Design-Iconic-Font.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/doctools.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/hbpdoc.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/hbpdoc.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/hbpdoc.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/hbpdoc.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/jquery-3.1.0.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/jquery.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/pygments.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/searchtools.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/underscore-1.3.1.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/underscore.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/_static/websupport.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/modules.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.core.conditions.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.core.config.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.core.gui.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.core.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.core.logfile.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.core.operators.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.core.pluginmanager.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.core.property.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.core.resources.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.collada15.collada.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.collada15.file.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.collada15.fix.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.collada15.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.sd.sdf_export.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.sdf.generic.helpers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.sdf.generic.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.sdf.generic.model_config_dom.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.sdf.generic.sdf_dom.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.sdf.generic.sdf_tree.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.sdf.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.sdf.sdf_export.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.sdf.sdf_import.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.urdf.generic.helpers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.urdf.generic.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.urdf.generic.urdf_dom.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.urdf.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.urdf.urdf_export.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.urdf.urdf_import.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.interface.controllers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.interface.dynamics.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.interface.files.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.interface.geometries.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.interface.helpers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.interface.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.interface.kinematics.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.interface.main.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.interface.menus.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.interface.model.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.interface.segments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.operators.api.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.operators.collision.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.operators.dynamics.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.operators.file.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.operators.gui.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.operators.helpers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.operators.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.operators.model.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.operators.rigid_bodies.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.operators.segments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.operators.soft_bodies.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.properties.globals.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.properties.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.properties.objects.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.properties.segments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/developer_manual/coding_standards.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/developer_manual/debugging.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/developer_manual/environment.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/developer_manual/glossary.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/developer_manual/importers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/developer_manual/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/developer_manual/modules.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/developer_manual/plugin_core.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/developer_manual/plugin_structure.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/genindex.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/.buildinfo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/modules.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.core.conditions.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.core.config.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.core.gui.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.core.logfile.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.core.operators.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.core.pluginmanager.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.core.property.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.core.resources.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.core.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.export.collada15.collada.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.export.collada15.file.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.export.collada15.fix.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.export.collada15.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.export.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.export.urdf.generic.helpers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.export.urdf.generic.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.export.urdf.generic.urdf_dom.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.export.urdf.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.export.urdf.urdf_export.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.export.urdf.urdf_import.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.interface.controllers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.interface.dynamics.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.interface.files.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.interface.geometries.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.interface.helpers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.interface.kinematics.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.interface.main.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.interface.menus.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.interface.model.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.interface.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.interface.segments.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.operators.api.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.operators.collision.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.operators.dynamics.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.operators.file.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.operators.gui.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.operators.helpers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.operators.model.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.operators.rigid_bodies.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.operators.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.operators.segments.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.operators.soft_bodies.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.properties.globals.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.properties.objects.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.properties.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.properties.segments.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/developer_manual/coding_standards.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/developer_manual/debugging.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/developer_manual/environment.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/developer_manual/glossary.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/developer_manual/importers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/developer_manual/index.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/developer_manual/modules.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/developer_manual/plugin_core.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/developer_manual/plugin_structure.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/index.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/planned.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/user_manual/index.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/user_manual/installation.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/user_manual/installation_old.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_sources/user_manual/usage.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/basic.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/bower_components/hbp-collaboratory-theme/dist/fonts/glyphicons-halflings-regular.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/bower_components/material-design-iconic-font/dist/fonts/Material-Design-Iconic-Font.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/doctools.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/hbpdoc.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/hbpdoc.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/hbpdoc.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/hbpdoc.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/jquery-3.1.0.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/jquery.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/pygments.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/searchtools.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/underscore-1.3.1.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/underscore.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/_static/websupport.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/modules.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.core.conditions.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.core.config.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.core.gui.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.core.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.core.logfile.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.core.operators.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.core.pluginmanager.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.core.property.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.core.resources.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.export.collada15.collada.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.export.collada15.file.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.export.collada15.fix.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.export.collada15.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.export.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.export.urdf.generic.helpers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.export.urdf.generic.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.export.urdf.generic.urdf_dom.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.export.urdf.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.export.urdf.urdf_export.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.export.urdf.urdf_import.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.interface.controllers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.interface.dynamics.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.interface.files.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.interface.geometries.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.interface.helpers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.interface.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.interface.kinematics.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.interface.main.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.interface.menus.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.interface.model.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.interface.segments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.operators.api.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.operators.collision.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.operators.dynamics.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.operators.file.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.operators.gui.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.operators.helpers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.operators.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.operators.model.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.operators.rigid_bodies.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.operators.segments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.operators.soft_bodies.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.properties.globals.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.properties.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.properties.objects.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/apidoc/robot_designer_plugin.properties.segments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/developer_manual/coding_standards.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/developer_manual/debugging.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/developer_manual/environment.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/developer_manual/glossary.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/developer_manual/importers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/developer_manual/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/developer_manual/modules.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/developer_manual/plugin_core.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/developer_manual/plugin_structure.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/genindex.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/planned.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/search.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/searchindex.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/user_manual/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/user_manual/installation.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/user_manual/installation_old.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/html/user_manual/usage.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/planned.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/py-modindex.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/search.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/searchindex.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/user_manual/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/user_manual/installation.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/user_manual/installation_old.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/build/user_manual/usage.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/.buildinfo" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/modules.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.core.conditions.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.core.config.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.core.gui.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.core.logfile.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.core.operators.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.core.pluginmanager.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.core.property.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.core.resources.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.core.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.export.collada15.collada.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.export.collada15.file.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.export.collada15.fix.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.export.collada15.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.export.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.export.urdf.generic.helpers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.export.urdf.generic.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.export.urdf.generic.urdf_dom.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.export.urdf.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.export.urdf.urdf_export.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.export.urdf.urdf_import.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.interface.controllers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.interface.dynamics.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.interface.files.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.interface.geometries.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.interface.helpers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.interface.kinematics.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.interface.main.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.interface.menus.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.interface.model.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.interface.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.interface.segments.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.operators.api.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.operators.collision.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.operators.dynamics.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.operators.file.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.operators.gui.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.operators.helpers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.operators.model.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.operators.rigid_bodies.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.operators.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.operators.segments.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.operators.soft_bodies.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.properties.globals.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.properties.objects.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.properties.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.properties.segments.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/apidoc/robot_designer_plugin.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/developer_manual/coding_standards.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/developer_manual/debugging.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/developer_manual/environment.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/developer_manual/glossary.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/developer_manual/importers.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/developer_manual/index.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/developer_manual/modules.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/developer_manual/plugin_core.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/developer_manual/plugin_structure.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/index.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/planned.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/user_manual/index.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/user_manual/installation.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/user_manual/installation_old.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_sources/user_manual/usage.rst.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/basic.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/bower_components/hbp-collaboratory-theme/dist/fonts/glyphicons-halflings-regular.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/bower_components/material-design-iconic-font/dist/fonts/Material-Design-Iconic-Font.svg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/doctools.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/hbpdoc.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/hbpdoc.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/hbpdoc.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/hbpdoc.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/jquery-3.1.0.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/jquery.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/pygments.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/searchtools.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/underscore-1.3.1.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/underscore.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/_static/websupport.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/modules.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.core.conditions.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.core.config.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.core.gui.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.core.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.core.logfile.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.core.operators.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.core.pluginmanager.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.core.property.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.core.resources.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.export.collada15.collada.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.export.collada15.file.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.export.collada15.fix.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.export.collada15.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.export.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.export.urdf.generic.helpers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.export.urdf.generic.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.export.urdf.generic.urdf_dom.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.export.urdf.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.export.urdf.urdf_export.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.export.urdf.urdf_import.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.interface.controllers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.interface.dynamics.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.interface.files.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.interface.geometries.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.interface.helpers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.interface.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.interface.kinematics.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.interface.main.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.interface.menus.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.interface.model.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.interface.segments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.operators.api.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.operators.collision.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.operators.dynamics.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.operators.file.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.operators.gui.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.operators.helpers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.operators.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.operators.model.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.operators.rigid_bodies.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.operators.segments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.operators.soft_bodies.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.properties.globals.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.properties.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.properties.objects.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/apidoc/robot_designer_plugin.properties.segments.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/developer_manual/coding_standards.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/developer_manual/debugging.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/developer_manual/environment.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/developer_manual/glossary.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/developer_manual/importers.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/developer_manual/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/developer_manual/modules.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/developer_manual/plugin_core.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/developer_manual/plugin_structure.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/genindex.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/planned.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/search.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/searchindex.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/user_manual/index.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/user_manual/installation.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/user_manual/installation_old.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/html/user_manual/usage.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/my_input.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.helpers.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.model_config_dom.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.sdf_dom.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.sdf_tree.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.sdf_export.rst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.sdf_import.rst" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/doc/source/user_manual/images/files_example.png" afterPath="$PROJECT_DIR$/doc/build/_images/files_example.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/source/user_manual/gifs/attach_meshes.gif" afterPath="$PROJECT_DIR$/doc/source/user_manual/gifs/attach_meshes.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/source/user_manual/images/files_empty.png" afterPath="$PROJECT_DIR$/doc/source/user_manual/images/files_empty.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/source/user_manual/images/geometries_example_expanded.png" afterPath="$PROJECT_DIR$/doc/source/user_manual/images/geometries_example_expanded.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/source/user_manual/images/tools_empty.png" afterPath="$PROJECT_DIR$/doc/source/user_manual/images/tools_empty.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.rst" afterPath="$PROJECT_DIR$/README.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.rst" afterPath="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/source/developer_manual/environment.rst" afterPath="$PROJECT_DIR$/doc/source/developer_manual/environment.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/source/developer_manual/glossary.rst" afterPath="$PROJECT_DIR$/doc/source/developer_manual/glossary.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/source/user_manual/installation.rst" afterPath="$PROJECT_DIR$/doc/source/user_manual/installation.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/source/user_manual/usage.rst" afterPath="$PROJECT_DIR$/doc/source/user_manual/usage.rst" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="robot_designer_plugin.export.sdf.sdf_import.rst" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.sdf_import.rst">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="robot_designer_plugin.export.sdf.sdf_export.rst" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.sdf_export.rst">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="54">
+              <caret line="3" column="50" lean-forward="false" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="robot_designer_plugin.export.sdf.generic.helpers.rst" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.helpers.rst">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="robot_designer_plugin.export.sdf.generic.rst" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.rst">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="16" column="60" lean-forward="true" selection-start-line="16" selection-start-column="60" selection-end-line="16" selection-end-column="60" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sdf_export.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/robot_designer_plugin/export/sdf/sdf_export.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="900">
+              <caret line="77" column="15" lean-forward="false" selection-start-line="77" selection-start-column="4" selection-end-line="77" selection-end-column="15" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="robot_designer_plugin.export.rst" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.rst">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="15" column="36" lean-forward="false" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plugin_core.rst" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/source/developer_manual/plugin_core.rst">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="glossary.rst" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/source/developer_manual/glossary.rst">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="576">
+              <caret line="32" column="12" lean-forward="false" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="robot_designer_plugin.export.sdf.generic.model_config_dom.rst" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.model_config_dom.rst">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="58" lean-forward="false" selection-start-line="0" selection-start-column="58" selection-end-line="0" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="robot_designer_plugin.export.sdf.rst" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.rst">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="13" column="34" lean-forward="false" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>in the future, it is</find>
+      <find>operator for importing</find>
+      <find>for importing a robot</find>
+      <find>robot_designer_plugin package</find>
+      <find>export functions for different file formats for robot descri</find>
+      <find>subpackages</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/robot_designer_plugin/export/sdf/sdf_export.py" />
+        <option value="$PROJECT_DIR$/robot_designer_plugin/export/sdf/sdf_import.py" />
+        <option value="$PROJECT_DIR$/robot_designer_plugin/export/sdf/__init__.py" />
+        <option value="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sd.sdf_export.rst" />
+        <option value="$PROJECT_DIR$/doc/source/user_manual/usage.rst" />
+        <option value="$PROJECT_DIR$/doc/source/user_manual/installation.rst" />
+        <option value="$PROJECT_DIR$/doc/source/developer_manual/environment.rst" />
+        <option value="$PROJECT_DIR$/README.rst" />
+        <option value="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.sdf_import.rst" />
+        <option value="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.helpers.rst" />
+        <option value="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.sdf_tree.rst" />
+        <option value="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.sdf_export.rst" />
+        <option value="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.rst" />
+        <option value="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.sdf_dom.rst" />
+        <option value="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.rst" />
+        <option value="$PROJECT_DIR$/doc/source/developer_manual/glossary.rst" />
+        <option value="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.model_config_dom.rst" />
+        <option value="$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.rst" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="2015" />
+    <option name="y" value="395" />
+    <option name="width" value="2487" />
+    <option name="height" value="1351" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="robot_designer_plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="robot_designer_plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="export" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="robot_designer_plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="export" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sdf" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="robot_designer_plugin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="export" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sdf" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="generic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user_manual" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="developer_manual" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BlenderRobotDesigner" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="source" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="apidoc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_interpreter_path" value="/usr/bin/node" />
+    <property name="js.eslint.eslintPackage" value="" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/doc/source/apidoc" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="BlenderRobotDesigner" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="TARGET" value="" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="BlenderRobotDesigner" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PyLettuceRunConfigurationType" factoryName="Lettuce">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="BlenderRobotDesigner" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="ADDITIONAL_ARGS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="BlenderRobotDesigner" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <module name="BlenderRobotDesigner" />
+      <method />
+    </configuration>
+    <configuration default="true" type="docs" factoryName="Docutils task">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="BlenderRobotDesigner" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="BlenderRobotDesigner" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Doctests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="BlenderRobotDesigner" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Nosetests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="BlenderRobotDesigner" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="BlenderRobotDesigner" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="BlenderRobotDesigner" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="testToRun" value="" />
+      <option name="keywords" value="" />
+      <option name="params" value="" />
+      <option name="USE_PARAM" value="false" />
+      <option name="USE_KEYWORD" value="false" />
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dc7087d7-98c5-45a3-85c3-43e8c83829e4" name="Default" comment="" />
+      <created>1498051723263</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1498051723263</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="2015" y="395" width="2487" height="1351" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25728354" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33734939" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24989742" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="45" lean-forward="false" selection-start-line="15" selection-start-column="45" selection-end-line="15" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.helpers.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.sdf_dom.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="58" lean-forward="false" selection-start-line="3" selection-start-column="58" selection-end-line="3" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.sdf_tree.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="19" lean-forward="true" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sd.sdf_export.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="50" lean-forward="false" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.sdf_import.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="50" lean-forward="false" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.model_config_dom.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.urdf.generic.urdf_dom.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.urdf.generic.helpers.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/robot_designer_plugin/core/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.collada15.collada.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/robot_designer_plugin/export/sdf/sdf_import.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="724">
+          <caret line="802" column="67" lean-forward="true" selection-start-line="802" selection-start-column="67" selection-end-line="802" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/build/html/_sources/apidoc/robot_designer_plugin.rst.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" column="36" lean-forward="true" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.collada15.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.urdf.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.urdf.generic.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.urdf.generic.helpers.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.urdf.generic.urdf_dom.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.sdf_dom.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="58" lean-forward="false" selection-start-line="3" selection-start-column="58" selection-end-line="3" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/modules.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/robot_designer_plugin/export/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="36" column="32" lean-forward="false" selection-start-line="36" selection-start-column="32" selection-end-line="36" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/robot_designer_plugin/export/urdf/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="554">
+          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="48" selection-end-column="22" />
+          <folding>
+            <element signature="e#1376#1423#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/robot_designer_plugin/export/sdf/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="645">
+          <caret line="48" column="20" lean-forward="false" selection-start-line="48" selection-start-column="20" selection-end-line="48" selection-end-column="20" />
+          <folding>
+            <element signature="e#1348#1393#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sd.sdf_export.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/build/apidoc/robot_designer_plugin.export.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="536">
+          <caret line="155" column="6" lean-forward="false" selection-start-line="155" selection-start-column="6" selection-end-line="155" selection-end-column="6" />
+          <folding>
+            <marker date="1498572219518" expanded="true" signature="10988:11018" ph="..." />
+            <marker date="1498572219518" expanded="true" signature="10988:11024" ph="..." />
+            <marker date="1498572219518" expanded="true" signature="10988:11030" ph="..." />
+            <marker date="1498572219518" expanded="true" signature="10988:11036" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/developer_manual/environment.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="789">
+          <caret line="238" column="51" lean-forward="false" selection-start-line="238" selection-start-column="51" selection-end-line="238" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/user_manual/usage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4590">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/user_manual/usage.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/user_manual/installation_old.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/user_manual/installation.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1211">
+          <caret line="76" column="0" lean-forward="false" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="581">
+          <caret line="186" column="53" lean-forward="false" selection-start-line="186" selection-start-column="53" selection-end-line="186" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.sdf_dom.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="58" lean-forward="false" selection-start-line="3" selection-start-column="58" selection-end-line="3" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.sdf_tree.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="58" lean-forward="false" selection-start-line="3" selection-start-column="58" selection-end-line="3" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.sdf_export.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="50" lean-forward="false" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.sdf_import.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.helpers.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/developer_manual/plugin_core.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/developer_manual/glossary.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="32" column="12" lean-forward="false" selection-start-line="32" selection-start-column="12" selection-end-line="32" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="36" lean-forward="false" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="34" lean-forward="false" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.model_config_dom.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="58" lean-forward="false" selection-start-line="0" selection-start-column="58" selection-end-line="0" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/source/apidoc/robot_designer_plugin.export.sdf.generic.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="60" lean-forward="true" selection-start-line="16" selection-start-column="60" selection-end-line="16" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/robot_designer_plugin/export/sdf/sdf_export.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="77" column="15" lean-forward="false" selection-start-line="77" selection-start-column="4" selection-end-line="77" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
