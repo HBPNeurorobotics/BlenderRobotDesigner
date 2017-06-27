@@ -12,69 +12,86 @@ tutorials provided on this matter which can be found `here <https://www.blender.
 
 The RobotDesigner
 -----------------
+We introduce the structure of the Graphical User Interface as well as explain the workflow of creating a new robot model.
+If an existing model is imported the user can also start at any tab section of interest.
+
 
 Panel Overview
 ^^^^^^^^^^^^^^
+The various functionalities are collected in several tabs for intuitive user interaction. Creating a new robot the developer
+would start from the left tab to the right, or as listed below from creating a robot to exporting it.
+
 
 The Robot properties tab
 ************************
+
+The Robot properties tab allows us to create a new robot model or select an existing one. Hier we can also rename
+it or merge with another model. New segments for expanding the robot model can be created and deleted here as well.
+These segments are called *bones* in blender.
 
 .. figure:: images/robot_example.png
     :align: center
 
     The Robot properties tab of the NRP RobotDesigner
 
-The Robot properties tab allows us to create a new robot model or select an existing one. Hier we can also rename
-it or merge with another model. New segments for expanding the robot model can be created and deleted here as well.
-These segments are called *bones* in blender.
 
 The Segments properties tab
 ***************************
+
+In the Segments properties tab we can modify the properties of the previously created segments by setting joint type,
+joint limits, orientation and position in relation to the parent bone.
 
 .. figure:: images/segments_example.png
     :align: center
 
     The Segments properties tab of the NRP RobotDesigner
 
-In the Segments properties tab we can modify the properties of the previously created segments by setting joint type,
-joint limits, orientation and position in relation to the parent bone.
 
 The Geometries properties tab
 *****************************
+
+The Geometries properties tab allows us to connect the kinematics model or armature created by the NRP RobotDesigner with
+an existing geometrical model, generate such a model or disconnect it once it has been attached. Additionally we can set
+basic properties as well as reduce the complexity of the geometries.
 
 .. figure:: images/geometries_example_expanded.png
     :align: center
 
     The Geometries properties tab of the NRP RobotDesigner
 
-The Geometries properties tab allows us to connect the kinematics model or armature created by the NRP RobotDesigner with
-an existing geometrical model, generate such a model or disconnect it once it has been attached.
 
 The Sensors properties tab
 **************************
+
+In the Sensor properties tab a camera or laser sensor can be attached, detached and its properties adjusted.
 
 .. figure:: images/sensors_empty.png
     :align: center
 
     The Sensors properties tab of the NRP RobotDesigner
 
+
 The Tools properties tab
 ************************
+
+In the tools section debug information such as Info, Error and Warning messages can be inspected.
 
 .. figure:: images/tools_empty.png
     :align: center
 
     The Tools properties tab of the NRP RobotDesigner
 
+
 The Files properties tab
 ************************
+
+Here we can export the created robot model as a an URDF file/package or import a robot model from an URDF file/package.
 
 .. figure:: images/files_example.png
     :align: center
 
     The Files properties tab of the NRP RobotDesigner
 
-Here we can export the created robot model as a an URDF file/package or import a robot model from an URDF file/package.
 
 Creating and maintaining robot models
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -164,7 +181,7 @@ this tab.
 
 In order to connect the kinematics model, created by the NRP RobotDesigner and the geometric model select the field
 **Attach Geometry**. First select the segment to be attached on the left and the mesh it is to be attached to on the right.
-Then click on **Assign selected geometry to active segment**.
+After specifying the use of the geometry as visual or collision mesh, click on **Assign selected geometry to active segment**.
 
 In a similar way geometries can be easily disconnected in the field **Detach Geometry**. First select the mesh to be
 disconneccted, then click on **Detach selected geometry**.
@@ -174,32 +191,34 @@ Alternatively all meshes can be disconnected at once by selecting **Detach all g
 Import and export
 ^^^^^^^^^^^^^^^^^
 
-.. figure:: images/files_example.png
+.. figure:: images/files_empty.png
     :align: center
 
     The file properties tab of the NRP RobotDesigner.
 
-.. figure:: gifs/import_URDF_hollie_arm.gif
+.. figure:: gifs/import_sdf_hollie_arm.gif
     :align: center
+    :height: 712px
+    :width: 1287px
 
-    Importing a robot model of Schunk robot arm from a plain URDF file
-
-.. figure:: gifs/export_URDF_lauron.gif
-    :align: center
-
-    Exporting a robot model of the robot Lauron as a plain URDF file
-
-One of the main strengths of the RobotDesigner is the possibility to import from and export to URDF files.
-This is the file format the Neurorobotics Platform (or Gazebo/ROS in general) depends on. The file format
-has been extended to support for controller definitions such that loading a finished model into the NRP does not
-require the deployment of additional control software.
-
-Note that, in order to load URDF models that use the ``package`` directive, the environment variable has to be
-accessible in Blender (i.e., blender has to be invoked from a shell) or a model folder has to be specified
-in the respective text box (which is also used for export).
+    Importing a robot model of Schunk robot arm from a plain SDF file
 
 
+In the file section additional meta data can be added to the model such as a model description and author contact information.
+One of the main strengths of the RobotDesigner is the possibility to import from and export to URDF as well as SDF files.
 
+URDF
+****
+The URDF file format has been extended to support for controller definitions. Note that, in order to load URDF models
+that use the ``package`` directive, the environment variable has to be accessible in Blender (i.e., blender has to be
+invoked from a shell) or a model folder has to be specified in the respective text box (which is also used for export).
+Exporting the model as a ROS package will several additional files helpful for usage in the ROS environment.
+
+SDF
+****
+The SDF is the file format the Neurorobotics Platform (or Gazebo/ROS in general) depends on. Visual and collision meshes,
+joints and link description as well as a model.config file can be imported and exported. In addition to this basic features,
+further properties will be implemented soon.
 
 
 
