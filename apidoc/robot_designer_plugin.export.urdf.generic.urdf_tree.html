@@ -4,12 +4,11 @@
 <!DOCTYPE html>
 
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>robot_designer_plugin.export.urdf.generic.urdf_tree module &mdash; NRP RobotDesigner 0.1 documentation</title>
+    <title>robot_designer_plugin.export.urdf.generic.urdf_tree module &#8212; NRP RobotDesigner 0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -20,23 +19,24 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
-    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
-    <link rel="up" title="robot_designer_plugin.export.urdf.generic package" href="robot_designer_plugin.export.urdf.generic.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="robot_designer_plugin.export.urdf.urdf_export module" href="robot_designer_plugin.export.urdf.urdf_export.html" />
     <link rel="prev" title="robot_designer_plugin.export.urdf.generic.urdf_dom module" href="robot_designer_plugin.export.urdf.generic.urdf_dom.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
   </head>
-  <body role="document">
+  <body>
 <div class="hbpdoc-page">
     <section class="hbpdoc-title page-header">
         <a class="project-title" href="../index.html">NRP RobotDesigner</a>
@@ -62,21 +62,18 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.txt"
+      <li><a href="../_sources/apidoc/robot_designer_plugin.export.urdf.generic.urdf_tree.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -128,7 +125,7 @@
 The data is stored in a tree of linked instances of this class. Therefore, a root element (or several) has to be
 detectable in the file excluding closed kinematic loops at the moment.
 Each instance represents a <em>blender/RobotDesigner bone</em> that is a compound of joint and link.
-It uses a document object model (DOM) created by generateDS.py (in version 2.14a &#8211; the newest
+It uses a document object model (DOM) created by generateDS.py (in version 2.14a – the newest
 that does not depend on the lxml module, which is not included in blender).</p>
 <dl class="method">
 <dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.add">
@@ -149,7 +146,7 @@ it will be created automatically.
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<em>string</em>) &#8211; name of the mesh object for which the col_model is generated</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<em>string</em>) – name of the mesh object for which the col_model is generated</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">string:     Collision file that is used in the urdf</td>
 </tr>
@@ -207,7 +204,7 @@ it will be created automatically.
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<em>string</em>) &#8211; Name of the file</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<em>string</em>) – Name of the file</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
 </tr>
@@ -226,13 +223,13 @@ Called by parse).
 
 <dl class="staticmethod">
 <dt id="robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.create_empty">
-<em class="property">static </em><code class="descname">create_empty</code><span class="sig-paren">(</span><em>base_link_name='base_link'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree.create_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.create_empty" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">create_empty</code><span class="sig-paren">(</span><em>base_link_name=’base_link’</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/export/urdf/generic/urdf_tree.html#URDFTree.create_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.export.urdf.generic.urdf_tree.URDFTree.create_empty" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an empty tree object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>string</em>) &#8211; the name of the robot the tree is representing the model of.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>string</em>) – the name of the robot the tree is representing the model of.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The tree instance.</td>
 </tr>
@@ -307,8 +304,8 @@ This function serves as an example for export export.
     <div class="hbpdoc-footer">
         NRP RobotDesigner <small>0.1</small> 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
     </div>
 </div>

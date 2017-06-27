@@ -4,12 +4,11 @@
 <!DOCTYPE html>
 
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>robot_designer_plugin.core.logfile &mdash; NRP RobotDesigner 0.1 documentation</title>
+    <title>robot_designer_plugin.core.logfile &#8212; NRP RobotDesigner 0.1 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/hbpdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -20,21 +19,36 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
-    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
-    <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
   </head>
-  <body role="document">
+  <body>
 <div class="hbpdoc-page">
     <section class="hbpdoc-title page-header">
         <a class="project-title" href="../../../index.html">NRP RobotDesigner</a>
@@ -54,14 +68,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -143,15 +154,15 @@
 <span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="kn">from</span> <span class="nn">.gui</span> <span class="kn">import</span> <span class="n">InfoBox</span>
+<span class="kn">from</span> <span class="nn">.gui</span> <span class="k">import</span> <span class="n">InfoBox</span>
 
-<span class="kn">from</span> <span class="nn">..core.config</span> <span class="kn">import</span> <span class="n">BACKTRACE_MESSAGE_CALLSTACK</span><span class="p">,</span> <span class="n">BACKTRACE_MESSAGE</span><span class="p">,</span> <span class="n">BACKTRACE_FILTER_FUNC</span><span class="p">,</span> \
+<span class="kn">from</span> <span class="nn">..core.config</span> <span class="k">import</span> <span class="n">BACKTRACE_MESSAGE_CALLSTACK</span><span class="p">,</span> <span class="n">BACKTRACE_MESSAGE</span><span class="p">,</span> <span class="n">BACKTRACE_FILTER_FUNC</span><span class="p">,</span> \
     <span class="n">BACKTRACE_FILTER_HIDE_CODE</span><span class="p">,</span> <span class="n">BACKTRACE_MESSAGE_STACK</span><span class="p">,</span> <span class="n">BACKTRACE_MESSAGE_STACK_CODE</span><span class="p">,</span> <span class="n">EXCEPTION_MESSAGE</span><span class="p">,</span> <span class="n">script_path</span>
 
-<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="nb">reload</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="k">import</span> <span class="n">reload</span>
 
-<span class="nb">reload</span><span class="p">(</span><span class="n">logging</span><span class="p">)</span>
-<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="s1">&#39;[</span><span class="si">%(levelname)5s</span><span class="s1">|</span><span class="si">%(name)10s</span><span class="s1">|</span><span class="si">%(filename)12s</span><span class="s1">:</span><span class="si">%(lineno)03d</span><span class="s1">|</span><span class="si">%(funcName)s</span><span class="s1">()] </span><span class="si">%(message)s</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
+<span class="n">reload</span><span class="p">(</span><span class="n">logging</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">&#39;[</span><span class="si">%(levelname)5s</span><span class="s1">|</span><span class="si">%(name)10s</span><span class="s1">|</span><span class="si">%(filename)12s</span><span class="s1">:</span><span class="si">%(lineno)03d</span><span class="s1">|</span><span class="si">%(funcName)s</span><span class="s1">()] </span><span class="si">%(message)s</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span>
                     <span class="n">filename</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">script_path</span><span class="p">,</span> <span class="s1">&#39;resources/log.txt&#39;</span><span class="p">),</span> <span class="n">filemode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
 
 <span class="n">operator_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;Operators&#39;</span><span class="p">)</span>
@@ -193,13 +204,13 @@
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">gui_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Draw function in </span><span class="si">%s</span><span class="s2"> module threw an exception:</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">EXCEPTION_MESSAGE</span><span class="p">,</span>
-                             <span class="n">func</span><span class="o">.</span><span class="n">__module__</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">log_callstack</span><span class="p">(),</span> <span class="n">log_callstack</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+                             <span class="n">func</span><span class="o">.</span><span class="vm">__module__</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">log_callstack</span><span class="p">(),</span> <span class="n">log_callstack</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
             <span class="n">InfoBox</span><span class="o">.</span><span class="n">global_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">func_logger</span></div>
 
 
-<div class="viewcode-block" id="log_callstack"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.logfile.html#robot_designer_plugin.core.logfile.log_callstack">[docs]</a><span class="k">def</span> <span class="nf">log_callstack</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="log_callstack"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.logfile.html#robot_designer_plugin.core.logfile.log_callstack">[docs]</a><span class="k">def</span> <span class="nf">log_callstack</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Helper function that formats either a (filtered) backtrace or call stack in a string. Blender internals</span>
 <span class="sd">    are filtered such that errors in the own code can be detected more easily.</span>
@@ -218,22 +229,22 @@
     <span class="n">last_call</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">stack</span><span class="p">:</span>
         <span class="k">if</span> <span class="s1">&#39;addons&#39;</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
-            <span class="nb">file</span> <span class="o">=</span> <span class="s1">&#39;...&#39;</span> <span class="o">+</span> <span class="n">path</span><span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;addons&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">6</span><span class="p">:]</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;...&#39;</span> <span class="o">+</span> <span class="n">path</span><span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;addons&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">6</span><span class="p">:]</span>
         <span class="k">elif</span> <span class="s1">&#39;scripts&#39;</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
-            <span class="nb">file</span> <span class="o">=</span> <span class="s1">&#39;...&#39;</span> <span class="o">+</span> <span class="n">path</span><span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;scripts&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">7</span><span class="p">:]</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="s1">&#39;...&#39;</span> <span class="o">+</span> <span class="n">path</span><span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;scripts&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">7</span><span class="p">:]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="nb">file</span> <span class="o">=</span> <span class="n">path</span>
+            <span class="n">file</span> <span class="o">=</span> <span class="n">path</span>
         <span class="k">if</span> <span class="n">func</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">BACKTRACE_FILTER_FUNC</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">BACKTRACE_FILTER_HIDE_CODE</span><span class="p">:</span>
-                <span class="n">message</span> <span class="o">+=</span> <span class="n">BACKTRACE_MESSAGE_STACK</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="nb">file</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+                <span class="n">message</span> <span class="o">+=</span> <span class="n">BACKTRACE_MESSAGE_STACK</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">message</span> <span class="o">+=</span> <span class="n">BACKTRACE_MESSAGE_STACK_CODE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="nb">file</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">last_call</span><span class="p">)</span>
+                <span class="n">message</span> <span class="o">+=</span> <span class="n">BACKTRACE_MESSAGE_STACK_CODE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">last_call</span><span class="p">)</span>
         <span class="n">last_call</span> <span class="o">=</span> <span class="n">code</span>
 
     <span class="k">return</span> <span class="n">message</span></div>
 
 
-<div class="viewcode-block" id="log_callstack_last"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.logfile.html#robot_designer_plugin.core.logfile.log_callstack_last">[docs]</a><span class="k">def</span> <span class="nf">log_callstack_last</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="log_callstack_last"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.logfile.html#robot_designer_plugin.core.logfile.log_callstack_last">[docs]</a><span class="k">def</span> <span class="nf">log_callstack_last</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">back_trace</span><span class="p">:</span>
         <span class="n">stack</span> <span class="o">=</span> <span class="n">traceback</span><span class="o">.</span><span class="n">extract_stack</span><span class="p">()[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
@@ -241,14 +252,14 @@
 
     <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;empty&quot;</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Parsing stack&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Parsing stack&quot;</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">line</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">stack</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">func</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="n">func</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">func</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">BACKTRACE_FILTER_FUNC</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">func</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">BACKTRACE_FILTER_HIDE_CODE</span><span class="p">:</span>
-                <span class="nb">file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-                <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">file</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+                <span class="n">file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">:</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">message</span></div>
 </pre></div>
@@ -265,8 +276,8 @@
     <div class="hbpdoc-footer">
         NRP RobotDesigner <small>0.1</small> 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
     </div>
 </div>

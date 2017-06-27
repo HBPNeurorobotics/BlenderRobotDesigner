@@ -4,12 +4,11 @@
 <!DOCTYPE html>
 
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>robot_designer_plugin.export.urdf.urdf_export &mdash; NRP RobotDesigner 0.1 documentation</title>
+    <title>robot_designer_plugin.export.urdf.urdf_export &#8212; NRP RobotDesigner 0.1 documentation</title>
     
     <link rel="stylesheet" href="../../../../_static/hbpdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
@@ -20,21 +19,36 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../../_static/hbp_32x32.ico"/>
-    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../../index.html" />
-    <link rel="up" title="robot_designer_plugin" href="../../../robot_designer_plugin.html" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
   </head>
-  <body role="document">
+  <body>
 <div class="hbpdoc-page">
     <section class="hbpdoc-title page-header">
         <a class="project-title" href="../../../../index.html">NRP RobotDesigner</a>
@@ -54,14 +68,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -136,27 +147,27 @@
 <span class="c1"># ######</span>
 <span class="c1"># System imports</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">radians</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">radians</span>
 <span class="kn">import</span> <span class="nn">tempfile</span>
 
 <span class="c1"># ######</span>
 <span class="c1"># Blender imports</span>
 <span class="kn">import</span> <span class="nn">bpy</span>
-<span class="kn">from</span> <span class="nn">bpy.props</span> <span class="kn">import</span> <span class="n">StringProperty</span><span class="p">,</span> <span class="n">BoolProperty</span>
-<span class="kn">from</span> <span class="nn">mathutils</span> <span class="kn">import</span> <span class="n">Vector</span>
+<span class="kn">from</span> <span class="nn">bpy.props</span> <span class="k">import</span> <span class="n">StringProperty</span><span class="p">,</span> <span class="n">BoolProperty</span>
+<span class="kn">from</span> <span class="nn">mathutils</span> <span class="k">import</span> <span class="n">Vector</span>
 
 <span class="c1"># ######</span>
 <span class="c1"># RobotDesigner imports</span>
-<span class="kn">from</span> <span class="nn">.generic</span> <span class="kn">import</span> <span class="n">urdf_tree</span>
-<span class="kn">from</span> <span class="nn">.generic.helpers</span> <span class="kn">import</span> <span class="n">list_to_string</span>
-<span class="kn">from</span> <span class="nn">...core</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">PluginManager</span><span class="p">,</span> <span class="n">RDOperator</span>
-<span class="kn">from</span> <span class="nn">...operators.helpers</span> <span class="kn">import</span> <span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span>
-<span class="kn">from</span> <span class="nn">...operators.model</span> <span class="kn">import</span> <span class="n">SelectModel</span>
+<span class="kn">from</span> <span class="nn">.generic</span> <span class="k">import</span> <span class="n">urdf_tree</span>
+<span class="kn">from</span> <span class="nn">.generic.helpers</span> <span class="k">import</span> <span class="n">list_to_string</span>
+<span class="kn">from</span> <span class="nn">...core</span> <span class="k">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">PluginManager</span><span class="p">,</span> <span class="n">RDOperator</span>
+<span class="kn">from</span> <span class="nn">...operators.helpers</span> <span class="k">import</span> <span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span>
+<span class="kn">from</span> <span class="nn">...operators.model</span> <span class="k">import</span> <span class="n">SelectModel</span>
 
-<span class="kn">from</span> <span class="nn">...properties.globals</span> <span class="kn">import</span> <span class="n">global_properties</span>
+<span class="kn">from</span> <span class="nn">...properties.globals</span> <span class="k">import</span> <span class="n">global_properties</span>
 
 <div class="viewcode-block" id="export_mesh"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_export.html#robot_designer_plugin.export.urdf.urdf_export.export_mesh">[docs]</a><span class="k">def</span> <span class="nf">export_mesh</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">RDOperator</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">toplevel_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">in_ros_package</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-                <span class="n">abs_file_paths</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">export_collision</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+                <span class="n">abs_file_paths</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">export_collision</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Exports a mesh to a separate file.</span>
 
@@ -192,23 +203,38 @@
     <span class="k">for</span> <span class="n">mesh</span> <span class="ow">in</span> <span class="n">meshes</span><span class="p">:</span>
         <span class="n">operator</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Processing mesh: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">mesh</span><span class="p">)</span>
 
-        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">mesh</span> <span class="o">+</span> <span class="s1">&#39;.dae&#39;</span><span class="p">)</span>
         <span class="n">model_name</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span>
         <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">select_all</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;DESELECT&#39;</span><span class="p">)</span>
-        <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">mesh</span><span class="p">]</span><span class="o">.</span><span class="n">select</span><span class="o">=</span><span class="bp">True</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">mesh</span><span class="p">]</span><span class="o">.</span><span class="n">select</span><span class="o">=</span><span class="kc">True</span>
         <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">mesh</span><span class="p">]</span>
         <span class="c1">#bpy.context.active_object.select = True</span>
-        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">wm</span><span class="o">.</span><span class="n">collada_export</span><span class="p">(</span>
-            <span class="n">filepath</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">selected</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">use_texture_copies</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-        <span class="c1"># quick fix for dispersed meshes</span>
-        <span class="c1"># todo: find appropriate solution</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
-            <span class="n">lines</span> <span class="o">=</span> <span class="nb">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="nb">file</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-                <span class="k">if</span> <span class="s2">&quot;matrix&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-                    <span class="nb">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="c1">#get the mesh vertices number</span>
+        <span class="n">bm</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">data</span>
+        <span class="c1">#print(&quot;# of vertices=%d&quot; % len(bm.vertices))</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bm</span><span class="o">.</span><span class="n">vertices</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">mesh</span><span class="p">:</span>
+                <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">mesh</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.dae&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">mesh</span> <span class="o">+</span> <span class="s1">&#39;.dae&#39;</span><span class="p">)</span>
+
+            <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">wm</span><span class="o">.</span><span class="n">collada_export</span><span class="p">(</span>
+                <span class="n">filepath</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">apply_modifiers</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">selected</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_texture_copies</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+            <span class="c1"># quick fix for dispersed meshes</span>
+            <span class="c1"># todo: find appropriate solution</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">lines</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="s2">&quot;matrix&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">mesh</span><span class="p">:</span>
+                <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">mesh</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_vertices&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bm</span><span class="o">.</span><span class="n">vertices</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;.dae&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">mesh</span> <span class="o">+</span> <span class="s1">&#39;_vertices&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bm</span><span class="o">.</span><span class="n">vertices</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;.dae&#39;</span><span class="p">)</span>
 
         <span class="n">SelectModel</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="n">model_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">in_ros_package</span><span class="p">:</span>
@@ -223,7 +249,7 @@
 
 
 <div class="viewcode-block" id="create_urdf"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_export.html#robot_designer_plugin.export.urdf.urdf_export.create_urdf">[docs]</a><span class="k">def</span> <span class="nf">create_urdf</span><span class="p">(</span><span class="n">operator</span><span class="p">:</span> <span class="n">RDOperator</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">base_link_name</span><span class="p">,</span>
-                <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">meshpath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">toplevel_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">in_ros_package</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">abs_filepaths</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+                <span class="n">filepath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">meshpath</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">toplevel_directory</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">in_ros_package</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">abs_filepaths</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates the URDF XML file and exports the meshes</span>
 
@@ -248,6 +274,12 @@
         <span class="n">trafo</span><span class="p">,</span> <span class="n">dummy</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">getTransform</span><span class="p">()</span>
         <span class="n">child</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">rpy</span> <span class="o">=</span> <span class="n">list_to_string</span><span class="p">(</span><span class="n">trafo</span><span class="o">.</span><span class="n">to_euler</span><span class="p">())</span>
         <span class="n">child</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">xyz</span> <span class="o">=</span> <span class="n">list_to_string</span><span class="p">([</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">trafo</span><span class="o">.</span><span class="n">translation</span><span class="p">,</span> <span class="n">blender_scale_factor</span><span class="p">)])</span>
+
+        <span class="k">if</span> <span class="s1">&#39;_joint&#39;</span> <span class="ow">in</span> <span class="n">segment</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="n">segment</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_joint&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">segment</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="n">segment</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+
         <span class="n">child</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_joint&#39;</span>
         <span class="n">child</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;_link&#39;</span>
         <span class="k">if</span> <span class="n">segment</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">axis_revert</span><span class="p">:</span>
@@ -262,8 +294,8 @@
         <span class="k">elif</span> <span class="n">segment</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">axis</span> <span class="o">==</span> <span class="s1">&#39;Z&#39;</span><span class="p">:</span>
             <span class="n">child</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">xyz</span> <span class="o">=</span> <span class="n">list_to_string</span><span class="p">(</span><span class="n">Vector</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">revert</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">segment</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Debug: parent bone is none&quot;</span><span class="p">,</span> <span class="n">segment</span><span class="p">,</span>
+        <span class="k">if</span> <span class="n">segment</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Debug: parent bone is none&quot;</span><span class="p">,</span> <span class="n">segment</span><span class="p">,</span>
                   <span class="n">segment</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointMode</span><span class="p">)</span>
             <span class="n">child</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="s1">&#39;fixed&#39;</span>
         <span class="k">else</span><span class="p">:</span>
@@ -298,8 +330,8 @@
                    <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">mesh</span><span class="p">]</span><span class="o">.</span><span class="n">matrix_world</span>
 
             <span class="n">visual_path</span> <span class="o">=</span> <span class="n">export_mesh</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">meshpath</span><span class="p">,</span> <span class="n">toplevel_directory</span><span class="p">,</span>
-                                      <span class="n">in_ros_package</span><span class="p">,</span> <span class="n">abs_filepaths</span><span class="p">,</span> <span class="n">export_collision</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">visual_path</span><span class="p">:</span>
+                                      <span class="n">in_ros_package</span><span class="p">,</span> <span class="n">abs_filepaths</span><span class="p">,</span> <span class="n">export_collision</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">visual_path</span> <span class="ow">and</span> <span class="s2">&quot;_vertices1.dae&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">visual_path</span><span class="p">:</span>
                 <span class="n">visual</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">add_mesh</span><span class="p">(</span><span class="n">visual_path</span><span class="p">,</span>
                                         <span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">mesh</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="n">blender_scale_factor</span><span class="p">)])</span>
                 <span class="n">visual</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">xyz</span> <span class="o">=</span> <span class="n">list_to_string</span><span class="p">([</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pose</span><span class="o">.</span><span class="n">translation</span><span class="p">,</span> <span class="n">blender_scale_factor</span><span class="p">)])</span>
@@ -308,10 +340,11 @@
                 <span class="n">operator</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No visual model for: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">mesh</span><span class="p">)</span>
 
             <span class="n">collision_path</span> <span class="o">=</span> <span class="n">export_mesh</span><span class="p">(</span><span class="n">operator</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">meshpath</span><span class="p">,</span> <span class="n">toplevel_directory</span><span class="p">,</span>
-                                         <span class="n">in_ros_package</span><span class="p">,</span> <span class="n">abs_filepaths</span><span class="p">,</span> <span class="n">export_collision</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">collision_path</span><span class="p">:</span>
+                                         <span class="n">in_ros_package</span><span class="p">,</span> <span class="n">abs_filepaths</span><span class="p">,</span> <span class="n">export_collision</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">collision_path</span> <span class="ow">and</span> <span class="s2">&quot;_vertices1.dae&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">collision_path</span><span class="p">:</span>
                 <span class="n">collision</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">add_collisionmodel</span><span class="p">(</span><span class="n">collision_path</span><span class="p">,</span>
                     <span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">mesh</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="n">blender_scale_factor</span><span class="p">)])</span>
+
                 <span class="n">collision</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">xyz</span> <span class="o">=</span> <span class="n">list_to_string</span><span class="p">([</span><span class="n">i</span> <span class="o">*</span> <span class="n">j</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">pose</span><span class="o">.</span><span class="n">translation</span><span class="p">,</span> <span class="n">blender_scale_factor</span><span class="p">)])</span>
                 <span class="n">collision</span><span class="o">.</span><span class="n">origin</span><span class="o">.</span><span class="n">rpy</span> <span class="o">=</span> <span class="n">list_to_string</span><span class="p">(</span><span class="n">pose</span><span class="o">.</span><span class="n">to_euler</span><span class="p">())</span>
             <span class="k">else</span><span class="p">:</span>
@@ -320,11 +353,17 @@
         <span class="c1"># todo: pick up the real values from Physics Frame?</span>
 
         <span class="n">frame_names</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="n">frame</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span> <span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;PHYSICS_FRAME&#39;</span><span class="p">]</span>
+            <span class="n">frame</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span> <span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;PHYSICS_FRAME&#39;</span> <span class="ow">and</span> <span class="n">frame</span><span class="o">.</span><span class="n">parent_bone</span><span class="o">==</span><span class="n">segment</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+
+	<span class="c1"># If no frame is connected create a default one. This is required for Gazebo!</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">frame_names</span><span class="p">:</span>
+            <span class="n">child</span><span class="o">.</span><span class="n">add_inertial</span><span class="p">()</span>
+	
 
         <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">frame_names</span><span class="p">:</span>
             <span class="c1"># Add inertial definitions (for Gazebo)</span>
             <span class="n">inertial</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">add_inertial</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">inertial</span><span class="p">,</span> <span class="n">inertial</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">frame</span><span class="p">]</span><span class="o">.</span><span class="n">parent_bone</span> <span class="o">==</span> <span class="n">segment</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
                 <span class="n">inertial</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">value_</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span>
                     <span class="n">frame</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">mass</span>
@@ -336,9 +375,9 @@
                     <span class="n">frame</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">inertiaTensor</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 
         <span class="c1"># add joint controllers</span>
-        <span class="k">if</span> <span class="n">operator</span><span class="o">.</span><span class="n">gazebo</span> <span class="ow">and</span> <span class="n">segment</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">isActive</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">operator</span><span class="o">.</span><span class="n">gazebo</span> <span class="ow">and</span> <span class="n">segment</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">isActive</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
             <span class="n">controller</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">add_joint_controller</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">control_plugin</span><span class="p">)</span>
-            <span class="n">controller</span><span class="o">.</span><span class="n">joint_name</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">controller</span><span class="o">.</span><span class="n">joint_name</span> <span class="o">=</span> <span class="n">child</span><span class="o">.</span><span class="n">joint</span><span class="o">.</span><span class="n">name</span>
             <span class="n">controller</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">segment</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">controllerType</span>
             <span class="k">if</span> <span class="n">segment</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">P</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">:</span>
                 <span class="n">segment</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointController</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="mi">100</span>
@@ -363,7 +402,7 @@
     <span class="c1"># add root geometries to root.link</span>
 
     <span class="n">root_segments</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span> <span class="k">if</span>
-                     <span class="n">b</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">]</span>
+                     <span class="n">b</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">]</span>
 
     <span class="k">for</span> <span class="n">segments</span> <span class="ow">in</span> <span class="n">root_segments</span><span class="p">:</span>
         <span class="n">walk_segments</span><span class="p">(</span><span class="n">segments</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
@@ -401,11 +440,11 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">resource_path</span><span class="p">,</span>
                                      <span class="s1">&#39;robot_name_description&#39;</span><span class="p">),</span> <span class="n">target</span><span class="p">)</span>
-    <span class="k">except</span> <span class="n">FileExistsError</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">FileExistsError</span><span class="p">:</span>
         <span class="n">operator</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Attempted to overwrite existing package&#39;</span><span class="p">)</span>
         <span class="n">operator</span><span class="o">.</span><span class="n">report</span><span class="p">({</span><span class="s1">&#39;ERROR&#39;</span><span class="p">},</span> <span class="s1">&#39;File </span><span class="si">%s</span><span class="s1"> exists&#39;</span> <span class="o">%</span> <span class="n">target</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">dname</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">topdown</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">dname</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">topdown</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="k">for</span> <span class="nb">dir</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dirs</span> <span class="k">if</span> <span class="s2">&quot;robot_name&quot;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">]:</span>
             <span class="n">os</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dname</span><span class="p">,</span> <span class="nb">dir</span><span class="p">),</span>
                       <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dname</span><span class="p">,</span> <span class="nb">dir</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;robot_name&quot;</span><span class="p">,</span> <span class="n">robot_name</span><span class="p">)))</span>
@@ -428,18 +467,18 @@
 
     <span class="n">create_urdf</span><span class="p">(</span><span class="n">operator</span><span class="o">=</span><span class="n">operator</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">base_link_name</span><span class="o">=</span><span class="n">base_link_name</span><span class="p">,</span>
                 <span class="n">filepath</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s2">&quot;urdf&quot;</span><span class="p">,</span> <span class="n">robot_name</span> <span class="o">+</span> <span class="s2">&quot;.urdf&quot;</span><span class="p">),</span>
-                <span class="n">meshpath</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">toplevel_directory</span><span class="o">=</span><span class="n">toplevel_dir</span><span class="p">,</span> <span class="n">in_ros_package</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">abs_filepaths</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></div>
+                <span class="n">meshpath</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">toplevel_directory</span><span class="o">=</span><span class="n">toplevel_dir</span><span class="p">,</span> <span class="n">in_ros_package</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">abs_filepaths</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
-<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="ExportZippedPackage"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_export.html#robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage">[docs]</a><span class="k">class</span> <span class="nc">ExportZippedPackage</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+<div class="viewcode-block" id="ExportZippedPackage"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_export.html#robot_designer_plugin.export.urdf.urdf_export.ExportZippedPackage">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
+<span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">ExportZippedPackage</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`operator` for exporting  the selected robot to an URDF File into a zipped ROS package.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s1">&#39;export_to_urdf_package_zipped&#39;</span>
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Export zipped ROS/URDF Package&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Export URDF - ROS zipped Package&quot;</span>
 
     <span class="n">filter_glob</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span>
         <span class="n">default</span><span class="o">=</span><span class="s2">&quot;*.zip&quot;</span><span class="p">,</span>
@@ -447,15 +486,15 @@
     <span class="p">)</span>
 
     <span class="n">filepath</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Filename&quot;</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="s1">&#39;FILE_PATH&#39;</span><span class="p">)</span>
-    <span class="n">gazebo</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Export Gazebo tags&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">gazebo</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Export Gazebo tags&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="n">package_url</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Package URL&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">abs_file_path</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Absolute Filepaths&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">package_url</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Package URL&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">abs_file_path</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Absolute Filepaths&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="n">base_link_name</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Base link:&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;root_link&quot;</span><span class="p">)</span>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
-    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Code snipped from `&lt;http://stackoverflow.com/questions/1855095/how-to-create-a-zip-archive-of-a-directory&gt;`_</span>
@@ -471,8 +510,8 @@
             <span class="c1"># ziph is zipfile handle</span>
             <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">,&quot;</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span>
-                <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-                    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="nb">file</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
                     <span class="n">ziph</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">relpath</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span>
         <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">target</span><span class="p">:</span>
             <span class="n">create_package</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_link_name</span><span class="p">)</span>
@@ -487,9 +526,9 @@
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;RUNNING_MODAL&#39;</span><span class="p">}</span></div></div>
 
 
-<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="ExportPackage"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_export.html#robot_designer_plugin.export.urdf.urdf_export.ExportPackage">[docs]</a><span class="k">class</span> <span class="nc">ExportPackage</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+<div class="viewcode-block" id="ExportPackage"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_export.html#robot_designer_plugin.export.urdf.urdf_export.ExportPackage">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
+<span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">ExportPackage</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`operator` for exporting  the selected robot to an URDF File into a ROS package.</span>
 
@@ -500,18 +539,18 @@
 
     <span class="c1"># Obligatory class attributes</span>
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;export_to_urdf_package&quot;</span>
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Export ROS/URDF Package&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Export URDF - ROS package&quot;</span>
 
     <span class="n">directory</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Mesh directory&quot;</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="s1">&#39;DIR_PATH&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-    <span class="n">gazebo</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Export Gazebo tags&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">gazebo</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Export Gazebo tags&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="n">package_url</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Package URL&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="n">abs_file_path</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Absolute Filepaths&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">package_url</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Package URL&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">abs_file_path</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Absolute Filepaths&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">base_link_name</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Base link:&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;root_link&quot;</span><span class="p">)</span>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
-    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">create_package</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">directory</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_link_name</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
@@ -521,35 +560,35 @@
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;RUNNING_MODAL&#39;</span><span class="p">}</span></div></div>
 
 
-<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="ExportPlain"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_export.html#robot_designer_plugin.export.urdf.urdf_export.ExportPlain">[docs]</a><span class="k">class</span> <span class="nc">ExportPlain</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+<div class="viewcode-block" id="ExportPlain"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_export.html#robot_designer_plugin.export.urdf.urdf_export.ExportPlain">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
+<span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">ExportPlain</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`operator` for exporting  the selected robot to a URDF File and mesh directory in the same directory.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s1">&#39;export_to_urdf_plain&#39;</span>
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Export plain URDF&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Export URDF - plain&quot;</span>
 
     <span class="n">filter_glob</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span>
         <span class="n">default</span><span class="o">=</span><span class="s2">&quot;*.urdf&quot;</span><span class="p">,</span>
         <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;HIDDEN&#39;</span><span class="p">},</span>
     <span class="p">)</span>
 
-    <span class="n">abs_file_paths</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Absolute Filepaths&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="n">package_url</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">abs_file_paths</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Absolute Filepaths&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">package_url</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="n">gazebo</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Export Gazebo tags&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">gazebo</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Export Gazebo tags&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">filepath</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Filename&quot;</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="s1">&#39;FILE_PATH&#39;</span><span class="p">)</span>
     <span class="n">base_link_name</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Base link:&quot;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;root_link&quot;</span><span class="p">)</span>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
-    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">toplevel_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">)</span>
         <span class="n">create_urdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">filepath</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filepath</span><span class="p">,</span> <span class="n">base_link_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">base_link_name</span><span class="p">,</span>
                     <span class="n">meshpath</span><span class="o">=</span><span class="n">toplevel_dir</span><span class="p">,</span> <span class="n">toplevel_directory</span><span class="o">=</span><span class="n">toplevel_dir</span><span class="p">,</span>
-                    <span class="n">in_ros_package</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">abs_filepaths</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">abs_file_paths</span><span class="p">)</span>
+                    <span class="n">in_ros_package</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">abs_filepaths</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">abs_file_paths</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
 
 <div class="viewcode-block" id="ExportPlain.invoke"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.urdf.urdf_export.html#robot_designer_plugin.export.urdf.urdf_export.ExportPlain.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
@@ -569,8 +608,8 @@
     <div class="hbpdoc-footer">
         NRP RobotDesigner <small>0.1</small> 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
     </div>
 </div>

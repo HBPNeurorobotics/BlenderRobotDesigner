@@ -4,12 +4,11 @@
 <!DOCTYPE html>
 
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>robot_designer_plugin.operators.model module &mdash; NRP RobotDesigner 0.1 documentation</title>
+    <title>robot_designer_plugin.operators.model module &#8212; NRP RobotDesigner 0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -20,23 +19,24 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
-    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../index.html" />
-    <link rel="up" title="robot_designer_plugin.operators package" href="robot_designer_plugin.operators.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="robot_designer_plugin.operators.rigid_bodies module" href="robot_designer_plugin.operators.rigid_bodies.html" />
     <link rel="prev" title="robot_designer_plugin.operators.helpers module" href="robot_designer_plugin.operators.helpers.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
   </head>
-  <body role="document">
+  <body>
 <div class="hbpdoc-page">
     <section class="hbpdoc-title page-header">
         <a class="project-title" href="../index.html">NRP RobotDesigner</a>
@@ -62,21 +62,18 @@
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/apidoc/robot_designer_plugin.operators.model.txt"
+      <li><a href="../_sources/apidoc/robot_designer_plugin.operators.model.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -118,7 +115,7 @@
 <p>Sphinx-autodoc tag</p>
 <dl class="class">
 <dt id="robot_designer_plugin.operators.model.CreateNewModel">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.model.</code><code class="descname">CreateNewModel</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#CreateNewModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.CreateNewModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.model.</code><code class="descname">CreateNewModel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#CreateNewModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.CreateNewModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p><span class="xref std std-ref">operator</span> for creating new robot models.</p>
 <p><strong>Preconditions:</strong></p>
@@ -126,17 +123,22 @@
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.CreateNewModel.base_segment_name">
-<code class="descname">base_segment_name</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.operators.model.CreateNewModel.base_segment_name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">base_segment_name</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘default’: ”, ‘attr’: ‘base_segment_name’, ‘name’: ‘Enter root segment name:’})</em><a class="headerlink" href="#robot_designer_plugin.operators.model.CreateNewModel.base_segment_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.CreateNewModel.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.create_model'</em><a class="headerlink" href="#robot_designer_plugin.operators.model.CreateNewModel.bl_idname" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.create_model’</em><a class="headerlink" href="#robot_designer_plugin.operators.model.CreateNewModel.bl_idname" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.CreateNewModel.bl_label">
-<code class="descname">bl_label</code><em class="property"> = 'Create new robot model'</em><a class="headerlink" href="#robot_designer_plugin.operators.model.CreateNewModel.bl_label" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_label</code><em class="property"> = ‘Create new robot model’</em><a class="headerlink" href="#robot_designer_plugin.operators.model.CreateNewModel.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.model.CreateNewModel.bl_rna">
+<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_create_model”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.operators.model.CreateNewModel.bl_rna" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -151,12 +153,17 @@
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.CreateNewModel.model_name">
-<code class="descname">model_name</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.operators.model.CreateNewModel.model_name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">model_name</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘model_name’, ‘name’: ‘Enter model name:’})</em><a class="headerlink" href="#robot_designer_plugin.operators.model.CreateNewModel.model_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.model.CreateNewModel.order">
+<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘model_name’, ‘base_segment_name’, ‘run’, ‘execute’, ‘invoke’]</em><a class="headerlink" href="#robot_designer_plugin.operators.model.CreateNewModel.order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
 <dt id="robot_designer_plugin.operators.model.CreateNewModel.run">
-<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><em>model_name</em>, <em>base_segment_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#CreateNewModel.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.CreateNewModel.run" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><em>base_segment_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#CreateNewModel.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.CreateNewModel.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run this operator</p>
 </dd></dl>
 
@@ -164,7 +171,7 @@
 
 <dl class="class">
 <dt id="robot_designer_plugin.operators.model.JoinModels">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.model.</code><code class="descname">JoinModels</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#JoinModels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.JoinModels" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.model.</code><code class="descname">JoinModels</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#JoinModels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.JoinModels" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p><span class="xref std std-ref">operator</span> for joining two models</p>
 <p><strong>Preconditions:</strong></p>
@@ -176,12 +183,17 @@
 </ul>
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.JoinModels.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.joinarmature'</em><a class="headerlink" href="#robot_designer_plugin.operators.model.JoinModels.bl_idname" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.joinarmature’</em><a class="headerlink" href="#robot_designer_plugin.operators.model.JoinModels.bl_idname" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.JoinModels.bl_label">
-<code class="descname">bl_label</code><em class="property"> = 'Join two models'</em><a class="headerlink" href="#robot_designer_plugin.operators.model.JoinModels.bl_label" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_label</code><em class="property"> = ‘Join two models’</em><a class="headerlink" href="#robot_designer_plugin.operators.model.JoinModels.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.model.JoinModels.bl_rna">
+<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_joinarmature”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.operators.model.JoinModels.bl_rna" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -189,22 +201,27 @@
 <code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.model.JoinModels.execute" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.model.JoinModels.order">
+<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘targetArmatureName’, ‘run’, ‘execute’]</em><a class="headerlink" href="#robot_designer_plugin.operators.model.JoinModels.order" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="classmethod">
 <dt id="robot_designer_plugin.operators.model.JoinModels.run">
-<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><em>targetArmatureName=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#JoinModels.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.JoinModels.run" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#JoinModels.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.JoinModels.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run this operator</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.JoinModels.targetArmatureName">
-<code class="descname">targetArmatureName</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.operators.model.JoinModels.targetArmatureName" title="Permalink to this definition">¶</a></dt>
+<code class="descname">targetArmatureName</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘targetArmatureName’})</em><a class="headerlink" href="#robot_designer_plugin.operators.model.JoinModels.targetArmatureName" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="robot_designer_plugin.operators.model.RebuildModel">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.model.</code><code class="descname">RebuildModel</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#RebuildModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.RebuildModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.model.</code><code class="descname">RebuildModel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#RebuildModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.RebuildModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p><span class="xref std std-ref">operator</span> for rebuilding a model, i.e. to reassign all meshes to
 bones in case of a broken export.</p>
@@ -217,17 +234,27 @@ bones in case of a broken export.</p>
 </ul>
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.RebuildModel.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.rebuildmodel'</em><a class="headerlink" href="#robot_designer_plugin.operators.model.RebuildModel.bl_idname" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.rebuildmodel’</em><a class="headerlink" href="#robot_designer_plugin.operators.model.RebuildModel.bl_idname" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.RebuildModel.bl_label">
-<code class="descname">bl_label</code><em class="property"> = 'Rebuild model'</em><a class="headerlink" href="#robot_designer_plugin.operators.model.RebuildModel.bl_label" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_label</code><em class="property"> = ‘Rebuild model’</em><a class="headerlink" href="#robot_designer_plugin.operators.model.RebuildModel.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.model.RebuildModel.bl_rna">
+<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_rebuildmodel”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.operators.model.RebuildModel.bl_rna" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="robot_designer_plugin.operators.model.RebuildModel.execute">
 <code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.model.RebuildModel.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.model.RebuildModel.order">
+<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘run’, ‘execute’]</em><a class="headerlink" href="#robot_designer_plugin.operators.model.RebuildModel.order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
@@ -240,7 +267,7 @@ bones in case of a broken export.</p>
 
 <dl class="class">
 <dt id="robot_designer_plugin.operators.model.RenameModel">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.model.</code><code class="descname">RenameModel</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#RenameModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.RenameModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.model.</code><code class="descname">RenameModel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#RenameModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.RenameModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p><span class="xref std std-ref">operator</span> for renaming models</p>
 <p><strong>Preconditions:</strong></p>
@@ -252,12 +279,17 @@ bones in case of a broken export.</p>
 </ul>
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.RenameModel.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.renamearmature'</em><a class="headerlink" href="#robot_designer_plugin.operators.model.RenameModel.bl_idname" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.renamearmature’</em><a class="headerlink" href="#robot_designer_plugin.operators.model.RenameModel.bl_idname" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.RenameModel.bl_label">
-<code class="descname">bl_label</code><em class="property"> = 'Rename selected armature'</em><a class="headerlink" href="#robot_designer_plugin.operators.model.RenameModel.bl_label" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_label</code><em class="property"> = ‘Rename selected armature’</em><a class="headerlink" href="#robot_designer_plugin.operators.model.RenameModel.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.model.RenameModel.bl_rna">
+<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_renamearmature”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.operators.model.RenameModel.bl_rna" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -272,12 +304,17 @@ bones in case of a broken export.</p>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.RenameModel.newName">
-<code class="descname">newName</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.operators.model.RenameModel.newName" title="Permalink to this definition">¶</a></dt>
+<code class="descname">newName</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘newName’, ‘name’: ‘Enter new name:’})</em><a class="headerlink" href="#robot_designer_plugin.operators.model.RenameModel.newName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.model.RenameModel.order">
+<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘newName’, ‘run’, ‘execute’, ‘invoke’]</em><a class="headerlink" href="#robot_designer_plugin.operators.model.RenameModel.order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
 <dt id="robot_designer_plugin.operators.model.RenameModel.run">
-<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><em>newName=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#RenameModel.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.RenameModel.run" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#RenameModel.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.RenameModel.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run this operator</p>
 </dd></dl>
 
@@ -285,7 +322,7 @@ bones in case of a broken export.</p>
 
 <dl class="class">
 <dt id="robot_designer_plugin.operators.model.SelectCoordinateFrame">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.model.</code><code class="descname">SelectCoordinateFrame</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#SelectCoordinateFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectCoordinateFrame" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.model.</code><code class="descname">SelectCoordinateFrame</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#SelectCoordinateFrame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectCoordinateFrame" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p><span class="xref std std-ref">operator</span> for selecting mesh for visualization of coordinate frames.</p>
 <p><strong>Preconditions:</strong></p>
@@ -297,12 +334,17 @@ bones in case of a broken export.</p>
 </ul>
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.SelectCoordinateFrame.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.selectcf'</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectCoordinateFrame.bl_idname" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.selectcf’</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectCoordinateFrame.bl_idname" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.SelectCoordinateFrame.bl_label">
-<code class="descname">bl_label</code><em class="property"> = 'Select Mesh'</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectCoordinateFrame.bl_label" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_label</code><em class="property"> = ‘Select Mesh’</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectCoordinateFrame.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.model.SelectCoordinateFrame.bl_rna">
+<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_selectcf”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectCoordinateFrame.bl_rna" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -312,12 +354,17 @@ bones in case of a broken export.</p>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.SelectCoordinateFrame.mesh_name">
-<code class="descname">mesh_name</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectCoordinateFrame.mesh_name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">mesh_name</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘mesh_name’})</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectCoordinateFrame.mesh_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.model.SelectCoordinateFrame.order">
+<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘mesh_name’, ‘run’, ‘execute’]</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectCoordinateFrame.order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
 <dt id="robot_designer_plugin.operators.model.SelectCoordinateFrame.run">
-<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><em>mesh_name=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#SelectCoordinateFrame.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectCoordinateFrame.run" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#SelectCoordinateFrame.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectCoordinateFrame.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run this operator</p>
 </dd></dl>
 
@@ -325,20 +372,25 @@ bones in case of a broken export.</p>
 
 <dl class="class">
 <dt id="robot_designer_plugin.operators.model.SelectModel">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.model.</code><code class="descname">SelectModel</code><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#SelectModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.model.</code><code class="descname">SelectModel</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#SelectModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
-<p><span class="xref std std-ref">operator</span> for ...</p>
+<p><span class="xref std std-ref">operator</span> for …</p>
 <p><strong>Preconditions:</strong></p>
 <p><strong>RDOperator.Postconditions:</strong></p>
 <p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.SelectModel.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = 'roboteditor.selectarmature'</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectModel.bl_idname" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.selectarmature’</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectModel.bl_idname" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.SelectModel.bl_label">
-<code class="descname">bl_label</code><em class="property"> = 'Select model'</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectModel.bl_label" title="Permalink to this definition">¶</a></dt>
+<code class="descname">bl_label</code><em class="property"> = ‘Select model’</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectModel.bl_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.model.SelectModel.bl_rna">
+<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_selectarmature”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectModel.bl_rna" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -348,12 +400,17 @@ bones in case of a broken export.</p>
 
 <dl class="attribute">
 <dt id="robot_designer_plugin.operators.model.SelectModel.model_name">
-<code class="descname">model_name</code><em class="property"> = None</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectModel.model_name" title="Permalink to this definition">¶</a></dt>
+<code class="descname">model_name</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘model_name’})</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectModel.model_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="robot_designer_plugin.operators.model.SelectModel.order">
+<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘model_name’, ‘run’, ‘execute’]</em><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectModel.order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
 <dt id="robot_designer_plugin.operators.model.SelectModel.run">
-<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><em>model_name=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#SelectModel.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectModel.run" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/model.html#SelectModel.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.model.SelectModel.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -381,8 +438,8 @@ bones in case of a broken export.</p>
     <div class="hbpdoc-footer">
         NRP RobotDesigner <small>0.1</small> 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
     </div>
 </div>

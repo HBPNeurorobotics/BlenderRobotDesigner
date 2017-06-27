@@ -4,12 +4,11 @@
 <!DOCTYPE html>
 
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>robot_designer_plugin.operators.rigid_bodies &mdash; NRP RobotDesigner 0.1 documentation</title>
+    <title>robot_designer_plugin.operators.rigid_bodies &#8212; NRP RobotDesigner 0.1 documentation</title>
     
     <link rel="stylesheet" href="../../../_static/hbpdoc.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
@@ -20,21 +19,36 @@
         VERSION:     '0.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
       };
     </script>
     <script type="text/javascript" src="../../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
-    <link rel="top" title="NRP RobotDesigner 0.1 documentation" href="../../../index.html" />
-    <link rel="up" title="robot_designer_plugin" href="../../robot_designer_plugin.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
   </head>
-  <body role="document">
+  <body>
 <div class="hbpdoc-page">
     <section class="hbpdoc-title page-header">
         <a class="project-title" href="../../../index.html">NRP RobotDesigner</a>
@@ -54,14 +68,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -133,20 +144,20 @@
 <span class="c1"># ######</span>
 <span class="c1"># Blender imports</span>
 <span class="kn">import</span> <span class="nn">bpy</span>
-<span class="kn">from</span> <span class="nn">bpy.props</span> <span class="kn">import</span> <span class="n">StringProperty</span><span class="p">,</span> <span class="n">BoolProperty</span>
+<span class="kn">from</span> <span class="nn">bpy.props</span> <span class="k">import</span> <span class="n">StringProperty</span><span class="p">,</span> <span class="n">BoolProperty</span>
 <span class="c1"># import mathutils</span>
 
 <span class="c1"># ######</span>
 <span class="c1"># RobotDesigner imports</span>
-<span class="kn">from</span> <span class="nn">..core</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">PluginManager</span><span class="p">,</span> <span class="n">Condition</span><span class="p">,</span> <span class="n">RDOperator</span>
-<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">,</span> <span class="n">SingleSegmentSelected</span>
+<span class="kn">from</span> <span class="nn">..core</span> <span class="k">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">PluginManager</span><span class="p">,</span> <span class="n">Condition</span><span class="p">,</span> <span class="n">RDOperator</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="k">import</span> <span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">,</span> <span class="n">SingleSegmentSelected</span>
 
-<span class="kn">from</span> <span class="nn">..properties.globals</span> <span class="kn">import</span> <span class="n">global_properties</span>
+<span class="kn">from</span> <span class="nn">..properties.globals</span> <span class="k">import</span> <span class="n">global_properties</span>
 
 <span class="c1"># operator to select mesh</span>
-<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="SelectGeometry"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.SelectGeometry">[docs]</a><span class="k">class</span> <span class="nc">SelectGeometry</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+<div class="viewcode-block" id="SelectGeometry"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.SelectGeometry">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">SelectGeometry</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`Operator &lt;operator&gt;` for selecting a geometry (:class:`bpy.types.Object` with `bpy.types.Mesh` data)</span>
 <span class="sd">    second to the selected model (Blender object with :class:`bpy.types.Armature` data)</span>
@@ -156,12 +167,12 @@
 
     <span class="n">geometry_name</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">()</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SelectGeometry.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.SelectGeometry.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">geometry_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+<div class="viewcode-block" id="SelectGeometry.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.SelectGeometry.run">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">geometry_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="bp">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
-    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">)</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">mesh</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">geometry_name</span><span class="p">]</span>
 
@@ -175,37 +186,57 @@
         <span class="n">arm</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
 
         <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
-            <span class="n">obj</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="n">mesh</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="n">arm</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">mesh</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">arm</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="kc">True</span>
 
+        <span class="n">context</span><span class="o">.</span><span class="n">region</span><span class="o">.</span><span class="n">tag_redraw</span><span class="p">()</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">area</span><span class="o">.</span><span class="n">tag_redraw</span><span class="p">()</span>
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
 
 
-<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">,</span> <span class="n">SingleSegmentSelected</span><span class="p">)</span>
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="AssignGeometry"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.AssignGeometry">[docs]</a><span class="k">class</span> <span class="nc">AssignGeometry</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+<div class="viewcode-block" id="AssignGeometry"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.AssignGeometry">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">,</span> <span class="n">SingleSegmentSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">AssignGeometry</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`operator` for assigning a geometry to a segment.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;assign_geometry&quot;</span>
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Assign selected geometry to active segment&quot;</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="AssignGeometry.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.AssignGeometry.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+<div class="viewcode-block" id="AssignGeometry.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.AssignGeometry.run">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="bp">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
-    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">,</span> <span class="n">SingleSegmentSelected</span><span class="p">)</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">,</span> <span class="n">SingleSegmentSelected</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">parent_set</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;BONE&#39;</span><span class="p">,</span> <span class="n">keep_transform</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">parent_set</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;BONE&#39;</span><span class="p">,</span> <span class="n">keep_transform</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">global_properties</span><span class="o">.</span><span class="n">mesh_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)]</span>
+
+        <span class="k">if</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">assign_collision</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span> <span class="ow">or</span> <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;COLLISION&#39;</span><span class="p">:</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">=</span> <span class="s1">&#39;COLLISION&#39;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;COL_&quot;</span><span class="p">):</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;COL_&quot;</span> <span class="o">+</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;DEFAULT&#39;</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;VIS_&quot;</span><span class="p">):</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;VIS_&quot;</span> <span class="o">+</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">fileName</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="n">global_properties</span><span class="o">.</span><span class="n">mesh_name</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+        <span class="n">global_properties</span><span class="o">.</span><span class="n">assign_collision</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
 
 
-<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="RenameAllGeometries"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.RenameAllGeometries">[docs]</a><span class="k">class</span> <span class="nc">RenameAllGeometries</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+<div class="viewcode-block" id="RenameAllGeometries"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.RenameAllGeometries">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">RenameAllGeometries</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`operator` for renaming geometries using their parented segment&#39;s name.</span>
 
@@ -214,30 +245,31 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;rename_geometries&quot;</span>
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Renames geometries after segments&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Rename geometries after segments&quot;</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="RenameAllGeometries.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.RenameAllGeometries.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+<div class="viewcode-block" id="RenameAllGeometries.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.RenameAllGeometries.run">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="bp">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
-    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">mesh_name</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">mesh_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
         <span class="n">current_mesh</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">mesh_name</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">parent_bone</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="ow">and</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;MESH&#39;</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">current_mesh</span><span class="p">:</span>
-                    <span class="n">global_properties</span><span class="o">.</span><span class="n">mesh_name</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">parent_bone</span><span class="p">)</span>
-                <span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Visualization_&#39;</span> <span class="o">+</span> <span class="n">i</span><span class="o">.</span><span class="n">parent_bone</span>
+                <span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">i</span><span class="o">.</span><span class="n">parent_bone</span>
+                <span class="n">i</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">fileName</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span>
+
+        <span class="n">global_properties</span><span class="o">.</span><span class="n">mesh_name</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="n">current_mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">current_mesh</span><span class="o">.</span><span class="n">parent_bone</span> <span class="p">)</span>
 
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
 
 
 <span class="c1"># operator to unassign mesh from bone</span>
-<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">)</span>
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="DetachGeometry"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.DetachGeometry">[docs]</a><span class="k">class</span> <span class="nc">DetachGeometry</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+<div class="viewcode-block" id="DetachGeometry"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.DetachGeometry">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">DetachGeometry</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :term:`operator` for detaching a single :term:`geometry` form a :term:`segment`.</span>
 
@@ -248,25 +280,31 @@
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;unassignmesh&quot;</span>
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Detach selected geometry&quot;</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="DetachGeometry.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.DetachGeometry.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+<div class="viewcode-block" id="DetachGeometry.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.DetachGeometry.run">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="bp">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
-    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">)</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">segments</span><span class="p">,</span> <span class="n">model</span>
         <span class="n">mesh_name</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">mesh_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
         <span class="n">current_mesh</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">mesh_name</span><span class="p">]</span>
         <span class="n">mesh_global</span> <span class="o">=</span> <span class="n">current_mesh</span><span class="o">.</span><span class="n">matrix_world</span>
-        <span class="n">current_mesh</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="n">current_mesh</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">current_mesh</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;VIS_&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">current_mesh</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;COL_&quot;</span><span class="p">)</span> <span class="p">:</span>
+            <span class="n">current_mesh</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">current_mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+
         <span class="n">current_mesh</span><span class="o">.</span><span class="n">matrix_world</span> <span class="o">=</span> <span class="n">mesh_global</span>
+
+        <span class="n">global_properties</span><span class="o">.</span><span class="n">mesh_name</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">,</span> <span class="n">current_mesh</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
 
 
-<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="DetachAllGeometries"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.DetachAllGeometries">[docs]</a><span class="k">class</span> <span class="nc">DetachAllGeometries</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+<div class="viewcode-block" id="DetachAllGeometries"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.DetachAllGeometries">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">DetachAllGeometries</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`operator` for detaching *all* :term:`geometries` from the selected :term:`model`.</span>
 
@@ -280,12 +318,12 @@
     <span class="n">confirmation</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;This disconnects all collision OR visual geometries from the model. Are you sure?&quot;</span><span class="p">)</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="DetachAllGeometries.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.DetachAllGeometries.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">confirmation</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+<div class="viewcode-block" id="DetachAllGeometries.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.DetachAllGeometries.run">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">confirmation</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="bp">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
-    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">mesh_type</span> <span class="o">=</span>  <span class="n">global_properties</span><span class="o">.</span><span class="n">mesh_type</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">mesh_type</span> <span class="o">==</span> <span class="s1">&#39;DEFAULT&#39;</span><span class="p">:</span>
@@ -299,6 +337,8 @@
             <span class="k">for</span> <span class="n">mesh</span> <span class="ow">in</span> <span class="n">meshes</span><span class="p">:</span>
                 <span class="n">SelectGeometry</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">geometry_name</span><span class="o">=</span><span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
                 <span class="n">DetachGeometry</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;VIS_&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;COL_&quot;</span><span class="p">):</span>
+                    <span class="n">mesh</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">name</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
 
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
 
@@ -306,9 +346,9 @@
         <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span><span class="o">.</span><span class="n">invoke_props_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
 
 
-<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="SelectAllGeometries"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.SelectAllGeometries">[docs]</a><span class="k">class</span> <span class="nc">SelectAllGeometries</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+<div class="viewcode-block" id="SelectAllGeometries"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.SelectAllGeometries">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">SelectAllGeometries</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`operator` for selecting all geometries.</span>
 
@@ -319,48 +359,87 @@
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;setallmeshesactiveobject&quot;</span>
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Select all geometries&quot;</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SelectAllGeometries.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.SelectAllGeometries.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+<div class="viewcode-block" id="SelectAllGeometries.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.SelectAllGeometries.run">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="bp">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
-    <span class="nd">@RDOperator.Postconditions</span><span class="p">(</span><span class="n">ObjectMode</span><span class="p">)</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Postconditions</span><span class="p">(</span><span class="n">ObjectMode</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">mesh_type</span> <span class="o">=</span>  <span class="n">global_properties</span><span class="o">.</span><span class="n">mesh_type</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
         <span class="n">meshes</span> <span class="o">=</span> <span class="p">{</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span>
-                  <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent_bone</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span>
-                  <span class="n">obj</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;MESH&#39;</span> <span class="ow">and</span>
-                  <span class="n">obj</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="n">mesh_type</span><span class="p">}</span>
+                  <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent_bone</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span>
+                  <span class="n">obj</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;MESH&#39;</span> <span class="p">}</span>
         <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;OBJECT&#39;</span><span class="p">)</span>
         <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">select_all</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;DESELECT&#39;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">mesh</span> <span class="ow">in</span> <span class="n">meshes</span><span class="p">:</span>
-            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">mesh</span><span class="p">]</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">mesh</span><span class="p">]</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">mesh</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
 
 
-<span class="nd">@RDOperator.Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">)</span>
-<span class="nd">@PluginManager.register_class</span>
-<div class="viewcode-block" id="SetGeometryActive"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.SetGeometryActive">[docs]</a><span class="k">class</span> <span class="nc">SetGeometryActive</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+<div class="viewcode-block" id="SetGeometryActive"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.SetGeometryActive">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">ObjectMode</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">SetGeometryActive</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :ref:`operator` for ...</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;setseletedmeshactiveobject&quot;</span>
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Make geometry active&quot;</span>
 
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="SetGeometryActive.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.SetGeometryActive.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="n">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+<div class="viewcode-block" id="SetGeometryActive.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.SetGeometryActive.run">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="bp">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
 
-    <span class="nd">@RDOperator.OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;MESH&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;OBJECT&#39;</span><span class="p">)</span>
         <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">select_all</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;DESELECT&#39;</span><span class="p">)</span>
-        <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">selected</span><span class="p">]</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">selected</span><span class="p">]</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">selected</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="ReduceAllGeometry"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.ReduceAllGeometry">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">ReduceAllGeometry</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :term:`operator` for reducing the polygon number of all meshes in the scene.</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;polygonallreduction&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Apply to all meshes&quot;</span>
+
+<div class="viewcode-block" id="ReduceAllGeometry.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.rigid_bodies.html#robot_designer_plugin.interface.menus.ReduceAllGeometry.run">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="bp">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleMeshSelected</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+
+        <span class="n">hide_geometry</span> <span class="o">=</span> <span class="n">global_properties</span><span class="o">.</span><span class="n">display_mesh_selection</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)</span>
+        <span class="n">geometry_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span>
+                         <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent_bone</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span>
+                         <span class="n">obj</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;MESH&#39;</span><span class="p">]</span>
+
+        <span class="n">meshes</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">geometry_names</span> <span class="k">if</span> <span class="n">hide_geometry</span> <span class="o">==</span> <span class="s1">&#39;collision&#39;</span> <span class="ow">and</span> <span class="n">item</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;COLLISION&#39;</span> <span class="k">if</span> <span class="n">hide_geometry</span> <span class="o">==</span> <span class="s1">&#39;visual&#39;</span> <span class="ow">and</span> <span class="n">item</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">tag</span> <span class="o">==</span> <span class="s1">&#39;DEFAULT&#39;</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">hide_geometry</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+            <span class="n">meshes</span> <span class="o">=</span> <span class="n">geometry_names</span>
+
+        <span class="n">ratio_act</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">global_properties</span><span class="o">.</span><span class="n">mesh_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)]</span><span class="o">.</span><span class="n">modifiers</span><span class="p">[</span><span class="s2">&quot;Decimate&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ratio</span>
+        <span class="k">for</span> <span class="n">selected_mesh</span> <span class="ow">in</span> <span class="n">meshes</span><span class="p">:</span>
+                <span class="n">obj</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">selected_mesh</span><span class="p">]</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">obj</span><span class="o">.</span><span class="n">modifiers</span><span class="p">[</span><span class="s2">&quot;Decimate&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">ratio</span> <span class="o">=</span> <span class="n">ratio_act</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="n">obj</span><span class="o">.</span><span class="n">modifiers</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;Decimate&quot;</span><span class="p">,</span> <span class="s1">&#39;DECIMATE&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">ratio</span> <span class="o">=</span> <span class="n">ratio_act</span>
+
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
 </pre></div>
             </div>
@@ -376,8 +455,8 @@
     <div class="hbpdoc-footer">
         NRP RobotDesigner <small>0.1</small> 
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.6.
+        &#169; Copyright 2015, Stefan Ulbrich (FZI).
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
     </div>
 </div>
