@@ -177,19 +177,14 @@ sub-projects.
 
 Installation
 ------------
+Important: You should have a latest blender (version>=2.77) on your computer. Your version of blender should have a built-in python. Install on linux and windows:
 
-Important: You should have a latest blender (version>=2.77) in your computer. Your version of blender should have a built-in python.
-(updated 23.06.2016: download a daily-built blender version instead of official blender because right now official blender has no built-in python.)
-Install on linux and windows:
+1.  Download blender from the dedicated website: https://www.blender.org/download/
+2.  Download the “installer.blend” from our github: https://github.com/HBPNeurorobotics/BlenderRobotDesigner/blob/master/installer.blend
+3.  Launch blender and open the installer.blend file, click “run script” and wait until “RD Installation Done!” appears in your terminal
+4.  Relaunch blender, you will find the HBP add-on on the top left of blender GUI (Note: if the HBP tab does not appear in the tool shelf, navigate to File->User Preferences->Add-Ons tab, search for and select the NRP Robot Designer add-on, and click “Save User Settings”)
 
-1. Download daily-built blender from this link: https://builder.blender.org/download/
-2. Download "installer.blend" from our github： https://github.com/HBPNeurorobotics/BlenderRobotDesigner
-3. Launch blender from terminal (Note: launching blender from terminal makes sure that you choose the right version of blender if you have multiple blenders in your computer)
-4. Open installer.blend file, click "run script" (Note: for windows users, directly open the blender file. Please make sure that you choose the right version of blender, if you have multiple blender version in your computer)
-5. Close and launch blender again, you will find HBP addon on the top left of blender GUI (Note: if the HBP tab does not appear in the tool shelf, navigate to File->User Preferences->Add-Ons tab, search for and select the NRP Robot Designer add-on, and click save.)
-
-This will build the documentation including the user's and developers
-manual with further information.
+(Note: Launch blender from terminal to make sure that you choose the right version of blender if you have multiple blenders on your computer)
 
 Troubleshooting
 --------
