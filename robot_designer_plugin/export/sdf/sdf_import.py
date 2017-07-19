@@ -1,3 +1,36 @@
+# #####
+# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
+# in the Human Brain Project (HBP).
+# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
+# developed at the Karlsruhe Institute of Technology in the
+# High Performance Humanoid Technologies Laboratory (H2T).
+# #####
+
+# ##### BEGIN GPL LICENSE BLOCK #####
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License
+#  as published by the Free Software Foundation; either version 2
+#  of the License, or (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software Foundation,
+#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# ##### END GPL LICENSE BLOCK #####
+
+# #####
+#
+# Copyright (c) 2016, TU Munich
+#
+# ######
+
+
 # ######
 # System imports
 import os
@@ -35,7 +68,7 @@ import logging
 from .generic import model_config_dom
 
 
-__author__ = 'Guang Chen(TUM), Stefan Ulbrich(FZI)'
+__author__ = 'Benedikt Feldotto(TUM), Guang Chen(TUM), Stefan Ulbrich(FZI)'
 
 
 class Importer(object):
@@ -275,7 +308,7 @@ class Importer(object):
         if extension == ".stl":
             bpy.ops.import_mesh.stl(filepath=mesh_path)
         elif extension == ".dae":
-            bpy.ops.wm.collada_import(filepath=mesh_path, import_units=True)
+            bpy.ops.wm.collada_import(filepath=mesh_path)
 
         bpy.context.active_object.RobotEditor.fileName = os.path.basename(os.path.splitext(mesh_path)[0])
 
@@ -290,12 +323,11 @@ class Importer(object):
 
         self.logger.debug('model_geometry_mesh_scale (geometry): %s', model.geometry[0].mesh[0].scale)
 
-        if model.geometry[0].mesh[0].scale == []:
-            scale_factor = [1, 1, 1]
-        else:
-            scale_factor = string_to_list(model.geometry[0].mesh[0].scale[0]) #string_to_list([0].mesh[0].scale)
-        scale_matrix = Matrix([[scale_factor[0], 0, 0, 0], [0, scale_factor[1], 0, 0],
-                               [0, 0, scale_factor[2], 0], [0, 0, 0, 1]])
+        scale_matrix = Matrix([[1, 0, 0, 0], [0, 1, 0, 0],
+                            [0, 0, 1, 0], [0, 0, 0, 1]])
+        #scale_matrix = Matrix([[scale_factor[0], 0, 0, 0], [0, scale_factor[1], 0, 0],
+        #                       [0, 0, scale_factor[2], 0], [0, 0, 0, 1]])
+
 
         # todo: if geometry pose is missing
         if not model.pose:
@@ -598,6 +630,16 @@ class Importer(object):
                         SelectGeometry.run(geometry_name=assigned_name)
 
                         AssignGeometry.run()
+
+                        # scale geometry
+                        if model.geometry[0].mesh[0].scale == []:
+                            scale_factor = [1, 1, 1]
+                        else:
+                            scale_factor = string_to_list(model.geometry[0].mesh[0].scale[0])
+
+                        bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)].scale = scale_factor
+
+                        #bpy.context.active_object.scale = scale_factor
                 else:
                     self.logger.error("Mesh file not found")
                     pass

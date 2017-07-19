@@ -295,6 +295,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         #     # links further it is possible to have
         #     # todo: several meshes assigned to the same bone
         #     # todo: solutions add another property to a bone or
+        #     # todo: solutions add another property to a bone or
         #     # chose the name from the list of connected meshes
         for mesh in connected_meshes:
             operator.logger.info("Connected mesh name: %s", mesh)
@@ -340,6 +341,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 collision.pose.append(' '.join([collision_pose_xyz, collision_pose_rpy]))
                 collision.name = bpy.data.objects[mesh].name #           child.link.name + '_collision'
                 operator.logger.info(" collision mesh pose'%s'" % collision.pose[0])
+
 
 
             else:

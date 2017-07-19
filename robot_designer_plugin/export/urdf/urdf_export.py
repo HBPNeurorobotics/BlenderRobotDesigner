@@ -316,8 +316,10 @@ def create_urdf(operator: RDOperator, context, base_link_name,
             content = f.read()
         gazebo_tags = global_properties.gazebo_tags.get(bpy.context.scene)
         content = content.replace("</robot>", gazebo_tags + "</robot>")
+        content = content.replace('xmlns="http://schemas.humanbrainproject.eu/SP10/2017/model_config"', "")
         with open(filepath, "w") as f:
             f.write(content)
+
 
 
 def create_package(operator: RDOperator, context, toplevel_dir, base_link_name):

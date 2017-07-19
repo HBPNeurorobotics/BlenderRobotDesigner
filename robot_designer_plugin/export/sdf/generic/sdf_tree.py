@@ -281,6 +281,7 @@ class SDFTree(object):
         link_visual.geometry[0].mesh.append(sdf_dom.mesh())
         link_visual.geometry[0].mesh[0].uri.append(file_name)
         # link_visual.geometry[0].mesh[0].scale.append(sdf_dom.CTD_ANON_68().scale()  #list_to_string(scale_factor)
+        link_visual.geometry[0].mesh[0].scale.append(list_to_string(scale_factor))
         return link_visual
 
     def add_collision(self, file_name, scale_factor=(1.0,1.0,1.0)):
@@ -303,7 +304,7 @@ class SDFTree(object):
         # collision.geometry.mesh = sdf_dom.CTD_ANON_70()
         # print('debug add_collisionmodel: ' + file_name)
         # collision.geometry.mesh.filename = file_name
-        # collision.geometry.mesh.scale = list_to_string(scale_factor)
+        link_collision.geometry[0].mesh[0].scale.append(list_to_string(scale_factor))
         return link_collision
 
     def add_inertial(self):

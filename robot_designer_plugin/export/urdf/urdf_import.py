@@ -131,8 +131,10 @@ class Importer(object):
         bpy.context.active_object.RobotEditor.fileName = os.path.basename(os.path.splitext(mesh_path)[0])
 
         scale_factor = string_to_list(model.geometry.mesh.scale)
-        scale_matrix = Matrix([[scale_factor[0], 0, 0, 0], [0, scale_factor[1], 0, 0],
-                               [0, 0, scale_factor[2], 0], [0, 0, 0, 1]])
+        scale_matrix = Matrix([[1, 0, 0, 0], [0, 1, 0, 0],
+                                [0, 0, 1, 0], [0, 0, 0, 1]])
+       # scale_matrix = Matrix([[scale_factor[0], 0, 0, 0], [0, scale_factor[1], 0, 0],
+       #                        [0, 0, scale_factor[2], 0], [0, 0, 0, 1]])
 
         return Matrix.Translation(Vector(string_to_list(model.origin.xyz))) * \
                Euler(string_to_list(model.origin.rpy), 'XYZ').to_matrix().to_4x4() * scale_matrix
@@ -327,6 +329,15 @@ class Importer(object):
                         SelectSegment.run(segment_name=segment_name)
                         SelectGeometry.run(geometry_name=assigned_name)
                         AssignGeometry.run()
+
+                        # scale geometry
+                        if model.geometry.mesh.scale == []:
+                            scale_factor = [1, 1, 1]
+                        else:
+                            scale_factor = string_to_list(model.geometry.mesh.scale)
+
+                        bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)].scale = scale_factor
+
                 else:
                     self.logger.error("Mesh file not found")
                     pass
