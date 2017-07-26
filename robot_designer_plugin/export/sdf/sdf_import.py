@@ -272,9 +272,9 @@ class Importer(object):
         #     bpy.context.active_object.RobotEditor.fileName = os.path.basename(model.name)
 
         fn, extension = os.path.splitext(mesh_path)
-        if extension == ".stl":
+        if extension == ".stl" or extension == ".STL":
             bpy.ops.import_mesh.stl(filepath=mesh_path)
-        elif extension == ".dae":
+        elif extension == ".dae" or extension == ".DAE":
             bpy.ops.wm.collada_import(filepath=mesh_path, import_units=True)
 
         bpy.context.active_object.RobotEditor.fileName = os.path.basename(os.path.splitext(mesh_path)[0])
