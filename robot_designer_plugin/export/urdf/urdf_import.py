@@ -122,9 +122,9 @@ class Importer(object):
         self.logger.debug('model_type (geometry): %s', model_type)
 
         fn, extension = os.path.splitext(mesh_path)
-        if extension == ".stl":
+        if extension == ".stl" or extension == ".STL":
             bpy.ops.import_mesh.stl(filepath=mesh_path)
-        elif extension == ".dae":
+        elif extension == ".dae" or extension == ".DAE":
             self.logger.info("mesh file: %s", mesh_path)
             bpy.ops.wm.collada_import(filepath=mesh_path, import_units=True)
 
