@@ -60,8 +60,19 @@ class RDDynamics(bpy.types.PropertyGroup):
 
     # CoM = FloatVectorProperty(name = "Center of Mass", update=updateCoM, subtype = 'XYZ')
     mass = FloatProperty(name="Mass (kg)", precision=4, step=0.1, default=1.0)
-    inertiaTensor = FloatVectorProperty(name="Inertia Tensor", precision=10,
-                                        step=0.1, default=(1.0,1.0,1.0))
+
+    # add inertia pose here
+    inertiaTrans = FloatVectorProperty(name="Translation", precision=4, step=0.1, default=[0.0, 0.0, 0.0])
+    inertiaRot = FloatVectorProperty(name="Rotation", precision=4, step=0.1, default=[0.0, 0.0, 0.0])
+
+    # new inertia tensor
+    inertiaXX = FloatProperty(name="", precision=4, step=0.1, default=1.0)
+    inertiaXY = FloatProperty(name="", precision=4, step=0.1, default=1.0)
+    inertiaXZ = FloatProperty(name="", precision=4, step=0.1, default=1.0)
+    inertiaYY = FloatProperty(name="", precision=4, step=0.1, default=1.0)
+    inertiaYZ = FloatProperty(name="", precision=4, step=0.1, default=1.0)
+    inertiaZZ = FloatProperty(name="", precision=4, step=0.1, default=1.0)
+
 
 
 @PluginManager.register_property_group()

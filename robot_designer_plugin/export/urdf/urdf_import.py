@@ -122,9 +122,9 @@ class Importer(object):
         self.logger.debug('model_type (geometry): %s', model_type)
 
         fn, extension = os.path.splitext(mesh_path)
-        if extension == ".stl":
+        if extension == ".stl" or extension == ".STL":
             bpy.ops.import_mesh.stl(filepath=mesh_path)
-        elif extension == ".dae":
+        elif extension == ".dae" or extension == ".DAE":
             self.logger.info("mesh file: %s", mesh_path)
             bpy.ops.wm.collada_import(filepath=mesh_path, import_units=True)
 
@@ -234,15 +234,22 @@ class Importer(object):
                 SelectSegment.run(segment_name=node.joint.name)
                 AssignPhysical.run()
 
+                # get mass
                 bpy.data.objects[node.link.name].RobotEditor.dynamics.mass = inertia.mass.value_
 
-                if i.ixy != 0 or i.ixz != 0 or i.iyz != 0:
-                    self.operator.report({'ERROR'}, 'Only diogonal inertia matrices currently supported')
-                    self.logger.error('Only diogonal inertia matrices currently supported')
+                # get inertia
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXX = i.ixx
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXY = i.ixy
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXZ = i.ixz
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaYY = i.iyy
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaYZ = i.iyz
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaZZ = i.izz
 
-                matrix = [i.ixx, i.iyy, i.izz]
 
-                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaTensor = matrix
+                # get inertia pose
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaTrans = string_to_list(origin.xyz)
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaRot = string_to_list(origin.rpy)
+
 
         model = bpy.context.active_object
         model_name = model.name

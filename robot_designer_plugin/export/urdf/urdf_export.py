@@ -265,14 +265,20 @@ def create_urdf(operator: RDOperator, context, base_link_name,
             inertial = child.add_inertial()
             print(inertial, inertial.__dict__)
             if bpy.data.objects[frame].parent_bone == segment.name:
-                inertial.mass.value_ = bpy.data.objects[
-                    frame].RobotEditor.dynamics.mass
-                inertial.inertia.ixx = bpy.data.objects[
-                    frame].RobotEditor.dynamics.inertiaTensor[0]
-                inertial.inertia.iyy = bpy.data.objects[
-                    frame].RobotEditor.dynamics.inertiaTensor[1]
-                inertial.inertia.izz = bpy.data.objects[
-                    frame].RobotEditor.dynamics.inertiaTensor[2]
+                # set mass
+                inertial.mass.value_ = bpy.data.objects[frame].RobotEditor.dynamics.mass
+
+                # set inertia
+                inertial.inertia.ixx = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXX,4)
+                inertial.inertia.ixy = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXY,4)
+                inertial.inertia.ixz = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXZ,4)
+                inertial.inertia.iyy = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaYY,4)
+                inertial.inertia.iyz = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaYZ,4)
+                inertial.inertia.izz = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaZZ,4)
+
+                # set inertial pose
+                inertial.origin.xyz = list_to_string(bpy.data.objects[frame].RobotEditor.dynamics.inertiaTrans)
+                inertial.origin.rpy = list_to_string(bpy.data.objects[frame].RobotEditor.dynamics.inertiaRot)
 
         # add joint controllers
         if operator.gazebo and segment.RobotEditor.jointController.isActive is True:
