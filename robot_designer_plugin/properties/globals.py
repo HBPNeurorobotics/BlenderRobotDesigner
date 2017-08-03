@@ -87,7 +87,7 @@ class RDGlobals(PropertyGroupHandlerBase):
 
     @staticmethod
     def update_geometry_name(self, context):
-        print("Udpate Mesh name")
+        print("Update Mesh name")
         for i in [i for i in bpy.context.selected_objects if i.name != context.active_object.name]:
             i.select = False
         try:

@@ -123,16 +123,24 @@ class Importer(object):
 
         fn, extension = os.path.splitext(mesh_path)
         if extension == ".stl" or extension == ".STL":
-            bpy.ops.import_mesh.stl(filepath=mesh_path)
+            try:
+                bpy.ops.import_mesh.stl(filepath=mesh_path)
+            except:
+                pass
         elif extension == ".dae" or extension == ".DAE":
-            self.logger.info("mesh file: %s", mesh_path)
-            bpy.ops.wm.collada_import(filepath=mesh_path, import_units=True)
+            try:
+                self.logger.info("mesh file: %s", mesh_path)
+                bpy.ops.wm.collada_import(filepath=mesh_path, import_units=True)
+            except:
+                pass
 
         bpy.context.active_object.RobotEditor.fileName = os.path.basename(os.path.splitext(mesh_path)[0])
 
         scale_factor = string_to_list(model.geometry.mesh.scale)
-        scale_matrix = Matrix([[scale_factor[0], 0, 0, 0], [0, scale_factor[1], 0, 0],
-                               [0, 0, scale_factor[2], 0], [0, 0, 0, 1]])
+        scale_matrix = Matrix([[1, 0, 0, 0], [0, 1, 0, 0],
+                                [0, 0, 1, 0], [0, 0, 0, 1]])
+       # scale_matrix = Matrix([[scale_factor[0], 0, 0, 0], [0, scale_factor[1], 0, 0],
+       #                        [0, 0, scale_factor[2], 0], [0, 0, 0, 1]])
 
         return Matrix.Translation(Vector(string_to_list(model.origin.xyz))) * \
                Euler(string_to_list(model.origin.rpy), 'XYZ').to_matrix().to_4x4() * scale_matrix
@@ -232,15 +240,24 @@ class Importer(object):
                 SelectSegment.run(segment_name=node.joint.name)
                 AssignPhysical.run()
 
+                # get mass
                 bpy.data.objects[node.link.name].RobotEditor.dynamics.mass = inertia.mass.value_
 
-                if i.ixy != 0 or i.ixz != 0 or i.iyz != 0:
-                    self.operator.report({'ERROR'}, 'Only diogonal inertia matrices currently supported')
-                    self.logger.error('Only diogonal inertia matrices currently supported')
+                # get inertia
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXX = i.ixx
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXY = i.ixy
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXZ = i.ixz
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaYY = i.iyy
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaYZ = i.iyz
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaZZ = i.izz
 
-                matrix = [i.ixx, i.iyy, i.izz]
 
-                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaTensor = matrix
+                # get inertia pose
+                try:
+                    bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaTrans = string_to_list(origin.xyz)
+                    bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaRot = string_to_list(origin.rpy)
+                except:
+                    pass
 
         model = bpy.context.active_object
         model_name = model.name
@@ -327,6 +344,15 @@ class Importer(object):
                         SelectSegment.run(segment_name=segment_name)
                         SelectGeometry.run(geometry_name=assigned_name)
                         AssignGeometry.run()
+
+                        # scale geometry
+                        if model.geometry.mesh.scale == []:
+                            scale_factor = [1, 1, 1]
+                        else:
+                            scale_factor = string_to_list(model.geometry.mesh.scale)
+
+                        bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)].scale = scale_factor
+
                 else:
                     self.logger.error("Mesh file not found")
                     pass
@@ -374,7 +400,7 @@ class Importer(object):
         except:
             pass
 
-        bpy.ops.view3d.view_lock_to_active()
+        #bpy.ops.view3d.view_lock_to_active()
         bpy.context.active_object.show_x_ray = True
 
     def import_package(self):

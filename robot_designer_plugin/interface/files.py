@@ -32,7 +32,7 @@
 # Changes:
 #   2015:       Stefan Ulbrich (FZI), Gui redesigned
 #   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
-#
+#   2017:       Benedikt Feldotto (TUM), SDF and URDF re-integration, GUI unification, Model MetaData
 # ######
 
 # Blender imports

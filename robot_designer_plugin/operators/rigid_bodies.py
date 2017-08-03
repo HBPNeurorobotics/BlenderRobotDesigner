@@ -83,7 +83,8 @@ class SelectGeometry(RDOperator):
 
         global_properties.mesh_name.set(context.scene, self.geometry_name)
 
-        arm = context.active_object
+        #arm = context.active_object
+        arm = bpy.data.objects[mesh.name]
 
         for obj in bpy.data.objects:
             obj.select = False

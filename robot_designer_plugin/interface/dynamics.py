@@ -92,6 +92,25 @@ def draw(layout, context):
         frame = bpy.data.objects[frame_name]
         box.prop(frame.RobotEditor.dynamics, "mass")
         box.separator()
-        box.prop(frame.RobotEditor.dynamics, "inertiaTensor")
+
+        row_t = box.row(align=True)
+        row_r = box.row(align=True)
+        row_t.prop(frame.RobotEditor.dynamics, "inertiaTrans")
+        row_r.prop(frame.RobotEditor.dynamics, "inertiaRot")
+
+        row0 = box.row(align=True)
+        row1 = box.row(align=True)
+        row2 = box.row(align=True)
+        row3 = box.row(align=True)
+        row0.label("Inertia Matrix")
+        row1.prop(frame.RobotEditor.dynamics, "inertiaXX")
+        row2.prop(frame.RobotEditor.dynamics, "inertiaXY")
+        row3.prop(frame.RobotEditor.dynamics, "inertiaXZ")
+        row1.prop(frame.RobotEditor.dynamics, "inertiaXY")
+        row2.prop(frame.RobotEditor.dynamics, "inertiaYY")
+        row3.prop(frame.RobotEditor.dynamics, "inertiaYZ")
+        row1.prop(frame.RobotEditor.dynamics, "inertiaXZ")
+        row2.prop(frame.RobotEditor.dynamics, "inertiaYZ")
+        row3.prop(frame.RobotEditor.dynamics, "inertiaZZ")
 
     infoBox.draw_info()

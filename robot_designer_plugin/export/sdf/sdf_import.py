@@ -1,3 +1,36 @@
+# #####
+# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
+# in the Human Brain Project (HBP).
+# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
+# developed at the Karlsruhe Institute of Technology in the
+# High Performance Humanoid Technologies Laboratory (H2T).
+# #####
+
+# ##### BEGIN GPL LICENSE BLOCK #####
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License
+#  as published by the Free Software Foundation; either version 2
+#  of the License, or (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software Foundation,
+#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# ##### END GPL LICENSE BLOCK #####
+
+# #####
+#
+# Copyright (c) 2016, TU Munich
+#
+# ######
+
+
 # ######
 # System imports
 import os
@@ -35,7 +68,7 @@ import logging
 from .generic import model_config_dom
 
 
-__author__ = 'Guang Chen(TUM), Stefan Ulbrich(FZI)'
+__author__ = 'Benedikt Feldotto(TUM), Guang Chen(TUM), Stefan Ulbrich(FZI)'
 
 
 class Importer(object):
@@ -187,7 +220,7 @@ class Importer(object):
         self.logger.debug('model_name (geometry): %s', model_name)
         self.logger.debug('model_type (geometry): %s', model_type)
 
-        self.logger.debug('model_geometry_sphere: radius %s, depth %s', c_radius)
+        self.logger.debug('model_geometry_sphere: radius %s, depth ', c_radius)
 
         # todo: if geometry pose is missing
         if not model.pose:
@@ -273,9 +306,15 @@ class Importer(object):
 
         fn, extension = os.path.splitext(mesh_path)
         if extension == ".stl" or extension == ".STL":
-            bpy.ops.import_mesh.stl(filepath=mesh_path)
+            try:
+                bpy.ops.import_mesh.stl(filepath=mesh_path)
+            except:
+                pass
         elif extension == ".dae" or extension == ".DAE":
-            bpy.ops.wm.collada_import(filepath=mesh_path, import_units=True)
+            try:
+                bpy.ops.wm.collada_import(filepath=mesh_path)
+            except:
+                pass
 
         bpy.context.active_object.RobotEditor.fileName = os.path.basename(os.path.splitext(mesh_path)[0])
 
@@ -290,12 +329,11 @@ class Importer(object):
 
         self.logger.debug('model_geometry_mesh_scale (geometry): %s', model.geometry[0].mesh[0].scale)
 
-        if model.geometry[0].mesh[0].scale == []:
-            scale_factor = [1, 1, 1]
-        else:
-            scale_factor = string_to_list(model.geometry[0].mesh[0].scale[0]) #string_to_list([0].mesh[0].scale)
-        scale_matrix = Matrix([[scale_factor[0], 0, 0, 0], [0, scale_factor[1], 0, 0],
-                               [0, 0, scale_factor[2], 0], [0, 0, 0, 1]])
+        scale_matrix = Matrix([[1, 0, 0, 0], [0, 1, 0, 0],
+                            [0, 0, 1, 0], [0, 0, 0, 1]])
+        #scale_matrix = Matrix([[scale_factor[0], 0, 0, 0], [0, scale_factor[1], 0, 0],
+        #                       [0, 0, scale_factor[2], 0], [0, 0, 0, 1]])
+
 
         # todo: if geometry pose is missing
         if not model.pose:
@@ -445,14 +483,25 @@ class Importer(object):
             SelectSegment.run(segment_name=segment_name)
             AssignPhysical.run()
 
+            # get mass
             bpy.data.objects[node.link.name].RobotEditor.dynamics.mass = node.link.inertial[0].mass[0]
 
-            if i.ixy[0] != 0 or i.ixz[0] != 0 or i.iyz[0] != 0:
-                self.operator.report({'ERROR'}, 'Only diogonal inertia matrices currently supported')
-                self.logger.error('Only diogonal inertia matrices currently supported')
+            # get inertia
+            bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXX = i.ixx[0]
+            bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXY = i.ixy[0]
+            bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXZ = i.ixz[0]
+            bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaYY = i.iyy[0]
+            bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaYZ = i.iyz[0]
+            bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaZZ = i.izz[0]
 
-            matrix = [i.ixx[0], i.iyy[0], i.izz[0]]
-            bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaTensor = matrix
+            # get inertia pose
+            try:
+                inertia_pose = string_to_list(get_value(node.link.inertial[0].pose[0], "0 0 0 0 0 0"))
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaTrans = inertia_pose[0:3]
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaRot = inertia_pose[3:6]
+            except:
+                pass
+
 
         model = bpy.context.active_object
         model_name = model.name
@@ -530,17 +579,27 @@ class Importer(object):
                 #         SelectGeometry.run(geometry_name=assigned_name)
                 #         AssignGeometry.run()
 
-                if len(model.geometry[0].mesh) > 0 or len(model.geometry[0].cylinder) > 0 or len(model.geometry[0].box) > 0 or len(model.geometry[0].sphere) > 0:
+                type = "none"
+                if len(model.geometry[0].mesh) > 0: type = "mesh"
+                elif len(model.geometry[0].cylinder) > 0: type = "cylinder"
+                elif len(model.geometry[0].box) > 0 : type = "box"
+                elif len(model.geometry[0].sphere) > 0: type = "sphere"
+
+                if type == "mesh" or type == "cylinder" or type == "box" or type == "sphere":
                     self.logger.debug("geometry %s", model.geometry[0])
 
-                    if len(model.geometry[0].cylinder) > 0:
+                    if type == "cylinder":
                         trafo_sdf = self.import_cylinder(model)
-                    elif len(model.geometry[0].box) > 0:
+                        print("import cyl")
+                    elif type == "box":
                         trafo_sdf = self.import_box(model)
-                    elif len(model.geometry[0].sphere) > 0:
+                        print("import box")
+                    elif type == "sphere":
                         trafo_sdf = self.import_sphere(model)
+                        print("import sphere")
                     else:
                         trafo_sdf = self.import_geometry(model)
+                        print("import mesh")
                     # if there are multiple objects in the COLLADA file, they will be selected
                     selected_objects = [i for i in bpy.context.selected_objects]
                     for object in selected_objects:
@@ -587,6 +646,8 @@ class Importer(object):
                         # remove spaces from link name
                         bpy.context.active_object.name = bpy.context.active_object.name.replace(" ", "")
 
+                        if type == "mesh": print(bpy.context.active_object.name)
+
                         # The name might be altered by blender
                         assigned_name = bpy.context.active_object.name
 
@@ -598,6 +659,16 @@ class Importer(object):
                         SelectGeometry.run(geometry_name=assigned_name)
 
                         AssignGeometry.run()
+
+                        # scale geometry
+                        if type == "mesh" and model.geometry[0].mesh[0].scale != []:
+                                scale_factor = string_to_list(model.geometry[0].mesh[0].scale[0])
+                        else:
+                            scale_factor = [1, 1, 1]
+
+                        bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)].scale = scale_factor
+
+                        #bpy.context.active_object.scale = scale_factor
                 else:
                     self.logger.error("Mesh file not found")
                     pass
@@ -662,7 +733,7 @@ class Importer(object):
         except:
             pass
 
-        bpy.ops.view3d.view_lock_to_active()
+        #bpy.ops.view3d.view_lock_to_active()
         bpy.context.active_object.show_x_ray = True
 
 

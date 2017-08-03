@@ -295,6 +295,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         #     # links further it is possible to have
         #     # todo: several meshes assigned to the same bone
         #     # todo: solutions add another property to a bone or
+        #     # todo: solutions add another property to a bone or
         #     # chose the name from the list of connected meshes
         for mesh in connected_meshes:
             operator.logger.info("Connected mesh name: %s", mesh)
@@ -342,6 +343,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 operator.logger.info(" collision mesh pose'%s'" % collision.pose[0])
 
 
+
             else:
                 operator.logger.info("No collision model for: %s", mesh)
         #
@@ -362,14 +364,21 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             inertial = child.link.inertial[0]
             print(inertial, inertial.__dict__)
             if bpy.data.objects[frame].parent_bone == segment.name:
-                inertial.mass[0] = bpy.data.objects[
-                    frame].RobotEditor.dynamics.mass
-                inertial.inertia[0].ixx[0] = bpy.data.objects[
-                    frame].RobotEditor.dynamics.inertiaTensor[0]
-                inertial.inertia[0].iyy[0] = bpy.data.objects[
-                    frame].RobotEditor.dynamics.inertiaTensor[1]
-                inertial.inertia[0].izz[0] = bpy.data.objects[
-                    frame].RobotEditor.dynamics.inertiaTensor[2]
+                # set mass
+                inertial.mass[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.mass,4)
+
+                # set inertia
+                inertial.inertia[0].ixx[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXX,4)
+                inertial.inertia[0].ixy[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXY,4)
+                inertial.inertia[0].ixz[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXZ,4)
+                inertial.inertia[0].iyy[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaYY,4)
+                inertial.inertia[0].iyz[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaYZ,4)
+                inertial.inertia[0].izz[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaZZ,4)
+
+                # set inertial pose
+                inertial.pose[0] = list_to_string(bpy.data.objects[frame].RobotEditor.dynamics.inertiaTrans) \
+                                   + " " + list_to_string(bpy.data.objects[frame].RobotEditor.dynamics.inertiaRot)
+
         #
         # # add joint controllers
         # if operator.gazebo and segment.RobotEditor.jointController.isActive is True:
@@ -391,8 +400,10 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     robot_name = context.active_object.name
 
     blender_scale_factor = context.active_object.scale
+    blender_scale_factor = [blender_scale_factor[0],blender_scale_factor[2],blender_scale_factor[1]]
 
     root = sdf_tree.SDFTree.create_empty(robot_name)
+   # root.pose.append(list_to_string([0, 0, 0, 10, 0, 0]))
 
     # todo SDF Plugin
     # build control plugin element
@@ -406,7 +417,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
     for segments in root_segments:
         operator.logger.info("Root Segment'%s'" % segments.name)
-        ref_pose = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        ref_pose = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]  # transform to gazebo coordinate frame
         walk_segments(segments, root, ref_pose)
 
     operator.logger.info("Writing to '%s'" % filepath)

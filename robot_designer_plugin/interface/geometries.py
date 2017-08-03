@@ -32,7 +32,7 @@
 # Changes:
 #   2015:       Stefan Ulbrich (FZI), Gui redesigned
 #   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
-#
+#   2017-07:    Benedikt Feldotto (TUM), Polygon reduction, Geometry properties and scaling
 # ######
 
 # Blender imports
@@ -86,9 +86,13 @@ def draw(layout, context):
         rigid_bodies.RenameAllGeometries.place_button(column, infoBox=infoBox)
         rigid_bodies.SetGeometryActive.place_button(column, infoBox=infoBox)
         rigid_bodies.SelectAllGeometries.place_button(column, infoBox=infoBox)
+       # context.scene.objects.active
         selected_objects = [i for i in context.selected_objects if i.name != context.active_object.name]
         if len(selected_objects):
+            obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
+            box.prop(obj, "scale", slider=False, text="Scale")
             box.prop(selected_objects[0].RobotEditor, 'fileName')
+
         box.separator()
         infoBox.draw_info()
 
