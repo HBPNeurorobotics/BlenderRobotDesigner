@@ -123,10 +123,16 @@ class Importer(object):
 
         fn, extension = os.path.splitext(mesh_path)
         if extension == ".stl" or extension == ".STL":
-            bpy.ops.import_mesh.stl(filepath=mesh_path)
+            try:
+                bpy.ops.import_mesh.stl(filepath=mesh_path)
+            except:
+                pass
         elif extension == ".dae" or extension == ".DAE":
-            self.logger.info("mesh file: %s", mesh_path)
-            bpy.ops.wm.collada_import(filepath=mesh_path, import_units=True)
+            try:
+                self.logger.info("mesh file: %s", mesh_path)
+                bpy.ops.wm.collada_import(filepath=mesh_path, import_units=True)
+            except:
+                pass
 
         bpy.context.active_object.RobotEditor.fileName = os.path.basename(os.path.splitext(mesh_path)[0])
 
@@ -247,9 +253,11 @@ class Importer(object):
 
 
                 # get inertia pose
-                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaTrans = string_to_list(origin.xyz)
-                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaRot = string_to_list(origin.rpy)
-
+                try:
+                    bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaTrans = string_to_list(origin.xyz)
+                    bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaRot = string_to_list(origin.rpy)
+                except:
+                    pass
 
         model = bpy.context.active_object
         model_name = model.name
@@ -392,7 +400,7 @@ class Importer(object):
         except:
             pass
 
-        bpy.ops.view3d.view_lock_to_active()
+        #bpy.ops.view3d.view_lock_to_active()
         bpy.context.active_object.show_x_ray = True
 
     def import_package(self):

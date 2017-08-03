@@ -400,8 +400,10 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     robot_name = context.active_object.name
 
     blender_scale_factor = context.active_object.scale
+    blender_scale_factor = [blender_scale_factor[0],blender_scale_factor[2],blender_scale_factor[1]]
 
     root = sdf_tree.SDFTree.create_empty(robot_name)
+   # root.pose.append(list_to_string([0, 0, 0, 10, 0, 0]))
 
     # todo SDF Plugin
     # build control plugin element
@@ -415,7 +417,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
     for segments in root_segments:
         operator.logger.info("Root Segment'%s'" % segments.name)
-        ref_pose = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        ref_pose = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]  # transform to gazebo coordinate frame
         walk_segments(segments, root, ref_pose)
 
     operator.logger.info("Writing to '%s'" % filepath)

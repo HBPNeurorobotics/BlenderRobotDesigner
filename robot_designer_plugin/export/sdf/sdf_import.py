@@ -306,9 +306,15 @@ class Importer(object):
 
         fn, extension = os.path.splitext(mesh_path)
         if extension == ".stl" or extension == ".STL":
-            bpy.ops.import_mesh.stl(filepath=mesh_path)
+            try:
+                bpy.ops.import_mesh.stl(filepath=mesh_path)
+            except:
+                pass
         elif extension == ".dae" or extension == ".DAE":
-            bpy.ops.wm.collada_import(filepath=mesh_path)
+            try:
+                bpy.ops.wm.collada_import(filepath=mesh_path)
+            except:
+                pass
 
         bpy.context.active_object.RobotEditor.fileName = os.path.basename(os.path.splitext(mesh_path)[0])
 
@@ -489,9 +495,12 @@ class Importer(object):
             bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaZZ = i.izz[0]
 
             # get inertia pose
-            inertia_pose = string_to_list(get_value(node.link.inertial[0].pose[0], "0 0 0 0 0 0"))
-            bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaTrans = inertia_pose[0:3]
-            bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaRot = inertia_pose[3:6]
+            try:
+                inertia_pose = string_to_list(get_value(node.link.inertial[0].pose[0], "0 0 0 0 0 0"))
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaTrans = inertia_pose[0:3]
+                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaRot = inertia_pose[3:6]
+            except:
+                pass
 
 
         model = bpy.context.active_object
@@ -657,7 +666,7 @@ class Importer(object):
                         else:
                             scale_factor = [1, 1, 1]
 
-                        #bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)].scale = scale_factor
+                        bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)].scale = scale_factor
 
                         #bpy.context.active_object.scale = scale_factor
                 else:

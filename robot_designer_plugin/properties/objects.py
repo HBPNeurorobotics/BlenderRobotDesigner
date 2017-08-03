@@ -32,6 +32,8 @@
 # Changes:
 #
 #   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#   2017-06:    Benedikt Feldotto (TUM): Model Meta Data
+#   2017-07:    Benedikt Feldotto (TUM): Full Inertia Support
 #
 # ######
 
