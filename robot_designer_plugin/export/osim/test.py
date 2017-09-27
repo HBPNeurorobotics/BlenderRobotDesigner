@@ -1,61 +1,67 @@
+import unittest
 import pyxb
 import osim_dom
 
-def xmlBuildLearningTest():
-  # generate bindings by $pyxbgen-py3 -u osim_muscles.xsd -m osim_dom
-
-  doc = osim_dom.OpenSimDocument()
-  doc.Model = pyxb.BIND(
-    ForceSet=pyxb.BIND(
-      objects=pyxb.BIND(
-        Millard2012EquilibriumMuscle = [],
-        Millard2012AccelerationMuscle = []
-      )
-    )
-  )
-
-  m = osim_dom.Millard2012EquilibriumMuscle(
-    GeometryPath=osim_dom.GeometryPath(
-      PathPointSet = pyxb.BIND(
-        objects = pyxb.BIND(
-          PathPoint = []
+class XmlBuildLearningTest(unittest.TestCase):
+  def runTest(self):
+    # generate bindings by $pyxbgen-py3 -u osim_muscles.xsd -m osim_dom
+    # Note: Use the pyxbgen that comes with the blender install. That is
+    # because even minor version mismatches of the generated xsd bindings
+    # with the included pyxb version will cause errors.
+    doc = osim_dom.OpenSimDocument()
+    doc.Model = pyxb.BIND(
+      ForceSet=pyxb.BIND(
+        objects=pyxb.BIND(
+          Millard2012EquilibriumMuscle = [],
+          Millard2012AccelerationMuscle = []
         )
       )
-    ),
-    max_isometric_force = 1000.,
-    optimal_fiber_length = 0.01,
-    tendon_slack_length = 0.01
-  )
-
-  pps = m.GeometryPath.PathPointSet.objects.PathPoint
-  pps += [
-    osim_dom.PathPoint(
-      location = osim_dom.vector3("0. 1. 2."),
-      body = "body1",
-      name = "pp_body1"
-    ),
-    osim_dom.PathPoint(
-      location=osim_dom.vector3("3. 4. 5."),
-      body="body2",
-      name="pp_body2"
     )
-  ]
 
-  doc.Model.ForceSet.objects.Millard2012EquilibriumMuscle.append(m)
+    m = osim_dom.Millard2012EquilibriumMuscle(
+      GeometryPath=osim_dom.GeometryPath(
+        PathPointSet = pyxb.BIND(
+          objects = pyxb.BIND(
+            PathPoint = []
+          )
+        )
+      ),
+      max_isometric_force = 1000.,
+      optimal_fiber_length = 0.01,
+      tendon_slack_length = 0.01
+    )
 
-  doc.Version = "??"
+    pps = m.GeometryPath.PathPointSet.objects.PathPoint
+    pps += [
+      osim_dom.PathPoint(
+        location = osim_dom.vector3("0. 1. 2."),
+        body = "body1",
+        name = "pp_body1"
+      ),
+      osim_dom.PathPoint(
+        location=osim_dom.vector3("3. 4. 5."),
+        body="body2",
+        name="pp_body2"
+      )
+    ]
 
-  xmlstr = doc.toDOM().toprettyxml()
+    doc.Model.ForceSet.objects.Millard2012EquilibriumMuscle.append(m)
 
-  print("---- Generated XML: ------")
-  print(xmlstr)
+    doc.Version = "??"
 
-  newdoc = osim_dom.CreateFromDocument(xmlstr)
+    xmlstr = doc.toDOM().toprettyxml()
 
-  print("---- Loaded Doc: -------")
-  print(newdoc)
-  print("Is the muscle present?")
-  print(newdoc.Model.ForceSet.objects.Millard2012EquilibriumMuscle)
+    print("---- Generated XML: ------")
+    print(xmlstr)
+
+    newdoc = osim_dom.CreateFromDocument(xmlstr)
+
+    print("---- Loaded Doc: -------")
+    print(newdoc)
+    self.assertIsNotNone(newdoc)
+    print("Is the muscle present?")
+    print(newdoc.Model.ForceSet.objects.Millard2012EquilibriumMuscle)
+    self.assertTrue(newdoc.Model.ForceSet.objects.Millard2012EquilibriumMuscle)
 
 if __name__ == '__main__':
-  xmlBuildLearningTest()
+  unittest.main()
