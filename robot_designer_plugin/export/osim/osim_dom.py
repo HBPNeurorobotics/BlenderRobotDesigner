@@ -1,7 +1,7 @@
-# ./osim_muscles.py
+# ./robot_designer_plugin/export/osim/osim_dom.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:e92452c8d3e28a9e27abfc9994d2007779e7f4c9
-# Generated 2017-09-26 17:27:04.887475 by PyXB version 1.2.4 using Python 3.5.2.final.0
+# Generated 2017-09-27 11:40:58.781173 by PyXB version 1.2.5 using Python 3.5.2.final.0
 # Namespace AbsentNamespace0
 
 from __future__ import unicode_literals
@@ -13,15 +13,18 @@ import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
-
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:26a6bb80-a2cf-11e7-8778-4ccc6ab01b83')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:f77ec00c-a367-11e7-8362-4ccc6ab01b83')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.4'
+_PyXBVersion = '1.2.5'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
+
+# A holder for module-level binding classes so we can access them from
+# inside class definitions where property names may conflict.
+_module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
 import pyxb.binding.datatypes
@@ -85,6 +88,7 @@ vector3._CF_pattern = pyxb.binding.facets.CF_pattern()
 vector3._CF_pattern.addPattern(pattern='(\\s*(\\-?\\+?)(\\d+)(\\d*\\.*\\d*)e?E?(\\-?\\+?)[0-9]*\\s+){2}(\\s*(\\-?\\+?)(\\d+)(\\d*\\.*\\d*)e?E?(\\-?\\+?)[0-9]*\\s*)')
 vector3._InitializeFacetMap(vector3._CF_pattern)
 Namespace.addCategoryObject('typeBinding', 'vector3', vector3)
+_module_typeBindings.vector3 = vector3
 
 # Complex type [anonymous] with content type ELEMENT_ONLY
 class CTD_ANON (pyxb.binding.basis.complexTypeDefinition):
@@ -118,7 +122,7 @@ class CTD_ANON (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         __Version.name() : __Version
     })
-
+_module_typeBindings.CTD_ANON = CTD_ANON
 
 
 # Complex type [anonymous] with content type ELEMENT_ONLY
@@ -145,7 +149,7 @@ class CTD_ANON_ (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON_ = CTD_ANON_
 
 
 # Complex type [anonymous] with content type ELEMENT_ONLY
@@ -172,7 +176,7 @@ class CTD_ANON_2 (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON_2 = CTD_ANON_2
 
 
 # Complex type [anonymous] with content type ELEMENT_ONLY
@@ -207,7 +211,7 @@ class CTD_ANON_3 (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON_3 = CTD_ANON_3
 
 
 # Complex type [anonymous] with content type ELEMENT_ONLY
@@ -234,7 +238,7 @@ class CTD_ANON_4 (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON_4 = CTD_ANON_4
 
 
 # Complex type Millard2012EquilibriumMuscle with content type ELEMENT_ONLY
@@ -349,6 +353,7 @@ class Millard2012EquilibriumMuscle (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         __name.name() : __name
     })
+_module_typeBindings.Millard2012EquilibriumMuscle = Millard2012EquilibriumMuscle
 Namespace.addCategoryObject('typeBinding', 'Millard2012EquilibriumMuscle', Millard2012EquilibriumMuscle)
 
 
@@ -464,6 +469,7 @@ class Millard2012AccelerationMuscle (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         __name.name() : __name
     })
+_module_typeBindings.Millard2012AccelerationMuscle = Millard2012AccelerationMuscle
 Namespace.addCategoryObject('typeBinding', 'Millard2012AccelerationMuscle', Millard2012AccelerationMuscle)
 
 
@@ -491,7 +497,7 @@ class CTD_ANON_5 (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON_5 = CTD_ANON_5
 
 
 # Complex type [anonymous] with content type ELEMENT_ONLY
@@ -526,7 +532,7 @@ class CTD_ANON_6 (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON_6 = CTD_ANON_6
 
 
 # Complex type [anonymous] with content type ELEMENT_ONLY
@@ -553,7 +559,7 @@ class CTD_ANON_7 (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON_7 = CTD_ANON_7
 
 
 # Complex type [anonymous] with content type ELEMENT_ONLY
@@ -596,7 +602,7 @@ class CTD_ANON_8 (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         __name.name() : __name
     })
-
+_module_typeBindings.CTD_ANON_8 = CTD_ANON_8
 
 
 OpenSimDocument = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'OpenSimDocument'), CTD_ANON, location=pyxb.utils.utility.Location('/mnt/work/BlenderRobotDesigner/robot_designer_plugin/resources/osim_muscles.xsd', 4, 2))
