@@ -105,15 +105,44 @@ class RDGlobals(PropertyGroupHandlerBase):
         geometry_name = [obj.name for obj in bpy.data.objects if
                      not obj.parent_bone is None and
                      obj.type == 'MESH']
+
         for mesh in geometry_name:
-            obj = bpy.data.objects[mesh]
+            obj = bpy.data.objects[muscle]
             if hide_geometry == 'all':
                 obj.hide = False
-            elif hide_geometry == 'collision' and obj.RobotEditor.tag == 'COLLISION':
+            elif hide_geometry== 'collision' and obj.RobotEditor.tag == 'COLLISION':
                 obj.hide = False
             elif hide_geometry == 'visual' and obj.RobotEditor.tag == 'DEFAULT':
                 obj.hide = False
             elif hide_geometry == 'none':
+                obj.hide = True
+            else:
+                obj.hide = True
+
+
+    @staticmethod
+    def display_muscles(self, context):
+        """
+        Hides/Shows muscles in dependence of the respective Global property
+        """
+
+        hide_muscles = global_properties.display_muscle_selection.get(context.scene)
+
+
+        muscle_names = [obj.name for obj in bpy.data.objects if
+         bpy.data.objects[obj.name].RobotEditor.muscles.robotName != '']
+
+        for muscle in muscle_names:
+            obj = bpy.data.objects[muscle]
+            if hide_muscles == 'all':
+                obj.hide = False
+            elif hide_muscles == 'MYOROBOTICS' and obj.RobotEditor.muscles.muscleType == 'MYOROBOTICS':
+                obj.hide = False
+            elif hide_muscles == 'MILLARD' and obj.RobotEditor.muscles.muscleType == 'MILLARD':
+                obj.hide = False
+            elif hide_muscles == 'THELEN' and obj.RobotEditor.muscles.muscleType == 'THELEN':
+                obj.hide = False
+            elif hide_muscles == 'none':
                 obj.hide = True
             else:
                 obj.hide = True
@@ -140,7 +169,8 @@ class RDGlobals(PropertyGroupHandlerBase):
             items=[('armatures', 'Robot', 'Modify the Robot'),
                    ('bones', 'Segments', 'Modify segements'),
                    ('meshes', 'Geometries', 'Assign meshes to segments'),
-                   ('sensors', 'Sensors', 'Assign sensors to segments'),
+                   ('sensors', 'Sensors', 'Assign sensors to the robot'),
+                   ('muscles', 'Muscles', 'Assign muscles to the robot'),
                    # ('markers', 'Markers', 'Assign markers to bones'),
                    # ('controller', 'Controller', 'Modify controller parameter'),
                    ('tools', 'Tools', 'Tools'),
@@ -216,6 +246,17 @@ class RDGlobals(PropertyGroupHandlerBase):
                    ('info', 'Info', 'Log information'),
                    ('warning', 'Warning', 'Log only warnings'),
                    ('error', 'Error', 'Log only errors')], update=self.debug_level_callback))
+
+        self.active_muscle = PropertyHandler(StringProperty(name="Active Muscle", default=""))
+
+        self.display_muscle_selection = PropertyHandler(EnumProperty(
+            items=[('all', 'All', 'Show all muscles'),
+                   ('MYOROBOTICS', 'Myorobotics', 'Show only Myorobotics Muscles'),
+                   ('MILLARD', 'Millard', 'Show only Millar 2012 Muscles'),
+                   ('THELEN', 'Thelen', 'Show only Thelen 2003 Muscles'),
+                   ('none', "None", "Show no muscles")],
+            update=self.display_muscles))
+
 
 
 global_properties = RDGlobals()
