@@ -72,6 +72,7 @@ def check_armature(layout, context):
         return True
     else:
         layout.menu(menus.ModelMenu.bl_idname, text="Select Robot")
+        layout.menu(menus.ModelMenu.bl_idname, text="Select Robot")
         return False
 
 @LogFunction

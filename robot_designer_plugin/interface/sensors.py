@@ -73,18 +73,6 @@ def draw(layout, context):
     mode = global_properties.sensor_type.get(context.scene)
     sensors.CreateOpticalSensor.place_button(row, "Create new").sensor_type = mode
 
-    box = DetachSensorBox.get(layout, context, "Detach Sensor", icon="UNLINKED")
-    if box:
-        infoBox = InfoBox(box)
-        row = box.row()
-        column = row.column(align=True)
-        menus.CameraSensorMenu.putMenu(column, context)
-
-        column = row.column(align=True)
-        sensors.DetachCameraSensor.place_button(column, infoBox=infoBox)
-        box.separator()
-        infoBox.draw_info()
-
     box = AttachSensorBox.get(layout, context, "Attach Sensor", icon="LINKED")
     if box:
         infoBox = InfoBox(box)
@@ -108,6 +96,18 @@ def draw(layout, context):
         # create_geometry_selection(column, context)
         row = box.column(align=True)
         sensors.AssignCameraSensor.place_button(row, infoBox=infoBox)
+        box.separator()
+        infoBox.draw_info()
+
+    box = DetachSensorBox.get(layout, context, "Detach Sensor", icon="UNLINKED")
+    if box:
+        infoBox = InfoBox(box)
+        row = box.row()
+        column = row.column(align=True)
+        menus.CameraSensorMenu.putMenu(column, context)
+
+        column = row.column(align=True)
+        sensors.DetachCameraSensor.place_button(column, infoBox=infoBox)
         box.separator()
         infoBox.draw_info()
 
