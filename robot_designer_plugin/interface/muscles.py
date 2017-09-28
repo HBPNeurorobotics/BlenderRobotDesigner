@@ -37,6 +37,8 @@ import bpy
 # RobotDesigner imports
 from .model import check_armature
 
+import math
+
 from . import menus
 from ..operators import sensors
 from .helpers import getSingleObject, getSingleSegment, info_list, AttachSensorBox, DetachSensorBox, SensorPropertiesBox
@@ -80,7 +82,6 @@ def draw(layout, context):
 
         row2 = box.row()
 
-
         if active_muscle != '':
             pointbox = box.box()
             row3 = pointbox.row()
@@ -100,13 +101,39 @@ def draw(layout, context):
       #         row5.prop(obj, 'y', text='Y')
       #         row5.prop(obj, 'z', text='Z')
                 row5.prop(obj, 'co', text=str(i))
-                muscles.DeletePathpoint.place_button(row5, infoBox=infoBox, icon="X_VEC").pathpoint = str(i)
+
                 #row5.prop(bpy.data.objects[active_muscle].RobotEditor.muscles.pathpoints[0], 'coordFrame')
+
+                row5.prop(bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[i-1], 'coordFrame', text='')
 
                 muscles.MovePathpointUp.place_button(row5, text='', icon='TRIA_UP', infoBox=infoBox).nr = i
                 muscles.MovePathpointDown.place_button(row5, text='', icon='TRIA_DOWN', infoBox=infoBox).nr = i
 
+                bone = bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[i-1].coordFrame
+                muscles.DeletePathpoint.place_button(row5, infoBox=infoBox, icon="X_VEC").pathpoint = i
+
+        row6 = pointbox.row()
+        row7 = pointbox.row()
+
+        row7.label(text="Attach segments to pathpoints")
+      #  bone = bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[0].coordFrame
+
+
+        x = menus.SegmentsMusclesMenu
+        x.nr = 0
+        row7.menu(x.bl_idname, text="Select Segment")
+        print(bpy.ops.roboteditor.calc_muscle_length)
+
+       # bpy.ops.roboteditor.calc_muscle_length(muscle="m") #.execute(context) #(.place_button(row5, infoBox=infoBox, icon="X_VEC"))
+
         row = box.row()
+
+
+
+      #  row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'length', text="Muscle length:")
+
+    #    bpy.data.objects['wer'].RobotEditor.muscles.pathPoints[0].coordFrame = "hoolla"
+
         row = box.row()
         if active_muscle != '':
             row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles,

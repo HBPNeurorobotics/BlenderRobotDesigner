@@ -39,7 +39,8 @@ from math import degrees, radians
 
 # Blender imports
 import bpy
-from bpy.props import StringProperty, BoolProperty
+import math
+from bpy.props import StringProperty, BoolProperty, IntProperty
 # import mathutils
 
 # RobotDesigner imports
@@ -225,125 +226,6 @@ class CreateNewMuscle(RDOperator):
 
 
 
-@PluginManager.register_class
-class UpdateSegments(RDOperator):
-    """
-    :term:`operator` for updating the :term:`robot models` after parameters changed.
-    If a :term:`segment` name is given it will proceed recursively.
-    """
-    bl_idname = config.OPERATOR_PREFIX + "udpate_model"
-    bl_label = "update model"
-
-    # model_name = StringProperty()
-    segment_name = StringProperty(default="")
-    recurse = BoolProperty(default=True)
-
-    @classmethod
-    def run(cls, recurse=True, segment_name=""):
-        """
-        Run this operator
-        """
-
-        return super().run(**cls.pass_keywords())
-
-    @RDOperator.Postconditions(ModelSelected)
-    @RDOperator.OperatorLogger
-    #    @RDOperator.Postconditions(ModelSelected)
-    #    @Preconditions(ModelSelected)
-    def execute(self, context):
-        current_mode = bpy.context.object.mode
-
-        # arm = bpy.data.armatures[armatureName]
-
-        # armature_data_ame = bpy.data.objects[self.model_name].data.name # conversion to operator
-        armature_data_ame = context.active_object.data.name
-
-        if self.segment_name:
-            segment_name = bpy.data.armatures[armature_data_ame].bones[self.segment_name].name
-        else:
-            segment_name = bpy.data.armatures[armature_data_ame].bones[0].name
-
-        SelectMuscle.run(segment_name=self.segment_name)
-
-        if not bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.RD_Bone:
-            self.logger.info("Not updated (not a RD segment): %s", segment_name)
-            return
-
-        # local variables for updating the constraints
-        joint_axis = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.axis
-        min_rot = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.min
-        max_rot = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.max
-        jointMode = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.jointMode
-        jointValue = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.value
-
-        matrix, joint_matrix = bpy.data.armatures[armature_data_ame].bones[
-            segment_name].RobotEditor.getTransform()
-
-        bpy.ops.object.mode_set(mode='EDIT', toggle=False)
-
-        editbone = bpy.data.armatures[armature_data_ame].edit_bones[
-            bpy.data.armatures[armature_data_ame].bones[segment_name].name]
-        editbone.use_inherit_rotation = True
-
-        if editbone.parent is not None:
-            transform = editbone.parent.matrix.copy()
-            matrix = transform * matrix
-
-        pos = matrix.to_translation()
-        axis, roll = _mat3_to_vec_roll(matrix.to_3x3())
-
-        editbone.head = pos
-        editbone.tail = pos + axis
-        editbone.roll = roll
-
-        editbone.length = 1
-
-        bpy.ops.object.mode_set(mode=current_mode, toggle=False)
-
-        # update pose
-        bpy.ops.object.mode_set(mode='POSE', toggle=False)
-        pose_bone = bpy.context.object.pose.bones[segment_name]
-        pose_bone.matrix_basis = joint_matrix
-
-        if jointMode == 'REVOLUTE':
-            if 'RobotEditorConstraint' not in pose_bone.constraints:
-                bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
-                bpy.context.object.pose.bones[segment_name].constraints[
-                    0].name = 'RobotEditorConstraint'
-            constraint = \
-                [i for i in pose_bone.constraints if i.type == 'LIMIT_ROTATION'][0]
-            constraint.name = 'RobotEditorConstraint'
-            constraint.owner_space = 'LOCAL'
-            constraint.use_limit_x = True
-            constraint.use_limit_y = True
-            constraint.use_limit_z = True
-            constraint.min_x = 0.0
-            constraint.min_y = 0.0
-            constraint.min_z = 0.0
-            constraint.max_x = 0.0
-            constraint.max_y = 0.0
-            constraint.max_z = 0.0
-            if joint_axis == 'X':
-                constraint.min_x = radians(min_rot)
-                constraint.max_x = radians(max_rot)
-            elif joint_axis == 'Y':
-                constraint.min_y = radians(min_rot)
-                constraint.max_y = radians(max_rot)
-            elif joint_axis == 'Z':
-                constraint.min_z = radians(min_rot)
-                constraint.max_z = radians(max_rot)
-        # -------------------------------------------------------
-        bpy.ops.object.mode_set(mode=current_mode, toggle=False)
-
-        children_names = [i.name for i in
-                          bpy.data.armatures[armature_data_ame].bones[
-                              segment_name].children]
-        for child_name in children_names:
-            UpdateSegments.run(segment_name=child_name, recurse=self.recurse)
-
-        SelectMuscle.run(segment_name=segment_name)
-
-        return {'FINISHED'}
 
 
 @RDOperator.Preconditions(ModelSelected)
@@ -426,6 +308,8 @@ class CreateNewPathpoint(RDOperator):
         nr = len(active_muscle.data.splines[0].points)
         active_muscle.data.splines[0].points[nr-1].co = [cursor.x, cursor.y, cursor.z, 1]
 
+        active_muscle.RobotEditor.muscles.pathPoints.add()
+
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -486,7 +370,7 @@ class DeletePathpoint(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "delete_muscle_pathpoint"
     bl_label = ""
 
-    pathpoint = bpy.props.StringProperty(name="Delete pathpoint:")  # defining the property
+    pathpoint = bpy.props.IntProperty(name="Delete pathpoint:")  # defining the property
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -566,3 +450,91 @@ class MovePathpointDown(RDOperator):
 
    # def invoke(self, context, event):
    #     return context.window_manager.invoke_props_dialog(self)
+
+
+
+## select segment to be assigned to muscle
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class SelectSegmentMuscle(RDOperator):
+    """
+    :term:`Operator<operator>` for selecting a segment. If :attr:`segment_name` is empty,
+    all segments will be deselected
+    """
+    bl_idname = config.OPERATOR_PREFIX + "select_segment_muscle"
+    bl_label = "Select Segment to attach muscle pathpoint"
+
+    segment_name = StringProperty()
+    pathpoint_nr = IntProperty()
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+        model = bpy.data.objects[global_properties.model_name.get(context.scene)]
+        active_muscle = global_properties.active_muscle.get(context.scene)
+
+        for b in model.data.bones:
+            b.select = False
+
+        if self.segment_name:
+            model.data.bones.active = model.data.bones[self.segment_name]
+
+            model.data.bones.active.select = True
+        else:
+            model.data.bones.active = None
+
+        bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.pathpoint_nr].coordFrame = self.segment_name
+
+
+        ## todo recalculat coord system
+
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
+
+    @classmethod
+    def run(cls, segment_name=""):
+        return super().run(**cls.pass_keywords())
+
+
+        return super().run(**cls.pass_keywords())
+
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class CalculateMuscleLength(RDOperator):
+    """
+    :term:`operator` for deleting a the selected segment *ALL* of its children.
+
+
+    """
+    bl_idname = config.OPERATOR_PREFIX + "calc_muscle_length"
+    bl_label = ""
+
+    muscle = bpy.props.StringProperty()
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+
+        active_muscle = global_properties.active_muscle.get(context.scene)
+
+        leng = 0.0
+
+        spline = bpy.data.objects[active_muscle].data.splines[0]
+
+        print("hallo")
+
+        for i in range(0, len(spline.points) - 1):
+            x = spline.points[i].co[0] - spline.points[i + 1].co[0]
+            y = spline.points[i].co[1] - spline.points[i + 1].co[1]
+            z = spline.points[i].co[2] - spline.points[i + 1].co[2]
+
+            leng += math.sqrt((x ** 2) + (y ** 2) + (z ** 2))
+
+        bpy.data.objects[self.muscle].RobotEditor.muscles.length = leng
+        print(leng)
+        print("-- gotcha---")
+
+        return {'FINISHED'}
