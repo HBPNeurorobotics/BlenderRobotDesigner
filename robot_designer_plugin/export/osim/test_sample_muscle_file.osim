@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<OpenSimDocument Version="30000">
+<Model>
+<ForceSet>
+        <objects>
+          <Millard2012EquilibriumMuscle name="the_muscleFBR">
+              <GeometryPath>
+                      <PathPointSet>
+                              <objects>
+                                      <PathPoint name="muscle1-point1">
+                                              <location>0.9 0.5 0.</location>
+                                              <body>body</body>
+                                      </PathPoint>
+                                      <PathPoint name="muscle1-point2">
+                                              <location> 0 0 -0.3</location>
+                                              <body>right_humerus</body>
+                                      </PathPoint>
+                              </objects>
+                              <groups />
+                      </PathPointSet>
+              </GeometryPath>
+              <!--Maximum isometric force that the fibers can generate-->
+              <max_isometric_force>100</max_isometric_force>
+              <min_control>0</min_control>
+              <!--Maximum allowed value for control signal. Used primarily when solving for control values.-->
+              <max_control>1</max_control>
+              <!--The set of points defining the path of the muscle.-->
+              <!--Optimal length of the muscle fibers-->
+              <optimal_fiber_length>0.8</optimal_fiber_length>
+              <!--Resting length of the tendon-->
+              <tendon_slack_length>0.2</tendon_slack_length>
+              <!--Angle between tendon and fibers at optimal fiber length expressed in radians-->
+              <pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+              <!--assumed initial fiber length if none is assigned.-->
+              <default_fiber_length>1.0</default_fiber_length>
+              <!--activation dynamics model with a lower bound-->
+          </Millard2012EquilibriumMuscle>
+          <Millard2012EquilibriumMuscle name="the_muscleFBL">
+              <GeometryPath>
+                      <PathPointSet>
+                              <objects>
+                                      <PathPoint name="muscle1-point1">
+                                              <location>-0.9 0.5 0.</location>
+                                              <body>body</body>
+                                      </PathPoint>
+                                      <PathPoint name="muscle1-point2">
+                                              <location> 0 0 -0.3</location>
+                                              <body>left_humerus</body>
+                                      </PathPoint>
+                              </objects>
+                              <groups />
+                      </PathPointSet>
+              </GeometryPath>
+              <!--Maximum isometric force that the fibers can generate-->
+              <max_isometric_force>100</max_isometric_force>
+              <!--Optimal length of the muscle fibers-->
+              <optimal_fiber_length>0.8</optimal_fiber_length>
+              <!--Resting length of the tendon-->
+              <tendon_slack_length>0.2</tendon_slack_length>
+              <!--Angle between tendon and fibers at optimal fiber length expressed in radians-->
+              <pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+              <!--assumed initial fiber length if none is assigned.-->
+              <default_fiber_length>1.0</default_fiber_length>
+              <!--activation dynamics model with a lower bound-->
+          </Millard2012EquilibriumMuscle>
+          <Millard2012EquilibriumMuscle name="the_muscleBFL">
+              <GeometryPath>
+                      <PathPointSet>
+                              <objects>
+                                      <PathPoint name="muscle1-point1">
+                                              <location>-0.8 -0.5 0.</location>
+                                              <body>body</body>
+                                      </PathPoint>
+                                      <PathPoint name="muscle1-point2">
+                                              <location> 0 0 -0.3</location>
+                                              <body>left_femur</body>
+                                      </PathPoint>
+                              </objects>
+                              <groups />
+                      </PathPointSet>
+              </GeometryPath>
+              <!--Maximum isometric force that the fibers can generate-->
+              <max_isometric_force>100</max_isometric_force>
+              <!--Optimal length of the muscle fibers-->
+              <optimal_fiber_length>0.8</optimal_fiber_length>
+              <!--Resting length of the tendon-->
+              <tendon_slack_length>0.2</tendon_slack_length>
+              <!--Angle between tendon and fibers at optimal fiber length expressed in radians-->
+              <pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+              <!--assumed initial fiber length if none is assigned.-->
+              <default_fiber_length>1.0</default_fiber_length>
+              <!--activation dynamics model with a lower bound-->
+          </Millard2012EquilibriumMuscle>
+          <Millard2012AccelerationMuscle name="the_muscleBFR">
+              <GeometryPath>
+                      <PathPointSet>
+                              <objects>
+                                      <PathPoint name="muscle1-point1">
+                                              <location>0.8 -0.5 0.</location>
+                                              <body>body</body>
+                                      </PathPoint>
+                                      <PathPoint name="muscle1-point2">
+                                              <location> 0 0 -0.3</location>
+                                              <body>right_femur</body>
+                                      </PathPoint>
+                              </objects>
+                              <groups />
+                      </PathPointSet>
+              </GeometryPath>
+              <!--Maximum isometric force that the fibers can generate-->
+              <max_isometric_force>100</max_isometric_force>
+              <!--Optimal length of the muscle fibers-->
+              <optimal_fiber_length>0.8</optimal_fiber_length>
+              <!--Resting length of the tendon-->
+              <tendon_slack_length>0.2</tendon_slack_length>
+              <!--Angle between tendon and fibers at optimal fiber length expressed in radians-->
+              <pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+              <!--assumed initial fiber length if none is assigned.-->
+              <default_fiber_length>1.0</default_fiber_length>
+              <!--activation dynamics model with a lower bound-->
+              <MuscleFirstOrderActivationDynamicModel>
+                  <!--activation lower bound-->
+                  <minimum_activation>0.1</minimum_activation>
+              </MuscleFirstOrderActivationDynamicModel>
+          </Millard2012AccelerationMuscle>
+          <Millard2012EquilibriumMuscle name="the_muscleFFR">
+              <GeometryPath>
+                      <PathPointSet>
+                              <objects>
+                                      <PathPoint name="muscle1-point1">
+                                              <location>0.8 1.3 0.</location>
+                                              <body>body</body>
+                                      </PathPoint>
+                                      <PathPoint name="muscle1-point2">
+                                              <location> 0 0 -0.3</location>
+                                              <body>right_humerus</body>
+                                      </PathPoint>
+                              </objects>
+                              <groups />
+                      </PathPointSet>
+              </GeometryPath>
+              <!--Maximum isometric force that the fibers can generate-->
+              <max_isometric_force>100</max_isometric_force>
+              <!--Optimal length of the muscle fibers-->
+              <optimal_fiber_length>0.8</optimal_fiber_length>
+              <!--Resting length of the tendon-->
+              <tendon_slack_length>0.2</tendon_slack_length>
+              <!--Angle between tendon and fibers at optimal fiber length expressed in radians-->
+              <pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+              <!--assumed initial fiber length if none is assigned.-->
+              <default_fiber_length>1.0</default_fiber_length>
+              <!--activation dynamics model with a lower bound-->
+          </Millard2012EquilibriumMuscle>
+          <Millard2012EquilibriumMuscle name="the_muscleFFL">
+              <GeometryPath>
+                      <PathPointSet>
+                              <objects>
+                                      <PathPoint name="muscle1-point1">
+                                              <location>-0.8 1.3 0.</location>
+                                              <body>body</body>
+                                      </PathPoint>
+                                      <PathPoint name="muscle1-point2">
+                                              <location> 0 0 -0.3</location>
+                                              <body>left_humerus</body>
+                                      </PathPoint>
+                              </objects>
+                              <groups />
+                      </PathPointSet>
+              </GeometryPath>
+              <!--Maximum isometric force that the fibers can generate-->
+              <max_isometric_force>100</max_isometric_force>
+              <!--Optimal length of the muscle fibers-->
+              <optimal_fiber_length>0.8</optimal_fiber_length>
+              <!--Resting length of the tendon-->
+              <tendon_slack_length>0.2</tendon_slack_length>
+              <!--Angle between tendon and fibers at optimal fiber length expressed in radians-->
+              <pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+              <!--assumed initial fiber length if none is assigned.-->
+              <default_fiber_length>1.0</default_fiber_length>
+              <!--activation dynamics model with a lower bound-->
+          </Millard2012EquilibriumMuscle>
+          <RigidTendonMuscle name="the_muscleBBL">
+              <GeometryPath>
+                      <PathPointSet>
+                              <objects>
+                                      <PathPoint name="muscle1-point1">
+                                              <location>-0.8 -1.3 0.</location>
+                                              <body>body</body>
+                                      </PathPoint>
+                                      <PathPoint name="muscle1-point2">
+                                              <location> 0 0 -0.3</location>
+                                              <body>left_femur</body>
+                                      </PathPoint>
+                              </objects>
+                              <groups />
+                      </PathPointSet>
+              </GeometryPath>
+              <!--Maximum isometric force that the fibers can generate-->
+              <max_isometric_force>100</max_isometric_force>
+              <!--Optimal length of the muscle fibers-->
+              <optimal_fiber_length>0.8</optimal_fiber_length>
+              <!--Resting length of the tendon-->
+              <tendon_slack_length>0.2</tendon_slack_length>
+          </RigidTendonMuscle>
+          <Thelen2003Muscle  name="the_muscleBBR">
+              <GeometryPath>
+                      <PathPointSet>
+                              <objects>
+                                      <PathPoint name="muscle1-point1">
+                                              <location>0.8 -1.3 0.</location>
+                                              <body>body</body>
+                                      </PathPoint>
+                                      <PathPoint name="muscle1-point2">
+                                              <location> 0 0 -0.3</location>
+                                              <body>right_femur</body>
+                                      </PathPoint>
+                              </objects>
+                              <groups />
+                      </PathPointSet>
+              </GeometryPath>
+              <!--Maximum isometric force that the fibers can generate-->
+              <max_isometric_force>100</max_isometric_force>
+              <!--Optimal length of the muscle fibers-->
+              <optimal_fiber_length>0.8</optimal_fiber_length>
+              <!--Resting length of the tendon-->
+              <tendon_slack_length>0.2</tendon_slack_length>
+              <!--Angle between tendon and fibers at optimal fiber length expressed in radians-->
+              <pennation_angle_at_optimal>0</pennation_angle_at_optimal>
+          </Thelen2003Muscle>
+        </objects>
+</ForceSet>
+</Model>
+</OpenSimDocument>

@@ -121,7 +121,7 @@ def muscle_type_update(self, context):
     elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'THELEN':
         color = (0.0, 0.0, 1.0)
 
-    bpy.data.objects[active_muscle].data.materials[active_muscle + "_vis"].diffuse_color = color
+    #bpy.data.objects[active_muscle].data.materials[active_muscle + "_vis"].diffuse_color = color
 
 
 def muscle_pathpoint_update(self, context):
@@ -140,7 +140,7 @@ class RDMusclePoints(bpy.types.PropertyGroup):
     y = FloatProperty(name="Y", precision=4, step=0.1, default=1.0, update=muscle_pathpoint_update)
     z = FloatProperty(name="Z", precision=4, step=0.1, default=1.0, update=muscle_pathpoint_update)
 
-    coordFrame = StringProperty(name="Coordinate Frame", default="global")
+    coordFrame = StringProperty(default="Select Segment")
 
 
 @PluginManager.register_property_group()
@@ -157,6 +157,7 @@ class RDMuscle(bpy.types.PropertyGroup):
     )
 
     robotName = StringProperty(name="RobotName")
+    length = FloatProperty(name="muscle length", default=0.0)
 
     bpy.utils.register_class(RDMusclePoints)
     pathPoints = CollectionProperty(type=RDMusclePoints)

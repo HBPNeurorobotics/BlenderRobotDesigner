@@ -104,7 +104,30 @@ class SegmentsGeometriesMenu(bpy.types.Menu, BaseMenu):
             layout.operator(segments.SelectSegment.bl_idname, text=text).segment_name = bone
 
 
+# dynamic menu to select bone for muscle coordinate frame
+@PluginManager.register_class
+class SegmentsMusclesMenu(bpy.types.Menu, BaseMenu):
+    """
+    :ref:`menu` for selecting robot segments while displaying connections to geometries in the scene.
+    """
+    bl_idname = OPERATOR_PREFIX + "bonemuscleenu"
+    bl_label = "Select Muscle"
+    filter = None
 
+    @RDOperator.OperatorLogger
+    def draw(self, context):
+        mesh_type = global_properties.mesh_type.get(context.scene)
+        hide_bone = global_properties.display_mesh_selection.get(context.scene)
+        layout = self.layout
+
+        current_model = context.active_object
+        segment_names = [bone.name for bone in current_model.data.bones]
+
+        for bone in sorted(segment_names, key=str.lower):
+            x = muscles.SelectSegmentMuscle
+            x.segment_name = bone
+            x.pathpoint_nr = self.nr
+            layout.operator(x.bl_idname, text=bone).segment_name = bone
 
 
 class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
