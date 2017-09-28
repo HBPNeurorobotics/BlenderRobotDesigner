@@ -48,6 +48,7 @@ import sys
 from math import radians
 import tempfile
 from pathlib import Path
+import pyxb
 
 # ######
 # Blender imports
@@ -62,6 +63,7 @@ from .generic.helpers import list_to_string, string_to_list, localpose2globalpos
 from ...core import config, PluginManager, RDOperator
 from ...operators.helpers import ModelSelected, ObjectMode
 from ...operators.model import SelectModel
+from ..osim.export import create_osim
 
 from ...properties.globals import global_properties
 
@@ -400,8 +402,10 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     robot_name = context.active_object.name
 
     blender_scale_factor = context.active_object.scale
+    blender_scale_factor = [blender_scale_factor[0],blender_scale_factor[2],blender_scale_factor[1]]
 
     root = sdf_tree.SDFTree.create_empty(robot_name)
+   # root.pose.append(list_to_string([0, 0, 0, 10, 0, 0]))
 
     # todo SDF Plugin
     # build control plugin element
@@ -415,7 +419,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
     for segments in root_segments:
         operator.logger.info("Root Segment'%s'" % segments.name)
-        ref_pose = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        ref_pose = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]  # transform to gazebo coordinate frame
         walk_segments(segments, root, ref_pose)
 
     operator.logger.info("Writing to '%s'" % filepath)
@@ -653,7 +657,9 @@ class ExportPlain(RDOperator):
         create_sdf(self, context, filepath=self.filepath,
                     meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                     in_ros_package=False, abs_filepaths=self.abs_file_paths)
-
+        create_osim(self, context, filepath=self.filepath,
+                    meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
+                    in_ros_package=False, abs_filepaths=self.abs_file_paths)
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -694,7 +700,9 @@ class ExportPackage(RDOperator):
         create_config(self, context, filepath=self.filepath,
                       meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                       in_ros_package=False, abs_filepaths=self.abs_file_paths)
-
+        create_osim(self, context, filepath=self.filepath,
+                    meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
+                    in_ros_package=False, abs_filepaths=self.abs_file_paths)
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -758,7 +766,9 @@ class ExportZippedPackage(RDOperator):
             create_config(self, context, filepath=self.filepath,
                           meshpath=temp_dir, toplevel_directory=temp_dir,
                           in_ros_package=False, abs_filepaths=self.abs_file_paths)
-
+            create_osim(self, context, filepath=self.filepath,
+                        meshpath=temp_dir, toplevel_directory=temp_dir,
+                        in_ros_package=False, abs_filepaths=self.abs_file_paths)
             self.logger.debug(temp_file)
             with zipfile.ZipFile(self.filepath, 'w') as zipf:
                 zipdir(target, zipf)

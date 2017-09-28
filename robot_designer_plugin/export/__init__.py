@@ -42,9 +42,11 @@ from ..core import PluginManager
 
 from . import urdf
 from . import sdf
+from . import osim
 
 reload(urdf)
 reload(sdf)
+reload(osim)
 
 PluginManager.register_plugin("SDF", [sdf.ImportPlain, sdf.ImportPackage, sdf.ImportZippedPackage, sdf.ExportPlain, sdf.ExportPackage, sdf.ExportZippedPackage])
 PluginManager.register_plugin("URDF", [urdf.ImportPlain, urdf.ImportPackage, urdf.ImportZippedPackage, urdf.ExportPlain, urdf.ExportPackage, urdf.ExportZippedPackage])
