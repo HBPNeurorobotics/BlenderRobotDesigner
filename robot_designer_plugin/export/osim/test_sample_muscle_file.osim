@@ -34,10 +34,6 @@
               <!--assumed initial fiber length if none is assigned.-->
               <default_fiber_length>1.0</default_fiber_length>
               <!--activation dynamics model with a lower bound-->
-              <MuscleFirstOrderActivationDynamicModel>
-                  <!--activation lower bound-->
-                  <minimum_activation>0.1</minimum_activation>
-              </MuscleFirstOrderActivationDynamicModel>
           </Millard2012EquilibriumMuscle>
           <Millard2012EquilibriumMuscle name="the_muscleFBL">
               <GeometryPath>
@@ -66,10 +62,6 @@
               <!--assumed initial fiber length if none is assigned.-->
               <default_fiber_length>1.0</default_fiber_length>
               <!--activation dynamics model with a lower bound-->
-              <MuscleFirstOrderActivationDynamicModel>
-                  <!--activation lower bound-->
-                  <minimum_activation>0.1</minimum_activation>
-              </MuscleFirstOrderActivationDynamicModel>
           </Millard2012EquilibriumMuscle>
           <Millard2012EquilibriumMuscle name="the_muscleBFL">
               <GeometryPath>
@@ -98,10 +90,6 @@
               <!--assumed initial fiber length if none is assigned.-->
               <default_fiber_length>1.0</default_fiber_length>
               <!--activation dynamics model with a lower bound-->
-              <MuscleFirstOrderActivationDynamicModel>
-                  <!--activation lower bound-->
-                  <minimum_activation>0.1</minimum_activation>
-              </MuscleFirstOrderActivationDynamicModel>
           </Millard2012EquilibriumMuscle>
           <Millard2012AccelerationMuscle name="the_muscleBFR">
               <GeometryPath>
@@ -162,10 +150,6 @@
               <!--assumed initial fiber length if none is assigned.-->
               <default_fiber_length>1.0</default_fiber_length>
               <!--activation dynamics model with a lower bound-->
-              <MuscleFirstOrderActivationDynamicModel>
-                  <!--activation lower bound-->
-                  <minimum_activation>0.1</minimum_activation>
-              </MuscleFirstOrderActivationDynamicModel>
           </Millard2012EquilibriumMuscle>
           <Millard2012EquilibriumMuscle name="the_muscleFFL">
               <GeometryPath>
@@ -194,12 +178,8 @@
               <!--assumed initial fiber length if none is assigned.-->
               <default_fiber_length>1.0</default_fiber_length>
               <!--activation dynamics model with a lower bound-->
-              <MuscleFirstOrderActivationDynamicModel>
-                  <!--activation lower bound-->
-                  <minimum_activation>0.1</minimum_activation>
-              </MuscleFirstOrderActivationDynamicModel>
           </Millard2012EquilibriumMuscle>
-          <Millard2012EquilibriumMuscle name="the_muscleBBL">
+          <RigidTendonMuscle name="the_muscleBBL">
               <GeometryPath>
                       <PathPointSet>
                               <objects>
@@ -221,17 +201,8 @@
               <optimal_fiber_length>0.8</optimal_fiber_length>
               <!--Resting length of the tendon-->
               <tendon_slack_length>0.2</tendon_slack_length>
-              <!--Angle between tendon and fibers at optimal fiber length expressed in radians-->
-              <pennation_angle_at_optimal>0</pennation_angle_at_optimal>
-              <!--assumed initial fiber length if none is assigned.-->
-              <default_fiber_length>1.0</default_fiber_length>
-              <!--activation dynamics model with a lower bound-->
-              <MuscleFirstOrderActivationDynamicModel>
-                  <!--activation lower bound-->
-                  <minimum_activation>0.1</minimum_activation>
-              </MuscleFirstOrderActivationDynamicModel>
-          </Millard2012EquilibriumMuscle>
-          <Millard2012EquilibriumMuscle name="the_muscleBBR">
+          </RigidTendonMuscle>
+          <Thelen2003Muscle  name="the_muscleBBR">
               <GeometryPath>
                       <PathPointSet>
                               <objects>
@@ -255,14 +226,7 @@
               <tendon_slack_length>0.2</tendon_slack_length>
               <!--Angle between tendon and fibers at optimal fiber length expressed in radians-->
               <pennation_angle_at_optimal>0</pennation_angle_at_optimal>
-              <!--assumed initial fiber length if none is assigned.-->
-              <default_fiber_length>1.0</default_fiber_length>
-              <!--activation dynamics model with a lower bound-->
-              <MuscleFirstOrderActivationDynamicModel>
-                  <!--activation lower bound-->
-                  <minimum_activation>0.1</minimum_activation>
-              </MuscleFirstOrderActivationDynamicModel>
-          </Millard2012EquilibriumMuscle>
+          </Thelen2003Muscle>
         </objects>
 </ForceSet>
 </Model>

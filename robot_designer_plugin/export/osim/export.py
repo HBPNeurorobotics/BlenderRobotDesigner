@@ -16,18 +16,22 @@ from ...properties.globals import global_properties
 class OsimExporter(object):
   def __init__(self):
     self.doc = osim_dom.OpenSimDocument()
-    self.doc.Version = "20303"
+    self.doc.Version = "30000"
     self.doc.Model = pyxb.BIND(
       ForceSet=pyxb.BIND(
         objects=pyxb.BIND(
           Millard2012EquilibriumMuscle=[],
-          Millard2012AccelerationMuscle=[]
+          Millard2012AccelerationMuscle=[],
+          Thelen2003Muscle=[],
+          RigidTendonMuscle=[]
         )
       )
     )
     self.muscle_type_to_pyxb_list = {
       'Millard2012EquilibriumMuscle' : self.doc.Model.ForceSet.objects.Millard2012EquilibriumMuscle,
-      'Millard2012AccelerationMuscle': self.doc.Model.ForceSet.objects.Millard2012AccelerationMuscle
+      'Millard2012AccelerationMuscle': self.doc.Model.ForceSet.objects.Millard2012AccelerationMuscle,
+      'Thelen2003Muscle' : self.doc.Model.ForceSet.objects.Thelen2003Muscle,
+      'RigidTendonMuscle' : self.doc.Model.ForceSet.objects.RigidTendonMuscle,
     }
 
 
@@ -47,8 +51,22 @@ class OsimExporter(object):
       self._add_blender_muscle(m)
 
 
+  def _select_pyxb_muscle_class(self, obj):
+    muscle_type_to_pyxb_type = {
+      'MILLARD' : osim_dom.Millard2012EquilibriumMuscle,
+      'THELEN'  : osim_dom.Thelen2003Muscle,
+    }
+    return muscle_type_to_pyxb_type[
+           str(obj.RobotEditor.muscles.muscleType)]
+
+
   def _add_blender_muscle(self, m):
-    m = osim_dom.Millard2012EquilibriumMuscle(
+    try:
+      pyxb_class = self._select_pyxb_muscle_class(m)
+    except KeyError as e:
+      print ("Warning: Not exporting object as muscle because: \n%s: %s" % (type(e).__name__, str(e)))
+      return
+    m = pyxb_class(
       name = m.name,
       GeometryPath=osim_dom.GeometryPath(
         PathPointSet = pyxb.BIND(

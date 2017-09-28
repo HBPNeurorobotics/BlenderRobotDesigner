@@ -1,3 +1,5 @@
+import os
+import sys
 import unittest
 import pyxb
 import osim_dom
@@ -28,7 +30,7 @@ class XmlBuildLearningTest(unittest.TestCase):
       ),
       max_isometric_force = 1000.,
       optimal_fiber_length = 0.01,
-      tendon_slack_length = 0.01
+      tendon_slack_length = 0.01,
     )
 
     pps = m.GeometryPath.PathPointSet.objects.PathPoint
@@ -46,22 +48,29 @@ class XmlBuildLearningTest(unittest.TestCase):
     ]
 
     doc.Model.ForceSet.objects.Millard2012EquilibriumMuscle.append(m)
-
     doc.Version = "??"
-
     xmlstr = doc.toDOM().toprettyxml()
 
-    print("---- Generated XML: ------")
-    print(xmlstr)
-
+    #sys.stderr.write("Generated XML:\n"+xmlstr)
     newdoc = osim_dom.CreateFromDocument(xmlstr)
-
-    print("---- Loaded Doc: -------")
-    print(newdoc)
     self.assertIsNotNone(newdoc)
-    print("Is the muscle present?")
-    print(newdoc.Model.ForceSet.objects.Millard2012EquilibriumMuscle)
     self.assertTrue(newdoc.Model.ForceSet.objects.Millard2012EquilibriumMuscle)
+
+
+class SchemaSanityCheck(unittest.TestCase):
+  def runTest(self):
+    import subprocess
+    schemafile = os.path.join(os.path.dirname(__file__), '..', '..', 'resources', 'osim_muscles.xsd')
+    samplexml =  os.path.join(os.path.dirname(__file__), 'test_sample_muscle_file.osim')
+    out = subprocess.check_output(['xmllint','-schema', schemafile, samplexml])
+
+
+class SchemaSanityCheckBindings(unittest.TestCase):
+  def runTest(self):
+    with open(os.path.join(os.path.dirname(__file__), 'test_sample_muscle_file.osim'), 'r') as f:
+      sample_xml = f.read()
+    osim_dom.CreateFromDocument(sample_xml)
+
 
 if __name__ == '__main__':
   unittest.main()
