@@ -52,6 +52,7 @@ from ..core import config, PluginManager, Condition, RDOperator
 from .helpers import _mat3_to_vec_roll, ModelSelected, SingleSegmentSelected, PoseMode
 
 
+
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class SelectSegment(RDOperator):
@@ -370,10 +371,7 @@ class CreateNewSegment(RDOperator):
     def execute(self, context):
         current_mode = bpy.context.object.mode
         selected_segments = [i for i in context.active_object.data.bones if i.select]
-        if len(selected_segments):
-            parent_name = selected_segments[0].name
-        else:
-            parent_name = ""
+
 
         # if not self.parent_name:
         #     try:
@@ -386,6 +384,10 @@ class CreateNewSegment(RDOperator):
         #     else:
         #         parentBoneName = None
 
+        if len(selected_segments):
+            parent_name = selected_segments[0].name
+        else:
+            parent_name = ""
 
         bpy.ops.object.mode_set(mode='EDIT', toggle=False)
         bone = context.active_object.data.edit_bones.new(self.segment_name)
@@ -402,8 +404,11 @@ class CreateNewSegment(RDOperator):
 
         SelectSegment.run(segment_name=segment_name)
 
-
         context.active_bone.RobotEditor.RD_Bone = True
+
+        if not parent_name:
+            context.active_bone.RobotEditor.Euler.alpha.value = 90.0
+            context.active_bone.RobotEditor.DH.alpha.value = 90.0
 
         bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
         bpy.context.object.pose.bones[segment_name].constraints[
@@ -412,6 +417,8 @@ class CreateNewSegment(RDOperator):
 
         self.logger.info("Current mode after: %s (%s)", bpy.context.object.mode, current_mode)
         self.logger.debug("Segment created. (%s -> %s)", parent_name, self.segment_name)
+
+        UpdateSegments.run(recurse=True, segment_name=self.segment_name)
 
         return {'FINISHED'}
 
