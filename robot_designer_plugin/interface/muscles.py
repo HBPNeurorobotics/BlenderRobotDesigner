@@ -93,7 +93,7 @@ def draw(layout, context):
 
             i = 0
             # put pathpoints
-            for obj in bpy.data.objects[active_muscle].data.splines[0].points:
+            for obj in bpy.data.objects[active_muscle].data.splines[0].bezier_points:
                 row5 = pointbox.row(align=True)
                 i = i + 1
        #        x.label(text=obj.name)

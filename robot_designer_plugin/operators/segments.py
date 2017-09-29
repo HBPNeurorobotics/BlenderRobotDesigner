@@ -412,6 +412,7 @@ class CreateNewSegment(RDOperator):
 
         self.logger.info("Current mode after: %s (%s)", bpy.context.object.mode, current_mode)
         self.logger.debug("Segment created. (%s -> %s)", parent_name, self.segment_name)
+
         return {'FINISHED'}
 
     def invoke(self, context, event):
