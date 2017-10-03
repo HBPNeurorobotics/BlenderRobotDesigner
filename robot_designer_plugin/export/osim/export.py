@@ -1,3 +1,29 @@
+# #####
+# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
+# in the Human Brain Project (HBP).
+# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
+# developed at the Technical University of Munich at the chair of embedded and robotic system.
+# #####
+
+# ##### BEGIN GPL LICENSE BLOCK #####
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License
+#  as published by the Free Software Foundation; either version 2
+#  of the License, or (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software Foundation,
+#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# ##### END GPL LICENSE BLOCK #####
+
+
 import pyxb
 import os.path
 from pathlib import Path
@@ -5,7 +31,7 @@ from pathlib import Path
 # ######
 # Blender imports
 import bpy
-
+import mathutils
 ########
 # RD imports
 from ..osim import osim_dom  # xsd bindings
@@ -48,7 +74,7 @@ class OsimExporter(object):
     muscles = list(filter(lambda obj: obj.RobotEditor.muscles.robotName == active_model, data.objects))
     print ("Exporting Muscles:", muscles)
     for m in muscles:
-      self._add_blender_muscle(m)
+      self._add_blender_muscle(m, context)
 
 
   def _select_pyxb_muscle_class(self, obj):
@@ -60,30 +86,33 @@ class OsimExporter(object):
            str(obj.RobotEditor.muscles.muscleType)]
 
 
-  def _add_blender_muscle(self, m):
+  def _add_blender_muscle(self, m, context):
     try:
       pyxb_class = self._select_pyxb_muscle_class(m)
     except KeyError as e:
       print ("Warning: Not exporting object as muscle because: \n%s: %s" % (type(e).__name__, str(e)))
       return
+    # calc muscle length
+    bpy.ops.roboteditor.calc_muscle_length(muscle=m.name)
+
     m = pyxb_class(
       name = m.name,
       GeometryPath=osim_dom.GeometryPath(
         PathPointSet = pyxb.BIND(
           objects = pyxb.BIND(
-            PathPoint = self._build_pyxb_path_nodes_list(m)
+            PathPoint = self._build_pyxb_path_nodes_list(m, context)
           )
         )
       ),
       # TODO: Fix hardcoded values
       max_isometric_force = 1000.,
-      optimal_fiber_length = 0.01,
+      optimal_fiber_length = m.RobotEditor.muscles.length, #0.01,
       tendon_slack_length = 0.01
     )
-    self._add_pyxb_muscle(m)
+    self._add_pyxb_muscle(m, context)
 
 
-  def _build_pyxb_path_nodes_list(self, m):
+  def _build_pyxb_path_nodes_list(self, m, context):
     def transform_to_pyxb(nd):
       name, parent, (x, y ,z) = nd
       return osim_dom.PathPoint(
@@ -91,20 +120,27 @@ class OsimExporter(object):
         body = parent,
         name = name
       )
-    return list(map(transform_to_pyxb, self._get_intermediate_repr_path_nodes(m)))
+    return list(map(transform_to_pyxb, self._get_intermediate_repr_path_nodes(m, context)))
 
 
-  def _get_intermediate_repr_path_nodes(self, m):
+  def _get_intermediate_repr_path_nodes(self, m, context):
     def transform_vertex(arg):
       i, pt = arg
       name = '%s_node%i' % (m.name, i)
-      parent = 'world' # TODO: fix
+      parent = m.RobotEditor.muscles.pathPoints[i].coordFrame
       x, y, z, _ = pt.co
-      return (name, parent, (x, y, z))
+      active_model = global_properties.model_name.get(context.scene)
+      pose_bone = bpy.data.objects[active_model].pose.bones[parent]
+      pose = pose_bone.matrix.inverted() * bpy.data.objects[active_model].matrix_world.inverted() * \
+             bpy.data.objects[m.name].matrix_world
+      vec = mathutils.Vector((x,y,z,1))
+      trans = mathutils.Matrix.Translation(vec)
+      pose_rel = pose * trans
+      return (name, parent, (pose_rel[0][3], pose_rel[1][3], pose_rel[2][3]))
     return map(transform_vertex, enumerate(m.data.splines[0].points))
 
 
-  def _add_pyxb_muscle(self, m):
+  def _add_pyxb_muscle(self, m, context):
     self.muscle_type_to_pyxb_list[type(m).__name__].append(m)
 
 

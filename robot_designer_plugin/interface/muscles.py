@@ -93,7 +93,7 @@ def draw(layout, context):
 
             i = 0
             # put pathpoints
-            for obj in bpy.data.objects[active_muscle].data.splines[0].bezier_points:
+            for obj in bpy.data.objects[active_muscle].data.splines[0].points:
                 row5 = pointbox.row(align=True)
                 i = i + 1
        #        x.label(text=obj.name)
@@ -104,12 +104,16 @@ def draw(layout, context):
 
                 #row5.prop(bpy.data.objects[active_muscle].RobotEditor.muscles.pathpoints[0], 'coordFrame')
 
+                if bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[i-1].coordFrame not in [bone.name for bone in bpy.data.objects[active_model].data.bones]:
+                        row5.alert = True
                 row5.prop(bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[i-1], 'coordFrame', text='')
+                row5.alert = False
 
                 muscles.MovePathpointUp.place_button(row5, text='', icon='TRIA_UP', infoBox=infoBox).nr = i
                 muscles.MovePathpointDown.place_button(row5, text='', icon='TRIA_DOWN', infoBox=infoBox).nr = i
 
                 bone = bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[i-1].coordFrame
+
                 muscles.DeletePathpoint.place_button(row5, infoBox=infoBox, icon="X_VEC").pathpoint = i
 
         row6 = pointbox.row()
@@ -120,19 +124,17 @@ def draw(layout, context):
 
 
         x = menus.SegmentsMusclesMenu
-        x.nr = 0
+        x.nr = 1
         row7.menu(x.bl_idname, text="Select Segment")
         print(bpy.ops.roboteditor.calc_muscle_length)
 
-       # bpy.ops.roboteditor.calc_muscle_length(muscle="m") #.execute(context) #(.place_button(row5, infoBox=infoBox, icon="X_VEC"))
+        # bpy.ops.roboteditor.calc_muscle_length(muscle="m") #.execute(context) #(.place_button(row5, infoBox=infoBox, icon="X_VEC"))
 
         row = box.row()
+        row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'length', text="Muscle length:")
+        muscles.CalculateMuscleLength.place_button(row, infoBox=infoBox, text="Calculate").muscle = active_muscle
 
-
-
-      #  row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'length', text="Muscle length:")
-
-    #    bpy.data.objects['wer'].RobotEditor.muscles.pathPoints[0].coordFrame = "hoolla"
+        #bpy.ops.roboteditor.calc_muscle_length(muscle="biceps")
 
         row = box.row()
         if active_muscle != '':

@@ -126,7 +126,6 @@ class SegmentsMusclesMenu(bpy.types.Menu, BaseMenu):
         for bone in sorted(segment_names, key=str.lower):
             x = muscles.SelectSegmentMuscle
             x.segment_name = bone
-            x.pathpoint_nr = self.nr
             layout.operator(x.bl_idname, text=bone).segment_name = bone
 
 

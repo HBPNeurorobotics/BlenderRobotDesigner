@@ -107,7 +107,7 @@ class RDGlobals(PropertyGroupHandlerBase):
                      obj.type == 'MESH']
 
         for mesh in geometry_name:
-            obj = bpy.data.objects[muscle]
+            obj = bpy.data.objects[mesh]
             if hide_geometry == 'all':
                 obj.hide = False
             elif hide_geometry== 'collision' and obj.RobotEditor.tag == 'COLLISION':
