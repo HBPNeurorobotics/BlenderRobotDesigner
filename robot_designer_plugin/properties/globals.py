@@ -136,8 +136,8 @@ class RDGlobals(PropertyGroupHandlerBase):
             obj = bpy.data.objects[muscle]
             if hide_muscles == 'all':
                 obj.hide = False
-            elif hide_muscles == 'MYOROBOTICS' and obj.RobotEditor.muscles.muscleType == 'MYOROBOTICS':
-                obj.hide = False
+           # elif hide_muscles == 'MYOROBOTICS' and obj.RobotEditor.muscles.muscleType == 'MYOROBOTICS':
+           #     obj.hide = False
             elif hide_muscles == 'MILLARD' and obj.RobotEditor.muscles.muscleType == 'MILLARD':
                 obj.hide = False
             elif hide_muscles == 'THELEN' and obj.RobotEditor.muscles.muscleType == 'THELEN':
@@ -251,7 +251,7 @@ class RDGlobals(PropertyGroupHandlerBase):
 
         self.display_muscle_selection = PropertyHandler(EnumProperty(
             items=[('all', 'All', 'Show all muscles'),
-                   ('MYOROBOTICS', 'Myorobotics', 'Show only Myorobotics Muscles'),
+            #       ('MYOROBOTICS', 'Myorobotics', 'Show only Myorobotics Muscles'),
                    ('MILLARD', 'Millard', 'Show only Millar 2012 Muscles'),
                    ('THELEN', 'Thelen', 'Show only Thelen 2003 Muscles'),
                    ('none', "None", "Show no muscles")],

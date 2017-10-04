@@ -117,9 +117,9 @@ class SceneSettingItem(bpy.types.PropertyGroup):
 def muscle_type_update(self, context):
     active_muscle = global_properties.active_muscle.get(bpy.context.scene)
 
-    if bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MYOROBOTICS':
-        color = (1.0,0.0,0.0)
-    elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MILLARD':
+   # if bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MYOROBOTICS':
+    #    color = (1.0,0.0,0.0)
+    if bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MILLARD':
         color = (0.0, 1.0, 0.0)
     elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'THELEN':
         color = (0.0, 0.0, 1.0)
@@ -166,7 +166,7 @@ class RDMuscle(bpy.types.PropertyGroup):
     '''
 
     muscleType = EnumProperty(
-        items=[('MYOROBOTICS', 'Myorobotics', 'Myorobotics Muscle'),
+        items=[#('MYOROBOTICS', 'Myorobotics', 'Myorobotics Muscle'),
                ('MILLARD', 'Millard 2012', 'Millard 2012 Muscle'),
                ('THELEN', 'Thelen 2003', 'Thelen 2003 Muscle')],
         name="Muscle Type:", update=muscle_type_update
