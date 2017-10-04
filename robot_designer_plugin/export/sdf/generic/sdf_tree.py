@@ -200,18 +200,10 @@ class SDFTree(object):
         #     print(j.name)
         # set sdf fixed name
 
-
-        ## export plugins here
-
         # add OpenSim muscle plugin
         self.sdf.model[0].plugin.append(sdf_dom.plugin())
         self.sdf.model[0].plugin[0].name = "muscle_interface_plugin"
         self.sdf.model[0].plugin[0].filename = "libgazebo_ros_muscle_interface.so"
-
-       # muscle = pyxb.binding.basis.element()
-        #self.sdf.model[0]._setElement(muscle)
-
-
 
         ## write sdf file
         if not os.path.exists(os.path.dirname(file_name)):
@@ -226,12 +218,6 @@ class SDFTree(object):
             # output = self.sdf.toxml("utf-8", element_name="sdf").decode("utf-8")
             #output = output.replace(">", ">\n")
             f.write(output)
-
-        ## fix until new sdf_dom version: add muscles definition path
-        with open(file_name) as f:
-            newText = f.read().replace('<plugin filename', '<muscles>model://' + self.sdf.model[0].name + '/muscles.osim</muscles> \n <plugin filename')
-        with open(file_name, "w") as f:
-            f.write(newText)
 
     def _write(self):
         """
