@@ -71,6 +71,7 @@ from pyxb import ContentNondeterminismExceededError, BIND
 
 # config file generation
 from .generic import model_config_dom
+from .generic import sdf_dom
 from pyxb.namespace import XMLSchema_instance as xsi
 import pyxb
 

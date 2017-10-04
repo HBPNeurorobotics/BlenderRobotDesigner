@@ -132,8 +132,8 @@ class DeleteMuscle(RDOperator):
         bpy.data.objects.remove(bpy.data.objects[active_muscle], True)
         bpy.data.materials.remove(bpy.data.materials[active_muscle + "_vis"], True)
         bpy.data.curves.remove(bpy.data.curves[active_muscle], True)
-
         global_properties.active_muscle.set(context.scene, '')
+        context.scene.update()
 
 
         return {'FINISHED'}
@@ -306,7 +306,7 @@ class CreateNewPathpoint(RDOperator):
 
 
         nr = len(active_muscle.data.splines[0].points)
-        active_muscle.data.splines[0].points[nr-1].co = [cursor.x, cursor.y, cursor.z, 1]
+        active_muscle.data.splines[0].points[nr-1].co = [cursor.x, cursor.y, cursor.z,1]
 
         active_muscle.RobotEditor.muscles.pathPoints.add()
 
@@ -374,9 +374,20 @@ class DeletePathpoint(RDOperator):
 
     @RDOperator.OperatorLogger
     def execute(self, context):
-
+        print("context")
+        print(context)
         active_muscle = global_properties.active_muscle.get(context.scene)
-        bpy.data.objects[active_muscle].data.splines[0].points[self.pathpoint].remove()
+       # bpy.context.scene.objects.active = None
+        bpy.context.scene.objects.active = bpy.data.objects[active_muscle]
+
+        bpy.ops.object.mode_set(mode='EDIT')
+
+        bpy.data.objects[active_muscle].data.splines[0].points[self.pathpoint-1].select = True
+        bpy.ops.curve.delete(type='VERT')
+
+        bpy.ops.object.mode_set(mode='OBJECT')
+
+        bpy.context.scene.objects.active = bpy.data.objects[global_properties.model_name.get(context.scene)]
 
         return {'FINISHED'}
 
@@ -411,6 +422,13 @@ class MovePathpointUp(RDOperator):
 
             active_muscle_points.points[self.nr-1].co = active_muscle_points.points[self.nr-2].co
             active_muscle_points.points[self.nr-2].co = [x,y,z,w]
+
+            # move coordFrame
+            frame = bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr-2].coordFrame
+            bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr-2].coordFrame = \
+                bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr-1].coordFrame
+            bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr - 1].coordFrame = frame
+
         return {'FINISHED'}
 
    # def invoke(self, context, event):
@@ -445,6 +463,11 @@ class MovePathpointDown(RDOperator):
             active_muscle_points.points[self.nr-1].co = active_muscle_points.points[self.nr].co
             active_muscle_points.points[self.nr].co = [x,y,z,w]
 
+            # move coordFrame
+            frame = bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr-1].coordFrame
+            bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr-1].coordFrame = \
+                bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr].coordFrame
+            bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr].coordFrame = frame
 
         return {'FINISHED'}
 
@@ -465,7 +488,7 @@ class SelectSegmentMuscle(RDOperator):
     bl_label = "Select Segment to attach muscle pathpoint"
 
     segment_name = StringProperty()
-    pathpoint_nr = IntProperty()
+    pathpoint_nr = IntProperty(default=1)
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -482,10 +505,32 @@ class SelectSegmentMuscle(RDOperator):
         else:
             model.data.bones.active = None
 
-        bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.pathpoint_nr].coordFrame = self.segment_name
+        bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.pathpoint_nr-1].coordFrame = self.segment_name
+
+        ### hook pathpoint to segment
+        active_muscle = global_properties.active_muscle.get(context.scene)
+        active_model = global_properties.model_name.get(context.scene)
+
+        muscle_object = bpy.data.objects[active_muscle]
+        # set curve active object
+
+ #       hok = muscle_object.modifiers.new(name=active_muscle + '_' + str(self.pathpoint_nr-1), type='HOOK')
+ #       hok.object = bpy.data.objects[active_model]
+ #       hok.subtarget = self.segment_name
+ #       hok.falloff_type = 'NONE'
+
+ #       context.scene.objects.active = bpy.data.objects[active_muscle]
+ #       bpy.ops.object.mode_set(mode='EDIT')
+ #       muscle_object.data.splines[0].points[self.pathpoint_nr-1].select = True
+
+ #       bpy.ops.object.hook_assign(modifier=hok.name)
+
+        bpy.ops.object.mode_set(mode='OBJECT')
+
+        bpy.context.scene.objects.active = bpy.data.objects[active_model]
 
 
-        ## todo recalculat coord system
+        ## todo recalculate coord system
 
 
         return {'FINISHED'}
@@ -534,7 +579,7 @@ class CalculateMuscleLength(RDOperator):
             leng += math.sqrt((x ** 2) + (y ** 2) + (z ** 2))
 
         bpy.data.objects[self.muscle].RobotEditor.muscles.length = leng
-        print(leng)
-        print("-- gotcha---")
+
 
         return {'FINISHED'}
+

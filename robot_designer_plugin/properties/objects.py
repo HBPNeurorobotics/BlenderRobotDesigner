@@ -40,6 +40,9 @@
 # ######
 
 # Blender imports
+from glob import glob
+from matplotlib.style.core import context
+
 import bpy
 from bpy.props import FloatProperty, StringProperty, \
     EnumProperty, FloatVectorProperty, PointerProperty, IntProperty, CollectionProperty
@@ -114,20 +117,33 @@ class SceneSettingItem(bpy.types.PropertyGroup):
 def muscle_type_update(self, context):
     active_muscle = global_properties.active_muscle.get(bpy.context.scene)
 
-    if bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MYOROBOTICS':
-        color = (1.0,0.0,0.0)
-    elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MILLARD':
+   # if bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MYOROBOTICS':
+    #    color = (1.0,0.0,0.0)
+    if bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MILLARD':
         color = (0.0, 1.0, 0.0)
     elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'THELEN':
         color = (0.0, 0.0, 1.0)
 
-    #bpy.data.objects[active_muscle].data.materials[active_muscle + "_vis"].diffuse_color = color
+    bpy.data.objects[active_muscle].data.materials[active_muscle + "_vis"].diffuse_color = color
 
 
-def muscle_pathpoint_update(self, context):
-    #if bpy.data.objects[global_properties.active_muscle.get(self,context)]
+def pathpoint_bone_update(self, context):
+
     print('pathpoint update')
-   # bpy.data.objects['Line'].data.materials['linematerial'].diffuse_color = (1.0, 0.0, 0.0)
+
+
+    #todo
+
+    # create hook modifier
+    # select curve point
+    # apply_modiifer to point
+
+
+
+
+
+    # set armature active again
+    bpy.context.scene.objects.active = bpy.data.objects[global_properties.model_name.get(context.scene)]
 
 
 #@PluginManager.register_property_group()
@@ -136,9 +152,9 @@ class RDMusclePoints(bpy.types.PropertyGroup):
     Property group that contains muscle attachement points
     '''
 
-    x = FloatProperty(name="X", precision=4, step=0.1, default=1.0, update=muscle_pathpoint_update)
-    y = FloatProperty(name="Y", precision=4, step=0.1, default=1.0, update=muscle_pathpoint_update)
-    z = FloatProperty(name="Z", precision=4, step=0.1, default=1.0, update=muscle_pathpoint_update)
+    x = FloatProperty(name="X", precision=4, step=0.1, default=1.0)
+    y = FloatProperty(name="Y", precision=4, step=0.1, default=1.0)
+    z = FloatProperty(name="Z", precision=4, step=0.1, default=1.0)
 
     coordFrame = StringProperty(default="Select Segment")
 
@@ -150,18 +166,17 @@ class RDMuscle(bpy.types.PropertyGroup):
     '''
 
     muscleType = EnumProperty(
-        items=[('MYOROBOTICS', 'Myorobotics', 'Myorobotics Muscle'),
+        items=[#('MYOROBOTICS', 'Myorobotics', 'Myorobotics Muscle'),
                ('MILLARD', 'Millard 2012', 'Millard 2012 Muscle'),
                ('THELEN', 'Thelen 2003', 'Thelen 2003 Muscle')],
         name="Muscle Type:", update=muscle_type_update
     )
 
     robotName = StringProperty(name="RobotName")
-    length = FloatProperty(name="muscle length", default=0.0)
+    length = FloatProperty(name="muscle length", default=0.0, precision=2)
 
     bpy.utils.register_class(RDMusclePoints)
     pathPoints = CollectionProperty(type=RDMusclePoints)
-
 
 
 
