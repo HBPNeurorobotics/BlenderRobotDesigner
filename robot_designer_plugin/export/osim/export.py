@@ -39,6 +39,10 @@ from ...core import config, PluginManager, RDOperator
 from ...properties.globals import global_properties
 
 
+def get_muscles(active_model_name):
+  return list(filter(lambda obj: obj.RobotEditor.muscles.robotName == active_model_name, bpy.data.objects))
+
+
 class OsimExporter(object):
   def __init__(self):
     self.doc = osim_dom.OpenSimDocument()
@@ -69,9 +73,7 @@ class OsimExporter(object):
       f.write(output)
 
 
-  def add_all_muscles(self, data, context):
-    active_model = global_properties.model_name.get(context.scene)
-    muscles = list(filter(lambda obj: obj.RobotEditor.muscles.robotName == active_model, data.objects))
+  def add_muscles(self, context, muscles):
     print ("Exporting Muscles:", muscles)
     for m in muscles:
       self._add_blender_muscle(m, context)
@@ -160,11 +162,11 @@ def create_osim(operator: RDOperator, context,
   :return:
   """
   # Might be set at another place. Therefore need to clear it.
-  pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(None)
 
-  exporter = OsimExporter()
-
-  exporter.add_all_muscles(bpy.data, context)
-
-  exporter.write_osim_file(
-    os.path.join(toplevel_directory, "muscles.osim"))
+  muscles = get_muscles(context.active_object.name)
+  if muscles:
+    pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(None)
+    exporter = OsimExporter()
+    exporter.add_muscles(context, muscles)
+    exporter.write_osim_file(
+      os.path.join(toplevel_directory, "muscles.osim"))

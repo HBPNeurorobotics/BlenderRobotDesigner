@@ -41,7 +41,6 @@
 
 # Blender imports
 from glob import glob
-from matplotlib.style.core import context
 
 import bpy
 from bpy.props import FloatProperty, StringProperty, \
