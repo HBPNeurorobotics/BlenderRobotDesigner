@@ -48,6 +48,15 @@
           </xsd:annotation>
         </xsd:element>
         </xsd:choice>
+        <xsd:choice  minOccurs='0' maxOccurs='1'>
+        <xsd:element name='muscles' type='xsd:string'>
+          <xsd:annotation>
+            <xsd:documentation xml:lang='en'>
+              <![CDATA[A filename of a file containing definition of a muscle system for use with OpenSim physics]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        </xsd:choice>
         <xsd:choice maxOccurs="unbounded" minOccurs="0">
         <xsd:element name="include">
           <xsd:annotation>
