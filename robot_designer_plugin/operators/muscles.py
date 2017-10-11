@@ -50,58 +50,25 @@ from .helpers import _mat3_to_vec_roll, ModelSelected, SingleSegmentSelected, Po
 
 from ..properties.globals import global_properties
 
-@RDOperator.Preconditions(ModelSelected)
-@PluginManager.register_class
-class SelectMuscle(RDOperator):
-    """
-    :term:`Operator<operator>` for selecting a segment. If :attr:`segment_name` is empty,
-    all segments will be deselected
-    """
-    bl_idname = config.OPERATOR_PREFIX + "select_segment"
-    bl_label = "Select Segment"
-
-    segment_name = StringProperty()
-
-    @RDOperator.OperatorLogger
-    def execute(self, context):
-        if not (context.active_object.type == 'ARMATURE'):  #or context.active_object.type == 'MESH'
-            raise Exception("BoneSelectionException")
-
-        model = bpy.context.active_object
-        for b in model.data.bones:
-            b.select = False
-
-        if self.segment_name:
-            model.data.bones.active = model.data.bones[self.segment_name]
-
-            model.data.bones.active.select = True
-        else:
-            model.data.bones.active = None
-
-        return {'FINISHED'}
-
-    @classmethod
-    def run(cls, segment_name=""):
-        return super().run(**cls.pass_keywords())
-
 
 @RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)
 @PluginManager.register_class
 class RenameMuscle(RDOperator):
     """
-    :term:`operator` for renaming an active bone
+    :term:`operator` for renaming the selected muscle
 
 
     """
-    bl_idname = config.OPERATOR_PREFIX + "rename_segment"
-    bl_label = "Rename active segment"
+    bl_idname = config.OPERATOR_PREFIX + "rename_muscle"
+    bl_label = "Rename active muscle"
 
     new_name = StringProperty(name="Enter new name:")
 
 
     @RDOperator.OperatorLogger
     def execute(self, context):
-        context.active_bone.name = self.new_name
+        bpy.data.objects[global_properties.active_muscle.get(context.scene)].name = self.new_name
+        global_properties.active_muscle.set(context.scene, self.new_name)
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -116,7 +83,7 @@ class RenameMuscle(RDOperator):
 @PluginManager.register_class
 class DeleteMuscle(RDOperator):
     """
-    :term:`operator` for deleting a the selected segment *ALL* of its children.
+    :term:`operator` for deleting the selected muscle.
 
 
     """
@@ -192,53 +159,19 @@ class CreateNewMuscle(RDOperator):
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
 
-# def createBone(model_name, bone_name, parent_name=None):
-#     """
-#     Creates a new bone
-#
-#     :param model_name: string identifier of the armature
-#     :param bone_name: the name of the new bone
-#     :param parent_name: (optional) identifies the name of the parent bone
-#     """
-#     print("createBone")
-#     designer.selectarmature(armatureName=model_name)
-#     currentMode = bpy.context.object.mode
-#
-#     print(bpy.ops.object.mode_set(mode='EDIT', toggle=False))
-#     # arm = bpy.data.armatures[armatureName]
-#     bone = bpy.data.armatures[model_name].edit_bones.new(bone_name)
-#     bone.head = (0, 0, 0)  # Dummy
-#     bone.tail = (0, 0, 1)  # Dummy
-#     bone.lock = True
-#
-#     if parent_name is not None:
-#         bone.parent = bpy.data.armatures[model_name].edit_bones[parent_name]
-#
-#     bpy.ops.object.mode_set(mode='POSE', toggle=False)
-#
-#     designer.select_segment(boneName=bone_name)
-#     bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
-#     bpy.context.object.pose.bones[bone_name].constraints[
-#         0].name = 'RobotEditorConstraint'
-#     bpy.ops.object.mode_set(mode=currentMode, toggle=False)
-#
-#     print("createBone done")
-
-
-
 
 
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class SelectMuscle(RDOperator):
     """
-    :ref:`operator` for selecting mesh for visualization of coordinate frames.
+    :ref:`operator` for selecting a muscle.
 
     **Preconditions:**
 
     **RDOperator.Postconditions:**
     """
-    bl_idname = config.OPERATOR_PREFIX + "selectcf"
+    bl_idname = config.OPERATOR_PREFIX + "selectm"
     bl_label = "Select Muscle"
 
     muscle_name = StringProperty()
@@ -258,7 +191,7 @@ class SelectMuscle(RDOperator):
 
         global_properties.active_muscle.set(bpy.context.scene, self.muscle_name)
 
-        ### highlight muscle similar to here
+        ### todo highlight muscle similar to here
       #  for bone in [i.name for i in bpy.data.armatures[
       #      context.active_object.data.name].bones]:
       #      if self.muscle_name != 'None':
@@ -275,9 +208,7 @@ class SelectMuscle(RDOperator):
 @PluginManager.register_class
 class CreateNewPathpoint(RDOperator):
     """
-    :term:`Operator <operator>` for creating new robot segments and add it to the current model.
-    If a segment is already selected, the new segment is added as a child segment. A call :class:`SelectSegment`
-    before might be necessary.
+    :term:`Operator <operator> for creating a new pathpoint as a spline point on the muscle object
     """
     bl_idname = config.OPERATOR_PREFIX + "create_muscle_pathpoint"
     bl_label = "Add current cursor location as pathpoint?"
@@ -320,11 +251,7 @@ class CreateNewPathpoint(RDOperator):
 @PluginManager.register_class
 class SelectMusclePathPoint(RDOperator):
     """
-    :ref:`operator` for selecting mesh for visualization of coordinate frames.
-
-    **Preconditions:**
-
-    **RDOperator.Postconditions:**
+    :ref:`operator` for selecting a muscle pathpoint.
     """
     bl_idname = config.OPERATOR_PREFIX + "select_muscle_pathpoint"
     bl_label = "Select Muscle Pathpoint"
@@ -346,7 +273,7 @@ class SelectMusclePathPoint(RDOperator):
 
         global_properties.active_muscle_pathpoint.set(bpy.context.scene, self.muscle_pathpoint_name)
 
-        ### highlight muscle similar to here
+        ### todo highlight pathpoint similar to here
       #  for bone in [i.name for i in bpy.data.armatures[
       #      context.active_object.data.name].bones]:
       #      if self.muscle_name != 'None':
@@ -363,7 +290,7 @@ class SelectMusclePathPoint(RDOperator):
 @PluginManager.register_class
 class DeletePathpoint(RDOperator):
     """
-    :term:`operator` for deleting a the selected segment *ALL* of its children.
+    :term:`operator` for deleting a the selected pathpoint from the muscle.
 
 
     """
@@ -389,6 +316,7 @@ class DeletePathpoint(RDOperator):
 
         bpy.context.scene.objects.active = bpy.data.objects[global_properties.model_name.get(context.scene)]
 
+
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -399,7 +327,7 @@ class DeletePathpoint(RDOperator):
 @PluginManager.register_class
 class MovePathpointUp(RDOperator):
     """
-    :term:`operator` for deleting a the selected segment *ALL* of its children.
+    :term:`operator` for switching index of pathpoint with previous one.
 
 
     """
@@ -439,7 +367,7 @@ class MovePathpointUp(RDOperator):
 @PluginManager.register_class
 class MovePathpointDown(RDOperator):
     """
-    :term:`operator` for deleting a the selected segment *ALL* of its children.
+    :term:`operator` for switching index of pathpoint with previous one.
 
 
     """
@@ -481,8 +409,7 @@ class MovePathpointDown(RDOperator):
 @PluginManager.register_class
 class SelectSegmentMuscle(RDOperator):
     """
-    :term:`Operator<operator>` for selecting a segment. If :attr:`segment_name` is empty,
-    all segments will be deselected
+    :term:`Operator<operator>` for selecting a segment to be assigned to a pathpoint.
     """
     bl_idname = config.OPERATOR_PREFIX + "select_segment_muscle"
     bl_label = "Select Segment to attach muscle pathpoint"
@@ -507,12 +434,13 @@ class SelectSegmentMuscle(RDOperator):
 
         bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.pathpoint_nr-1].coordFrame = self.segment_name
 
-        ### hook pathpoint to segment
         active_muscle = global_properties.active_muscle.get(context.scene)
         active_model = global_properties.model_name.get(context.scene)
 
+        # todo hook muscle to segment
+        ### hook pathpoint to segment
         muscle_object = bpy.data.objects[active_muscle]
-        # set curve active object
+
 
  #       hok = muscle_object.modifiers.new(name=active_muscle + '_' + str(self.pathpoint_nr-1), type='HOOK')
  #       hok.object = bpy.data.objects[active_model]
@@ -551,7 +479,7 @@ class SelectSegmentMuscle(RDOperator):
 @PluginManager.register_class
 class CalculateMuscleLength(RDOperator):
     """
-    :term:`operator` for deleting a the selected segment *ALL* of its children.
+    :term:`operator` for calculating the length of the active muscle.
 
 
     """
@@ -563,11 +491,9 @@ class CalculateMuscleLength(RDOperator):
     @RDOperator.OperatorLogger
     def execute(self, context):
 
-        active_muscle = global_properties.active_muscle.get(context.scene)
-
         leng = 0.0
 
-        spline = bpy.data.objects[active_muscle].data.splines[0]
+        spline = bpy.data.objects[self.muscle].data.splines[0]
 
         print("hallo")
 

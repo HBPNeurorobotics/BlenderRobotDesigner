@@ -60,8 +60,11 @@ def draw(layout, context):
 
     box = layout.box()
     row = box.row()
+    # selective display muscle type
     row.label("Show:")
     global_properties.display_muscle_selection.prop(context.scene, row, expand=True)
+
+    print(global_properties.display_muscle_selection.get(context.scene))
 
     box = AttachSensorBox.get(layout, context, "Muscles", icon="LINKED")
     if box:
@@ -72,74 +75,79 @@ def draw(layout, context):
 
         row1 = box.row()
 
+        # Muscle instances
         column = row1.column(align=True)
         column.menu(menus.MuscleMenu.bl_idname,
-                    text=global_properties.active_muscle.get(bpy.context.scene))# if global_properties.active_muscle.get(bpy.context.scene) else "Select Segment")
+                    text=active_muscle if not active_muscle == '' else "Select Muscle")
 
         column = row1.column(align=True)
         muscles.CreateNewMuscle.place_button(column, text="Create new muscle", infoBox=infoBox)
+        muscles.RenameMuscle.place_button(column, text="Rename active muscle", infoBox=infoBox)
         muscles.DeleteMuscle.place_button(column, text="Delete active muscle", infoBox=infoBox)
 
         row2 = box.row()
 
+        # Muscle Pathpoints
         if active_muscle != '':
-            pointbox = box.box()
-            row3 = pointbox.row()
-            row3.label(text="Muscle attachment points")
+             pointbox = box.box()
+             row3 = pointbox.row()
+             row3.label(text="Muscle attachment points")
 
-            row4 = pointbox.row()
-            column = row4.column(align=True)
-            muscles.CreateNewPathpoint.place_button(column, text="Add new pathpoint", infoBox=infoBox)
+             row4 = pointbox.row()
+             column = row4.column(align=True)
+             muscles.CreateNewPathpoint.place_button(column, text="Add new pathpoint", infoBox=infoBox)
 
-            i = 0
-            # put pathpoints
-            for obj in bpy.data.objects[active_muscle].data.splines[0].points:
-                row5 = pointbox.row(align=True)
-                i = i + 1
-       #        x.label(text=obj.name)
-      #         row5.prop(obj, 'x', text='X')
-      #         row5.prop(obj, 'y', text='Y')
-      #         row5.prop(obj, 'z', text='Z')
-                row5.prop(obj, 'co', text=str(i))
+             i = 0
+             # pathpoint characteristics
+             try:
+                for obj in bpy.data.objects[active_muscle].data.splines[0].points:
 
-                #row5.prop(bpy.data.objects[active_muscle].RobotEditor.muscles.pathpoints[0], 'coordFrame')
+                    row5 = pointbox.row(align=True)
+                    i = i + 1
 
-                if bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[i-1].coordFrame not in [bone.name for bone in bpy.data.objects[active_model].data.bones]:
-                        row5.alert = True
-                row5.prop(bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[i-1], 'coordFrame', text='')
-                row5.alert = False
+                    # pathpoint coordinates
+                    row5.prop(obj, 'co', text=str(i))
 
-                muscles.MovePathpointUp.place_button(row5, text='', icon='TRIA_UP', infoBox=infoBox).nr = i
-                muscles.MovePathpointDown.place_button(row5, text='', icon='TRIA_DOWN', infoBox=infoBox).nr = i
+                    # assigned segment
+                    if bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[i-1].coordFrame not in \
+                            [bone.name for bone in bpy.data.objects[active_model].data.bones]: row5.alert = True
+                    row5.prop(bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[i-1], 'coordFrame', text='')
+                    row5.alert = False
 
-                bone = bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[i-1].coordFrame
+                    # swap pathpoints
+                    muscles.MovePathpointUp.place_button(row5, text='', icon='TRIA_UP', infoBox=infoBox).nr = i
+                    muscles.MovePathpointDown.place_button(row5, text='', icon='TRIA_DOWN', infoBox=infoBox).nr = i
 
-                muscles.DeletePathpoint.place_button(row5, infoBox=infoBox, icon="X_VEC").pathpoint = i
+                    # delete pathpoint
+                    muscles.DeletePathpoint.place_button(row5, infoBox=infoBox, icon="X_VEC").pathpoint = i
 
-        row6 = pointbox.row()
-        row7 = pointbox.row()
+                row7 = pointbox.row()
 
-        row7.label(text="Attach segments to pathpoints")
-      #  bone = bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[0].coordFrame
+                # assign segments to pathpoints
+                row7.label(text="Attach segments to pathpoints")
+                row7.menu(menus.SegmentsMusclesMenu.bl_idname, text="Select Segment")
 
+                musclebox = box.box()
+                musclebox.label("Muscle Characteristics")
+                # show length of muscle
+                row = musclebox.row()
+                row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'length', text="Muscle length")
+                muscles.CalculateMuscleLength.place_button(row, infoBox=infoBox, text="Calculate").muscle = active_muscle
 
-        x = menus.SegmentsMusclesMenu
-        x.nr = 1
-        row7.menu(x.bl_idname, text="Select Segment")
-        print(bpy.ops.roboteditor.calc_muscle_length)
+                # Muscle Characteristics
+                # max force
+                row = musclebox.row()
+                row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'max_isometric_force', text="Max isometric Force")
 
-        # bpy.ops.roboteditor.calc_muscle_length(muscle="m") #.execute(context) #(.place_button(row5, infoBox=infoBox, icon="X_VEC"))
+                # muscle type
+                row = musclebox.row()
+                if active_muscle != '':
+                   row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'muscleType', text='Muscle Type')
+                box.row()
 
-        row = box.row()
-        row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'length', text="Muscle length:")
-        muscles.CalculateMuscleLength.place_button(row, infoBox=infoBox, text="Calculate").muscle = active_muscle
-
-        #bpy.ops.roboteditor.calc_muscle_length(muscle="biceps")
-
-        row = box.row()
-        if active_muscle != '':
-            row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles,
-                 'muscleType', text='Muscle Type')
-        box.row()
+             except:
+                 pointbox.row()
+                 box.row()
+                 pass
 
         infoBox.draw_info()
