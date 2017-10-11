@@ -107,7 +107,7 @@ class OsimExporter(object):
         )
       ),
       # TODO: Fix hardcoded values
-      max_isometric_force = 1000.,
+      max_isometric_force = m.RobotEditor.muscles.max_isometric_force,
       optimal_fiber_length = m.RobotEditor.muscles.length, #0.01,
       tendon_slack_length = 0.01
     )

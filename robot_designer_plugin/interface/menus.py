@@ -108,7 +108,7 @@ class SegmentsGeometriesMenu(bpy.types.Menu, BaseMenu):
 @PluginManager.register_class
 class SegmentsMusclesMenu(bpy.types.Menu, BaseMenu):
     """
-    :ref:`menu` for selecting robot segments while displaying connections to geometries in the scene.
+    :ref:`menu` for selecting robot segments to be assigned to muscle pathpoint.
     """
     bl_idname = OPERATOR_PREFIX + "bonemuscleenu"
     bl_label = "Select Muscle"
@@ -331,8 +331,12 @@ class MuscleMenu(bpy.types.Menu, BaseMenu):
         layout = self.layout
 
         active_model = global_properties.model_name.get(context.scene)
+        hide_muscle = global_properties.display_muscle_selection.get(context.scene)
 
-        for muscle in [obj.name for obj in bpy.data.objects if bpy.data.objects[obj.name].RobotEditor.muscles.robotName == active_model]:
+        for muscle in [obj.name for obj in bpy.data.objects
+                       if bpy.data.objects[obj.name].RobotEditor.muscles.robotName == active_model\
+                        and hide_muscle == 'all'
+                        or hide_muscle.lower() == bpy.data.objects[obj.name].RobotEditor.muscles.robotName.lower()]:
              muscles.SelectMuscle.place_button(layout, text=muscle).muscle_name = muscle
 
 
