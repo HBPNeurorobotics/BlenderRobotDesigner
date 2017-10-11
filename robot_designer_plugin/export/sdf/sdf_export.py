@@ -48,6 +48,7 @@ import sys
 from math import radians
 import tempfile
 from pathlib import Path
+import pyxb
 
 # ######
 # Blender imports
@@ -62,6 +63,7 @@ from .generic.helpers import list_to_string, string_to_list, localpose2globalpos
 from ...core import config, PluginManager, RDOperator
 from ...operators.helpers import ModelSelected, ObjectMode
 from ...operators.model import SelectModel
+from ..osim.export import create_osim, get_muscles
 
 from ...properties.globals import global_properties
 
@@ -69,10 +71,28 @@ from pyxb import ContentNondeterminismExceededError, BIND
 
 # config file generation
 from .generic import model_config_dom
+from .generic import sdf_dom
 from pyxb.namespace import XMLSchema_instance as xsi
 import pyxb
 
 
+
+def _uri_for_meshes_and_muscles(in_ros_package: bool, abs_file_paths, toplevel_dir: str, file_path: str):
+    """
+    Generate proper URI's for included geometry files and muscle definitions (.osim).
+
+    :param in_ros_package:  Whether to export into a ros package or plain files
+    :param abs_file_paths: If not intstalled into a ros package decides whether to use absolute file paths.
+    :param toplevel_dir: The directory in which to export
+    :param file_path: The absolute path of the file for which to generate the URI.
+    :return:
+    """
+    if in_ros_package:
+        return "package://" + os.path.relpath(file_path, str(Path(toplevel_dir).parent))
+    elif not abs_file_paths:
+        return "model://" + os.path.relpath(file_path, str(Path(toplevel_dir).parent))
+    else:
+        return "model://" + file_path
 
 
 def export_mesh(operator: RDOperator, context, name: str, directory: str, toplevel_dir: str, in_ros_package: bool,
@@ -148,12 +168,8 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
                 file_path = os.path.join(directory, bpy.data.objects[mesh].RobotEditor.fileName + '_vertices' + str(len(bm.vertices)) + '.dae')
 
         SelectModel.run(model_name=model_name)
-        if in_ros_package:
-            return "package://" + os.path.relpath(file_path, str(Path(toplevel_dir).parent))
-        elif not abs_file_paths:
-            return "model://" + os.path.relpath(file_path, str(Path(toplevel_dir).parent))
-        else:
-            return "model://" + file_path
+
+        return _uri_for_meshes_and_muscles(in_ros_package, abs_file_paths, toplevel_dir, file_path)
 
             # return ("model://" + os.path.join(model_folder_name, "meshes",
             # mesh + ".dae"))
@@ -411,6 +427,14 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     #     root.control_plugin = root.add_joint_control_plugin()
 
     # add root geometries to root.link
+    muscles = get_muscles(robot_name)
+    if muscles:
+        muscle_uri = _uri_for_meshes_and_muscles(
+            in_ros_package,
+            abs_filepaths,
+            toplevel_directory,
+            os.path.join(toplevel_directory, 'muscles.osim'))
+        root.sdf.model[0].muscles.append(muscle_uri)
 
     root_segments = [b for b in context.active_object.data.bones if
                      b.parent is None]
@@ -655,7 +679,12 @@ class ExportPlain(RDOperator):
         create_sdf(self, context, filepath=self.filepath,
                     meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                     in_ros_package=False, abs_filepaths=self.abs_file_paths)
-
+        create_config(self, context, filepath=self.filepath,
+                      meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
+                      in_ros_package=False, abs_filepaths=self.abs_file_paths)
+        create_osim(self, context, filepath=self.filepath,
+                    meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
+                    in_ros_package=False, abs_filepaths=self.abs_file_paths)
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -696,7 +725,9 @@ class ExportPackage(RDOperator):
         create_config(self, context, filepath=self.filepath,
                       meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                       in_ros_package=False, abs_filepaths=self.abs_file_paths)
-
+        create_osim(self, context, filepath=self.filepath,
+                    meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
+                    in_ros_package=False, abs_filepaths=self.abs_file_paths)
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -760,7 +791,9 @@ class ExportZippedPackage(RDOperator):
             create_config(self, context, filepath=self.filepath,
                           meshpath=temp_dir, toplevel_directory=temp_dir,
                           in_ros_package=False, abs_filepaths=self.abs_file_paths)
-
+            create_osim(self, context, filepath=self.filepath,
+                        meshpath=temp_dir, toplevel_directory=temp_dir,
+                        in_ros_package=False, abs_filepaths=self.abs_file_paths)
             self.logger.debug(temp_file)
             with zipfile.ZipFile(self.filepath, 'w') as zipf:
                 zipdir(target, zipf)

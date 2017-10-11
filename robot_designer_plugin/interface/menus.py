@@ -32,6 +32,7 @@
 # Changes:
 #   2015:       Stefan Ulbrich (FZI), Gui redesigned
 #   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#   2017        Benedikt Feldotto (TUM), Muscle Support
 #
 # ######
 # ######
@@ -48,7 +49,7 @@ from bpy.props import IntProperty, StringProperty, CollectionProperty
 # ######
 # RobotDesigner imports
 
-from ..operators import segments, model, rigid_bodies, dynamics, sensors
+from ..operators import segments, model, rigid_bodies, dynamics, sensors, muscles
 
 from ..core import PluginManager
 from ..core.config import OPERATOR_PREFIX
@@ -103,7 +104,29 @@ class SegmentsGeometriesMenu(bpy.types.Menu, BaseMenu):
             layout.operator(segments.SelectSegment.bl_idname, text=text).segment_name = bone
 
 
+# dynamic menu to select bone for muscle coordinate frame
+@PluginManager.register_class
+class SegmentsMusclesMenu(bpy.types.Menu, BaseMenu):
+    """
+    :ref:`menu` for selecting robot segments to be assigned to muscle pathpoint.
+    """
+    bl_idname = OPERATOR_PREFIX + "bonemuscleenu"
+    bl_label = "Select Muscle"
+    filter = None
 
+    @RDOperator.OperatorLogger
+    def draw(self, context):
+        mesh_type = global_properties.mesh_type.get(context.scene)
+        hide_bone = global_properties.display_mesh_selection.get(context.scene)
+        layout = self.layout
+
+        current_model = context.active_object
+        segment_names = [bone.name for bone in current_model.data.bones]
+
+        for bone in sorted(segment_names, key=str.lower):
+            x = muscles.SelectSegmentMuscle
+            x.segment_name = bone
+            layout.operator(x.bl_idname, text=bone).segment_name = bone
 
 
 class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
@@ -291,7 +314,49 @@ class CoordinateFrameMenu(bpy.types.Menu, BaseMenu):
                           obj.parent_bone == '']
 
         for mesh in geometry_names:
-            model.SelectCoordinateFrame.place_button(layout,text=mesh).mesh_name = mesh
+            model.SelectCoordinateFrame.place_button(layout, text=mesh).mesh_name = mesh
+
+
+@PluginManager.register_class
+class MuscleMenu(bpy.types.Menu, BaseMenu):
+    """
+    :ref:`menu` to select alternative display for the coordinate frames.
+    """
+    bl_idname = OPERATOR_PREFIX + "musclemenu"
+    bl_label = "Select Muscle"
+    axis = IntProperty(default=0)
+
+    @RDOperator.OperatorLogger
+    def draw(self, context):
+        layout = self.layout
+
+        active_model = global_properties.model_name.get(context.scene)
+        hide_muscle = global_properties.display_muscle_selection.get(context.scene)
+
+        for muscle in [obj.name for obj in bpy.data.objects
+                       if bpy.data.objects[obj.name].RobotEditor.muscles.robotName == active_model\
+                        and hide_muscle == 'all'
+                        or hide_muscle.lower() == bpy.data.objects[obj.name].RobotEditor.muscles.robotName.lower()]:
+             muscles.SelectMuscle.place_button(layout, text=muscle).muscle_name = muscle
+
+
+@PluginManager.register_class
+class MusclePointsMenu(bpy.types.Menu, BaseMenu):
+    """
+    :ref:`menu` to select alternative display for the coordinate frames.
+    """
+    bl_idname = OPERATOR_PREFIX + "musclepointsmenu"
+    bl_label = "Select Muscle Pathpoint"
+    axis = IntProperty(default=0)
+
+    @RDOperator.OperatorLogger
+    def draw(self, context):
+        layout = self.layout
+        muscle_pathpoints = [obj.name for obj in bpy.data.objects[global_properties.model_name.get(bpy.context.scene)].RobotEditor.muscles[global_properties.active_muscle.get(bpy.context.scene)].pathPoints]
+                ## if muscle type to show!
+
+        for muscle_pathpoint in muscle_pathpoints:
+            muscles.SelectMusclePathPoint.place_button(layout, text=muscle_pathpoint).muscle_pathpoint_name = muscle_pathpoint
 
 
 @PluginManager.register_class

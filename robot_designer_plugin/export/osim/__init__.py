@@ -2,8 +2,7 @@
 # This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
 # in the Human Brain Project (HBP).
 # It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+# developed at the Technical University of Munich at the chair of embedded and robotic system.
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -24,28 +23,11 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-# #####
-#
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
-#
-# Changes:
-#
-#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
-#
-# ######
-from . import controllers, dynamics, files, geometries, helpers, kinematics, main, menus, model, segments, sensors, muscles
+
 from importlib import reload
 
-reload(helpers) # Due to dependencies has to be the first to reload
-reload(menus)
+from . import osim_dom
+from . import export
 
-reload(controllers)
-reload(dynamics)
-reload(files)
-reload(geometries)
-reload(kinematics)
-reload(main)
-reload(model)
-reload(segments)
-reload(sensors)
-reload(muscles)
+reload(osim_dom)
+reload(export)
