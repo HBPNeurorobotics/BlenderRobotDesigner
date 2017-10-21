@@ -29,18 +29,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="_static/hbp_32x32.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
@@ -86,6 +74,7 @@
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
 <li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#new-features">New features</a></li>
 <li><a class="reference internal" href="#planned-features">Planned features</a><ul>
 <li><a class="reference internal" href="#footnotes">Footnotes</a></li>
 </ul>
@@ -306,11 +295,11 @@ sub-projects.</p>
 <p>Important: You should have a latest blender (version&gt;=2.77) on your computer. Your version of blender should have a built-in python. Install on linux and windows:</p>
 <ol class="arabic simple">
 <li>Download blender from the dedicated website: <a class="reference external" href="https://www.blender.org/download/">https://www.blender.org/download/</a></li>
-<li>Download the “installer.blend” from our github: <a class="reference external" href="https://github.com/HBPNeurorobotics/BlenderRobotDesigner/blob/master/installer.blend">https://github.com/HBPNeurorobotics/BlenderRobotDesigner/blob/master/installer.blend</a></li>
+<li>Download the “installer.blend” from our github repository: <a class="reference external" href="https://github.com/HBPNeurorobotics/BlenderRobotDesigner/blob/master/installer.blend">https://github.com/HBPNeurorobotics/BlenderRobotDesigner/blob/master/installer.blend</a></li>
 <li>Launch blender and open the installer.blend file, click “run script” and wait until “RD Installation Done!” appears in your terminal</li>
 <li>Relaunch blender, you will find the HBP add-on on the top left of blender GUI (Note: if the HBP tab does not appear in the tool shelf, navigate to File-&gt;User Preferences-&gt;Add-Ons tab, search for and select the NRP Robot Designer add-on, and click “Save User Settings”)</li>
 </ol>
-<p>(Note: Launch blender from terminal to make sure that you choose the right version of blender if you have multiple blenders on your computer)</p>
+<p>For further information have a look at the Installation section of the User Manual.</p>
 </div>
 <div class="section" id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
@@ -400,6 +389,18 @@ run the software as well on how to extend it and use the <code class="docutils l
 in general. The code aims at being well-documented (the original code
 base is currently in the process of being documented) and to meet coding
 standards such as <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP 8</a>.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="new-features">
+<h2>New features<a class="headerlink" href="#new-features" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><strong>Muscle Definition</strong></p>
+<p>We added a new section for muscle definition on the robot model. Exploiting the graphical user interface, one can
+add muscle pathpoints directly in the scene. All points get listed and can be adapted continuously. As well muscle
+characteristics such as type, force and length can be changed. On export of a SDF package an additional .osim
+file with muscle definitions get exported which is compatible with OpenSim. Hereby you can directly simulate
+the defined muscles in the Neurorobotics Platform.</p>
 </li>
 </ul>
 </div>

@@ -29,18 +29,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -77,6 +65,7 @@
 <li><a class="reference internal" href="#the-segments-properties-tab">The Segments properties tab</a></li>
 <li><a class="reference internal" href="#the-geometries-properties-tab">The Geometries properties tab</a></li>
 <li><a class="reference internal" href="#the-sensors-properties-tab">The Sensors properties tab</a></li>
+<li><a class="reference internal" href="#the-muscles-properties-tab">The Muscles properties tab</a></li>
 <li><a class="reference internal" href="#the-tools-properties-tab">The Tools properties tab</a></li>
 <li><a class="reference internal" href="#the-files-properties-tab">The Files properties tab</a></li>
 </ul>
@@ -84,6 +73,7 @@
 <li><a class="reference internal" href="#creating-and-maintaining-robot-models">Creating and maintaining robot models</a></li>
 <li><a class="reference internal" href="#creating-robot-joint-links">Creating Robot Joint/links</a></li>
 <li><a class="reference internal" href="#adding-and-removing-geometric-models">Adding and removing geometric models</a></li>
+<li><a class="reference internal" href="#adding-muscles">Adding Muscles</a></li>
 <li><a class="reference internal" href="#import-and-export">Import and export</a><ul>
 <li><a class="reference internal" href="#urdf">URDF</a></li>
 <li><a class="reference internal" href="#sdf">SDF</a></li>
@@ -160,6 +150,13 @@ tutorials provided on this matter which can be found <a class="reference externa
 <h2>The RobotDesigner<a class="headerlink" href="#the-robotdesigner" title="Permalink to this headline">¶</a></h2>
 <p>We introduce the structure of the Graphical User Interface as well as explain the workflow of creating a new robot model.
 If an existing model is imported the user can also start at any tab section of interest.</p>
+<p>In the gif below you can see how to create a simple tigrillo robot with muscles from scratch using the Robot Designer.
+The design here includes mesh creation, kinematic and dynamics definition, visual and collision mesh attachment, muscle
+definition and SDF package export.</p>
+<div class="figure align-center" id="id1">
+<img alt="../_images/tigrillo.gif" src="../_images/tigrillo.gif" />
+<p class="caption"><span class="caption-text">Creating a simple tigrillo model from scratch.</span></p>
+</div>
 <div class="section" id="panel-overview">
 <h3>Panel Overview<a class="headerlink" href="#panel-overview" title="Permalink to this headline">¶</a></h3>
 <p>The various functionalities are collected in several tabs for intuitive user interaction. Creating a new robot the developer
@@ -169,7 +166,7 @@ would start from the left tab to the right, or as listed below from creating a r
 <p>The Robot properties tab allows us to create a new robot model or select an existing one. Hier we can also rename
 it or merge with another model. New segments for expanding the robot model can be created and deleted here as well.
 These segments are called <em>bones</em> in blender.</p>
-<div class="figure align-center" id="id1">
+<div class="figure align-center" id="id2">
 <img alt="../_images/robot_example.png" src="../_images/robot_example.png" />
 <p class="caption"><span class="caption-text">The Robot properties tab of the NRP RobotDesigner</span></p>
 </div>
@@ -178,7 +175,7 @@ These segments are called <em>bones</em> in blender.</p>
 <h4>The Segments properties tab<a class="headerlink" href="#the-segments-properties-tab" title="Permalink to this headline">¶</a></h4>
 <p>In the Segments properties tab we can modify the properties of the previously created segments by setting joint type,
 joint limits, orientation and position in relation to the parent bone.</p>
-<div class="figure align-center" id="id2">
+<div class="figure align-center" id="id3">
 <img alt="../_images/segments_example.png" src="../_images/segments_example.png" />
 <p class="caption"><span class="caption-text">The Segments properties tab of the NRP RobotDesigner</span></p>
 </div>
@@ -188,7 +185,7 @@ joint limits, orientation and position in relation to the parent bone.</p>
 <p>The Geometries properties tab allows us to connect the kinematics model or armature created by the NRP RobotDesigner with
 an existing geometrical model, generate such a model or disconnect it once it has been attached. Additionally we can set
 basic properties as well as reduce the complexity of the geometries.</p>
-<div class="figure align-center" id="id3">
+<div class="figure align-center" id="id4">
 <img alt="../_images/geometries_example_expanded.png" src="../_images/geometries_example_expanded.png" />
 <p class="caption"><span class="caption-text">The Geometries properties tab of the NRP RobotDesigner</span></p>
 </div>
@@ -196,15 +193,24 @@ basic properties as well as reduce the complexity of the geometries.</p>
 <div class="section" id="the-sensors-properties-tab">
 <h4>The Sensors properties tab<a class="headerlink" href="#the-sensors-properties-tab" title="Permalink to this headline">¶</a></h4>
 <p>In the Sensor properties tab a camera or laser sensor can be attached, detached and its properties adjusted.</p>
-<div class="figure align-center" id="id4">
+<div class="figure align-center" id="id5">
 <img alt="../_images/sensors_empty.png" src="../_images/sensors_empty.png" />
 <p class="caption"><span class="caption-text">The Sensors properties tab of the NRP RobotDesigner</span></p>
+</div>
+</div>
+<div class="section" id="the-muscles-properties-tab">
+<h4>The Muscles properties tab<a class="headerlink" href="#the-muscles-properties-tab" title="Permalink to this headline">¶</a></h4>
+<p>In the muscles section muscles can be defined interactively in the scene, while pathpoints and characteristics get
+listed in the GUI.</p>
+<div class="figure align-center" id="id6">
+<img alt="../_images/muscles_tab.png" src="../_images/muscles_tab.png" />
+<p class="caption"><span class="caption-text">The Muscles properties tab of the NRP RobotDesigner</span></p>
 </div>
 </div>
 <div class="section" id="the-tools-properties-tab">
 <h4>The Tools properties tab<a class="headerlink" href="#the-tools-properties-tab" title="Permalink to this headline">¶</a></h4>
 <p>In the tools section debug information such as Info, Error and Warning messages can be inspected.</p>
-<div class="figure align-center" id="id5">
+<div class="figure align-center" id="id7">
 <img alt="../_images/tools_empty.png" src="../_images/tools_empty.png" />
 <p class="caption"><span class="caption-text">The Tools properties tab of the NRP RobotDesigner</span></p>
 </div>
@@ -212,19 +218,19 @@ basic properties as well as reduce the complexity of the geometries.</p>
 <div class="section" id="the-files-properties-tab">
 <h4>The Files properties tab<a class="headerlink" href="#the-files-properties-tab" title="Permalink to this headline">¶</a></h4>
 <p>Here we can export the created robot model as a an URDF file/package or import a robot model from an URDF file/package.</p>
-<div class="figure align-center" id="id6">
-<img alt="user_manual/images/files_example.png" src="user_manual/images/files_example.png" />
+<div class="figure align-center" id="id8">
+<img alt="../_images/files_example.png" src="../_images/files_example.png" />
 <p class="caption"><span class="caption-text">The Files properties tab of the NRP RobotDesigner</span></p>
 </div>
 </div>
 </div>
 <div class="section" id="creating-and-maintaining-robot-models">
 <h3>Creating and maintaining robot models<a class="headerlink" href="#creating-and-maintaining-robot-models" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id7">
+<div class="figure align-center" id="id9">
 <img alt="../_images/robot_example.png" src="../_images/robot_example.png" />
 <p class="caption"><span class="caption-text">The robot properties tab in the NRP RobotDesigner.</span></p>
 </div>
-<div class="figure align-center" id="id8">
+<div class="figure align-center" id="id10">
 <img alt="../_images/create_new_model.gif" src="../_images/create_new_model.gif" />
 <p class="caption"><span class="caption-text">Creating a new armature.</span></p>
 </div>
@@ -239,19 +245,19 @@ in the kinematics tree) and modify the names.</p>
 </div>
 <div class="section" id="creating-robot-joint-links">
 <h3>Creating Robot Joint/links<a class="headerlink" href="#creating-robot-joint-links" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id9">
+<div class="figure align-center" id="id11">
 <img alt="../_images/segments_example.png" src="../_images/segments_example.png" />
 <p class="caption"><span class="caption-text">The kinematics settings in the segments properties tab of the NRP RobotDesigner.</span></p>
 </div>
-<div class="figure align-center" id="id10">
+<div class="figure align-center" id="id12">
 <img alt="user_manual/images/dynamics_example.png" src="user_manual/images/dynamics_example.png" />
 <p class="caption"><span class="caption-text">The dynamics settings in the segments properties tab of the NRP RobotDesigner.</span></p>
 </div>
-<div class="figure align-center" id="id11">
+<div class="figure align-center" id="id13">
 <img alt="../_images/controller_example_expanded.png" src="../_images/controller_example_expanded.png" />
 <p class="caption"><span class="caption-text">The controller settings in the segments properties tab of the NRP RobotDesigner.</span></p>
 </div>
-<div class="figure align-center" id="id12">
+<div class="figure align-center" id="id14">
 <img alt="../_images/create_child_bone.gif" src="../_images/create_child_bone.gif" />
 <p class="caption"><span class="caption-text">Adding a new segment to an armature.</span></p>
 </div>
@@ -272,11 +278,11 @@ how the joint of the segment is to be controlled (e.g., position or velocity con
 </div>
 <div class="section" id="adding-and-removing-geometric-models">
 <h3>Adding and removing geometric models<a class="headerlink" href="#adding-and-removing-geometric-models" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id13">
+<div class="figure align-center" id="id15">
 <img alt="../_images/geometries_example_expanded.png" src="../_images/geometries_example_expanded.png" />
 <p class="caption"><span class="caption-text">The geometrical model properties tab of the NRP RobotDesigner.</span></p>
 </div>
-<div class="figure align-center" id="id14">
+<div class="figure align-center" id="id16">
 <img alt="../_images/attach_meshes.gif" src="../_images/attach_meshes.gif" />
 <p class="caption"><span class="caption-text">Connecting the kinematics and geometrical models of a robot.</span></p>
 </div>
@@ -292,13 +298,20 @@ After specifying the use of the geometry as visual or collision mesh, click on <
 disconneccted, then click on <strong>Detach selected geometry</strong>.
 Alternatively all meshes can be disconnected at once by selecting <strong>Detach all geometries</strong>.</p>
 </div>
+<div class="section" id="adding-muscles">
+<h3>Adding Muscles<a class="headerlink" href="#adding-muscles" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-center" id="id17">
+<img alt="../_images/mouse.gif" src="../_images/mouse.gif" />
+<p class="caption"><span class="caption-text">Defining muscle on the mouse model.</span></p>
+</div>
+</div>
 <div class="section" id="import-and-export">
 <h3>Import and export<a class="headerlink" href="#import-and-export" title="Permalink to this headline">¶</a></h3>
-<div class="figure align-center" id="id15">
+<div class="figure align-center" id="id18">
 <img alt="../_images/files_empty.png" src="../_images/files_empty.png" />
 <p class="caption"><span class="caption-text">The file properties tab of the NRP RobotDesigner.</span></p>
 </div>
-<div class="figure align-center" id="id16">
+<div class="figure align-center" id="id19">
 <a class="reference internal image-reference" href="../_images/import_sdf_hollie_arm.gif"><img alt="../_images/import_sdf_hollie_arm.gif" src="../_images/import_sdf_hollie_arm.gif" style="width: 1287px; height: 712px;" /></a>
 <p class="caption"><span class="caption-text">Importing a robot model of Schunk robot arm from a plain SDF file</span></p>
 </div>

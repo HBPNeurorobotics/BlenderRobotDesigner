@@ -27,7 +27,6 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -69,6 +68,7 @@
 <li><a class="reference internal" href="#windows">Windows</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#debugging">Debugging</a></li>
 </ul>
 </li>
 </ul>
@@ -186,6 +186,15 @@ Python starting from version 3.3, which will allow the installation of external 
 </pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="debugging">
+<h2>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline">¶</a></h2>
+<p>If the “HBP” tab corresponding to the Robot Designer does not show up in Blender this is likely due to a rights permission issue. Try to give read and write access for the current user to all files in ~/.config/blender/2.7x/scripts/addons/robot_designer_plugin</p>
+<p>For further debugging have a look at the logfile which is located here:</p>
+<p>Linux:
+/home/$user/.config/blender/2.7x/scripts/addons/robot_designer_plugin/resources/log.txt</p>
+<p>Windows:
+C:Users%username%AppDataRoamingBlender FoundationBlender2.XXscriptsaddonsrobot_designer_pluginresourceslog.txt</p>
 </div>
 </div>
 

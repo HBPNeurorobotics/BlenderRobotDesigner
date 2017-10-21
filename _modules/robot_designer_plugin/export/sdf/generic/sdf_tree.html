@@ -29,18 +29,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../../../_static/hbp_32x32.ico"/>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
@@ -381,6 +369,7 @@
         <span class="n">link_visual</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mesh</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sdf_dom</span><span class="o">.</span><span class="n">mesh</span><span class="p">())</span>
         <span class="n">link_visual</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mesh</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">uri</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
         <span class="c1"># link_visual.geometry[0].mesh[0].scale.append(sdf_dom.CTD_ANON_68().scale()  #list_to_string(scale_factor)</span>
+        <span class="n">link_visual</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mesh</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">list_to_string</span><span class="p">(</span><span class="n">scale_factor</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">link_visual</span></div>
 
 <div class="viewcode-block" id="SDFTree.add_collision"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.sdf.generic.sdf_tree.html#robot_designer_plugin.export.sdf.generic.sdf_tree.SDFTree.add_collision">[docs]</a>    <span class="k">def</span> <span class="nf">add_collision</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">)):</span>
@@ -403,7 +392,7 @@
         <span class="c1"># collision.geometry.mesh = sdf_dom.CTD_ANON_70()</span>
         <span class="c1"># print(&#39;debug add_collisionmodel: &#39; + file_name)</span>
         <span class="c1"># collision.geometry.mesh.filename = file_name</span>
-        <span class="c1"># collision.geometry.mesh.scale = list_to_string(scale_factor)</span>
+        <span class="n">link_collision</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mesh</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">list_to_string</span><span class="p">(</span><span class="n">scale_factor</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">link_collision</span></div>
 
 <div class="viewcode-block" id="SDFTree.add_inertial"><a class="viewcode-back" href="../../../../../apidoc/robot_designer_plugin.export.sdf.generic.sdf_tree.html#robot_designer_plugin.export.sdf.generic.sdf_tree.SDFTree.add_inertial">[docs]</a>    <span class="k">def</span> <span class="nf">add_inertial</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

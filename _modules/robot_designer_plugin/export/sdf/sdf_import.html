@@ -29,18 +29,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../../_static/hbp_32x32.ico"/>
     <link rel="index" title="Index" href="../../../../genindex.html" />
@@ -98,7 +86,40 @@
                 </aside>
 
                 <h1>Source code for robot_designer_plugin.export.sdf.sdf_import</h1><div class="highlight"><pre>
-<span></span><span class="c1"># ######</span>
+<span></span><span class="c1"># #####</span>
+<span class="c1"># This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
+<span class="c1"># in the Human Brain Project (HBP).</span>
+<span class="c1"># It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)</span>
+<span class="c1"># developed at the Karlsruhe Institute of Technology in the</span>
+<span class="c1"># High Performance Humanoid Technologies Laboratory (H2T).</span>
+<span class="c1"># #####</span>
+
+<span class="c1"># ##### BEGIN GPL LICENSE BLOCK #####</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software; you can redistribute it and/or</span>
+<span class="c1">#  modify it under the terms of the GNU General Public License</span>
+<span class="c1">#  as published by the Free Software Foundation; either version 2</span>
+<span class="c1">#  of the License, or (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU General Public License</span>
+<span class="c1">#  along with this program; if not, write to the Free Software Foundation,</span>
+<span class="c1">#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</span>
+<span class="c1">#</span>
+<span class="c1"># ##### END GPL LICENSE BLOCK #####</span>
+
+<span class="c1"># #####</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2016, TU Munich</span>
+<span class="c1">#</span>
+<span class="c1"># ######</span>
+
+
+<span class="c1"># ######</span>
 <span class="c1"># System imports</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="o">*</span>
@@ -135,7 +156,7 @@
 <span class="kn">from</span> <span class="nn">.generic</span> <span class="k">import</span> <span class="n">model_config_dom</span>
 
 
-<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Guang Chen(TUM), Stefan Ulbrich(FZI)&#39;</span>
+<span class="n">__author__</span> <span class="o">=</span> <span class="s1">&#39;Benedikt Feldotto(TUM), Guang Chen(TUM), Stefan Ulbrich(FZI)&#39;</span>
 
 
 <div class="viewcode-block" id="Importer"><a class="viewcode-back" href="../../../../apidoc/robot_designer_plugin.export.sdf.sdf_import.html#robot_designer_plugin.export.sdf.sdf_import.Importer">[docs]</a><span class="k">class</span> <span class="nc">Importer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -287,7 +308,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;model_name (geometry): </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">model_name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;model_type (geometry): </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">model_type</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;model_geometry_sphere: radius </span><span class="si">%s</span><span class="s1">, depth </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">c_radius</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;model_geometry_sphere: radius </span><span class="si">%s</span><span class="s1">, depth &#39;</span><span class="p">,</span> <span class="n">c_radius</span><span class="p">)</span>
 
         <span class="c1"># todo: if geometry pose is missing</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">model</span><span class="o">.</span><span class="n">pose</span><span class="p">:</span>
@@ -372,10 +393,16 @@
         <span class="c1">#     bpy.context.active_object.RobotEditor.fileName = os.path.basename(model.name)</span>
 
         <span class="n">fn</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">mesh_path</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.stl&quot;</span><span class="p">:</span>
-            <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">import_mesh</span><span class="o">.</span><span class="n">stl</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">mesh_path</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.dae&quot;</span><span class="p">:</span>
-            <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">wm</span><span class="o">.</span><span class="n">collada_import</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">mesh_path</span><span class="p">,</span> <span class="n">import_units</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.stl&quot;</span> <span class="ow">or</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.STL&quot;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">import_mesh</span><span class="o">.</span><span class="n">stl</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">mesh_path</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.dae&quot;</span> <span class="ow">or</span> <span class="n">extension</span> <span class="o">==</span> <span class="s2">&quot;.DAE&quot;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">wm</span><span class="o">.</span><span class="n">collada_import</span><span class="p">(</span><span class="n">filepath</span><span class="o">=</span><span class="n">mesh_path</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
 
         <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">fileName</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">mesh_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
 
@@ -390,12 +417,11 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;model_geometry_mesh_scale (geometry): </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mesh</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mesh</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span> <span class="o">==</span> <span class="p">[]:</span>
-            <span class="n">scale_factor</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">scale_factor</span> <span class="o">=</span> <span class="n">string_to_list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mesh</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="c1">#string_to_list([0].mesh[0].scale)</span>
-        <span class="n">scale_matrix</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="n">scale_factor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-                               <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+        <span class="n">scale_matrix</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+        <span class="c1">#scale_matrix = Matrix([[scale_factor[0], 0, 0, 0], [0, scale_factor[1], 0, 0],</span>
+        <span class="c1">#                       [0, 0, scale_factor[2], 0], [0, 0, 0, 1]])</span>
+
 
         <span class="c1"># todo: if geometry pose is missing</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">model</span><span class="o">.</span><span class="n">pose</span><span class="p">:</span>
@@ -545,14 +571,25 @@
             <span class="n">SelectSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">segment_name</span><span class="p">)</span>
             <span class="n">AssignPhysical</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 
+            <span class="c1"># get mass</span>
             <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">inertial</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mass</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">ixy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">i</span><span class="o">.</span><span class="n">ixz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">i</span><span class="o">.</span><span class="n">iyz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">operator</span><span class="o">.</span><span class="n">report</span><span class="p">({</span><span class="s1">&#39;ERROR&#39;</span><span class="p">},</span> <span class="s1">&#39;Only diogonal inertia matrices currently supported&#39;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Only diogonal inertia matrices currently supported&#39;</span><span class="p">)</span>
+            <span class="c1"># get inertia</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">inertiaXX</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">ixx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">inertiaXY</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">ixy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">inertiaXZ</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">ixz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">inertiaYY</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">iyy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">inertiaYZ</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">iyz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">inertiaZZ</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">izz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-            <span class="n">matrix</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">ixx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">i</span><span class="o">.</span><span class="n">iyy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">i</span><span class="o">.</span><span class="n">izz</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
-            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">inertiaTensor</span> <span class="o">=</span> <span class="n">matrix</span>
+            <span class="c1"># get inertia pose</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">inertia_pose</span> <span class="o">=</span> <span class="n">string_to_list</span><span class="p">(</span><span class="n">get_value</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">inertial</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pose</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;0 0 0 0 0 0&quot;</span><span class="p">))</span>
+                <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">inertiaTrans</span> <span class="o">=</span> <span class="n">inertia_pose</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+                <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">link</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="o">.</span><span class="n">inertiaRot</span> <span class="o">=</span> <span class="n">inertia_pose</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+
 
         <span class="n">model</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
         <span class="n">model_name</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">name</span>
@@ -630,17 +667,27 @@
                 <span class="c1">#         SelectGeometry.run(geometry_name=assigned_name)</span>
                 <span class="c1">#         AssignGeometry.run()</span>
 
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mesh</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cylinder</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">box</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sphere</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">type</span> <span class="o">=</span> <span class="s2">&quot;none&quot;</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mesh</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="s2">&quot;mesh&quot;</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cylinder</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="s2">&quot;cylinder&quot;</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">box</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="s2">&quot;box&quot;</span>
+                <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sphere</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="nb">type</span> <span class="o">=</span> <span class="s2">&quot;sphere&quot;</span>
+
+                <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;mesh&quot;</span> <span class="ow">or</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;cylinder&quot;</span> <span class="ow">or</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;box&quot;</span> <span class="ow">or</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;sphere&quot;</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;geometry </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
-                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">cylinder</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;cylinder&quot;</span><span class="p">:</span>
                         <span class="n">trafo_sdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">import_cylinder</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-                    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">box</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;import cyl&quot;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;box&quot;</span><span class="p">:</span>
                         <span class="n">trafo_sdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">import_box</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-                    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">sphere</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;import box&quot;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;sphere&quot;</span><span class="p">:</span>
                         <span class="n">trafo_sdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">import_sphere</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;import sphere&quot;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">trafo_sdf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">import_geometry</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;import mesh&quot;</span><span class="p">)</span>
                     <span class="c1"># if there are multiple objects in the COLLADA file, they will be selected</span>
                     <span class="n">selected_objects</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span><span class="p">]</span>
                     <span class="k">for</span> <span class="nb">object</span> <span class="ow">in</span> <span class="n">selected_objects</span><span class="p">:</span>
@@ -687,6 +734,8 @@
                         <span class="c1"># remove spaces from link name</span>
                         <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 
+                        <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;mesh&quot;</span><span class="p">:</span> <span class="nb">print</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
                         <span class="c1"># The name might be altered by blender</span>
                         <span class="n">assigned_name</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span>
 
@@ -698,6 +747,16 @@
                         <span class="n">SelectGeometry</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">geometry_name</span><span class="o">=</span><span class="n">assigned_name</span><span class="p">)</span>
 
                         <span class="n">AssignGeometry</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+                        <span class="c1"># scale geometry</span>
+                        <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s2">&quot;mesh&quot;</span> <span class="ow">and</span> <span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mesh</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span> <span class="o">!=</span> <span class="p">[]:</span>
+                                <span class="n">scale_factor</span> <span class="o">=</span> <span class="n">string_to_list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">geometry</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mesh</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scale</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">scale_factor</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+                        <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">global_properties</span><span class="o">.</span><span class="n">mesh_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)]</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale_factor</span>
+
+                        <span class="c1">#bpy.context.active_object.scale = scale_factor</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Mesh file not found&quot;</span><span class="p">)</span>
                     <span class="k">pass</span>
@@ -762,7 +821,7 @@
         <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
 
-        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">view3d</span><span class="o">.</span><span class="n">view_lock_to_active</span><span class="p">()</span>
+        <span class="c1">#bpy.ops.view3d.view_lock_to_active()</span>
         <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">show_x_ray</span> <span class="o">=</span> <span class="kc">True</span></div>
 
 

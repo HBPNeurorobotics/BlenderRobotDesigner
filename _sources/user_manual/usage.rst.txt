@@ -15,6 +15,15 @@ The RobotDesigner
 We introduce the structure of the Graphical User Interface as well as explain the workflow of creating a new robot model.
 If an existing model is imported the user can also start at any tab section of interest.
 
+In the gif below you can see how to create a simple tigrillo robot with muscles from scratch using the Robot Designer.
+The design here includes mesh creation, kinematic and dynamics definition, visual and collision mesh attachment, muscle
+definition and SDF package export.
+
+.. figure:: gifs/tigrillo.gif
+    :align: center
+
+    Creating a simple tigrillo model from scratch.
+
 
 Panel Overview
 ^^^^^^^^^^^^^^
@@ -69,6 +78,18 @@ In the Sensor properties tab a camera or laser sensor can be attached, detached 
     :align: center
 
     The Sensors properties tab of the NRP RobotDesigner
+
+
+The Muscles properties tab
+************************
+
+In the muscles section muscles can be defined interactively in the scene, while pathpoints and characteristics get
+listed in the GUI.
+
+.. figure:: images/muscles_tab.png
+    :align: center
+
+    The Muscles properties tab of the NRP RobotDesigner
 
 
 The Tools properties tab
@@ -186,6 +207,15 @@ After specifying the use of the geometry as visual or collision mesh, click on *
 In a similar way geometries can be easily disconnected in the field **Detach Geometry**. First select the mesh to be
 disconneccted, then click on **Detach selected geometry**.
 Alternatively all meshes can be disconnected at once by selecting **Detach all geometries**.
+
+
+Adding Muscles
+^^^^^^^^^^^^^^
+
+.. figure:: gifs/mouse.gif
+    :align: center
+
+    Defining muscle on the mouse model.
 
 
 Import and export

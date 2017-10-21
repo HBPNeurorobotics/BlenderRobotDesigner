@@ -29,18 +29,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -192,7 +180,26 @@
         <span class="n">frame</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">frame_name</span><span class="p">]</span>
         <span class="n">box</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;mass&quot;</span><span class="p">)</span>
         <span class="n">box</span><span class="o">.</span><span class="n">separator</span><span class="p">()</span>
-        <span class="n">box</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;inertiaTensor&quot;</span><span class="p">)</span>
+
+        <span class="n">row_t</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">row_r</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">row_t</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;inertiaTrans&quot;</span><span class="p">)</span>
+        <span class="n">row_r</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;inertiaRot&quot;</span><span class="p">)</span>
+
+        <span class="n">row0</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">row1</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">row2</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">row3</span> <span class="o">=</span> <span class="n">box</span><span class="o">.</span><span class="n">row</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">row0</span><span class="o">.</span><span class="n">label</span><span class="p">(</span><span class="s2">&quot;Inertia Matrix&quot;</span><span class="p">)</span>
+        <span class="n">row1</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;inertiaXX&quot;</span><span class="p">)</span>
+        <span class="n">row2</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;inertiaXY&quot;</span><span class="p">)</span>
+        <span class="n">row3</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;inertiaXZ&quot;</span><span class="p">)</span>
+        <span class="n">row1</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;inertiaXY&quot;</span><span class="p">)</span>
+        <span class="n">row2</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;inertiaYY&quot;</span><span class="p">)</span>
+        <span class="n">row3</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;inertiaYZ&quot;</span><span class="p">)</span>
+        <span class="n">row1</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;inertiaXZ&quot;</span><span class="p">)</span>
+        <span class="n">row2</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;inertiaYZ&quot;</span><span class="p">)</span>
+        <span class="n">row3</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">frame</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">dynamics</span><span class="p">,</span> <span class="s2">&quot;inertiaZZ&quot;</span><span class="p">)</span>
 
     <span class="n">infoBox</span><span class="o">.</span><span class="n">draw_info</span><span class="p">()</span></div>
 </pre></div>

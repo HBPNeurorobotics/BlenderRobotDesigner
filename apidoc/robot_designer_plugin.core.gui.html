@@ -115,7 +115,7 @@
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>By default, Blender does not offer collapsible boxes. For this, this create subclasses and use the
 <a class="reference internal" href="robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.register" title="robot_designer_plugin.core.pluginmanager.PluginManager.register"><code class="xref py py-meth docutils literal"><span class="pre">pluginmanager.PluginManager.register()</span></code></a> decorator. This decorator creates a boolean property
-that is stored with the <span class="xref std std-term">scene</span> object (and is therefore persistent with your current file)
+that is stored with the <a class="reference internal" href="../developer_manual/glossary.html#term-scene"><span class="xref std std-term">scene</span></a> object (and is therefore persistent with your current file)
 that is used for remembering the state of the box.
 The subclass needs to specify a unique identifier for a <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.BoolProperty.html#bpy.types.BoolProperty" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.BoolProperty</span></code></a> in the attribute
 <code class="docutils literal"><span class="pre">property_name</span></code> attribute, for instance:</p>

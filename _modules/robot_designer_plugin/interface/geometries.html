@@ -29,18 +29,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
@@ -132,7 +120,7 @@
 <span class="c1"># Changes:</span>
 <span class="c1">#   2015:       Stefan Ulbrich (FZI), Gui redesigned</span>
 <span class="c1">#   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.</span>
-<span class="c1">#</span>
+<span class="c1">#   2017-07:    Benedikt Feldotto (TUM), Polygon reduction, Geometry properties and scaling</span>
 <span class="c1"># ######</span>
 
 <span class="c1"># Blender imports</span>
@@ -186,9 +174,13 @@
         <span class="n">rigid_bodies</span><span class="o">.</span><span class="n">RenameAllGeometries</span><span class="o">.</span><span class="n">place_button</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">infoBox</span><span class="o">=</span><span class="n">infoBox</span><span class="p">)</span>
         <span class="n">rigid_bodies</span><span class="o">.</span><span class="n">SetGeometryActive</span><span class="o">.</span><span class="n">place_button</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">infoBox</span><span class="o">=</span><span class="n">infoBox</span><span class="p">)</span>
         <span class="n">rigid_bodies</span><span class="o">.</span><span class="n">SelectAllGeometries</span><span class="o">.</span><span class="n">place_button</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">infoBox</span><span class="o">=</span><span class="n">infoBox</span><span class="p">)</span>
+       <span class="c1"># context.scene.objects.active</span>
         <span class="n">selected_objects</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_objects</span><span class="p">):</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">global_properties</span><span class="o">.</span><span class="n">mesh_name</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">scene</span><span class="p">)]</span>
+            <span class="n">box</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;scale&quot;</span><span class="p">,</span> <span class="n">slider</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Scale&quot;</span><span class="p">)</span>
             <span class="n">box</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">selected_objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="p">,</span> <span class="s1">&#39;fileName&#39;</span><span class="p">)</span>
+
         <span class="n">box</span><span class="o">.</span><span class="n">separator</span><span class="p">()</span>
         <span class="n">infoBox</span><span class="o">.</span><span class="n">draw_info</span><span class="p">()</span>
 

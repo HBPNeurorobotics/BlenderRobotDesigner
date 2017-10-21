@@ -74,3 +74,16 @@ Copy the folder ``robot_designer_plugin`` in the ``BlenderRobotDesigner`` folder
    C:\Documents and Settings\$USERNAME\AppData\Roaming\Blender Foundation\Blender\<installed_blender_version>\
 
 
+
+Debugging
+---------
+
+If the “HBP” tab corresponding to the Robot Designer does not show up in Blender this is likely due to a rights permission issue. Try to give read and write access for the current user to all files in ~/.config/blender/2.7x/scripts/addons/robot_designer_plugin
+
+For further debugging have a look at the logfile which is located here: 
+
+Linux:
+/home/$user/.config/blender/2.7x/scripts/addons/robot_designer_plugin/resources/log.txt
+
+Windows:
+C:\Users\%username%\AppData\Roaming\Blender Foundation\Blender\2.XX\scripts\addons\robot_designer_plugin\resources\log.txt
