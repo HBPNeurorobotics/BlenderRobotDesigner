@@ -64,8 +64,6 @@ def draw(layout, context):
     row.label("Show:")
     global_properties.display_muscle_selection.prop(context.scene, row, expand=True)
 
-    print(global_properties.display_muscle_selection.get(context.scene))
-
     box = AttachSensorBox.get(layout, context, "Muscles", icon="LINKED")
     if box:
         infoBox = InfoBox(box)
@@ -119,7 +117,7 @@ def draw(layout, context):
                     muscles.MovePathpointDown.place_button(row5, text='', icon='TRIA_DOWN', infoBox=infoBox).nr = i
 
                     # delete pathpoint
-                    muscles.DeletePathpoint.place_button(row5, infoBox=infoBox, icon="X_VEC").pathpoint = i
+                    muscles.DeletePathpoint.place_button(row5, text='', infoBox=infoBox, icon="CANCEL").pathpoint = i
 
                 row7 = pointbox.row()
 
