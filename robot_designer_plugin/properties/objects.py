@@ -139,7 +139,9 @@ class RDMuscle(bpy.types.PropertyGroup):
         elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'THELEN':
             color = (0.0, 0.0, 1.0)
 
-        bpy.data.objects[active_muscle].data.materials[active_muscle + "_vis"].diffuse_color = color
+        print("active muscle =")
+        print(active_muscle)
+        bpy.data.objects[active_muscle].data.materials['we_vis'].diffuse_color = color
 
     muscleType = EnumProperty(
         items=[#('MYOROBOTICS', 'Myorobotics', 'Myorobotics Muscle'),

@@ -143,16 +143,18 @@ class CreateNewMuscle(RDOperator):
         bpy.context.scene.objects.link(muscle)
         muscle.location = (0.0, 0.0, 0.0)   ## todo change this up to according reference frame!
 
-        muscleData = muscle.RobotEditor.muscles
-        muscleData.name = self.muscle_name
-        muscleData.muscleType = "THELEN"
-        muscleData.robotName = global_properties.model_name.get(context.scene)
-
         # setup a material
         lmat = bpy.data.materials.new(self.muscle_name + "_vis")
         lmat.diffuse_color = (0.0, 0.0, 1.0)
         lmat.use_shadeless = True
         muscle.data.materials.append(lmat)
+
+        muscleData = muscle.RobotEditor.muscles
+        muscleData.name = self.muscle_name
+        muscleData.muscleType = "THELEN"
+        muscleData.robotName = global_properties.model_name.get(context.scene)
+
+
 
         return {'FINISHED'}
 
@@ -301,10 +303,9 @@ class DeletePathpoint(RDOperator):
 
     @RDOperator.OperatorLogger
     def execute(self, context):
-        print("context")
-        print(context)
+
         active_muscle = global_properties.active_muscle.get(context.scene)
-       # bpy.context.scene.objects.active = None
+        bpy.context.scene.objects.active = None
         bpy.context.scene.objects.active = bpy.data.objects[active_muscle]
 
         bpy.ops.object.mode_set(mode='EDIT')
@@ -494,8 +495,6 @@ class CalculateMuscleLength(RDOperator):
         leng = 0.0
 
         spline = bpy.data.objects[self.muscle].data.splines[0]
-
-        print("hallo")
 
         for i in range(0, len(spline.points) - 1):
             x = spline.points[i].co[0] - spline.points[i + 1].co[0]

@@ -772,9 +772,6 @@ class Importer(object):
         :param self:
         :return:
         """
-
-        print("---------- here  --------------------")
-
         model_config_xml = open(self.base_dir + '/model.config').read()
         model = model_config_dom.CreateFromDocument(model_config_xml)
 
