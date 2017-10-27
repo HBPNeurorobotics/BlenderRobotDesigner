@@ -40,6 +40,12 @@ from ...properties.globals import global_properties
 
 
 def get_muscles(active_model_name):
+  """
+  Return objects that represent muscles. And only those associated with the given model.
+
+  :param active_model_name: The name of the robot for which to find associated muscles.
+  :return: A list of associated objects that represent muscles.
+  """
   return list(filter(lambda obj: obj.RobotEditor.muscles.robotName == active_model_name, bpy.data.objects))
 
 
@@ -108,8 +114,8 @@ class OsimExporter(object):
       ),
       # TODO: Fix hardcoded values
       max_isometric_force = m.RobotEditor.muscles.max_isometric_force,
-      optimal_fiber_length = m.RobotEditor.muscles.length, #0.01,
-      tendon_slack_length = 0.01
+      optimal_fiber_length = m.RobotEditor.muscles.length * 0.9,
+      tendon_slack_length = m.RobotEditor.muscles.length * 0.1
     )
     self._add_pyxb_muscle(m, context)
 
