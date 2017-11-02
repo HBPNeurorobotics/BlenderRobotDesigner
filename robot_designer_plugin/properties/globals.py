@@ -46,6 +46,7 @@ from bpy.props import IntProperty, FloatProperty, BoolProperty, StringProperty, 
 from ..core import PluginManager
 from ..core.logfile import operator_logger, LogFunction
 from ..operators.segments import SelectSegment, UpdateSegments
+from ..operators.muscles import SelectMuscle
 from ..core.property import PropertyGroupHandlerBase, PropertyHandler
 
 class RDSelectedObjects(PropertyGroupHandlerBase):
@@ -84,6 +85,11 @@ class RDGlobals(PropertyGroupHandlerBase):
     def updateBoneName(self, context):
 
         SelectSegment.run(segment_name=global_properties.segment_name.get(context.scene))
+
+    @staticmethod
+    def updateMuscleName(self, context):
+
+        SelectMuscle.run(muscle_name=global_properties.active_muscle.get(context.scene))
 
     @staticmethod
     def update_geometry_name(self, context):
@@ -138,19 +144,43 @@ class RDGlobals(PropertyGroupHandlerBase):
                 obj.hide = False
            # elif hide_muscles == 'MYOROBOTICS' and obj.RobotEditor.muscles.muscleType == 'MYOROBOTICS':
            #     obj.hide = False
-            elif hide_muscles == 'MILLARD' and obj.RobotEditor.muscles.muscleType == 'MILLARD':
+            elif hide_muscles == 'MILLARD_EQUIL' and obj.RobotEditor.muscles.muscleType == 'MILLARD_EQUIL':
+                obj.hide = False
+            elif hide_muscles == 'MILLARD_ACCEL' and obj.RobotEditor.muscles.muscleType == 'MILLARD_ACCEL':
                 obj.hide = False
             elif hide_muscles == 'THELEN' and obj.RobotEditor.muscles.muscleType == 'THELEN':
+                obj.hide = False
+            elif hide_muscles == 'RIGID_TENDON' and obj.RobotEditor.muscles.muscleType == 'RIGID_TENDON':
                 obj.hide = False
             elif hide_muscles == 'none':
                 obj.hide = True
             else:
                 obj.hide = True
 
+    @staticmethod
+    def name_update(self, context):
+        """
+        updates the robot name for every assigned muscle
+        """
+        if self.old_name != '':
+            muscles = [obj for obj in bpy.data.objects if obj.RobotEditor.muscles.robotName == self.old_name]
+
+            for muscle in muscles:
+                muscle.RobotEditor.muscles.robotName = self.model_name
+
+            self.old_name = self.model_name
+
+        bpy.context.active_object.name = self.model_name
+
+
+
+
+
     def __init__(self):
 
         # Holds the current selected kinematics model (armature) name
-        self.model_name = PropertyHandler(StringProperty())
+        self.model_name = PropertyHandler(StringProperty(name='Name', update=self.name_update))
+        self.old_name = PropertyHandler(StringProperty(name='Name'))
 
         # Holds the name of the currently selected segment (Bone)
         self.segment_name = PropertyHandler(StringProperty(update=self.updateBoneName))
@@ -252,8 +282,10 @@ class RDGlobals(PropertyGroupHandlerBase):
         self.display_muscle_selection = PropertyHandler(EnumProperty(
             items=[('all', 'All', 'Show all muscles'),
             #       ('MYOROBOTICS', 'Myorobotics', 'Show only Myorobotics Muscles'),
-                   ('MILLARD', 'Millard', 'Show only Millar 2012 Muscles'),
-                   ('THELEN', 'Thelen', 'Show only Thelen 2003 Muscles'),
+                   ('MILLARD_EQUIL', 'Millard Equilibrium 2012', 'Show only Millard Equilibrium 2012 Muscles'),
+                   ('MILLARD_ACCEL', 'Millard Acceleration 2012', 'Show only Millard Acceleration 2012 Muscles'),
+                   ('THELEN', 'Thelen 2003', 'Show only Thelen 2003 Muscles'),
+                   ('RIGID_TENDON', 'Rigid Tendon', 'Show only Rigid Tendon Muscles'),
                    ('none', "None", "Show no muscles")],
             update=self.display_muscles))
 

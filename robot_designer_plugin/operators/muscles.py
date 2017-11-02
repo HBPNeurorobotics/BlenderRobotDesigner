@@ -48,7 +48,10 @@ from ..core import config, PluginManager, Condition, RDOperator
 
 from .helpers import _mat3_to_vec_roll, ModelSelected, SingleSegmentSelected, PoseMode
 
-from ..properties.globals import global_properties
+try:
+    from ..properties.globals import global_properties
+except:
+    pass
 
 
 @RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)
@@ -219,7 +222,7 @@ class CreateNewPathpoint(RDOperator):
     #parent_name = StringProperty(default="")
 
     @classmethod
-    def run(cls, pathpoint_name):#, parent_name=""):
+    def run(cls):#, parent_name=""):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger

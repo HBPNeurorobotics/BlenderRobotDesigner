@@ -63,7 +63,7 @@ from .generic.helpers import list_to_string, string_to_list, localpose2globalpos
 from ...core import config, PluginManager, RDOperator
 from ...operators.helpers import ModelSelected, ObjectMode
 from ...operators.model import SelectModel
-from ..osim.export import create_osim, get_muscles
+from ..osim.osim_export import create_osim, get_muscles
 
 from ...properties.globals import global_properties
 

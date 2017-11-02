@@ -87,8 +87,10 @@ class OsimExporter(object):
 
   def _select_pyxb_muscle_class(self, obj):
     muscle_type_to_pyxb_type = {
-      'MILLARD' : osim_dom.Millard2012EquilibriumMuscle,
-      'THELEN'  : osim_dom.Thelen2003Muscle,
+      'MILLARD_EQUIL' : osim_dom.Millard2012EquilibriumMuscle,
+      'MILLARD_ACCEL'  : osim_dom.Millard2012AccelerationMuscle,
+      'THELEN': osim_dom.Thelen2003Muscle,
+      'RIGID_TENDON': osim_dom.RigidTendonMuscle,
     }
     return muscle_type_to_pyxb_type[
            str(obj.RobotEditor.muscles.muscleType)]

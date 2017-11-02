@@ -68,6 +68,10 @@ class SDFTree(object):
             logger.error("Error raised %s, %s", e, e.instance.name)
             raise e
         robot = root.model[0]
+
+        muscles = str(robot.muscles)
+        logger.debug('Muscle Path:' + muscles)
+
         print('The name of the robot ', robot)
 
         # create mapping from (parent) links to joints  (a list)
@@ -112,7 +116,7 @@ class SDFTree(object):
                 # todo: parse joint controllers
 
         logger.debug("kinematic chains: %s", kinematic_chains)
-        return robot.name, root_links, kinematic_chains#, controller_cache, gazebo_tags
+        return muscles, robot.name, root_links, kinematic_chains#, controller_cache, gazebo_tags
 
     def build(self, link, joint=None, depth=0):
         """

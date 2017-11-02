@@ -201,6 +201,7 @@ class SelectModel(RDOperator):
         context.scene.objects.active = bpy.data.objects[self.model_name]
         context.active_object.select = True
         global_properties.model_name.set(context.scene, self.model_name)
+        global_properties.old_name.set(context.scene, self.model_name)
         # not so sure if this is needed at all
 
         if len(context.active_object.data.bones) > 0:
@@ -235,9 +236,11 @@ class RenameModel(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
-        oldName = context.active_object.name
-        context.active_object.name = self.newName
-        bpy.data.armatures[oldName].name = self.newName
+        # oldName = context.active_object.name
+        # context.active_object.name = self.newName
+        # bpy.data.armatures[oldName].name = self.newName
+
+        global_properties.model_name.set(context.scene, self.newName)
 
         return {'FINISHED'}
 

@@ -60,7 +60,7 @@ def draw(layout, context):
         model_box = box.box()
         model_box.label(text="Description")
 
-        model_box.prop(bpy.context.active_object, 'name', text="Name")
+        global_properties.model_name.prop(context.scene, model_box)
         model_box.prop(bpy.context.active_object.RobotEditor.modelMeta, 'model_version', text='Version')
         model_box.prop(bpy.context.active_object.RobotEditor.modelMeta, 'model_description', text='Description')
 

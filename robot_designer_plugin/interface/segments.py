@@ -71,7 +71,7 @@ def draw(layout, context):
         if not context.active_bone.RobotEditor.RD_Bone:
             row.label("Not a bone created by the Robot designer")
             row = box.row()
-            row.operator(segments.ImportBlenderArmature.bl_idname, text="Import native Blender segmet")
+            row.operator(segments.ImportBlenderArmature.bl_idname, text="Import native Blender segment")
             row.prop(context.active_bone.RobotEditor, "RD_Bone")
 
         else:
