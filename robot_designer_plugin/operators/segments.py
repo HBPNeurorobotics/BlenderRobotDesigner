@@ -501,7 +501,7 @@ class UpdateSegments(RDOperator):
 
         if not bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.RD_Bone:
             self.logger.info("Not updated (not a RD segment): %s", segment_name)
-            return
+            return {'FINISHED'}
 
         # local variables for updating the constraints
         joint_axis = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.axis
