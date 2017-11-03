@@ -295,8 +295,15 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 child.joint.axis[0].limit[0].lower.append(segment.RobotEditor.d.min)
                 child.joint.axis[0].limit[0].upper.append(segment.RobotEditor.d.max)
                 child.joint.type = 'prismatic'
+            if segment.RobotEditor.jointMode == 'REVOLUTE2':
+                child.joint.type = 'revolute2'
+            if segment.RobotEditor.jointMode == 'UNIVERSAL':
+                child.joint.type = 'universal'
+            if segment.RobotEditor.jointMode == 'BALL':
+                child.joint.type = 'ball'
             if segment.RobotEditor.jointMode == 'FIXED':
                 child.joint.type = 'fixed'
+
         operator.logger.info(" joint type'%s'" % child.joint.type)
 
         # Add properties

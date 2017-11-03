@@ -227,7 +227,7 @@ class RDSegment(bpy.types.PropertyGroup):
                 translation = Matrix.Translation(
                         (0, 0, inverted * (self.d.value + self.d.offset), 1))
 
-        if self.jointMode == 'FIXED':  # todo: check if this is right for fixed joint type
+        if self.jointMode == 'FIXED' or self.jointMode == 'REVOLUTE2' or self.jointMode == 'UNIVERSAL' or self.jointMode == 'BALL':  # todo: check if this is right for fixed joint type
             translation = Matrix.Translation((0, 0, 0, 1))
 
         return parentMatrix * axis_matrix, translation * rotation
@@ -236,6 +236,9 @@ class RDSegment(bpy.types.PropertyGroup):
     jointMode = EnumProperty(
             items=[('REVOLUTE', 'Revolute', 'revolute joint'),
                    ('PRISMATIC', 'Prismatic', 'prismatic joint'),
+                   ('REVOLUTE2', 'Revolute2', 'revolute2 joint'),
+                   ('UNIVERSAL', 'Universal', 'universal joint'),
+                   ('BALL', 'Ball', 'ball joint'),
                    ('FIXED', 'Fixed', 'fixed joint')],
             name="Joint Mode", update=callbackSegments
     )

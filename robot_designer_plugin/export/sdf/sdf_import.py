@@ -473,6 +473,12 @@ class Importer(object):
                 if len(node.joint.axis[0].limit):
                     bpy.context.active_bone.RobotEditor.d.max = float(get_list_value(node.joint.axis[0].limit[0].upper, 0))
                     bpy.context.active_bone.RobotEditor.d.min = float(get_list_value(node.joint.axis[0].limit[0].lower, 0))
+            if node.joint.type == 'revolute2':
+                bpy.context.active_bone.RobotEditor.jointMode = 'REVOLUTE2'
+            if node.joint.type == 'universal':
+                bpy.context.active_bone.RobotEditor.jointMode = 'UNIVERSAL'
+            if node.joint.type == 'ball':
+                bpy.context.active_bone.RobotEditor.jointMode = 'BALL'
             if node.joint.type == 'fixed':
                 bpy.context.active_bone.RobotEditor.jointMode = 'FIXED'
         else:
