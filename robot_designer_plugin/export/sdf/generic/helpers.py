@@ -143,7 +143,6 @@ def list_to_string(l):
     :param l:
     :return:
     """
-    print("HERER", l)
     #return " ".join([str(i).rstrip('0').rstrip('.') for i in l])  BUG e10 ->  e1
     return " ".join([str(i) for i in l])
 

@@ -48,7 +48,10 @@ from ..core import config, PluginManager, Condition, RDOperator
 
 from .helpers import _mat3_to_vec_roll, ModelSelected, SingleSegmentSelected, PoseMode
 
-from ..properties.globals import global_properties
+try:
+    from ..properties.globals import global_properties
+except:
+    pass
 
 
 @RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)
@@ -95,12 +98,12 @@ class DeleteMuscle(RDOperator):
 
         active_muscle = global_properties.active_muscle.get(context.scene)
 
-        # remove muscle and all data its data
+        # remove muscle and all its data
         bpy.data.objects.remove(bpy.data.objects[active_muscle], True)
         bpy.data.materials.remove(bpy.data.materials[active_muscle + "_vis"], True)
         bpy.data.curves.remove(bpy.data.curves[active_muscle], True)
         global_properties.active_muscle.set(context.scene, '')
-        context.scene.update()
+        bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
 
 
         return {'FINISHED'}
@@ -141,7 +144,7 @@ class CreateNewMuscle(RDOperator):
         # create muscle object with visualization data
         muscle = bpy.data.objects.new(self.muscle_name, muscleVis)
         bpy.context.scene.objects.link(muscle)
-        muscle.location = (0.0, 0.0, 0.0)   ## todo change this up to according reference frame!
+        muscle.location = (0.0, 0.0, 0.0)
 
         # setup a material
         lmat = bpy.data.materials.new(self.muscle_name + "_vis")
@@ -219,7 +222,7 @@ class CreateNewPathpoint(RDOperator):
     #parent_name = StringProperty(default="")
 
     @classmethod
-    def run(cls, pathpoint_name):#, parent_name=""):
+    def run(cls):#, parent_name=""):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
@@ -242,6 +245,9 @@ class CreateNewPathpoint(RDOperator):
         active_muscle.data.splines[0].points[nr-1].co = [cursor.x, cursor.y, cursor.z,1]
 
         active_muscle.RobotEditor.muscles.pathPoints.add()
+
+        # add new hok modifier for pathpoint
+        active_muscle.modifiers.new(name=global_properties.active_muscle.get(bpy.context.scene) + '_' + str(nr-1), type='HOOK')
 
         return {'FINISHED'}
 
@@ -433,34 +439,38 @@ class SelectSegmentMuscle(RDOperator):
         else:
             model.data.bones.active = None
 
+        # store selected segment
         bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.pathpoint_nr-1].coordFrame = self.segment_name
 
         active_muscle = global_properties.active_muscle.get(context.scene)
         active_model = global_properties.model_name.get(context.scene)
 
-        # todo hook muscle to segment
         ### hook pathpoint to segment
+        bpy.context.active_object
+
         muscle_object = bpy.data.objects[active_muscle]
 
+        location = muscle_object.data.splines[0].points[self.pathpoint_nr-1].co
 
- #       hok = muscle_object.modifiers.new(name=active_muscle + '_' + str(self.pathpoint_nr-1), type='HOOK')
- #       hok.object = bpy.data.objects[active_model]
- #       hok.subtarget = self.segment_name
- #       hok.falloff_type = 'NONE'
+        # get modifier
+        hok = muscle_object.modifiers[active_muscle + '_' + str(self.pathpoint_nr-1)]
+        hok.object = bpy.data.objects[active_model]
+        hok.subtarget = self.segment_name
+        hok.falloff_type = 'NONE'
 
- #       context.scene.objects.active = bpy.data.objects[active_muscle]
- #       bpy.ops.object.mode_set(mode='EDIT')
- #       muscle_object.data.splines[0].points[self.pathpoint_nr-1].select = True
+        context.scene.objects.active = bpy.data.objects[active_muscle]
+        bpy.ops.object.mode_set(mode='EDIT')
+        bpy.ops.curve.select_all(action='DESELECT')
+        muscle_object.data.splines[0].points[self.pathpoint_nr-1].select = True
 
- #       bpy.ops.object.hook_assign(modifier=hok.name)
+        bpy.ops.object.hook_reset(modifier=hok.name)
+
+        #bpy.ops.object.hook_select(modifier=hok.name)
+        bpy.ops.object.hook_assign(modifier=hok.name)
 
         bpy.ops.object.mode_set(mode='OBJECT')
 
         bpy.context.scene.objects.active = bpy.data.objects[active_model]
-
-
-        ## todo recalculate coord system
-
 
         return {'FINISHED'}
 

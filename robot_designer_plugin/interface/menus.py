@@ -123,10 +123,22 @@ class SegmentsMusclesMenu(bpy.types.Menu, BaseMenu):
         current_model = context.active_object
         segment_names = [bone.name for bone in current_model.data.bones]
 
-        for bone in sorted(segment_names, key=str.lower):
-            x = muscles.SelectSegmentMuscle
-            x.segment_name = bone
-            layout.operator(x.bl_idname, text=bone).segment_name = bone
+    #    for bone in sorted(segment_names, key=str.lower):
+    #        x = muscles.SelectSegmentMuscle
+    #        x.segment_name = bone
+    #        layout.operator(x.bl_idname, text=bone).segment_name = bone
+
+        for root in [bone.name for bone in current_model.data.bones if bone.parent is None]:
+            layout.operator(muscles.SelectSegmentMuscle.bl_idname, text=root).segment_name = root
+
+            def recursion(children, level=0):
+
+                for bone in sorted([bone.name for bone in children], key=str.lower):
+                    text = '    ' * level + '\__ ' + bone
+                    layout.operator(muscles.SelectSegmentMuscle.bl_idname, text=text).segment_name = bone
+                    recursion(current_model.data.bones[bone].children, level + 1)
+
+            recursion(current_model.data.bones[root].children)
 
 
 class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
@@ -334,7 +346,7 @@ class MuscleMenu(bpy.types.Menu, BaseMenu):
         hide_muscle = global_properties.display_muscle_selection.get(context.scene)
 
         for muscle in [obj.name for obj in bpy.data.objects
-                       if bpy.data.objects[obj.name].RobotEditor.muscles.robotName == active_model\
+                       if bpy.data.objects[obj.name].RobotEditor.muscles.robotName == active_model
                         and hide_muscle == 'all'
                         or hide_muscle.lower() == bpy.data.objects[obj.name].RobotEditor.muscles.robotName.lower()]:
              muscles.SelectMuscle.place_button(layout, text=muscle).muscle_name = muscle

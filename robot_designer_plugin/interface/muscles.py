@@ -41,7 +41,7 @@ import math
 
 from . import menus
 from ..operators import sensors
-from .helpers import getSingleObject, getSingleSegment, info_list, AttachSensorBox, DetachSensorBox, SensorPropertiesBox
+from .helpers import EditMusclesBox
 from ..core.gui import InfoBox
 from ..properties.globals import global_properties
 from ..operators import model, muscles, segments
@@ -62,9 +62,10 @@ def draw(layout, context):
     row = box.row()
     # selective display muscle type
     row.label("Show:")
-    global_properties.display_muscle_selection.prop(context.scene, row, expand=True)
+    col = row.column()
+    global_properties.display_muscle_selection.prop(context.scene, col, expand=True)
 
-    box = AttachSensorBox.get(layout, context, "Muscles", icon="LINKED")
+    box = EditMusclesBox.get(layout, context, "Edit Muscles", icon="LINKED")
     if box:
         infoBox = InfoBox(box)
 
@@ -122,7 +123,7 @@ def draw(layout, context):
                 row7 = pointbox.row()
 
                 # assign segments to pathpoints
-                row7.label(text="Attach segments to pathpoints")
+                row7.label(text="Attach pathpoints to segments:")
                 row7.menu(menus.SegmentsMusclesMenu.bl_idname, text="Select Segment")
 
                 musclebox = box.box()

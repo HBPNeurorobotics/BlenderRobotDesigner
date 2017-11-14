@@ -42,6 +42,7 @@ from pathlib import Path
 import bpy
 from bpy.props import StringProperty
 
+from ..osim.osim_import import OsimImporter
 from ...core.config import PLUGIN_PREFIX
 
 
@@ -75,6 +76,7 @@ class Importer(object):
     PACKAGE_URL = 'package://'
     FILE_URL_RELATIVE = 'model://'
     FILE_URL_ABSOLUTE = 'file:///'
+    MUSCLE_PATH = ''
 
     def __init__(self, operator: RDOperator, file_path: str, base_dir=""):
         self.file_path = file_path
@@ -85,6 +87,7 @@ class Importer(object):
         self.logger = operator.logger
         self.operator = operator
         self.controllers = None
+
 
     def add_box(self, model):
         """
@@ -470,6 +473,12 @@ class Importer(object):
                 if len(node.joint.axis[0].limit):
                     bpy.context.active_bone.RobotEditor.d.max = float(get_list_value(node.joint.axis[0].limit[0].upper, 0))
                     bpy.context.active_bone.RobotEditor.d.min = float(get_list_value(node.joint.axis[0].limit[0].lower, 0))
+            if node.joint.type == 'revolute2':
+                bpy.context.active_bone.RobotEditor.jointMode = 'REVOLUTE2'
+            if node.joint.type == 'universal':
+                bpy.context.active_bone.RobotEditor.jointMode = 'UNIVERSAL'
+            if node.joint.type == 'ball':
+                bpy.context.active_bone.RobotEditor.jointMode = 'BALL'
             if node.joint.type == 'fixed':
                 bpy.context.active_bone.RobotEditor.jointMode = 'FIXED'
         else:
@@ -679,8 +688,10 @@ class Importer(object):
         return segment_name
 
     def import_file(self):
-        robot_name, root_links, kinematic_chains = \
+        muscles, robot_name, root_links, kinematic_chains = \
             sdf_tree.SDFTree.parse(self.file_path)
+
+        self.MUSCLE_PATH = muscles
 
         self.logger.debug("%s,%s", self.base_dir, self.file_path)
         # store gazebo tags
@@ -728,10 +739,10 @@ class Importer(object):
             self.logger.debug('new chain: %s   %s', chain, ref_pose)
             root_name = self.parse(chain, ref_pose)
             UpdateSegments.run(segment_name=root_name, recurse=True)
-        try:
-            SelectCoordinateFrame.run(mesh_name='CoordinateFrame')
-        except:
-            pass
+  #      try:
+  #          SelectCoordinateFrame.run(mesh_name='CoordinateFrame')
+  #      except:
+  #          pass
 
         #bpy.ops.view3d.view_lock_to_active()
         bpy.context.active_object.show_x_ray = True
@@ -836,6 +847,11 @@ class ImportPackage(RDOperator):
         importer = Importer(self, self.filepath)
         importer.import_file()
         importer.import_config()
+        if importer.MUSCLE_PATH != '[]':
+            print('muscle path:')
+            print(importer.MUSCLE_PATH)
+            osim_importer = OsimImporter(self.filepath, importer.MUSCLE_PATH)
+            osim_importer.import_osim()
         return {'FINISHED'}
 
 

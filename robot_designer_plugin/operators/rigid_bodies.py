@@ -173,10 +173,6 @@ class RenameAllGeometries(RDOperator):
 class DetachGeometry(RDOperator):
     """
     :term:`operator` for detaching a single :term:`geometry` form a :term:`segment`.
-
-
-
-
     """
     bl_idname = config.OPERATOR_PREFIX + "unassignmesh"
     bl_label = "Detach selected geometry"
@@ -193,6 +189,7 @@ class DetachGeometry(RDOperator):
         current_mesh = bpy.data.objects[mesh_name]
         mesh_global = current_mesh.matrix_world
         current_mesh.parent = None
+        current_mesh.RobotEditor.tag = 'DEFAULT'
         if current_mesh.name.startswith("VIS_") or current_mesh.name.startswith("COL_") :
             current_mesh.name = current_mesh.name[4:]
 
@@ -208,10 +205,6 @@ class DetachGeometry(RDOperator):
 class DetachAllGeometries(RDOperator):
     """
     :ref:`operator` for detaching *all* :term:`geometries` from the selected :term:`model`.
-
-
-
-
     """
     bl_idname = config.OPERATOR_PREFIX + "unassignallmeshes"
     bl_label = "Detach all geometries"
@@ -226,13 +219,20 @@ class DetachAllGeometries(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
-        mesh_type =  global_properties.mesh_type.get(context.scene)
-        if mesh_type == 'DEFAULT':
+        mesh_type =  global_properties.display_mesh_selection.get(context.scene)
+        if mesh_type == 'all':
+            meshes = [obj for obj in bpy.data.objects if
+                      obj.type == 'MESH' and obj.parent_bone is not '']
+        elif mesh_type == 'visual':
             meshes = [obj for obj in bpy.data.objects if
                       obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotEditor.tag != 'COLLISION']
-        else:
+        elif mesh_type == 'collision':
             meshes = [obj for obj in bpy.data.objects if
                       obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotEditor.tag == 'COLLISION']
+        else:
+            self.confirmation = False
+
+
 
         if self.confirmation:
             for mesh in meshes:
@@ -240,6 +240,7 @@ class DetachAllGeometries(RDOperator):
                 DetachGeometry.run()
                 if mesh.name.startswith("VIS_") or mesh.name.startswith("COL_"):
                     mesh.name = mesh.name[4:]
+                    mesh.RobotEditor.tag = 'DEFAULT'
 
         return {'FINISHED'}
 

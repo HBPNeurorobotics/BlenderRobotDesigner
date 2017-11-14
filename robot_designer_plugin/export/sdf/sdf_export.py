@@ -63,7 +63,7 @@ from .generic.helpers import list_to_string, string_to_list, localpose2globalpos
 from ...core import config, PluginManager, RDOperator
 from ...operators.helpers import ModelSelected, ObjectMode
 from ...operators.model import SelectModel
-from ..osim.export import create_osim, get_muscles
+from ..osim.osim_export import create_osim, get_muscles
 
 from ...properties.globals import global_properties
 
@@ -295,8 +295,15 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 child.joint.axis[0].limit[0].lower.append(segment.RobotEditor.d.min)
                 child.joint.axis[0].limit[0].upper.append(segment.RobotEditor.d.max)
                 child.joint.type = 'prismatic'
+            if segment.RobotEditor.jointMode == 'REVOLUTE2':
+                child.joint.type = 'revolute2'
+            if segment.RobotEditor.jointMode == 'UNIVERSAL':
+                child.joint.type = 'universal'
+            if segment.RobotEditor.jointMode == 'BALL':
+                child.joint.type = 'ball'
             if segment.RobotEditor.jointMode == 'FIXED':
                 child.joint.type = 'fixed'
+
         operator.logger.info(" joint type'%s'" % child.joint.type)
 
         # Add properties
@@ -428,12 +435,18 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     # add root geometries to root.link
     muscles = get_muscles(robot_name)
     if muscles:
+        # add muscles path tag
         muscle_uri = _uri_for_meshes_and_muscles(
             in_ros_package,
             abs_filepaths,
             toplevel_directory,
             os.path.join(toplevel_directory, 'muscles.osim'))
         root.sdf.model[0].muscles.append(muscle_uri)
+
+        # add OpenSim muscle plugin
+        root.sdf.model[0].plugin.append(sdf_dom.plugin())
+        root.sdf.model[0].plugin[0].name = "muscle_interface_plugin"
+        root.sdf.model[0].plugin[0].filename = "libgazebo_ros_muscle_interface.so"
 
     root_segments = [b for b in context.active_object.data.bones if
                      b.parent is None]

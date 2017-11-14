@@ -100,6 +100,9 @@ class DetachSensorBox(CollapsibleBase):
 class SensorPropertiesBox(CollapsibleBase):
     property_name = "sensor_properties_box"
 
+@PluginManager.register_class
+class EditMusclesBox(CollapsibleBase):
+    property_name = "edit_muscles_box"
 
 @PluginManager.register_class
 class DebugBox(CollapsibleBase):

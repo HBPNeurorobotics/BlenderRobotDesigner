@@ -84,9 +84,10 @@ def draw(layout, context):
             joint_column.prop(context.active_bone.RobotEditor.theta, "offset", slider=False)
             joint_column.prop(context.active_bone.RobotEditor.theta, "min", slider=False)
             joint_column.prop(context.active_bone.RobotEditor.theta, "max", slider=False)
-        else:  # jointMode == 'PRISMATIC'
+        elif context.active_bone.RobotEditor.jointMode == 'PRISMATIC':
             joint_column.label("d:")
             joint_column.prop(context.active_bone.RobotEditor.d, "value", slider=False)
             joint_column.prop(context.active_bone.RobotEditor.d, "offset", slider=False)
             joint_column.prop(context.active_bone.RobotEditor.d, "min", slider=False)
             joint_column.prop(context.active_bone.RobotEditor.d, "max", slider=False)
+

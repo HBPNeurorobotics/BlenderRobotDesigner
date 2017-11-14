@@ -68,6 +68,10 @@ class SDFTree(object):
             logger.error("Error raised %s, %s", e, e.instance.name)
             raise e
         robot = root.model[0]
+
+        muscles = str(robot.muscles)
+        logger.debug('Muscle Path:' + muscles)
+
         print('The name of the robot ', robot)
 
         # create mapping from (parent) links to joints  (a list)
@@ -112,7 +116,7 @@ class SDFTree(object):
                 # todo: parse joint controllers
 
         logger.debug("kinematic chains: %s", kinematic_chains)
-        return robot.name, root_links, kinematic_chains#, controller_cache, gazebo_tags
+        return muscles, robot.name, root_links, kinematic_chains#, controller_cache, gazebo_tags
 
     def build(self, link, joint=None, depth=0):
         """
@@ -199,11 +203,6 @@ class SDFTree(object):
         #
         #     print(j.name)
         # set sdf fixed name
-
-        # add OpenSim muscle plugin
-        self.sdf.model[0].plugin.append(sdf_dom.plugin())
-        self.sdf.model[0].plugin[0].name = "muscle_interface_plugin"
-        self.sdf.model[0].plugin[0].filename = "libgazebo_ros_muscle_interface.so"
 
         ## write sdf file
         if not os.path.exists(os.path.dirname(file_name)):

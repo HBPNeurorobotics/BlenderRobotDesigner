@@ -26,8 +26,8 @@
 
 from importlib import reload
 
-from . import osim_dom
-from . import export
+from . import osim_dom, osim_export, osim_import
 
 reload(osim_dom)
-reload(export)
+reload(osim_export)
+reload(osim_import)

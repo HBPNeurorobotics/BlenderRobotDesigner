@@ -113,9 +113,8 @@ class SceneSettingItem(bpy.types.PropertyGroup):
 
 class RDMusclePoints(bpy.types.PropertyGroup):
     '''
-    Property group that contains muscle attachement point specifications
+    Property group that contains muscle attachment point specifications
     '''
-
     # x = FloatProperty(name="X", precision=4, step=0.1, default=1.0)
     # y = FloatProperty(name="Y", precision=4, step=0.1, default=1.0)
     # z = FloatProperty(name="Z", precision=4, step=0.1, default=1.0)
@@ -134,19 +133,23 @@ class RDMuscle(bpy.types.PropertyGroup):
 
         # if bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MYOROBOTICS':
         #    color = (1.0,0.0,0.0)
-        if bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MILLARD':
-            color = (0.0, 1.0, 0.0)
+        if bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MILLARD_EQUIL':
+            color = (0.8, 0.3, 0.0)
+        elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MILLARD_ACCEL':
+            color = (0.3, 0.8, 0.0)
         elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'THELEN':
+            color = (1.0, 0.0, 0.0)
+        elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'RIGID_TENDON':
             color = (0.0, 0.0, 1.0)
 
-        print("active muscle =")
-        print(active_muscle)
-        bpy.data.objects[active_muscle].data.materials['we_vis'].diffuse_color = color
+        bpy.data.objects[active_muscle].data.materials[active_muscle + '_vis'].diffuse_color = color
 
     muscleType = EnumProperty(
         items=[#('MYOROBOTICS', 'Myorobotics', 'Myorobotics Muscle'),
-               ('MILLARD', 'Millard 2012', 'Millard 2012 Muscle'),
-               ('THELEN', 'Thelen 2003', 'Thelen 2003 Muscle')],
+               ('MILLARD_EQUIL', 'Millard Equilibrium 2012', 'Millard Equilibrium 2012 Muscle'),
+               ('MILLARD_ACCEL', 'Millard Acceleration 2012', 'Millard Acceleration 2012 Muscle'),
+               ('THELEN', 'Thelen 2003', 'Thelen 2003 Muscle'),
+               ('RIGID_TENDON', 'Rigid Tendon', 'Rigid Tendon Muscle')],
         name="Muscle Type:", update=muscle_type_update
     )
 
