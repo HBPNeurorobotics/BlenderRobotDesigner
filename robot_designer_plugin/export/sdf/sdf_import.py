@@ -847,7 +847,9 @@ class ImportPackage(RDOperator):
         importer = Importer(self, self.filepath)
         importer.import_file()
         importer.import_config()
-        if importer.MUSCLE_PATH != '':
+        if importer.MUSCLE_PATH != '[]':
+            print('muscle path:')
+            print(importer.MUSCLE_PATH)
             osim_importer = OsimImporter(self.filepath, importer.MUSCLE_PATH)
             osim_importer.import_osim()
         return {'FINISHED'}

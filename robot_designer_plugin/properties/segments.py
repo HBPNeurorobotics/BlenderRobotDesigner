@@ -234,8 +234,8 @@ class RDSegment(bpy.types.PropertyGroup):
         # return parentMatrix, translation*rotation
 
     jointMode = EnumProperty(
-            items=[('REVOLUTE', 'Revolute', 'revolute joint'),
-                   ('PRISMATIC', 'Prismatic', 'prismatic joint'),
+            items=[('PRISMATIC', 'Prismatic', 'prismatic joint'),
+                   ('REVOLUTE', 'Revolute', 'revolute joint'),
                    ('REVOLUTE2', 'Revolute2', 'revolute2 joint'),
                    ('UNIVERSAL', 'Universal', 'universal joint'),
                    ('BALL', 'Ball', 'ball joint'),

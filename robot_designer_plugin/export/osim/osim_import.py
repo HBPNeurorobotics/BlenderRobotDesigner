@@ -59,6 +59,10 @@ class OsimImporter(object):
 
         # create dom object from .osim file
         base_dir = os.path.dirname(file_path)
+        self.logger.debug(base_dir)
+        self.logger.debug(musclepath)
+        print("mpath")
+        print(musclepath)
         muscles_osim = open(base_dir + '/' + '/'.join(musclepath.split('/', 3)[3:])[:-2]).read()
         self.muscles = osim_dom.CreateFromDocument(muscles_osim)
 
@@ -76,6 +80,8 @@ class OsimImporter(object):
       RDmuscle.RobotEditor.muscles.length = muscle.optimal_fiber_length / 0.9
       RDmuscle.RobotEditor.muscles.max_isometric_force = muscle.max_isometric_force
 
+      global_properties.active_muscle.set(bpy.context.scene, muscle.name)
+
       self.import_pathpoints(muscle, RDmuscle)
 
 
@@ -85,10 +91,6 @@ class OsimImporter(object):
       :param muscle: .osim pyxb muscle instance
       :return: RDmuscle: Robot Designer muscle instance
       """
-      print("heyho")
-
-      self.logger.debug("import muscewerwer23r2 osim")
-
       p = 0
       while(True):
         try:
@@ -96,7 +98,7 @@ class OsimImporter(object):
             pathpoint = muscle.GeometryPath.PathPointSet.objects.PathPoint[p]
 
             # get pathpoint parent world pose
-            model = bpy.context.active_object
+            model = bpy.data.objects[global_properties.model_name.get(bpy.context.scene)]
             pose_bone = model.pose.bones[pathpoint.body]
             segment_world = model.matrix_world * pose_bone.matrix
 
@@ -108,7 +110,15 @@ class OsimImporter(object):
             CreateNewPathpoint.run()
             location_global = location_global.to_translation()
             RDmuscle.data.splines[0].points[p].co = (location_global[0],location_global[1],location_global[2], 1)
+
+            #
+            #  hook pathpoints to segments
             RDmuscle.RobotEditor.muscles.pathPoints[p].coordFrame = pathpoint.body
+            global_properties.model_name.set(bpy.context.scene, 'robot-hookmesh')
+            global_properties.active_muscle.set(bpy.context.scene, 'm1')
+            bpy.ops.roboteditor.select_segment_muscle(segment_name=pathpoint.body, pathpoint_nr=p+1)
+
+
 
             p += 1
 

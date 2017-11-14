@@ -435,12 +435,18 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     # add root geometries to root.link
     muscles = get_muscles(robot_name)
     if muscles:
+        # add muscles path tag
         muscle_uri = _uri_for_meshes_and_muscles(
             in_ros_package,
             abs_filepaths,
             toplevel_directory,
             os.path.join(toplevel_directory, 'muscles.osim'))
         root.sdf.model[0].muscles.append(muscle_uri)
+
+        # add OpenSim muscle plugin
+        root.sdf.model[0].plugin.append(sdf_dom.plugin())
+        root.sdf.model[0].plugin[0].name = "muscle_interface_plugin"
+        root.sdf.model[0].plugin[0].filename = "libgazebo_ros_muscle_interface.so"
 
     root_segments = [b for b in context.active_object.data.bones if
                      b.parent is None]

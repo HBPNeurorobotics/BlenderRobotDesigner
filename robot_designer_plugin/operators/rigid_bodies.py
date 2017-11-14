@@ -189,6 +189,7 @@ class DetachGeometry(RDOperator):
         current_mesh = bpy.data.objects[mesh_name]
         mesh_global = current_mesh.matrix_world
         current_mesh.parent = None
+        current_mesh.RobotEditor.tag = 'DEFAULT'
         if current_mesh.name.startswith("VIS_") or current_mesh.name.startswith("COL_") :
             current_mesh.name = current_mesh.name[4:]
 
@@ -239,6 +240,7 @@ class DetachAllGeometries(RDOperator):
                 DetachGeometry.run()
                 if mesh.name.startswith("VIS_") or mesh.name.startswith("COL_"):
                     mesh.name = mesh.name[4:]
+                    mesh.RobotEditor.tag = 'DEFAULT'
 
         return {'FINISHED'}
 

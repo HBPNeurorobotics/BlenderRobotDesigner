@@ -113,9 +113,8 @@ class SceneSettingItem(bpy.types.PropertyGroup):
 
 class RDMusclePoints(bpy.types.PropertyGroup):
     '''
-    Property group that contains muscle attachement point specifications
+    Property group that contains muscle attachment point specifications
     '''
-
     # x = FloatProperty(name="X", precision=4, step=0.1, default=1.0)
     # y = FloatProperty(name="Y", precision=4, step=0.1, default=1.0)
     # z = FloatProperty(name="Z", precision=4, step=0.1, default=1.0)

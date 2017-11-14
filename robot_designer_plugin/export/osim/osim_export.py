@@ -138,7 +138,7 @@ class OsimExporter(object):
       i, pt = arg
       name = '%s_node%i' % (m.name, i)
       parent = m.RobotEditor.muscles.pathPoints[i].coordFrame
-      x, y, z, _ = pt.co
+      x, y, z = pt.co
       active_model = global_properties.model_name.get(context.scene)
       pose_bone = bpy.data.objects[active_model].pose.bones[parent]
       pose = pose_bone.matrix.inverted() * bpy.data.objects[active_model].matrix_world.inverted() * \
@@ -146,8 +146,15 @@ class OsimExporter(object):
       vec = mathutils.Vector((x,y,z,1))
       trans = mathutils.Matrix.Translation(vec)
       pose_rel = pose * trans
+
+     # bpy.data.meshes.remove(muscle_mesh, True)
+      m.data.bevel_depth = 0.05
       return (name, parent, (pose_rel[0][3], pose_rel[1][3], pose_rel[2][3]))
-    return map(transform_vertex, enumerate(m.data.splines[0].points))
+
+    m.data.bevel_depth = 0
+    muscle_mesh = m.to_mesh(bpy.context.scene, apply_modifiers=True, settings='PREVIEW')
+
+    return map(transform_vertex, enumerate(muscle_mesh.vertices))
 
 
   def _add_pyxb_muscle(self, m, context):

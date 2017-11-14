@@ -123,7 +123,7 @@ def draw(layout, context):
                 row7 = pointbox.row()
 
                 # assign segments to pathpoints
-                row7.label(text="Attach segments to pathpoints")
+                row7.label(text="Attach pathpoints to segments:")
                 row7.menu(menus.SegmentsMusclesMenu.bl_idname, text="Select Segment")
 
                 musclebox = box.box()

@@ -204,11 +204,6 @@ class SDFTree(object):
         #     print(j.name)
         # set sdf fixed name
 
-        # add OpenSim muscle plugin
-        self.sdf.model[0].plugin.append(sdf_dom.plugin())
-        self.sdf.model[0].plugin[0].name = "muscle_interface_plugin"
-        self.sdf.model[0].plugin[0].filename = "libgazebo_ros_muscle_interface.so"
-
         ## write sdf file
         if not os.path.exists(os.path.dirname(file_name)):
             os.makedirs(os.path.dirname(file_name))
