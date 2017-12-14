@@ -236,11 +236,6 @@ class ImportBlenderArmature(RDOperator):
         bone = bpy.context.active_bone
         parent = bpy.context.active_bone.parent
         children = bpy.context.active_bone.children
-        bone.use_connect = False
-        for i in children:
-            i.use_connect = False
-
-        bone.length = 1
 
         if parent is not None:
             m = parent.matrix.inverted() * bone.matrix
