@@ -218,7 +218,8 @@ class AssignParentSegment(RDOperator):
 class ImportBlenderArmature(RDOperator):
     """
     :term:`operator` for converting a :term:`armature` into a :term:`model`
-
+    This operator does NOT currently support import of visuals, collision shapes
+    or kinematic constraints.
 
     """
     bl_idname = config.OPERATOR_PREFIX + "importnative"
