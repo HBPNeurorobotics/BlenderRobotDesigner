@@ -218,7 +218,8 @@ class AssignParentSegment(RDOperator):
 class ImportBlenderArmature(RDOperator):
     """
     :term:`operator` for converting a :term:`armature` into a :term:`model`
-
+    This operator does NOT currently support import of visuals, collision shapes
+    or kinematic constraints.
 
     """
     bl_idname = config.OPERATOR_PREFIX + "importnative"
@@ -235,11 +236,6 @@ class ImportBlenderArmature(RDOperator):
         bone = bpy.context.active_bone
         parent = bpy.context.active_bone.parent
         children = bpy.context.active_bone.children
-        bone.use_connect = False
-        for i in children:
-            i.use_connect = False
-
-        bone.length = 1
 
         if parent is not None:
             m = parent.matrix.inverted() * bone.matrix
