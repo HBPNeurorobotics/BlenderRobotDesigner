@@ -172,6 +172,19 @@ class RDGlobals(PropertyGroupHandlerBase):
 
         bpy.context.active_object.name = self.model_name
 
+    @staticmethod
+    def muscle_dim_update(self, context):
+        """
+        updates the visualization dimension of all muscles in scene
+        """
+        print("in the function")
+        active_model = self.model_name
+        for muscle in [obj.name for obj in bpy.data.objects
+            if bpy.data.objects[obj.name].RobotEditor.muscles.robotName == active_model]:
+                bpy.data.objects[muscle].data.bevel_depth = self.muscle_dim
+                print("changeing ----")
+
+
 
 
 
@@ -288,6 +301,8 @@ class RDGlobals(PropertyGroupHandlerBase):
                    ('RIGID_TENDON', 'Rigid Tendon', 'Show only Rigid Tendon Muscles'),
                    ('none', "None", "Show no muscles")],
             update=self.display_muscles))
+
+        self.muscle_dim = PropertyHandler(FloatProperty(name="Muscle Dimension:", default=0.05, update=self.muscle_dim_update))
 
 
 

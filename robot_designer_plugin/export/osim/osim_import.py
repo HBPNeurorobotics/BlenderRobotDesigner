@@ -92,6 +92,8 @@ class OsimImporter(object):
       :return: RDmuscle: Robot Designer muscle instance
       """
       p = 0
+
+
       while(True):
         try:
             # current pathpoint
@@ -117,7 +119,6 @@ class OsimImporter(object):
             #global_properties.model_name.set(bpy.context.scene, 'robot-hookmesh')
             #global_properties.active_muscle.set(bpy.context.scene, 'm1')
             bpy.ops.roboteditor.select_segment_muscle(segment_name=pathpoint.body, pathpoint_nr=p+1)
-
 
 
             p += 1

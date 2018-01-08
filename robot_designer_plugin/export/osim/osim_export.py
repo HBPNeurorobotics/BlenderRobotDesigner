@@ -148,7 +148,7 @@ class OsimExporter(object):
       pose_rel = pose * trans
 
      # bpy.data.meshes.remove(muscle_mesh, True)
-      m.data.bevel_depth = 0.05
+      m.data.bevel_depth = global_properties.muscle_dim.get(context.scene)
       return (name, parent, (pose_rel[0][3], pose_rel[1][3], pose_rel[2][3]))
 
     m.data.bevel_depth = 0
