@@ -149,4 +149,11 @@ def draw(layout, context):
                  box.row()
                  pass
 
-        infoBox.draw_info()
+    box = layout.box()
+    row1 = box.row()
+    # selective display muscle type
+    row1.label("Settings:")
+    row2 = box.row()
+    global_properties.muscle_dim.prop(context.scene, row2, expand=True)
+
+    #infoBox.draw_info()

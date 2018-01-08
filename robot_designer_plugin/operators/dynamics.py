@@ -87,6 +87,11 @@ class CreatePhysical(RDOperator):
         context.active_object.name = self.frameName
         context.active_object.RobotEditor.tag = 'PHYSICS_FRAME'
 
+        # set new mass object to cursor location
+        cursor = bpy.context.scene.cursor_location
+        context.active_object.location = [cursor.x, cursor.y, cursor.z]
+
+
         model.SelectModel.run(model_name=model_name)
         SelectPhysical.run(frameName=self.frameName)
 

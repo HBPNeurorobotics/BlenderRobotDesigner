@@ -74,10 +74,10 @@ class RDDynamics(bpy.types.PropertyGroup):
 
     # new inertia tensor
     inertiaXX = FloatProperty(name="", precision=4, step=0.1, default=1.0)
-    inertiaXY = FloatProperty(name="", precision=4, step=0.1, default=1.0)
-    inertiaXZ = FloatProperty(name="", precision=4, step=0.1, default=1.0)
+    inertiaXY = FloatProperty(name="", precision=4, step=0.1, default=0.0)
+    inertiaXZ = FloatProperty(name="", precision=4, step=0.1, default=0.0)
     inertiaYY = FloatProperty(name="", precision=4, step=0.1, default=1.0)
-    inertiaYZ = FloatProperty(name="", precision=4, step=0.1, default=1.0)
+    inertiaYZ = FloatProperty(name="", precision=4, step=0.1, default=0.0)
     inertiaZZ = FloatProperty(name="", precision=4, step=0.1, default=1.0)
 
 

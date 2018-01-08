@@ -255,6 +255,11 @@ class ImportBlenderArmature(RDOperator):
         bpy.context.active_bone.RobotEditor.Euler.y.value = xyz[1]
         bpy.context.active_bone.RobotEditor.Euler.z.value = xyz[2]
 
+        print("xyz---")
+        print(xyz[0])
+        print(xyz[1])
+        print(xyz[2])
+
         bpy.context.active_bone.RobotEditor.Euler.alpha.value = round(degrees(euler[0]), 0)
         bpy.context.active_bone.RobotEditor.Euler.beta.value = round(degrees(euler[1]), 0)
         bpy.context.active_bone.RobotEditor.Euler.gamma.value = round(degrees(euler[2]), 0)

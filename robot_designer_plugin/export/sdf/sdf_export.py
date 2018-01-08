@@ -398,8 +398,15 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 inertial.inertia[0].izz[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaZZ,4)
 
                 # set inertial pose
-                inertial.pose[0] = list_to_string(bpy.data.objects[frame].RobotEditor.dynamics.inertiaTrans) \
-                                   + " " + list_to_string(bpy.data.objects[frame].RobotEditor.dynamics.inertiaRot)
+                pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
+                       bpy.data.objects[frame].matrix_world
+
+                frame_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
+                frame_pose_rpy = list_to_string(pose.to_euler())
+
+                visual.pose.append(' '.join([frame_pose_xyz, frame_pose_rpy]))
+
+                inertial.pose[0] = ' '.join([frame_pose_xyz, frame_pose_rpy])
 
         #
         # # add joint controllers

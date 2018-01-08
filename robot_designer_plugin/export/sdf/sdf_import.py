@@ -506,8 +506,10 @@ class Importer(object):
             # get inertia pose
             try:
                 inertia_pose = string_to_list(get_value(node.link.inertial[0].pose[0], "0 0 0 0 0 0"))
-                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaTrans = inertia_pose[0:3]
-                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaRot = inertia_pose[3:6]
+
+
+                bpy.data.objects[node.link.name].location = inertia_pose[0:3]
+                bpy.data.objects[node.link.name].rotation_euler = inertia_pose[3:6]
             except:
                 pass
 
