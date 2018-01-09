@@ -131,7 +131,8 @@ def draw(layout, context):
                 # show length of muscle
                 row = musclebox.row()
                 row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'length', text="Muscle length")
-                muscles.CalculateMuscleLength.place_button(row, infoBox=infoBox, text="Calculate").muscle = active_muscle
+                muscles.CalculateMuscleLength.place_butto
+                n(row, infoBox=infoBox, text="Calculate").muscle = active_muscle
 
                 # Muscle Characteristics
                 # max force
