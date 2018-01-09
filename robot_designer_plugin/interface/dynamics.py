@@ -57,11 +57,16 @@ def draw(layout, context):
     if not check_armature(layout, context):
         return
 
+    settings = layout.row()
+    global_properties.display_physics_selection.prop(context.scene, settings)
+
     box = layout.box()
     box.label("Select mass object")
     infoBox = InfoBox(box)
     row = box.row()
     column = row.column(align=True)
+
+
 
     single_segment = getSingleSegment(context)
 

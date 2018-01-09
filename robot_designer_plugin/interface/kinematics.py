@@ -36,6 +36,7 @@
 # ######
 
 import bpy
+from ..properties.globals import global_properties
 
 def draw(layout, context):
     """
@@ -90,4 +91,6 @@ def draw(layout, context):
             joint_column.prop(context.active_bone.RobotEditor.d, "offset", slider=False)
             joint_column.prop(context.active_bone.RobotEditor.d, "min", slider=False)
             joint_column.prop(context.active_bone.RobotEditor.d, "max", slider=False)
+
+
 
