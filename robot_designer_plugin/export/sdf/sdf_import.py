@@ -484,7 +484,18 @@ class Importer(object):
         else:
             bpy.context.active_bone.RobotEditor.jointMode = 'FIXED'
 
-            # todo set the dynamics properties
+        model = bpy.context.active_object
+        model_name = model.name
+
+        pose_bone = bpy.context.active_object.pose.bones[segment_name]
+        self.logger.debug("bpy.context.active_object name (before iterating over visual): %s", bpy.context.active_object.name)
+        self.logger.debug("active object pose bone matrix: %s", homo2origin(pose_bone.matrix))
+        self.logger.debug("active object matrix world: %s",
+                          homo2origin(model.matrix_world))
+
+        segment_world = model.matrix_world * pose_bone.matrix
+        # segment_world = pose_float2homogeneous(rounded(string_to_list("0 0 0.6 0 0 -1.570796")))*pose_bone.matrix
+
         if len(node.link.inertial) > 0:
             i = node.link.inertial[0].inertia[0]
             CreatePhysical.run(frameName=node.link.name)
@@ -508,23 +519,29 @@ class Importer(object):
                 inertia_pose = string_to_list(get_value(node.link.inertial[0].pose[0], "0 0 0 0 0 0"))
 
 
-                bpy.data.objects[node.link.name].location = inertia_pose[0:3]
-                bpy.data.objects[node.link.name].rotation_euler = inertia_pose[3:6]
+                print("inertiapose -----")
+                print(inertia_pose)
+               # print(inertia_pose.to_matrix())
+                #print(segment_world)
+                print("jo")
+
+                model_posexyz = inertia_pose[0:3]
+                model_poserpy = inertia_pose[3:]
+
+                x = segment_world * Matrix.Translation(Vector(model_posexyz)) * \
+                   Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
+
+
+                print(x)
+                print(x.to_euler())
+         #       x.Translation
+
+
+
+                bpy.data.objects[node.link.name].location = x.to_translation()
+                bpy.data.objects[node.link.name].rotation_euler = x.to_euler()
             except:
                 pass
-
-
-        model = bpy.context.active_object
-        model_name = model.name
-
-        pose_bone = bpy.context.active_object.pose.bones[segment_name]
-        self.logger.debug("bpy.context.active_object name (before iterating over visual): %s", bpy.context.active_object.name)
-        self.logger.debug("active object pose bone matrix: %s", homo2origin(pose_bone.matrix))
-        self.logger.debug("active object matrix world: %s",
-                          homo2origin(model.matrix_world))
-
-        segment_world = model.matrix_world * pose_bone.matrix
-        #segment_world = pose_float2homogeneous(rounded(string_to_list("0 0 0.6 0 0 -1.570796")))*pose_bone.matrix
 
         self.logger.debug("[VISUAL] parsed: " + str(len(list(node.link.visual))) + " visual meshes.")
 

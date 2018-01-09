@@ -87,6 +87,14 @@ class RDGlobals(PropertyGroupHandlerBase):
         SelectSegment.run(segment_name=global_properties.segment_name.get(context.scene))
 
     @staticmethod
+    def display_physics(self, context):
+        for physics in [physics for physics in bpy.data.objects if physics.RobotEditor.tag == 'PHYSICS_FRAME']:
+            if self.display_physics_selection == True:
+                physics.hide = False
+            else:
+                physics.hide = True
+
+    @staticmethod
     def updateMuscleName(self, context):
 
         SelectMuscle.run(muscle_name=global_properties.active_muscle.get(context.scene))
@@ -232,6 +240,9 @@ class RDGlobals(PropertyGroupHandlerBase):
         self.active_sensor = PropertyHandler(StringProperty(name="Active sensor", default=""))
 
         self.physics_type = PropertyHandler(EnumProperty(items=[('PHYSICS_FRAME', 'Mass object', 'Mass object')]))
+
+        self.display_physics_selection = PropertyHandler(BoolProperty(name="Show Physics Frames", description="Show or hide physics frames", default=True, update=self.display_physics))
+
 
         # Holds the selection to list connected or unassigned meshes in dropdown menus
         self.list_meshes = PropertyHandler(EnumProperty(
