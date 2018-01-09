@@ -71,7 +71,7 @@ def draw(layout, context):
     global_properties.sensor_type.prop(context.scene, row, expand=True)
     row = column.row(align=True)
     mode = global_properties.sensor_type.get(context.scene)
-    sensors.CreateOpticalSensor.place_button(row, "Create new").sensor_type = mode
+    sensors.CreateSensor.place_button(row, "Create new").sensor_type = mode
 
     box = AttachSensorBox.get(layout, context, "Attach Sensor", icon="LINKED")
     if box:
@@ -144,7 +144,7 @@ def draw(layout, context):
                     infoBox.add_message('Selected object is no camera sensor')
                     if sensor.type == 'CAMERA':
                         sensors.ConvertCameraToSensor.place_button(row, "Convert to camera sensor",
-                                                                   infoBox).sensor_type = "CAMEAR_SENSOR"
+                                                                   infoBox).sensor_type = "CAMERA_SENSOR"
             elif mode == "LASER_SENSOR":
                 if sensor.RobotEditor.tag == 'LASER_SENSOR':
                     pass

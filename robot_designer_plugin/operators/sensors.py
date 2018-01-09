@@ -153,13 +153,13 @@ class ConvertCameraToSensor(RDOperator):
 
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
-class CreateOpticalSensor(RDOperator):
+class CreateSensor(RDOperator):
     """
     :term:`Operator <operator>` for creating a new :term:`optical sensor`.
     """
 
-    bl_idname = config.OPERATOR_PREFIX + "create_optical_sensor"
-    bl_label = "Create optical sensor"
+    bl_idname = config.OPERATOR_PREFIX + "create_sensor"
+    bl_label = "Create sensor"
 
     sensor_type = StringProperty(default="CAMERA_SENSOR")
     sensor_name = StringProperty(name="Sensor Name")
@@ -175,7 +175,11 @@ class CreateOpticalSensor(RDOperator):
 
         model_name = context.active_object.name
 
-        bpy.ops.object.camera_add()
+        if self.sensor_type == "CAMERA_SENSOR":
+            print("add camaera")
+            bpy.ops.object.camera_add()
+        else:
+            bpy.ops.object.empty_add(type='PLAIN_AXES')
 
         context.active_object.RobotEditor.tag = self.sensor_type
         context.active_object.name = self.sensor_name
