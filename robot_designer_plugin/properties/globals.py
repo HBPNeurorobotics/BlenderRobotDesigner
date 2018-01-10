@@ -212,9 +212,6 @@ class RDGlobals(PropertyGroupHandlerBase):
         # Holds the name of the currently selected physics frame (Empty object)
         self.physics_frame_name = PropertyHandler(StringProperty())
 
-        # Holds the name of the currently selected physics frame (Empty object)
-        self.camera_sensor_name = PropertyHandler(StringProperty())
-
         # Used to realize the main tab in the GUI
         self.gui_tab = PropertyHandler(EnumProperty(
             items=[('armatures', 'Robot', 'Modify the Robot'),
@@ -239,6 +236,8 @@ class RDGlobals(PropertyGroupHandlerBase):
                    ('LASER_SENSOR', 'Laser scanners', 'Edit laser scanners')]
                    # ('POSITION', 'Position sensors', 'Edit position sensors')]
         ))
+
+        self.active_sensor = PropertyHandler(StringProperty(name="Active sensor", default=""))
 
         self.physics_type = PropertyHandler(EnumProperty(items=[('PHYSICS_FRAME', 'Mass object', 'Mass object')]))
 

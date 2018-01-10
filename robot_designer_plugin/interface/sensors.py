@@ -41,7 +41,7 @@ import bpy
 from .model import check_armature
 
 from . import menus
-from ..operators import sensors
+from ..operators import sensors, muscles
 from .helpers import getSingleObject, getSingleSegment, info_list, AttachSensorBox, DetachSensorBox, SensorPropertiesBox
 from ..core.gui import InfoBox
 from ..properties.globals import global_properties
@@ -49,7 +49,7 @@ from ..properties.globals import global_properties
 
 def draw(layout, context):
     """
-    Draws the user interface for geometric modelling.
+    Draws the user interface for sensor configuration.
 
     :param layout: Current GUI element (e.g., collapsible box, row, etc.)
     :param context: Blender context
@@ -70,10 +70,23 @@ def draw(layout, context):
     row = column.row(align=True)
     global_properties.sensor_type.prop(context.scene, row, expand=True)
     row = column.row(align=True)
-    mode = global_properties.sensor_type.get(context.scene)
-    sensors.CreateSensor.place_button(row, "Create new").sensor_type = mode
 
-    box = AttachSensorBox.get(layout, context, "Attach Sensor", icon="LINKED")
+    sensorbox = layout.box()
+    sensorbox.label("Select Sensor:")
+    row = sensorbox.row()
+    columnl = row.column()
+    menus.SensorMenu.putMenu(columnl, context)
+
+    columnr = row.column()
+
+    infoBox = InfoBox(sensorbox)
+    mode = global_properties.sensor_type.get(context.scene)
+    sensors.CreateSensor.place_button(columnr, "Create new").sensor_type = mode
+    sensors.RenameSensor.place_button(columnr, text="Rename active sensor", infoBox=infoBox)
+    sensors.DeleteSensor.place_button(columnr, text="Delete active sensor", infoBox=infoBox)
+
+
+    box = AttachSensorBox.get(sensorbox, context, "Attach/Detach", icon="LINKED")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
@@ -91,38 +104,30 @@ def draw(layout, context):
                                                    icon='VIEWZOOM',
                                                    text='')
 
-        column = row.column(align=True)
-        menus.CameraSensorMenu.putMenu(column, context)
-        # create_geometry_selection(column, context)
+        #create_geometry_selection(column, context)
+
         row = box.column(align=True)
-        sensors.AssignCameraSensor.place_button(row, infoBox=infoBox)
+        sensors.AttachSensor.place_button(row, infoBox=infoBox)
+        sensors.DetachSensor.place_button(row, infoBox=infoBox)
+
         box.separator()
         infoBox.draw_info()
 
-    box = DetachSensorBox.get(layout, context, "Detach Sensor", icon="UNLINKED")
+    box = SensorPropertiesBox.get(sensorbox, context, "Sensor Properties", icon="SCRIPTWIN")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
-        column = row.column(align=True)
-        menus.CameraSensorMenu.putMenu(column, context)
-
-        column = row.column(align=True)
-        sensors.DetachCameraSensor.place_button(column, infoBox=infoBox)
-        box.separator()
-        infoBox.draw_info()
-
-    box = SensorPropertiesBox.get(layout, context, "Sensor Properties")
-    if box:
-        infoBox = InfoBox(box)
-        row = box.row()
-        menus.CameraSensorMenu.putMenu(row, context)
+        menus.SensorMenu.putMenu(row, context)
         row = box.row()
 
         sensor = getSingleObject(context)
 
+        sensor_type = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotEditor.tag
+
+
         if sensor:
 
-            if mode == "CAMERA_SENSOR":
+            if sensor_type == "CAMERA_SENSOR":
                 if sensor.RobotEditor.tag == 'CAMERA_SENSOR':
                     column = row.column(align=True)
                     column.prop(sensor.data, 'angle_x', text="Horizontal field of view")
@@ -145,7 +150,12 @@ def draw(layout, context):
                     if sensor.type == 'CAMERA':
                         sensors.ConvertCameraToSensor.place_button(row, "Convert to camera sensor",
                                                                    infoBox).sensor_type = "CAMERA_SENSOR"
-            elif mode == "LASER_SENSOR":
+
+            # add more sensors here:
+            # elif sensor_type == " xxxx"
+                    # show properties
+
+            elif sensor_type == "LASER_SENSOR":
                 if sensor.RobotEditor.tag == 'LASER_SENSOR':
                     pass
                 else:
