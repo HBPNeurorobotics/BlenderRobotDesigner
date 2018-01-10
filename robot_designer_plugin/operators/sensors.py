@@ -79,17 +79,19 @@ class SelectSensor(RDOperator):
         Object.select = True
         arm.select = True
 
+        global_properties.active_sensor.set(context.scene, self.object_name)
+
         return {'FINISHED'}
 
 
 @RDOperator.Preconditions(ModelSelected, SingleCameraSelected, SingleSegmentSelected)
 @PluginManager.register_class
-class AssignCameraSensor(RDOperator):
+class AttachSensor(RDOperator):
     """
     :term:`Operator <operator>` for assigning a camera sensor to a :term:`segment`.
     """
-    bl_idname = config.OPERATOR_PREFIX + "assign_camera_sensor"
-    bl_label = "Assign Camera"
+    bl_idname = config.OPERATOR_PREFIX + "assign_sensor"
+    bl_label = "Assign Sensor"
 
     @classmethod
     def run(cls):
@@ -98,18 +100,23 @@ class AssignCameraSensor(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleCameraSelected, SingleSegmentSelected)
     def execute(self, context):
-        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+
+        if bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotEditor.tag == "CAMERA_SENSOR":
+            bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+
+        # todo: for other sensors add link name tag
+
         return {'FINISHED'}
 
 
 @RDOperator.Preconditions(ModelSelected, SingleCameraSelected)
 @PluginManager.register_class
-class DetachCameraSensor(RDOperator):
+class DetachSensor(RDOperator):
     """
     :term:`Operator <operator>` for detaching a single camera sensor from a :term:`segment`.
     """
-    bl_idname = config.OPERATOR_PREFIX + "detach_camera_sensor"
-    bl_label = "Detach selected sensor"
+    bl_idname = config.OPERATOR_PREFIX + "detach_sensor"
+    bl_label = "Detach sensor"
 
     @classmethod
     def run(cls):
@@ -118,7 +125,7 @@ class DetachCameraSensor(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleCameraSelected)
     def execute(self, context):
-        sensor_name = global_properties.camera_sensor_name.get(context.scene)
+        sensor_name = global_properties.active_sensor.get(context.scene)
         current_sensor = bpy.data.objects[sensor_name]
         mesh_global = current_sensor.matrix_world
         current_sensor.parent = None
@@ -192,3 +199,60 @@ class CreateSensor(RDOperator):
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
+
+
+@RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)
+@PluginManager.register_class
+class RenameSensor(RDOperator):
+    """
+    :term:`operator` for renaming the selected muscle
+
+
+    """
+    bl_idname = config.OPERATOR_PREFIX + "rename_sensor"
+    bl_label = "Rename active sensor"
+
+    new_name = StringProperty(name="Enter new name:")
+
+        # todo
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+        bpy.data.objects[global_properties.active_sensor.get(context.scene)].name = self.new_name
+        global_properties.active_sensor.set(context.scene, self.new_name)
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
+    @classmethod
+    def run(cls, new_name=""):
+        return super().run(**cls.pass_keywords())
+
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class DeleteSensor(RDOperator):
+    """
+    :term:`operator` for deleting the selected muscle.
+
+
+    """
+    bl_idname = config.OPERATOR_PREFIX + "delete_sensor"
+    bl_label = "Delete active sensor"
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+
+        #todo
+        active_sensor = global_properties.active_sensor.get(context.scene)
+
+        # remove muscle and all its data
+        bpy.data.objects.remove(bpy.data.objects[active_sensor], True)
+        bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
+
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
