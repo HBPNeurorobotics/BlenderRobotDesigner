@@ -176,7 +176,7 @@ class CreateSensor(RDOperator):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
-    @RDOperator.Postconditions(ModelSelected, SingleCameraSelected)
+    @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         from .model import SelectModel
 

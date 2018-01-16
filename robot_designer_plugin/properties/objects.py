@@ -90,6 +90,75 @@ class RDCamera(bpy.types.PropertyGroup):
                                  ('BAYER_GRBG8', 'BAYER_GRBG8', 'BAYER_GRBG8')
                                  ])
 
+@PluginManager.register_property_group()
+class RDContactSensor(bpy.types.PropertyGroup):
+    collision = StringProperty(name="collision", default="__default__")
+    topic = StringProperty(name="topic", default="__default_topic__")
+
+@PluginManager.register_property_group()
+class RDForceTorqueSensor(bpy.types.PropertyGroup):
+    frame = StringProperty(name="frame", default="child")
+    measure_direction = StringProperty(name="measure_direction", default="child_to_parent")
+
+@PluginManager.register_property_group()
+class RDDepthCameraSensor(bpy.types.PropertyGroup):
+    output = StringProperty(name="output", default="depths")
+
+@PluginManager.register_property_group()
+class RDAltimeterSensor(bpy.types.PropertyGroup):
+    vptype = StringProperty(name="type", default="none")
+    vpmean = FloatProperty(name="mean", default=0)
+    vpstddev = FloatProperty(name="stddev", default=0)
+    vpbias_mean = FloatProperty(name="stddev", default=0)
+    vpbias_stddev = FloatProperty(name="bias_stddev", default=0)
+    vpprecision = FloatProperty(name="precision", default=0)
+    vvtype = StringProperty(name="type", default="none")
+    vvmean = FloatProperty(name="mean", default=0)
+    vvstddev = FloatProperty(name="stddev", default=0)
+    vvbias_mean = FloatProperty(name="stddev", default=0)
+    vvbias_stddev = FloatProperty(name="bias_stddev", default=0)
+    vvprecision = FloatProperty(name="precision", default=0)
+
+
+@PluginManager.register_property_group()
+class RDIMUSensor(bpy.types.PropertyGroup):
+    localization = StringProperty(name="localization", default="CUSTOM")
+    custom_rpy = FloatVectorProperty(name="custom_rpy", precision=4, default=[0.0, 0.0, 0.0])
+    grav_dir_x = FloatVectorProperty(name="grav_dir_x", precision=4, default=[1.0, 0.0, 0.0])
+    parent_frame = StringProperty(name="parent_frame", default="Name of parent frame")
+    topic = StringProperty(name="topic", default="__default_topic__")
+    vvtype = StringProperty(name="type", default="none")
+    avxmean = FloatProperty(name="mean", default=0)
+    avxstddev = FloatProperty(name="stddev", default=0)
+    avxbias_mean = FloatProperty(name="stddev", default=0)
+    avxbias_stddev = FloatProperty(name="bias_stddev", default=0)
+    avxprecision = FloatProperty(name="precision", default=0)
+    avymean = FloatProperty(name="mean", default=0)
+    avystddev = FloatProperty(name="stddev", default=0)
+    avybias_mean = FloatProperty(name="stddev", default=0)
+    avybias_stddev = FloatProperty(name="bias_stddev", default=0)
+    avyprecision = FloatProperty(name="precision", default=0)
+    avzmean = FloatProperty(name="mean", default=0)
+    avzstddev = FloatProperty(name="stddev", default=0)
+    avzbias_mean = FloatProperty(name="stddev", default=0)
+    avzbias_stddev = FloatProperty(name="bias_stddev", default=0)
+    avzprecision = FloatProperty(name="precision", default=0)
+    laxmean = FloatProperty(name="mean", default=0)
+    laxstddev = FloatProperty(name="stddev", default=0)
+    laxbias_mean = FloatProperty(name="stddev", default=0)
+    laxbias_stddev = FloatProperty(name="bias_stddev", default=0)
+    laxprecision = FloatProperty(name="precision", default=0)
+    laymean = FloatProperty(name="mean", default=0)
+    laystddev = FloatProperty(name="stddev", default=0)
+    laybias_mean = FloatProperty(name="stddev", default=0)
+    laybias_stddev = FloatProperty(name="bias_stddev", default=0)
+    layprecision = FloatProperty(name="precision", default=0)
+    lazmean = FloatProperty(name="mean", default=0)
+    lazstddev = FloatProperty(name="stddev", default=0)
+    lazbias_mean = FloatProperty(name="stddev", default=0)
+    lazbias_stddev = FloatProperty(name="bias_stddev", default=0)
+    lazprecision = FloatProperty(name="precision", default=0)
+
 
 @PluginManager.register_property_group()
 class RDLaser(bpy.types.PropertyGroup):
@@ -189,14 +258,23 @@ class RDObjects(bpy.types.PropertyGroup):
                ('ARMATURE', 'Armature', 'Armature'),
                ('COLLISION', 'Collision', 'Collision'),
                ('CAMERA_SENSOR', 'Camera sensor', 'Camera sensor'),
-               ('LASER_SENSOR', 'Laser sensor', 'Laser sensor')]
+               ('LASER_SENSOR', 'Laser sensor', 'Laser sensor'),
+               ('CONTACT_SENSOR', 'Contact Sensors', 'Edit contact sensors'),
+               ('FORCE_TORQUE_SENSOR', 'Force Torque Sensors', 'Edit force torque sensors'),
+               ('DEPTH_CAMERA_SENSOR', 'Depth Camera Sensors', 'Edit depth camera sensors'),
+               ('ALTIMETER_SENSOR', 'Altimeter Sensors', 'Edit altimeter sensors'),
+               ('IMU_SENSOR', 'IMU Sensors', 'Edit IMU sensors')]
     )
 
     dynamics = PointerProperty(type=RDDynamics)
     camera = PointerProperty(type=RDCamera)
     modelMeta = PointerProperty(type=RDModelMeta)
     author = PointerProperty(type=RDAuthor)
-
+    contactSensor = PointerProperty(type=RDContactSensor)
+    forceTorqueSensor = PointerProperty(type=RDForceTorqueSensor)
+    depthCameraSensor = PointerProperty(type=RDDepthCameraSensor)
+    altimeterSensor = PointerProperty(type=RDAltimeterSensor)
+    imuSensor = PointerProperty(type=RDIMUSensor)
     muscles = PointerProperty(type=RDMuscle)
 
 
