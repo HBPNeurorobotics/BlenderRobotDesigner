@@ -49,7 +49,8 @@ from ..core.logfile import LogFunction
 from ..core.gui import InfoBox
 from ..core import PluginManager
 from ..properties.globals import global_properties
-
+from .helpers import SDFCollisionPropertiesBox
+from .helpers import BounceBox, FrictionBox, ContactBox, SoftContactBox
 
 def draw(layout, context):
     """
@@ -210,6 +211,60 @@ def draw(layout, context):
 
         box.separator()
         infoBox.draw_info()
+
+    box = SDFCollisionPropertiesBox.get(layout, context, "SDF Properties")
+    if box:
+        box1 = BounceBox.get(layout, context, "Bounce")
+        if box1:
+            box1.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'restitution_coeff', text='Restitution Coeff.')
+            box1.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'threshold', text='Threshold')
+        box2 = FrictionBox.get(layout, context, "Friction")
+        if box2:
+            box3 = box2.box()
+            box3.label(text ="Torsional")
+            box3.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'coefficient', text='Coefficient')
+            box3.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'use_patch_radius', text='Use Patch Radius')
+            box3.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'patch_radius', text='Patch Radius')
+            box3.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'surface_radius', text='Surface Radius')
+            box4 = box3.box()
+            box4.label(text="ODE")
+            box4.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'slip',
+                              text='Slip')
+
+            box5 = box2.box()
+            box5.label(text ="ODE")
+            box5.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'mu', text='Mu')
+            box5.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'mu2', text='Mu2')
+            box5.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'fdir1', text='FDir1')
+            box5.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'slip1', text='Slip1')
+            box5.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'slip2', text='Slip2')
+
+        box6 = ContactBox.get(layout, context, "Contact")
+        if box6:
+            box6.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'collide_wo_contact', text='Collide without contact')
+            box6.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'collide_wo_contact_bitmask', text='Collide without contac bitmask')
+            box6.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'collide_bitmask', text='Collide bitmask')
+            box6.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'category_bitmask', text='Category bitmask')
+            box6.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'poissons_ratio', text='Poissons Ratio')
+            box6.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'elastic_modulus', text="Elastic Modulus")
+
+            box7 = box6.box()
+            box7.label(text="ODE")
+            box7.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'soft_cfm', text="Soft CMF")
+            box7.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'soft_erp', text='Soft ERP')
+            box7.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'kp', text='Kp')
+            box7.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'kd', text='Kd')
+            box7.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'max_vel', text='Max. Vel')
+            box7.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'min_depth', text='Min. Depth')
+
+        box8 = SoftContactBox.get(layout, context, "Soft Contact")
+        if box8:
+            box9 = box8.box()
+            box9.label(text="Dart")
+            box9.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'bone_attachment', text="Bone Attachment")
+            box9.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'stiffness', text='Stifness')
+            box9.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'damping', text='Damping')
+            box9.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'flesh_mass_fraction', text='Flesh mass fraction')
 
 
     drawInfoBox(layout,context)

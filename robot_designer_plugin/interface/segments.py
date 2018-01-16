@@ -45,6 +45,9 @@ from .helpers import create_segment_selector
 from ..operators import segments
 from ..core.pluginmanager import PluginManager
 from ..properties.globals import global_properties
+from .helpers import PhysicsBox
+from .helpers import LinkBox
+from . import menus
 
 def draw(layout, context):
     """
@@ -85,8 +88,21 @@ def draw(layout, context):
                 kinematics.draw(box, context)
             elif tab == "dynamics":
                 dynamics.draw(box, context)
+                box = PhysicsBox.get(layout, context, 'Physics')
+                if box:
+                    odeBox = layout.box()
+                    odeBox.label(text="ODE")
+                    odeBox.prop(bpy.context.active_object.RobotEditor.ode, 'cmf_damping', text='CMF-Damping')
+                    odeBox.prop(bpy.context.active_object.RobotEditor.ode, 'i_s_damper', text='I. S. Damper')
+                    odeBox.prop(bpy.context.active_object.RobotEditor.ode, 'cmf', text='CMF')
+                    odeBox.prop(bpy.context.active_object.RobotEditor.ode, 'erp', text='ERP')
+
             elif tab == "controller":
                 controllers.draw(box, context)
+        linkBox = LinkBox.get(layout, context, 'SDF-Properties')
+        if linkBox:
+            linkBox.prop(bpy.context.active_object.RobotEditor.linkInfo, 'link_self_collide', text='Self Collide')
+            linkBox.prop(bpy.context.active_object.RobotEditor.linkInfo, 'gravity', text='Gravity')
 
     else:
         layout.operator(segments.CreateNewSegment.bl_idname, text="Create new base bone")
