@@ -77,53 +77,55 @@ def draw(layout, context):
     columnl = row.column()
     menus.SensorMenu.putMenu(columnl, context)
 
-    columnr = row.column()
+    columnr = row.column(align=True)
 
     infoBox = InfoBox(sensorbox)
     mode = global_properties.sensor_type.get(context.scene)
-    sensors.CreateSensor.place_button(columnr, "Create new").sensor_type = mode
+    sensors.CreateSensor.place_button(columnr, "Create new sensor").sensor_type = mode
     sensors.RenameSensor.place_button(columnr, text="Rename active sensor", infoBox=infoBox)
     sensors.DeleteSensor.place_button(columnr, text="Delete active sensor", infoBox=infoBox)
 
+    sensor_type = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotEditor.tag
 
     box = AttachSensorBox.get(sensorbox, context, "Attach/Detach", icon="LINKED")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
-        column = row.column(align=True)
 
-        single_segment = getSingleSegment(context)
+        if sensor_type == 'CAMERA_SENSOR' or sensor_type =='LASER_SENSOR':
+            column = row.column(align=True)
 
-        column.menu(menus.SegmentsGeometriesMenu.bl_idname,
+            single_segment = getSingleSegment(context)
+
+            column.menu(menus.SegmentsGeometriesMenu.bl_idname,
                     text=single_segment.name if single_segment else "Select Segment")
-        row2 = column.row(align=True)
+            row2 = column.row(align=True)
 
-        global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
-        row2.separator()
-        global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
+            global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
+            row2.separator()
+            global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
                                                    icon='VIEWZOOM',
                                                    text='')
 
-        #create_geometry_selection(column, context)
+            #create_geometry_selection(column, context)
 
-        row = box.column(align=True)
-        sensors.AttachSensor.place_button(row, infoBox=infoBox)
-        sensors.DetachSensor.place_button(row, infoBox=infoBox)
+            row = box.column(align=True)
+            sensors.AttachSensor.place_button(row, infoBox=infoBox)
+            sensors.DetachSensor.place_button(row, infoBox=infoBox)
 
-        box.separator()
-        infoBox.draw_info()
+            box.separator()
+            infoBox.draw_info()
+
+        # elif sensor_type == 'CONTACT_SENSOR':
+        #       assign to collision mesh instead of bone
+
 
     box = SensorPropertiesBox.get(sensorbox, context, "Sensor Properties", icon="SCRIPTWIN")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
-        menus.SensorMenu.putMenu(row, context)
-        row = box.row()
 
         sensor = getSingleObject(context)
-
-        sensor_type = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotEditor.tag
-
 
         if sensor:
 
