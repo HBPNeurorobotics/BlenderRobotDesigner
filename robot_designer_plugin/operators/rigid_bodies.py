@@ -81,16 +81,19 @@ class SelectGeometry(RDOperator):
             global_properties.mesh_name.set(context.scene, 'Search')
             return {'FINISHED'}
 
+        # Has the side effect of de-selecting all other objects except for the armature and our mesh.
         global_properties.mesh_name.set(context.scene, self.geometry_name)
 
-        #arm = context.active_object
-        arm = bpy.data.objects[mesh.name]
+        #arm = context.active_object # Which should still point to the armature!
 
-        for obj in bpy.data.objects:
-            obj.select = False
+        #arm = bpy.data.objects[mesh.name] # This is our mesh ...
 
-        mesh.select = True
-        arm.select = True
+        # Why??
+        #for obj in bpy.data.objects:
+        #    obj.select = False  # Now this also deselects the armature, no?  Except that it would still be active in the context???
+
+        #mesh.select = True  # Should be handled by mesh_name.set() already.
+        #arm.select = True
 
         context.region.tag_redraw()
         context.area.tag_redraw()
@@ -113,10 +116,15 @@ class AssignGeometry(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
     def execute(self, context):
+        # Set parenting relation. There are two ways to attach geometry to a bone:
+        # This way, which sets the parent_bone variable of the object. Or by using vertex weights,
+        # in which case parent_bone should be left empty.
+        # See also https://blender.stackexchange.com/questions/9200/make-object-a-a-parent-of-object-b-via-python
+        # At this point bpy.context.scene.objects.active should point to the armature which will be the parent.
         bpy.ops.object.parent_set(type='BONE', keep_transform=True)
-
+        # In order to get the child we have to jump through some hoops.
         obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
-
+        # Change the name depending on whether we want collision geometry or visual geometry.
         if global_properties.assign_collision.get(context.scene) == True or obj.RobotEditor.tag == 'COLLISION':
             obj.RobotEditor.tag = 'COLLISION'
             if not obj.name.startswith("COL_"):
@@ -125,11 +133,11 @@ class AssignGeometry(RDOperator):
             obj.RobotEditor.tag == 'DEFAULT'
             if not obj.name.startswith("VIS_"):
                 obj.name = "VIS_" + obj.name
-
         obj.RobotEditor.fileName = obj.name
-
+        # Update the global reference to the selected mesh.
         global_properties.mesh_name.set(context.scene, obj.name)
-
+        # This is just a boolean variable which is reset here to False. It helps
+        # determine whether we want a collision mesh or a visual one.
         global_properties.assign_collision.set(context.scene, False)
 
         return {'FINISHED'}

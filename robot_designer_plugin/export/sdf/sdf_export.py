@@ -307,8 +307,9 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         operator.logger.info(" joint type'%s'" % child.joint.type)
 
         # Add properties
+        armature = context.active_object
         connected_meshes = [mesh.name for mesh in bpy.data.objects if
-                            mesh.type == 'MESH' and mesh.parent_bone == segment.name]
+                            mesh.type == 'MESH' and mesh.parent_bone == segment.name and mesh.parent == armature]
         # if len(connected_meshes) > 0:
         #     child.link.name = connected_meshes[0]
         # else:
@@ -316,7 +317,6 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         #     # todo: the RobotDesigner does not have the concept of
         #     # links further it is possible to have
         #     # todo: several meshes assigned to the same bone
-        #     # todo: solutions add another property to a bone or
         #     # todo: solutions add another property to a bone or
         #     # chose the name from the list of connected meshes
         for mesh in connected_meshes:

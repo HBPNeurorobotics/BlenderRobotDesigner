@@ -49,8 +49,9 @@ from bpy.props import StringProperty, BoolProperty
 # RobotDesigner imports
 from ..core import config, PluginManager, Condition, RDOperator
 
+#from .rigid_bodies import AssignGeometry, SelectGeometry
+from .rigid_bodies import *
 from .helpers import _mat3_to_vec_roll, ModelSelected, SingleSegmentSelected, PoseMode
-
 
 
 @RDOperator.Preconditions(ModelSelected)
@@ -236,6 +237,48 @@ class ImportBlenderArmature(RDOperator):
         bone = bpy.context.active_bone
         parent = bpy.context.active_bone.parent
         children = bpy.context.active_bone.children
+        armature = bpy.context.active_object
+        # We rely on the assumption that selecting a bone also selects the parent armature object.
+
+        print ("Attempting to manage", bone.name, "with RD!")
+
+        def connect_to_that_bone_because_vertex_map(obj, bone):
+          """ There can only be one parent_bone. So in case of multiple VG's we have to decide which one to take."""
+          total_weights = []
+          for vg in obj.vertex_groups:
+            total_weight = 0.
+            for i in range(len(obj.data.vertices)):
+              try:
+                total_weight += vg.weight(i)
+              except RuntimeError:
+                pass
+            total_weights.append((vg.name, total_weight))
+          print(total_weights)
+          bone_with_largest_weight, _ = max(total_weights, key = lambda x: x[1])
+          return bone_with_largest_weight == bone.name
+
+        def disable_vertex_group_on_geometry(obj):
+            if 0:
+                # Delete the vertex maps entirely
+                context.scene.objects.active = obj
+                bpy.ops.object.vertex_group_remove(all=True)
+                context.scene.objects.active = armature
+            else:
+                obj.modifiers[armature.name].use_vertex_groups = False
+
+        objects_to_connect = []
+        for obj in armature.children:
+          # Is the object connected via vertex groups or is the bone the bone_parent?
+          if obj.parent_bone == bone.name or (bone.name in obj.vertex_groups and connect_to_that_bone_because_vertex_map(obj, bone)):
+            objects_to_connect.append(obj)
+            disable_vertex_group_on_geometry(obj)
+        # Now handle the assignment
+        for obj in objects_to_connect:
+          print ("Attempt to attach geometry", obj.name, "to", bone.name)
+          # We just use the operators that we already have.
+          # Assign geometry operates on selected items - one bone and one mesh.
+          SelectGeometry.run(geometry_name = obj.name)
+          AssignGeometry.run()
 
         if parent is not None:
             m = parent.matrix.inverted() * bone.matrix
