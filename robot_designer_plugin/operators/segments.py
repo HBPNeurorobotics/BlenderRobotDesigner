@@ -227,6 +227,8 @@ class ImportBlenderArmature(RDOperator):
     bl_label = "Import native blender segment"
 
     recursive = BoolProperty(name="Proceed recursively?")
+    attach_collision_geometry = BoolProperty(name="Attach collision geometry")
+    attach_visual_geometry = BoolProperty(name="Attach visual geometry")
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -242,7 +244,7 @@ class ImportBlenderArmature(RDOperator):
 
         print ("Attempting to manage", bone.name, "with RD!")
 
-        def connect_to_that_bone_because_vertex_map(obj, bone):
+        def allow_connect_to_that_bone_because_vertex_weight(obj):
           """ There can only be one parent_bone. So in case of multiple VG's we have to decide which one to take."""
           total_weights = []
           for vg in obj.vertex_groups:
@@ -257,7 +259,10 @@ class ImportBlenderArmature(RDOperator):
           bone_with_largest_weight, _ = max(total_weights, key = lambda x: x[1])
           return bone_with_largest_weight == bone.name
 
-        def disable_vertex_group_on_geometry(obj):
+        def allow_connect_to_that_bone(obj):
+            return obj.parent_bone == bone.name or (bone.name in obj.vertex_groups and allow_connect_to_that_bone_because_vertex_weight(obj))
+
+        def stop_vertex_group_from_interfering(obj):
             if 0:
                 # Delete the vertex maps entirely
                 context.scene.objects.active = obj
@@ -266,19 +271,32 @@ class ImportBlenderArmature(RDOperator):
             else:
                 obj.modifiers[armature.name].use_vertex_groups = False
 
-        objects_to_connect = []
-        for obj in armature.children:
-          # Is the object connected via vertex groups or is the bone the bone_parent?
-          if obj.parent_bone == bone.name or (bone.name in obj.vertex_groups and connect_to_that_bone_because_vertex_map(obj, bone)):
-            objects_to_connect.append(obj)
-            disable_vertex_group_on_geometry(obj)
-        # Now handle the assignment
-        for obj in objects_to_connect:
-          print ("Attempt to attach geometry", obj.name, "to", bone.name)
-          # We just use the operators that we already have.
-          # Assign geometry operates on selected items - one bone and one mesh.
-          SelectGeometry.run(geometry_name = obj.name)
-          AssignGeometry.run()
+        def duplicate(obj):
+            # https://blender.stackexchange.com/questions/45099/duplicating-a-mesh-object
+            new_obj = obj.copy()
+            new_obj.data = obj.data.copy()
+            new_obj.animation_data_clear()
+            context.scene.objects.link(new_obj)
+            return new_obj
+
+        if self.attach_visual_geometry or self.attach_collision_geometry:
+            for obj in filter(allow_connect_to_that_bone, armature.children):
+                print("Attempt to attach geometry", obj.name, "to", bone.name)
+                stop_vertex_group_from_interfering(obj)
+                if self.attach_visual_geometry and self.attach_collision_geometry:
+                    clone = duplicate(obj)
+                    clone.RobotEditor.tag = 'COLLISION' # Tag determines if attached as collision or visual geometry.
+                    obj.RobotEditor.tag = 'DEFAULT'
+                    SelectGeometry.run(geometry_name = clone.name)
+                    AssignGeometry.run()
+                elif self.attach_visual_geometry:
+                    obj.RobotEditor.tag = 'DEFAULT'
+                else:
+                    obj.RobotEditor.tag = 'COLLISION'
+                # We just use the operators that we already have.
+                # Assign geometry operates on selected items - one bone and one mesh.
+                SelectGeometry.run(geometry_name = obj.name)
+                AssignGeometry.run()
 
         if parent is not None:
             m = parent.matrix.inverted() * bone.matrix
@@ -308,12 +326,14 @@ class ImportBlenderArmature(RDOperator):
         if self.recursive:
             for i in [i.name for i in bpy.context.active_bone.children]:
                 SelectSegment.run(segment_name=i)
-                ImportBlenderArmature.run(recursive=True)
-
+                ImportBlenderArmature.run(
+                    recursive=True,
+                    attach_collision_geometry=self.attach_collision_geometry,
+                    attach_visual_geometry=self.attach_visual_geometry)
         return {'FINISHED'}
 
     def invoke(self, context, event):
-        return context.window_manager.invoke_props_dialog(self)
+        return context.window_manager.invoke_props_dialog(self, width=400)
 
 
 @RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)

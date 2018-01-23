@@ -125,15 +125,29 @@ class AssignGeometry(RDOperator):
         # In order to get the child we have to jump through some hoops.
         obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
         # Change the name depending on whether we want collision geometry or visual geometry.
+
+        def maybe_remove_prefix(s, prefix):
+            return s[len(prefix):] if s.startswith(prefix) else s
+
+        def maybe_remove_postfix(s, postfix):
+            return s[:-len(postfix)] if s.endswith(postfix) else s
+
+        new_name = obj.name
+        new_name = maybe_remove_postfix(new_name, '.001') # Heuristic to remove the suffix created by cloning.
+        # Heuristics to remove previously assigned prefixes.
+        # Since the prefix is regenerated it seems in order to try to remove the old prefix.
+        if len(new_name)>len('VIS_'):
+            new_name = maybe_remove_prefix(new_name, 'VIS_')
+        if len(new_name)>len('COL_'):
+            new_name = maybe_remove_prefix(new_name, 'COL_')
         if global_properties.assign_collision.get(context.scene) == True or obj.RobotEditor.tag == 'COLLISION':
             obj.RobotEditor.tag = 'COLLISION'
-            if not obj.name.startswith("COL_"):
-                obj.name = "COL_" + obj.name
+            new_name = "COL_" + new_name
         else:
             obj.RobotEditor.tag == 'DEFAULT'
-            if not obj.name.startswith("VIS_"):
-                obj.name = "VIS_" + obj.name
-        obj.RobotEditor.fileName = obj.name
+            new_name = "VIS_" + new_name
+        obj.name = new_name
+        obj.RobotEditor.fileName = new_name
         # Update the global reference to the selected mesh.
         global_properties.mesh_name.set(context.scene, obj.name)
         # This is just a boolean variable which is reset here to False. It helps
