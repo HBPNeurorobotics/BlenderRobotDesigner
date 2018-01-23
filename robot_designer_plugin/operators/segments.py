@@ -72,8 +72,22 @@ class SelectSegment(RDOperator):
             raise Exception("BoneSelectionException")
 
         model = bpy.context.active_object
+
         for b in model.data.bones:
-            b.select = False
+           b.select = False
+
+        # Alternative to do this:
+        # mode = context.mode
+        # bpy.ops.object.mode_set(mode='EDIT')
+        # bpy.ops.armature.select_all(action='DESELECT')
+        # bpy.ops.object.mode_set(mode=mode)
+
+        # Second alternative:
+        # mode = context.mode
+        # bpy.ops.object.mode_set(mode='EDIT')
+        # for b in context.selected_bones:
+        #     b.select = False
+        # bpy.ops.object.mode_set(mode=mode)
 
         if self.segment_name:
             model.data.bones.active = model.data.bones[self.segment_name]
@@ -536,13 +550,6 @@ class UpdateSegments(RDOperator):
     segment_name = StringProperty(default="")
     recurse = BoolProperty(default=True)
 
-    @classmethod
-    def run(cls, recurse=True, segment_name=""):
-        """
-        Run this operator
-        """
-
-        return super().run(**cls.pass_keywords())
 
     @RDOperator.Postconditions(ModelSelected)
     @RDOperator.OperatorLogger
@@ -550,6 +557,7 @@ class UpdateSegments(RDOperator):
     #    @Preconditions(ModelSelected)
     def execute(self, context):
         current_mode = bpy.context.object.mode
+        self.logger.debug("UpdateSegments: recurse=%s, bone=%s", str(self.recurse), str(self.segment_name))
 
         # arm = bpy.data.armatures[armatureName]
 
@@ -557,7 +565,7 @@ class UpdateSegments(RDOperator):
         armature_data_ame = context.active_object.data.name
 
         if self.segment_name:
-            segment_name = bpy.data.armatures[armature_data_ame].bones[self.segment_name].name
+            segment_name = bpy.data.armatures[armature_data_ame].bones[self.segment_name].name # Isn't this the identity operation??
         else:
             segment_name = bpy.data.armatures[armature_data_ame].bones[0].name
 
@@ -633,11 +641,12 @@ class UpdateSegments(RDOperator):
         # -------------------------------------------------------
         bpy.ops.object.mode_set(mode=current_mode, toggle=False)
 
-        children_names = [i.name for i in
-                          bpy.data.armatures[armature_data_ame].bones[
-                              segment_name].children]
-        for child_name in children_names:
-            UpdateSegments.run(segment_name=child_name, recurse=self.recurse)
+        if self.recurse:
+            children_names = [i.name for i in
+                              bpy.data.armatures[armature_data_ame].bones[
+                                  segment_name].children]
+            for child_name in children_names:
+                UpdateSegments.run(segment_name=child_name, recurse=self.recurse)
 
         SelectSegment.run(segment_name=segment_name)
 
