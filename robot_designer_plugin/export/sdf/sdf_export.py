@@ -750,7 +750,9 @@ class ExportPackage(RDOperator):
         return {'FINISHED'}
 
     def invoke(self, context, event):
-        self.filepath = context.active_object.name.replace(" ", "_")
+        self.filepath = context.active_object.RobotEditor.modelMeta.model_folder.replace(" ", "_")
+        if self.filepath == "":
+                self.filepath = global_properties.model_name.get(bpy.context.scene).replace(" ", "_")
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
 
@@ -820,6 +822,9 @@ class ExportZippedPackage(RDOperator):
         return {'FINISHED'}
 
     def invoke(self, context, event):
+        self.filepath = context.active_object.RobotEditor.modelMeta.model_folder.replace(" ", "_")
+        if self.filepath == "":
+                self.filepath = global_properties.model_name.get(bpy.context.scene).replace(" ", "_")
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
 

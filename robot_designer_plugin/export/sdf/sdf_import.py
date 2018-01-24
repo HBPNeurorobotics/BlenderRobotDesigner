@@ -518,25 +518,11 @@ class Importer(object):
             try:
                 inertia_pose = string_to_list(get_value(node.link.inertial[0].pose[0], "0 0 0 0 0 0"))
 
-
-                print("inertiapose -----")
-                print(inertia_pose)
-               # print(inertia_pose.to_matrix())
-                #print(segment_world)
-                print("jo")
-
                 model_posexyz = inertia_pose[0:3]
                 model_poserpy = inertia_pose[3:]
 
                 x = segment_world * Matrix.Translation(Vector(model_posexyz)) * \
                    Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
-
-
-                print(x)
-                print(x.to_euler())
-         #       x.Translation
-
-
 
                 bpy.data.objects[node.link.name].location = x.to_translation()
                 bpy.data.objects[node.link.name].rotation_euler = x.to_euler()
@@ -728,6 +714,7 @@ class Importer(object):
         CreateNewModel.run(model_name=robot_name, base_segment_name="")
         model_name = bpy.context.active_object.name
         model_type = bpy.context.active_object.type
+        bpy.context.active_object.RobotEditor.modelMeta.model_folder = os.path.basename(os.path.dirname(self.file_path))
 
         self.logger.debug('model_name: %s', model_name)
         self.logger.debug('model_type: %s', model_type)
@@ -806,7 +793,7 @@ class Importer(object):
         model = model_config_dom.CreateFromDocument(model_config_xml)
 
         # read model data
-        bpy.context.active_object.name = model.name
+        global_properties.model_name.set(bpy.context.scene, model.name)
         bpy.context.active_object.RobotEditor.modelMeta.model_version = str(model.version)
 
         # read author todo multiple authors
@@ -862,7 +849,7 @@ class ImportPackage(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, ObjectMode)
     def execute(self, context):
-        import os
+        print(self.filepath)
         importer = Importer(self, self.filepath)
         importer.import_file()
         importer.import_config()
