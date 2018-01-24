@@ -113,12 +113,9 @@ class OsimImporter(object):
             location_global = location_global.to_translation()
             RDmuscle.data.splines[0].points[p].co = (location_global[0],location_global[1],location_global[2], 1)
 
-            #
             #  hook pathpoints to segments
             RDmuscle.RobotEditor.muscles.pathPoints[p].coordFrame = pathpoint.body
-            #global_properties.model_name.set(bpy.context.scene, 'robot-hookmesh')
-            #global_properties.active_muscle.set(bpy.context.scene, 'm1')
-            bpy.ops.roboteditor.select_segment_muscle(segment_name=pathpoint.body, pathpoint_nr=p+1)
+                bpy.ops.roboteditor.select_segment_muscle(segment_name=pathpoint.body, pathpoint_nr=p+1)
 
 
             p += 1
@@ -139,6 +136,7 @@ class OsimImporter(object):
             type = 'THELEN'
             self.import_muscles(muscle, type)
             m += 1
+            print("import thelen")
         except:
             break
 

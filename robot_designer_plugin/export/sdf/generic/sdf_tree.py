@@ -72,8 +72,6 @@ class SDFTree(object):
         muscles = str(robot.muscles)
         logger.debug('Muscle Path:' + muscles)
 
-        print('The name of the robot ', robot)
-
         # create mapping from (parent) links to joints  (a list)
         connected_joints = {link: [joint for joint in robot.joint if link.name == joint.parent[0]] for link
                             in robot.link}
