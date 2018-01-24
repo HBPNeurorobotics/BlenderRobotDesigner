@@ -638,6 +638,8 @@ class UpdateSegments(RDOperator):
             elif joint_axis == 'Z':
                 constraint.min_z = radians(min_rot)
                 constraint.max_z = radians(max_rot)
+        elif 'RobotEditorConstraint' in pose_bone.constraints:
+          pose_bone.constraints.remove(pose_bone.constraints['RobotEditorConstraint'])
         # -------------------------------------------------------
         bpy.ops.object.mode_set(mode=current_mode, toggle=False)
 
