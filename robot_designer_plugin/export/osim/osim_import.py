@@ -115,7 +115,7 @@ class OsimImporter(object):
 
             #  hook pathpoints to segments
             RDmuscle.RobotEditor.muscles.pathPoints[p].coordFrame = pathpoint.body
-                bpy.ops.roboteditor.select_segment_muscle(segment_name=pathpoint.body, pathpoint_nr=p+1)
+            bpy.ops.roboteditor.select_segment_muscle(segment_name=pathpoint.body, pathpoint_nr=p+1)
 
 
             p += 1
