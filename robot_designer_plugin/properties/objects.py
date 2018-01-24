@@ -65,12 +65,7 @@ class RDDynamics(bpy.types.PropertyGroup):
     # frame.RobotEditor.dynamics.CoM[2]))
     #    frame.location = position
 
-    # CoM = FloatVectorProperty(name = "Center of Mass", update=updateCoM, subtype = 'XYZ')
     mass = FloatProperty(name="Mass (kg)", precision=4, step=0.1, default=1.0)
-
-    # add inertia pose here
-    inertiaTrans = FloatVectorProperty(name="Translation", precision=4, step=0.1, default=[0.0, 0.0, 0.0])
-    inertiaRot = FloatVectorProperty(name="Rotation", precision=4, step=0.1, default=[0.0, 0.0, 0.0])
 
     # new inertia tensor
     inertiaXX = FloatProperty(name="", precision=4, step=0.1, default=1.0)

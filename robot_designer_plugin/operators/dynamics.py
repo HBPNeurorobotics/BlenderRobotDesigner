@@ -47,9 +47,10 @@ Sphinx-autodoc tag
 # ######
 # Blender imports
 from mathutils import Matrix
+from collections import defaultdict
 
 import bpy
-from bpy.props import StringProperty
+from bpy.props import StringProperty, FloatProperty
 
 # ######
 # RobotDesigner imports
@@ -164,22 +165,106 @@ class AssignPhysical(RDOperator):
     def execute(self, context):
         bpy.ops.object.parent_set(type='BONE')
 
-        if bpy.context.active_bone.parent:
-            to_parent_matrix = bpy.context.active_bone.parent.matrix_local
-        else:
-            to_parent_matrix = Matrix()
-        from_parent_matrix, bone_matrix = bpy.context.active_bone.RobotEditor.getTransform()
-        armature_matrix = bpy.context.active_object.matrix_basis
+        # if bpy.context.active_bone.parent:
+        #     to_parent_matrix = bpy.context.active_bone.parent.matrix_local
+        # else:
+        #     to_parent_matrix = Matrix()
+        # from_parent_matrix, bone_matrix = bpy.context.active_bone.RobotEditor.getTransform()
+        # armature_matrix = bpy.context.active_object.matrix_basis
 
-        # find selected physics frame
-        for ob in bpy.data.objects:
-            if ob.select and ob.RobotEditor.tag == 'PHYSICS_FRAME':
-                frame = ob
-                print(frame.name)
+        # # find selected physics frame
+        # for ob in bpy.data.objects:
+        #     if ob.select and ob.RobotEditor.tag == 'PHYSICS_FRAME':
+        #         frame = ob
+        #         print(frame.name)
 
         # frame.matrix_basis = armature_matrix*to_parent_matrix*from_parent_matrix*bone_matrix
         # frame.matrix_basis = parent_matrix*armature_matrix*bone_matrix
         return {'FINISHED'}
+
+
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class ComputePhysical(RDOperator):
+    bl_idname = config.OPERATOR_PREFIX + "computephysicsframe"
+    bl_label = "Compute mass properties "
+
+    density = FloatProperty(name="", precision=4, step=0.01, default=1.0)
+
+    class SegmentAssociations(object):
+        def __init__(self):
+            self.visual = None
+            self.collision = None
+            self.physics_frame = None
+
+        def __str__(self):
+            return '<'+', '.join([str(self.visual), str(self.collision), str(self.physics_frame)])+'>'
+
+
+    def work(self, bone, associations):
+        if associations.physics_frame is None:
+            return
+        if associations.collision:
+            the_mesh = associations.collision
+        elif associations.visual:
+            the_mesh = associations.visual
+        else:
+            return
+        bounds = the_mesh.bound_box
+        len = (bounds[-1][0]-bounds[0][0],
+               bounds[-1][1]-bounds[0][1],
+               bounds[1][2]-bounds[0][2]) # The 1 is no error!
+        com = list(map(lambda x: x*0.5,
+              (bounds[-1][0] +bounds[0][0],
+               bounds[-1][1] + bounds[0][1],
+               bounds[1][2] + bounds[0][2])))
+        mass = len[0]*len[1]*len[2]*self.density
+        # Of a Brick.
+        Iunit = (1./12.*(len[1]**2 + len[2]**2),
+                 1./12.*(len[0]**2 + len[2]**2),
+                 1./12.*(len[0]**2 + len[1]**2))
+        print ("bone:", len, mass, Iunit, com)
+        d = associations.physics_frame.RobotEditor.dynamics
+        d.inertiaXX = mass*Iunit[0]
+        d.inertiaYY = mass*Iunit[1]
+        d.inertiaZZ = mass*Iunit[2]
+        d.inertiaXY = 0.
+        d.inertiaXZ = 0.
+        d.inertiaYZ = 0.
+        d.mass = mass
+        #d.inertiaTrans = com
+        #d.inertiaRot   = [0., 0., 0.]
+        #print ("Setting matrix "+str(the_mesh.matrix_world))
+        associations.physics_frame.matrix_world = the_mesh.matrix_world
+
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected)
+    def execute(self, context):
+        armature = context.active_object
+
+        segmentassociations = defaultdict(self.SegmentAssociations)
+        for obj in armature.children:
+            if obj.parent_bone:
+                bone = armature.data.bones[obj.parent_bone]
+                if bone.select:
+                    if obj.RobotEditor.tag == 'PHYSICS_FRAME':
+                        segmentassociations[obj.parent_bone].physics_frame = obj
+                    elif obj.RobotEditor.tag == 'COLLISION':
+                        segmentassociations[obj.parent_bone].collision = obj
+                    elif obj.RobotEditor.tag == 'DEFAULT':
+                        segmentassociations[obj.parent_bone].visual = obj
+
+        for bone, associations in segmentassociations.items():
+            print (bone, associations)
+            self.work(bone, associations)
+
+        return {'FINISHED'}
+
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
 
 
 # operator to unassign selected physics frame

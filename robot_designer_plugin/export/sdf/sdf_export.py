@@ -386,6 +386,8 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             inertial = child.link.inertial[0]
             print(inertial, inertial.__dict__)
             if bpy.data.objects[frame].parent_bone == segment.name:
+                pose_bone = context.active_object.pose.bones[segment.name]
+
                 # set mass
                 inertial.mass[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.mass,4)
 
@@ -404,8 +406,9 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 frame_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
                 frame_pose_rpy = list_to_string(pose.to_euler())
 
-                visual.pose.append(' '.join([frame_pose_xyz, frame_pose_rpy]))
-
+                # Wtf is that?
+                #visual.pose.append(' '.join([frame_pose_xyz, frame_pose_rpy]))
+                #
                 inertial.pose[0] = ' '.join([frame_pose_xyz, frame_pose_rpy])
 
         #

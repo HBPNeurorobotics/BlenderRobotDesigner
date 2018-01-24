@@ -250,7 +250,7 @@ class CameraSensorMenu(ConnectedObjectsMenu):
     text = "Select sensor"
 
 @PluginManager.register_class
-class MassObjectMenu(ConnectedObjectsMenu):
+class MassObjectMenu(bpy.types.Menu, BaseMenu):
     """
     :ref:`menu` for selecting :term:`mass entities` while displaying connections to robot segments in the scene.
     """
@@ -264,6 +264,64 @@ class MassObjectMenu(ConnectedObjectsMenu):
     operator_property = "frameName"
     operator = dynamics.SelectPhysical
     text = "Select mass object"
+
+
+    @staticmethod
+    def fmt_obj(obj):
+        if obj.parent_bone:
+            text = obj.name + " --> " + obj.parent_bone
+        else:
+            text = obj
+        return text
+
+    # @staticmethod
+    # def may_show(obj, obj_hidden):
+    #     return obj.parent_bone  obj_hidden == 'connected'
+
+    @RDOperator.OperatorLogger
+    def draw(self, context):
+        hide_obj = self.show_connected.get(context.scene)
+
+        layout = self.layout
+        current_model = context.active_object
+
+        # TODO: Respect hide_obj flag
+        # TODO: Look only at children of the armature object
+        objs = [obj for obj in bpy.data.objects if
+                     obj.type == self.blender_type and
+                     not obj.hide and
+                     obj.RobotEditor.tag == 'PHYSICS_FRAME']
+
+        for obj in objs:
+            text = self.fmt_obj(obj)
+            setattr(layout.operator(self.operator.bl_idname, text=text),self.operator_property, obj.name)
+
+
+    @classmethod
+    def putMenu(cls,layout, context, text=None, **kwargs):
+        hide_obj = cls.show_connected.get(context.scene)
+
+        # Get selected meshes
+        selected = [i for i in bpy.context.selected_objects if i.type == cls.blender_type and not i.hide and i.RobotEditor.tag == 'PHYSICS_FRAME' ]
+
+        text = cls.text
+
+        if len(selected) == 1:
+            object = selected[0]
+            if object.parent_bone and not hide_obj == 'disconnected':
+                text = object.name + " --> " + object.parent_bone
+            elif not object.parent_bone and not hide_obj == 'connected':
+                text = object.name
+
+        layout.menu(cls.bl_idname, text=text)
+        row = layout.row(align=True)
+        cls.show_connected.prop(context.scene, row,  expand=True, icon_only=True)
+        row.separator()
+
+        cls.quick_search.prop_search(bpy.context.scene, row,
+                                     bpy.data,'objects', icon='VIEWZOOM', text='')
+
+
 
 @PluginManager.register_class
 class ModelMenu(bpy.types.Menu, BaseMenu):

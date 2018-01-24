@@ -277,6 +277,7 @@ def create_urdf(operator: RDOperator, context, base_link_name,
                 inertial.inertia.izz = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaZZ,4)
 
                 # set inertial pose
+                assert False, "FIXME: Use the matrix of the physics frame rather than intertiaTrans and inertiaRot!"
                 inertial.origin.xyz = list_to_string(bpy.data.objects[frame].RobotEditor.dynamics.inertiaTrans)
                 inertial.origin.rpy = list_to_string(bpy.data.objects[frame].RobotEditor.dynamics.inertiaRot)
 
