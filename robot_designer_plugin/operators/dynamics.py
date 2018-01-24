@@ -140,6 +140,7 @@ class SelectPhysical(RDOperator):
         return {'FINISHED'}
 
 
+
 # operator to assign selected physics frame to active bone
 @RDOperator.Preconditions(ModelSelected, SingleSegmentSelected, SingleMassObjectSelected)
 @PluginManager.register_class
@@ -179,12 +180,6 @@ class AssignPhysical(RDOperator):
         # frame.matrix_basis = armature_matrix*to_parent_matrix*from_parent_matrix*bone_matrix
         # frame.matrix_basis = parent_matrix*armature_matrix*bone_matrix
         return {'FINISHED'}
-
-    def invoke(self, context, event):
-        return context.window_manager.invoke_props_dialog(self)
-
-
-# operator to generate collision meshes for all assigned physics frames
 
 
 # operator to unassign selected physics frame
