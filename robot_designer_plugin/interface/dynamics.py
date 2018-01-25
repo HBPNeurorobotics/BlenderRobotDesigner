@@ -85,10 +85,12 @@ def draw(layout, context):
     menus.MassObjectMenu.putMenu(column, context)
     # create_geometry_selection(column, context)
     row = box.column(align=True)
-    dynamics.AssignPhysical.place_button(row,infoBox=infoBox)
-    dynamics.DetachPhysical.place_button(row,infoBox=infoBox)
     dynamics.CreatePhysical.place_button(row,infoBox=infoBox)
     dynamics.ComputePhysical.place_button(row,infoBox=infoBox)
+
+    #dynamics.AssignPhysical.place_button(row,infoBox=infoBox)
+    #dynamics.DetachPhysical.place_button(row,infoBox=infoBox)
+
 
     obj = getSingleObject(context)
     if obj and obj.RobotEditor.tag=="PHYSICS_FRAME":

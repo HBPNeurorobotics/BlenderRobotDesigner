@@ -59,6 +59,28 @@ from .helpers import ModelSelected, SingleSegmentSelected, SingleMassObjectSelec
 
 from ..properties.globals import global_properties
 
+
+def just_create_the_physics_frame(context, name):
+    armature = context.active_object
+    bpy.ops.object.empty_add(type='PLAIN_AXES')
+    context.active_object.name = name
+    context.active_object.RobotEditor.tag = 'PHYSICS_FRAME'
+    # set new mass object to cursor location
+    cursor = bpy.context.scene.cursor_location
+    context.active_object.location = [cursor.x, cursor.y, cursor.z]
+    obj = context.active_object
+    bpy.context.scene.objects.active = armature  # Restore the active object.
+    return obj
+
+
+def assign_the_physics_frame_to_the_bone(context, frame, bone):
+    armature_name = bone.id_data.name # Magic!  https://blender.stackexchange.com/questions/3275/finding-the-armature-owning-a-bone
+    armature = context.scene.objects[armature_name]
+    frame.parent = armature
+    frame.parent_type = 'BONE'
+    frame.parent_bone = bone.name
+
+
 # operator to create physics frame
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
@@ -71,35 +93,46 @@ class CreatePhysical(RDOperator):
     **Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "createphysicsframe"
-    bl_label = "Create Physics Frame"
-
-    frameName = StringProperty()
+    bl_label = "Create And Attach Physics Frames"
 
     @classmethod
     def run(cls, frameName=""):
         return super().run(**cls.pass_keywords())
 
+
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)  # todo condition for physicframe
     def execute(self, context):
         from . import model
-        model_name = context.active_object.name
-        bpy.ops.object.empty_add(type='PLAIN_AXES')
-        context.active_object.name = self.frameName
-        context.active_object.RobotEditor.tag = 'PHYSICS_FRAME'
 
-        # set new mass object to cursor location
-        cursor = bpy.context.scene.cursor_location
-        context.active_object.location = [cursor.x, cursor.y, cursor.z]
+        bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
 
+        armature = context.active_object
 
-        model.SelectModel.run(model_name=model_name)
-        SelectPhysical.run(frameName=self.frameName)
+        bones = set([b for b in armature.data.bones if b.select])
+
+        bones_that_have_physics_frames = set()
+        for obj in armature.children:
+            if obj.parent_bone and obj.RobotEditor.tag == 'PHYSICS_FRAME':
+                bone = armature.data.bones[obj.parent_bone]
+                bones_that_have_physics_frames.add(bone)
+
+        bones = bones.difference(bones_that_have_physics_frames)
+
+        frame = None
+        for bone in bones:
+            frame = just_create_the_physics_frame(context, 'PHYS_' + bone.name)
+            assign_the_physics_frame_to_the_bone(context, frame, bone)
+            # https://blender.stackexchange.com/questions/15353/get-the-location-in-world-coordinates-of-a-bones-head-and-tail-while-in-pose-mo
+            # https: // blender.stackexchange.com / questions / 80306 / location - still - the - same - although - its - moved
+            special_bone = armature.pose.bones[bone.name]
+            #frame.worldPosition = armature.matrix_world.to_translation() + 0.5 * (bone.active_pose_bone.tail + bone.active_pose_bone.head)
+            frame.matrix_world = armature.matrix_world * special_bone.matrix
+
+        if frame:
+            SelectPhysical.run(frameName=frame.name)
 
         return {'FINISHED'}
-
-    def invoke(self, context, event):
-        return context.window_manager.invoke_props_dialog(self)
 
 
 # operator to select a physics frame
@@ -188,7 +221,7 @@ class AssignPhysical(RDOperator):
 @PluginManager.register_class
 class ComputePhysical(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "computephysicsframe"
-    bl_label = "Compute mass properties "
+    bl_label = "Compute mass properties from meshes"
 
     density = FloatProperty(name="", precision=4, step=0.01, default=1.0)
 
@@ -202,9 +235,8 @@ class ComputePhysical(RDOperator):
             return '<'+', '.join([str(self.visual), str(self.collision), str(self.physics_frame)])+'>'
 
 
-    def work(self, bone, associations):
-        if associations.physics_frame is None:
-            return
+    def maybe_compute_and_assign_mass_props(self, bone, associations):
+        assert associations.physics_frame is not None
         if associations.collision:
             the_mesh = associations.collision
         elif associations.visual:
@@ -243,22 +275,26 @@ class ComputePhysical(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         armature = context.active_object
+        #print (self.__class__.__name__)
 
-        segmentassociations = defaultdict(self.SegmentAssociations)
+        # Mapping from bone to things
+        segment_associations = defaultdict(self.SegmentAssociations)
         for obj in armature.children:
             if obj.parent_bone:
                 bone = armature.data.bones[obj.parent_bone]
+                print ("visit ", obj, obj.parent_bone, bone, bone.select)
                 if bone.select:
                     if obj.RobotEditor.tag == 'PHYSICS_FRAME':
-                        segmentassociations[obj.parent_bone].physics_frame = obj
+                        segment_associations[bone].physics_frame = obj
                     elif obj.RobotEditor.tag == 'COLLISION':
-                        segmentassociations[obj.parent_bone].collision = obj
+                        segment_associations[bone].collision = obj
                     elif obj.RobotEditor.tag == 'DEFAULT':
-                        segmentassociations[obj.parent_bone].visual = obj
+                        segment_associations[bone].visual = obj
 
-        for bone, associations in segmentassociations.items():
-            print (bone, associations)
-            self.work(bone, associations)
+        bones = [ b for b in armature.data.bones if b.select ]
+
+        for bone in bones:
+            self.maybe_compute_and_assign_mass_props(bone, segment_associations[bone])
 
         return {'FINISHED'}
 
