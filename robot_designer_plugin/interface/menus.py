@@ -260,7 +260,7 @@ class MassObjectMenu(bpy.types.Menu, BaseMenu):
     obj_tag = global_properties.physics_type
     show_connected = global_properties.list_meshes
     blender_type = StringConstants.empty
-    quick_search = global_properties.physics_frame_name
+    #quick_search = None #global_properties.physics_frame_name
     operator_property = "frameName"
     operator = dynamics.SelectPhysical
     text = "Select mass object"
@@ -314,8 +314,8 @@ class MassObjectMenu(bpy.types.Menu, BaseMenu):
         cls.show_connected.prop(context.scene, row,  expand=True, icon_only=True)
         row.separator()
 
-        cls.quick_search.prop_search(bpy.context.scene, row,
-                                     bpy.data,'objects', icon='VIEWZOOM', text='')
+        #cls.quick_search.prop_search(bpy.context.scene, row,
+        #                             bpy.data,'objects', icon='VIEWZOOM', text='')
 
 
 

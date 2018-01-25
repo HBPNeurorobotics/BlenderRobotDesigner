@@ -220,9 +220,6 @@ class RDGlobals(PropertyGroupHandlerBase):
         self.mesh_name = PropertyHandler(StringProperty(update=self.update_geometry_name))
 
         # Holds the name of the currently selected physics frame (Empty object)
-        self.physics_frame_name = PropertyHandler(StringProperty())
-
-        # Holds the name of the currently selected physics frame (Empty object)
         self.camera_sensor_name = PropertyHandler(StringProperty())
 
         # Used to realize the main tab in the GUI

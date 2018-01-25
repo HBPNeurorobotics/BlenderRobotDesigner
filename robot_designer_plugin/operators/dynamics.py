@@ -159,7 +159,6 @@ class SelectPhysical(RDOperator):
     @RDOperator.Postconditions(ModelSelected)  # todo condition for physicframe
     def execute(self, context):
         arm = context.active_object
-        global_properties.physics_frame_name.set(context.scene, self.frameName)
 
         frame = bpy.data.objects[self.frameName]
 

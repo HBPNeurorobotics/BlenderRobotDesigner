@@ -94,7 +94,7 @@ def draw(layout, context):
 
     obj = getSingleObject(context)
     if obj and obj.RobotEditor.tag=="PHYSICS_FRAME":
-        frame_name = global_properties.physics_frame_name.get(context.scene)
+        frame_name = obj.name
         box = layout.box()
         box.label("Properties", icon="MODIFIER")
         frame = bpy.data.objects[frame_name]
@@ -104,16 +104,8 @@ def draw(layout, context):
         row_t = box.row(align=True)
         row_r = box.row(align=True)
 
-        active_physics_frame = global_properties.physics_frame_name.get(context.scene)
-
-        row_t.prop(bpy.data.objects[active_physics_frame], 'location', text="Translation")
-        row_r.prop(bpy.data.objects[active_physics_frame], 'rotation_euler', text="Rotation")
-
-        ## old
-
-        ## delete this from the roboteditor
-       # row_t.prop(frame.RobotEditor.dynamics, "inertiaTrans")
-       # row_r.prop(frame.RobotEditor.dynamics, "inertiaRot")
+        row_t.prop(bpy.data.objects[frame_name], 'location', text="Translation")
+        row_r.prop(bpy.data.objects[frame_name], 'rotation_euler', text="Rotation")
 
         row0 = box.row(align=True)
         row1 = box.row(align=True)
