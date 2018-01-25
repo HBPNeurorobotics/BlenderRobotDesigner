@@ -271,12 +271,16 @@ class MassObjectMenu(bpy.types.Menu, BaseMenu):
         if obj.parent_bone:
             text = obj.name + " --> " + obj.parent_bone
         else:
-            text = obj
+            text = obj.name
         return text
 
-    # @staticmethod
-    # def may_show(obj, obj_hidden):
-    #     return obj.parent_bone  obj_hidden == 'connected'
+
+    @staticmethod
+    def may_show( obj, obj_hidden):
+        connected = (obj.parent_bone or obj_hidden != 'disconnected') and \
+                    (not obj.parent_bone or obj_hidden != 'connected')
+        return connected and obj.type == MassObjectMenu.blender_type and not obj.hide and obj.RobotEditor.tag == 'PHYSICS_FRAME'
+
 
     @RDOperator.OperatorLogger
     def draw(self, context):
@@ -285,12 +289,7 @@ class MassObjectMenu(bpy.types.Menu, BaseMenu):
         layout = self.layout
         current_model = context.active_object
 
-        # TODO: Respect hide_obj flag
-        # TODO: Look only at children of the armature object
-        objs = [obj for obj in bpy.data.objects if
-                     obj.type == self.blender_type and
-                     not obj.hide and
-                     obj.RobotEditor.tag == 'PHYSICS_FRAME']
+        objs = [obj for obj in context.scene.objects if self.may_show(obj, hide_obj)]
 
         for obj in objs:
             text = self.fmt_obj(obj)
@@ -302,16 +301,13 @@ class MassObjectMenu(bpy.types.Menu, BaseMenu):
         hide_obj = cls.show_connected.get(context.scene)
 
         # Get selected meshes
-        selected = [i for i in bpy.context.selected_objects if i.type == cls.blender_type and not i.hide and i.RobotEditor.tag == 'PHYSICS_FRAME' ]
+        current_model = context.active_object
+        selected = [obj for obj in context.scene.objects if cls.may_show(obj, hide_obj) and obj.select]
 
         text = cls.text
-
         if len(selected) == 1:
             object = selected[0]
-            if object.parent_bone and not hide_obj == 'disconnected':
-                text = object.name + " --> " + object.parent_bone
-            elif not object.parent_bone and not hide_obj == 'connected':
-                text = object.name
+            text = cls.fmt_obj(object)
 
         layout.menu(cls.bl_idname, text=text)
         row = layout.row(align=True)
