@@ -388,16 +388,20 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             if bpy.data.objects[frame].parent_bone == segment.name:
                 pose_bone = context.active_object.pose.bones[segment.name]
 
+
                 # set mass
-                inertial.mass[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.mass,4)
+                inertial.mass[0] = bpy.data.objects[frame].RobotEditor.dynamics.mass
+                if inertial.mass[0] <= 0.:
+                    raise ValueError("Mass of "+frame+" is not positive, but "+str(inertial.mass[0]))
+                # Ugly, to throw an exception here. But appending info_list did not print the info in the GUI.
 
                 # set inertia
-                inertial.inertia[0].ixx[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXX,4)
-                inertial.inertia[0].ixy[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXY,4)
-                inertial.inertia[0].ixz[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXZ,4)
-                inertial.inertia[0].iyy[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaYY,4)
-                inertial.inertia[0].iyz[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaYZ,4)
-                inertial.inertia[0].izz[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaZZ,4)
+                inertial.inertia[0].ixx[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaXX
+                inertial.inertia[0].ixy[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaXY
+                inertial.inertia[0].ixz[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaXZ
+                inertial.inertia[0].iyy[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaYY
+                inertial.inertia[0].iyz[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaYZ
+                inertial.inertia[0].izz[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaZZ
 
                 # set inertial pose
                 pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
