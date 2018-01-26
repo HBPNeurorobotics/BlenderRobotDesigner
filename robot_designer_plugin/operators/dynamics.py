@@ -255,7 +255,7 @@ class ComputePhysical(RDOperator):
         Iunit = (1./12.*(len[1]**2 + len[2]**2),
                  1./12.*(len[0]**2 + len[2]**2),
                  1./12.*(len[0]**2 + len[1]**2))
-        print ("bone:", len, mass, Iunit, com)
+        print ("bone:", bone, len, mass, Iunit, com)
         d = associations.physics_frame.RobotEditor.dynamics
         d.inertiaXX = mass*Iunit[0]
         d.inertiaYY = mass*Iunit[1]
@@ -267,7 +267,8 @@ class ComputePhysical(RDOperator):
         #d.inertiaTrans = com
         #d.inertiaRot   = [0., 0., 0.]
         #print ("Setting matrix "+str(the_mesh.matrix_world))
-        associations.physics_frame.matrix_world = the_mesh.matrix_world
+        m_com = Matrix.Translation(com)
+        associations.physics_frame.matrix_world = the_mesh.matrix_world * m_com
 
 
     @RDOperator.OperatorLogger
