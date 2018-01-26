@@ -114,8 +114,10 @@ info_list = []
 def push_info(message_or_condition):
     # Check if list or tuple .. print only if condition is not met.
     if issubclass(message_or_condition, Condition):
-        info_list.append(message_or_condition.check()[1])
-        print(info_list)
+        ok, potential_error_message = message_or_condition.check()
+        if not ok:
+            info_list.append(potential_error_message)
+        #print(info_list)
     else:
         info_list.append(message_or_condition)
 
