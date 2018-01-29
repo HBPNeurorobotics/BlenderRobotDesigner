@@ -81,45 +81,52 @@ def draw(layout, context):
                                                icon='VIEWZOOM',
                                                text='')
 
-    column = row.column(align=True)
-    menus.MassObjectMenu.putMenu(column, context)
+    #column = row.column(align=True)
+
+    #menus.MassObjectMenu.putMenu(column, context)
     # create_geometry_selection(column, context)
     row = box.column(align=True)
+
     dynamics.CreatePhysical.place_button(row,infoBox=infoBox)
     dynamics.ComputePhysical.place_button(row,infoBox=infoBox)
 
     #dynamics.AssignPhysical.place_button(row,infoBox=infoBox)
     #dynamics.DetachPhysical.place_button(row,infoBox=infoBox)
 
+    objs = [ o for o in context.active_object.children if o.RobotEditor.tag=='PHYSICS_FRAME' and o.parent_bone == single_segment.name ]
+    print (objs)
+    try:
+        obj, = objs
+        #obj = getSingleObject(context)
+        if obj and obj.RobotEditor.tag=="PHYSICS_FRAME":
+            frame_name = obj.name
+            box = layout.box()
+            box.label("Mass properties (" + single_segment.name + ")", icon="MODIFIER")
+            frame = bpy.data.objects[frame_name]
+            box.prop(frame.RobotEditor.dynamics, "mass")
+            box.separator()
 
-    obj = getSingleObject(context)
-    if obj and obj.RobotEditor.tag=="PHYSICS_FRAME":
-        frame_name = obj.name
-        box = layout.box()
-        box.label("Properties", icon="MODIFIER")
-        frame = bpy.data.objects[frame_name]
-        box.prop(frame.RobotEditor.dynamics, "mass")
-        box.separator()
+            row_t = box.row(align=True)
+            row_r = box.row(align=True)
 
-        row_t = box.row(align=True)
-        row_r = box.row(align=True)
+            row_t.prop(bpy.data.objects[frame_name], 'location', text="Translation")
+            row_r.prop(bpy.data.objects[frame_name], 'rotation_euler', text="Rotation")
 
-        row_t.prop(bpy.data.objects[frame_name], 'location', text="Translation")
-        row_r.prop(bpy.data.objects[frame_name], 'rotation_euler', text="Rotation")
-
-        row0 = box.row(align=True)
-        row1 = box.row(align=True)
-        row2 = box.row(align=True)
-        row3 = box.row(align=True)
-        row0.label("Inertia Matrix")
-        row1.prop(frame.RobotEditor.dynamics, "inertiaXX")
-        row2.prop(frame.RobotEditor.dynamics, "inertiaXY")
-        row3.prop(frame.RobotEditor.dynamics, "inertiaXZ")
-        row1.prop(frame.RobotEditor.dynamics, "inertiaXY")
-        row2.prop(frame.RobotEditor.dynamics, "inertiaYY")
-        row3.prop(frame.RobotEditor.dynamics, "inertiaYZ")
-        row1.prop(frame.RobotEditor.dynamics, "inertiaXZ")
-        row2.prop(frame.RobotEditor.dynamics, "inertiaYZ")
-        row3.prop(frame.RobotEditor.dynamics, "inertiaZZ")
+            row0 = box.row(align=True)
+            row1 = box.row(align=True)
+            row2 = box.row(align=True)
+            row3 = box.row(align=True)
+            row0.label("Inertia Matrix")
+            row1.prop(frame.RobotEditor.dynamics, "inertiaXX")
+            row2.prop(frame.RobotEditor.dynamics, "inertiaXY")
+            row3.prop(frame.RobotEditor.dynamics, "inertiaXZ")
+            row1.prop(frame.RobotEditor.dynamics, "inertiaXY")
+            row2.prop(frame.RobotEditor.dynamics, "inertiaYY")
+            row3.prop(frame.RobotEditor.dynamics, "inertiaYZ")
+            row1.prop(frame.RobotEditor.dynamics, "inertiaXZ")
+            row2.prop(frame.RobotEditor.dynamics, "inertiaYZ")
+            row3.prop(frame.RobotEditor.dynamics, "inertiaZZ")
+    except:
+        pass
 
     infoBox.draw_info()
