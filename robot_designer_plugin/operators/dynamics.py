@@ -50,7 +50,7 @@ from mathutils import Matrix
 from collections import defaultdict
 
 import bpy
-from bpy.props import StringProperty, FloatProperty
+from bpy.props import StringProperty, FloatProperty, BoolProperty
 
 # ######
 # RobotDesigner imports
@@ -222,7 +222,8 @@ class ComputePhysical(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "computephysicsframe"
     bl_label = "Compute mass properties from meshes"
 
-    density = FloatProperty(name="", precision=4, step=0.01, default=1.0)
+    density = FloatProperty(name="Density (kg/m^3)", precision=4, step=0.01, default=1.0)
+    from_visual_geometry = BoolProperty(name="From visual geometry")
 
     class SegmentAssociations(object):
         def __init__(self):
@@ -236,9 +237,9 @@ class ComputePhysical(RDOperator):
 
     def maybe_compute_and_assign_mass_props(self, bone, associations):
         assert associations.physics_frame is not None
-        if associations.collision:
+        if associations.collision and not self.from_visual_geometry:
             the_mesh = associations.collision
-        elif associations.visual:
+        elif associations.visual and self.from_visual_geometry:
             the_mesh = associations.visual
         else:
             return
