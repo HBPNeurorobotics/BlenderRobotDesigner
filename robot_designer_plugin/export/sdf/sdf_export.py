@@ -307,8 +307,9 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         operator.logger.info(" joint type'%s'" % child.joint.type)
 
         # Add properties
+        armature = context.active_object
         connected_meshes = [mesh.name for mesh in bpy.data.objects if
-                            mesh.type == 'MESH' and mesh.parent_bone == segment.name]
+                            mesh.type == 'MESH' and mesh.parent_bone == segment.name and mesh.parent == armature]
         # if len(connected_meshes) > 0:
         #     child.link.name = connected_meshes[0]
         # else:
@@ -316,7 +317,6 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         #     # todo: the RobotDesigner does not have the concept of
         #     # links further it is possible to have
         #     # todo: several meshes assigned to the same bone
-        #     # todo: solutions add another property to a bone or
         #     # todo: solutions add another property to a bone or
         #     # chose the name from the list of connected meshes
         for mesh in connected_meshes:
@@ -386,16 +386,22 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             inertial = child.link.inertial[0]
             print(inertial, inertial.__dict__)
             if bpy.data.objects[frame].parent_bone == segment.name:
+                pose_bone = context.active_object.pose.bones[segment.name]
+
+
                 # set mass
-                inertial.mass[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.mass,4)
+                inertial.mass[0] = bpy.data.objects[frame].RobotEditor.dynamics.mass
+                if inertial.mass[0] <= 0.:
+                    raise ValueError("Mass of "+frame+" is not positive, but "+str(inertial.mass[0]))
+                # Ugly, to throw an exception here. But appending info_list did not print the info in the GUI.
 
                 # set inertia
-                inertial.inertia[0].ixx[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXX,4)
-                inertial.inertia[0].ixy[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXY,4)
-                inertial.inertia[0].ixz[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXZ,4)
-                inertial.inertia[0].iyy[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaYY,4)
-                inertial.inertia[0].iyz[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaYZ,4)
-                inertial.inertia[0].izz[0] = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaZZ,4)
+                inertial.inertia[0].ixx[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaXX
+                inertial.inertia[0].ixy[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaXY
+                inertial.inertia[0].ixz[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaXZ
+                inertial.inertia[0].iyy[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaYY
+                inertial.inertia[0].iyz[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaYZ
+                inertial.inertia[0].izz[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaZZ
 
                 # set inertial pose
                 pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
@@ -403,8 +409,6 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
                 frame_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
                 frame_pose_rpy = list_to_string(pose.to_euler())
-
-                visual.pose.append(' '.join([frame_pose_xyz, frame_pose_rpy]))
 
                 inertial.pose[0] = ' '.join([frame_pose_xyz, frame_pose_rpy])
 

@@ -97,12 +97,13 @@ class UserInterface(bpy.types.Panel):
             row = layout.row(align=True)
             global_properties.operator_debug_level.prop(bpy.context.scene,row, expand=True)
 
-        row = layout.row(align=True)
-        row.label("Set Mode")
-        if context.active_object:
-            row.operator("object.mode_set", text="Object Mode").mode = 'OBJECT'
-            if context.active_object.type == "ARMATURE":
-                row.operator("object.mode_set", text="Pose Mode").mode = 'POSE'
+        # M. Welter: Why is this needed? There is already a perfectly fine gui to switch modes, even in a prominent place, .
+        # row = layout.row(align=True)
+        # row.label("Set Mode")
+        # if context.active_object:
+        #     row.operator("object.mode_set", text="Object Mode").mode = 'OBJECT'
+        #     if context.active_object.type == "ARMATURE":
+        #         row.operator("object.mode_set", text="Pose Mode").mode = 'POSE'
 
 
         layout.separator()

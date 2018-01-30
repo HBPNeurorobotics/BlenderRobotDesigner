@@ -250,7 +250,7 @@ class CameraSensorMenu(ConnectedObjectsMenu):
     text = "Select sensor"
 
 @PluginManager.register_class
-class MassObjectMenu(ConnectedObjectsMenu):
+class MassObjectMenu(bpy.types.Menu, BaseMenu):
     """
     :ref:`menu` for selecting :term:`mass entities` while displaying connections to robot segments in the scene.
     """
@@ -260,10 +260,64 @@ class MassObjectMenu(ConnectedObjectsMenu):
     obj_tag = global_properties.physics_type
     show_connected = global_properties.list_meshes
     blender_type = StringConstants.empty
-    quick_search = global_properties.physics_frame_name
+    #quick_search = None #global_properties.physics_frame_name
     operator_property = "frameName"
     operator = dynamics.SelectPhysical
     text = "Select mass object"
+
+
+    @staticmethod
+    def fmt_obj(obj):
+        if obj.parent_bone:
+            text = obj.name + " --> " + obj.parent_bone
+        else:
+            text = obj.name
+        return text
+
+
+    @staticmethod
+    def may_show( obj, obj_hidden):
+        connected = (obj.parent_bone or obj_hidden != 'disconnected') and \
+                    (not obj.parent_bone or obj_hidden != 'connected')
+        return connected and obj.type == MassObjectMenu.blender_type and not obj.hide and obj.RobotEditor.tag == 'PHYSICS_FRAME'
+
+
+    @RDOperator.OperatorLogger
+    def draw(self, context):
+        hide_obj = self.show_connected.get(context.scene)
+
+        layout = self.layout
+        current_model = context.active_object
+
+        objs = [obj for obj in context.scene.objects if self.may_show(obj, hide_obj)]
+
+        for obj in objs:
+            text = self.fmt_obj(obj)
+            setattr(layout.operator(self.operator.bl_idname, text=text),self.operator_property, obj.name)
+
+
+    @classmethod
+    def putMenu(cls,layout, context, text=None, **kwargs):
+        hide_obj = cls.show_connected.get(context.scene)
+
+        # Get selected meshes
+        current_model = context.active_object
+        selected = [obj for obj in context.scene.objects if cls.may_show(obj, hide_obj) and obj.select]
+
+        text = cls.text
+        if len(selected) == 1:
+            object = selected[0]
+            text = cls.fmt_obj(object)
+
+        layout.menu(cls.bl_idname, text=text)
+        row = layout.row(align=True)
+        cls.show_connected.prop(context.scene, row,  expand=True, icon_only=True)
+        row.separator()
+
+        #cls.quick_search.prop_search(bpy.context.scene, row,
+        #                             bpy.data,'objects', icon='VIEWZOOM', text='')
+
+
 
 @PluginManager.register_class
 class ModelMenu(bpy.types.Menu, BaseMenu):

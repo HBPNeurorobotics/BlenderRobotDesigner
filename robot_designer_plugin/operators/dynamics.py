@@ -47,9 +47,10 @@ Sphinx-autodoc tag
 # ######
 # Blender imports
 from mathutils import Matrix
+from collections import defaultdict
 
 import bpy
-from bpy.props import StringProperty
+from bpy.props import StringProperty, FloatProperty, BoolProperty
 
 # ######
 # RobotDesigner imports
@@ -57,6 +58,28 @@ from ..core import config, PluginManager, RDOperator
 from .helpers import ModelSelected, SingleSegmentSelected, SingleMassObjectSelected
 
 from ..properties.globals import global_properties
+
+
+def just_create_the_physics_frame(context, name):
+    armature = context.active_object
+    bpy.ops.object.empty_add(type='PLAIN_AXES')
+    context.active_object.name = name
+    context.active_object.RobotEditor.tag = 'PHYSICS_FRAME'
+    # set new mass object to cursor location
+    cursor = bpy.context.scene.cursor_location
+    context.active_object.location = [cursor.x, cursor.y, cursor.z]
+    obj = context.active_object
+    bpy.context.scene.objects.active = armature  # Restore the active object.
+    return obj
+
+
+def assign_the_physics_frame_to_the_bone(context, frame, bone):
+    armature_name = bone.id_data.name # Magic!  https://blender.stackexchange.com/questions/3275/finding-the-armature-owning-a-bone
+    armature = context.scene.objects[armature_name]
+    frame.parent = armature
+    frame.parent_type = 'BONE'
+    frame.parent_bone = bone.name
+
 
 # operator to create physics frame
 @RDOperator.Preconditions(ModelSelected)
@@ -70,35 +93,46 @@ class CreatePhysical(RDOperator):
     **Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "createphysicsframe"
-    bl_label = "Create Physics Frame"
-
-    frameName = StringProperty()
+    bl_label = "Create And Attach Physics Frames"
 
     @classmethod
     def run(cls, frameName=""):
         return super().run(**cls.pass_keywords())
 
+
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)  # todo condition for physicframe
     def execute(self, context):
         from . import model
-        model_name = context.active_object.name
-        bpy.ops.object.empty_add(type='PLAIN_AXES')
-        context.active_object.name = self.frameName
-        context.active_object.RobotEditor.tag = 'PHYSICS_FRAME'
 
-        # set new mass object to cursor location
-        cursor = bpy.context.scene.cursor_location
-        context.active_object.location = [cursor.x, cursor.y, cursor.z]
+        bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
 
+        armature = context.active_object
 
-        model.SelectModel.run(model_name=model_name)
-        SelectPhysical.run(frameName=self.frameName)
+        bones = set([b for b in armature.data.bones if b.select])
+
+        bones_that_have_physics_frames = set()
+        for obj in armature.children:
+            if obj.parent_bone and obj.RobotEditor.tag == 'PHYSICS_FRAME':
+                bone = armature.data.bones[obj.parent_bone]
+                bones_that_have_physics_frames.add(bone)
+
+        bones = bones.difference(bones_that_have_physics_frames)
+
+        frame = None
+        for bone in bones:
+            frame = just_create_the_physics_frame(context, 'PHYS_' + bone.name)
+            assign_the_physics_frame_to_the_bone(context, frame, bone)
+            # https://blender.stackexchange.com/questions/15353/get-the-location-in-world-coordinates-of-a-bones-head-and-tail-while-in-pose-mo
+            # https: // blender.stackexchange.com / questions / 80306 / location - still - the - same - although - its - moved
+            special_bone = armature.pose.bones[bone.name]
+            #frame.worldPosition = armature.matrix_world.to_translation() + 0.5 * (bone.active_pose_bone.tail + bone.active_pose_bone.head)
+            frame.matrix_world = armature.matrix_world * special_bone.matrix
+
+        if frame:
+            SelectPhysical.run(frameName=frame.name)
 
         return {'FINISHED'}
-
-    def invoke(self, context, event):
-        return context.window_manager.invoke_props_dialog(self)
 
 
 # operator to select a physics frame
@@ -125,7 +159,6 @@ class SelectPhysical(RDOperator):
     @RDOperator.Postconditions(ModelSelected)  # todo condition for physicframe
     def execute(self, context):
         arm = context.active_object
-        global_properties.physics_frame_name.set(context.scene, self.frameName)
 
         frame = bpy.data.objects[self.frameName]
 
@@ -138,6 +171,7 @@ class SelectPhysical(RDOperator):
         context.scene.objects.active = arm
 
         return {'FINISHED'}
+
 
 
 # operator to assign selected physics frame to active bone
@@ -163,28 +197,111 @@ class AssignPhysical(RDOperator):
     def execute(self, context):
         bpy.ops.object.parent_set(type='BONE')
 
-        if bpy.context.active_bone.parent:
-            to_parent_matrix = bpy.context.active_bone.parent.matrix_local
-        else:
-            to_parent_matrix = Matrix()
-        from_parent_matrix, bone_matrix = bpy.context.active_bone.RobotEditor.getTransform()
-        armature_matrix = bpy.context.active_object.matrix_basis
+        # if bpy.context.active_bone.parent:
+        #     to_parent_matrix = bpy.context.active_bone.parent.matrix_local
+        # else:
+        #     to_parent_matrix = Matrix()
+        # from_parent_matrix, bone_matrix = bpy.context.active_bone.RobotEditor.getTransform()
+        # armature_matrix = bpy.context.active_object.matrix_basis
 
-        # find selected physics frame
-        for ob in bpy.data.objects:
-            if ob.select and ob.RobotEditor.tag == 'PHYSICS_FRAME':
-                frame = ob
-                print(frame.name)
+        # # find selected physics frame
+        # for ob in bpy.data.objects:
+        #     if ob.select and ob.RobotEditor.tag == 'PHYSICS_FRAME':
+        #         frame = ob
+        #         print(frame.name)
 
         # frame.matrix_basis = armature_matrix*to_parent_matrix*from_parent_matrix*bone_matrix
         # frame.matrix_basis = parent_matrix*armature_matrix*bone_matrix
         return {'FINISHED'}
 
+
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class ComputePhysical(RDOperator):
+    bl_idname = config.OPERATOR_PREFIX + "computephysicsframe"
+    bl_label = "Compute mass properties from meshes"
+
+    density = FloatProperty(name="Density (kg/m^3)", precision=4, step=0.01, default=1.0)
+    from_visual_geometry = BoolProperty(name="From visual geometry")
+
+    class SegmentAssociations(object):
+        def __init__(self):
+            self.visual = None
+            self.collision = None
+            self.physics_frame = None
+
+        def __str__(self):
+            return '<'+', '.join([str(self.visual), str(self.collision), str(self.physics_frame)])+'>'
+
+
+    def maybe_compute_and_assign_mass_props(self, bone, associations):
+        assert associations.physics_frame is not None
+        if associations.collision and not self.from_visual_geometry:
+            the_mesh = associations.collision
+        elif associations.visual and self.from_visual_geometry:
+            the_mesh = associations.visual
+        else:
+            return
+        bounds = the_mesh.bound_box
+        len = (bounds[-1][0]-bounds[0][0],
+               bounds[-1][1]-bounds[0][1],
+               bounds[1][2]-bounds[0][2]) # The 1 is no error!
+        com = list(map(lambda x: x*0.5,
+              (bounds[-1][0] +bounds[0][0],
+               bounds[-1][1] + bounds[0][1],
+               bounds[1][2] + bounds[0][2])))
+        mass = len[0]*len[1]*len[2]*self.density
+        # Of a Brick.
+        Iunit = (1./12.*(len[1]**2 + len[2]**2),
+                 1./12.*(len[0]**2 + len[2]**2),
+                 1./12.*(len[0]**2 + len[1]**2))
+        print ("bone:", bone, len, mass, Iunit, com)
+        d = associations.physics_frame.RobotEditor.dynamics
+        d.inertiaXX = mass*Iunit[0]
+        d.inertiaYY = mass*Iunit[1]
+        d.inertiaZZ = mass*Iunit[2]
+        d.inertiaXY = 0.
+        d.inertiaXZ = 0.
+        d.inertiaYZ = 0.
+        d.mass = mass
+        #d.inertiaTrans = com
+        #d.inertiaRot   = [0., 0., 0.]
+        #print ("Setting matrix "+str(the_mesh.matrix_world))
+        m_com = Matrix.Translation(com)
+        associations.physics_frame.matrix_world = the_mesh.matrix_world * m_com
+
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected)
+    def execute(self, context):
+        armature = context.active_object
+        #print (self.__class__.__name__)
+
+        # Mapping from bone to things
+        segment_associations = defaultdict(self.SegmentAssociations)
+        for obj in armature.children:
+            if obj.parent_bone:
+                bone = armature.data.bones[obj.parent_bone]
+                print ("visit ", obj, obj.parent_bone, bone, bone.select)
+                if bone.select:
+                    if obj.RobotEditor.tag == 'PHYSICS_FRAME':
+                        segment_associations[bone].physics_frame = obj
+                    elif obj.RobotEditor.tag == 'COLLISION':
+                        segment_associations[bone].collision = obj
+                    elif obj.RobotEditor.tag == 'DEFAULT':
+                        segment_associations[bone].visual = obj
+
+        bones = [ b for b in armature.data.bones if b.select ]
+
+        for bone in bones:
+            self.maybe_compute_and_assign_mass_props(bone, segment_associations[bone])
+
+        return {'FINISHED'}
+
+
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
-
-
-# operator to generate collision meshes for all assigned physics frames
 
 
 # operator to unassign selected physics frame

@@ -37,6 +37,7 @@
 
 # Blender imports
 import bpy
+import bpy_types
 
 # RobotDesigner imports
 from .model import check_armature
@@ -65,28 +66,33 @@ def draw(layout, context):
         column = row.column(align=True)
         create_segment_selector(column, context)
 
-        box = layout.box()
-        row = box.row()
+        if (context.mode == "OBJECT" or context.mode == 'POSE'):
+            assert isinstance(context.active_bone, bpy_types.Bone), 'Given object or pose mode, we should get a bone here but we got '+str(type(context.active_bone))
 
-        if not context.active_bone.RobotEditor.RD_Bone:
-            row.label("Not a bone created by the Robot designer")
+            box = layout.box()
             row = box.row()
-            row.operator(segments.ImportBlenderArmature.bl_idname, text="Import native Blender segment")
-            row.prop(context.active_bone.RobotEditor, "RD_Bone")
 
+            if not context.active_bone.RobotEditor.RD_Bone:
+                row.label("Not a bone created by the Robot designer")
+                row = box.row()
+                row.operator(segments.ImportBlenderArmature.bl_idname, text="Import native Blender segment")
+                row.prop(context.active_bone.RobotEditor, "RD_Bone")
+
+            else:
+                row.label("Edit:")
+
+                global_properties.segment_tab.prop(bpy.context.scene,row,expand=True)
+
+                tab = global_properties.segment_tab.get(bpy.context.scene)
+
+                if tab == "kinematics":
+                    kinematics.draw(box, context)
+                elif tab == "dynamics":
+                    dynamics.draw(box, context)
+                elif tab == "controller":
+                    controllers.draw(box, context)
         else:
-            row.label("Edit:")
-
-            global_properties.segment_tab.prop(bpy.context.scene,row,expand=True)
-
-            tab = global_properties.segment_tab.get(bpy.context.scene)
-
-            if tab == "kinematics":
-                kinematics.draw(box, context)
-            elif tab == "dynamics":
-                dynamics.draw(box, context)
-            elif tab == "controller":
-                controllers.draw(box, context)
-
+            box = layout.box()
+            box.label("Must be in object or pose mode.")
     else:
         layout.operator(segments.CreateNewSegment.bl_idname, text="Create new base bone")

@@ -49,8 +49,9 @@ from bpy.props import StringProperty, BoolProperty
 # RobotDesigner imports
 from ..core import config, PluginManager, Condition, RDOperator
 
+#from .rigid_bodies import AssignGeometry, SelectGeometry
+from .rigid_bodies import *
 from .helpers import _mat3_to_vec_roll, ModelSelected, SingleSegmentSelected, PoseMode
-
 
 
 @RDOperator.Preconditions(ModelSelected)
@@ -71,8 +72,22 @@ class SelectSegment(RDOperator):
             raise Exception("BoneSelectionException")
 
         model = bpy.context.active_object
+
         for b in model.data.bones:
-            b.select = False
+           b.select = False
+
+        # Alternative to do this:
+        # mode = context.mode
+        # bpy.ops.object.mode_set(mode='EDIT')
+        # bpy.ops.armature.select_all(action='DESELECT')
+        # bpy.ops.object.mode_set(mode=mode)
+
+        # Second alternative:
+        # mode = context.mode
+        # bpy.ops.object.mode_set(mode='EDIT')
+        # for b in context.selected_bones:
+        #     b.select = False
+        # bpy.ops.object.mode_set(mode=mode)
 
         if self.segment_name:
             model.data.bones.active = model.data.bones[self.segment_name]
@@ -226,6 +241,8 @@ class ImportBlenderArmature(RDOperator):
     bl_label = "Import native blender segment"
 
     recursive = BoolProperty(name="Proceed recursively?")
+    attach_collision_geometry = BoolProperty(name="Attach collision geometry")
+    attach_visual_geometry = BoolProperty(name="Attach visual geometry")
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -236,6 +253,64 @@ class ImportBlenderArmature(RDOperator):
         bone = bpy.context.active_bone
         parent = bpy.context.active_bone.parent
         children = bpy.context.active_bone.children
+        armature = bpy.context.active_object
+        # We rely on the assumption that selecting a bone also selects the parent armature object.
+
+        print ("Attempting to manage", bone.name, "with RD!")
+
+        def allow_connect_to_that_bone_because_vertex_weight(obj):
+          """ There can only be one parent_bone. So in case of multiple VG's we have to decide which one to take."""
+          total_weights = []
+          for vg in obj.vertex_groups:
+            total_weight = 0.
+            for i in range(len(obj.data.vertices)):
+              try:
+                total_weight += vg.weight(i)
+              except RuntimeError:
+                pass
+            total_weights.append((vg.name, total_weight))
+          print(total_weights)
+          bone_with_largest_weight, _ = max(total_weights, key = lambda x: x[1])
+          return bone_with_largest_weight == bone.name
+
+        def allow_connect_to_that_bone(obj):
+            return obj.parent_bone == bone.name or (bone.name in obj.vertex_groups and allow_connect_to_that_bone_because_vertex_weight(obj))
+
+        def stop_vertex_group_from_interfering(obj):
+            if 0:
+                # Delete the vertex maps entirely
+                context.scene.objects.active = obj
+                bpy.ops.object.vertex_group_remove(all=True)
+                context.scene.objects.active = armature
+            else:
+                obj.modifiers[armature.name].use_vertex_groups = False
+
+        def duplicate(obj):
+            # https://blender.stackexchange.com/questions/45099/duplicating-a-mesh-object
+            new_obj = obj.copy()
+            new_obj.data = obj.data.copy()
+            new_obj.animation_data_clear()
+            context.scene.objects.link(new_obj)
+            return new_obj
+
+        if self.attach_visual_geometry or self.attach_collision_geometry:
+            for obj in filter(allow_connect_to_that_bone, armature.children):
+                print("Attempt to attach geometry", obj.name, "to", bone.name)
+                stop_vertex_group_from_interfering(obj)
+                if self.attach_visual_geometry and self.attach_collision_geometry:
+                    clone = duplicate(obj)
+                    clone.RobotEditor.tag = 'COLLISION' # Tag determines if attached as collision or visual geometry.
+                    obj.RobotEditor.tag = 'DEFAULT'
+                    SelectGeometry.run(geometry_name = clone.name)
+                    AssignGeometry.run()
+                elif self.attach_visual_geometry:
+                    obj.RobotEditor.tag = 'DEFAULT'
+                else:
+                    obj.RobotEditor.tag = 'COLLISION'
+                # We just use the operators that we already have.
+                # Assign geometry operates on selected items - one bone and one mesh.
+                SelectGeometry.run(geometry_name = obj.name)
+                AssignGeometry.run()
 
         if parent is not None:
             m = parent.matrix.inverted() * bone.matrix
@@ -265,12 +340,14 @@ class ImportBlenderArmature(RDOperator):
         if self.recursive:
             for i in [i.name for i in bpy.context.active_bone.children]:
                 SelectSegment.run(segment_name=i)
-                ImportBlenderArmature.run(recursive=True)
-
+                ImportBlenderArmature.run(
+                    recursive=True,
+                    attach_collision_geometry=self.attach_collision_geometry,
+                    attach_visual_geometry=self.attach_visual_geometry)
         return {'FINISHED'}
 
     def invoke(self, context, event):
-        return context.window_manager.invoke_props_dialog(self)
+        return context.window_manager.invoke_props_dialog(self, width=400)
 
 
 @RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)
@@ -473,13 +550,6 @@ class UpdateSegments(RDOperator):
     segment_name = StringProperty(default="")
     recurse = BoolProperty(default=True)
 
-    @classmethod
-    def run(cls, recurse=True, segment_name=""):
-        """
-        Run this operator
-        """
-
-        return super().run(**cls.pass_keywords())
 
     @RDOperator.Postconditions(ModelSelected)
     @RDOperator.OperatorLogger
@@ -487,6 +557,7 @@ class UpdateSegments(RDOperator):
     #    @Preconditions(ModelSelected)
     def execute(self, context):
         current_mode = bpy.context.object.mode
+        self.logger.debug("UpdateSegments: recurse=%s, bone=%s", str(self.recurse), str(self.segment_name))
 
         # arm = bpy.data.armatures[armatureName]
 
@@ -494,7 +565,7 @@ class UpdateSegments(RDOperator):
         armature_data_ame = context.active_object.data.name
 
         if self.segment_name:
-            segment_name = bpy.data.armatures[armature_data_ame].bones[self.segment_name].name
+            segment_name = bpy.data.armatures[armature_data_ame].bones[self.segment_name].name # Isn't this the identity operation??
         else:
             segment_name = bpy.data.armatures[armature_data_ame].bones[0].name
 
@@ -567,14 +638,17 @@ class UpdateSegments(RDOperator):
             elif joint_axis == 'Z':
                 constraint.min_z = radians(min_rot)
                 constraint.max_z = radians(max_rot)
+        elif 'RobotEditorConstraint' in pose_bone.constraints:
+          pose_bone.constraints.remove(pose_bone.constraints['RobotEditorConstraint'])
         # -------------------------------------------------------
         bpy.ops.object.mode_set(mode=current_mode, toggle=False)
 
-        children_names = [i.name for i in
-                          bpy.data.armatures[armature_data_ame].bones[
-                              segment_name].children]
-        for child_name in children_names:
-            UpdateSegments.run(segment_name=child_name, recurse=self.recurse)
+        if self.recurse:
+            children_names = [i.name for i in
+                              bpy.data.armatures[armature_data_ame].bones[
+                                  segment_name].children]
+            for child_name in children_names:
+                UpdateSegments.run(segment_name=child_name, recurse=self.recurse)
 
         SelectSegment.run(segment_name=segment_name)
 

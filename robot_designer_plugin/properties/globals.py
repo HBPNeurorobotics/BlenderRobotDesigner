@@ -101,6 +101,16 @@ class RDGlobals(PropertyGroupHandlerBase):
 
     @staticmethod
     def update_geometry_name(self, context):
+        """
+          On setting of the mesh_name, this function is invoked. It does two things:
+          Deselect every object which is not the active object.
+
+          Select the object whose name was set in mesh_name.
+
+          The rationale behind this was probably to allow for selection of a mesh
+          while the active_object of the context keeps pointing to the armature!
+        """
+
         print("Update Mesh name")
         for i in [i for i in bpy.context.selected_objects if i.name != context.active_object.name]:
             i.select = False
@@ -208,9 +218,6 @@ class RDGlobals(PropertyGroupHandlerBase):
 
         # Holds the name of the currently selected geometry (Mesh object)
         self.mesh_name = PropertyHandler(StringProperty(update=self.update_geometry_name))
-
-        # Holds the name of the currently selected physics frame (Empty object)
-        self.physics_frame_name = PropertyHandler(StringProperty())
 
         # Holds the name of the currently selected physics frame (Empty object)
         self.camera_sensor_name = PropertyHandler(StringProperty())
