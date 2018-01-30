@@ -410,9 +410,6 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 frame_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
                 frame_pose_rpy = list_to_string(pose.to_euler())
 
-                # Wtf is that?
-                #visual.pose.append(' '.join([frame_pose_xyz, frame_pose_rpy]))
-                #
                 inertial.pose[0] = ' '.join([frame_pose_xyz, frame_pose_rpy])
 
         #

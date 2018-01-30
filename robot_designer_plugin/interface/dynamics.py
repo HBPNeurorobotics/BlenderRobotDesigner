@@ -61,27 +61,11 @@ def draw(layout, context):
     global_properties.display_physics_selection.prop(context.scene, settings)
 
     box = layout.box()
-    box.label("Select mass object")
+    box.label("Edit Mass Object")
     infoBox = InfoBox(box)
     row = box.row()
-    column = row.column(align=True)
-
-
 
     single_segment = getSingleSegment(context)
-
-    column.menu(menus.SegmentsGeometriesMenu.bl_idname,
-                text=single_segment.name if single_segment else "Select Segment")
-
-    row2 = column.row(align=True)
-
-    global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
-    row2.separator()
-    global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
-                                               icon='VIEWZOOM',
-                                               text='')
-
-    #column = row.column(align=True)
 
     #menus.MassObjectMenu.putMenu(column, context)
     # create_geometry_selection(column, context)

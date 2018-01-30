@@ -84,17 +84,6 @@ class SelectGeometry(RDOperator):
         # Has the side effect of de-selecting all other objects except for the armature and our mesh.
         global_properties.mesh_name.set(context.scene, self.geometry_name)
 
-        #arm = context.active_object # Which should still point to the armature!
-
-        #arm = bpy.data.objects[mesh.name] # This is our mesh ...
-
-        # Why??
-        #for obj in bpy.data.objects:
-        #    obj.select = False  # Now this also deselects the armature, no?  Except that it would still be active in the context???
-
-        #mesh.select = True  # Should be handled by mesh_name.set() already.
-        #arm.select = True
-
         context.region.tag_redraw()
         context.area.tag_redraw()
         return {'FINISHED'}
