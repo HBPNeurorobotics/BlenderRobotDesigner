@@ -153,7 +153,7 @@ class GenerateCollisionMesh(RDOperator):
         self.logger.debug("Creating Collision mesh for: %s", target_name)
         armature = context.active_object.name
 
-      
+
 
         bpy.ops.object.select_all(action='DESELECT')
         bpy.context.scene.objects.active = bpy.data.objects[target_name]
@@ -266,10 +266,33 @@ class GenerateCollisionConvexHull(RDOperator):
             faces = [f for f in bm.faces if (not f.hide)]
           
             cv_input = bm.verts #(verts, edges, faces)
-            bmesh.ops.convex_hull(bm, input=cv_input, use_existing_faces=True)
+            # Set use_existing_faces=False so that all new geometry is added to the mesh 'bm'.
+            # Then we can go and delete everything that is not in the output of the operator.
+            # This will leave only the convex hull.
+            # Why? I noticed that under some conditions, where are leftover faces/vertices
+            # from the original mesh. I believe this happens when the input mesh is not a closed
+            # manifold, i.e. not topologically a sphere-like.
+            new = bmesh.ops.convex_hull(bm, input=cv_input, use_existing_faces=False)
           
             self.logger.debug("Convex hull computation done.")
-          
+
+            # To delete leftover vertices and faces.
+            # https://blender.stackexchange.com/questions/1541/how-can-i-delete-mesh-parts-with-python
+            # enum {
+            # DEL_VERTS = 1,
+            # DEL_EDGES,
+            # DEL_ONLYFACES,
+            # DEL_EDGESFACES,
+            # DEL_FACES,
+            # DEL_ALL,
+            # DEL_ONLYTAGGED
+            # };
+            new = set(new["geom"])
+            to_delete = [v for v in bm.verts if not v in new]
+            bmesh.ops.delete(bm, geom=to_delete, context=1)
+            to_delete = [f for f in bm.faces if not f in new]
+            bmesh.ops.delete(bm, geom=to_delete, context=5)
+
             bm.to_mesh(collisionMesh)
             bm.free()
           
