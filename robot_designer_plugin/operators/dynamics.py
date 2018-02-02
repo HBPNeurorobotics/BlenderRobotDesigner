@@ -74,8 +74,7 @@ def just_create_the_physics_frame(context, name):
 
 
 def assign_the_physics_frame_to_the_bone(context, frame, bone):
-    armature_name = bone.id_data.name # Magic!  https://blender.stackexchange.com/questions/3275/finding-the-armature-owning-a-bone
-    armature = context.scene.objects[armature_name]
+    armature = context.active_object
     frame.parent = armature
     frame.parent_type = 'BONE'
     frame.parent_bone = bone.name
