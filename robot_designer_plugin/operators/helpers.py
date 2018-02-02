@@ -170,7 +170,7 @@ class NotEditMode(Condition):
         :term:`condition` that assures that the :term:`edit mode` is *not* selected.
         """
         if bpy.context.object:
-            return bpy.context.object.mode != 'EDIT', "Must not be in edot mode"
+            return bpy.context.object.mode != 'EDIT', "Must not be in edit mode"
         else:
             return True, ""
 
