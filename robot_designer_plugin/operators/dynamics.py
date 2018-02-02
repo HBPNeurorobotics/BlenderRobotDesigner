@@ -95,6 +95,8 @@ class CreatePhysical(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "createphysicsframe"
     bl_label = "Create And Attach Physics Frames"
 
+    frameName = StringProperty()
+
     @classmethod
     def run(cls, frameName=""):
         return super().run(**cls.pass_keywords())
@@ -121,7 +123,7 @@ class CreatePhysical(RDOperator):
 
         frame = None
         for bone in bones:
-            frame = just_create_the_physics_frame(context, 'PHYS_' + bone.name)
+            frame = just_create_the_physics_frame(context, bone.name)
             assign_the_physics_frame_to_the_bone(context, frame, bone)
             # https://blender.stackexchange.com/questions/15353/get-the-location-in-world-coordinates-of-a-bones-head-and-tail-while-in-pose-mo
             # https: // blender.stackexchange.com / questions / 80306 / location - still - the - same - although - its - moved
