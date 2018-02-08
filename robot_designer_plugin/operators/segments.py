@@ -246,6 +246,15 @@ class ImportBlenderArmature(RDOperator):
 
     @RDOperator.OperatorLogger
     def execute(self, context):
+        # Make the UpdateSegments operator consider this bone as if it has not been taken control of yet.
+        # Otherwise UpdateSegments would mess up the bones transform as soon as the first RD related property is changed.
+        # Example:
+        # - have this bone down a bone hierarchy. It happens to be managed by RD already.
+        # - Further down we do bpy.context.active_bone.RobotEditor.Euler.x.value = xyz[0]
+        # - Triggers UpdateSegments
+        # - y, z, etc still filled with garbage.
+        # - UpdateSegments uses garbage to compute and assign new bone transform.
+        bpy.context.active_bone.RobotEditor.RD_Bone = False
 
         current_mode = bpy.context.object.mode
         bpy.ops.object.mode_set(mode='EDIT', toggle=False)
@@ -256,7 +265,7 @@ class ImportBlenderArmature(RDOperator):
         armature = bpy.context.active_object
         # We rely on the assumption that selecting a bone also selects the parent armature object.
 
-        print ("Attempting to manage", bone.name, "with RD!")
+        self.logger.debug ("Attempting to manage %s with RD!", bone.name)
 
         def allow_connect_to_that_bone_because_vertex_weight(obj):
           """ There can only be one parent_bone. So in case of multiple VG's we have to decide which one to take."""
@@ -269,7 +278,6 @@ class ImportBlenderArmature(RDOperator):
               except RuntimeError:
                 pass
             total_weights.append((vg.name, total_weight))
-          print(total_weights)
           bone_with_largest_weight, _ = max(total_weights, key = lambda x: x[1])
           return bone_with_largest_weight == bone.name
 
@@ -299,7 +307,7 @@ class ImportBlenderArmature(RDOperator):
 
         if self.attach_visual_geometry or self.attach_collision_geometry:
             for obj in filter(allow_connect_to_that_bone, armature.children):
-                print("Attempt to attach geometry", obj.name, "to", bone.name)
+                self.logger.debug("Attempt to attach geometry %s to %s", obj.name, bone.name)
                 stop_vertex_group_from_interfering(obj)
                 if self.attach_visual_geometry and self.attach_collision_geometry:
                     clone = duplicate(obj)
@@ -329,11 +337,6 @@ class ImportBlenderArmature(RDOperator):
         bpy.context.active_bone.RobotEditor.Euler.x.value = xyz[0]
         bpy.context.active_bone.RobotEditor.Euler.y.value = xyz[1]
         bpy.context.active_bone.RobotEditor.Euler.z.value = xyz[2]
-
-        print("xyz---")
-        print(xyz[0])
-        print(xyz[1])
-        print(xyz[2])
 
         bpy.context.active_bone.RobotEditor.Euler.alpha.value = round(degrees(euler[0]), 0)
         bpy.context.active_bone.RobotEditor.Euler.beta.value = round(degrees(euler[1]), 0)
@@ -563,9 +566,6 @@ class UpdateSegments(RDOperator):
         current_mode = bpy.context.object.mode
         self.logger.debug("UpdateSegments: recurse=%s, bone=%s", str(self.recurse), str(self.segment_name))
 
-        # arm = bpy.data.armatures[armatureName]
-
-        # armature_data_ame = bpy.data.objects[self.model_name].data.name # conversion to operator
         armature_data_ame = context.active_object.data.name
 
         if self.segment_name:
@@ -579,13 +579,15 @@ class UpdateSegments(RDOperator):
             self.logger.info("Not updated (not a RD segment): %s", segment_name)
             return {'FINISHED'}
 
-        # local variables for updating the constraints
+        # Local variables for updating the constraints
+        # These refer to the settings pertaining to the RD.
         joint_axis = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.axis
         min_rot = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.min
         max_rot = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.max
         jointMode = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.jointMode
         jointValue = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.value
 
+        # Transforms as per RD spec.
         matrix, joint_matrix = bpy.data.armatures[armature_data_ame].bones[
             segment_name].RobotEditor.getTransform()
 
@@ -599,14 +601,13 @@ class UpdateSegments(RDOperator):
             transform = editbone.parent.matrix.copy()
             matrix = transform * matrix
 
+        # Adjust bone properties to match RD transform specs.
+        # Try to move it around rigidly. Keep length.
         pos = matrix.to_translation()
         axis, roll = _mat3_to_vec_roll(matrix.to_3x3())
-
         editbone.head = pos
-        editbone.tail = pos + axis
+        editbone.tail = pos + editbone.length * axis
         editbone.roll = roll
-
-        editbone.length = 1
 
         bpy.ops.object.mode_set(mode=current_mode, toggle=False)
 

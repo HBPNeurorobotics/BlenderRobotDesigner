@@ -258,11 +258,11 @@ class RDSegment(bpy.types.PropertyGroup):
 
 
     controller = PointerProperty(type=RDActuator)
-    theta = PointerProperty(type=RDDegreeOfFreedom)
+    theta = PointerProperty(type=RDDegreeOfFreedom)  # Joint transform + limits, relative to local frame.
     d = PointerProperty(type=RDDegreeOfFreedom)
     jointController = PointerProperty(type=RDJointController)
-    Euler = PointerProperty(type=RDEulerAnglesSegment)
-    DH = PointerProperty(type=RDDenavitHartenbergSegment)
+    Euler = PointerProperty(type=RDEulerAnglesSegment)  # Frame relative to parent
+    DH = PointerProperty(type=RDDenavitHartenbergSegment)  # Dito but in a different way. Only one, either DH or Euler is used.
 
 # Resolving circular dependencies
 
