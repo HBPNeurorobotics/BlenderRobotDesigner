@@ -149,7 +149,12 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
             else:
                 file_path = os.path.join(directory, bpy.data.objects[mesh].RobotEditor.fileName + '.dae')
 
+            hide_flag_backup = bpy.context.scene.objects.active.hide
+            bpy.context.scene.objects.active.hide = False # Blender does not want to export hidden objects.
+
             bpy.ops.wm.collada_export(filepath=file_path, apply_modifiers=True, selected=True, use_texture_copies=True)
+
+            bpy.context.scene.objects.active.hide = hide_flag_backup
 
             # quick fix for dispersed meshes
             # todo: find appropriate solution
