@@ -56,7 +56,7 @@ from .helpers import drawInfoBox, push_info, ModelPropertiesBox
 
 from mathutils import Vector
 
-from ..operators.helpers import PoseMode, NotEditMode
+from ..operators.helpers import PoseMode, NotEditMode, ObjectMode
 from ..properties.globals import global_properties
 
 @LogFunction
@@ -149,10 +149,11 @@ def draw(layout, context):
         box = layout.box()
         box.label(text="Custom Gazebo tags")
         global_properties.gazebo_tags.prop(bpy.context.scene, box)
+        push_info(NotEditMode)
     else:
         layout.menu(menus.ModelMenu.bl_idname, text="Select Robot")
         layout.label(text="Select robot first")
+        push_info(ObjectMode)
 
-    push_info(PoseMode)
     drawInfoBox(layout, context)#["Some operations require to be in pose mode"] if context.mode == "OBJECT" else [])
     return is_model_selected

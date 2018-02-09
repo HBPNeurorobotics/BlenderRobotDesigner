@@ -283,7 +283,11 @@ class ImportBlenderArmature(RDOperator):
                 bpy.ops.object.vertex_group_remove(all=True)
                 context.scene.objects.active = armature
             else:
-                obj.modifiers[armature.name].use_vertex_groups = False
+                try:
+                    obj.modifiers[armature.name].use_vertex_groups = False
+                except KeyError:
+                    # This is the normal case actually, i.e. the object has no vertex weighting w.r.t. that bone.
+                    pass
 
         def duplicate(obj):
             # https://blender.stackexchange.com/questions/45099/duplicating-a-mesh-object

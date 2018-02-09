@@ -53,7 +53,7 @@ from bpy.props import StringProperty
 # ######
 # RobotDesigner imports
 from ..core import config, PluginManager, RDOperator, Condition
-from .helpers import ModelSelected
+from .helpers import ModelSelected, NotEditMode, ObjectMode
 from ..properties.globals import global_properties
 
 @RDOperator.Preconditions(ModelSelected)
@@ -290,7 +290,7 @@ class JoinModels(RDOperator):
         segments.UpdateSegments.run(segment_name=sourceParentBoneName, recurse=True)
         return {'FINISHED'}
 
-
+@RDOperator.Preconditions(ObjectMode)
 @PluginManager.register_class
 class CreateNewModel(RDOperator):
     """
