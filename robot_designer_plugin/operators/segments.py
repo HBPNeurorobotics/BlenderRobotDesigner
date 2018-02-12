@@ -312,17 +312,17 @@ class ImportBlenderArmature(RDOperator):
                 if self.attach_visual_geometry and self.attach_collision_geometry:
                     clone = duplicate(obj)
                     clone.RobotEditor.tag = 'COLLISION' # Tag determines if attached as collision or visual geometry.
-                    obj.RobotEditor.tag = 'DEFAULT'
                     SelectGeometry.run(geometry_name = clone.name)
-                    AssignGeometry.run()
+                    AssignGeometry.run(attach_collision_geometry = True)
+                    attach_as_collision = False
                 elif self.attach_visual_geometry:
-                    obj.RobotEditor.tag = 'DEFAULT'
+                    attach_as_collision = False
                 else:
-                    obj.RobotEditor.tag = 'COLLISION'
+                    attach_as_collision = True
                 # We just use the operators that we already have.
                 # Assign geometry operates on selected items - one bone and one mesh.
                 SelectGeometry.run(geometry_name = obj.name)
-                AssignGeometry.run()
+                AssignGeometry.run(attach_collision_geometry = attach_as_collision)
 
         if parent is not None:
             m = parent.matrix.inverted() * bone.matrix

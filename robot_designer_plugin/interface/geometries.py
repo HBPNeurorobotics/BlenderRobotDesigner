@@ -123,7 +123,6 @@ def draw(layout, context):
         #create_geometry_selection(column, context)
 
         row = box.column(align=True)
-        global_properties.assign_collision.prop(context.scene, row)
         rigid_bodies.AssignGeometry.place_button(row, infoBox=infoBox)
 
         box.separator()

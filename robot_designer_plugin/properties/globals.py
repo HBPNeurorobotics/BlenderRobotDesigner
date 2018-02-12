@@ -259,8 +259,6 @@ class RDGlobals(PropertyGroupHandlerBase):
                    ('disconnected', 'List disconnected', 'Show only disconnected meshes in menu',
                     'ARMATURE_DATA', 3)]))
 
-        self.assign_collision = PropertyHandler(BoolProperty(name="Assign as Collision Mesh", description="Adds a collision tag to the mesh", default=False))
-
         # Holds the selection of wheter do hide/display connected/unassigned meshes in the 3D viewport
         self.display_mesh_selection = PropertyHandler(EnumProperty(
             items=[('all', 'All',
