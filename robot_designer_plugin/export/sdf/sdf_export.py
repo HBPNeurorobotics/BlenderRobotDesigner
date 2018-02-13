@@ -198,8 +198,11 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         Recursively builds a SDF tree object hierarchy for export
 
         :param segment: Reference to a blender bone object
-        :param tree: Reference to a SDF Tree object
+        :param tree: Reference to a SDF Tree object. (Defined in sdf_tree.py)
         """
+
+        operator.logger.info("walk_segments: %s" % str(segment))
+
         child = tree.add()
         trafo, dummy = segment.RobotEditor.getTransform()
         # child.joint.origin.rpy = list_to_string(trafo.to_euler())
@@ -241,13 +244,6 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             revert = -1
         else:
             revert = 1
-        #
-        # if segment.RobotEditor.axis == 'X':
-        #     child.joint.axis.xyz = list_to_string(Vector((1, 0, 0)) * revert)
-        # elif segment.RobotEditor.axis == 'Y':
-        #     child.joint.axis.xyz = list_to_string(Vector((0, 1, 0)) * revert)
-        # elif segment.RobotEditor.axis == 'Z':
-        #     child.joint.axis.xyz = list_to_string(Vector((0, 0, 1)) * revert)
 
         if segment.RobotEditor.axis == 'X':
             joint_axis_xyz = list_to_string(Vector((1, 0, 0)) * revert)
@@ -258,7 +254,12 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
         child.joint.axis[0].xyz.append(joint_axis_xyz)
 
-        child.joint.axis[0].use_parent_model_frame.append(True)
+        # Settings the following flag is probably wrong. Why? Because RD derives the pose of the
+        # child bone from the joint angle and axis w.r.t. the child edit pose. Hence Blenders/RD's
+        # behaviour is consistent with Gazebo when this option is turned off.
+
+        #child.joint.axis[0].use_parent_model_frame.append(True)
+
         operator.logger.info(" joint axis xyz'%s'" % joint_axis_xyz)
 
         print('Parent link:', child.joint.parent)
@@ -268,24 +269,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         print('Axis limit:', child.joint.axis[0].limit)
         print('Axis xyz:', child.joint.axis[0].xyz)
 
-        #
-        # if segment.parent is None:
-        #     print("Debug: parent bone is none", segment,
-        #           segment.RobotEditor.jointMode)
-        #     child.joint.type = 'fixed'
-        # else:
-        #     if segment.RobotEditor.jointMode == 'REVOLUTE':
-        #         child.joint.limit.lower = radians(
-        #             segment.RobotEditor.theta.min)
-        #         child.joint.limit.upper = radians(
-        #             segment.RobotEditor.theta.max)
-        #         child.joint.type = 'revolute'
-        #     if segment.RobotEditor.jointMode == 'PRISMATIC':
-        #         child.joint.limit.lower = segment.RobotEditor.d.min
-        #         child.joint.limit.upper = segment.RobotEditor.d.max
-        #         child.joint.type = 'prismatic'
-        #     if segment.RobotEditor.jointMode == 'FIXED':
-        #         child.joint.type = 'fixed'
+
         if segment.parent is None:
             #print("Info: Root joint has no parent", segment, segment.RobotEditor.jointMode)
             child.joint.type = 'fixed'
