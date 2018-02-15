@@ -261,7 +261,6 @@ class ImportBlenderArmature(RDOperator):
 
         bone = bpy.context.active_bone
         parent = bpy.context.active_bone.parent
-        children = bpy.context.active_bone.children
         armature = bpy.context.active_object
         # We rely on the assumption that selecting a bone also selects the parent armature object.
 
@@ -566,37 +565,31 @@ class UpdateSegments(RDOperator):
         current_mode = bpy.context.object.mode
         self.logger.debug("UpdateSegments: recurse=%s, bone=%s", str(self.recurse), str(self.segment_name))
 
-        armature_data_ame = context.active_object.data.name
+        armature_data_name = context.active_object.data.name
 
         if self.segment_name:
-            segment_name = bpy.data.armatures[armature_data_ame].bones[self.segment_name].name # Isn't this the identity operation??
+            segment_name = bpy.data.armatures[armature_data_name].bones[self.segment_name].name # Isn't this the identity operation??
         else:
-            segment_name = bpy.data.armatures[armature_data_ame].bones[0].name
+            segment_name = bpy.data.armatures[armature_data_name].bones[0].name
 
         SelectSegment.run(segment_name=self.segment_name)
 
-        if not bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.RD_Bone:
+        if not bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.RD_Bone:
             self.logger.info("Not updated (not a RD segment): %s", segment_name)
             return {'FINISHED'}
 
-        # Local variables for updating the constraints
-        # These refer to the settings pertaining to the RD.
-        joint_axis = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.axis
-        min_rot = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.min
-        max_rot = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.max
-        jointMode = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.jointMode
-        jointValue = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.value
+        bone = bpy.data.armatures[armature_data_name].bones[segment_name]
 
         # Transforms as per RD spec.
-        matrix, joint_matrix = bpy.data.armatures[armature_data_ame].bones[
-            segment_name].RobotEditor.getTransform()
+        matrix, joint_matrix = bone.RobotEditor.getTransform()
 
         bpy.ops.object.mode_set(mode='EDIT', toggle=False)
 
-        editbone = bpy.data.armatures[armature_data_ame].edit_bones[
-            bpy.data.armatures[armature_data_ame].bones[segment_name].name]
+        editbone = bpy.data.armatures[armature_data_name].edit_bones[
+            bpy.data.armatures[armature_data_name].bones[segment_name].name]
         editbone.use_inherit_rotation = True
 
+        # Express desired matrix in frame of the Armature
         if editbone.parent is not None:
             transform = editbone.parent.matrix.copy()
             matrix = transform * matrix
@@ -605,8 +598,9 @@ class UpdateSegments(RDOperator):
         # Try to move it around rigidly. Keep length.
         pos = matrix.to_translation()
         axis, roll = _mat3_to_vec_roll(matrix.to_3x3())
-        editbone.head = pos
-        editbone.tail = pos + editbone.length * axis
+        length = editbone.length
+        editbone.head = pos # Changes length.
+        editbone.tail = pos + length * axis
         editbone.roll = roll
 
         bpy.ops.object.mode_set(mode=current_mode, toggle=False)
@@ -616,6 +610,14 @@ class UpdateSegments(RDOperator):
         pose_bone = bpy.context.object.pose.bones[segment_name]
         pose_bone.matrix_basis = joint_matrix
 
+
+        # Local variables for updating the constraints
+        # These refer to the settings pertaining to the RD.
+        joint_axis = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.axis
+        min_rot = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.theta.min
+        max_rot = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.theta.max
+        jointMode = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.jointMode
+        jointValue = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.theta.value
         if jointMode == 'REVOLUTE':
             if 'RobotEditorConstraint' not in pose_bone.constraints:
                 bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
@@ -645,12 +647,13 @@ class UpdateSegments(RDOperator):
                 constraint.max_z = radians(max_rot)
         elif 'RobotEditorConstraint' in pose_bone.constraints:
           pose_bone.constraints.remove(pose_bone.constraints['RobotEditorConstraint'])
+
         # -------------------------------------------------------
         bpy.ops.object.mode_set(mode=current_mode, toggle=False)
 
         if self.recurse:
             children_names = [i.name for i in
-                              bpy.data.armatures[armature_data_ame].bones[
+                              bpy.data.armatures[armature_data_name].bones[
                                   segment_name].children]
             for child_name in children_names:
                 UpdateSegments.run(segment_name=child_name, recurse=self.recurse)
