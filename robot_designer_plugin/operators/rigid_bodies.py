@@ -156,10 +156,6 @@ class AssignGeometry(RDOperator):
 class RenameAllGeometries(RDOperator):
     """
     :ref:`operator` for renaming geometries using their parented segment's name.
-
-
-
-
     """
     bl_idname = config.OPERATOR_PREFIX + "rename_geometries"
     bl_label = "Rename geometries after segments"
@@ -171,12 +167,21 @@ class RenameAllGeometries(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
+        import collections
         mesh_name = global_properties.mesh_name.get(context.scene)
         current_mesh = bpy.data.objects[mesh_name]
+        # Blender automatically renames duplicate mesh names. However this apparently comes at a later stage.
+        # Too late to make the filename member unique. Therefore let's keep track of duplicate names by ourselves.
+        duplication_count = collections.defaultdict(int)
         for i in bpy.data.objects:
             if i.parent_bone != '' and i.type == 'MESH':
-                i.name = i.name[:4] + i.parent_bone
-                i.RobotEditor.fileName = i.name
+                new_name = i.name[:4] + i.parent_bone
+                num = duplication_count[new_name]
+                duplication_count[new_name] = num+1
+                if num > 0:
+                    new_name += '_%i' % num
+                i.name = new_name
+                i.RobotEditor.fileName = new_name
 
         global_properties.mesh_name.set(context.scene, current_mesh.name[:4] + current_mesh.parent_bone )
 
