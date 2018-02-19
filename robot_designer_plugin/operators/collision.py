@@ -78,7 +78,7 @@ class GenerateAllCollisionMeshes(RDOperator):
     @RDOperator.OperatorLogger
     # @Postconditions(ModelSelected)
     def execute(self, context):
-        visuals = [o.name for o in bpy.data.objects if o.type == 'MESH'
+        visuals = [o.name for o in context.scene.objects if o.type == 'MESH'
                    and o.parent == context.active_object and o.RobotEditor.tag != "COLLISION"]
 
         self.logger.debug("Visuals: %s", visuals)
@@ -109,7 +109,7 @@ class GenerateAllCollisionConvexHull(RDOperator):
     @RDOperator.OperatorLogger
     # @Postconditions(ModelSelected)
     def execute(self, context):
-        visuals = [o.name for o in bpy.data.objects if o.type == 'MESH'
+        visuals = [o.name for o in context.scene.objects if o.type == 'MESH'
                    and o.parent == context.active_object and o.RobotEditor.tag != "COLLISION"]
 
         self.logger.debug("Visuals: %s", visuals)

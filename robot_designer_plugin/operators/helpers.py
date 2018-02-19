@@ -215,7 +215,7 @@ class SelectObjectBase(RDOperator):
 
         arm = context.active_object
 
-        for obj in bpy.data.objects:
+        for obj in context.scene.objects:
             obj.select = False
 
         mesh.select = True

@@ -84,13 +84,13 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
     """
 
     if not export_collision:
-        meshes = [obj.name for obj in bpy.data.objects if
+        meshes = [obj.name for obj in context.scene.objects if
                   obj.type == "MESH" and obj.name == name and
                   not obj.RobotEditor.tag == "COLLISION"]
         directory = os.path.join(directory, "meshes")
 
     else:
-        meshes = [obj.name for obj in bpy.data.objects if
+        meshes = [obj.name for obj in context.scene.objects if
                   obj.type == "MESH" and name == obj.name and
                   obj.RobotEditor.tag == "COLLISION"]
         directory = os.path.join(directory, "collisions")
@@ -213,7 +213,7 @@ def create_urdf(operator: RDOperator, context, base_link_name,
                 child.joint.type = 'fixed'
 
         # Add properties
-        connected_meshes = [mesh.name for mesh in bpy.data.objects if
+        connected_meshes = [mesh.name for mesh in context.scene.objects if
                             mesh.type == 'MESH' and mesh.parent_bone == segment.name]
         # if len(connected_meshes) > 0:
         #     child.link.name = connected_meshes[0]
@@ -253,7 +253,7 @@ def create_urdf(operator: RDOperator, context, base_link_name,
         # todo: pick up the real values from Physics Frame?
 
         frame_names = [
-            frame.name for frame in bpy.data.objects if frame.RobotEditor.tag == 'PHYSICS_FRAME' and frame.parent_bone==segment.name]
+            frame.name for frame in context.scene.objects if frame.RobotEditor.tag == 'PHYSICS_FRAME' and frame.parent_bone==segment.name]
 
 	# If no frame is connected create a default one. This is required for Gazebo!
         if not frame_names:

@@ -99,7 +99,7 @@ def draw(layout, context):
              i = 0
              # pathpoint characteristics
              try:
-                for obj in bpy.data.objects[active_muscle].data.splines[0].points:
+                for obj in context.scene.objects[active_muscle].data.splines[0].points:
 
                     row5 = pointbox.row(align=True)
                     i = i + 1

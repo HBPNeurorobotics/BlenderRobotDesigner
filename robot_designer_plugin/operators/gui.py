@@ -63,7 +63,7 @@ class PrintTransformations(RDOperator):
     def execute(self, context):
         active_object = bpy.context.active_object
 
-        for ob in [obj for obj in bpy.data.objects if obj.select]:
+        for ob in [obj for obj in context.scene.objects if obj.select]:
             print('Transformation from %(from)s to %(to)s:' % {'from': active_object.name, 'to': ob.name})
             transform = active_object.matrix_world.inverted() * ob.matrix_world
             print(transform)

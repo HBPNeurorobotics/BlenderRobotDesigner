@@ -3,12 +3,11 @@ import xml.etree.cElementTree as etree
 import bpy
 
 
-def fixCollada(in_filename, out_filename):
+def fixCollada(in_filename, out_filename, context):
     doc = etree.parse(in_filename)
     root = doc.getroot()
 
-    for obj in [i for i in bpy.data.objects if i.type == 'MESH']:
-        print(obj.name)
+    for obj in [i for i in context.scene.objects if i.type == 'MESH']:
         if obj.parent is not None:
             element = root.find(
                 './/{http://www.collada.org/2005/11/COLLADASchema}node[@name="%s"][@type="NODE"]' % obj.name.replace(
