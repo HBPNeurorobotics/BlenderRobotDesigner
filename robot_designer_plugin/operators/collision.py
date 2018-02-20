@@ -315,12 +315,10 @@ class GenerateCollisionConvexHull(RDOperator):
                 self.logger.debug("Could not find material for collision mesh")
 
             bpy.ops.object.select_all(action='DESELECT')
-
             model.SelectModel.run(model_name=armature)
             segments.SelectSegment.run(segment_name=bpy.data.objects[target_name].parent_bone)
             bpy.data.objects[name].select = True
             bpy.ops.object.parent_set(type='BONE', keep_transform=True)
-            bpy.ops.object.select_all(action='DESELECT')
             model.SelectModel.run(model_name=armature)
         except Exception as e:
             orig_object.name = target_name
