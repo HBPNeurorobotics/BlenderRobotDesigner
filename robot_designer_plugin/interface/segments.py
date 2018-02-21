@@ -56,6 +56,9 @@ def draw(layout, context):
     """
     if not check_armature(layout, context):
         return
+
+    layout.operator(segments.ImportBlenderArmature.bl_idname, text="(Re)Import Bones")
+
     # layout.label("Active Bone:")
     if context.active_bone is not None:
 
@@ -68,23 +71,12 @@ def draw(layout, context):
 
         if (context.mode == "OBJECT" or context.mode == 'POSE'):
             assert isinstance(context.active_bone, bpy_types.Bone), 'Given object or pose mode, we should get a bone here but we got '+str(type(context.active_bone))
-
             box = layout.box()
             row = box.row()
-
-            if not context.active_bone.RobotEditor.RD_Bone:
-                row.label("Not a bone created by the Robot designer")
-                row = box.row()
-                row.operator(segments.ImportBlenderArmature.bl_idname, text="Import native Blender segment")
-                row.prop(context.active_bone.RobotEditor, "RD_Bone")
-
-            else:
+            if context.active_bone.RobotEditor.RD_Bone:
                 row.label("Edit:")
-
                 global_properties.segment_tab.prop(bpy.context.scene,row,expand=True)
-
                 tab = global_properties.segment_tab.get(bpy.context.scene)
-
                 if tab == "kinematics":
                     kinematics.draw(box, context)
                 elif tab == "dynamics":
