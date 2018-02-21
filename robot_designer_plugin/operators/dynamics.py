@@ -60,26 +60,6 @@ from .helpers import ModelSelected, SingleSegmentSelected, SingleMassObjectSelec
 from ..properties.globals import global_properties
 
 
-def just_create_the_physics_frame(context, name):
-    armature = context.active_object
-    bpy.ops.object.empty_add(type='PLAIN_AXES')
-    context.active_object.name = name
-    context.active_object.RobotEditor.tag = 'PHYSICS_FRAME'
-    # set new mass object to cursor location
-    cursor = bpy.context.scene.cursor_location
-    context.active_object.location = [cursor.x, cursor.y, cursor.z]
-    obj = context.active_object
-    bpy.context.scene.objects.active = armature  # Restore the active object.
-    return obj
-
-
-def assign_the_physics_frame_to_the_bone(context, frame, bone):
-    armature = context.active_object
-    frame.parent = armature
-    frame.parent_type = 'BONE'
-    frame.parent_bone = bone.name
-
-
 # operator to create physics frame
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
@@ -134,6 +114,25 @@ class CreatePhysical(RDOperator):
             SelectPhysical.run(frameName=frame.name)
 
         return {'FINISHED'}
+
+def assign_the_physics_frame_to_the_bone(context, frame, bone):
+    armature = context.active_object
+    frame.parent = armature
+    frame.parent_type = 'BONE'
+    frame.parent_bone = bone.name
+
+
+def just_create_the_physics_frame(context, name):
+    armature = context.active_object
+    bpy.ops.object.empty_add(type='PLAIN_AXES')
+    context.active_object.name = name
+    context.active_object.RobotEditor.tag = 'PHYSICS_FRAME'
+    # set new mass object to cursor location
+    cursor = bpy.context.scene.cursor_location
+    context.active_object.location = [cursor.x, cursor.y, cursor.z]
+    obj = context.active_object
+    bpy.context.scene.objects.active = armature  # Restore the active object.
+    return obj
 
 
 # operator to select a physics frame

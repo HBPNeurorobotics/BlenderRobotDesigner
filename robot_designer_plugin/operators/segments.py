@@ -51,7 +51,7 @@ from ..core import config, PluginManager, Condition, RDOperator
 
 #from .rigid_bodies import AssignGeometry, SelectGeometry
 from .rigid_bodies import *
-from .helpers import _mat3_to_vec_roll, ModelSelected, SingleSegmentSelected, PoseMode
+from .helpers import _mat3_to_vec_roll, ModelSelected, SingleSegmentSelected, PoseMode, AtLeastOneSegmentSelected, NotEditMode
 
 
 @RDOperator.Preconditions(ModelSelected)
@@ -91,7 +91,6 @@ class SelectSegment(RDOperator):
 
         if self.segment_name:
             model.data.bones.active = model.data.bones[self.segment_name]
-
             model.data.bones.active.select = True
         else:
             model.data.bones.active = None
@@ -228,130 +227,110 @@ class AssignParentSegment(RDOperator):
         return {'FINISHED'}
 
 
-@RDOperator.Preconditions()
+@RDOperator.Preconditions(ModelSelected, AtLeastOneSegmentSelected, NotEditMode)
 @PluginManager.register_class
 class ImportBlenderArmature(RDOperator):
     """
-    :term:`operator` for converting a :term:`armature` into a :term:`model`
-    This operator does NOT currently support import of visuals, collision shapes
-    or kinematic constraints.
-
+    Set :term:`pose` properties and mark all selected bones as known to the robot designer.
     """
     bl_idname = config.OPERATOR_PREFIX + "importnative"
-    bl_label = "Import native blender segment"
+    bl_label = "(Re)import Bones"
 
-    recursive = BoolProperty(name="Proceed recursively?")
-    attach_collision_geometry = BoolProperty(name="Attach collision geometry")
-    attach_visual_geometry = BoolProperty(name="Attach visual geometry")
+    def execute_on_bone(self, bone):
+        self.logger.info("Importing bone %s", bone.name)
+        # Make the UpdateSegments operator consider this bone as if it has not been taken control of yet.
+        # Otherwise UpdateSegments would mess up the bones transform as soon as the first RD related property is changed.
+        # Example:
+        # - have this bone down a bone hierarchy. It happens to be managed by RD already.
+        # - Further down we do bpy.context.active_bone.RobotEditor.Euler.x.value = xyz[0]
+        # - Triggers UpdateSegments
+        # - y, z, etc still filled with garbage.
+        # - UpdateSegments uses garbage to compute and assign new bone transform.
+        bone.RobotEditor.RD_Bone = False
+        parent = bone.parent
+        if parent is not None:
+            m = parent.matrix_local.inverted() * bone.matrix_local
+        else:
+            m = bone.matrix_local
+        euler = m.to_euler()
+        xyz = m.translation
+        bone.RobotEditor.Euler.x.value = xyz[0]
+        bone.RobotEditor.Euler.y.value = xyz[1]
+        bone.RobotEditor.Euler.z.value = xyz[2]
+        bone.RobotEditor.Euler.alpha.value = round(degrees(euler[0]), 0)
+        bone.RobotEditor.Euler.beta.value = round(degrees(euler[1]), 0)
+        bone.RobotEditor.Euler.gamma.value = round(degrees(euler[2]), 0)
+        bone.RobotEditor.RD_Bone = True
+
 
     @RDOperator.OperatorLogger
     def execute(self, context):
-
-        current_mode = bpy.context.object.mode
-        bpy.ops.object.mode_set(mode='EDIT', toggle=False)
-
-        bone = bpy.context.active_bone
-        parent = bpy.context.active_bone.parent
-        children = bpy.context.active_bone.children
         armature = bpy.context.active_object
-        # We rely on the assumption that selecting a bone also selects the parent armature object.
-
-        print ("Attempting to manage", bone.name, "with RD!")
-
-        def allow_connect_to_that_bone_because_vertex_weight(obj):
-          """ There can only be one parent_bone. So in case of multiple VG's we have to decide which one to take."""
-          total_weights = []
-          for vg in obj.vertex_groups:
-            total_weight = 0.
-            for i in range(len(obj.data.vertices)):
-              try:
-                total_weight += vg.weight(i)
-              except RuntimeError:
-                pass
-            total_weights.append((vg.name, total_weight))
-          print(total_weights)
-          bone_with_largest_weight, _ = max(total_weights, key = lambda x: x[1])
-          return bone_with_largest_weight == bone.name
-
-        def allow_connect_to_that_bone(obj):
-            return obj.parent_bone == bone.name or (bone.name in obj.vertex_groups and allow_connect_to_that_bone_because_vertex_weight(obj))
-
-        def stop_vertex_group_from_interfering(obj):
-            if 0:
-                # Delete the vertex maps entirely
-                context.scene.objects.active = obj
-                bpy.ops.object.vertex_group_remove(all=True)
-                context.scene.objects.active = armature
-            else:
-                try:
-                    obj.modifiers[armature.name].use_vertex_groups = False
-                except KeyError:
-                    # This is the normal case actually, i.e. the object has no vertex weighting w.r.t. that bone.
-                    pass
-
-        def duplicate(obj):
-            # https://blender.stackexchange.com/questions/45099/duplicating-a-mesh-object
-            new_obj = obj.copy()
-            new_obj.data = obj.data.copy()
-            new_obj.animation_data_clear()
-            context.scene.objects.link(new_obj)
-            return new_obj
-
-        if self.attach_visual_geometry or self.attach_collision_geometry:
-            for obj in filter(allow_connect_to_that_bone, armature.children):
-                print("Attempt to attach geometry", obj.name, "to", bone.name)
-                stop_vertex_group_from_interfering(obj)
-                if self.attach_visual_geometry and self.attach_collision_geometry:
-                    clone = duplicate(obj)
-                    clone.RobotEditor.tag = 'COLLISION' # Tag determines if attached as collision or visual geometry.
-                    obj.RobotEditor.tag = 'DEFAULT'
-                    SelectGeometry.run(geometry_name = clone.name)
-                    AssignGeometry.run()
-                elif self.attach_visual_geometry:
-                    obj.RobotEditor.tag = 'DEFAULT'
-                else:
-                    obj.RobotEditor.tag = 'COLLISION'
-                # We just use the operators that we already have.
-                # Assign geometry operates on selected items - one bone and one mesh.
-                SelectGeometry.run(geometry_name = obj.name)
-                AssignGeometry.run()
-
-        if parent is not None:
-            m = parent.matrix.inverted() * bone.matrix
-        else:
-            m = bone.matrix
-
-        bpy.ops.object.mode_set(mode=current_mode, toggle=False)
-
-        euler = m.to_euler()
-        xyz = m.translation
-
-        bpy.context.active_bone.RobotEditor.Euler.x.value = xyz[0]
-        bpy.context.active_bone.RobotEditor.Euler.y.value = xyz[1]
-        bpy.context.active_bone.RobotEditor.Euler.z.value = xyz[2]
-
-        print("xyz---")
-        print(xyz[0])
-        print(xyz[1])
-        print(xyz[2])
-
-        bpy.context.active_bone.RobotEditor.Euler.alpha.value = round(degrees(euler[0]), 0)
-        bpy.context.active_bone.RobotEditor.Euler.beta.value = round(degrees(euler[1]), 0)
-        bpy.context.active_bone.RobotEditor.Euler.gamma.value = round(degrees(euler[2]), 0)
-
-        bpy.context.active_bone.RobotEditor.RD_Bone = True
-
-        if self.recursive:
-            for i in [i.name for i in bpy.context.active_bone.children]:
-                SelectSegment.run(segment_name=i)
-                ImportBlenderArmature.run(
-                    recursive=True,
-                    attach_collision_geometry=self.attach_collision_geometry,
-                    attach_visual_geometry=self.attach_visual_geometry)
+        # Done via names because I get crashes if I keep references. Perhaps due to angling pointers inside kept references?
+        selected_bone_names = [ str(b.name) for b in armature.data.bones ]
+        for bname in selected_bone_names:
+            SelectSegment.run(bname) # required by property update callback.
+            self.execute_on_bone(armature.data.bones[bname])
         return {'FINISHED'}
 
-    def invoke(self, context, event):
-        return context.window_manager.invoke_props_dialog(self, width=400)
+
+
+@RDOperator.Preconditions(ModelSelected, AtLeastOneSegmentSelected, NotEditMode)
+@PluginManager.register_class
+class ConvertVertexMapSkinning(RDOperator):
+    """
+    :term:`operator` Operator for converting vertex weight based skinning to
+    use of the bone parent property. Bone parent will be assigned to the
+    bone with the largest total weight. Vertex weighting will be disabled
+    on the mesh.
+    """
+    bl_idname = config.OPERATOR_PREFIX + "convert_vertexmap_skinning"
+    bl_label = "Assign selected bones via vertex maps"
+
+    def allow_connect_to_that_bone_because_vertex_weight(self, bone, obj):
+        """ There can only be one parent_bone. So in case of multiple VG's we have to decide which one to take."""
+        total_weights = []
+        for vg in obj.vertex_groups:
+            total_weight = 0.
+            for i in range(len(obj.data.vertices)):
+                try:
+                    total_weight += vg.weight(i)
+                except RuntimeError:
+                    pass
+            total_weights.append((vg.name, total_weight))
+        bone_with_largest_weight, _ = max(total_weights, key=lambda x: x[1])
+        return bone_with_largest_weight == bone.name
+
+    def allow_connect_to_that_bone(self, bone, obj):
+        return obj.parent_bone == bone.name or (
+        bone.name in obj.vertex_groups and self.allow_connect_to_that_bone_because_vertex_weight(bone, obj))
+
+    def stop_vertex_group_from_interfering(self, armature, obj, context):
+        try:
+            obj.modifiers[armature.name].use_vertex_groups = False
+        except KeyError:
+            # This is the normal case actually, i.e. the object has no vertex weighting w.r.t. that bone.
+            pass
+
+    def execute_on_bone(self, bone, armature, context):
+        meshes_to_connect = [ ch for ch in armature.children if self.allow_connect_to_that_bone(bone, ch) ]
+        for obj in meshes_to_connect:
+            self.logger.debug("Attempt to attach geometry %s to %s", obj.name, bone.name)
+            self.stop_vertex_group_from_interfering(armature, obj, context)
+            # We just use the operators that we already have.
+            # Assign geometry operates on selected items - one bone and one mesh.
+            SelectGeometry.run(geometry_name=obj.name)
+            AssignGeometry.run(attach_collision_geometry=(global_properties.mesh_type=='COLLISION'))
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+        armature = bpy.context.active_object
+        bone_names = [ str(b.name) for b in armature.data.bones if b.select ]
+        for bname in bone_names:
+            SelectSegment.run(bname)  # required by property update callback.
+            self.execute_on_bone(armature.data.bones[bname], armature, context)
+        return {'FINISHED'}
+
 
 
 @RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)
@@ -563,50 +542,43 @@ class UpdateSegments(RDOperator):
         current_mode = bpy.context.object.mode
         self.logger.debug("UpdateSegments: recurse=%s, bone=%s", str(self.recurse), str(self.segment_name))
 
-        # arm = bpy.data.armatures[armatureName]
-
-        # armature_data_ame = bpy.data.objects[self.model_name].data.name # conversion to operator
-        armature_data_ame = context.active_object.data.name
+        armature_data_name = context.active_object.data.name
 
         if self.segment_name:
-            segment_name = bpy.data.armatures[armature_data_ame].bones[self.segment_name].name # Isn't this the identity operation??
+            segment_name = bpy.data.armatures[armature_data_name].bones[self.segment_name].name # Isn't this the identity operation??
         else:
-            segment_name = bpy.data.armatures[armature_data_ame].bones[0].name
+            segment_name = bpy.data.armatures[armature_data_name].bones[0].name
 
         SelectSegment.run(segment_name=self.segment_name)
 
-        if not bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.RD_Bone:
+        if not bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.RD_Bone:
             self.logger.info("Not updated (not a RD segment): %s", segment_name)
             return {'FINISHED'}
 
-        # local variables for updating the constraints
-        joint_axis = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.axis
-        min_rot = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.min
-        max_rot = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.max
-        jointMode = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.jointMode
-        jointValue = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.value
+        bone = bpy.data.armatures[armature_data_name].bones[segment_name]
 
-        matrix, joint_matrix = bpy.data.armatures[armature_data_ame].bones[
-            segment_name].RobotEditor.getTransform()
+        # Transforms as per RD spec.
+        matrix, joint_matrix = bone.RobotEditor.getTransform()
 
         bpy.ops.object.mode_set(mode='EDIT', toggle=False)
 
-        editbone = bpy.data.armatures[armature_data_ame].edit_bones[
-            bpy.data.armatures[armature_data_ame].bones[segment_name].name]
+        editbone = bpy.data.armatures[armature_data_name].edit_bones[
+            bpy.data.armatures[armature_data_name].bones[segment_name].name]
         editbone.use_inherit_rotation = True
 
+        # Express desired matrix in frame of the Armature
         if editbone.parent is not None:
             transform = editbone.parent.matrix.copy()
             matrix = transform * matrix
 
+        # Adjust bone properties to match RD transform specs.
+        # Try to move it around rigidly. Keep length.
         pos = matrix.to_translation()
         axis, roll = _mat3_to_vec_roll(matrix.to_3x3())
-
-        editbone.head = pos
-        editbone.tail = pos + axis
+        length = editbone.length
+        editbone.head = pos # Changes length.
+        editbone.tail = pos + length * axis
         editbone.roll = roll
-
-        editbone.length = 1
 
         bpy.ops.object.mode_set(mode=current_mode, toggle=False)
 
@@ -615,6 +587,13 @@ class UpdateSegments(RDOperator):
         pose_bone = bpy.context.object.pose.bones[segment_name]
         pose_bone.matrix_basis = joint_matrix
 
+        # Local variables for updating the constraints
+        # These refer to the settings pertaining to the RD.
+        joint_axis = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.axis
+        min_rot = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.theta.min
+        max_rot = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.theta.max
+        jointMode = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.jointMode
+        jointValue = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.theta.value
         if jointMode == 'REVOLUTE':
             if 'RobotEditorConstraint' not in pose_bone.constraints:
                 bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
@@ -644,12 +623,13 @@ class UpdateSegments(RDOperator):
                 constraint.max_z = radians(max_rot)
         elif 'RobotEditorConstraint' in pose_bone.constraints:
           pose_bone.constraints.remove(pose_bone.constraints['RobotEditorConstraint'])
+
         # -------------------------------------------------------
         bpy.ops.object.mode_set(mode=current_mode, toggle=False)
 
         if self.recurse:
             children_names = [i.name for i in
-                              bpy.data.armatures[armature_data_ame].bones[
+                              bpy.data.armatures[armature_data_name].bones[
                                   segment_name].children]
             for child_name in children_names:
                 UpdateSegments.run(segment_name=child_name, recurse=self.recurse)

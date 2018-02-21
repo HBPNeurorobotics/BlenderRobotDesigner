@@ -113,13 +113,13 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
     """
 
     if not export_collision:
-        meshes = [obj.name for obj in bpy.data.objects if
+        meshes = [obj.name for obj in context.scene.objects if
                   obj.type == "MESH" and obj.name == name and
                   not obj.RobotEditor.tag == "COLLISION"]
         directory = os.path.join(directory, "meshes", "visual")
 
     else:
-        meshes = [obj.name for obj in bpy.data.objects if
+        meshes = [obj.name for obj in context.scene.objects if
                   obj.type == "MESH" and name == obj.name and
                   obj.RobotEditor.tag == "COLLISION"]
         directory = os.path.join(directory, "meshes", "collisions")
@@ -149,7 +149,12 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
             else:
                 file_path = os.path.join(directory, bpy.data.objects[mesh].RobotEditor.fileName + '.dae')
 
+            hide_flag_backup = bpy.context.scene.objects.active.hide
+            bpy.context.scene.objects.active.hide = False # Blender does not want to export hidden objects.
+
             bpy.ops.wm.collada_export(filepath=file_path, apply_modifiers=True, selected=True, use_texture_copies=True)
+
+            bpy.context.scene.objects.active.hide = hide_flag_backup
 
             # quick fix for dispersed meshes
             # todo: find appropriate solution
@@ -193,8 +198,11 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         Recursively builds a SDF tree object hierarchy for export
 
         :param segment: Reference to a blender bone object
-        :param tree: Reference to a SDF Tree object
+        :param tree: Reference to a SDF Tree object. (Defined in sdf_tree.py)
         """
+
+        operator.logger.info("walk_segments: %s" % str(segment))
+
         child = tree.add()
         trafo, dummy = segment.RobotEditor.getTransform()
         # child.joint.origin.rpy = list_to_string(trafo.to_euler())
@@ -236,13 +244,6 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             revert = -1
         else:
             revert = 1
-        #
-        # if segment.RobotEditor.axis == 'X':
-        #     child.joint.axis.xyz = list_to_string(Vector((1, 0, 0)) * revert)
-        # elif segment.RobotEditor.axis == 'Y':
-        #     child.joint.axis.xyz = list_to_string(Vector((0, 1, 0)) * revert)
-        # elif segment.RobotEditor.axis == 'Z':
-        #     child.joint.axis.xyz = list_to_string(Vector((0, 0, 1)) * revert)
 
         if segment.RobotEditor.axis == 'X':
             joint_axis_xyz = list_to_string(Vector((1, 0, 0)) * revert)
@@ -253,7 +254,12 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
         child.joint.axis[0].xyz.append(joint_axis_xyz)
 
-        child.joint.axis[0].use_parent_model_frame.append(True)
+        # Settings the following flag is probably wrong. Why? Because RD derives the pose of the
+        # child bone from the joint angle and axis w.r.t. the child edit pose. Hence Blenders/RD's
+        # behaviour is consistent with Gazebo when this option is turned off.
+
+        #child.joint.axis[0].use_parent_model_frame.append(True)
+
         operator.logger.info(" joint axis xyz'%s'" % joint_axis_xyz)
 
         print('Parent link:', child.joint.parent)
@@ -263,24 +269,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         print('Axis limit:', child.joint.axis[0].limit)
         print('Axis xyz:', child.joint.axis[0].xyz)
 
-        #
-        # if segment.parent is None:
-        #     print("Debug: parent bone is none", segment,
-        #           segment.RobotEditor.jointMode)
-        #     child.joint.type = 'fixed'
-        # else:
-        #     if segment.RobotEditor.jointMode == 'REVOLUTE':
-        #         child.joint.limit.lower = radians(
-        #             segment.RobotEditor.theta.min)
-        #         child.joint.limit.upper = radians(
-        #             segment.RobotEditor.theta.max)
-        #         child.joint.type = 'revolute'
-        #     if segment.RobotEditor.jointMode == 'PRISMATIC':
-        #         child.joint.limit.lower = segment.RobotEditor.d.min
-        #         child.joint.limit.upper = segment.RobotEditor.d.max
-        #         child.joint.type = 'prismatic'
-        #     if segment.RobotEditor.jointMode == 'FIXED':
-        #         child.joint.type = 'fixed'
+
         if segment.parent is None:
             #print("Info: Root joint has no parent", segment, segment.RobotEditor.jointMode)
             child.joint.type = 'fixed'
@@ -308,7 +297,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
         # Add properties
         armature = context.active_object
-        connected_meshes = [mesh.name for mesh in bpy.data.objects if
+        connected_meshes = [mesh.name for mesh in context.scene.objects if
                             mesh.type == 'MESH' and mesh.parent_bone == segment.name and mesh.parent == armature]
         # if len(connected_meshes) > 0:
         #     child.link.name = connected_meshes[0]
@@ -372,7 +361,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         # # todo: pick up the real values from Physics Frame?
         #
         frame_names = [
-            frame.name for frame in bpy.data.objects if
+            frame.name for frame in context.scene.objects if
             frame.RobotEditor.tag == 'PHYSICS_FRAME' and frame.parent_bone == segment.name]
 
         # If no frame is connected create a default one. This is required for Gazebo!
@@ -444,7 +433,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     #     root.control_plugin = root.add_joint_control_plugin()
 
     # add root geometries to root.link
-    muscles = get_muscles(robot_name)
+    muscles = get_muscles(robot_name, context)
     if muscles:
         # add muscles path tag
         muscle_uri = _uri_for_meshes_and_muscles(

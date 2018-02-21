@@ -98,9 +98,9 @@ class AssignGeometry(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "assign_geometry"
     bl_label = "Assign selected geometry to active segment"
 
-    @classmethod
-    def run(cls):
-        return super().run(**cls.pass_keywords())
+    attach_collision_geometry = BoolProperty(name="Assign as Collision Mesh",
+                                             description="Adds a collision tag to the mesh",
+                                             default=False)
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
@@ -129,11 +129,14 @@ class AssignGeometry(RDOperator):
             new_name = maybe_remove_prefix(new_name, 'VIS_')
         if len(new_name)>len('COL_'):
             new_name = maybe_remove_prefix(new_name, 'COL_')
-        if global_properties.assign_collision.get(context.scene) == True or obj.RobotEditor.tag == 'COLLISION':
+
+        print ("Attaching ", "COL" if self.attach_collision_geometry else "VIS", "to ", obj.name)
+
+        if self.attach_collision_geometry:
             obj.RobotEditor.tag = 'COLLISION'
             new_name = "COL_" + new_name
         else:
-            obj.RobotEditor.tag == 'DEFAULT'
+            obj.RobotEditor.tag = 'DEFAULT'
             new_name = "VIS_" + new_name
         obj.name = new_name
         obj.RobotEditor.fileName = new_name
@@ -141,9 +144,11 @@ class AssignGeometry(RDOperator):
         global_properties.mesh_name.set(context.scene, obj.name)
         # This is just a boolean variable which is reset here to False. It helps
         # determine whether we want a collision mesh or a visual one.
-        global_properties.assign_collision.set(context.scene, False)
 
         return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self, width=400)
 
 
 @RDOperator.Preconditions(ModelSelected)
@@ -151,10 +156,6 @@ class AssignGeometry(RDOperator):
 class RenameAllGeometries(RDOperator):
     """
     :ref:`operator` for renaming geometries using their parented segment's name.
-
-
-
-
     """
     bl_idname = config.OPERATOR_PREFIX + "rename_geometries"
     bl_label = "Rename geometries after segments"
@@ -166,12 +167,22 @@ class RenameAllGeometries(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
+        import collections
         mesh_name = global_properties.mesh_name.get(context.scene)
         current_mesh = bpy.data.objects[mesh_name]
-        for i in bpy.data.objects:
+        armature = context.active_object
+        # Blender automatically renames duplicate mesh names. However this apparently comes at a later stage.
+        # Too late to make the filename member unique. Therefore let's keep track of duplicate names by ourselves.
+        duplication_count = collections.defaultdict(int)
+        for i in armature.children:
             if i.parent_bone != '' and i.type == 'MESH':
-                i.name = i.name[:4] + i.parent_bone
-                i.RobotEditor.fileName = i.name
+                new_name = i.name[:4] + i.parent_bone
+                num = duplication_count[new_name]
+                duplication_count[new_name] = num+1
+                if num > 0:
+                    new_name += '_%i' % num
+                i.name = new_name
+                i.RobotEditor.fileName = new_name
 
         global_properties.mesh_name.set(context.scene, current_mesh.name[:4] + current_mesh.parent_bone )
 
@@ -280,7 +291,7 @@ class SelectAllGeometries(RDOperator):
     @RDOperator.Postconditions(ObjectMode)
     def execute(self, context):
         mesh_type =  global_properties.mesh_type.get(context.scene)
-        meshes = {obj.name for obj in bpy.data.objects if
+        meshes = {obj.name for obj in context.scene.objects if
                   not obj.parent_bone is None and
                   obj.type == 'MESH' }
         bpy.ops.object.mode_set(mode='OBJECT')
@@ -334,9 +345,10 @@ class ReduceAllGeometry(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleMeshSelected)
     def execute(self, context):
+        armature = context.active_object
 
         hide_geometry = global_properties.display_mesh_selection.get(context.scene)
-        geometry_names = [obj.name for obj in bpy.data.objects if
+        geometry_names = [obj.name for obj in armature.children if
                          not obj.parent_bone is None and
                          obj.type == 'MESH']
 

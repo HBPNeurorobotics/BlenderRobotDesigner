@@ -42,7 +42,7 @@ import bpy
 from .model import check_armature
 
 from . import menus
-from ..operators import rigid_bodies, soft_bodies, collision, mesh_generation
+from ..operators import rigid_bodies, soft_bodies, collision, mesh_generation, segments
 from .helpers import drawInfoBox, info_list, getSingleSegment, ConnectGeometryBox, DisconnectGeometryBox, \
     CollisionBox, GeometrySettingsBox, PolygonReductionBox, MeshGenerationBox, create_segment_selector, DeformableBox
 from ..core.logfile import LogFunction
@@ -123,8 +123,8 @@ def draw(layout, context):
         #create_geometry_selection(column, context)
 
         row = box.column(align=True)
-        global_properties.assign_collision.prop(context.scene, row)
         rigid_bodies.AssignGeometry.place_button(row, infoBox=infoBox)
+        segments.ConvertVertexMapSkinning.place_button(row, infoBox=infoBox)
 
         box.separator()
         infoBox.draw_info()

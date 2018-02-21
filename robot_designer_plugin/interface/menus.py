@@ -84,7 +84,7 @@ class SegmentsGeometriesMenu(bpy.types.Menu, BaseMenu):
 
         current_model = context.active_object
         segment_names = [bone.name for bone in current_model.data.bones]
-        meshes = {obj.parent_bone: obj.name for obj in bpy.data.objects if
+        meshes = {obj.parent_bone: obj.name for obj in context.scene.objects if
                   obj.parent_bone is not None and
                   obj.type == 'MESH' and
                   obj.RobotEditor.tag == mesh_type}
@@ -162,16 +162,16 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
         layout = self.layout
         type = global_properties.display_mesh_selection.get(context.scene)
         if type == 'all':
-            obj_names = [obj.name for obj in bpy.data.objects if
+            obj_names = [obj.name for obj in context.scene.objects if
                          obj.type == self.blender_type and
                          not obj.hide]
         elif type == 'collision':
-            obj_names = [obj.name for obj in bpy.data.objects if
+            obj_names = [obj.name for obj in context.scene.objects if
                          obj.type == self.blender_type and
                          obj.RobotEditor.tag == 'COLLISION' and
                          not obj.hide]
         elif type == 'visual':
-            obj_names = [obj.name for obj in bpy.data.objects if
+            obj_names = [obj.name for obj in context.scene.objects if
                          obj.type == self.blender_type and
                          obj.RobotEditor.tag == 'DEFAULT' and
                          not obj.hide]
@@ -331,7 +331,7 @@ class ModelMenu(bpy.types.Menu, BaseMenu):
     @RDOperator.OperatorLogger
     def draw(self, context):
         layout = self.layout
-        armatures = [obj for obj in bpy.data.objects if obj.type == 'ARMATURE']
+        armatures = [obj for obj in context.scene.objects if obj.type == 'ARMATURE']
 
         layout.operator(model.CreateNewModel.bl_idname, text="New...")
 
@@ -354,7 +354,7 @@ class JoinModelMenu(bpy.types.Menu, BaseMenu):
         layout = self.layout
 
         current_model_name = context.active_object.data.name
-        armatures = [obj for obj in bpy.data.objects if obj.type == 'ARMATURE' and not obj.name == current_model_name]
+        armatures = [obj for obj in context.scene.objects if obj.type == 'ARMATURE' and not obj.name == current_model_name]
 
         for arm in armatures:
             text = arm.name
@@ -374,7 +374,7 @@ class CoordinateFrameMenu(bpy.types.Menu, BaseMenu):
     @RDOperator.OperatorLogger
     def draw(self, context):
         layout = self.layout
-        geometry_names = [obj.name for obj in bpy.data.objects if
+        geometry_names = [obj.name for obj in context.scene.objects if
                           obj.type in ('MESH', 'EMPTY') and
                           obj.parent is None and
                           obj.parent_bone == '']
@@ -399,7 +399,7 @@ class MuscleMenu(bpy.types.Menu, BaseMenu):
         active_model = global_properties.model_name.get(context.scene)
         hide_muscle = global_properties.display_muscle_selection.get(context.scene)
 
-        for muscle in [obj.name for obj in bpy.data.objects
+        for muscle in [obj.name for obj in context.scene.objects
                        if bpy.data.objects[obj.name].RobotEditor.muscles.robotName == active_model
                         and hide_muscle == 'all'
                         or hide_muscle.lower() == bpy.data.objects[obj.name].RobotEditor.muscles.robotName.lower()]:

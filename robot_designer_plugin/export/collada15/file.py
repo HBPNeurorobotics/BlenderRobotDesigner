@@ -189,7 +189,7 @@ class RobotEditor_exportCollada(RDOperator):
                                   apply_modifiers=True,
                                   filter_folder=True)
 
-        fix.fixCollada(self.filepath, self.filepath)
+        fix.fixCollada(self.filepath, self.filepath, context)
         handler = collada.COLLADA()
         handler.import14(self.filepath)
 
@@ -202,7 +202,7 @@ class RobotEditor_exportCollada(RDOperator):
 
         handler.attach(tree)
 
-        massFrames = [obj for obj in bpy.data.objects if
+        massFrames = [obj for obj in context.scene.objects if
                       obj.RobotEditor.tag == 'PHYSICS_FRAME' and obj.parent_bone is not '']
         for frame in massFrames:
             # transform = frame.parent.data.bones[frame.parent_bone].matrix_local.inverted() * frame.matrix_local
@@ -217,7 +217,7 @@ class RobotEditor_exportCollada(RDOperator):
 
             collisionModels = []
             collisionModelTransformations = {}
-            for model in [i for i in bpy.data.objects if i.parent == frame]:
+            for model in [i for i in context.scene.objects if i.parent == frame]:
                 modelName = model.data.name.replace('.', '_') + '-mesh'
                 collisionModels.append(modelName)
                 # matrix = model.parent.data.bones[model.parent_bone].matrix_local.inverted() * model.matrix_local

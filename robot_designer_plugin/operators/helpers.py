@@ -127,6 +127,21 @@ class SingleSegmentSelected(Condition):
             return False, "No Object select"
 
 
+class AtLeastOneSegmentSelected(Condition):
+    @staticmethod
+    def check():
+        """
+        :ref:`condition` that assures that at least one bone of the active object is selected
+
+        :return: True if the condition is met, else false. String with error message.
+        """
+        if bpy.context.active_bone:
+            selected_segments = [i for i in bpy.context.active_object.data.bones if i.select]
+            return len(selected_segments) >= 1, "At least one segment must be selected"
+        else:
+            return False, "No Object select"
+
+
 class SingleMeshSelected(Condition):
     @staticmethod
     def check():
@@ -215,7 +230,7 @@ class SelectObjectBase(RDOperator):
 
         arm = context.active_object
 
-        for obj in bpy.data.objects:
+        for obj in context.scene.objects:
             obj.select = False
 
         mesh.select = True

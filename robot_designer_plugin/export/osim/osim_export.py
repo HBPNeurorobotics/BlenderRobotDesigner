@@ -39,14 +39,14 @@ from ...core import config, PluginManager, RDOperator
 from ...properties.globals import global_properties
 
 
-def get_muscles(active_model_name):
+def get_muscles(active_model_name, context):
   """
   Return objects that represent muscles. And only those associated with the given model.
 
   :param active_model_name: The name of the robot for which to find associated muscles.
   :return: A list of associated objects that represent muscles.
   """
-  return list(filter(lambda obj: obj.RobotEditor.muscles.robotName == active_model_name, bpy.data.objects))
+  return list(filter(lambda obj: obj.RobotEditor.muscles.robotName == active_model_name, context.scene.objects))
 
 
 class OsimExporter(object):
@@ -178,7 +178,7 @@ def create_osim(operator: RDOperator, context,
   """
   # Might be set at another place. Therefore need to clear it.
 
-  muscles = get_muscles(context.active_object.name)
+  muscles = get_muscles(context.active_object.name, context)
   if muscles:
     pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(None)
     exporter = OsimExporter()

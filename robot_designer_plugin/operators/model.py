@@ -120,7 +120,7 @@ class RebuildModel(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         from . import rigid_bodies, segments, dynamics
-        mesh_names = [obj.name for obj in bpy.data.objects if
+        mesh_names = [obj.name for obj in context.scene.objects if
                       obj.type == 'MESH' and obj.parent_bone]
         # first, meshes
         # build dictionary which stores the mapping of meshes to bones
@@ -139,7 +139,7 @@ class RebuildModel(RDOperator):
             rigid_bodies.AssignGeometry.run()
 
         # then markers
-        marker_names = [obj.name for obj in bpy.data.objects if
+        marker_names = [obj.name for obj in context.scene.objects if
                         obj.RobotEditor.tag == 'MARKER' and obj.parent_bone]
 
         marker_bones_dictionary = dict()
@@ -155,7 +155,7 @@ class RebuildModel(RDOperator):
         #     designer.assignmarker()
 
         # finally, physic frames
-        ph_names = [obj.name for obj in bpy.data.objects if
+        ph_names = [obj.name for obj in context.scene.objects if
                     obj.RobotEditor.tag == 'PHYSICS_FRAME' and obj.parent_bone]
 
         ph_bones_dictionary = dict()
@@ -195,7 +195,7 @@ class SelectModel(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         from . import segments
-        for obj in bpy.data.objects:
+        for obj in context.scene.objects:
             obj.select = False
 
         context.scene.objects.active = bpy.data.objects[self.model_name]
