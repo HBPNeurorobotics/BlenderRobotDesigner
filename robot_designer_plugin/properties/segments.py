@@ -264,6 +264,18 @@ class RDSegment(bpy.types.PropertyGroup):
     Euler = PointerProperty(type=RDEulerAnglesSegment)  # Frame relative to parent
     DH = PointerProperty(type=RDDenavitHartenbergSegment)  # Dito but in a different way. Only one, either DH or Euler is used.
 
-# Resolving circular dependencies
 
-
+def getTransformFromBlender(bone):
+    # In whatever mode we currently are, get me a normal bpy.types.Bone.
+    #bone = bpy.context.active_object.data.bones[bone.name]
+    # On the other hand ...
+    assert isinstance(bone, bpy.types.Bone)
+    parent = bone.parent
+    if parent is not None:
+      pose_wrt_parent = parent.matrix_local.inverted() * bone.matrix_local
+    else:
+      pose_wrt_parent = bone.matrix_local
+    # Now, compute the joint Trafo. RD Applies the joint trafo to the pose bone.
+    # What is computed here as pose_wrt_parent refers to the edit bones.
+    _, joint_trafo = bone.RobotEditor.getTransform()
+    return pose_wrt_parent, joint_trafo
