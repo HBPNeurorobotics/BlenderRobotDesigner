@@ -74,14 +74,30 @@ def draw(layout, context):
     row.label("Show:")
     global_properties.display_mesh_selection.prop(context.scene, row, expand=True)
 
+    if 1:
+        row = box.row()
+        column = row.column(align=True)
+        column.label("Segment Selector")
+        # Start of segment menu code.
+        single_segment = getSingleSegment(context)
+        column.menu(menus.SegmentsGeometriesMenu.bl_idname,
+                    text=single_segment.name if single_segment else "")
+        row2 = column.row(align=True)
+        global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
+
+        global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
+                                                   icon='VIEWZOOM',
+                                                   text='')
+        # End of segment menu code.
+        column = row.column(align=True)
+        column.label("Mesh Selector")
+        menus.GeometriesMenu.putMenu(column, context)
+
+
     box = GeometrySettingsBox.get(layout, context, "Geometry Properties", icon="SCRIPTWIN")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
-        column = row.column(align=True)
-        menus.GeometriesMenu.putMenu(column, context)
-        # create_geometry_selection(column, context)
-
         column = row.column(align=True)
         rigid_bodies.RenameAllGeometries.place_button(column, infoBox=infoBox)
         rigid_bodies.SetGeometryActive.place_button(column, infoBox=infoBox)
@@ -90,7 +106,7 @@ def draw(layout, context):
         selected_objects = [i for i in context.selected_objects if i.name != context.active_object.name]
         if len(selected_objects):
             obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
-            box.prop(obj, "scale", slider=False, text="Scale")
+            box.prop(obj, "scale", slider=False, text="Scale (%s)" % obj.name)
             box.prop(selected_objects[0].RobotEditor, 'fileName')
 
         box.separator()
@@ -101,26 +117,23 @@ def draw(layout, context):
     if box:
         infoBox = InfoBox(box)
         row = box.row()
-        column = row.column(align=True)
 
+        # column = row.column(align=True)
+        # single_segment = getSingleSegment(context)
+        #
+        # column.menu(menus.SegmentsGeometriesMenu.bl_idname,
+        #             text=single_segment.name if single_segment else "Select Segment")
+        # row2 = column.row(align=True)
+        # global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
+        #
+        # row2.separator()
+        #
+        # global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
+        #                  icon='VIEWZOOM',
+        #                  text='')
+        # column = row.column(align=True)
+        # menus.GeometriesMenu.putMenu(column, context)
 
-        single_segment = getSingleSegment(context)
-
-        column.menu(menus.SegmentsGeometriesMenu.bl_idname,
-                    text=single_segment.name if single_segment else "Select Segment")
-        row2 = column.row(align=True)
-
-        global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
-        row2.separator()
-
-        global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
-                         icon='VIEWZOOM',
-                         text='')
-
-
-        column = row.column(align=True)
-        menus.GeometriesMenu.putMenu(column, context)
-        #create_geometry_selection(column, context)
 
         row = box.column(align=True)
         rigid_bodies.AssignGeometry.place_button(row, infoBox=infoBox)
@@ -134,8 +147,9 @@ def draw(layout, context):
     if box:
         infoBox = InfoBox(box)
         row = box.row()
-        column = row.column(align=True)
-        menus.GeometriesMenu.putMenu(column, context)
+
+        # column = row.column(align=True)
+        # menus.GeometriesMenu.putMenu(column, context)
         #create_geometry_selection(column, context)
 
         column = row.column(align=True)
@@ -151,9 +165,9 @@ def draw(layout, context):
         if box:
             infoBox = InfoBox(box)
             row = box.row()
-            column = row.column(align=True)
 
-            menus.GeometriesMenu.putMenu(column, context)
+            # column = row.column(align=True)
+            # menus.GeometriesMenu.putMenu(column, context)
             #create_geometry_selection(column, context)
             column = row.column(align=True)
             collision.GenerateAllCollisionMeshes.place_button(column, infoBox=infoBox)
@@ -168,8 +182,8 @@ def draw(layout, context):
     if box:
         infoBox = InfoBox(box)
         row = box.row()
-        column = row.column(align=True)
-        create_segment_selector(column, context)
+        # column = row.column(align=True)
+        # create_segment_selector(column, context)
         column = row.column(align=True)
         mesh_generation.GenerateMeshFromSegment.place_button(column, infoBox=infoBox)
         mesh_generation.GenerateMeshFromAllSegment.place_button(column,infoBox=infoBox)
@@ -181,8 +195,8 @@ def draw(layout, context):
     if box:
         infoBox = InfoBox(box)
         row = box.row()
-        column = row.column(align=True)
-        menus.GeometriesMenu.putMenu(column, context)
+        # column = row.column(align=True)
+        # menus.GeometriesMenu.putMenu(column, context)
         column = row.column(align=True)
         soft_bodies.ConvertSoftBodies.place_button(column, infoBox=infoBox)
         box.separator()
@@ -194,8 +208,8 @@ def draw(layout, context):
         infoBox = InfoBox(box)
         row = box.row()
         row.alignment = 'EXPAND'
-        column = row.column(align=True)
-        menus.GeometriesMenu.putMenu(column, context)
+        # column = row.column(align=True)
+        # menus.GeometriesMenu.putMenu(column, context)
         column = row.column(align=True)
 
         obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
