@@ -272,9 +272,9 @@ class RDGlobals(PropertyGroupHandlerBase):
 
         self.gazebo_tags = PropertyHandler(StringProperty(name="Gazebo tags", default=""))
 
-        self.world_s_name = PropertyHandler(StringProperty(name="Name"))
+        self.world_s_name = PropertyHandler(StringProperty(name="World Name"))
         self.gravity = PropertyHandler(FloatProperty(name="Gravity", default=9.8, min=0, max=9.8))
-        self.light_s_name = PropertyHandler(StringProperty(name="Name"))
+        self.light_s_name = PropertyHandler(StringProperty(name="Light Name"))
         self.cast_shadows = PropertyHandler(BoolProperty(name="Cast Shadows", default=False))
         self.difuse = PropertyHandler(IntVectorProperty(name="Difuse", default=(1,1,1), min=0, max=255))
         self.specular = PropertyHandler(FloatVectorProperty(name="Specular", default=(0.1,0.1,0.1), min=0, max=255))
