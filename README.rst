@@ -137,7 +137,8 @@ The Neurorobotics Platform [#]_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The Neurorobotics sub-project will develop the Neurorobotics Platform
-which will offer scientists and technology developers a software and
+<http://neurorobotics.net>`__ which will 
+offer scientists and technology developers a software and
 hardware infrastructure allowing them to connect pre-validated brain
 models to detailed simulations of robot bodies and environments and to
 use the resulting neurorobotic systems in in silico experiments and
@@ -290,7 +291,9 @@ Planned features
 
 One of the key aspects of the ongoing development is data persistence,
 that is, the ability to store robot models in different file formats and
-different storage mechanisms. \* Human Brain Project Collaboratory Upload: 
+different storage mechanisms. 
+
+Human Brain Project Collaboratory Upload: 
 The zipped Robot model package can be directly uploaded to the 
 Neurorobotics platform to be used in the web-based simulator. As well 
 a robot model can be downloaded from a collaboratory to be modified and adapted
