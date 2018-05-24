@@ -65,7 +65,7 @@ def draw(layout, context):
     box = layout.box()
     row = box.row(align=True)
     column = row.column(align=True)
-    column.label("Sensor type:")
+    column.label("Show:")
     column = row.column(align=True)
     row = column.row(align=True)
     global_properties.sensor_type.prop(context.scene, row, expand=True)
@@ -87,7 +87,7 @@ def draw(layout, context):
 
     sensor_type = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotEditor.tag
 
-    box = AttachSensorBox.get(sensorbox, context, "Attach/Detach", icon="LINKED")
+    box = AttachSensorBox.get(layout, context, "Attach/Detach", icon="LINKED")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
@@ -130,7 +130,6 @@ def draw(layout, context):
         if sensor:
 
             if sensor_type == "CAMERA_SENSOR":
-                if sensor.RobotEditor.tag == 'CAMERA_SENSOR':
                     column = row.column(align=True)
                     column.prop(sensor.data, 'angle_x', text="Horizontal field of view")
                     column = row.column(align=True)
@@ -147,49 +146,25 @@ def draw(layout, context):
                     column.prop(sensor.data, 'clip_end')
                     row = box.row()
                     row.prop(sensor.RobotEditor.camera, 'format', text="Format")
-                else:
-                    infoBox.add_message('Selected object is no camera sensor')
-                    if sensor.type == 'CAMERA':
-                        sensors.ConvertCameraToSensor.place_button(row, "Convert to camera sensor",
-                                                                   infoBox).sensor_type = "CAMERA_SENSOR"
 
-            # add more sensors here:
-            # elif sensor_type == " xxxx"
-                    # show properties
             elif sensor_type == "CONTACT_SENSOR":
-                if sensor.RobotEditor.tag == 'CONTACT_SENSOR':
                     column = row.column(align=True)
                     column.prop(bpy.context.active_object.RobotEditor.contactSensor, 'collision', text='collision')
                     column.prop(bpy.context.active_object.RobotEditor.contactSensor, 'topic', text='topic')
-                else:
-                    infoBox.add_message('Selected object is no camera sensor')
-                    if sensor.type == 'CAMERA':
-                        # sensors.ConvertCameraToSensor.place_button(row,"Convert to laser scanner sensor",infoBox).sensor_type = "LASER_SENSOR"
-                        pass
+
 
             elif sensor_type == "FORCE_TORQUE_SENSOR":
                 if sensor.RobotEditor.tag == 'FORCE_TORQUE_SENSOR':
                     column = row.column(align=True)
                     column.prop(bpy.context.active_object.RobotEditor.forceTorqueSensor, 'frame', text='frame')
                     column.prop(bpy.context.active_object.RobotEditor.forceTorqueSensor, 'measure_direction', text='measure direction')
-                else:
-                    infoBox.add_message('Selected object is no camera sensor')
-                    if sensor.type == 'CAMERA':
-                        # sensors.ConvertCameraToSensor.place_button(row,"Convert to laser scanner sensor",infoBox).sensor_type = "LASER_SENSOR"
-                        pass
 
             elif sensor_type == "DEPTH_CAMERA_SENSOR":
                 if sensor.RobotEditor.tag == 'DEPTH_CAMERA_SENSOR':
                     column = row.column(align=True)
                     column.prop(bpy.context.active_object.RobotEditor.depthCameraSensor, 'output', text='output')
-                else:
-                    infoBox.add_message('Selected object is no camera sensor')
-                    if sensor.type == 'CAMERA':
-                        # sensors.ConvertCameraToSensor.place_button(row,"Convert to laser scanner sensor",infoBox).sensor_type = "LASER_SENSOR"
-                        pass
 
             elif sensor_type == "ALTIMETER_SENSOR":
-                if sensor.RobotEditor.tag == 'ALTIMETER_SENSOR':
                     box.label(text="Vertical Position")
                     box1 = box.box()
                     box1.label(text="Noise")
@@ -208,14 +183,9 @@ def draw(layout, context):
                     box2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvbias_mean', text='bias_mean')
                     box2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvbias_stddev', text='bias_stddev')
                     box2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvprecision', text='precision')
-                else:
-                    infoBox.add_message('Selected object is no camera sensor')
-                    if sensor.type == 'CAMERA':
-                        # sensors.ConvertCameraToSensor.place_button(row,"Convert to laser scanner sensor",infoBox).sensor_type = "LASER_SENSOR"
-                        pass
+
 
             elif sensor_type == "IMU_SENSOR":
-                if sensor.RobotEditor.tag == 'IMU_SENSOR':
                     box.label(text="orientation_reference_frame")
                     box.prop(bpy.context.active_object.RobotEditor.imuSensor, 'localization', text='localization')
                     box.prop(bpy.context.active_object.RobotEditor.imuSensor, 'custom_rpy', text='custom_rpy')
@@ -275,24 +245,17 @@ def draw(layout, context):
                     box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'lazbias_stddev', text='bias_stddev')
                     box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'lazprecision', text='precision')
 
-                else:
-                    infoBox.add_message('Selected object is no camera sensor')
-                    if sensor.type == 'CAMERA':
-                        # sensors.ConvertCameraToSensor.place_button(row,"Convert to laser scanner sensor",infoBox).sensor_type = "LASER_SENSOR"
-                        pass
-
             elif sensor_type == "LASER_SENSOR":
-                if sensor.RobotEditor.tag == 'LASER_SENSOR':
                     column = row.column(align=True)
                     column.prop(bpy.context.active_object.RobotEditor.contactSensor, 'collision', text='Collision')
-                else:
-                    infoBox.add_message('Selected object is no camera sensor')
-                    if sensor.type == 'CAMERA':
-                        # sensors.ConvertCameraToSensor.place_button(row,"Convert to laser scanner sensor",infoBox).sensor_type = "LASER_SENSOR"
-                        pass
-        else:
-            infoBox.add_message('No sensor (or more than one) selected')
 
+            else:
+                infoBox.add_message('No sensor (or more than one) selected')
+                # sensors.ConvertCameraToSensor.place_button(row,"Convert to laser scanner sensor",infoBox).sensor_type = "LASER_SENSOR"
+
+                if sensor.type == 'CAMERA':
+                    sensors.ConvertCameraToSensor.place_button(row, "Convert to camera sensor",
+                                               infoBox).sensor_type = "CAMERA_SENSOR"
         row = box.row()
         column = row.column(align=True)
         infoBox.draw_info()

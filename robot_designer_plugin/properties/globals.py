@@ -233,13 +233,13 @@ class RDGlobals(PropertyGroupHandlerBase):
         ))
 
         self.sensor_type = PropertyHandler(EnumProperty(
-            items=[('CAMERA_SENSOR','Cameras', 'Edit camera sensors'),
-                   ('LASER_SENSOR', 'Laser scanners', 'Edit laser scanners'),
-                   ('CONTACT_SENSOR', 'Contact Sensors', 'Edit contact sensors'),
-                   ('FORCE_TORQUE_SENSOR', 'Force Torque Sensors', 'Edit force torque sensors'),
-                   ('DEPTH_CAMERA_SENSOR', 'Depth Camera Sensors', 'Edit depth camera sensors'),
-                   ('ALTIMETER_SENSOR', 'Altimeter Sensors', 'Edit altimeter sensors'),
-                   ('IMU_SENSOR', 'IMU Sensors', 'Edit IMU sensors')]
+            items=[('CAMERA_SENSOR','Camera', 'Edit camera sensors'),
+                   ('LASER_SENSOR', 'Laser', 'Edit laser scanners'),
+                   ('CONTACT_SENSOR', 'Contact', 'Edit contact sensors'),
+                   ('FORCE_TORQUE_SENSOR', 'Force Torque', 'Edit force torque sensors'),
+                   ('DEPTH_CAMERA_SENSOR', 'Depth Camera', 'Edit depth camera sensors'),
+                   ('ALTIMETER_SENSOR', 'Altimeter', 'Edit altimeter sensors'),
+                   ('IMU_SENSOR', 'IMU', 'Edit IMU sensors')]
                     # ('POSITION', 'Position sensors', 'Edit position sensors')]
         ))
 
