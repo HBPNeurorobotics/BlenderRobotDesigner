@@ -136,7 +136,7 @@ funding agencies, industry and partners from outside the European Union.
 The Neurorobotics Platform [#]_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Neurorobotics sub-project will develop the Neurorobotics Platform
+The Neurorobotics sub-project will develop the `Neurorobotics Platform
 <http://neurorobotics.net>`__ which will 
 offer scientists and technology developers a software and
 hardware infrastructure allowing them to connect pre-validated brain
