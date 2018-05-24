@@ -234,12 +234,12 @@ class GeometriesMenu(ConnectedObjectsMenu):
     operator = rigid_bodies.SelectGeometry
 
 @PluginManager.register_class
-class CameraSensorMenu(ConnectedObjectsMenu):
+class SensorMenu(ConnectedObjectsMenu):
     """
-    :ref:`menu` for selecting geometries while displaying connections to robot segments in the scene.
+    :ref:`menu` for selecting sensors and their connection to robot segments.
     """
-    bl_idname = OPERATOR_PREFIX + "camera_sensor_menu"
-    bl_label = "Select Camera Sensor"
+    bl_idname = OPERATOR_PREFIX + "sensor_menu"
+    bl_label = "Select Sensor"
 
     obj_tag = global_properties.sensor_type # can be set to scene property
     show_connected = global_properties.list_meshes # set to scene property

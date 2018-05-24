@@ -88,7 +88,7 @@ class RDGlobals(PropertyGroupHandlerBase):
 
     @staticmethod
     def display_physics(self, context):
-        for physics in [physics for physics in context.scene.objects if physics.RobotEditor.tag == 'PHYSICS_FRAME']:
+        for physics in [physics for physics in bpy.data.objects if physics.RobotEditor.tag == 'PHYSICS_FRAME']:
             if self.display_physics_selection == True:
                 physics.hide = False
             else:
@@ -101,17 +101,7 @@ class RDGlobals(PropertyGroupHandlerBase):
 
     @staticmethod
     def update_geometry_name(self, context):
-        """
-          On setting of the mesh_name, this function is invoked. It does two things:
-          Deselect every object which is not the active object.
-
-          Select the object whose name was set in mesh_name.
-
-          The rationale behind this was probably to allow for selection of a mesh
-          while the active_object of the context keeps pointing to the armature!
-        """
-
-        print("Updated Mesh name to ", global_properties.mesh_name.get(context.scene))
+        print("Update Mesh name")
         for i in [i for i in bpy.context.selected_objects if i.name != context.active_object.name]:
             i.select = False
         try:
@@ -127,7 +117,7 @@ class RDGlobals(PropertyGroupHandlerBase):
         """
 
         hide_geometry = global_properties.display_mesh_selection.get(context.scene)
-        geometry_name = [obj.name for obj in context.scene.objects if
+        geometry_name = [obj.name for obj in bpy.data.objects if
                      not obj.parent_bone is None and
                      obj.type == 'MESH']
 
@@ -154,7 +144,7 @@ class RDGlobals(PropertyGroupHandlerBase):
         hide_muscles = global_properties.display_muscle_selection.get(context.scene)
 
 
-        muscle_names = [obj.name for obj in context.scene.objects if
+        muscle_names = [obj.name for obj in bpy.data.objects if
          bpy.data.objects[obj.name].RobotEditor.muscles.robotName != '']
 
         for muscle in muscle_names:
@@ -182,7 +172,7 @@ class RDGlobals(PropertyGroupHandlerBase):
         updates the robot name for every assigned muscle
         """
         if self.old_name != '':
-            muscles = [obj for obj in context.scene.objects if obj.RobotEditor.muscles.robotName == self.old_name]
+            muscles = [obj for obj in bpy.data.objects if obj.RobotEditor.muscles.robotName == self.old_name]
 
             for muscle in muscles:
                 muscle.RobotEditor.muscles.robotName = self.model_name
@@ -198,7 +188,7 @@ class RDGlobals(PropertyGroupHandlerBase):
         """
         print("in the function")
         active_model = self.model_name
-        for muscle in [obj.name for obj in context.scene.objects
+        for muscle in [obj.name for obj in bpy.data.objects
             if bpy.data.objects[obj.name].RobotEditor.muscles.robotName == active_model]:
                 bpy.data.objects[muscle].data.bevel_depth = self.muscle_dim
                 print("changeing ----")
@@ -248,6 +238,8 @@ class RDGlobals(PropertyGroupHandlerBase):
                    # ('POSITION', 'Position sensors', 'Edit position sensors')]
         ))
 
+        self.active_sensor = PropertyHandler(StringProperty(name="Active sensor", default=""))
+
         self.physics_type = PropertyHandler(EnumProperty(items=[('PHYSICS_FRAME', 'Mass object', 'Mass object')]))
 
         self.display_physics_selection = PropertyHandler(BoolProperty(name="Show Physics Frames", description="Show or hide physics frames", default=True, update=self.display_physics))
@@ -259,6 +251,8 @@ class RDGlobals(PropertyGroupHandlerBase):
                    ("connected", 'List connected', 'Show only connected meshes in menu', 'OUTLINER_OB_ARMATURE', 2),
                    ('disconnected', 'List disconnected', 'Show only disconnected meshes in menu',
                     'ARMATURE_DATA', 3)]))
+
+        self.assign_collision = PropertyHandler(BoolProperty(name="Assign as Collision Mesh", description="Adds a collision tag to the mesh", default=False))
 
         # Holds the selection of wheter do hide/display connected/unassigned meshes in the 3D viewport
         self.display_mesh_selection = PropertyHandler(EnumProperty(
