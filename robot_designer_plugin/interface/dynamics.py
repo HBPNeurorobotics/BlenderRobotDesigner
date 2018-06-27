@@ -65,6 +65,8 @@ def draw(layout, context):
     infoBox = InfoBox(box)
     row = box.row()
 
+
+
     single_segment = getSingleSegment(context)
 
     #menus.MassObjectMenu.putMenu(column, context)
