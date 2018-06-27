@@ -357,9 +357,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
             else:
                 operator.logger.info("No collision model for: %s", mesh)
-        #
-        # # todo: pick up the real values from Physics Frame?
-        #
+
         frame_names = [
             frame.name for frame in context.scene.objects if
             frame.RobotEditor.tag == 'PHYSICS_FRAME' and frame.parent_bone == segment.name]
@@ -425,7 +423,10 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     blender_scale_factor = [blender_scale_factor[0],blender_scale_factor[2],blender_scale_factor[1]]
 
     root = sdf_tree.SDFTree.create_empty(robot_name)
-   # root.pose.append(list_to_string([0, 0, 0, 10, 0, 0]))
+
+    #add model pose
+    root.sdf.model[0].pose.append(' '.join([list_to_string(context.active_object.location),
+                                            list_to_string(context.active_object.rotation_euler)]))
 
     # todo SDF Plugin
     # build control plugin element

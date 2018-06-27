@@ -1,7 +1,7 @@
 import logging
 import pyxb
 from . import sdf_dom
-from .helpers import list_to_string
+from .helpers import list_to_string, string_to_list
 from pyxb import ContentNondeterminismExceededError
 import os
 
@@ -68,6 +68,8 @@ class SDFTree(object):
             logger.error("Error raised %s, %s", e, e.instance.name)
             raise e
         robot = root.model[0]
+        robot_location = string_to_list(root.model[0].pose[0])[0:3]
+        robot_rotation = string_to_list(root.model[0].pose[0])[3:]
 
         muscles = str(robot.muscles)
         logger.debug('Muscle Path:' + muscles)
@@ -114,7 +116,7 @@ class SDFTree(object):
                 # todo: parse joint controllers
 
         logger.debug("kinematic chains: %s", kinematic_chains)
-        return muscles, robot.name, root_links, kinematic_chains#, controller_cache, gazebo_tags
+        return muscles, robot.name, robot_location, robot_rotation, root_links, kinematic_chains#, controller_cache, gazebo_tags
 
     def build(self, link, joint=None, depth=0):
         """

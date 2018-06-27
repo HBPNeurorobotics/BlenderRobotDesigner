@@ -503,29 +503,23 @@ class Importer(object):
             SelectSegment.run(segment_name=segment_name)
             AssignPhysical.run()
 
-            # get mass
+            # set mass
             bpy.data.objects[node.link.name].RobotEditor.dynamics.mass = node.link.inertial[0].mass[0]
 
-            # get inertia
+            # set center of mass position
+            inertia_location = string_to_list(node.link.inertial[0].pose[0])[0:3]
+            inertia_rotation = string_to_list(node.link.inertial[0].pose[0])[3:]
+
+            bpy.data.objects[node.link.name].location = inertia_location
+            bpy.data.objects[node.link.name].rotation_euler = inertia_rotation
+
+            # set inertia
             bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXX = i.ixx[0]
             bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXY = i.ixy[0]
             bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXZ = i.ixz[0]
             bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaYY = i.iyy[0]
             bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaYZ = i.iyz[0]
             bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaZZ = i.izz[0]
-
-            # get inertia pose
-            try:
-                inertia_pose = string_to_list(get_value(node.link.inertial[0].pose[0], "0 0 0 0 0 0"))
-
-
-                x = segment_world * Matrix.Translation(Vector(model_posexyz)) * \
-                   Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
-
-                bpy.data.objects[node.link.name].location = x.to_translation()
-                bpy.data.objects[node.link.name].rotation_euler = x.to_euler()
-            except:
-                pass
 
 
         model = bpy.context.active_object
@@ -707,7 +701,7 @@ class Importer(object):
         return segment_name
 
     def import_file(self):
-        muscles, robot_name, root_links, kinematic_chains = \
+        muscles, robot_name, robot_location, robot_rotation, root_links, kinematic_chains = \
             sdf_tree.SDFTree.parse(self.file_path)
 
         self.MUSCLE_PATH = muscles
@@ -729,6 +723,8 @@ class Importer(object):
         model_name = bpy.context.active_object.name
         model_type = bpy.context.active_object.type
         bpy.context.active_object.RobotEditor.modelMeta.model_folder = os.path.basename(os.path.dirname(self.file_path))
+        bpy.context.active_object.location = robot_location
+        bpy.context.active_object.rotation_euler = robot_rotation
 
         self.logger.debug('model_name: %s', model_name)
         self.logger.debug('model_type: %s', model_type)

@@ -108,6 +108,16 @@ def draw(layout, context):
 
         box = layout.box()
         infoBox = InfoBox(box)
+        box.label("Model Pose:")
+        row = box.row()
+        row.prop(bpy.data.objects[global_properties.model_name.get(context.scene)], "location", slider=False,
+                 text="Position")
+        row = box.row()
+        row.prop(bpy.data.objects[global_properties.model_name.get(context.scene)], "rotation_euler", slider=False,
+                 text="Rotation")
+
+        box = layout.box()
+        infoBox = InfoBox(box)
         box.label("Segment structure:")
 
         if context.active_bone and context.active_bone.parent:
