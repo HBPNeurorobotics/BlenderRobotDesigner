@@ -683,7 +683,10 @@ class Importer(object):
                         SelectSegment.run(segment_name=segment_name)
                         SelectGeometry.run(geometry_name=assigned_name)
 
-                        AssignGeometry.run()
+                        if model_type == COLLISON:
+                            AssignGeometry.run(attach_collision_geometry=True)
+                        else:
+                            AssignGeometry.run()
 
                         # scale geometry
                         if type == "mesh" and model.geometry[0].mesh[0].scale != []:
