@@ -481,6 +481,24 @@ class AssignParentMenu(bpy.types.Menu, BaseMenu):
             if current_segment.parent and bone == current_segment.parent.name:
                 text += " <-- Parent"
             layout.operator(segments.AssignParentSegment.bl_idname, text=text).parent_name = bone
+			
+@PluginManager.register_class
+class SelectionRobotsMenu(bpy.types.Menu, BaseMenu):
+    """
+    :ref:`menu` to select robots.
+    """
+    bl_idname = OPERATOR_PREFIX + "robotseamenu"
+    bl_label = "Select Robot"
+    axis = IntProperty(default=0)
+
+    @RDOperator.OperatorLogger
+    def draw(self, context):
+        layout = self.layout
+        armatures = [obj for obj in bpy.data.objects if obj.type == 'ARMATURE']
+
+        for arm in armatures:
+            text = arm.name
+            model.SelectModel.place_button(layout, text=text).model_name = text
 
 
 # # dynamic menu to select physics frame

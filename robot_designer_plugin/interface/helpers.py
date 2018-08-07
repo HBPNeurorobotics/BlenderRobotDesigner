@@ -107,6 +107,14 @@ class EditMusclesBox(CollapsibleBase):
 @PluginManager.register_class
 class DebugBox(CollapsibleBase):
     property_name = "debug_box"
+	
+@PluginManager.register_class
+class GeneralparametersOpBox(CollapsibleBase):
+    property_name = "general_parameters_box"
+
+@PluginManager.register_class
+class SCMparametersOpBox(CollapsibleBase):
+    property_name = "selection_crossover_mutation_operator_box"
 
 info_list = []
 
