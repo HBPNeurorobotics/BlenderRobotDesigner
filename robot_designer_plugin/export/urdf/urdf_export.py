@@ -64,6 +64,7 @@ from ...core import config, PluginManager, RDOperator
 from ...operators.helpers import ModelSelected, ObjectMode
 from ...operators.model import SelectModel
 
+from ...properties.segments import getTransformFromBlender
 from ...properties.globals import global_properties
 
 def export_mesh(operator: RDOperator, context, name: str, directory: str, toplevel_dir: str, in_ros_package: bool,
@@ -171,7 +172,7 @@ def create_urdf(operator: RDOperator, context, base_link_name,
         :param tree: Reference to a URDF Tree object
         """
         child = tree.add()
-        trafo, dummy = segment.RobotEditor.getTransform()
+        trafo, _ = getTransformFromBlender(segment)
         child.joint.origin.rpy = list_to_string(trafo.to_euler())
         child.joint.origin.xyz = list_to_string([i * j for i, j in zip(trafo.translation, blender_scale_factor)])
 

@@ -220,10 +220,10 @@ class GenerateCollisionConvexHull(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "generateconvexhull"
     bl_label = "Generate convex hull for selected"
 
-
     @classmethod
     def run(cls):
         return super().run(**cls.pass_keywords())
+
     @RDOperator.OperatorLogger
     def execute(self, context):
         from . import segments, model
@@ -234,7 +234,7 @@ class GenerateCollisionConvexHull(RDOperator):
         armature = context.active_object.name
         
         cv_hull_obj_name = 'COL_' + target_name[4:] + "_convex_hull"
-        
+
         bpy.ops.object.select_all(action='DESELECT')
         
         exp_object = bpy.data.objects[target_name]
@@ -293,6 +293,8 @@ class GenerateCollisionConvexHull(RDOperator):
             to_delete = [f for f in bm.faces if not f in new]
             bmesh.ops.delete(bm, geom=to_delete, context=5)
 
+            bmesh.ops.recalc_face_normals(bm, faces = bm.faces)
+
             bm.to_mesh(collisionMesh)
             bm.free()
           
@@ -317,9 +319,10 @@ class GenerateCollisionConvexHull(RDOperator):
             bpy.ops.object.select_all(action='DESELECT')
             model.SelectModel.run(model_name=armature)
             segments.SelectSegment.run(segment_name=bpy.data.objects[target_name].parent_bone)
-            bpy.data.objects[name].select = True
+            bpy.data.objects[cv_hull_obj_name].select = True
             bpy.ops.object.parent_set(type='BONE', keep_transform=True)
             model.SelectModel.run(model_name=armature)
+
         except Exception as e:
             orig_object.name = target_name
             self.logger.info("Exception when computing convex hull")
@@ -328,6 +331,3 @@ class GenerateCollisionConvexHull(RDOperator):
             return{'CANCELLED'}
 
         return {'FINISHED'}
-
-    def invoke(self, context, event):
-        return context.window_manager.invoke_props_dialog(self)

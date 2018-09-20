@@ -65,6 +65,7 @@ from ...operators.helpers import ModelSelected, ObjectMode
 from ...operators.model import SelectModel
 from ..osim.osim_export import create_osim, get_muscles
 
+from ...properties.segments import getTransformFromBlender
 from ...properties.globals import global_properties
 
 from pyxb import ContentNondeterminismExceededError, BIND
@@ -204,7 +205,9 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         operator.logger.info("walk_segments: %s" % str(segment))
 
         child = tree.add()
-        trafo, dummy = segment.RobotEditor.getTransform()
+        trafo, _ = getTransformFromBlender(segment)
+
+
         # child.joint.origin.rpy = list_to_string(trafo.to_euler())
         # child.joint.origin.xyz = list_to_string([i * j for i, j in zip(trafo.translation, blender_scale_factor)])
 

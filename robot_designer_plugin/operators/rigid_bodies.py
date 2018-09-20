@@ -348,17 +348,19 @@ class ReduceAllGeometry(RDOperator):
         armature = context.active_object
 
         hide_geometry = global_properties.display_mesh_selection.get(context.scene)
-        geometry_names = [obj.name for obj in armature.children if
-                         not obj.parent_bone is None and
-                         obj.type == 'MESH']
+        meshes = [obj for obj in armature.children if
+                    obj.parent_bone is not None and obj.type == 'MESH']
 
-        meshes = [item.name for item in geometry_names if hide_geometry == 'collision' and item.RobotEditor.tag == 'COLLISION' if hide_geometry == 'visual' and item.RobotEditor.tag == 'DEFAULT']
+        if hide_geometry != 'all':
+            meshes = [item for item in meshes
+                      if (hide_geometry == 'collision' and item.RobotEditor.tag == 'COLLISION')
+                      or (hide_geometry == 'visual' and item.RobotEditor.tag == 'DEFAULT')]
 
-        if hide_geometry == 'all':
-            meshes = geometry_names
+        mesh_names = [ m.name for m in meshes ]
+        del meshes # Don't want to get into trouble with danling pointers again.
 
         ratio_act = bpy.data.objects[global_properties.mesh_name.get(context.scene)].modifiers["Decimate"].ratio
-        for selected_mesh in meshes:
+        for selected_mesh in mesh_names:
                 obj = bpy.data.objects[selected_mesh]
                 try:
                     obj.modifiers["Decimate"].ratio = ratio_act
