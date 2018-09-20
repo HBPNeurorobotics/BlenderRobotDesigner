@@ -68,6 +68,8 @@ class SDFTree(object):
             logger.error("Error raised %s, %s", e, e.instance.name)
             raise e
         robot = root.model[0]
+
+        # set global pose if specified
         try:
             robot_location = string_to_list(root.model[0].pose[0])[0:3]
             robot_rotation = string_to_list(root.model[0].pose[0])[3:]
