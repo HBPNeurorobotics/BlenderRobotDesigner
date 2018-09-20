@@ -84,8 +84,8 @@ class SelectGeometry(RDOperator):
         # Has the side effect of de-selecting all other objects except for the armature and our mesh.
         global_properties.mesh_name.set(context.scene, self.geometry_name)
 
-        context.region.tag_redraw()
-        context.area.tag_redraw()
+    #    context.region.tag_redraw()
+    #    context.area.tag_redraw()
         return {'FINISHED'}
 
 

@@ -627,11 +627,11 @@ class UpdateSegments(RDOperator):
         # -------------------------------------------------------
         bpy.ops.object.mode_set(mode=current_mode, toggle=False)
 
-        if self.recurse:
-            children_names = [i.name for i in
+
+        children_names = [i.name for i in
                               bpy.data.armatures[armature_data_name].bones[
                                   segment_name].children]
-            for child_name in children_names:
+        for child_name in children_names:
                 UpdateSegments.run(segment_name=child_name, recurse=self.recurse)
 
         SelectSegment.run(segment_name=segment_name)

@@ -68,11 +68,41 @@ class SDFTree(object):
             logger.error("Error raised %s, %s", e, e.instance.name)
             raise e
         robot = root.model[0]
-        robot_location = string_to_list(root.model[0].pose[0])[0:3]
-        robot_rotation = string_to_list(root.model[0].pose[0])[3:]
 
+        # set global pose if specified
+        try:
+            robot_location = string_to_list(root.model[0].pose[0])[0:3]
+            robot_rotation = string_to_list(root.model[0].pose[0])[3:]
+        except:
+            robot_location = [0, 0, 0]
+            robot_rotation = [0, 0, 0]
+
+        # get muscles
         muscles = str(robot.muscles)
         logger.debug('Muscle Path:' + muscles)
+
+        # get controller
+        # parsing joint controllers
+        # create a dictionary [ joint_name, controller ] which is
+        # easily searchable during tree traversal
+        controller_cache = {}
+        gazebo_tags = []
+        logger.debug("Built controller cache:")
+      #  logger.debug(robot.plugin[0].filename)
+
+        for plugin in robot.plugin:
+                if plugin.filename == "libgeneric_controller_plugin.so":
+                      # store the controller in cache, so it's accessible
+                        #print(robot.plugin[0].orderedContent()[0])
+                        element =robot.plugin[0].orderedContent()[0]
+           #             logger.debug("Found controller for joint: " + element.value()[0].xsdConstraintsOK(location=None) + ", caching it.")
+            #            controller_cache[plugin.controller.joint_name] = plugin.controller
+      #              # remove last tag from the last, it is handled by controller plugin differently
+      #              gazebo_tags.pop()
+      #  logger.debug("Built controller cache:")
+      #  logger.debug(controller_cache)
+
+
 
         # create mapping from (parent) links to joints  (a list)
         connected_joints = {link: [joint for joint in robot.joint if link.name == joint.parent[0]] for link

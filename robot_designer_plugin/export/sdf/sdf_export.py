@@ -712,7 +712,7 @@ class ExportPackage(RDOperator):
     :ref:`operator` for exporting  the selected robot to an SDF File into a ROS package including model.config file.
     """
 
-    bl_idname = config.OPERATOR_PREFIX + 'export_to_package'
+    bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_package'
     bl_label = "Export SDF - ROS package"
 
     filter_glob = StringProperty(
