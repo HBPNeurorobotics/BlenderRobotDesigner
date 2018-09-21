@@ -134,7 +134,7 @@ class Importer(object):
             except:
                 pass
 
-        bpy.context.active_object.RobotEditor.fileName = os.path.basename(os.path.splitext(mesh_path)[0])
+        bpy.context.active_object.RobotDesigner.fileName = os.path.basename(os.path.splitext(mesh_path)[0])
 
         scale_factor = string_to_list(model.geometry.mesh.scale)
         scale_matrix = Matrix([[1, 0, 0, 0], [0, 1, 0, 0],
@@ -179,54 +179,54 @@ class Importer(object):
         if segment_name in self.controllers:
             controller = self.controllers[segment_name]
             PID = controller.pid.split(" ")
-            bpy.context.active_bone.RobotEditor.jointController.isActive = True
-            bpy.context.active_bone.RobotEditor.jointController.controllerType = controller.type
-            bpy.context.active_bone.RobotEditor.jointController.P = float(PID[0])
-            bpy.context.active_bone.RobotEditor.jointController.I = float(PID[1])
-            bpy.context.active_bone.RobotEditor.jointController.D = float(PID[2])
+            bpy.context.active_bone.RobotDesigner.jointController.isActive = True
+            bpy.context.active_bone.RobotDesigner.jointController.controllerType = controller.type
+            bpy.context.active_bone.RobotDesigner.jointController.P = float(PID[0])
+            bpy.context.active_bone.RobotDesigner.jointController.I = float(PID[1])
+            bpy.context.active_bone.RobotDesigner.jointController.D = float(PID[2])
 
         axis = string_to_list(node.joint.axis.xyz)
         for i, element in enumerate(axis):
             if element == -1.0:
-                bpy.context.active_bone.RobotEditor.axis_revert = True
+                bpy.context.active_bone.RobotDesigner.axis_revert = True
                 axis[i] = 1.0
 
         if axis == [1.0, 0.0, 0.0]:
-            bpy.context.active_bone.RobotEditor.axis = 'X'
+            bpy.context.active_bone.RobotDesigner.axis = 'X'
         elif axis == [0.0, 1.0, 0.0]:
-            bpy.context.active_bone.RobotEditor.axis = 'Y'
+            bpy.context.active_bone.RobotDesigner.axis = 'Y'
         elif axis == [0.0, 0.0, 1.0]:
-            bpy.context.active_bone.RobotEditor.axis = 'Z'
+            bpy.context.active_bone.RobotDesigner.axis = 'Z'
         else:
             # todo throw exception -- only main axes are supported. Add a limitations section to documentation
             # (which has to be created as well)!
             pass
 
-        bpy.context.active_bone.RobotEditor.Euler.x.value = xyz[0]
-        bpy.context.active_bone.RobotEditor.Euler.y.value = xyz[1]
-        bpy.context.active_bone.RobotEditor.Euler.z.value = xyz[2]
+        bpy.context.active_bone.RobotDesigner.Euler.x.value = xyz[0]
+        bpy.context.active_bone.RobotDesigner.Euler.y.value = xyz[1]
+        bpy.context.active_bone.RobotDesigner.Euler.z.value = xyz[2]
 
-        bpy.context.active_bone.RobotEditor.Euler.alpha.value = round(degrees(euler[0]), 0)
-        bpy.context.active_bone.RobotEditor.Euler.beta.value = round(degrees(euler[1]), 0)
-        bpy.context.active_bone.RobotEditor.Euler.gamma.value = round(degrees(euler[2]), 0)
+        bpy.context.active_bone.RobotDesigner.Euler.alpha.value = round(degrees(euler[0]), 0)
+        bpy.context.active_bone.RobotDesigner.Euler.beta.value = round(degrees(euler[1]), 0)
+        bpy.context.active_bone.RobotDesigner.Euler.gamma.value = round(degrees(euler[2]), 0)
 
         if node.joint.dynamics:
-            bpy.context.active_bone.RobotEditor.controller.maxVelocity = float(
+            bpy.context.active_bone.RobotDesigner.controller.maxVelocity = float(
                     node.joint.limit.velocity)
-            # bpy.context.active_bone.RobotEditor.controller.maxVelocity = float(tree.joint.limit.friction)
+            # bpy.context.active_bone.RobotDesigner.controller.maxVelocity = float(tree.joint.limit.friction)
 
         if node.joint.type == 'revolute':
-            bpy.context.active_bone.RobotEditor.jointMode = 'REVOLUTE'
-            bpy.context.active_bone.RobotEditor.theta.max = degrees(float(get_value(node.joint.limit.upper, 0)))
-            bpy.context.active_bone.RobotEditor.theta.min = degrees(float(get_value(node.joint.limit.lower, 0)))
+            bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE'
+            bpy.context.active_bone.RobotDesigner.theta.max = degrees(float(get_value(node.joint.limit.upper, 0)))
+            bpy.context.active_bone.RobotDesigner.theta.min = degrees(float(get_value(node.joint.limit.lower, 0)))
         if node.joint.type == 'prismatic':
-            bpy.context.active_bone.RobotEditor.jointMode = 'PRISMATIC'
+            bpy.context.active_bone.RobotDesigner.jointMode = 'PRISMATIC'
             if node.joint.limit is not None:
-                bpy.context.active_bone.RobotEditor.d.max = float(get_value(node.joint.limit.upper, 0))
-                bpy.context.active_bone.RobotEditor.d.min = float(get_value(node.joint.limit.lower, 0))
+                bpy.context.active_bone.RobotDesigner.d.max = float(get_value(node.joint.limit.upper, 0))
+                bpy.context.active_bone.RobotDesigner.d.min = float(get_value(node.joint.limit.lower, 0))
 
         if node.joint.type == 'fixed':
-            bpy.context.active_bone.RobotEditor.jointMode = 'FIXED'
+            bpy.context.active_bone.RobotDesigner.jointMode = 'FIXED'
 
         # todo set the dynamics properties
         if node.link.inertial is not None:
@@ -241,21 +241,21 @@ class Importer(object):
                 AssignPhysical.run()
 
                 # get mass
-                bpy.data.objects[node.link.name].RobotEditor.dynamics.mass = inertia.mass.value_
+                bpy.data.objects[node.link.name].RobotDesigner.dynamics.mass = inertia.mass.value_
 
                 # get inertia
-                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXX = i.ixx
-                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXY = i.ixy
-                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaXZ = i.ixz
-                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaYY = i.iyy
-                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaYZ = i.iyz
-                bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaZZ = i.izz
+                bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaXX = i.ixx
+                bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaXY = i.ixy
+                bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaXZ = i.ixz
+                bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaYY = i.iyy
+                bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaYZ = i.iyz
+                bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaZZ = i.izz
 
 
                 # get inertia pose
                 try:
-                    bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaTrans = string_to_list(origin.xyz)
-                    bpy.data.objects[node.link.name].RobotEditor.dynamics.inertiaRot = string_to_list(origin.rpy)
+                    bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaTrans = string_to_list(origin.xyz)
+                    bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaRot = string_to_list(origin.rpy)
                 except:
                     pass
 
@@ -320,7 +320,7 @@ class Importer(object):
                                 bpy.context.active_object.name = "COL_%s" % (node.link.name)
                             else:
                                 bpy.context.active_object.name = "%s" % (node.link.name)
-                            bpy.context.active_object.RobotEditor.tag = 'COLLISION'
+                            bpy.context.active_object.RobotDesigner.tag = 'COLLISION'
                         else:
                             if not node.link.name.startswith("VIS_"):
                                 bpy.context.active_object.name = "VIS_%s" % (node.link.name)

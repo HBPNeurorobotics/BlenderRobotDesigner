@@ -61,9 +61,9 @@ def draw(layout, context):
         model_box.label(text="Description")
 
         global_properties.model_name.prop(context.scene, model_box)
-        model_box.prop(bpy.context.active_object.RobotEditor.modelMeta, 'model_version', text='Version')
-        model_box.prop(bpy.context.active_object.RobotEditor.modelMeta, 'model_description', text='Description')
-        model_box.prop(bpy.context.active_object.RobotEditor.modelMeta, 'model_folder', text='Folder Name')
+        model_box.prop(bpy.context.active_object.RobotDesigner.modelMeta, 'model_version', text='Version')
+        model_box.prop(bpy.context.active_object.RobotDesigner.modelMeta, 'model_description', text='Description')
+        model_box.prop(bpy.context.active_object.RobotDesigner.modelMeta, 'model_folder', text='Folder Name')
 
         author_box = box.box()
         author_box.label(text="Author")
@@ -72,8 +72,8 @@ def draw(layout, context):
         # file.CreateAuthor.place_button(author_box, "Create new")
         # author_box.menu(menus.AuthorMenu.bl_idname, text="Author 1")
 
-        author_box.prop(bpy.context.active_object.RobotEditor.author, 'authorName', text='Name')
-        author_box.prop(bpy.context.active_object.RobotEditor.author, 'authorEmail', text='Email')
+        author_box.prop(bpy.context.active_object.RobotDesigner.author, 'authorName', text='Name')
+        author_box.prop(bpy.context.active_object.RobotDesigner.author, 'authorEmail', text='Email')
 
 
     layout = layout.box()

@@ -73,7 +73,7 @@ def draw(layout, context):
             assert isinstance(context.active_bone, bpy_types.Bone), 'Given object or pose mode, we should get a bone here but we got '+str(type(context.active_bone))
             box = layout.box()
             row = box.row()
-            if context.active_bone.RobotEditor.RD_Bone:
+            if context.active_bone.RobotDesigner.RD_Bone:
                 row.label("Edit:")
                 global_properties.segment_tab.prop(bpy.context.scene,row,expand=True)
                 tab = global_properties.segment_tab.get(bpy.context.scene)

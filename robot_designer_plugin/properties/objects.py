@@ -60,9 +60,9 @@ class RDDynamics(bpy.types.PropertyGroup):
     '''
     # from mathutils import Vector
     # def updateCoM(self, context):
-    #    frame = bpy.data.objects[bpy.context.scene.RobotEditor.physicsFrameName]
-    #    position = Vector((frame.RobotEditor.dynamics.CoM[0],frame.RobotEditor.dynamics.CoM[1],
-    # frame.RobotEditor.dynamics.CoM[2]))
+    #    frame = bpy.data.objects[bpy.context.scene.RobotDesigner.physicsFrameName]
+    #    position = Vector((frame.RobotDesigner.dynamics.CoM[0],frame.RobotDesigner.dynamics.CoM[1],
+    # frame.RobotDesigner.dynamics.CoM[2]))
     #    frame.location = position
 
     mass = FloatProperty(name="Mass (kg)", precision=4, step=0.1, default=1.0)
@@ -195,15 +195,15 @@ class RDMuscle(bpy.types.PropertyGroup):
     def muscle_type_update(self, context):
         active_muscle = global_properties.active_muscle.get(bpy.context.scene)
 
-        # if bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MYOROBOTICS':
+        # if bpy.data.objects[active_muscle].RobotDesigner.muscles.muscleType == 'MYOROBOTICS':
         #    color = (1.0,0.0,0.0)
-        if bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MILLARD_EQUIL':
+        if bpy.data.objects[active_muscle].RobotDesigner.muscles.muscleType == 'MILLARD_EQUIL':
             color = (0.8, 0.3, 0.0)
-        elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MILLARD_ACCEL':
+        elif bpy.data.objects[active_muscle].RobotDesigner.muscles.muscleType == 'MILLARD_ACCEL':
             color = (0.3, 0.8, 0.0)
-        elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'THELEN':
+        elif bpy.data.objects[active_muscle].RobotDesigner.muscles.muscleType == 'THELEN':
             color = (1.0, 0.0, 0.0)
-        elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'RIGID_TENDON':
+        elif bpy.data.objects[active_muscle].RobotDesigner.muscles.muscleType == 'RIGID_TENDON':
             color = (0.0, 0.0, 1.0)
 
         bpy.data.objects[active_muscle].data.materials[active_muscle + '_vis'].diffuse_color = color
@@ -248,7 +248,7 @@ class RDAuthor(bpy.types.PropertyGroup):
 class RDObjects(bpy.types.PropertyGroup):
     '''
     Property group that stores general information for individual Blender
-    objects with respect to the RobotEditor
+    objects with respect to the RobotDesigner
     '''
     fileName = StringProperty(name="Mesh File Name")
     tag = EnumProperty(

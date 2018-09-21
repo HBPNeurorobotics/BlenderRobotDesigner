@@ -107,7 +107,7 @@ def draw(layout, context):
         if len(selected_objects):
             obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
             box.prop(obj, "scale", slider=False, text="Scale (%s)" % obj.name)
-            box.prop(selected_objects[0].RobotEditor, 'fileName')
+            box.prop(selected_objects[0].RobotDesigner, 'fileName')
 
         box.separator()
         infoBox.draw_info()

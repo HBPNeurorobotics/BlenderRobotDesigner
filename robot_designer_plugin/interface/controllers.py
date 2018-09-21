@@ -54,27 +54,27 @@ def draw(layout, context):
 
         box = ControllerLimitsBox.get(layout,context,'Limits')
         if box:
-            box.prop(context.active_bone.RobotEditor.controller, "maxVelocity")
-            box.prop(context.active_bone.RobotEditor.controller, "maxTorque")
-            box.prop(context.active_bone.RobotEditor.controller, "acceleration")
-            box.prop(context.active_bone.RobotEditor.controller, "deceleration")
-            box.prop(context.active_bone.RobotEditor.controller, "isActive")
+            box.prop(context.active_bone.RobotDesigner.controller, "maxVelocity")
+            box.prop(context.active_bone.RobotDesigner.controller, "maxTorque")
+            box.prop(context.active_bone.RobotDesigner.controller, "acceleration")
+            box.prop(context.active_bone.RobotDesigner.controller, "deceleration")
+            box.prop(context.active_bone.RobotDesigner.controller, "isActive")
             box.label("Joint Limits:")
-            if context.active_bone.RobotEditor.jointMode == 'REVOLUTE':
-                box.prop(context.active_bone.RobotEditor.theta, "min")
-                box.prop(context.active_bone.RobotEditor.theta, "max")
+            if context.active_bone.RobotDesigner.jointMode == 'REVOLUTE':
+                box.prop(context.active_bone.RobotDesigner.theta, "min")
+                box.prop(context.active_bone.RobotDesigner.theta, "max")
             else:
-                box.prop(context.active_bone.RobotEditor.d, "min")
-                box.prop(context.active_bone.RobotEditor.d, "max")
+                box.prop(context.active_bone.RobotDesigner.d, "min")
+                box.prop(context.active_bone.RobotDesigner.d, "max")
 
         layout.separator()
 
         box = ControllerBox.get(layout,context,'Controller')
         if box:
             box.label("Joint controller:")
-            box.prop(context.active_bone.RobotEditor.jointController, "isActive")
-            box.prop(context.active_bone.RobotEditor.jointController, "controllerType")
+            box.prop(context.active_bone.RobotDesigner.jointController, "isActive")
+            box.prop(context.active_bone.RobotDesigner.jointController, "controllerType")
             box.separator()
-            box.prop(context.active_bone.RobotEditor.jointController, "P")
-            box.prop(context.active_bone.RobotEditor.jointController, "I")
-            box.prop(context.active_bone.RobotEditor.jointController, "D")
+            box.prop(context.active_bone.RobotDesigner.jointController, "P")
+            box.prop(context.active_bone.RobotDesigner.jointController, "I")
+            box.prop(context.active_bone.RobotDesigner.jointController, "D")

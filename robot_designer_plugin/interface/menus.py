@@ -87,7 +87,7 @@ class SegmentsGeometriesMenu(bpy.types.Menu, BaseMenu):
         meshes = {obj.parent_bone: obj.name for obj in context.scene.objects if
                   obj.parent_bone is not None and
                   obj.type == 'MESH' and
-                  obj.RobotEditor.tag == mesh_type}
+                  obj.RobotDesigner.tag == mesh_type}
 
         for bone in sorted(segment_names, key=str.lower):
             if bone in meshes:
@@ -95,7 +95,7 @@ class SegmentsGeometriesMenu(bpy.types.Menu, BaseMenu):
                 if hide_bone == 'disconnected':
                     continue
             # elif bpy.data.objects[mesh].parent:
-            #    text = context.scene.RobotEditor.meshName + " --> " + bpy.data.objects[mesh].parent.name
+            #    text = context.scene.RobotDesigner.meshName + " --> " + bpy.data.objects[mesh].parent.name
             #    text = mesh + " --> " + bpy.data.objects[mesh].parent.name
             else:
                 text = bone
@@ -169,12 +169,12 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
             elif type == 'collision':
                 obj_names = [obj.name for obj in bpy.data.objects if
                          obj.type == self.blender_type and
-                         obj.RobotEditor.tag == 'COLLISION' and
+                         obj.RobotDesigner.tag == 'COLLISION' and
                          not obj.hide]
             elif type == 'visual':
                 obj_names = [obj.name for obj in bpy.data.objects if
                          obj.type == self.blender_type and
-                         obj.RobotEditor.tag == 'DEFAULT' and
+                         obj.RobotDesigner.tag == 'DEFAULT' and
                          not obj.hide]
             elif type == 'none':
                 obj_names = []
@@ -186,47 +186,47 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
             type = global_properties.display_sensor_type.get(context.scene)
             if type == 'ALL':
                 obj_names = [obj.name for obj in bpy.data.objects if
-                            obj.RobotEditor.tag == "SENSOR" and
+                            obj.RobotDesigner.tag == "SENSOR" and
                             not obj.hide]
             elif type == 'CAMERA_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
-                             obj.RobotEditor.tag == "SENSOR" and
-                             obj.RobotEditor.sensor_type == 'CAMERA_SENSOR' and
+                             obj.RobotDesigner.tag == "SENSOR" and
+                             obj.RobotDesigner.sensor_type == 'CAMERA_SENSOR' and
                              not obj.hide]
             elif type == 'DEPTH_CAMERA_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
-                            obj.RobotEditor.tag == "SENSOR" and
-                            obj.RobotEditor.sensor_type == 'DEPTH_CAMERA_SENSOR' and
+                            obj.RobotDesigner.tag == "SENSOR" and
+                            obj.RobotDesigner.sensor_type == 'DEPTH_CAMERA_SENSOR' and
                             not obj.hide]
             elif type == 'LASER_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
-                             obj.RobotEditor.tag == "SENSOR" and
-                             obj.RobotEditor.sensor_type == 'LASER_SENSOR' and
+                             obj.RobotDesigner.tag == "SENSOR" and
+                             obj.RobotDesigner.sensor_type == 'LASER_SENSOR' and
                              not obj.hide]
             elif type == 'IMU_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
-                             obj.RobotEditor.tag == "SENSOR" and
-                             obj.RobotEditor.sensor_type == 'IMU_SENSOR' and
+                             obj.RobotDesigner.tag == "SENSOR" and
+                             obj.RobotDesigner.sensor_type == 'IMU_SENSOR' and
                              not obj.hide]
             elif type == 'DEPTH_CAMERA_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
-                             obj.RobotEditor.tag == "SENSOR" and
-                             obj.RobotEditor.sensor_type == 'DEPTH_CAMERA_SENSOR' and
+                             obj.RobotDesigner.tag == "SENSOR" and
+                             obj.RobotDesigner.sensor_type == 'DEPTH_CAMERA_SENSOR' and
                              not obj.hide]
             elif type == 'FORCE_TORQUE_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
-                             obj.RobotEditor.tag == "SENSOR" and
-                             obj.RobotEditor.sensor_type == 'FORCE_TORQUE_SENSOR' and
+                             obj.RobotDesigner.tag == "SENSOR" and
+                             obj.RobotDesigner.sensor_type == 'FORCE_TORQUE_SENSOR' and
                              not obj.hide]
             elif type == 'CONTACT_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
-                             obj.RobotEditor.tag == "SENSOR" and
-                             obj.RobotEditor.sensor_type == 'CONTACT_SENSOR' and
+                             obj.RobotDesigner.tag == "SENSOR" and
+                             obj.RobotDesigner.sensor_type == 'CONTACT_SENSOR' and
                              not obj.hide]
             elif type == 'ALTIMETER_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
-                             obj.RobotEditor.tag == "SENSOR" and
-                             obj.RobotEditor.sensor_type == 'ALTIMETER_SENSOR' and
+                             obj.RobotDesigner.tag == "SENSOR" and
+                             obj.RobotDesigner.sensor_type == 'ALTIMETER_SENSOR' and
                              not obj.hide]
             elif type == 'none':
                 obj_names = []
@@ -254,7 +254,7 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
         if cls.blender_type == "MESH":
             selected = [i for i in bpy.context.selected_objects if i.type == cls.blender_type]
         elif cls.blender_type == "SENSOR":
-            selected = [i for i in bpy.context.selected_objects if i.RobotEditor.tag == cls.blender_type]
+            selected = [i for i in bpy.context.selected_objects if i.RobotDesigner.tag == cls.blender_type]
 
         text = cls.text
 
@@ -272,7 +272,7 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
 
         cls.quick_search.prop_search(bpy.context.scene, row,
                                      bpy.data,'objects', icon='VIEWZOOM', text='')
-        #row.prop_search(bpy.context.scene.RobotEditor, cls.quick_search, bpy.data, 'objects',
+        #row.prop_search(bpy.context.scene.RobotDesigner, cls.quick_search, bpy.data, 'objects',
         #                icon='VIEWZOOM', text='')
 
 @PluginManager.register_class
@@ -336,7 +336,7 @@ class MassObjectMenu(ConnectedObjectsMenu):
     def may_show( obj, obj_hidden):
         connected = (obj.parent_bone or obj_hidden != 'disconnected') and \
                     (not obj.parent_bone or obj_hidden != 'connected')
-        return connected and obj.type == MassObjectMenu.blender_type and not obj.hide and obj.RobotEditor.tag == 'PHYSICS_FRAME'
+        return connected and obj.type == MassObjectMenu.blender_type and not obj.hide and obj.RobotDesigner.tag == 'PHYSICS_FRAME'
 
 
     @RDOperator.OperatorLogger
@@ -457,9 +457,9 @@ class MuscleMenu(bpy.types.Menu, BaseMenu):
         hide_muscle = global_properties.display_muscle_selection.get(context.scene)
 
         for muscle in [obj.name for obj in context.scene.objects
-                       if bpy.data.objects[obj.name].RobotEditor.muscles.robotName == active_model
+                       if bpy.data.objects[obj.name].RobotDesigner.muscles.robotName == active_model
                         and hide_muscle == 'all'
-                        or hide_muscle.lower() == bpy.data.objects[obj.name].RobotEditor.muscles.robotName.lower()]:
+                        or hide_muscle.lower() == bpy.data.objects[obj.name].RobotDesigner.muscles.robotName.lower()]:
              muscles.SelectMuscle.place_button(layout, text=muscle).muscle_name = muscle
 
 
@@ -475,7 +475,7 @@ class MusclePointsMenu(bpy.types.Menu, BaseMenu):
     @RDOperator.OperatorLogger
     def draw(self, context):
         layout = self.layout
-        muscle_pathpoints = [obj.name for obj in bpy.data.objects[global_properties.model_name.get(bpy.context.scene)].RobotEditor.muscles[global_properties.active_muscle.get(bpy.context.scene)].pathPoints]
+        muscle_pathpoints = [obj.name for obj in bpy.data.objects[global_properties.model_name.get(bpy.context.scene)].RobotDesigner.muscles[global_properties.active_muscle.get(bpy.context.scene)].pathPoints]
                 ## if muscle type to show!
 
         for muscle_pathpoint in muscle_pathpoints:
@@ -552,7 +552,7 @@ class AssignParentMenu(bpy.types.Menu, BaseMenu):
 #     @RDOperator.OperatorLogger
 #     def draw(self, context):
 #         layout = self.layout
-#         mass_object_names = [f.name for f in bpy.data.objects if f.RobotEditor.tag == 'PHYSICS_FRAME']
+#         mass_object_names = [f.name for f in bpy.data.objects if f.RobotDesigner.tag == 'PHYSICS_FRAME']
 #
 #         for frame in sorted(mass_object_names, key=str.lower):
 #             if bpy.data.objects[frame].parent_bone:

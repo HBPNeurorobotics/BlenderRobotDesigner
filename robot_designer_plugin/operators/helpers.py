@@ -207,7 +207,7 @@ class SingleMassObjectSelected(Condition):
         :term:`condition` that assures that a :class:`bpy.types.Camera` associated object is selected.
         """
         selected = [i for i in bpy.context.selected_objects if
-                    i.type == StringConstants.empty and i.RobotEditor.tag == "PHYSICS_FRAME"]
+                    i.type == StringConstants.empty and i.RobotDesigner.tag == "PHYSICS_FRAME"]
         return len(selected) == 1, "Single mass object must be selected."
 
 

@@ -100,8 +100,8 @@ class AttachSensor(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleSegmentSelected)
     def execute(self, context):
-        if bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotEditor.tag == 'SENSOR':
-            sensor_type = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotEditor.sensor_type
+        if bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotDesigner.tag == 'SENSOR':
+            sensor_type = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotDesigner.sensor_type
             if sensor_type in ['CAMERA_SENSOR', 'DEPTH_CAMERA_SENSOR', 'LASER_SENSOR', 'ALTIMETER_SENSOR', 'IMU_SENSOR']:
                 bpy.ops.object.parent_set(type='BONE', keep_transform=True)
 
@@ -161,8 +161,8 @@ class ConvertCameraToSensor(RDOperator):
 
         selected = [i for i in context.selected_objects if i.type != "ARMATURE"][0]
 
-        selected.RobotEditor.tag = "SENSOR"
-        selected.RobotEditor.sensor_type = "CAMERA_SENSOR"
+        selected.RobotDesigner.tag = "SENSOR"
+        selected.RobotDesigner.sensor_type = "CAMERA_SENSOR"
         return {'FINISHED'}
 
 
@@ -199,8 +199,8 @@ class CreateSensor(RDOperator):
 
         print("adding", self.sensor_type)
 
-        context.active_object.RobotEditor.tag = 'SENSOR'
-        context.active_object.RobotEditor.sensor_type = self.sensor_type
+        context.active_object.RobotDesigner.tag = 'SENSOR'
+        context.active_object.RobotDesigner.sensor_type = self.sensor_type
         context.active_object.name = self.sensor_name
         sensor_name = context.active_object.name
 

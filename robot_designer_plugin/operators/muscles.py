@@ -152,7 +152,7 @@ class CreateNewMuscle(RDOperator):
         lmat.use_shadeless = True
         muscle.data.materials.append(lmat)
 
-        muscleData = muscle.RobotEditor.muscles
+        muscleData = muscle.RobotDesigner.muscles
         muscleData.name = self.muscle_name
         muscleData.muscleType = "THELEN"
         muscleData.robotName = global_properties.model_name.get(context.scene)
@@ -244,7 +244,7 @@ class CreateNewPathpoint(RDOperator):
         nr = len(active_muscle.data.splines[0].points)
         active_muscle.data.splines[0].points[nr-1].co = [cursor.x, cursor.y, cursor.z,1]
 
-        active_muscle.RobotEditor.muscles.pathPoints.add()
+        active_muscle.RobotDesigner.muscles.pathPoints.add()
 
         # add new hok modifier for pathpoint
         active_muscle.modifiers.new(name=global_properties.active_muscle.get(bpy.context.scene) + '_' + str(nr-1), type='HOOK')
@@ -359,10 +359,10 @@ class MovePathpointUp(RDOperator):
             active_muscle_points.points[self.nr-2].co = [x,y,z,w]
 
             # move coordFrame
-            frame = bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr-2].coordFrame
-            bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr-2].coordFrame = \
-                bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr-1].coordFrame
-            bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr - 1].coordFrame = frame
+            frame = bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[self.nr-2].coordFrame
+            bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[self.nr-2].coordFrame = \
+                bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[self.nr-1].coordFrame
+            bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[self.nr - 1].coordFrame = frame
 
         return {'FINISHED'}
 
@@ -399,10 +399,10 @@ class MovePathpointDown(RDOperator):
             active_muscle_points.points[self.nr].co = [x,y,z,w]
 
             # move coordFrame
-            frame = bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr-1].coordFrame
-            bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr-1].coordFrame = \
-                bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr].coordFrame
-            bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.nr].coordFrame = frame
+            frame = bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[self.nr-1].coordFrame
+            bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[self.nr-1].coordFrame = \
+                bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[self.nr].coordFrame
+            bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[self.nr].coordFrame = frame
 
         return {'FINISHED'}
 
@@ -440,7 +440,7 @@ class SelectSegmentMuscle(RDOperator):
             model.data.bones.active = None
 
         # store selected segment
-        bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[self.pathpoint_nr-1].coordFrame = self.segment_name
+        bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[self.pathpoint_nr-1].coordFrame = self.segment_name
 
         active_muscle = global_properties.active_muscle.get(context.scene)
         active_model = global_properties.model_name.get(context.scene)
@@ -513,7 +513,7 @@ class CalculateMuscleLength(RDOperator):
 
             leng += math.sqrt((x ** 2) + (y ** 2) + (z ** 2))
 
-        bpy.data.objects[self.muscle].RobotEditor.muscles.length = leng
+        bpy.data.objects[self.muscle].RobotDesigner.muscles.length = leng
 
 
         return {'FINISHED'}

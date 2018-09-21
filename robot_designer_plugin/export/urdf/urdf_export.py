@@ -87,13 +87,13 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
     if not export_collision:
         meshes = [obj.name for obj in context.scene.objects if
                   obj.type == "MESH" and obj.name == name and
-                  not obj.RobotEditor.tag == "COLLISION"]
+                  not obj.RobotDesigner.tag == "COLLISION"]
         directory = os.path.join(directory, "meshes")
 
     else:
         meshes = [obj.name for obj in context.scene.objects if
                   obj.type == "MESH" and name == obj.name and
-                  obj.RobotEditor.tag == "COLLISION"]
+                  obj.RobotDesigner.tag == "COLLISION"]
         directory = os.path.join(directory, "collisions")
 
     if not os.path.exists(directory):
@@ -183,34 +183,34 @@ def create_urdf(operator: RDOperator, context, base_link_name,
 
         child.joint.name = segment.name + '_joint'
         child.link.name = segment.name + '_link'
-        if segment.RobotEditor.axis_revert:
+        if segment.RobotDesigner.axis_revert:
             revert = -1
         else:
             revert = 1
 
-        if segment.RobotEditor.axis == 'X':
+        if segment.RobotDesigner.axis == 'X':
             child.joint.axis.xyz = list_to_string(Vector((1, 0, 0)) * revert)
-        elif segment.RobotEditor.axis == 'Y':
+        elif segment.RobotDesigner.axis == 'Y':
             child.joint.axis.xyz = list_to_string(Vector((0, 1, 0)) * revert)
-        elif segment.RobotEditor.axis == 'Z':
+        elif segment.RobotDesigner.axis == 'Z':
             child.joint.axis.xyz = list_to_string(Vector((0, 0, 1)) * revert)
 
         if segment.parent is None:
             print("Debug: parent bone is none", segment,
-                  segment.RobotEditor.jointMode)
+                  segment.RobotDesigner.jointMode)
             child.joint.type = 'fixed'
         else:
-            if segment.RobotEditor.jointMode == 'REVOLUTE':
+            if segment.RobotDesigner.jointMode == 'REVOLUTE':
                 child.joint.limit.lower = radians(
-                    segment.RobotEditor.theta.min)
+                    segment.RobotDesigner.theta.min)
                 child.joint.limit.upper = radians(
-                    segment.RobotEditor.theta.max)
+                    segment.RobotDesigner.theta.max)
                 child.joint.type = 'revolute'
-            if segment.RobotEditor.jointMode == 'PRISMATIC':
-                child.joint.limit.lower = segment.RobotEditor.d.min
-                child.joint.limit.upper = segment.RobotEditor.d.max
+            if segment.RobotDesigner.jointMode == 'PRISMATIC':
+                child.joint.limit.lower = segment.RobotDesigner.d.min
+                child.joint.limit.upper = segment.RobotDesigner.d.max
                 child.joint.type = 'prismatic'
-            if segment.RobotEditor.jointMode == 'FIXED':
+            if segment.RobotDesigner.jointMode == 'FIXED':
                 child.joint.type = 'fixed'
 
         # Add properties
@@ -254,7 +254,7 @@ def create_urdf(operator: RDOperator, context, base_link_name,
         # todo: pick up the real values from Physics Frame?
 
         frame_names = [
-            frame.name for frame in context.scene.objects if frame.RobotEditor.tag == 'PHYSICS_FRAME' and frame.parent_bone==segment.name]
+            frame.name for frame in context.scene.objects if frame.RobotDesigner.tag == 'PHYSICS_FRAME' and frame.parent_bone==segment.name]
 
 	# If no frame is connected create a default one. This is required for Gazebo!
         if not frame_names:
@@ -267,31 +267,31 @@ def create_urdf(operator: RDOperator, context, base_link_name,
             print(inertial, inertial.__dict__)
             if bpy.data.objects[frame].parent_bone == segment.name:
                 # set mass
-                inertial.mass.value_ = bpy.data.objects[frame].RobotEditor.dynamics.mass
+                inertial.mass.value_ = bpy.data.objects[frame].RobotDesigner.dynamics.mass
 
                 # set inertia
-                inertial.inertia.ixx = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXX,4)
-                inertial.inertia.ixy = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXY,4)
-                inertial.inertia.ixz = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaXZ,4)
-                inertial.inertia.iyy = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaYY,4)
-                inertial.inertia.iyz = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaYZ,4)
-                inertial.inertia.izz = round(bpy.data.objects[frame].RobotEditor.dynamics.inertiaZZ,4)
+                inertial.inertia.ixx = round(bpy.data.objects[frame].RobotDesigner.dynamics.inertiaXX,4)
+                inertial.inertia.ixy = round(bpy.data.objects[frame].RobotDesigner.dynamics.inertiaXY,4)
+                inertial.inertia.ixz = round(bpy.data.objects[frame].RobotDesigner.dynamics.inertiaXZ,4)
+                inertial.inertia.iyy = round(bpy.data.objects[frame].RobotDesigner.dynamics.inertiaYY,4)
+                inertial.inertia.iyz = round(bpy.data.objects[frame].RobotDesigner.dynamics.inertiaYZ,4)
+                inertial.inertia.izz = round(bpy.data.objects[frame].RobotDesigner.dynamics.inertiaZZ,4)
 
                 # set inertial pose
                 assert False, "FIXME: Use the matrix of the physics frame rather than intertiaTrans and inertiaRot!"
-                inertial.origin.xyz = list_to_string(bpy.data.objects[frame].RobotEditor.dynamics.inertiaTrans)
-                inertial.origin.rpy = list_to_string(bpy.data.objects[frame].RobotEditor.dynamics.inertiaRot)
+                inertial.origin.xyz = list_to_string(bpy.data.objects[frame].RobotDesigner.dynamics.inertiaTrans)
+                inertial.origin.rpy = list_to_string(bpy.data.objects[frame].RobotDesigner.dynamics.inertiaRot)
 
         # add joint controllers
-        if operator.gazebo and segment.RobotEditor.jointController.isActive is True:
+        if operator.gazebo and segment.RobotDesigner.jointController.isActive is True:
             controller = child.add_joint_controller(root.control_plugin)
             controller.joint_name = child.joint.name
-            controller.type = segment.RobotEditor.jointController.controllerType
-            if segment.RobotEditor.jointController.P <= 1.0:
-                segment.RobotEditor.jointController.P = 100
-            controller.pid = list_to_string([segment.RobotEditor.jointController.P,
-                                             segment.RobotEditor.jointController.I,
-                                             segment.RobotEditor.jointController.D])
+            controller.type = segment.RobotDesigner.jointController.controllerType
+            if segment.RobotDesigner.jointController.P <= 1.0:
+                segment.RobotDesigner.jointController.P = 100
+            controller.pid = list_to_string([segment.RobotDesigner.jointController.P,
+                                             segment.RobotDesigner.jointController.I,
+                                             segment.RobotDesigner.jointController.D])
 
         # Add geometry
         for child_segments in segment.children:

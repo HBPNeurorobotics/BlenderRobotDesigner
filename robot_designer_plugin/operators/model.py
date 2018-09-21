@@ -140,7 +140,7 @@ class RebuildModel(RDOperator):
 
         # then markers
         marker_names = [obj.name for obj in context.scene.objects if
-                        obj.RobotEditor.tag == 'MARKER' and obj.parent_bone]
+                        obj.RobotDesigner.tag == 'MARKER' and obj.parent_bone]
 
         marker_bones_dictionary = dict()
 
@@ -156,7 +156,7 @@ class RebuildModel(RDOperator):
 
         # finally, physic frames
         ph_names = [obj.name for obj in context.scene.objects if
-                    obj.RobotEditor.tag == 'PHYSICS_FRAME' and obj.parent_bone]
+                    obj.RobotDesigner.tag == 'PHYSICS_FRAME' and obj.parent_bone]
 
         ph_bones_dictionary = dict()
 
@@ -372,24 +372,24 @@ class CreateNewModel(RDOperator):
 #         segment_name = bpy.data.armatures[armatureDataName].bones[0].name
 #
 #     if bpy.data.armatures[armatureDataName].bones[
-#         segment_name].RobotEditor.RD_Bone == False:
+#         segment_name].RobotDesigner.RD_Bone == False:
 #         print("Not updated (not a RD segment):", segment_name)
 #         return
 #
 #     # local variables for updating the constraints
 #     jointAxis = bpy.data.armatures[armatureDataName].bones[
-#         segment_name].RobotEditor.axis
+#         segment_name].RobotDesigner.axis
 #     min_rot = bpy.data.armatures[armatureDataName].bones[
-#         segment_name].RobotEditor.theta.min
+#         segment_name].RobotDesigner.theta.min
 #     max_rot = bpy.data.armatures[armatureDataName].bones[
-#         segment_name].RobotEditor.theta.max
+#         segment_name].RobotDesigner.theta.max
 #     jointMode = bpy.data.armatures[armatureDataName].bones[
-#         segment_name].RobotEditor.jointMode
+#         segment_name].RobotDesigner.jointMode
 #     jointValue = bpy.data.armatures[armatureDataName].bones[
-#         segment_name].RobotEditor.theta.value
+#         segment_name].RobotDesigner.theta.value
 #
 #     matrix, jointMatrix = bpy.data.armatures[armatureDataName].bones[
-#         segment_name].RobotEditor.getTransform()
+#         segment_name].RobotDesigner.getTransform()
 #
 #     bpy.ops.object.mode_set(mode='EDIT', toggle=False)
 #
@@ -422,13 +422,13 @@ class CreateNewModel(RDOperator):
 #     # Adding constraints for revolute joints
 #     # ---------- REMOVED DUE TO BUG IN BLENDER ------------
 #     if jointMode == 'REVOLUTE':
-#         if 'RobotEditorConstraint' not in pose_bone.constraints:
+#         if 'RobotDesignerConstraint' not in pose_bone.constraints:
 #             bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
 #             bpy.context.object.pose.bones[segment_name].constraints[
-#                 0].name = 'RobotEditorConstraint'
+#                 0].name = 'RobotDesignerConstraint'
 #         constraint = \
 #         [i for i in pose_bone.constraints if i.type == 'LIMIT_ROTATION'][0]
-#         constraint.name = 'RobotEditorConstraint'
+#         constraint.name = 'RobotDesignerConstraint'
 #         constraint.owner_space = 'LOCAL'
 #         constraint.use_limit_x = True
 #         constraint.use_limit_y = True

@@ -46,7 +46,7 @@ def get_muscles(active_model_name, context):
   :param active_model_name: The name of the robot for which to find associated muscles.
   :return: A list of associated objects that represent muscles.
   """
-  return list(filter(lambda obj: obj.RobotEditor.muscles.robotName == active_model_name, context.scene.objects))
+  return list(filter(lambda obj: obj.RobotDesigner.muscles.robotName == active_model_name, context.scene.objects))
 
 
 class OsimExporter(object):
@@ -93,7 +93,7 @@ class OsimExporter(object):
       'RIGID_TENDON': osim_dom.RigidTendonMuscle,
     }
     return muscle_type_to_pyxb_type[
-           str(obj.RobotEditor.muscles.muscleType)]
+           str(obj.RobotDesigner.muscles.muscleType)]
 
 
   def _add_blender_muscle(self, m, context):
@@ -115,9 +115,9 @@ class OsimExporter(object):
         )
       ),
       # TODO: Fix hardcoded values
-      max_isometric_force = m.RobotEditor.muscles.max_isometric_force,
-      optimal_fiber_length = m.RobotEditor.muscles.length * 0.9,
-      tendon_slack_length = m.RobotEditor.muscles.length * 0.1
+      max_isometric_force = m.RobotDesigner.muscles.max_isometric_force,
+      optimal_fiber_length = m.RobotDesigner.muscles.length * 0.9,
+      tendon_slack_length = m.RobotDesigner.muscles.length * 0.1
     )
     self._add_pyxb_muscle(m, context)
 
@@ -137,7 +137,7 @@ class OsimExporter(object):
     def transform_vertex(arg):
       i, pt = arg
       name = '%s_node%i' % (m.name, i)
-      parent = m.RobotEditor.muscles.pathPoints[i].coordFrame
+      parent = m.RobotDesigner.muscles.pathPoints[i].coordFrame
       x, y, z = pt.co
       active_model = global_properties.model_name.get(context.scene)
       pose_bone = bpy.data.objects[active_model].pose.bones[parent]

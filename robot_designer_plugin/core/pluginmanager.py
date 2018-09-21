@@ -255,7 +255,7 @@ class PluginManager(object):
 
                 bpy.utils.register_class(prop)
                 if extends in (bpy.types.Object, bpy.types.Scene, bpy.types.Bone):
-                    setattr(extends, 'RobotEditor', bpy.props.PointerProperty(type=getattr(bpy.types, prop.__name__)))
+                    setattr(extends, 'RobotDesigner', bpy.props.PointerProperty(type=getattr(bpy.types, prop.__name__)))
                 cls._registered_properties.append((prop, extends))
 
             for i in cls._property_fields.items():
@@ -298,7 +298,7 @@ class PluginManager(object):
             for prop, extends in cls._registered_properties:
                 bpy.utils.unregister_class(prop)
                 if extends in (bpy.types.Object, bpy.types.Scene, bpy.types.Bone):
-                    delattr(extends, "RobotEditor")
+                    delattr(extends, "RobotDesigner")
 
             for prop in cls._registered_bools:
                 delattr(bpy.types.Scene, prop)

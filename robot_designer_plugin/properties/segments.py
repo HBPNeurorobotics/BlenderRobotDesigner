@@ -153,7 +153,7 @@ class RDDenavitHartenbergSegment(bpy.types.PropertyGroup):
 @PluginManager.register_property_group(bpy.types.Bone)
 class RDSegment(bpy.types.PropertyGroup):
     """
-    Bone property, contains all relevant bone information for RobotEditor
+    Bone property, contains all relevant bone information for RobotDesigner
     """
 
     def callbackSegments(self, context):
@@ -277,5 +277,5 @@ def getTransformFromBlender(bone):
       pose_wrt_parent = bone.matrix_local
     # Now, compute the joint Trafo. RD Applies the joint trafo to the pose bone.
     # What is computed here as pose_wrt_parent refers to the edit bones.
-    _, joint_trafo = bone.RobotEditor.getTransform()
+    _, joint_trafo = bone.RobotDesigner.getTransform()
     return pose_wrt_parent, joint_trafo

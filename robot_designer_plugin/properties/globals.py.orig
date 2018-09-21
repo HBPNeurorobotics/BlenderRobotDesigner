@@ -88,7 +88,7 @@ class RDGlobals(PropertyGroupHandlerBase):
 
     @staticmethod
     def display_physics(self, context):
-        for physics in [physics for physics in bpy.data.objects if physics.RobotEditor.tag == 'PHYSICS_FRAME']:
+        for physics in [physics for physics in bpy.data.objects if physics.RobotDesigner.tag == 'PHYSICS_FRAME']:
             if self.display_physics_selection == True:
                 physics.hide = False
             else:
@@ -125,9 +125,9 @@ class RDGlobals(PropertyGroupHandlerBase):
             obj = bpy.data.objects[mesh]
             if hide_geometry == 'all':
                 obj.hide = False
-            elif hide_geometry== 'collision' and obj.RobotEditor.tag == 'COLLISION':
+            elif hide_geometry== 'collision' and obj.RobotDesigner.tag == 'COLLISION':
                 obj.hide = False
-            elif hide_geometry == 'visual' and obj.RobotEditor.tag == 'DEFAULT':
+            elif hide_geometry == 'visual' and obj.RobotDesigner.tag == 'DEFAULT':
                 obj.hide = False
             elif hide_geometry == 'none':
                 obj.hide = True
@@ -145,21 +145,21 @@ class RDGlobals(PropertyGroupHandlerBase):
 
 
         muscle_names = [obj.name for obj in bpy.data.objects if
-         bpy.data.objects[obj.name].RobotEditor.muscles.robotName != '']
+         bpy.data.objects[obj.name].RobotDesigner.muscles.robotName != '']
 
         for muscle in muscle_names:
             obj = bpy.data.objects[muscle]
             if hide_muscles == 'all':
                 obj.hide = False
-           # elif hide_muscles == 'MYOROBOTICS' and obj.RobotEditor.muscles.muscleType == 'MYOROBOTICS':
+           # elif hide_muscles == 'MYOROBOTICS' and obj.RobotDesigner.muscles.muscleType == 'MYOROBOTICS':
            #     obj.hide = False
-            elif hide_muscles == 'MILLARD_EQUIL' and obj.RobotEditor.muscles.muscleType == 'MILLARD_EQUIL':
+            elif hide_muscles == 'MILLARD_EQUIL' and obj.RobotDesigner.muscles.muscleType == 'MILLARD_EQUIL':
                 obj.hide = False
-            elif hide_muscles == 'MILLARD_ACCEL' and obj.RobotEditor.muscles.muscleType == 'MILLARD_ACCEL':
+            elif hide_muscles == 'MILLARD_ACCEL' and obj.RobotDesigner.muscles.muscleType == 'MILLARD_ACCEL':
                 obj.hide = False
-            elif hide_muscles == 'THELEN' and obj.RobotEditor.muscles.muscleType == 'THELEN':
+            elif hide_muscles == 'THELEN' and obj.RobotDesigner.muscles.muscleType == 'THELEN':
                 obj.hide = False
-            elif hide_muscles == 'RIGID_TENDON' and obj.RobotEditor.muscles.muscleType == 'RIGID_TENDON':
+            elif hide_muscles == 'RIGID_TENDON' and obj.RobotDesigner.muscles.muscleType == 'RIGID_TENDON':
                 obj.hide = False
             elif hide_muscles == 'none':
                 obj.hide = True
@@ -172,10 +172,10 @@ class RDGlobals(PropertyGroupHandlerBase):
         updates the robot name for every assigned muscle
         """
         if self.old_name != '':
-            muscles = [obj for obj in bpy.data.objects if obj.RobotEditor.muscles.robotName == self.old_name]
+            muscles = [obj for obj in bpy.data.objects if obj.RobotDesigner.muscles.robotName == self.old_name]
 
             for muscle in muscles:
-                muscle.RobotEditor.muscles.robotName = self.model_name
+                muscle.RobotDesigner.muscles.robotName = self.model_name
 
             self.old_name = self.model_name
 
@@ -189,7 +189,7 @@ class RDGlobals(PropertyGroupHandlerBase):
         print("in the function")
         active_model = self.model_name
         for muscle in [obj.name for obj in bpy.data.objects
-            if bpy.data.objects[obj.name].RobotEditor.muscles.robotName == active_model]:
+            if bpy.data.objects[obj.name].RobotDesigner.muscles.robotName == active_model]:
                 bpy.data.objects[muscle].data.bevel_depth = self.muscle_dim
                 print("changeing ----")
 

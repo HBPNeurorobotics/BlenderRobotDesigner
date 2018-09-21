@@ -116,13 +116,13 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
     if not export_collision:
         meshes = [obj.name for obj in context.scene.objects if
                   obj.type == "MESH" and obj.name == name and
-                  not obj.RobotEditor.tag == "COLLISION"]
+                  not obj.RobotDesigner.tag == "COLLISION"]
         directory = os.path.join(directory, "meshes", "visual")
 
     else:
         meshes = [obj.name for obj in context.scene.objects if
                   obj.type == "MESH" and name == obj.name and
-                  obj.RobotEditor.tag == "COLLISION"]
+                  obj.RobotDesigner.tag == "COLLISION"]
         directory = os.path.join(directory, "meshes", "collisions")
 
 
@@ -146,9 +146,9 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
 
         if len(bm.vertices) > 1:
             if '.' in mesh:
-                file_path = os.path.join(directory, bpy.data.objects[mesh].RobotEditor.fileName.replace('.', '_') + '.dae')
+                file_path = os.path.join(directory, bpy.data.objects[mesh].RobotDesigner.fileName.replace('.', '_') + '.dae')
             else:
-                file_path = os.path.join(directory, bpy.data.objects[mesh].RobotEditor.fileName + '.dae')
+                file_path = os.path.join(directory, bpy.data.objects[mesh].RobotDesigner.fileName + '.dae')
 
             hide_flag_backup = bpy.context.scene.objects.active.hide
             bpy.context.scene.objects.active.hide = False # Blender does not want to export hidden objects.
@@ -168,9 +168,9 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
         else:
             if '.' in mesh:
                 file_path = os.path.join(directory,
-                                         bpy.data.objects[mesh].RobotEditor.fileName.replace('.', '_') + '_vertices' + str(len(bm.vertices)) + '.dae')
+                                         bpy.data.objects[mesh].RobotDesigner.fileName.replace('.', '_') + '_vertices' + str(len(bm.vertices)) + '.dae')
             else:
-                file_path = os.path.join(directory, bpy.data.objects[mesh].RobotEditor.fileName + '_vertices' + str(len(bm.vertices)) + '.dae')
+                file_path = os.path.join(directory, bpy.data.objects[mesh].RobotDesigner.fileName + '_vertices' + str(len(bm.vertices)) + '.dae')
 
         SelectModel.run(model_name=model_name)
 
@@ -243,16 +243,16 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         print("connected links (joint->link): ", {j.name: l.name for j, l in tree.connectedLinks.items()})
         print("connected joints (link->joint): ", {j.name: l for j, l in tree.connectedJoints.items()})
 
-        if segment.RobotEditor.axis_revert:
+        if segment.RobotDesigner.axis_revert:
             revert = -1
         else:
             revert = 1
 
-        if segment.RobotEditor.axis == 'X':
+        if segment.RobotDesigner.axis == 'X':
             joint_axis_xyz = list_to_string(Vector((1, 0, 0)) * revert)
-        elif segment.RobotEditor.axis == 'Y':
+        elif segment.RobotDesigner.axis == 'Y':
             joint_axis_xyz = list_to_string(Vector((0, 1, 0)) * revert)
-        elif segment.RobotEditor.axis == 'Z':
+        elif segment.RobotDesigner.axis == 'Z':
             joint_axis_xyz = list_to_string(Vector((0, 0, 1)) * revert)
 
         child.joint.axis[0].xyz.append(joint_axis_xyz)
@@ -274,26 +274,26 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
 
         if segment.parent is None:
-            #print("Info: Root joint has no parent", segment, segment.RobotEditor.jointMode)
+            #print("Info: Root joint has no parent", segment, segment.RobotDesigner.jointMode)
             child.joint.type = 'fixed'
         else:
-            if segment.RobotEditor.jointMode == 'REVOLUTE':
+            if segment.RobotDesigner.jointMode == 'REVOLUTE':
                 child.joint.axis[0].limit[0].lower.append((radians(
-                    segment.RobotEditor.theta.min)))
+                    segment.RobotDesigner.theta.min)))
                 child.joint.axis[0].limit[0].upper.append((radians(
-                    segment.RobotEditor.theta.max)))
+                    segment.RobotDesigner.theta.max)))
                 child.joint.type = 'revolute'
-            if segment.RobotEditor.jointMode == 'PRISMATIC':
-                child.joint.axis[0].limit[0].lower.append(segment.RobotEditor.d.min)
-                child.joint.axis[0].limit[0].upper.append(segment.RobotEditor.d.max)
+            if segment.RobotDesigner.jointMode == 'PRISMATIC':
+                child.joint.axis[0].limit[0].lower.append(segment.RobotDesigner.d.min)
+                child.joint.axis[0].limit[0].upper.append(segment.RobotDesigner.d.max)
                 child.joint.type = 'prismatic'
-            if segment.RobotEditor.jointMode == 'REVOLUTE2':
+            if segment.RobotDesigner.jointMode == 'REVOLUTE2':
                 child.joint.type = 'revolute2'
-            if segment.RobotEditor.jointMode == 'UNIVERSAL':
+            if segment.RobotDesigner.jointMode == 'UNIVERSAL':
                 child.joint.type = 'universal'
-            if segment.RobotEditor.jointMode == 'BALL':
+            if segment.RobotDesigner.jointMode == 'BALL':
                 child.joint.type = 'ball'
-            if segment.RobotEditor.jointMode == 'FIXED':
+            if segment.RobotDesigner.jointMode == 'FIXED':
                 child.joint.type = 'fixed'
 
         operator.logger.info(" joint type'%s'" % child.joint.type)
@@ -363,7 +363,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
         frame_names = [
             frame.name for frame in context.scene.objects if
-            frame.RobotEditor.tag == 'PHYSICS_FRAME' and frame.parent_bone == segment.name]
+            frame.RobotDesigner.tag == 'PHYSICS_FRAME' and frame.parent_bone == segment.name]
 
         # If no frame is connected create a default one. This is required for Gazebo!
         operator.logger.info("frame names: %s", frame_names)
@@ -380,18 +380,18 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
 
                 # set mass
-                inertial.mass[0] = bpy.data.objects[frame].RobotEditor.dynamics.mass
+                inertial.mass[0] = bpy.data.objects[frame].RobotDesigner.dynamics.mass
                 if inertial.mass[0] <= 0.:
                     raise ValueError("Mass of "+frame+" is not positive, but "+str(inertial.mass[0]))
                 # Ugly, to throw an exception here. But appending info_list did not print the info in the GUI.
 
                 # set inertia
-                inertial.inertia[0].ixx[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaXX
-                inertial.inertia[0].ixy[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaXY
-                inertial.inertia[0].ixz[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaXZ
-                inertial.inertia[0].iyy[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaYY
-                inertial.inertia[0].iyz[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaYZ
-                inertial.inertia[0].izz[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaZZ
+                inertial.inertia[0].ixx[0] = bpy.data.objects[frame].RobotDesigner.dynamics.inertiaXX
+                inertial.inertia[0].ixy[0] = bpy.data.objects[frame].RobotDesigner.dynamics.inertiaXY
+                inertial.inertia[0].ixz[0] = bpy.data.objects[frame].RobotDesigner.dynamics.inertiaXZ
+                inertial.inertia[0].iyy[0] = bpy.data.objects[frame].RobotDesigner.dynamics.inertiaYY
+                inertial.inertia[0].iyz[0] = bpy.data.objects[frame].RobotDesigner.dynamics.inertiaYZ
+                inertial.inertia[0].izz[0] = bpy.data.objects[frame].RobotDesigner.dynamics.inertiaZZ
 
                 # set inertial pose
                 pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
@@ -404,15 +404,15 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
         #
         # # add joint controllers
-        # if operator.gazebo and segment.RobotEditor.jointController.isActive is True:
+        # if operator.gazebo and segment.RobotDesigner.jointController.isActive is True:
         #     controller = child.add_joint_controller(root.control_plugin)
         #     controller.joint_name = child.joint.name
-        #     controller.type = segment.RobotEditor.jointController.controllerType
-        #     if segment.RobotEditor.jointController.P <= 1.0:
-        #         segment.RobotEditor.jointController.P = 100
-        #     controller.pid = list_to_string([segment.RobotEditor.jointController.P,
-        #                                      segment.RobotEditor.jointController.I,
-        #                                      segment.RobotEditor.jointController.D])
+        #     controller.type = segment.RobotDesigner.jointController.controllerType
+        #     if segment.RobotDesigner.jointController.P <= 1.0:
+        #         segment.RobotDesigner.jointController.P = 100
+        #     controller.pid = list_to_string([segment.RobotDesigner.jointController.P,
+        #                                      segment.RobotDesigner.jointController.I,
+        #                                      segment.RobotDesigner.jointController.D])
 
         # Add geometry
         for child_segments in segment.children:
@@ -637,7 +637,7 @@ def create_config(operator: RDOperator, context,
 
     # get model data
     modelI.name = bpy.context.active_object.name
-    modelI.version = bpy.context.active_object.RobotEditor.modelMeta.model_version
+    modelI.version = bpy.context.active_object.RobotDesigner.modelMeta.model_version
 
     # get thumbnail data
     modelI.thumbnail = "thumbnail.png"
@@ -650,10 +650,10 @@ def create_config(operator: RDOperator, context,
     modelI.sdf = sdf
 
     # get author data
-    author = model_config_dom.author_type(bpy.context.active_object.RobotEditor.author.authorName,bpy.context.active_object.RobotEditor.author.authorEmail)
+    author = model_config_dom.author_type(bpy.context.active_object.RobotDesigner.author.authorName,bpy.context.active_object.RobotDesigner.author.authorEmail)
     modelI.author = author
 
-    modelI.description = bpy.context.active_object.RobotEditor.modelMeta.model_description
+    modelI.description = bpy.context.active_object.RobotDesigner.modelMeta.model_description
 
 
     # export model.config file
@@ -747,7 +747,7 @@ class ExportPackage(RDOperator):
         return {'FINISHED'}
 
     def invoke(self, context, event):
-        self.filepath = context.active_object.RobotEditor.modelMeta.model_folder.replace(" ", "_")
+        self.filepath = context.active_object.RobotDesigner.modelMeta.model_folder.replace(" ", "_")
         if self.filepath == "":
                 self.filepath = global_properties.model_name.get(bpy.context.scene).replace(" ", "_")
         context.window_manager.fileselect_add(self)
@@ -819,7 +819,7 @@ class ExportZippedPackage(RDOperator):
         return {'FINISHED'}
 
     def invoke(self, context, event):
-        self.filepath = context.active_object.RobotEditor.modelMeta.model_folder.replace(" ", "_")
+        self.filepath = context.active_object.RobotDesigner.modelMeta.model_folder.replace(" ", "_")
         if self.filepath == "":
                 self.filepath = global_properties.model_name.get(bpy.context.scene).replace(" ", "_")
         context.window_manager.fileselect_add(self)

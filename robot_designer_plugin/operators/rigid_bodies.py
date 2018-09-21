@@ -133,13 +133,13 @@ class AssignGeometry(RDOperator):
         print ("Attaching ", "COL" if self.attach_collision_geometry else "VIS", "to ", obj.name)
 
         if self.attach_collision_geometry:
-            obj.RobotEditor.tag = 'COLLISION'
+            obj.RobotDesigner.tag = 'COLLISION'
             new_name = "COL_" + new_name
         else:
-            obj.RobotEditor.tag = 'DEFAULT'
+            obj.RobotDesigner.tag = 'DEFAULT'
             new_name = "VIS_" + new_name
         obj.name = new_name
-        obj.RobotEditor.fileName = new_name
+        obj.RobotDesigner.fileName = new_name
         # Update the global reference to the selected mesh.
         global_properties.mesh_name.set(context.scene, obj.name)
         # This is just a boolean variable which is reset here to False. It helps
@@ -182,7 +182,7 @@ class RenameAllGeometries(RDOperator):
                 if num > 0:
                     new_name += '_%i' % num
                 i.name = new_name
-                i.RobotEditor.fileName = new_name
+                i.RobotDesigner.fileName = new_name
 
         global_properties.mesh_name.set(context.scene, current_mesh.name[:4] + current_mesh.parent_bone )
 
@@ -211,7 +211,7 @@ class DetachGeometry(RDOperator):
         current_mesh = bpy.data.objects[mesh_name]
         mesh_global = current_mesh.matrix_world
         current_mesh.parent = None
-        current_mesh.RobotEditor.tag = 'DEFAULT'
+        current_mesh.RobotDesigner.tag = 'DEFAULT'
         if current_mesh.name.startswith("VIS_") or current_mesh.name.startswith("COL_") :
             current_mesh.name = current_mesh.name[4:]
 
@@ -247,10 +247,10 @@ class DetachAllGeometries(RDOperator):
                       obj.type == 'MESH' and obj.parent_bone is not '']
         elif mesh_type == 'visual':
             meshes = [obj for obj in bpy.data.objects if
-                      obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotEditor.tag != 'COLLISION']
+                      obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotDesigner.tag != 'COLLISION']
         elif mesh_type == 'collision':
             meshes = [obj for obj in bpy.data.objects if
-                      obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotEditor.tag == 'COLLISION']
+                      obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotDesigner.tag == 'COLLISION']
         else:
             self.confirmation = False
 
@@ -262,7 +262,7 @@ class DetachAllGeometries(RDOperator):
                 DetachGeometry.run()
                 if mesh.name.startswith("VIS_") or mesh.name.startswith("COL_"):
                     mesh.name = mesh.name[4:]
-                    mesh.RobotEditor.tag = 'DEFAULT'
+                    mesh.RobotDesigner.tag = 'DEFAULT'
 
         return {'FINISHED'}
 
@@ -353,8 +353,8 @@ class ReduceAllGeometry(RDOperator):
 
         if hide_geometry != 'all':
             meshes = [item for item in meshes
-                      if (hide_geometry == 'collision' and item.RobotEditor.tag == 'COLLISION')
-                      or (hide_geometry == 'visual' and item.RobotEditor.tag == 'DEFAULT')]
+                      if (hide_geometry == 'collision' and item.RobotDesigner.tag == 'COLLISION')
+                      or (hide_geometry == 'visual' and item.RobotDesigner.tag == 'DEFAULT')]
 
         mesh_names = [ m.name for m in meshes ]
         del meshes # Don't want to get into trouble with danling pointers again.

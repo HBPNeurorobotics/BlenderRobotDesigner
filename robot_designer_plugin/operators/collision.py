@@ -79,7 +79,7 @@ class GenerateAllCollisionMeshes(RDOperator):
     # @Postconditions(ModelSelected)
     def execute(self, context):
         visuals = [o.name for o in context.scene.objects if o.type == 'MESH'
-                   and o.parent == context.active_object and o.RobotEditor.tag != "COLLISION"]
+                   and o.parent == context.active_object and o.RobotDesigner.tag != "COLLISION"]
 
         self.logger.debug("Visuals: %s", visuals)
 
@@ -110,7 +110,7 @@ class GenerateAllCollisionConvexHull(RDOperator):
     # @Postconditions(ModelSelected)
     def execute(self, context):
         visuals = [o.name for o in context.scene.objects if o.type == 'MESH'
-                   and o.parent == context.active_object and o.RobotEditor.tag != "COLLISION"]
+                   and o.parent == context.active_object and o.RobotDesigner.tag != "COLLISION"]
 
         self.logger.debug("Visuals: %s", visuals)
 
@@ -180,7 +180,7 @@ class GenerateCollisionMesh(RDOperator):
             bpy.context.object.name = 'COL_' + target_name[4:]
         name = bpy.context.object.name
 
-        context.active_object.RobotEditor.tag = 'COLLISION'
+        context.active_object.RobotDesigner.tag = 'COLLISION'
         self.logger.debug("Created mesh: %s", bpy.context.active_object.name)
 
         if 'RD_COLLISON_OBJECT_MATERIAL' in bpy.data.materials:
@@ -300,7 +300,7 @@ class GenerateCollisionConvexHull(RDOperator):
           
             exp_object.select = True
             
-            exp_object.RobotEditor.tag = 'COLLISION'
+            exp_object.RobotDesigner.tag = 'COLLISION'
             self.logger.debug("Created mesh: %s", exp_object.name)
           
             orig_object.name = target_name

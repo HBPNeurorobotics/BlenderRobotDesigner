@@ -145,7 +145,7 @@ class GenerateMeshFromSegment(RDOperator):
             bezier.matrix_world = bone_world
 
             print(bezier.matrix_world)
-            # e= C.active_bone.RobotEditor.Euler
+            # e= C.active_bone.RobotDesigner.Euler
 
             bpy.ops.object.mode_set(mode="EDIT", toggle=False)
 
@@ -218,7 +218,7 @@ class GenerateMeshFromJoint(RDOperator):
         model = C.active_object
 
         bone_name = C.active_bone.name
-        axis = C.active_bone.RobotEditor.axis
+        axis = C.active_bone.RobotDesigner.axis
         pose_bone = C.active_object.pose.bones[bone_name]
         parent_bone = pose_bone.parent
         bone_to_parent = pose_bone.matrix.inverted() * parent_bone.matrix

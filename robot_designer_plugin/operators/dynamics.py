@@ -94,7 +94,7 @@ class CreatePhysical(RDOperator):
 
         bones_that_have_physics_frames = set()
         for obj in armature.children:
-            if obj.parent_bone and obj.RobotEditor.tag == 'PHYSICS_FRAME':
+            if obj.parent_bone and obj.RobotDesigner.tag == 'PHYSICS_FRAME':
                 bone = armature.data.bones[obj.parent_bone]
                 bones_that_have_physics_frames.add(bone)
 
@@ -126,7 +126,7 @@ def just_create_the_physics_frame(context, name):
     armature = context.active_object
     bpy.ops.object.empty_add(type='PLAIN_AXES')
     context.active_object.name = name
-    context.active_object.RobotEditor.tag = 'PHYSICS_FRAME'
+    context.active_object.RobotDesigner.tag = 'PHYSICS_FRAME'
     # set new mass object to cursor location
     cursor = bpy.context.scene.cursor_location
     context.active_object.location = [cursor.x, cursor.y, cursor.z]
@@ -201,12 +201,12 @@ class AssignPhysical(RDOperator):
         #     to_parent_matrix = bpy.context.active_bone.parent.matrix_local
         # else:
         #     to_parent_matrix = Matrix()
-        # from_parent_matrix, bone_matrix = bpy.context.active_bone.RobotEditor.getTransform()
+        # from_parent_matrix, bone_matrix = bpy.context.active_bone.RobotDesigner.getTransform()
         # armature_matrix = bpy.context.active_object.matrix_basis
 
         # # find selected physics frame
         # for ob in bpy.data.objects:
-        #     if ob.select and ob.RobotEditor.tag == 'PHYSICS_FRAME':
+        #     if ob.select and ob.RobotDesigner.tag == 'PHYSICS_FRAME':
         #         frame = ob
         #         print(frame.name)
 
@@ -257,7 +257,7 @@ class ComputePhysical(RDOperator):
                  1./12.*(len[0]**2 + len[2]**2),
                  1./12.*(len[0]**2 + len[1]**2))
         print ("bone:", bone, len, mass, Iunit, com)
-        d = associations.physics_frame.RobotEditor.dynamics
+        d = associations.physics_frame.RobotDesigner.dynamics
         d.inertiaXX = mass*Iunit[0]
         d.inertiaYY = mass*Iunit[1]
         d.inertiaZZ = mass*Iunit[2]
@@ -285,11 +285,11 @@ class ComputePhysical(RDOperator):
                 bone = armature.data.bones[obj.parent_bone]
                 print ("visit ", obj, obj.parent_bone, bone, bone.select)
                 if bone.select:
-                    if obj.RobotEditor.tag == 'PHYSICS_FRAME':
+                    if obj.RobotDesigner.tag == 'PHYSICS_FRAME':
                         segment_associations[bone].physics_frame = obj
-                    elif obj.RobotEditor.tag == 'COLLISION':
+                    elif obj.RobotDesigner.tag == 'COLLISION':
                         segment_associations[bone].collision = obj
-                    elif obj.RobotEditor.tag == 'DEFAULT':
+                    elif obj.RobotDesigner.tag == 'DEFAULT':
                         segment_associations[bone].visual = obj
 
         bones = [ b for b in armature.data.bones if b.select ]

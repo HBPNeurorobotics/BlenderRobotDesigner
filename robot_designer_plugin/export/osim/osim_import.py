@@ -76,9 +76,9 @@ class OsimImporter(object):
       CreateNewMuscle.run(muscle.name)
       RDmuscle = bpy.data.objects[muscle.name]
 
-      RDmuscle.RobotEditor.muscles.muscleType = type
-      RDmuscle.RobotEditor.muscles.length = muscle.optimal_fiber_length / 0.9
-      RDmuscle.RobotEditor.muscles.max_isometric_force = muscle.max_isometric_force
+      RDmuscle.RobotDesigner.muscles.muscleType = type
+      RDmuscle.RobotDesigner.muscles.length = muscle.optimal_fiber_length / 0.9
+      RDmuscle.RobotDesigner.muscles.max_isometric_force = muscle.max_isometric_force
 
       global_properties.active_muscle.set(bpy.context.scene, muscle.name)
 
@@ -114,8 +114,8 @@ class OsimImporter(object):
             RDmuscle.data.splines[0].points[p].co = (location_global[0],location_global[1],location_global[2], 1)
 
             #  hook pathpoints to segments
-            RDmuscle.RobotEditor.muscles.pathPoints[p].coordFrame = pathpoint.body
-            bpy.ops.roboteditor.select_segment_muscle(segment_name=pathpoint.body, pathpoint_nr=p+1)
+            RDmuscle.RobotDesigner.muscles.pathPoints[p].coordFrame = pathpoint.body
+            bpy.ops.RobotDesigner.select_segment_muscle(segment_name=pathpoint.body, pathpoint_nr=p+1)
 
 
             p += 1

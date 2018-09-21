@@ -242,11 +242,11 @@ class ImportBlenderArmature(RDOperator):
         # Otherwise UpdateSegments would mess up the bones transform as soon as the first RD related property is changed.
         # Example:
         # - have this bone down a bone hierarchy. It happens to be managed by RD already.
-        # - Further down we do bpy.context.active_bone.RobotEditor.Euler.x.value = xyz[0]
+        # - Further down we do bpy.context.active_bone.RobotDesigner.Euler.x.value = xyz[0]
         # - Triggers UpdateSegments
         # - y, z, etc still filled with garbage.
         # - UpdateSegments uses garbage to compute and assign new bone transform.
-        bone.RobotEditor.RD_Bone = False
+        bone.RobotDesigner.RD_Bone = False
         parent = bone.parent
         if parent is not None:
             m = parent.matrix_local.inverted() * bone.matrix_local
@@ -254,13 +254,13 @@ class ImportBlenderArmature(RDOperator):
             m = bone.matrix_local
         euler = m.to_euler()
         xyz = m.translation
-        bone.RobotEditor.Euler.x.value = xyz[0]
-        bone.RobotEditor.Euler.y.value = xyz[1]
-        bone.RobotEditor.Euler.z.value = xyz[2]
-        bone.RobotEditor.Euler.alpha.value = round(degrees(euler[0]), 0)
-        bone.RobotEditor.Euler.beta.value = round(degrees(euler[1]), 0)
-        bone.RobotEditor.Euler.gamma.value = round(degrees(euler[2]), 0)
-        bone.RobotEditor.RD_Bone = True
+        bone.RobotDesigner.Euler.x.value = xyz[0]
+        bone.RobotDesigner.Euler.y.value = xyz[1]
+        bone.RobotDesigner.Euler.z.value = xyz[2]
+        bone.RobotDesigner.Euler.alpha.value = round(degrees(euler[0]), 0)
+        bone.RobotDesigner.Euler.beta.value = round(degrees(euler[1]), 0)
+        bone.RobotDesigner.Euler.gamma.value = round(degrees(euler[2]), 0)
+        bone.RobotDesigner.RD_Bone = True
 
 
     @RDOperator.OperatorLogger
@@ -465,15 +465,15 @@ class CreateNewSegment(RDOperator):
 
         SelectSegment.run(segment_name=segment_name)
 
-        context.active_bone.RobotEditor.RD_Bone = True
+        context.active_bone.RobotDesigner.RD_Bone = True
 
         if not parent_name:
-            context.active_bone.RobotEditor.Euler.alpha.value = 90.0
-            context.active_bone.RobotEditor.DH.alpha.value = 90.0
+            context.active_bone.RobotDesigner.Euler.alpha.value = 90.0
+            context.active_bone.RobotDesigner.DH.alpha.value = 90.0
 
         bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
         bpy.context.object.pose.bones[segment_name].constraints[
-            0].name = 'RobotEditorConstraint'
+            0].name = 'RobotDesignerConstraint'
         bpy.ops.object.mode_set(mode=current_mode, toggle=False)
 
         self.logger.info("Current mode after: %s (%s)", bpy.context.object.mode, current_mode)
@@ -513,7 +513,7 @@ class CreateNewSegment(RDOperator):
 #     designer.select_segment(boneName=bone_name)
 #     bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
 #     bpy.context.object.pose.bones[bone_name].constraints[
-#         0].name = 'RobotEditorConstraint'
+#         0].name = 'RobotDesignerConstraint'
 #     bpy.ops.object.mode_set(mode=currentMode, toggle=False)
 #
 #     print("createBone done")
@@ -551,14 +551,14 @@ class UpdateSegments(RDOperator):
 
         SelectSegment.run(segment_name=self.segment_name)
 
-        if not bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.RD_Bone:
+        if not bpy.data.armatures[armature_data_name].bones[segment_name].RobotDesigner.RD_Bone:
             self.logger.info("Not updated (not a RD segment): %s", segment_name)
             return {'FINISHED'}
 
         bone = bpy.data.armatures[armature_data_name].bones[segment_name]
 
         # Transforms as per RD spec.
-        matrix, joint_matrix = bone.RobotEditor.getTransform()
+        matrix, joint_matrix = bone.RobotDesigner.getTransform()
 
         bpy.ops.object.mode_set(mode='EDIT', toggle=False)
 
@@ -589,19 +589,19 @@ class UpdateSegments(RDOperator):
 
         # Local variables for updating the constraints
         # These refer to the settings pertaining to the RD.
-        joint_axis = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.axis
-        min_rot = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.theta.min
-        max_rot = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.theta.max
-        jointMode = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.jointMode
-        jointValue = bpy.data.armatures[armature_data_name].bones[segment_name].RobotEditor.theta.value
+        joint_axis = bpy.data.armatures[armature_data_name].bones[segment_name].RobotDesigner.axis
+        min_rot = bpy.data.armatures[armature_data_name].bones[segment_name].RobotDesigner.theta.min
+        max_rot = bpy.data.armatures[armature_data_name].bones[segment_name].RobotDesigner.theta.max
+        jointMode = bpy.data.armatures[armature_data_name].bones[segment_name].RobotDesigner.jointMode
+        jointValue = bpy.data.armatures[armature_data_name].bones[segment_name].RobotDesigner.theta.value
         if jointMode == 'REVOLUTE':
-            if 'RobotEditorConstraint' not in pose_bone.constraints:
+            if 'RobotDesignerConstraint' not in pose_bone.constraints:
                 bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
                 bpy.context.object.pose.bones[segment_name].constraints[
-                    0].name = 'RobotEditorConstraint'
+                    0].name = 'RobotDesignerConstraint'
             constraint = \
                 [i for i in pose_bone.constraints if i.type == 'LIMIT_ROTATION'][0]
-            constraint.name = 'RobotEditorConstraint'
+            constraint.name = 'RobotDesignerConstraint'
             constraint.owner_space = 'LOCAL'
             constraint.use_limit_x = True
             constraint.use_limit_y = True
@@ -621,8 +621,8 @@ class UpdateSegments(RDOperator):
             elif joint_axis == 'Z':
                 constraint.min_z = radians(min_rot)
                 constraint.max_z = radians(max_rot)
-        elif 'RobotEditorConstraint' in pose_bone.constraints:
-          pose_bone.constraints.remove(pose_bone.constraints['RobotEditorConstraint'])
+        elif 'RobotDesignerConstraint' in pose_bone.constraints:
+          pose_bone.constraints.remove(pose_bone.constraints['RobotDesignerConstraint'])
 
         # -------------------------------------------------------
         bpy.ops.object.mode_set(mode=current_mode, toggle=False)

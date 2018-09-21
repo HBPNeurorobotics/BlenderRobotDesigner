@@ -88,7 +88,7 @@ class RDGlobals(PropertyGroupHandlerBase):
 
     @staticmethod
     def display_physics(self, context):
-        for physics in [physics for physics in bpy.data.objects if physics.RobotEditor.tag == 'PHYSICS_FRAME']:
+        for physics in [physics for physics in bpy.data.objects if physics.RobotDesigner.tag == 'PHYSICS_FRAME']:
             if self.display_physics_selection == True:
                 physics.hide = False
             else:
@@ -125,9 +125,9 @@ class RDGlobals(PropertyGroupHandlerBase):
             obj = bpy.data.objects[mesh]
             if hide_geometry == 'all':
                 obj.hide = False
-            elif hide_geometry== 'collision' and obj.RobotEditor.tag == 'COLLISION':
+            elif hide_geometry== 'collision' and obj.RobotDesigner.tag == 'COLLISION':
                 obj.hide = False
-            elif hide_geometry == 'visual' and obj.RobotEditor.tag == 'DEFAULT':
+            elif hide_geometry == 'visual' and obj.RobotDesigner.tag == 'DEFAULT':
                 obj.hide = False
             elif hide_geometry == 'none':
                 obj.hide = True
@@ -143,14 +143,14 @@ class RDGlobals(PropertyGroupHandlerBase):
         hide_muscles = global_properties.display_muscle_selection.get(context.scene)
 
         muscle_names = [obj.name for obj in bpy.data.objects if
-         bpy.data.objects[obj.name].RobotEditor.muscles.robotName != '']
+         bpy.data.objects[obj.name].RobotDesigner.muscles.robotName != '']
 
         for muscle in muscle_names:
             obj = bpy.data.objects[muscle]
-            muscle_type = obj.RobotEditor.muscles.muscleType
+            muscle_type = obj.RobotDesigner.muscles.muscleType
             if hide_muscles == 'all':
                 obj.hide = False
-           # elif hide_muscles == 'MYOROBOTICS' and obj.RobotEditor.muscles.muscleType == 'MYOROBOTICS':
+           # elif hide_muscles == 'MYOROBOTICS' and obj.RobotDesigner.muscles.muscleType == 'MYOROBOTICS':
            #     obj.hide = False
             elif hide_muscles == 'MILLARD_EQUIL' and muscle_type == 'MILLARD_EQUIL':
                 obj.hide = False
@@ -172,11 +172,11 @@ class RDGlobals(PropertyGroupHandlerBase):
         hide_sensors = global_properties.display_sensor_type.get(context.scene)
 
         sensor_names = [obj.name for obj in bpy.data.objects if
-         bpy.data.objects[obj.name].RobotEditor.tag == 'SENSOR']
+         bpy.data.objects[obj.name].RobotDesigner.tag == 'SENSOR']
 
         for sensor in sensor_names:
             obj = bpy.data.objects[sensor]
-            sensor_type = obj.RobotEditor.sensor_type
+            sensor_type = obj.RobotDesigner.sensor_type
             if hide_sensors == 'ALL':
                 obj.hide = False
             elif hide_sensors == 'CAMERA_SENSOR' and sensor_type == 'CAMERA_SENSOR':
@@ -205,10 +205,10 @@ class RDGlobals(PropertyGroupHandlerBase):
         updates the robot name for every assigned muscle
         """
         if self.old_name != '':
-            muscles = [obj for obj in bpy.data.objects if obj.RobotEditor.muscles.robotName == self.old_name]
+            muscles = [obj for obj in bpy.data.objects if obj.RobotDesigner.muscles.robotName == self.old_name]
 
             for muscle in muscles:
-                muscle.RobotEditor.muscles.robotName = self.model_name
+                muscle.RobotDesigner.muscles.robotName = self.model_name
 
             self.old_name = self.model_name
 
@@ -222,7 +222,7 @@ class RDGlobals(PropertyGroupHandlerBase):
         print("in the function")
         active_model = self.model_name
         for muscle in [obj.name for obj in bpy.data.objects
-            if bpy.data.objects[obj.name].RobotEditor.muscles.robotName == active_model]:
+            if bpy.data.objects[obj.name].RobotDesigner.muscles.robotName == active_model]:
                 bpy.data.objects[muscle].data.bevel_depth = self.muscle_dim
                 print("changeing ----")
 
@@ -244,6 +244,9 @@ class RDGlobals(PropertyGroupHandlerBase):
         self.mesh_name = PropertyHandler(StringProperty(update=self.update_geometry_name))
 
         # Holds the name of the currently selected physics frame (Empty object)
+        self.physics_frame_name = PropertyHandler(StringProperty())
+
+        # Holds the name of the currently selected sensor (Camera or Empty object)
         self.camera_sensor_name = PropertyHandler(StringProperty())
 
         # Used to realize the main tab in the GUI

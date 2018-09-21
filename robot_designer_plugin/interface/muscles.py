@@ -108,9 +108,9 @@ def draw(layout, context):
                     row5.prop(obj, 'co', text=str(i))
 
                     # assigned segment
-                    if bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[i-1].coordFrame not in \
+                    if bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[i-1].coordFrame not in \
                             [bone.name for bone in bpy.data.objects[active_model].data.bones]: row5.alert = True
-                    row5.prop(bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[i-1], 'coordFrame', text='')
+                    row5.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[i-1], 'coordFrame', text='')
                     row5.alert = False
 
                     # swap pathpoints
@@ -130,18 +130,18 @@ def draw(layout, context):
                 musclebox.label("Muscle Characteristics")
                 # show length of muscle
                 row = musclebox.row()
-                row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'length', text="Muscle length")
+                row.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles, 'length', text="Muscle length")
                 muscles.CalculateMuscleLength.place_button(row, infoBox=infoBox, text="Calculate").muscle = active_muscle
 
                 # Muscle Characteristics
                 # max force
                 row = musclebox.row()
-                row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'max_isometric_force', text="Max isometric Force")
+                row.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles, 'max_isometric_force', text="Max isometric Force")
 
                 # muscle type
                 row = musclebox.row()
                 if active_muscle != '':
-                   row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'muscleType', text='Muscle Type')
+                   row.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles, 'muscleType', text='Muscle Type')
                 box.row()
 
              except:

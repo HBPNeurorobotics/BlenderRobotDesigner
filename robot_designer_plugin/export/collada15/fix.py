@@ -20,7 +20,7 @@ def fixCollada(in_filename, out_filename, context):
                 matrix = etree.Element(ns + "matrix")
                 if obj.parent_bone != "":
                     bone = obj.parent.data.bones[obj.parent_bone]
-                    if bone.RobotEditor.jointMode == "REVOLUTE":
+                    if bone.RobotDesigner.jointMode == "REVOLUTE":
                         # TODO: Place the transformation for the joint here!
                         pass
 
@@ -28,7 +28,7 @@ def fixCollada(in_filename, out_filename, context):
                     matrix.set('sid', 'Inverted')
                     # matrix.text = " ".join([str(j) for i in list(obj.matrix_local_inverse) for j in i])
                     element.insert(0, matrix)
-                if obj.parent.RobotEditor.tag == "PHYSICS_FRAME":
+                if obj.parent.RobotDesigner.tag == "PHYSICS_FRAME":
                     for parent in root.iter():
                         if element in parent:
                             parent.remove(element)
