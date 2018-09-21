@@ -61,15 +61,15 @@ def draw(layout, context):
     if not check_armature(layout, context):
         return
 
-    if len([i for i in context.selected_objects if i.type=="MESH"])==0:
+    if len([i for i in context.selected_objects if i.type == "MESH"]) == 0:
         info_list.append("No mesh selected")
-    elif len(context.selected_objects)>2:
+    elif len(context.selected_objects) > 2:
         info_list.append("Too many objects selected")
 
     box = layout.box()
     row = box.row(align=True)
     row.label("Mesh type:")
-    global_properties.mesh_type.prop(context.scene,row, expand=True)
+    global_properties.mesh_type.prop(context.scene, row, expand=True)
     row = box.row(align=True)
     row.label("Show:")
     global_properties.display_mesh_selection.prop(context.scene, row, expand=True)
@@ -93,7 +93,6 @@ def draw(layout, context):
         column.label("Mesh Selector")
         menus.GeometriesMenu.putMenu(column, context)
 
-
     box = GeometrySettingsBox.get(layout, context, "Geometry Properties", icon="SCRIPTWIN")
     if box:
         infoBox = InfoBox(box)
@@ -102,7 +101,7 @@ def draw(layout, context):
         rigid_bodies.RenameAllGeometries.place_button(column, infoBox=infoBox)
         rigid_bodies.SetGeometryActive.place_button(column, infoBox=infoBox)
         rigid_bodies.SelectAllGeometries.place_button(column, infoBox=infoBox)
-       # context.scene.objects.active
+        # context.scene.objects.active
         selected_objects = [i for i in context.selected_objects if i.name != context.active_object.name]
         if len(selected_objects):
             obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
@@ -111,7 +110,6 @@ def draw(layout, context):
 
         box.separator()
         infoBox.draw_info()
-
 
     box = ConnectGeometryBox.get(layout, context, "Attach Geometry", icon="LINKED")
     if box:
@@ -142,7 +140,6 @@ def draw(layout, context):
         box.separator()
         infoBox.draw_info()
 
-
     box = DisconnectGeometryBox.get(layout, context, "Detach Geometry", icon="UNLINKED")
     if box:
         infoBox = InfoBox(box)
@@ -150,7 +147,7 @@ def draw(layout, context):
 
         # column = row.column(align=True)
         # menus.GeometriesMenu.putMenu(column, context)
-        #create_geometry_selection(column, context)
+        # create_geometry_selection(column, context)
 
         column = row.column(align=True)
         rigid_bodies.DetachGeometry.place_button(column, infoBox=infoBox)
@@ -158,7 +155,6 @@ def draw(layout, context):
 
         box.separator()
         infoBox.draw_info()
-
 
     if global_properties.mesh_type.get(context.scene) == "DEFAULT":
         box = CollisionBox.get(layout, context, "Generate collision meshes", icon='SURFACE_NCURVE')
@@ -168,7 +164,7 @@ def draw(layout, context):
 
             # column = row.column(align=True)
             # menus.GeometriesMenu.putMenu(column, context)
-            #create_geometry_selection(column, context)
+            # create_geometry_selection(column, context)
             column = row.column(align=True)
             collision.GenerateAllCollisionMeshes.place_button(column, infoBox=infoBox)
             collision.GenerateCollisionMesh.place_button(column, infoBox=infoBox)
@@ -186,10 +182,9 @@ def draw(layout, context):
         # create_segment_selector(column, context)
         column = row.column(align=True)
         mesh_generation.GenerateMeshFromSegment.place_button(column, infoBox=infoBox)
-        mesh_generation.GenerateMeshFromAllSegment.place_button(column,infoBox=infoBox)
+        mesh_generation.GenerateMeshFromAllSegment.place_button(column, infoBox=infoBox)
         box.separator()
         infoBox.draw_info()
-
 
     box = DeformableBox.get(layout, context, "Deformable Geometries", icon="STYLUS_PRESSURE")
     if box:
@@ -201,7 +196,6 @@ def draw(layout, context):
         soft_bodies.ConvertSoftBodies.place_button(column, infoBox=infoBox)
         box.separator()
         infoBox.draw_info()
-
 
     box = PolygonReductionBox.get(layout, context, "Polygon Reduction", icon="MOD_DECIM")
     if box:
@@ -225,5 +219,4 @@ def draw(layout, context):
         box.separator()
         infoBox.draw_info()
 
-
-    drawInfoBox(layout,context)
+    drawInfoBox(layout, context)

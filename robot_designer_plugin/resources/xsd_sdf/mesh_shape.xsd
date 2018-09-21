@@ -1,63 +1,64 @@
-<?xml version="1.0" ?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <xsd:annotation>
-    <xsd:documentation xml:lang="en">
-      <![CDATA[Mesh shape]]>
-    </xsd:documentation>
-  </xsd:annotation>
-  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
-  <xsd:element name="mesh">
-    <xsd:complexType>
-      <xsd:choice maxOccurs="unbounded">
-        <xsd:choice maxOccurs="1" minOccurs="1">
-        <xsd:element name="uri" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-              <![CDATA[Mesh uri]]>
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-        </xsd:choice>
-        <xsd:choice maxOccurs="1" minOccurs="0">
-        <xsd:element name="submesh">
-          <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-              <![CDATA[Use a named submesh. The submesh must exist in the mesh specified by the uri]]>
-            </xsd:documentation>
-          </xsd:annotation>
-          <xsd:complexType>
+<?xml version="1.0" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+            <![CDATA[Mesh shape]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+    <xsd:element name="mesh">
+        <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">
-              <xsd:choice maxOccurs="1" minOccurs="1">
-              <xsd:element name="name" type="xsd:string">
-                <xsd:annotation>
-                  <xsd:documentation xml:lang="en">
-                    <![CDATA[Name of the submesh within the parent mesh]]>
-                  </xsd:documentation>
-                </xsd:annotation>
-              </xsd:element>
-              </xsd:choice>
-              <xsd:choice maxOccurs="1" minOccurs="0">
-              <xsd:element name="center" type="xsd:boolean">
-                <xsd:annotation>
-                  <xsd:documentation xml:lang="en">
-                    <![CDATA[Set to true to center the vertices of the submesh at 0,0,0. This will effectively remove any transformations on the submesh before the poses from parent links and models are applied.]]>
-                  </xsd:documentation>
-                </xsd:annotation>
-              </xsd:element>
-              </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="1">
+                    <xsd:element name="uri" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Mesh uri]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="submesh">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Use a named submesh. The submesh must exist in the mesh specified by the uri]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs="unbounded">
+                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                    <xsd:element name="name" type="xsd:string">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[Name of the submesh within the parent mesh]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="center" type="xsd:boolean">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[Set to true to center the vertices of the submesh at 0,0,0. This will effectively remove any transformations on the submesh before the poses from parent links and models are applied.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="scale" type="vector3">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Scaling factor applied to the mesh]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:choice>
-          </xsd:complexType>
-        </xsd:element>
-        </xsd:choice>
-        <xsd:choice maxOccurs="1" minOccurs="0">
-        <xsd:element name="scale" type="vector3">
-          <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-              <![CDATA[Scaling factor applied to the mesh]]>
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-        </xsd:choice>
-      </xsd:choice>
-    </xsd:complexType>
-  </xsd:element>
+        </xsd:complexType>
+    </xsd:element>
 </xsd:schema>

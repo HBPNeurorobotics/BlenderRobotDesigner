@@ -69,5 +69,3 @@ class PrintTransformations(RDOperator):
             print(transform)
 
         return {'FINISHED'}
-
-

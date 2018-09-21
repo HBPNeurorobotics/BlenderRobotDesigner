@@ -38,6 +38,7 @@
 import bpy
 from ..properties.globals import global_properties
 
+
 def draw(layout, context):
     """
     Draw method that builds the part of the GUI responsible for the bone submenu.
@@ -91,6 +92,3 @@ def draw(layout, context):
             joint_column.prop(context.active_bone.RobotDesigner.d, "offset", slider=False)
             joint_column.prop(context.active_bone.RobotDesigner.d, "min", slider=False)
             joint_column.prop(context.active_bone.RobotDesigner.d, "max", slider=False)
-
-
-

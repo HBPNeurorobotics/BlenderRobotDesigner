@@ -65,25 +65,24 @@ def draw(layout, context):
     infoBox = InfoBox(box)
     row = box.row()
 
-
-
     single_segment = getSingleSegment(context)
 
-    #menus.MassObjectMenu.putMenu(column, context)
+    # menus.MassObjectMenu.putMenu(column, context)
     # create_geometry_selection(column, context)
     row = box.column(align=True)
 
-    dynamics.CreatePhysical.place_button(row,infoBox=infoBox)
-    dynamics.ComputePhysical.place_button(row,infoBox=infoBox)
+    dynamics.CreatePhysical.place_button(row, infoBox=infoBox)
+    dynamics.ComputePhysical.place_button(row, infoBox=infoBox)
 
-    #dynamics.AssignPhysical.place_button(row,infoBox=infoBox)
-    #dynamics.DetachPhysical.place_button(row,infoBox=infoBox)
+    # dynamics.AssignPhysical.place_button(row,infoBox=infoBox)
+    # dynamics.DetachPhysical.place_button(row,infoBox=infoBox)
 
-    objs = [ o for o in context.active_object.children if o.RobotDesigner.tag=='PHYSICS_FRAME' and o.parent_bone == single_segment.name ]
+    objs = [o for o in context.active_object.children if
+            o.RobotDesigner.tag == 'PHYSICS_FRAME' and o.parent_bone == single_segment.name]
     try:
         obj, = objs
-        #obj = getSingleObject(context)
-        if obj and obj.RobotDesigner.tag=="PHYSICS_FRAME":
+        # obj = getSingleObject(context)
+        if obj and obj.RobotDesigner.tag == "PHYSICS_FRAME":
             frame_name = obj.name
             box = layout.box()
             box.label("Mass properties (" + single_segment.name + ")", icon="MODIFIER")

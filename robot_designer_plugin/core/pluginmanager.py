@@ -186,7 +186,6 @@ class PluginManager(object):
     @classmethod
     def load_icon(cls, id: str, filename: str):
         '''
-
         :param id: ID of the label
         :param filename: Relative to :data:`.config/resource_path`
         :return: None
@@ -197,10 +196,10 @@ class PluginManager(object):
         else:
             cls._icons_to_register.append((id, file_path, 'IMAGE'))
 
+
     @classmethod
     def get_icon(cls, id: str):
         '''
-
         :param id:
         :return:
         '''
@@ -209,6 +208,7 @@ class PluginManager(object):
             return cls._bl_icons_dict[id].icon_id
         else:
             return 0
+
 
     @classmethod
     def clear(cls):
@@ -221,6 +221,7 @@ class PluginManager(object):
         cls._bools_to_register.clear()
         cls._icons_to_register.clear()
 
+
     @classmethod
     def get_property(cls, obj, prop):
         '''
@@ -231,6 +232,7 @@ class PluginManager(object):
         '''
         args, varargs, keywords, locals = inspect.getargvalues(inspect.currentframe())
         print(args, varargs, keywords, locals)
+
 
     @classmethod
     def register(cls):
@@ -280,6 +282,7 @@ class PluginManager(object):
                               type(e).__name__, e, log_callstack(), log_callstack(back_trace=True))
 
         cls.clear()
+
 
     @classmethod
     def unregister(cls):

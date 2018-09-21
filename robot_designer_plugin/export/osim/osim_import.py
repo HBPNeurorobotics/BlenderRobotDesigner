@@ -41,16 +41,15 @@ from ...properties.globals import global_properties
 
 from ...operators.muscles import CreateNewMuscle, CreateNewPathpoint
 
-#logger = logging.getLogger('SDF')
-#logger.setLevel(logging.DEBUG)
+# logger = logging.getLogger('SDF')
+# logger.setLevel(logging.DEBUG)
 
 
 __author__ = 'Benedikt Feldotto(TUM)'
 
 
 class OsimImporter(object):
-
-  def __init__(self, file_path, musclepath):
+    def __init__(self, file_path, musclepath):
         # initialize logger and operator
         operator = RDOperator
         self.logger = operator.logger
@@ -66,119 +65,105 @@ class OsimImporter(object):
         muscles_osim = open(base_dir + '/' + '/'.join(musclepath.split('/', 3)[3:])[:-2]).read()
         self.muscles = osim_dom.CreateFromDocument(muscles_osim)
 
+    def import_muscles(self, muscle, type):
+        """
+          import a single muscle from the osim file
+          :param muscle: .osim pyxb muscle instance
+          :return: type: string for muscle type
+        """
+        CreateNewMuscle.run(muscle.name)
+        RDmuscle = bpy.data.objects[muscle.name]
 
-  def import_muscles(self, muscle, type):
-      """
-        import a single muscle from the osim file
+        RDmuscle.RobotDesigner.muscles.muscleType = type
+        RDmuscle.RobotDesigner.muscles.length = muscle.optimal_fiber_length / 0.9
+        RDmuscle.RobotDesigner.muscles.max_isometric_force = muscle.max_isometric_force
+
+        global_properties.active_muscle.set(bpy.context.scene, muscle.name)
+
+        self.import_pathpoints(muscle, RDmuscle)
+
+    def import_pathpoints(self, muscle, RDmuscle):
+        """
+            import muscle pathpoints from the osim file
         :param muscle: .osim pyxb muscle instance
-        :return: type: string for muscle type
-      """
-      CreateNewMuscle.run(muscle.name)
-      RDmuscle = bpy.data.objects[muscle.name]
+        :return: RDmuscle: Robot Designer muscle instance
+        """
+        p = 0
 
-      RDmuscle.RobotDesigner.muscles.muscleType = type
-      RDmuscle.RobotDesigner.muscles.length = muscle.optimal_fiber_length / 0.9
-      RDmuscle.RobotDesigner.muscles.max_isometric_force = muscle.max_isometric_force
+        while (True):
+            try:
+                # current pathpoint
+                pathpoint = muscle.GeometryPath.PathPointSet.objects.PathPoint[p]
 
-      global_properties.active_muscle.set(bpy.context.scene, muscle.name)
+                # get pathpoint parent world pose
+                model = bpy.data.objects[global_properties.model_name.get(bpy.context.scene)]
+                pose_bone = model.pose.bones[pathpoint.body]
+                segment_world = model.matrix_world * pose_bone.matrix
 
-      self.import_pathpoints(muscle, RDmuscle)
+                # calculate pathpoint world pose
+                location_local = [float(x) for x in pathpoint.location.split()]
+                location_global = segment_world * Matrix.Translation(
+                    (location_local[0], location_local[1], location_local[2], 1))
 
+                # create new pathpoint and set parameters of RD pathpoint object
+                CreateNewPathpoint.run()
+                location_global = location_global.to_translation()
+                RDmuscle.data.splines[0].points[p].co = (location_global[0], location_global[1], location_global[2], 1)
 
-  def import_pathpoints(self, muscle, RDmuscle):
-      """
-          import muscle pathpoints from the osim file
-      :param muscle: .osim pyxb muscle instance
-      :return: RDmuscle: Robot Designer muscle instance
-      """
-      p = 0
+                #  hook pathpoints to segments
+                RDmuscle.RobotDesigner.muscles.pathPoints[p].coordFrame = pathpoint.body
+                bpy.ops.RobotDesigner.select_segment_muscle(segment_name=pathpoint.body, pathpoint_nr=p + 1)
 
+                p += 1
 
-      while(True):
-        try:
-            # current pathpoint
-            pathpoint = muscle.GeometryPath.PathPointSet.objects.PathPoint[p]
+            except:
+                break
 
-            # get pathpoint parent world pose
-            model = bpy.data.objects[global_properties.model_name.get(bpy.context.scene)]
-            pose_bone = model.pose.bones[pathpoint.body]
-            segment_world = model.matrix_world * pose_bone.matrix
+    def import_osim(self):
+        """
+        Imports all listed muscles in .osim file
+        """
+        # import Thelen2003 Muscles
+        m = 0
+        while (True):
+            try:
+                muscle = self.muscles.Model.ForceSet.objects.Thelen2003Muscle[m]
+                type = 'THELEN'
+                self.import_muscles(muscle, type)
+                m += 1
+                print("import thelen")
+            except:
+                break
 
-            # calculate pathpoint world pose
-            location_local = [float(x) for x in pathpoint.location.split()]
-            location_global = segment_world * Matrix.Translation((location_local[0],location_local[1],location_local[2],1))
+        # import Millard2012 Equilibrium Muscles
+        m = 0
+        while (True):
+            try:
+                muscle = self.muscles.Model.ForceSet.objects.Millard2012EquilibriumMuscle[m]
+                type = 'MILLARD_EQUIL'
+                self.import_muscles(muscle, type)
+                m += 1
+            except:
+                break
 
-            # create new pathpoint and set parameters of RD pathpoint object
-            CreateNewPathpoint.run()
-            location_global = location_global.to_translation()
-            RDmuscle.data.splines[0].points[p].co = (location_global[0],location_global[1],location_global[2], 1)
+        # import Millard2012 Acceleration Muscles
+        m = 0
+        while (True):
+            try:
+                muscle = self.muscles.Model.ForceSet.objects.Millard2012AccelerationMuscle[m]
+                type = 'MILLARD_ACCEL'
+                self.import_muscles(muscle, type)
+                m += 1
+            except:
+                break
 
-            #  hook pathpoints to segments
-            RDmuscle.RobotDesigner.muscles.pathPoints[p].coordFrame = pathpoint.body
-            bpy.ops.RobotDesigner.select_segment_muscle(segment_name=pathpoint.body, pathpoint_nr=p+1)
-
-
-            p += 1
-
-        except:
-            break
-
-
-  def import_osim(self):
-    """
-    Imports all listed muscles in .osim file
-    """
-    # import Thelen2003 Muscles
-    m = 0
-    while(True):
-        try:
-            muscle = self.muscles.Model.ForceSet.objects.Thelen2003Muscle[m]
-            type = 'THELEN'
-            self.import_muscles(muscle, type)
-            m += 1
-            print("import thelen")
-        except:
-            break
-
-    # import Millard2012 Equilibrium Muscles
-    m = 0
-    while(True):
-        try:
-            muscle = self.muscles.Model.ForceSet.objects.Millard2012EquilibriumMuscle[m]
-            type = 'MILLARD_EQUIL'
-            self.import_muscles(muscle, type)
-            m += 1
-        except:
-            break
-
-    # import Millard2012 Acceleration Muscles
-    m = 0
-    while (True):
-        try:
-            muscle = self.muscles.Model.ForceSet.objects.Millard2012AccelerationMuscle[m]
-            type = 'MILLARD_ACCEL'
-            self.import_muscles(muscle, type)
-            m += 1
-        except:
-            break
-
-    # import Rigid Tendon Muscles
-    m = 0
-    while (True):
-        try:
-            muscle = self.muscles.Model.ForceSet.objects.RigidTendonMuscle[m]
-            type = 'RIGID_TENDON'
-            self.import_muscles(muscle, type)
-            m += 1
-        except:
-            break
-
-
-
-
-
-
-
-
-
-
+        # import Rigid Tendon Muscles
+        m = 0
+        while (True):
+            try:
+                muscle = self.muscles.Model.ForceSet.objects.RigidTendonMuscle[m]
+                type = 'RIGID_TENDON'
+                self.import_muscles(muscle, type)
+                m += 1
+            except:
+                break

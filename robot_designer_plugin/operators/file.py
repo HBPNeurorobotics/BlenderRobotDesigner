@@ -58,6 +58,7 @@ from ..core.operators import RDOperator
 from .helpers import ModelSelected, ObjectMode
 from .segments import SelectSegment
 
+
 # from .. import export
 
 
@@ -70,7 +71,6 @@ class Traverse(RDOperator):
 
     **Effects:**
     """
-
 
     @RDOperator.Postconditions(ModelSelected, ObjectMode)
     @RDOperator.OperatorLogger
@@ -170,7 +170,6 @@ class Traverse(RDOperator):
         SelectSegment.run(segment_name=segment_name)
 
         return {'FINISHED'}
-
 
 # # todo to be replaced completely by plugin structure
 #

@@ -47,6 +47,7 @@ from ..core import Condition, PluginManager
 from ..core.constants import StringConstants
 from ..core import RDOperator
 
+
 def _vec_roll_to_mat3(vec, roll):
     """
     Function to convert a given rotation vector and a roll angle along this axis into a 3x3 rotation matrix
@@ -107,7 +108,7 @@ class ModelSelected(Condition):
         :return: True if the condition is met, else false. String with error message.
         """
         if bpy.context.active_object:
-            return bpy.context.active_object.type == 'ARMATURE', "Model not selected and active." #or bpy.context.active_object.type == 'MESH'
+            return bpy.context.active_object.type == 'ARMATURE', "Model not selected and active."  # or bpy.context.active_object.type == 'MESH'
         else:
             return False, "No model selected"
 
@@ -254,7 +255,7 @@ class AssignObjectBase(RDOperator):
         bpy.ops.object.parent_set(type='BONE', keep_transform=True)
         return {'FINISHED'}
 
-		
+
 class ObjectScaled(Condition):
     @staticmethod
     def check():
@@ -262,6 +263,7 @@ class ObjectScaled(Condition):
         :term:`condition` that assures that model has been scaled before the operation.
         """
         if bpy.context.active_object:
-            return (bpy.context.active_object.scale.x == bpy.context.active_object.scale.y == bpy.context.active_object.scale.z == 1.0), "Object has to be scaled!"
+            return (
+                   bpy.context.active_object.scale.x == bpy.context.active_object.scale.y == bpy.context.active_object.scale.z == 1.0), "Object has to be scaled!"
         else:
             return True, ""

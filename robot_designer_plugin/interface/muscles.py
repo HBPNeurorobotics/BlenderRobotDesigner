@@ -48,6 +48,7 @@ from ..operators import model, muscles, segments
 
 from .helpers import create_segment_selector
 
+
 def draw(layout, context):
     """
     Draws the user interface for geometric modelling.
@@ -88,17 +89,17 @@ def draw(layout, context):
 
         # Muscle Pathpoints
         if active_muscle != '':
-             pointbox = box.box()
-             row3 = pointbox.row()
-             row3.label(text="Muscle attachment points")
+            pointbox = box.box()
+            row3 = pointbox.row()
+            row3.label(text="Muscle attachment points")
 
-             row4 = pointbox.row()
-             column = row4.column(align=True)
-             muscles.CreateNewPathpoint.place_button(column, text="Add new pathpoint", infoBox=infoBox)
+            row4 = pointbox.row()
+            column = row4.column(align=True)
+            muscles.CreateNewPathpoint.place_button(column, text="Add new pathpoint", infoBox=infoBox)
 
-             i = 0
-             # pathpoint characteristics
-             try:
+            i = 0
+            # pathpoint characteristics
+            try:
                 for obj in context.scene.objects[active_muscle].data.splines[0].points:
 
                     row5 = pointbox.row(align=True)
@@ -108,9 +109,10 @@ def draw(layout, context):
                     row5.prop(obj, 'co', text=str(i))
 
                     # assigned segment
-                    if bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[i-1].coordFrame not in \
+                    if bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[i - 1].coordFrame not in \
                             [bone.name for bone in bpy.data.objects[active_model].data.bones]: row5.alert = True
-                    row5.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[i-1], 'coordFrame', text='')
+                    row5.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[i - 1], 'coordFrame',
+                              text='')
                     row5.alert = False
 
                     # swap pathpoints
@@ -131,23 +133,25 @@ def draw(layout, context):
                 # show length of muscle
                 row = musclebox.row()
                 row.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles, 'length', text="Muscle length")
-                muscles.CalculateMuscleLength.place_button(row, infoBox=infoBox, text="Calculate").muscle = active_muscle
+                muscles.CalculateMuscleLength.place_button(row, infoBox=infoBox,
+                                                           text="Calculate").muscle = active_muscle
 
                 # Muscle Characteristics
                 # max force
                 row = musclebox.row()
-                row.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles, 'max_isometric_force', text="Max isometric Force")
+                row.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles, 'max_isometric_force',
+                         text="Max isometric Force")
 
                 # muscle type
                 row = musclebox.row()
                 if active_muscle != '':
-                   row.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles, 'muscleType', text='Muscle Type')
+                    row.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles, 'muscleType', text='Muscle Type')
                 box.row()
 
-             except:
-                 pointbox.row()
-                 box.row()
-                 pass
+            except:
+                pointbox.row()
+                box.row()
+                pass
 
     box = layout.box()
     row1 = box.row()
@@ -156,4 +160,4 @@ def draw(layout, context):
     row2 = box.row()
     global_properties.muscle_dim.prop(context.scene, row2, expand=True)
 
-    #infoBox.draw_info()
+    # infoBox.draw_info()

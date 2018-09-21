@@ -56,6 +56,7 @@ from ..core import config, PluginManager, RDOperator, Condition
 from .helpers import ModelSelected, NotEditMode, ObjectMode
 from ..properties.globals import global_properties
 
+
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class SelectCoordinateFrame(RDOperator):
@@ -78,7 +79,6 @@ class SelectCoordinateFrame(RDOperator):
         """
 
         return super().run(**cls.pass_keywords())
-
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
@@ -114,7 +114,6 @@ class RebuildModel(RDOperator):
         """
 
         return super().run(**cls.pass_keywords())
-
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
@@ -172,6 +171,7 @@ class RebuildModel(RDOperator):
 
         return {'FINISHED'}
 
+
 @PluginManager.register_class
 class SelectModel(RDOperator):
     """
@@ -190,7 +190,6 @@ class SelectModel(RDOperator):
     def run(cls, model_name=""):
         return super().run(**cls.pass_keywords())
 
-
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
@@ -208,6 +207,7 @@ class SelectModel(RDOperator):
             baseBoneName = context.active_object.data.bones[0].name
             segments.SelectSegment.run(segment_name=baseBoneName)
         return {'FINISHED'}
+
 
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
@@ -231,7 +231,6 @@ class RenameModel(RDOperator):
         """
 
         return super().run(**cls.pass_keywords())
-
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
@@ -272,7 +271,6 @@ class JoinModels(RDOperator):
 
         return super().run(**cls.pass_keywords())
 
-
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
@@ -289,6 +287,7 @@ class JoinModels(RDOperator):
         # Might be swapped! todo check double
         segments.UpdateSegments.run(segment_name=sourceParentBoneName, recurse=True)
         return {'FINISHED'}
+
 
 @RDOperator.Preconditions(ObjectMode)
 @PluginManager.register_class
@@ -313,7 +312,6 @@ class CreateNewModel(RDOperator):
         """
 
         return super().run(**cls.pass_keywords())
-
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)

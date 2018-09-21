@@ -47,6 +47,7 @@ from ..operators import segments
 from ..core.pluginmanager import PluginManager
 from ..properties.globals import global_properties
 
+
 def draw(layout, context):
     """
     Draws the user interface for modifying segments.
@@ -70,12 +71,12 @@ def draw(layout, context):
         create_segment_selector(column, context)
 
         if (context.mode == "OBJECT" or context.mode == 'POSE'):
-            assert isinstance(context.active_bone, bpy_types.Bone), 'Given object or pose mode, we should get a bone here but we got '+str(type(context.active_bone))
+            assert isinstance(context.active_bone, bpy_types.Bone), 'Given object or pose mode, we should get a bone here but we got ' + str(type(context.active_bone))
             box = layout.box()
             row = box.row()
             if context.active_bone.RobotDesigner.RD_Bone:
                 row.label("Edit:")
-                global_properties.segment_tab.prop(bpy.context.scene,row,expand=True)
+                global_properties.segment_tab.prop(bpy.context.scene, row, expand=True)
                 tab = global_properties.segment_tab.get(bpy.context.scene)
                 if tab == "kinematics":
                     kinematics.draw(box, context)

@@ -53,6 +53,7 @@ from ..core.gui import InfoBox
 from ..properties.globals import global_properties
 from .helpers import DebugBox
 
+
 @PluginManager.register_class
 class UserInterface(bpy.types.Panel):
     bl_label = "NRP Robot Designer"
@@ -61,10 +62,8 @@ class UserInterface(bpy.types.Panel):
     bl_category = "HBP"
     bl_options = {"HIDE_HEADER"}
 
-
     from ..core.logfile import LogFunction
     @LogFunction
-
     def draw(self, context):
         from ..operators import gui
         from . import files, model, segments, geometries, sensors, muscles
@@ -84,7 +83,7 @@ class UserInterface(bpy.types.Panel):
         elif control == 'meshes':
             geometries.draw(layout, context)
         elif control == 'sensors':
-            sensors.draw(layout,context)
+            sensors.draw(layout, context)
         if control == 'muscles':
             muscles.draw(layout, context)
         # elif control == 'markers':
@@ -95,7 +94,7 @@ class UserInterface(bpy.types.Panel):
             row = layout.row(align=True)
             row.operator(gui.PrintTransformations.bl_idname)
             row = layout.row(align=True)
-            global_properties.operator_debug_level.prop(bpy.context.scene,row, expand=True)
+            global_properties.operator_debug_level.prop(bpy.context.scene, row, expand=True)
 
         # M. Welter: Why is this needed? There is already a perfectly fine gui to switch modes, even in a prominent place, .
         # row = layout.row(align=True)
@@ -114,7 +113,6 @@ class UserInterface(bpy.types.Panel):
             if box:
                 box.label("press <F8> to clear", icon="INFO")
                 InfoBox.draw_global_info(box)
-
 
     def draw_header(self, context):
         layout = self.layout

@@ -80,7 +80,6 @@ class CreatePhysical(RDOperator):
     def run(cls, frameName=""):
         return super().run(**cls.pass_keywords())
 
-
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)  # todo condition for physicframe
     def execute(self, context):
@@ -107,13 +106,14 @@ class CreatePhysical(RDOperator):
             # https://blender.stackexchange.com/questions/15353/get-the-location-in-world-coordinates-of-a-bones-head-and-tail-while-in-pose-mo
             # https: // blender.stackexchange.com / questions / 80306 / location - still - the - same - although - its - moved
             special_bone = armature.pose.bones[bone.name]
-            #frame.worldPosition = armature.matrix_world.to_translation() + 0.5 * (bone.active_pose_bone.tail + bone.active_pose_bone.head)
+            # frame.worldPosition = armature.matrix_world.to_translation() + 0.5 * (bone.active_pose_bone.tail + bone.active_pose_bone.head)
             frame.matrix_world = armature.matrix_world * special_bone.matrix
 
         if frame:
             SelectPhysical.run(frameName=frame.name)
 
         return {'FINISHED'}
+
 
 def assign_the_physics_frame_to_the_bone(context, frame, bone):
     armature = context.active_object
@@ -173,7 +173,6 @@ class SelectPhysical(RDOperator):
         return {'FINISHED'}
 
 
-
 # operator to assign selected physics frame to active bone
 @RDOperator.Preconditions(ModelSelected, SingleSegmentSelected, SingleMassObjectSelected)
 @PluginManager.register_class
@@ -215,7 +214,6 @@ class AssignPhysical(RDOperator):
         return {'FINISHED'}
 
 
-
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class ComputePhysical(RDOperator):
@@ -232,8 +230,7 @@ class ComputePhysical(RDOperator):
             self.physics_frame = None
 
         def __str__(self):
-            return '<'+', '.join([str(self.visual), str(self.collision), str(self.physics_frame)])+'>'
-
+            return '<' + ', '.join([str(self.visual), str(self.collision), str(self.physics_frame)]) + '>'
 
     def maybe_compute_and_assign_mass_props(self, bone, associations):
         assert associations.physics_frame is not None
@@ -244,39 +241,38 @@ class ComputePhysical(RDOperator):
         else:
             return
         bounds = the_mesh.bound_box
-        len = (bounds[-1][0]-bounds[0][0],
-               bounds[-1][1]-bounds[0][1],
-               bounds[1][2]-bounds[0][2]) # The 1 is no error!
-        com = list(map(lambda x: x*0.5,
-              (bounds[-1][0] +bounds[0][0],
-               bounds[-1][1] + bounds[0][1],
-               bounds[1][2] + bounds[0][2])))
-        mass = len[0]*len[1]*len[2]*self.density
+        len = (bounds[-1][0] - bounds[0][0],
+               bounds[-1][1] - bounds[0][1],
+               bounds[1][2] - bounds[0][2])  # The 1 is no error!
+        com = list(map(lambda x: x * 0.5,
+                       (bounds[-1][0] + bounds[0][0],
+                        bounds[-1][1] + bounds[0][1],
+                        bounds[1][2] + bounds[0][2])))
+        mass = len[0] * len[1] * len[2] * self.density
         # Of a Brick.
-        Iunit = (1./12.*(len[1]**2 + len[2]**2),
-                 1./12.*(len[0]**2 + len[2]**2),
-                 1./12.*(len[0]**2 + len[1]**2))
+        Iunit = (1. / 12. * (len[1] ** 2 + len[2] ** 2),
+                 1. / 12. * (len[0] ** 2 + len[2] ** 2),
+                 1. / 12. * (len[0] ** 2 + len[1] ** 2))
         print ("bone:", bone, len, mass, Iunit, com)
         d = associations.physics_frame.RobotDesigner.dynamics
-        d.inertiaXX = mass*Iunit[0]
-        d.inertiaYY = mass*Iunit[1]
-        d.inertiaZZ = mass*Iunit[2]
+        d.inertiaXX = mass * Iunit[0]
+        d.inertiaYY = mass * Iunit[1]
+        d.inertiaZZ = mass * Iunit[2]
         d.inertiaXY = 0.
         d.inertiaXZ = 0.
         d.inertiaYZ = 0.
         d.mass = mass
-        #d.inertiaTrans = com
-        #d.inertiaRot   = [0., 0., 0.]
-        #print ("Setting matrix "+str(the_mesh.matrix_world))
+        # d.inertiaTrans = com
+        # d.inertiaRot   = [0., 0., 0.]
+        # print ("Setting matrix "+str(the_mesh.matrix_world))
         m_com = Matrix.Translation(com)
         associations.physics_frame.matrix_world = the_mesh.matrix_world * m_com
-
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         armature = context.active_object
-        #print (self.__class__.__name__)
+        # print (self.__class__.__name__)
 
         # Mapping from bone to things
         segment_associations = defaultdict(self.SegmentAssociations)
@@ -292,13 +288,12 @@ class ComputePhysical(RDOperator):
                     elif obj.RobotDesigner.tag == 'DEFAULT':
                         segment_associations[bone].visual = obj
 
-        bones = [ b for b in armature.data.bones if b.select ]
+        bones = [b for b in armature.data.bones if b.select]
 
         for bone in bones:
             self.maybe_compute_and_assign_mass_props(bone, segment_associations[bone])
 
         return {'FINISHED'}
-
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)

@@ -57,6 +57,7 @@ from ..core import config, PluginManager, RDOperator
 from .helpers import ModelSelected, SingleMeshSelected
 from .rigid_bodies import SelectGeometry
 
+
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class GenerateAllCollisionMeshes(RDOperator):
@@ -73,7 +74,6 @@ class GenerateAllCollisionMeshes(RDOperator):
     shrinkWrapOffset = FloatProperty(name="Shrinkwrap Offset", default=0.001,
                                      unit='LENGTH', min=0, max=0.5)
     subdivisionLevels = IntProperty(name="Subdivision Levels", default=2)
-
 
     @RDOperator.OperatorLogger
     # @Postconditions(ModelSelected)
@@ -124,6 +124,7 @@ class GenerateAllCollisionConvexHull(RDOperator):
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
 
+
 @RDOperator.Preconditions(ModelSelected, SingleMeshSelected)
 @PluginManager.register_class
 class GenerateCollisionMesh(RDOperator):
@@ -145,6 +146,7 @@ class GenerateCollisionMesh(RDOperator):
     @classmethod
     def run(cls, shrinkWrapOffset, subdivisionLevels):
         return super().run(**cls.pass_keywords())
+
     @RDOperator.OperatorLogger
     def execute(self, context):
         from . import segments, model
@@ -153,15 +155,13 @@ class GenerateCollisionMesh(RDOperator):
         self.logger.debug("Creating Collision mesh for: %s", target_name)
         armature = context.active_object.name
 
-
-
         bpy.ops.object.select_all(action='DESELECT')
         bpy.context.scene.objects.active = bpy.data.objects[target_name]
 
         d = bpy.data.objects[target_name].dimensions
         bpy.ops.mesh.primitive_cube_add(
-                location=bpy.data.objects[target_name].location,
-                rotation=bpy.data.objects[target_name].rotation_euler)
+            location=bpy.data.objects[target_name].location,
+            rotation=bpy.data.objects[target_name].rotation_euler)
         bpy.context.object.dimensions = d * 1000000
         bpy.ops.object.transform_apply(scale=True)
         mod = bpy.context.object.modifiers.new(name='subsurf', type='SUBSURF')
@@ -202,10 +202,11 @@ class GenerateCollisionMesh(RDOperator):
         model.SelectModel.run(model_name=armature)
 
         return {'FINISHED'}
-      
+
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
-      
+
+
 @RDOperator.Preconditions(ModelSelected, SingleMeshSelected)
 @PluginManager.register_class
 class GenerateCollisionConvexHull(RDOperator):
@@ -232,40 +233,39 @@ class GenerateCollisionConvexHull(RDOperator):
 
         self.logger.debug("Creating Collision mesh for: %s", target_name)
         armature = context.active_object.name
-        
+
         cv_hull_obj_name = 'COL_' + target_name[4:] + "_convex_hull"
 
         bpy.ops.object.select_all(action='DESELECT')
-        
+
         exp_object = bpy.data.objects[target_name]
         orig_object = bpy.data.objects[target_name]
-        
+
         orig_object.select = True
         orig_object.name = target_name + "_CONVEX_HULL_TMP_OBJECT"
         bpy.ops.object.duplicate()
-        
-        
+
         for obj in bpy.context.scene.objects:
             if obj.type == 'MESH' and obj.name == target_name + "_CONVEX_HULL_TMP_OBJECT" + ".001":
                 obj.name = cv_hull_obj_name
                 obj.select = True
                 exp_object.select = False
                 exp_object = obj
-                
+
         try:
             collisionMesh = exp_object.data
             self.logger.debug("Got collision mesh input")
-            bm = bmesh.new() # create an empty BMesh
+            bm = bmesh.new()  # create an empty BMesh
             self.logger.debug("Created new bmesh object")
-        
-            bm.from_mesh(collisionMesh) # fill it in from a Mesh
+
+            bm.from_mesh(collisionMesh)  # fill it in from a Mesh
             self.logger.debug("Filled bmesh object with data")
-          
+
             verts = [v for v in bm.verts if (not v.hide)]
             edges = [e for e in bm.edges if (not e.hide)]
             faces = [f for f in bm.faces if (not f.hide)]
-          
-            cv_input = bm.verts #(verts, edges, faces)
+
+            cv_input = bm.verts  # (verts, edges, faces)
             # Set use_existing_faces=False so that all new geometry is added to the mesh 'bm'.
             # Then we can go and delete everything that is not in the output of the operator.
             # This will leave only the convex hull.
@@ -273,7 +273,7 @@ class GenerateCollisionConvexHull(RDOperator):
             # from the original mesh. I believe this happens when the input mesh is not a closed
             # manifold, i.e. not topologically a sphere-like.
             new = bmesh.ops.convex_hull(bm, input=cv_input, use_existing_faces=False)
-          
+
             self.logger.debug("Convex hull computation done.")
 
             # To delete leftover vertices and faces.
@@ -293,20 +293,20 @@ class GenerateCollisionConvexHull(RDOperator):
             to_delete = [f for f in bm.faces if not f in new]
             bmesh.ops.delete(bm, geom=to_delete, context=5)
 
-            bmesh.ops.recalc_face_normals(bm, faces = bm.faces)
+            bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
 
             bm.to_mesh(collisionMesh)
             bm.free()
-          
+
             exp_object.select = True
-            
+
             exp_object.RobotDesigner.tag = 'COLLISION'
             self.logger.debug("Created mesh: %s", exp_object.name)
-          
+
             orig_object.name = target_name
-            
+
             bpy.ops.object.select_all(action='DESELECT')
-            
+
             if 'RD_COLLISON_OBJECT_MATERIAL' in bpy.data.materials:
                 bpy.ops.object.material_slot_add()
                 context.active_object.data.materials[0] = bpy.data.materials[
@@ -328,6 +328,6 @@ class GenerateCollisionConvexHull(RDOperator):
             self.logger.info("Exception when computing convex hull")
             self.logger.info(type(e))
             self.logger.info(e)
-            return{'CANCELLED'}
+            return {'CANCELLED'}
 
         return {'FINISHED'}

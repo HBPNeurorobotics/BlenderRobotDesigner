@@ -52,7 +52,7 @@ def draw(layout, context):
         return
     if context.active_bone is not None:
 
-        box = ControllerLimitsBox.get(layout,context,'Limits')
+        box = ControllerLimitsBox.get(layout, context, 'Limits')
         if box:
             box.prop(context.active_bone.RobotDesigner.controller, "maxVelocity")
             box.prop(context.active_bone.RobotDesigner.controller, "maxTorque")
@@ -69,7 +69,7 @@ def draw(layout, context):
 
         layout.separator()
 
-        box = ControllerBox.get(layout,context,'Controller')
+        box = ControllerBox.get(layout, context, 'Controller')
         if box:
             box.label("Joint controller:")
             box.prop(context.active_bone.RobotDesigner.jointController, "isActive")

@@ -76,7 +76,6 @@ class RDDynamics(bpy.types.PropertyGroup):
     inertiaZZ = FloatProperty(name="", precision=4, step=0.1, default=1.0)
 
 
-
 @PluginManager.register_property_group()
 class RDCamera(bpy.types.PropertyGroup):
     width = IntProperty(default=320, min=1)
@@ -90,19 +89,23 @@ class RDCamera(bpy.types.PropertyGroup):
                                  ('BAYER_GRBG8', 'BAYER_GRBG8', 'BAYER_GRBG8')
                                  ])
 
+
 @PluginManager.register_property_group()
 class RDContactSensor(bpy.types.PropertyGroup):
     collision = StringProperty(name="collision", default="__default__")
     topic = StringProperty(name="topic", default="__default_topic__")
+
 
 @PluginManager.register_property_group()
 class RDForceTorqueSensor(bpy.types.PropertyGroup):
     frame = StringProperty(name="frame", default="child")
     measure_direction = StringProperty(name="measure_direction", default="child_to_parent")
 
+
 @PluginManager.register_property_group()
 class RDDepthCameraSensor(bpy.types.PropertyGroup):
     output = StringProperty(name="output", default="depths")
+
 
 @PluginManager.register_property_group()
 class RDAltimeterSensor(bpy.types.PropertyGroup):
@@ -169,7 +172,6 @@ class RDLaserSensor(bpy.types.PropertyGroup):
                                      ])
 
 
-
 class SceneSettingItem(bpy.types.PropertyGroup):
     name = bpy.props.StringProperty(name="Test Prop", default="Unknown")
     value = bpy.props.IntProperty(name="Test Prop", default=22)
@@ -209,11 +211,11 @@ class RDMuscle(bpy.types.PropertyGroup):
         bpy.data.objects[active_muscle].data.materials[active_muscle + '_vis'].diffuse_color = color
 
     muscleType = EnumProperty(
-        items=[#('MYOROBOTICS', 'Myorobotics', 'Myorobotics Muscle'),
-               ('MILLARD_EQUIL', 'Millard Equilibrium 2012', 'Millard Equilibrium 2012 Muscle'),
-               ('MILLARD_ACCEL', 'Millard Acceleration 2012', 'Millard Acceleration 2012 Muscle'),
-               ('THELEN', 'Thelen 2003', 'Thelen 2003 Muscle'),
-               ('RIGID_TENDON', 'Rigid Tendon', 'Rigid Tendon Muscle')],
+        items=[  # ('MYOROBOTICS', 'Myorobotics', 'Myorobotics Muscle'),
+            ('MILLARD_EQUIL', 'Millard Equilibrium 2012', 'Millard Equilibrium 2012 Muscle'),
+            ('MILLARD_ACCEL', 'Millard Acceleration 2012', 'Millard Acceleration 2012 Muscle'),
+            ('THELEN', 'Thelen 2003', 'Thelen 2003 Muscle'),
+            ('RIGID_TENDON', 'Rigid Tendon', 'Rigid Tendon Muscle')],
         name="Muscle Type:", update=muscle_type_update
     )
 
@@ -227,21 +229,21 @@ class RDMuscle(bpy.types.PropertyGroup):
 
 @PluginManager.register_property_group()
 class RDModelMeta(bpy.types.PropertyGroup):
-   '''
-   Property group that contains model meta data suc as name, version and description
-   '''
-   model_version = StringProperty(name='Version', default="1.0")
-   model_folder = StringProperty(name='Folder', default="")
-   model_description = StringProperty(name='Description')
+    '''
+    Property group that contains model meta data suc as name, version and description
+    '''
+    model_version = StringProperty(name='Version', default="1.0")
+    model_folder = StringProperty(name='Folder', default="")
+    model_description = StringProperty(name='Description')
 
 
 @PluginManager.register_property_group()
 class RDAuthor(bpy.types.PropertyGroup):
-   '''
-   Property group that contains author details such as name and email
-   '''
-   authorName = StringProperty(name="author name")
-   authorEmail = StringProperty(name ="author email")
+    '''
+    Property group that contains author details such as name and email
+    '''
+    authorName = StringProperty(name="author name")
+    authorEmail = StringProperty(name="author email")
 
 
 @PluginManager.register_property_group(bpy.types.Object)
@@ -283,5 +285,3 @@ class RDObjects(bpy.types.PropertyGroup):
     imuSensor = PointerProperty(type=RDIMUSensor)
     laserSensor = PointerProperty(type=RDLaserSensor)
     muscles = PointerProperty(type=RDMuscle)
-
-

@@ -75,7 +75,6 @@ def draw(layout, context):
         author_box.prop(bpy.context.active_object.RobotDesigner.author, 'authorName', text='Name')
         author_box.prop(bpy.context.active_object.RobotDesigner.author, 'authorEmail', text='Email')
 
-
     layout = layout.box()
     layout.label('Import/Export')
 
@@ -109,11 +108,6 @@ def draw(layout, context):
             if not draw_function:
                 for operator in operators:
                     operator.place_button(layout=column2, infoBox=infoBox)
-            row2=box.row(align=True)
+            row2 = box.row(align=True)
             infoBox.draw_info()
         plugins.append(label)
-
-
-
-
-

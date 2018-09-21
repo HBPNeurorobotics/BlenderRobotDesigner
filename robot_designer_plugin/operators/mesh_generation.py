@@ -187,11 +187,10 @@ class GenerateMeshFromSegment(RDOperator):
             bpy.ops.object.delete()
 
             SelectModel.run(model_name=model.name)
-            SelectGeometry.run(geometry_name=bezier.name) #
+            SelectGeometry.run(geometry_name=bezier.name)  #
             SelectSegment.run(segment_name=parent_name)
             AssignGeometry.run()
             SelectSegment.run(segment_name=bone_name)
-
 
         GenerateMeshFromJoint.run()
 
@@ -233,7 +232,7 @@ class GenerateMeshFromJoint(RDOperator):
         # if there is no translation to parent, the parent (or its parent) draws the joint
         if bone_to_parent.translation.length > 0.001:
 
-            max_length = max(distance_to_children+[segment_length])
+            max_length = max(distance_to_children + [segment_length])
             # If there is only one children, and its a distance 0, we have a ball joint
             if len(pose_bone.children) == 1 and distance_to_children[0] < 0.001:
 
@@ -251,8 +250,7 @@ class GenerateMeshFromJoint(RDOperator):
 
                 C.active_object.matrix_world = bone_world * m
             else:
-                bpy.ops.mesh.primitive_cone_add(radius1=segment_length/10,radius2=segment_length/10)
-
+                bpy.ops.mesh.primitive_cone_add(radius1=segment_length / 10, radius2=segment_length / 10)
 
             C.active_object.name = bone_name + '_axis'
             new_name = C.active_object.name

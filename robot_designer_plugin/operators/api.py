@@ -68,7 +68,6 @@ class GenerateAPI(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "generate_api"
     bl_label = "Generate Python API"
 
-
     @RDOperator.OperatorLogger
     def execute(self, context):
 

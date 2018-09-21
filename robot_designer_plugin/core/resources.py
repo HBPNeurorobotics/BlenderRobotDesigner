@@ -44,14 +44,14 @@ import os
 from .config import resource_path
 from .logfile import LogFunction
 
+
 def reload_resources():
     # todo Append Resources from file in script path
     pass
 
+
 class InconLoader(object):
-
-    icons_dict=None
-
+    icons_dict = None
 
     @LogFunction
     @classmethod
@@ -66,4 +66,3 @@ class InconLoader(object):
         :return: None
         '''
         cls.icons_dict.load("custom_icon", os.path.join(resource_path, filename), 'IMAGE')
-

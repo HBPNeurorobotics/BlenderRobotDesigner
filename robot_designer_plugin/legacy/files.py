@@ -86,10 +86,6 @@ def parseTree(tree, parentName):
         parseTree(child, tree.name)
 
 
-
-
-
-
 # operator to import an MMM-Motion
 class RobotDesigner_importMMM(bpy.types.Operator):
     bl_idname = "RobotDesigner.mmmimport"
@@ -124,9 +120,3 @@ class RobotDesigner_importSIMOX(bpy.types.Operator):
     def invoke(self, context, event):
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
-
-
-
-
-
-

@@ -45,7 +45,6 @@ from bpy.props import StringProperty
 from ..osim.osim_import import OsimImporter
 from ...core.config import PLUGIN_PREFIX
 
-
 # ######
 # RobotDesigner imports
 from ...core import config, PluginManager, Condition, RDOperator
@@ -59,7 +58,8 @@ from ...operators.dynamics import AssignPhysical, CreatePhysical, SelectPhysical
 # URDF-specific imports
 
 from .generic import sdf_tree
-from .generic.helpers import string_to_list, get_value, get_list_value, rounded, inverse_matrix, pose_float2homogeneous, pose2origin, homo2origin, pose_modelpose
+from .generic.helpers import string_to_list, get_value, get_list_value, rounded, inverse_matrix, pose_float2homogeneous, \
+    pose2origin, homo2origin, pose_modelpose
 
 from ...properties.globals import global_properties
 
@@ -67,7 +67,6 @@ import logging
 
 # model.config file reading
 from .generic import model_config_dom
-
 
 __author__ = 'Benedikt Feldotto(TUM), Guang Chen(TUM), Stefan Ulbrich(FZI)'
 
@@ -78,7 +77,7 @@ class Importer(object):
     FILE_URL_ABSOLUTE = 'file:///'
     MUSCLE_PATH = ''
 
-    def __init__(self, operator: RDOperator, file_path: str, base_dir=""):
+    def __init__(self, operator: RDOperator, file_path: str, base_dir = ""):
         self.file_path = file_path
         if base_dir:
             self.base_dir = base_dir
@@ -121,6 +120,7 @@ class Importer(object):
 
         return verts, faces
 
+
     def import_box(self, model):
         """
         Adds a geometry to the blender scene. Uses the self.file_name variable of the parenting context
@@ -131,9 +131,9 @@ class Importer(object):
         # determine prefix path for loading meshes in case of paths relative to ROS_PACKAGE_PATH
         prefix_folder = ""
         self.logger.debug('model_geometry_bbox: %s', model.geometry[0].box[0].size[0])
-        width = string_to_list(model.geometry[0].box[0].size[0])[0]/2
-        depth = string_to_list(model.geometry[0].box[0].size[0])[1]/2
-        height = string_to_list(model.geometry[0].box[0].size[0])[2]/2
+        width = string_to_list(model.geometry[0].box[0].size[0])[0] / 2
+        depth = string_to_list(model.geometry[0].box[0].size[0])[1] / 2
+        height = string_to_list(model.geometry[0].box[0].size[0])[2] / 2
         verts = [(+1.0, +1.0, -1.0),
                  (+1.0, -1.0, -1.0),
                  (-1.0, -1.0, -1.0),
@@ -160,7 +160,6 @@ class Importer(object):
         mesh_data.from_pydata(verts, [], faces)
         mesh_data.update()
 
-
         obj = bpy.data.objects.new(os.path.basename(model.name), mesh_data)
         bpy.context.scene.objects.link(obj)
         # obj.select = True
@@ -168,8 +167,6 @@ class Importer(object):
         bpy.ops.object.select_all(False)
         bpy.context.scene.objects.active = obj  # bpy.data.objects[object]
         bpy.context.active_object.select = True
-
-
 
         # bpy.context.scene.objects.active = obj
 
@@ -217,7 +214,7 @@ class Importer(object):
         self.logger.debug('Active robot name: %s', bpy.context.active_object.RobotDesigner.fileName)
 
         model_name = bpy.context.active_object.name
-        #bpy.context.active_object.type = 'ARMATURE'
+        # bpy.context.active_object.type = 'ARMATURE'
         model_type = bpy.context.active_object.type
 
         self.logger.debug('model_name (geometry): %s', model_name)
@@ -237,6 +234,7 @@ class Importer(object):
         return Matrix.Translation(Vector(model_posexyz)) * \
                Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
 
+
     def import_cylinder(self, model):
         """
         Adds a geometry to the blender scene. Uses the self.file_name variable of the parenting context
@@ -249,13 +247,13 @@ class Importer(object):
         c_radius = model.geometry[0].cylinder[0].radius[0]
         c_depth = model.geometry[0].cylinder[0].length[0]
 
-        bpy.ops.mesh.primitive_cylinder_add(depth=c_depth,radius=c_radius, location=(0, 0, 0))
+        bpy.ops.mesh.primitive_cylinder_add(depth=c_depth, radius=c_radius, location=(0, 0, 0))
         bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
 
         self.logger.debug('Active robot name: %s', bpy.context.active_object.RobotDesigner.fileName)
 
         model_name = bpy.context.active_object.name
-        #bpy.context.active_object.type = 'ARMATURE'
+        # bpy.context.active_object.type = 'ARMATURE'
         model_type = bpy.context.active_object.type
 
         self.logger.debug('model_name (geometry): %s', model_name)
@@ -274,6 +272,7 @@ class Importer(object):
 
         return Matrix.Translation(Vector(model_posexyz)) * \
                Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
+
 
     def import_geometry(self, model):
         """
@@ -324,7 +323,7 @@ class Importer(object):
         self.logger.debug('Active robot name: %s', bpy.context.active_object.RobotDesigner.fileName)
 
         model_name = bpy.context.active_object.name
-        #bpy.context.active_object.type = 'ARMATURE'
+        # bpy.context.active_object.type = 'ARMATURE'
         model_type = bpy.context.active_object.type
 
         self.logger.debug('model_name (geometry): %s', model_name)
@@ -333,8 +332,8 @@ class Importer(object):
         self.logger.debug('model_geometry_mesh_scale (geometry): %s', model.geometry[0].mesh[0].scale)
 
         scale_matrix = Matrix([[1, 0, 0, 0], [0, 1, 0, 0],
-                            [0, 0, 1, 0], [0, 0, 0, 1]])
-        #scale_matrix = Matrix([[scale_factor[0], 0, 0, 0], [0, scale_factor[1], 0, 0],
+                               [0, 0, 1, 0], [0, 0, 0, 1]])
+        # scale_matrix = Matrix([[scale_factor[0], 0, 0, 0], [0, scale_factor[1], 0, 0],
         #                       [0, 0, scale_factor[2], 0], [0, 0, 0, 1]])
 
 
@@ -350,7 +349,8 @@ class Importer(object):
         return Matrix.Translation(Vector(model_posexyz)) * \
                Euler(model_poserpy, 'XYZ').to_matrix().to_4x4() * scale_matrix
 
-    def parse(self, node: sdf_tree.SDFTree, ref_pose, parent_name=""):
+
+    def parse(self, node: sdf_tree.SDFTree, ref_pose, parent_name = ""):
         """
         Recursively parses the SDF tree elements.
 
@@ -360,9 +360,9 @@ class Importer(object):
 
         """
 
-        #global_properties.gazebo_tags.set(bpy.context.scene, '')
+        # global_properties.gazebo_tags.set(bpy.context.scene, '')
 
-        #oldscene = bpy.context.scene #get current scene in new file
+        # oldscene = bpy.context.scene #get current scene in new file
         C = bpy.context
 
         self.logger.info("Context mode: %s", C.mode)
@@ -370,19 +370,20 @@ class Importer(object):
         #             bpy.ops.object.mode_set(mode='OBJECT')
 
         self.logger.info("parent name: %s", parent_name)
-        #self.logger.debug('active bone name : %s', C.active_bone.name)
-        self.logger.debug('active object name : %s', C.active_object.name) # the name of the robot
+        # self.logger.debug('active bone name : %s', C.active_bone.name)
+        self.logger.debug('active object name : %s', C.active_object.name)  # the name of the robot
 
         self.logger.debug('active object type : %s', C.active_object.type)
 
         if bpy.context.active_object:
-            self.logger.debug('active object type == Armature: %s, %s', bpy.context.active_object.type == 'ARMATURE', "Model not selected and active.")
+            self.logger.debug('active object type == Armature: %s, %s', bpy.context.active_object.type == 'ARMATURE',
+                              "Model not selected and active.")
         else:
             self.logger.debug('active object type == Armature: %s, %s', False, "No model selected")
 
-        #DDD=getattr(getattr(bpy.ops, PLUGIN_PREFIX), self.operator.bl_idname.replace(PLUGIN_PREFIX + '.', ''))
+        # DDD=getattr(getattr(bpy.ops, PLUGIN_PREFIX), self.operator.bl_idname.replace(PLUGIN_PREFIX + '.', ''))
 
-        #self.logger.debug('For debug only : %s', DDD)
+        # self.logger.debug('For debug only : %s', DDD)
 
         SelectSegment.run(segment_name=parent_name)
 
@@ -399,7 +400,7 @@ class Importer(object):
             child_link_pose = [0, 0, 0, 0, 0, 0]
         else:
             child_link_pose = string_to_list(get_value(node.link.pose[0], "0 0 0 0 0 0"))
-        #child_link_pose = pose_modelpose(child_link_pose,  string_to_list("0 0 0.6 0 1.57 0"))
+        # child_link_pose = pose_modelpose(child_link_pose,  string_to_list("0 0 0.6 0 1.57 0"))
 
         parent_pose_homo = pose_float2homogeneous(rounded(ref_pose))
         child_pose_homo = pose_float2homogeneous(rounded(child_link_pose))
@@ -410,10 +411,10 @@ class Importer(object):
         self.logger.info("converted local pose xyz -> %s", xyz)
         self.logger.info("converted local pose euler -> %s", euler)
 
-        #urdf xyz = string_to_list(get_value(node.joint.origin.xyz, "0 0 0"))
-        #urdf euler = string_to_list(get_value(node.joint.origin.rpy, '0 0 0'))
+        # urdf xyz = string_to_list(get_value(node.joint.origin.xyz, "0 0 0"))
+        # urdf euler = string_to_list(get_value(node.joint.origin.rpy, '0 0 0'))
 
-        #urdf if segment_name in self.controllers:
+        # urdf if segment_name in self.controllers:
         #    controller = self.controllers[segment_name]
         #    PID = controller.pid.split(" ")
         #    bpy.context.active_bone.RobotDesigner.jointController.isActive = True
@@ -426,7 +427,7 @@ class Importer(object):
             axis = string_to_list(node.joint.axis[0].xyz[0])
         else:
             axis = string_to_list('1 0 0')
-        #axis = [round(axis[0]), round(axis[1]), round(axis[2])]
+        # axis = [round(axis[0]), round(axis[1]), round(axis[2])]
         self.logger.info("axis -> %s", axis)
         for i, element in enumerate(axis):
             if element == -1.0:
@@ -458,7 +459,7 @@ class Importer(object):
             if node.joint.axis[0].dynamics:
                 if len(node.joint.axis[0].limit):
                     bpy.context.active_bone.RobotDesigner.controller.maxVelocity = float(get_list_value(
-                    node.joint.axis[0].limit[0].velocity, 0))
+                        node.joint.axis[0].limit[0].velocity, 0))
 
         # bpy.context.active_bone.RobotDesigner.controller.maxVelocity = float(tree.joint.limit.friction)
 
@@ -466,8 +467,10 @@ class Importer(object):
             if node.joint.type == 'revolute':
                 bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE'
                 if len(node.joint.axis[0].limit):
-                    bpy.context.active_bone.RobotDesigner.theta.max = degrees(float(get_list_value(node.joint.axis[0].limit[0].upper, 0)))
-                    bpy.context.active_bone.RobotDesigner.theta.min = degrees(float(get_list_value(node.joint.axis[0].limit[0].lower, 0)))
+                    bpy.context.active_bone.RobotDesigner.theta.max = degrees(
+                        float(get_list_value(node.joint.axis[0].limit[0].upper, 0)))
+                    bpy.context.active_bone.RobotDesigner.theta.min = degrees(
+                        float(get_list_value(node.joint.axis[0].limit[0].lower, 0)))
             if node.joint.type == 'prismatic':
                 bpy.context.active_bone.RobotDesigner.jointMode = 'PRISMATIC'
                 if len(node.joint.axis[0].limit):
@@ -521,7 +524,6 @@ class Importer(object):
             bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaYZ = i.iyz[0]
             bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaZZ = i.izz[0]
 
-
         model = bpy.context.active_object
         model_name = model.name
 
@@ -532,7 +534,7 @@ class Importer(object):
                           homo2origin(model.matrix_world))
 
         segment_world = model.matrix_world * pose_bone.matrix
-        #segment_world = pose_float2homogeneous(rounded(string_to_list("0 0 0.6 0 0 -1.570796")))*pose_bone.matrix
+        # segment_world = pose_float2homogeneous(rounded(string_to_list("0 0 0.6 0 0 -1.570796")))*pose_bone.matrix
 
         self.logger.debug("[VISUAL] parsed: " + str(len(list(node.link.visual))) + " visual meshes.")
 
@@ -599,10 +601,14 @@ class Importer(object):
                 #         AssignGeometry.run()
 
                 type = "none"
-                if len(model.geometry[0].mesh) > 0: type = "mesh"
-                elif len(model.geometry[0].cylinder) > 0: type = "cylinder"
-                elif len(model.geometry[0].box) > 0 : type = "box"
-                elif len(model.geometry[0].sphere) > 0: type = "sphere"
+                if len(model.geometry[0].mesh) > 0:
+                    type = "mesh"
+                elif len(model.geometry[0].cylinder) > 0:
+                    type = "cylinder"
+                elif len(model.geometry[0].box) > 0:
+                    type = "box"
+                elif len(model.geometry[0].sphere) > 0:
+                    type = "sphere"
 
                 if type == "mesh" or type == "cylinder" or type == "box" or type == "sphere":
                     self.logger.debug("geometry %s", model.geometry[0])
@@ -633,16 +639,19 @@ class Importer(object):
                         bpy.ops.object.select_all(False)
                         bpy.context.scene.objects.active = object  # bpy.data.objects[object]
                         bpy.context.active_object.select = True
-                        self.logger.debug("active object matrix world (from mesh): %s", homo2origin(bpy.context.active_object.matrix_world))
-                        #bpy.context.active_object.matrix_world = pose_float2homogeneous(rounded(string_to_list("0 0 0 0 0 0")))
+                        self.logger.debug("active object matrix world (from mesh): %s",
+                                          homo2origin(bpy.context.active_object.matrix_world))
+                        # bpy.context.active_object.matrix_world = pose_float2homogeneous(rounded(string_to_list("0 0 0 0 0 0")))
                         self.logger.debug("bpy.context.active_object name: %s", bpy.context.active_object.name)
-                        self.logger.debug("active object matrix world (before transfer): %s", homo2origin(bpy.context.active_object.matrix_world))
-                        #if len(model.geometry[0].mesh) > 0:
+                        self.logger.debug("active object matrix world (before transfer): %s",
+                                          homo2origin(bpy.context.active_object.matrix_world))
+                        # if len(model.geometry[0].mesh) > 0:
                         bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
                         # after applying transform, matrix world becomes zero again
-                        bpy.context.active_object.matrix_world =  segment_world * trafo_sdf * bpy.context.active_object.matrix_world#* inverse_matrix(bpy.context.active_object.matrix_world)#* \
-                                                               #  bpy.context.active_object.matrix_world
-                        self.logger.debug("active object matrix world (after transfer): %s", homo2origin(bpy.context.active_object.matrix_world))
+                        bpy.context.active_object.matrix_world = segment_world * trafo_sdf * bpy.context.active_object.matrix_world  # * inverse_matrix(bpy.context.active_object.matrix_world)#* \
+                        #  bpy.context.active_object.matrix_world
+                        self.logger.debug("active object matrix world (after transfer): %s",
+                                          homo2origin(bpy.context.active_object.matrix_world))
                         self.logger.info("Model type: " + str(model_type))
                         # Remove multiple "COL_" and "VIS_" strings before renaming
                         if model_type == COLLISON:
@@ -660,7 +669,7 @@ class Importer(object):
                                 bpy.context.active_object.name = "%s" % (model.name)
 
                         if not model.name.endswith("_" + str(nr)) and nr != 0:
-                               bpy.context.active_object.name = "%s_%d" % (model.name, nr)
+                            bpy.context.active_object.name = "%s_%d" % (model.name, nr)
 
                         # remove spaces from link name
                         bpy.context.active_object.name = bpy.context.active_object.name.replace(" ", "")
@@ -684,13 +693,13 @@ class Importer(object):
 
                         # scale geometry
                         if type == "mesh" and model.geometry[0].mesh[0].scale != []:
-                                scale_factor = string_to_list(model.geometry[0].mesh[0].scale[0])
+                            scale_factor = string_to_list(model.geometry[0].mesh[0].scale[0])
                         else:
                             scale_factor = [1, 1, 1]
 
                         bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)].scale = scale_factor
 
-                        #bpy.context.active_object.scale = scale_factor
+                        # bpy.context.active_object.scale = scale_factor
                 else:
                     self.logger.error("Mesh file not found")
                     pass
@@ -699,6 +708,7 @@ class Importer(object):
             ref_pose = child_link_pose
             self.parse(sub_tree, ref_pose, segment_name)
         return segment_name
+
 
     def import_file(self):
         muscles, robot_name, robot_location, robot_rotation, root_links, kinematic_chains = \
@@ -710,12 +720,12 @@ class Importer(object):
         # store gazebo tags
         tag_buffer = ''
         gazebo_tag = []
-        #self.logger.debug('Processing {0} tags.'.format(len(gazebo_tags)))
-        #for gazebo_tag in gazebo_tags:
+        # self.logger.debug('Processing {0} tags.'.format(len(gazebo_tags)))
+        # for gazebo_tag in gazebo_tags:
         #    curr_tag = gazebo_tag.toxml("utf-8").decode("utf-8")
         #    curr_tag = curr_tag[38:]  # remove <xml version=.../> tag
-        #3    tag_buffer = '{0}\n{1}'.format(tag_buffer, curr_tag)
-        #global_properties.gazebo_tags.set(bpy.context.scene, tag_buffer)
+        # 3    tag_buffer = '{0}\n{1}'.format(tag_buffer, curr_tag)
+        # global_properties.gazebo_tags.set(bpy.context.scene, tag_buffer)
 
         self.logger.debug('root links: %s', [i.name for i in root_links])
 
@@ -728,7 +738,6 @@ class Importer(object):
 
         self.logger.debug('model_name: %s', model_name)
         self.logger.debug('model_type: %s', model_type)
-
 
         SelectModel.run(model_name=model_name)
         # for link in root_links:
@@ -755,42 +764,41 @@ class Importer(object):
             self.logger.debug('new chain: %s   %s', chain, ref_pose)
             root_name = self.parse(chain, ref_pose)
             UpdateSegments.run(segment_name=root_name, recurse=True)
-  #      try:
-  #          SelectCoordinateFrame.run(mesh_name='CoordinateFrame')
-  #      except:
-  #          pass
+            #      try:
+            #          SelectCoordinateFrame.run(mesh_name='CoordinateFrame')
+            #      except:
+            #          pass
 
-        #bpy.ops.view3d.view_lock_to_active()
+        # bpy.ops.view3d.view_lock_to_active()
         bpy.context.active_object.show_x_ray = True
 
 
-
-# @RDOperator.Preconditions(ObjectMode)
-# @PluginManager.register_class
-# class ImportPackage(RDOperator):
-#     """
-#     :term:`Operator<operator>` for importing a robot from a ROS package (URDF)
-#     """
-#
-#     # Obligatory class attributes
-#     bl_idname = config.OPERATOR_PREFIX + "import_sdf_package"
-#     bl_label = "SDF import (ROS package)"
-#
-#     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
-#
-#     # directory = StringProperty(
-#     #        name="Mesh directory", subtype='DIR_PATH', default="")
-#
-#     def invoke(self, context, event):
-#         context.window_manager.fileselect_add(self)
-#         return {'RUNNING_MODAL'}
-#
-#     @RDOperator.OperatorLogger
-#     @RDOperator.Postconditions(ModelSelected, ObjectMode)
-#     def execute(self, context):
-#         importer = Importer(operator=self, file_path=self.filepath)
-#         importer.import_package()
-#         return {'FINISHED'}
+    # @RDOperator.Preconditions(ObjectMode)
+    # @PluginManager.register_class
+    # class ImportPackage(RDOperator):
+    #     """
+    #     :term:`Operator<operator>` for importing a robot from a ROS package (URDF)
+    #     """
+    #
+    #     # Obligatory class attributes
+    #     bl_idname = config.OPERATOR_PREFIX + "import_sdf_package"
+    #     bl_label = "SDF import (ROS package)"
+    #
+    #     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+    #
+    #     # directory = StringProperty(
+    #     #        name="Mesh directory", subtype='DIR_PATH', default="")
+    #
+    #     def invoke(self, context, event):
+    #         context.window_manager.fileselect_add(self)
+    #         return {'RUNNING_MODAL'}
+    #
+    #     @RDOperator.OperatorLogger
+    #     @RDOperator.Postconditions(ModelSelected, ObjectMode)
+    #     def execute(self, context):
+    #         importer = Importer(operator=self, file_path=self.filepath)
+    #         importer.import_package()
+    #         return {'FINISHED'}
 
 
     def import_config(self):
@@ -813,107 +821,108 @@ class Importer(object):
         bpy.context.active_object.RobotDesigner.modelMeta.model_description = model.description
 
 
-@RDOperator.Preconditions(ObjectMode)
-@PluginManager.register_class
-class ImportPlain(RDOperator):
-    """
-    :term:`Operator<operator>` for importing a robot from a SDF plain file
-    """
+    @RDOperator.Preconditions(ObjectMode)
+    @PluginManager.register_class
+    class ImportPlain(RDOperator):
+        """
+        :term:`Operator<operator>` for importing a robot from a SDF plain file
+        """
 
-    # Obligatory class attributes
-    bl_idname = config.OPERATOR_PREFIX + "import_sdf_plain"
-    bl_label = "Import SDF - plain"
+        # Obligatory class attributes
+        bl_idname = config.OPERATOR_PREFIX + "import_sdf_plain"
+        bl_label = "Import SDF - plain"
 
-    filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+        filepath = StringProperty(name="Filename", subtype='FILE_PATH')
 
-    def invoke(self, context, event):
-        context.window_manager.fileselect_add(self)
-        return {'RUNNING_MODAL'}
+        def invoke(self, context, event):
+            context.window_manager.fileselect_add(self)
+            return {'RUNNING_MODAL'}
 
-    @RDOperator.OperatorLogger
-    @RDOperator.Postconditions(ModelSelected, ObjectMode)
-    def execute(self, context):
-        import os
-        importer = Importer(self, self.filepath)
-        importer.import_file()
-        return {'FINISHED'}
-
-
-@RDOperator.Preconditions(ObjectMode)
-@PluginManager.register_class
-class ImportPackage(RDOperator):
-    """
-    :term:`Operator<operator>` for importing a robot from a ROS/SDF package
-    """
-
-    # Obligatory class attributes
-    bl_idname = config.OPERATOR_PREFIX + "import_sdf_package"
-    bl_label = "Import SDF - ROS Package"
-
-    filepath = StringProperty(name="Filename", subtype='FILE_PATH')
-
-    def invoke(self, context, event):
-        context.window_manager.fileselect_add(self)
-        return {'RUNNING_MODAL'}
-
-    @RDOperator.OperatorLogger
-    @RDOperator.Postconditions(ModelSelected, ObjectMode)
-    def execute(self, context):
-        import os
-        importer = Importer(self, self.filepath)
-        importer.import_file()
-        importer.import_config()
-        if importer.MUSCLE_PATH != '[]':
-            print('muscle path:')
-            print(importer.MUSCLE_PATH)
-            osim_importer = OsimImporter(self.filepath, importer.MUSCLE_PATH)
-            osim_importer.import_osim()
-        return {'FINISHED'}
+        @RDOperator.OperatorLogger
+        @RDOperator.Postconditions(ModelSelected, ObjectMode)
+        def execute(self, context):
+            import os
+            importer = Importer(self, self.filepath)
+            importer.import_file()
+            return {'FINISHED'}
 
 
-@RDOperator.Preconditions(ObjectMode)
-@PluginManager.register_class
-class ImportZippedPackage(RDOperator):
-    """
-    :term:`Operator<operator>` for importing a robot from a ROS package (SDF)
-    """
+    @RDOperator.Preconditions(ObjectMode)
+    @PluginManager.register_class
+    class ImportPackage(RDOperator):
+        """
+        :term:`Operator<operator>` for importing a robot from a ROS/SDF package
+        """
 
-    # Obligatory class attributes
-    bl_idname = config.OPERATOR_PREFIX + "import_sdf_zipped_package"
-    bl_label = "Import SDF - ROS zipped package"
+        # Obligatory class attributes
+        bl_idname = config.OPERATOR_PREFIX + "import_sdf_package"
+        bl_label = "Import SDF - ROS Package"
 
-    filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+        filepath = StringProperty(name="Filename", subtype='FILE_PATH')
 
-    def invoke(self, context, event):
-        context.window_manager.fileselect_add(self)
-        return {'RUNNING_MODAL'}
+        def invoke(self, context, event):
+            context.window_manager.fileselect_add(self)
+            return {'RUNNING_MODAL'}
 
-    @RDOperator.OperatorLogger
-    @RDOperator.Postconditions(ModelSelected, ObjectMode)
-    def execute(self, context):
-        import zipfile
-        import tempfile
+        @RDOperator.OperatorLogger
+        @RDOperator.Postconditions(ModelSelected, ObjectMode)
+        def execute(self, context):
+            import os
+            importer = Importer(self, self.filepath)
+            importer.import_file()
+            importer.import_config()
+            if importer.MUSCLE_PATH != '[]':
+                print('muscle path:')
+                print(importer.MUSCLE_PATH)
+                osim_importer = OsimImporter(self.filepath, importer.MUSCLE_PATH)
+                osim_importer.import_osim()
+            return {'FINISHED'}
 
-        with tempfile.TemporaryDirectory() as target:
-            with zipfile.ZipFile(self.filepath, "r") as z:
-                z.extractall(target)
 
-            file_path = ""
-            for root, subFolders, files in os.walk(target):
-                self.logger.debug("root: %s, subfolders: %s, files: %s, splitfiles: %s", root, subFolders, files, [os.path.splitext(i) for i in files])
-                for i in files:
-                    if '.sdf' == os.path.splitext(i)[1]:
-                        if file_path:
-                            self.report({"INFO"}, "Multiple SDF in zip. Choosing: " + str(i))
-                        file_path = os.path.join(root, i)
+    @RDOperator.Preconditions(ObjectMode)
+    @PluginManager.register_class
+    class ImportZippedPackage(RDOperator):
+        """
+        :term:`Operator<operator>` for importing a robot from a ROS package (SDF)
+        """
 
-            if file_path:
-                self.logger.debug("Importing: %s", file_path)
-                importer = Importer(operator=self, file_path=file_path)
-                importer.import_file()
-                importer.import_config()
-            else:
-                self.report({'ERROR'}, "No SDF file found in package")
-                self.logger.error("No SDF file found in package")
+        # Obligatory class attributes
+        bl_idname = config.OPERATOR_PREFIX + "import_sdf_zipped_package"
+        bl_label = "Import SDF - ROS zipped package"
 
-        return {'FINISHED'}
+        filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+
+        def invoke(self, context, event):
+            context.window_manager.fileselect_add(self)
+            return {'RUNNING_MODAL'}
+
+        @RDOperator.OperatorLogger
+        @RDOperator.Postconditions(ModelSelected, ObjectMode)
+        def execute(self, context):
+            import zipfile
+            import tempfile
+
+            with tempfile.TemporaryDirectory() as target:
+                with zipfile.ZipFile(self.filepath, "r") as z:
+                    z.extractall(target)
+
+                file_path = ""
+                for root, subFolders, files in os.walk(target):
+                    self.logger.debug("root: %s, subfolders: %s, files: %s, splitfiles: %s", root, subFolders, files,
+                                      [os.path.splitext(i) for i in files])
+                    for i in files:
+                        if '.sdf' == os.path.splitext(i)[1]:
+                            if file_path:
+                                self.report({"INFO"}, "Multiple SDF in zip. Choosing: " + str(i))
+                            file_path = os.path.join(root, i)
+
+                if file_path:
+                    self.logger.debug("Importing: %s", file_path)
+                    importer = Importer(operator=self, file_path=file_path)
+                    importer.import_file()
+                    importer.import_config()
+                else:
+                    self.report({'ERROR'}, "No SDF file found in package")
+                    self.logger.error("No SDF file found in package")
+
+            return {'FINISHED'}

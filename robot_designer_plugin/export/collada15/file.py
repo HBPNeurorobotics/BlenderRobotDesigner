@@ -58,8 +58,9 @@ from ...operators.helpers import ModelSelected, ObjectMode
 
 # ######
 # Plugin imports
-from . import  fix
+from . import fix
 from . import collada
+
 
 def extractData(segment_name):
     tree = collada.Tree()
@@ -131,6 +132,8 @@ def extractData(segment_name):
         tree.addChild(extractData(child))
 
     return tree
+
+
 # @PluginManager.register_class
 # class ImportCollada15(RDOperator):
 #     """

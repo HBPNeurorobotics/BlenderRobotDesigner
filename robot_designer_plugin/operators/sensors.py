@@ -53,6 +53,7 @@ from .helpers import ModelSelected, SingleSegmentSelected, ObjectMode, SingleCam
 
 from ..properties.globals import global_properties
 
+
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class SelectSensor(RDOperator):
@@ -102,10 +103,11 @@ class AttachSensor(RDOperator):
     def execute(self, context):
         if bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotDesigner.tag == 'SENSOR':
             sensor_type = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotDesigner.sensor_type
-            if sensor_type in ['CAMERA_SENSOR', 'DEPTH_CAMERA_SENSOR', 'LASER_SENSOR', 'ALTIMETER_SENSOR', 'IMU_SENSOR']:
+            if sensor_type in ['CAMERA_SENSOR', 'DEPTH_CAMERA_SENSOR', 'LASER_SENSOR', 'ALTIMETER_SENSOR',
+                               'IMU_SENSOR']:
                 bpy.ops.object.parent_set(type='BONE', keep_transform=True)
 
-            elif sensor_type =='FORCE_TORQUE_SENSOR':
+            elif sensor_type == 'FORCE_TORQUE_SENSOR':
                 # todo attach force torque sensor to joint
                 print("attaching force torque sensor")
 
@@ -158,7 +160,6 @@ class ConvertCameraToSensor(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleCameraSelected)
     def execute(self, context):
-
         selected = [i for i in context.selected_objects if i.type != "ARMATURE"][0]
 
         selected.RobotDesigner.tag = "SENSOR"
@@ -227,7 +228,7 @@ class RenameSensor(RDOperator):
 
     new_name = StringProperty(name="Enter new name:")
 
-        # todo
+    # todo
     @RDOperator.OperatorLogger
     def execute(self, context):
         bpy.data.objects[global_properties.active_sensor.get(context.scene)].name = self.new_name
@@ -255,17 +256,14 @@ class DeleteSensor(RDOperator):
 
     @RDOperator.OperatorLogger
     def execute(self, context):
-
-        #todo
+        # todo
         active_sensor = global_properties.active_sensor.get(context.scene)
 
         # remove muscle and all its data
         bpy.data.objects.remove(bpy.data.objects[active_sensor], True)
         bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
 
-
         return {'FINISHED'}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
-
