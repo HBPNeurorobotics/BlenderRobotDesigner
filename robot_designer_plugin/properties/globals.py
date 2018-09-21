@@ -140,31 +140,64 @@ class RDGlobals(PropertyGroupHandlerBase):
         """
         Hides/Shows muscles in dependence of the respective Global property
         """
-
         hide_muscles = global_properties.display_muscle_selection.get(context.scene)
-
 
         muscle_names = [obj.name for obj in bpy.data.objects if
          bpy.data.objects[obj.name].RobotEditor.muscles.robotName != '']
 
         for muscle in muscle_names:
             obj = bpy.data.objects[muscle]
+            muscle_type = obj.RobotEditor.muscles.muscleType
             if hide_muscles == 'all':
                 obj.hide = False
            # elif hide_muscles == 'MYOROBOTICS' and obj.RobotEditor.muscles.muscleType == 'MYOROBOTICS':
            #     obj.hide = False
-            elif hide_muscles == 'MILLARD_EQUIL' and obj.RobotEditor.muscles.muscleType == 'MILLARD_EQUIL':
+            elif hide_muscles == 'MILLARD_EQUIL' and muscle_type == 'MILLARD_EQUIL':
                 obj.hide = False
-            elif hide_muscles == 'MILLARD_ACCEL' and obj.RobotEditor.muscles.muscleType == 'MILLARD_ACCEL':
+            elif hide_muscles == 'MILLARD_ACCEL' and muscle_type == 'MILLARD_ACCEL':
                 obj.hide = False
-            elif hide_muscles == 'THELEN' and obj.RobotEditor.muscles.muscleType == 'THELEN':
+            elif hide_muscles == 'THELEN' and muscle_type == 'THELEN':
                 obj.hide = False
-            elif hide_muscles == 'RIGID_TENDON' and obj.RobotEditor.muscles.muscleType == 'RIGID_TENDON':
+            elif hide_muscles == 'RIGID_TENDON' and muscle_type == 'RIGID_TENDON':
                 obj.hide = False
             elif hide_muscles == 'none':
                 obj.hide = True
             else:
                 obj.hide = True
+    @staticmethod
+    def display_sensors(self, context):
+        """
+        Hides/Shows sensors in dependence of the respective Global property
+        """
+        hide_sensors = global_properties.display_sensor_type.get(context.scene)
+
+        sensor_names = [obj.name for obj in bpy.data.objects if
+         bpy.data.objects[obj.name].RobotEditor.tag == 'SENSOR']
+
+        for sensor in sensor_names:
+            obj = bpy.data.objects[sensor]
+            sensor_type = obj.RobotEditor.sensor_type
+            if hide_sensors == 'ALL':
+                obj.hide = False
+            elif hide_sensors == 'CAMERA_SENSOR' and sensor_type == 'CAMERA_SENSOR':
+                obj.hide = False
+            elif hide_sensors == 'DEPTH_CAMERA_SENSOR' and sensor_type == 'DEPTH_CAMERA_SENSOR':
+                obj.hide = False
+            elif hide_sensors == 'LASER_SENSOR' and sensor_type == 'LASER_SENSOR':
+                obj.hide = False
+            elif hide_sensors == 'IMU_SENSOR' and sensor_type == 'IMU_SENSOR':
+                obj.hide = False
+            elif hide_sensors == 'ALTIMETER_SENSOR' and sensor_type == 'ALTIMETER_SENSOR':
+                obj.hide = False
+            elif hide_sensors == 'FORCE_TORQUE_SENSOR' and sensor_type == 'FORCE_TORQUE_SENSOR':
+                obj.hide = False
+            elif hide_sensors == 'CONTACT_SENSOR' and sensor_type == 'CONTACT_SENSOR':
+                obj.hide = False
+            elif hide_sensors == 'none':
+                obj.hide = True
+            else:
+                obj.hide = True
+
 
     @staticmethod
     def name_update(self, context):
@@ -217,9 +250,9 @@ class RDGlobals(PropertyGroupHandlerBase):
         self.gui_tab = PropertyHandler(EnumProperty(
             items=[('armatures', 'Robot', 'Modify the Robot'),
                    ('bones', 'Segments', 'Modify segements'),
-                   ('meshes', 'Geometries', 'Assign meshes to segments'),
-                   ('sensors', 'Sensors', 'Assign sensors to the robot'),
-                   ('muscles', 'Muscles', 'Assign muscles to the robot'),
+                   ('meshes', 'Geometries', 'Attach meshes to segments'),
+                   ('sensors', 'Sensors', 'Attach sensors to the robot'),
+                   ('muscles', 'Muscles', 'Attach muscles to the robot'),
                    # ('markers', 'Markers', 'Assign markers to bones'),
                    # ('controller', 'Controller', 'Modify controller parameter'),
                    ('tools', 'Tools', 'Tools'),
@@ -232,15 +265,18 @@ class RDGlobals(PropertyGroupHandlerBase):
                    ('COLLISION', 'Collision geometries', 'Edit collision geometries')]
         ))
 
-        self.sensor_type = PropertyHandler(EnumProperty(
-            items=[('CAMERA_SENSOR','Camera', 'Edit camera sensors'),
-                   ('LASER_SENSOR', 'Laser', 'Edit laser scanners'),
-                   ('CONTACT_SENSOR', 'Contact', 'Edit contact sensors'),
-                   ('FORCE_TORQUE_SENSOR', 'Force Torque', 'Edit force torque sensors'),
-                   ('DEPTH_CAMERA_SENSOR', 'Depth Camera', 'Edit depth camera sensors'),
-                   ('ALTIMETER_SENSOR', 'Altimeter', 'Edit altimeter sensors'),
-                   ('IMU_SENSOR', 'IMU', 'Edit IMU sensors')]
-                    # ('POSITION', 'Position sensors', 'Edit position sensors')]
+        self.display_sensor_type = PropertyHandler(EnumProperty(
+            items=[('ALL','All', 'Show all sensors'),
+                   ('CAMERA_SENSOR','Camera', 'Show camera sensors'),
+                   ('DEPTH_CAMERA_SENSOR', 'Depth Camera', 'Show depth camera sensors'),
+                   ('LASER_SENSOR', 'Laser', 'Show laser scanners'),
+                   ('ALTIMETER_SENSOR', 'Altimeter', 'Show altimeter sensors'),
+                   ('IMU_SENSOR', 'IMU', 'Show IMU sensors'),
+                   ('FORCE_TORQUE_SENSOR', 'Force Torque', 'Show force torque sensors'),
+                   ('CONTACT_SENSOR', 'Contact', 'Show contact sensors'),
+                   # ('POSITION', 'Position sensors', 'Show position sensors')]
+                   ('NONE', 'None', 'Show no sensors')],
+            update = self.display_sensors
         ))
 
         self.active_sensor = PropertyHandler(StringProperty(name="Active sensor", default=""))

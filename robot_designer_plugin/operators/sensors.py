@@ -84,32 +84,39 @@ class SelectSensor(RDOperator):
         return {'FINISHED'}
 
 
-@RDOperator.Preconditions(ModelSelected, SingleCameraSelected, SingleSegmentSelected)
+@RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)
 @PluginManager.register_class
 class AttachSensor(RDOperator):
     """
     :term:`Operator <operator>` for assigning a camera sensor to a :term:`segment`.
     """
     bl_idname = config.OPERATOR_PREFIX + "assign_sensor"
-    bl_label = "Assign Sensor"
+    bl_label = "Attach Sensor"
 
     @classmethod
     def run(cls):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
-    @RDOperator.Postconditions(ModelSelected, SingleCameraSelected, SingleSegmentSelected)
+    @RDOperator.Postconditions(ModelSelected, SingleSegmentSelected)
     def execute(self, context):
+        if bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotEditor.tag == 'SENSOR':
+            sensor_type = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotEditor.sensor_type
+            if sensor_type in ['CAMERA_SENSOR', 'DEPTH_CAMERA_SENSOR', 'LASER_SENSOR', 'ALTIMETER_SENSOR', 'IMU_SENSOR']:
+                bpy.ops.object.parent_set(type='BONE', keep_transform=True)
 
-        if bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotEditor.tag == "CAMERA_SENSOR":
-            bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+            elif sensor_type =='FORCE_TORQUE_SENSOR':
+                # todo attach force torque sensor to joint
+                print("attaching force torque sensor")
 
-        # todo: for other sensors add link name tag
+            elif sensor_type == 'CONTACT_SENSOR':
+                # todo attach contact sensor to collision shape
+                print("attaching contact sensor")
 
         return {'FINISHED'}
 
 
-@RDOperator.Preconditions(ModelSelected, SingleCameraSelected)
+@RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class DetachSensor(RDOperator):
     """
@@ -154,7 +161,8 @@ class ConvertCameraToSensor(RDOperator):
 
         selected = [i for i in context.selected_objects if i.type != "ARMATURE"][0]
 
-        selected.RobotEditor.tag = "CAMERA_SENSOR"
+        selected.RobotEditor.tag = "SENSOR"
+        selected.RobotEditor.sensor_type = "CAMERA_SENSOR"
         return {'FINISHED'}
 
 
@@ -182,13 +190,17 @@ class CreateSensor(RDOperator):
 
         model_name = context.active_object.name
 
-        if self.sensor_type == "CAMERA_SENSOR":
-            print("add camaera")
+        if self.sensor_type in ["CAMERA_SENSOR", "DEPTH_CAMERA_SENSOR", "LASER_SENSOR"]:
+            # add camera type sensor
             bpy.ops.object.camera_add()
         else:
+            # add other type sensor
             bpy.ops.object.empty_add(type='PLAIN_AXES')
 
-        context.active_object.RobotEditor.tag = self.sensor_type
+        print("adding", self.sensor_type)
+
+        context.active_object.RobotEditor.tag = 'SENSOR'
+        context.active_object.RobotEditor.sensor_type = self.sensor_type
         context.active_object.name = self.sensor_name
         sensor_name = context.active_object.name
 
@@ -198,6 +210,7 @@ class CreateSensor(RDOperator):
         return {'FINISHED'}
 
     def invoke(self, context, event):
+        self.sensor_type = global_properties.display_sensor_type.get(context.scene)
         return context.window_manager.invoke_props_dialog(self)
 
 

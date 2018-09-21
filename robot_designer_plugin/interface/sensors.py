@@ -68,7 +68,8 @@ def draw(layout, context):
     column.label("Show:")
     column = row.column(align=True)
     row = column.row(align=True)
-    global_properties.sensor_type.prop(context.scene, row, expand=True)
+    global_properties.display_sensor_type.prop(context.scene, row, expand=True)
+
     row = column.row(align=True)
 
     sensorbox = layout.box()
@@ -80,54 +81,63 @@ def draw(layout, context):
     columnr = row.column(align=True)
 
     infoBox = InfoBox(sensorbox)
-    mode = global_properties.sensor_type.get(context.scene)
+    mode = global_properties.display_sensor_type.get(context.scene)
     sensors.CreateSensor.place_button(columnr, "Create new sensor").sensor_type = mode
     sensors.RenameSensor.place_button(columnr, text="Rename active sensor", infoBox=infoBox)
     sensors.DeleteSensor.place_button(columnr, text="Delete active sensor", infoBox=infoBox)
 
-    sensor_type = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotEditor.tag
+    tag = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotEditor.tag
+    sensor_type = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotEditor.sensor_type
 
-    box = AttachSensorBox.get(layout, context, "Attach/Detach", icon="LINKED")
-    if box:
-        infoBox = InfoBox(box)
-        row = box.row()
+    row = sensorbox.row()
+    row.prop(bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotEditor, 'sensor_type', text= "Sensor type")
 
-        if sensor_type == 'CAMERA_SENSOR' or sensor_type =='LASER_SENSOR':
-            column = row.column(align=True)
+    if tag == 'SENSOR':
+        box = AttachSensorBox.get(layout, context, "Attach/Detach", icon="LINKED")
 
-            single_segment = getSingleSegment(context)
+        if box:
+            infoBox = InfoBox(box)
+            row = box.row()
 
-            column.menu(menus.SegmentsGeometriesMenu.bl_idname,
+            if sensor_type in ['CAMERA_SENSOR', 'DEPTH_CAMERA_SENSOR', 'LASER_SENSOR', 'ALTIMETER_SENSOR', 'IMU_SENSOR']:
+                # sensor that can be attached to segment
+                column = row.column(align=True)
+
+                single_segment = getSingleSegment(context)
+
+                column.menu(menus.SegmentsGeometriesMenu.bl_idname,
                     text=single_segment.name if single_segment else "Select Segment")
-            row2 = column.row(align=True)
+                row2 = column.row(align=True)
 
-            global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
-            row2.separator()
-            global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
+                global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
+                row2.separator()
+                global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
                                                    icon='VIEWZOOM',
                                                    text='')
+                row = box.column(align=True)
+                sensors.AttachSensor.place_button(row, infoBox=infoBox)
+                sensors.DetachSensor.place_button(row, infoBox=infoBox)
 
-            #create_geometry_selection(column, context)
+                box.separator()
+                infoBox.draw_info()
 
-            row = box.column(align=True)
-            sensors.AttachSensor.place_button(row, infoBox=infoBox)
-            sensors.DetachSensor.place_button(row, infoBox=infoBox)
+            elif sensor_type =='FORCE_TORQUE_SENSOR':
+                # todo sensor that can be attached to joints
+                row.label('not yet supported')
 
-            box.separator()
-            infoBox.draw_info()
-
-        # elif sensor_type == 'CONTACT_SENSOR':
-        #       assign to collision mesh instead of bone
+            elif sensor_type == 'CONTACT_SENSOR':
+                # todo sensor that can be attached to collision mesh
+                row.label('not yet supported')
 
 
-    box = SensorPropertiesBox.get(layout, context, "Sensor Properties")
-    if box:
-        infoBox = InfoBox(box)
-        row = box.row()
 
-        sensor = getSingleObject(context)
 
-        if sensor:
+        box = SensorPropertiesBox.get(layout, context, "Sensor Properties")
+        if box:
+            infoBox = InfoBox(box)
+            row = box.row()
+
+            sensor = getSingleObject(context)
 
             if sensor_type == "CAMERA_SENSOR":
                     column = row.column(align=True)
@@ -154,106 +164,125 @@ def draw(layout, context):
 
 
             elif sensor_type == "FORCE_TORQUE_SENSOR":
-                if sensor.RobotEditor.tag == 'FORCE_TORQUE_SENSOR':
                     column = row.column(align=True)
                     column.prop(bpy.context.active_object.RobotEditor.forceTorqueSensor, 'frame', text='frame')
                     column.prop(bpy.context.active_object.RobotEditor.forceTorqueSensor, 'measure_direction', text='measure direction')
 
             elif sensor_type == "DEPTH_CAMERA_SENSOR":
-                if sensor.RobotEditor.tag == 'DEPTH_CAMERA_SENSOR':
                     column = row.column(align=True)
                     column.prop(bpy.context.active_object.RobotEditor.depthCameraSensor, 'output', text='output')
 
             elif sensor_type == "ALTIMETER_SENSOR":
-                    box.label(text="Vertical Position")
-                    box1 = box.box()
-                    box1.label(text="Noise")
-                    box1.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vptype', text='type')
-                    box1.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vpmean', text='mean')
-                    box1.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vpstddev', text='stddev')
-                    box1.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vpbias_mean', text='bias_mean')
-                    box1.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vpbias_stddev', text='bias_stddev')
-                    box1.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vpprecision', text='precision')
-                    box.label(text="Vertical Velocity")
-                    box2 = box.box()
-                    box2.label(text="Noise")
-                    box2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvtype', text='type')
-                    box2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvmean', text='mean')
-                    box2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvstddev', text='stddev')
-                    box2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvbias_mean', text='bias_mean')
-                    box2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvbias_stddev', text='bias_stddev')
-                    box2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvprecision', text='precision')
+                    row = box.row(align=True)
+                    col1 = row.column(align=True)
+                    col2 = row.column(align=True)
+
+                    col1.label(text="Vertical Position")
+                    col1.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vptype')
+                    col1.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vpmean')
+                    col1.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vpstddev')
+                    col1.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vpbias_mean')
+                    col1.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vpbias_stddev')
+                    col1.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vpprecision')
+                    col2.label(text="Vertical Velocity")
+
+                    col2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvtype')
+                    col2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvmean')
+                    col2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvstddev')
+                    col2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvbias_mean')
+                    col2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvbias_stddev')
+                    col2.prop(bpy.context.active_object.RobotEditor.altimeterSensor, 'vvprecision')
 
 
             elif sensor_type == "IMU_SENSOR":
-                    box.label(text="orientation_reference_frame")
-                    box.prop(bpy.context.active_object.RobotEditor.imuSensor, 'localization', text='localization')
-                    box.prop(bpy.context.active_object.RobotEditor.imuSensor, 'custom_rpy', text='custom_rpy')
-                    box.prop(bpy.context.active_object.RobotEditor.imuSensor, 'grav_dir_x', text='grav_dir_x')
-                    box.prop(bpy.context.active_object.RobotEditor.imuSensor, 'parent_frame', text='parent_frame')
-                    box.prop(bpy.context.active_object.RobotEditor.imuSensor, 'topic', text='topic')
+                    box0 = box.box()
+                    box0.label(text="Orientation reference frame")
+
+                    row1 = box0.row(align=True)
+                    row2 = box0.row(align=True)
+                    row3 = box0.row(align=True)
+                    row4 = box0.row(align=True)
+                    row5 = box0.row(align=True)
+                    row1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'localization', text='localization')
+                    row2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'custom_rpy', text='custom_rpy')
+                    row3.prop(bpy.context.active_object.RobotEditor.imuSensor, 'grav_dir_x', text='grav_dir_x')
+                    row4.prop(bpy.context.active_object.RobotEditor.imuSensor, 'parent_frame', text='parent_frame')
+                    row5.prop(bpy.context.active_object.RobotEditor.imuSensor, 'topic', text='topic')
+
                     box1 = box.box()
-                    box1.label(text="angular_velocity")
-                    box1.label(text="x")
-                    box1.label(text="noise")
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avxtype', text='type')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avxmean', text='mean')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avxstddev', text='stddev')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avxbias_mean', text='bias_mean')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avxbias_stddev', text='bias_stddev')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avxprecision', text='precision')
-                    box1.label(text="y")
-                    box1.label(text="noise")
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avytype', text='type')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avymean', text='mean')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avystddev', text='stddev')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avybias_mean', text='bias_mean')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avybias_stddev', text='bias_stddev')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avyprecision', text='precision')
-                    box1.label(text="z")
-                    box1.label(text="noise")
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avztype', text='type')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avzmean', text='mean')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avzstddev', text='stddev')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avzbias_mean', text='bias_mean')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avzbias_stddev', text='bias_stddev')
-                    box1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avzprecision', text='precision')
+                    box1.label(text="Angular velocity")
+
+                    row = box1.row(align=True)
+                    col1 = row.column(align=True)
+                    col2 = row.column(align=True)
+                    col3 = row.column(align=True)
+
+                    col1.label(text="x")
+                    col1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avxtype')
+                    col1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avxmean')
+                    col1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avxstddev')
+                    col1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avxbias_mean')
+                    col1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avxbias_stddev')
+                    col1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avxprecision')
+                    col2.label(text="y")
+                    col2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avytype')
+                    col2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avymean')
+                    col2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avystddev')
+                    col2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avybias_mean')
+                    col2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avybias_stddev')
+                    col2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avyprecision')
+                    col3.label(text="z")
+                    col3.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avztype')
+                    col3.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avzmean')
+                    col3.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avzstddev')
+                    col3.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avzbias_mean')
+                    col3.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avzbias_stddev')
+                    col3.prop(bpy.context.active_object.RobotEditor.imuSensor, 'avzprecision')
+
                     box2 = box.box()
-                    box2.label(text="linear_acceleration")
-                    box2.label(text="x")
-                    box2.label(text="noise")
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laxtype', text='type')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laxmean', text='mean')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laxstddev', text='stddev')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laxbias_mean', text='bias_mean')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laxbias_stddev', text='bias_stddev')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laxprecision', text='precision')
-                    box2.label(text="y")
-                    box2.label(text="noise")
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laytype', text='type')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laymean', text='mean')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laystddev', text='stddev')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laybias_mean', text='bias_mean')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laybias_stddev', text='bias_stddev')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'layprecision', text='precision')
-                    box2.label(text="z")
-                    box2.label(text="noise")
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laztype', text='type')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'lazmean', text='mean')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'lazstddev', text='stddev')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'lazbias_mean', text='bias_mean')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'lazbias_stddev', text='bias_stddev')
-                    box2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'lazprecision', text='precision')
+                    box2.label(text="Linear Acceleration")
+
+                    row = box2.row(align=True)
+                    col1 = row.column(align=True)
+                    col2 = row.column(align=True)
+                    col3 = row.column(align=True)
+
+                    col1.label(text="x")
+                    col1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laxtype')
+                    col1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laxmean')
+                    col1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laxstddev')
+                    col1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laxbias_mean')
+                    col1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laxbias_stddev')
+                    col1.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laxprecision')
+                    col2.label(text="y")
+                    col2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laytype')
+                    col2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laymean')
+                    col2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laystddev')
+                    col2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laybias_mean')
+                    col2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laybias_stddev')
+                    col2.prop(bpy.context.active_object.RobotEditor.imuSensor, 'layprecision')
+                    col3.label(text="z")
+                    col3.prop(bpy.context.active_object.RobotEditor.imuSensor, 'laztype')
+                    col3.prop(bpy.context.active_object.RobotEditor.imuSensor, 'lazmean')
+                    col3.prop(bpy.context.active_object.RobotEditor.imuSensor, 'lazstddev')
+                    col3.prop(bpy.context.active_object.RobotEditor.imuSensor, 'lazbias_mean')
+                    col3.prop(bpy.context.active_object.RobotEditor.imuSensor, 'lazbias_stddev')
+                    col3.prop(bpy.context.active_object.RobotEditor.imuSensor, 'lazprecision')
 
             elif sensor_type == "LASER_SENSOR":
                     column = row.column(align=True)
-                    column.prop(bpy.context.active_object.RobotEditor.contactSensor, 'collision', text='Collision')
+                    column.prop(bpy.context.active_object.RobotEditor.laserSensor, 'horizontal_samples', text='Horizontal Samples')
+                    column.prop(bpy.context.active_object.RobotEditor.laserSensor, 'vertical_samples', text='Vertical Samples')
+                    column.prop(bpy.context.active_object.RobotEditor.laserSensor, 'resolution', text='Resolution')
+
 
             else:
                 infoBox.add_message('No sensor (or more than one) selected')
                 # sensors.ConvertCameraToSensor.place_button(row,"Convert to laser scanner sensor",infoBox).sensor_type = "LASER_SENSOR"
 
-                if sensor.type == 'CAMERA':
+    if tag != 'SENSOR':
+        if bpy.data.objects[global_properties.active_sensor.get(context.scene)].type == 'CAMERA':
+                    row = sensorbox.row()
                     sensors.ConvertCameraToSensor.place_button(row, "Convert to camera sensor",
                                                infoBox).sensor_type = "CAMERA_SENSOR"
         row = box.row()

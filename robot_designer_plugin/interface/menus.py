@@ -149,7 +149,7 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
 
     obj_tag = None # can be set to scene property
     show_connected = None # set to scene property
-    blender_type = "CAMERA"
+    blender_type = "MESH"
     quick_search = None
     operator_property = "geometry_name"
     operator = rigid_bodies.SelectGeometry
@@ -157,26 +157,80 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
 
     @RDOperator.OperatorLogger
     def draw(self, context):
-        obj_tag = self.obj_tag.get(context.scene)
-        obj_hidden = self.show_connected.get(context.scene)
-        layout = self.layout
-        type = global_properties.display_mesh_selection.get(context.scene)
-        if type == 'all':
-            obj_names = [obj.name for obj in context.scene.objects if
+        if self.blender_type == "MESH":
+            obj_tag = self.obj_tag.get(context.scene)
+            obj_hidden = self.show_connected.get(context.scene)
+            layout = self.layout
+            type = global_properties.display_mesh_selection.get(context.scene)
+            if type == 'all':
+                obj_names = [obj.name for obj in bpy.data.objects if
                          obj.type == self.blender_type and
                          not obj.hide]
-        elif type == 'collision':
-            obj_names = [obj.name for obj in context.scene.objects if
+            elif type == 'collision':
+                obj_names = [obj.name for obj in bpy.data.objects if
                          obj.type == self.blender_type and
                          obj.RobotEditor.tag == 'COLLISION' and
                          not obj.hide]
-        elif type == 'visual':
-            obj_names = [obj.name for obj in context.scene.objects if
+            elif type == 'visual':
+                obj_names = [obj.name for obj in bpy.data.objects if
                          obj.type == self.blender_type and
                          obj.RobotEditor.tag == 'DEFAULT' and
                          not obj.hide]
-        elif type == 'none':
-            obj_names = []
+            elif type == 'none':
+                obj_names = []
+
+        if self.blender_type == "SENSOR":
+            obj_tag = self.obj_tag.get(context.scene)
+            obj_hidden = self.show_connected.get(context.scene)
+            layout = self.layout
+            type = global_properties.display_sensor_type.get(context.scene)
+            if type == 'ALL':
+                obj_names = [obj.name for obj in bpy.data.objects if
+                            obj.RobotEditor.tag == "SENSOR" and
+                            not obj.hide]
+            elif type == 'CAMERA_SENSOR':
+                obj_names = [obj.name for obj in bpy.data.objects if
+                             obj.RobotEditor.tag == "SENSOR" and
+                             obj.RobotEditor.sensor_type == 'CAMERA_SENSOR' and
+                             not obj.hide]
+            elif type == 'DEPTH_CAMERA_SENSOR':
+                obj_names = [obj.name for obj in bpy.data.objects if
+                            obj.RobotEditor.tag == "SENSOR" and
+                            obj.RobotEditor.sensor_type == 'DEPTH_CAMERA_SENSOR' and
+                            not obj.hide]
+            elif type == 'LASER_SENSOR':
+                obj_names = [obj.name for obj in bpy.data.objects if
+                             obj.RobotEditor.tag == "SENSOR" and
+                             obj.RobotEditor.sensor_type == 'LASER_SENSOR' and
+                             not obj.hide]
+            elif type == 'IMU_SENSOR':
+                obj_names = [obj.name for obj in bpy.data.objects if
+                             obj.RobotEditor.tag == "SENSOR" and
+                             obj.RobotEditor.sensor_type == 'IMU_SENSOR' and
+                             not obj.hide]
+            elif type == 'DEPTH_CAMERA_SENSOR':
+                obj_names = [obj.name for obj in bpy.data.objects if
+                             obj.RobotEditor.tag == "SENSOR" and
+                             obj.RobotEditor.sensor_type == 'DEPTH_CAMERA_SENSOR' and
+                             not obj.hide]
+            elif type == 'FORCE_TORQUE_SENSOR':
+                obj_names = [obj.name for obj in bpy.data.objects if
+                             obj.RobotEditor.tag == "SENSOR" and
+                             obj.RobotEditor.sensor_type == 'FORCE_TORQUE_SENSOR' and
+                             not obj.hide]
+            elif type == 'CONTACT_SENSOR':
+                obj_names = [obj.name for obj in bpy.data.objects if
+                             obj.RobotEditor.tag == "SENSOR" and
+                             obj.RobotEditor.sensor_type == 'CONTACT_SENSOR' and
+                             not obj.hide]
+            elif type == 'ALTIMETER_SENSOR':
+                obj_names = [obj.name for obj in bpy.data.objects if
+                             obj.RobotEditor.tag == "SENSOR" and
+                             obj.RobotEditor.sensor_type == 'ALTIMETER_SENSOR' and
+                             not obj.hide]
+            elif type == 'none':
+                obj_names = []
+
 
         self.logger.debug(obj_names)
 
@@ -197,7 +251,10 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
         hide_obj = cls.show_connected.get(context.scene)
 
         # Get selected meshes
-        selected = [i for i in bpy.context.selected_objects if i.type == cls.blender_type]
+        if cls.blender_type == "MESH":
+            selected = [i for i in bpy.context.selected_objects if i.type == cls.blender_type]
+        elif cls.blender_type == "SENSOR":
+            selected = [i for i in bpy.context.selected_objects if i.RobotEditor.tag == cls.blender_type]
 
         text = cls.text
 
@@ -241,16 +298,16 @@ class SensorMenu(ConnectedObjectsMenu):
     bl_idname = OPERATOR_PREFIX + "sensor_menu"
     bl_label = "Select Sensor"
 
-    obj_tag = global_properties.sensor_type # can be set to scene property
+    obj_tag = global_properties.display_sensor_type # can be set to scene property
     show_connected = global_properties.list_meshes # set to scene property
-    blender_type = StringConstants.camera
+    blender_type = "SENSOR"
     quick_search = global_properties.mesh_name
     operator_property = "object_name"
     operator = sensors.SelectSensor
     text = "Select sensor"
 
 @PluginManager.register_class
-class MassObjectMenu(bpy.types.Menu, BaseMenu):
+class MassObjectMenu(ConnectedObjectsMenu):
     """
     :ref:`menu` for selecting :term:`mass entities` while displaying connections to robot segments in the scene.
     """
@@ -260,7 +317,7 @@ class MassObjectMenu(bpy.types.Menu, BaseMenu):
     obj_tag = global_properties.physics_type
     show_connected = global_properties.list_meshes
     blender_type = StringConstants.empty
-    #quick_search = None #global_properties.physics_frame_name
+    quick_search = global_properties.physics_frame_name
     operator_property = "frameName"
     operator = dynamics.SelectPhysical
     text = "Select mass object"

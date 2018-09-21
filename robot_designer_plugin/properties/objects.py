@@ -161,7 +161,7 @@ class RDIMUSensor(bpy.types.PropertyGroup):
 
 
 @PluginManager.register_property_group()
-class RDLaser(bpy.types.PropertyGroup):
+class RDLaserSensor(bpy.types.PropertyGroup):
     horizontal_samples = IntProperty(name="horizontal samples", default=320, min=1)
     vertical_samples = IntProperty(name="vertical samples", default=240, min=1)
     resolution = EnumProperty(items=[('8-Bit', '8-Bit', '8-Bit'),
@@ -257,7 +257,13 @@ class RDObjects(bpy.types.PropertyGroup):
                ('PHYSICS_FRAME', 'Physics Frame', 'Physics Frame'),
                ('ARMATURE', 'Armature', 'Armature'),
                ('COLLISION', 'Collision', 'Collision'),
-               ('CAMERA_SENSOR', 'Camera sensor', 'Camera sensor'),
+               ('SENSOR', 'Sensor', 'Sensor')
+               ]
+    )
+
+    fileName = StringProperty(name="Mesh File Name")
+    sensor_type = EnumProperty(
+        items=[('CAMERA_SENSOR', 'Camera sensor', 'Camera sensor'),
                ('LASER_SENSOR', 'Laser sensor', 'Laser sensor'),
                ('CONTACT_SENSOR', 'Contact Sensors', 'Edit contact sensors'),
                ('FORCE_TORQUE_SENSOR', 'Force Torque Sensors', 'Edit force torque sensors'),
@@ -275,6 +281,7 @@ class RDObjects(bpy.types.PropertyGroup):
     depthCameraSensor = PointerProperty(type=RDDepthCameraSensor)
     altimeterSensor = PointerProperty(type=RDAltimeterSensor)
     imuSensor = PointerProperty(type=RDIMUSensor)
+    laserSensor = PointerProperty(type=RDLaserSensor)
     muscles = PointerProperty(type=RDMuscle)
 
 
