@@ -298,7 +298,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
         operator.logger.info(" joint type'%s'" % child.joint.type)
 
-        # Add properties
+        ### Add Meshes
         armature = context.active_object
         connected_meshes = [mesh.name for mesh in context.scene.objects if
                         mesh.type == 'MESH' and mesh.parent_bone == segment.name and mesh.parent == armature]
@@ -358,11 +358,11 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 collision.name = bpy.data.objects[mesh].name  # child.link.name + '_collision'
                 operator.logger.info(" collision mesh pose'%s'" % collision.pose[0])
 
-
-
             else:
                 operator.logger.info("No collision model for: %s", mesh)
 
+
+        ### Add Physics
         frame_names = [
             frame.name for frame in context.scene.objects if
             frame.RobotDesigner.tag == 'PHYSICS_FRAME' and frame.parent_bone == segment.name]
@@ -414,6 +414,42 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         #     controller.pid = list_to_string([segment.RobotDesigner.jointController.P,
         #                                      segment.RobotDesigner.jointController.I,
         #                                      segment.RobotDesigner.jointController.D])
+
+
+
+        ### add link sensors
+        sensor_names = [
+            sensor.name for sensor in context.scene.objects if
+            sensor.RobotDesigner.tag == 'SENSOR' and sensor.parent_bone == segment.name]
+
+        operator.logger.info(" sensor name'%s'" % sensor_names)
+
+        for sensor in sensor_names:
+            active_sensor = bpy.data.objects[sensor]
+            type = active_sensor.RobotDesigner.sensor_type
+            if type == 'CAMERA_SENSOR':
+                sensor_sdf = child.add_camera_sensor()
+                sensor_sdf.name = sensor
+                # camera
+                sensor_sdf.type = 'camera'
+                sensor_sdf.camera.name ='left eze'
+                # todo sensor_sdf.horizontal_fov = bpy.data.cameras[sensor].angle_x
+                # image
+             # todo   sensor_sdf.camera.image.append('imagename')
+            # todo    sensor_sdf.camera.image.width.append(active_sensor.RobotDesigner.cameraSensor.width)
+                # todo   sensor_sdf.camera.image.height = active_sensor.RobotDesigner.cameraSensor.height
+                # todo    sensor_sdf.camera.image.format = active_sensor.RobotDesigner.cameraSensor.format
+
+
+            else:
+                'type not found'
+           # elif type == 'CAMERA':   todo other sensor types
+            #   sensor_sdf.type = 'camera'
+
+
+  #      operator.logger.info(" sensor name'%s'" % child.link.sensor.name)
+
+
 
         # Add geometry
         for child_segments in segment.children:

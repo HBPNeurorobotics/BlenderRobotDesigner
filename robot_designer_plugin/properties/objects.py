@@ -75,6 +75,11 @@ class RDDynamics(bpy.types.PropertyGroup):
     inertiaYZ = FloatProperty(name="", precision=4, step=0.1, default=0.0)
     inertiaZZ = FloatProperty(name="", precision=4, step=0.1, default=1.0)
 
+@PluginManager.register_property_group()
+class RDSensorNoise(bpy.types.PropertyGroup):
+    type = EnumProperty(items=[('gaussian', 'Gaussian', 'Gaussian')])
+    mean = FloatProperty(name="mean", default=0)
+    stddev = FloatProperty(name="stddev", default=0)
 
 @PluginManager.register_property_group()
 class RDCamera(bpy.types.PropertyGroup):
@@ -88,6 +93,8 @@ class RDCamera(bpy.types.PropertyGroup):
                                  ('BAYER_GBRG8', 'BAYER_GBRG8', 'BAYER_GBRG8'),
                                  ('BAYER_GRBG8', 'BAYER_GRBG8', 'BAYER_GRBG8')
                                  ])
+
+    noise = PointerProperty(type=RDSensorNoise)
 
 
 @PluginManager.register_property_group()
@@ -275,9 +282,9 @@ class RDObjects(bpy.types.PropertyGroup):
     )
 
     dynamics = PointerProperty(type=RDDynamics)
-    camera = PointerProperty(type=RDCamera)
     modelMeta = PointerProperty(type=RDModelMeta)
     author = PointerProperty(type=RDAuthor)
+    cameraSensor = PointerProperty(type=RDCamera)
     contactSensor = PointerProperty(type=RDContactSensor)
     forceTorqueSensor = PointerProperty(type=RDForceTorqueSensor)
     depthCameraSensor = PointerProperty(type=RDDepthCameraSensor)

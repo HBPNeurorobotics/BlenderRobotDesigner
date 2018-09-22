@@ -821,9 +821,9 @@ class Importer(object):
         bpy.context.active_object.RobotDesigner.modelMeta.model_description = model.description
 
 
-    @RDOperator.Preconditions(ObjectMode)
-    @PluginManager.register_class
-    class ImportPlain(RDOperator):
+@RDOperator.Preconditions(ObjectMode)
+@PluginManager.register_class
+class ImportPlain(RDOperator):
         """
         :term:`Operator<operator>` for importing a robot from a SDF plain file
         """
@@ -847,9 +847,9 @@ class Importer(object):
             return {'FINISHED'}
 
 
-    @RDOperator.Preconditions(ObjectMode)
-    @PluginManager.register_class
-    class ImportPackage(RDOperator):
+@RDOperator.Preconditions(ObjectMode)
+@PluginManager.register_class
+class ImportPackage(RDOperator):
         """
         :term:`Operator<operator>` for importing a robot from a ROS/SDF package
         """
@@ -879,9 +879,9 @@ class Importer(object):
             return {'FINISHED'}
 
 
-    @RDOperator.Preconditions(ObjectMode)
-    @PluginManager.register_class
-    class ImportZippedPackage(RDOperator):
+@RDOperator.Preconditions(ObjectMode)
+@PluginManager.register_class
+class ImportZippedPackage(RDOperator):
         """
         :term:`Operator<operator>` for importing a robot from a ROS package (SDF)
         """
