@@ -43,7 +43,7 @@
 # ######
 # Blender imports
 import bpy
-# from bpy.props import StringProperty, BoolProperty
+from bpy.props import StringProperty, BoolProperty
 from mathutils import Vector, Matrix, Euler
 from math import pi
 
@@ -51,6 +51,7 @@ from math import pi
 # RobotDesigner imports
 from ..core import config, PluginManager, Condition, RDOperator
 from .helpers import ModelSelected, SingleMeshSelected, SingleSegmentSelected
+from ..properties.globals import global_properties
 
 
 # operator to select mesh
@@ -83,6 +84,232 @@ class GenerateMeshFromAllSegment(RDOperator):
             GenerateMeshFromSegment.run()
 
         return {'FINISHED'}
+
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class CreateWrappingSphere(RDOperator):
+    bl_idname = config.OPERATOR_PREFIX + "create_sphere"
+    bl_label = "Create new sphere"
+
+    sphere_name = StringProperty(name="Enter new sphere name:")
+
+    @classmethod
+    def run(cls, sphere_name):
+        return super().run(**cls.pass_keywords())
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected)
+    def execute(self, context):
+
+        from .model import SelectModel
+        from .rigid_bodies import SelectGeometry
+
+        model = bpy.context.active_object
+
+        bpy.ops.mesh.primitive_uv_sphere_add(calc_uvs=True, view_align=False, enter_editmode=False)
+
+        sphere = bpy.context.active_object
+
+        sphere.name = self.sphere_name
+
+        lmat = bpy.data.materials.new(self.sphere_name)
+        lmat.diffuse_color = (0.0, 0.135, 0.0)
+        lmat.use_shadeless = True
+        sphere.data.materials.append(lmat)
+
+        sphere.RobotEditor.tag = 'WRAPPING'
+        sphere.RobotEditor.wrap.WrappingType = 'WRAPPING_SPHERE'
+
+        SelectModel.run(model_name=model.name)
+        SelectGeometry.run(geometry_name=sphere.name)
+
+        return{'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class CreateWrappingCylinder(RDOperator):
+    bl_idname = config.OPERATOR_PREFIX + "create_cylinder"
+    bl_label = "Create new cylinder"
+
+    cylinder_name = StringProperty(name="Enter new cylinder name:")
+
+    @classmethod
+    def run(cls, cylinder_name):
+        return super().run(**cls.pass_keywords())
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected)
+    def execute(self, context):
+
+        from .model import SelectModel
+        from .rigid_bodies import SelectGeometry
+
+        model = bpy.context.active_object
+
+        bpy.ops.mesh.primitive_cylinder_add(view_align=False, enter_editmode=False)
+
+        cylinder = bpy.context.active_object
+
+        cylinder.name = self.cylinder_name
+
+        lmat = bpy.data.materials.new(self.cylinder_name)
+        lmat.diffuse_color = (0., 0.135, 0.0)
+        lmat.use_shadeless = True
+        cylinder.data.materials.append(lmat)
+
+        cylinder.RobotEditor.tag = 'WRAPPING'
+        cylinder.RobotEditor.wrap.WrappingType = 'WRAPPING_CYLINDER'
+
+        SelectModel.run(model_name=model.name)
+        SelectGeometry.run(geometry_name=cylinder.name)
+
+        return{'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
+
+@RDOperator.Preconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
+@PluginManager.register_class
+class RenameWrappingObject(RDOperator):
+    """
+    :term:`operator` for renaming the selected wrapping object
+
+
+    """
+    bl_idname = config.OPERATOR_PREFIX + "rename_wrapping_object"
+    bl_label = "Rename wrapping object"
+
+    new_name = StringProperty(name="Enter new name:")
+
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+        bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)].name = self.new_name
+        global_properties.mesh_name.set(context.scene, self.new_name)
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
+    @classmethod
+    def run(cls, new_name=""):
+        return super().run(**cls.pass_keywords())
+
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class DeleteWrappingObject(RDOperator):
+    """
+    :term:`operator` for deleting the selected wrapping object.
+
+
+    """
+    bl_idname = config.OPERATOR_PREFIX + "delete_wrapping_object"
+    bl_label = "Delete wrapping object"
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+
+        selected_object = global_properties.mesh_name.get(context.scene)
+
+        bpy.data.objects.remove(bpy.data.objects[selected_object], True)
+        bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
+
+@RDOperator.Preconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
+@PluginManager.register_class
+class AttachWrappingObject(RDOperator):
+    """
+    :ref:`operator` for assigning a geometry to a segment.
+    """
+    bl_idname = config.OPERATOR_PREFIX + "attach_wrapping_object"
+    bl_label = "Assign object to active segment?"
+
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
+    def execute(self, context):
+        # Set parenting relation. There are two ways to attach geometry to a bone:
+        # This way, which sets the parent_bone variable of the object. Or by using vertex weights,
+        # in which case parent_bone should be left empty.
+        # See also https://blender.stackexchange.com/questions/9200/make-object-a-a-parent-of-object-b-via-python
+        # At this point bpy.context.scene.objects.active should point to the armature which will be the parent.
+        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self, width=400)
+
+
+@RDOperator.Preconditions(ModelSelected, SingleMeshSelected)
+@PluginManager.register_class
+class DetachWrappingObject(RDOperator):
+    """
+    :term:`operator` for detaching a single :term:`geometry` from a :term:`segment`.
+    """
+    bl_idname = config.OPERATOR_PREFIX + "detach_wrapping_object"
+    bl_label = "Detach selected object?"
+
+    @classmethod
+    def run(cls):
+        return super().run(**cls.pass_keywords())
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected, SingleMeshSelected)
+    def execute(self, context):
+        from . import segments, model
+        mesh_name = global_properties.mesh_name.get(context.scene)
+        current_mesh = bpy.data.objects[mesh_name]
+        mesh_global = current_mesh.matrix_world
+        current_mesh.parent = None
+
+        current_mesh.matrix_world = mesh_global
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self, width=400)
+
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class DetachAllWrappingObjects(RDOperator):
+    """
+    :ref:`operator` for detaching *all* :term:`geometries` from the selected :term:`model`.
+    """
+    bl_idname = config.OPERATOR_PREFIX + "detach_all_meshes"
+    bl_label = "Detach all wrapping geometries?"
+
+    @classmethod
+    def run(cls, confirmation=True):
+        return super().run(**cls.pass_keywords())
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected)
+    def execute(self, context):
+        from .rigid_bodies import SelectGeometry
+        meshes = [obj for obj in bpy.data.objects if obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotEditor.tag == 'WRAPPING']
+
+        for mesh in meshes:
+            SelectGeometry.run(geometry_name=mesh.name)
+            DetachWrappingObject.run()
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
 
 
 # operator to select mesh

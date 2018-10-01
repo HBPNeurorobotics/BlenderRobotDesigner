@@ -157,6 +157,43 @@ class RDMuscle(bpy.types.PropertyGroup):
 
 
 @PluginManager.register_property_group()
+class RDScaler(bpy.types.PropertyGroup):
+
+
+    def scale_all_update(self, context):
+
+        obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
+        scale_object = obj.RobotEditor.scaling
+        obj.scale[0] = scale_object.scale_all
+        obj.scale[1] = scale_object.scale_all
+        obj.scale[2] = scale_object.scale_all
+
+    def scale_radius_update(self, context):
+
+        obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
+        scale_object = obj.RobotEditor.scaling
+        obj.scale[0] = scale_object.scale_radius
+        obj.scale[1] = scale_object.scale_radius
+
+    def scale_depth_update(self, context):
+
+        obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
+        scale_object = obj.RobotEditor.scaling
+        obj.scale[2] = scale_object.scale_depth
+
+    scale_all = FloatProperty(name="Scaler", default=1.0, update=scale_all_update)
+    scale_radius = FloatProperty(name="Scale Radius", default=1.0, update=scale_radius_update)
+    scale_depth = FloatProperty(name="Scale Depth", default=1.0, update=scale_depth_update)
+
+@PluginManager.register_property_group()
+class RDWrapType(bpy.types.PropertyGroup):
+
+    WrappingType = EnumProperty(
+        items=[('WRAPPING_SPHERE', 'Wrapping Sphere', 'Wrapping Sphere'),
+               ('WRAPPING_CYLINDER', 'Wrapping Cylinder', 'Wrapping Cylinder')])
+
+
+@PluginManager.register_property_group()
 class RDModelMeta(bpy.types.PropertyGroup):
    '''
    Property group that contains model meta data suc as name, version and description
@@ -188,6 +225,7 @@ class RDObjects(bpy.types.PropertyGroup):
                ('PHYSICS_FRAME', 'Physics Frame', 'Physics Frame'),
                ('ARMATURE', 'Armature', 'Armature'),
                ('COLLISION', 'Collision', 'Collision'),
+               ('WRAPPING', 'Wrapping', 'Wrapping'),
                ('CAMERA_SENSOR', 'Camera sensor', 'Camera sensor'),
                ('LASER_SENSOR', 'Laser sensor', 'Laser sensor')]
     )
@@ -199,4 +237,7 @@ class RDObjects(bpy.types.PropertyGroup):
 
     muscles = PointerProperty(type=RDMuscle)
 
+    scaling = PointerProperty(type=RDScaler)
+
+    wrap = PointerProperty(type=RDWrapType)
 
