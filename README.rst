@@ -49,11 +49,15 @@ simplified web-based interface integrated into the NRP to construct
 robots from building blocks. Therefore, the code base of the standalone
 software is planned to be used and will be further maintained.
 
-The RobotDesigner is currently developed and maintained under the lead
+The RobotDesigner project was started under the lead
 of the `Intelligent Systems and Production Engineering
 department <http://www.fzi.de/en/about-us/organisation/research-divisions/ispe/>`__
 of the `FZI Forschungszentrum Informatik <http://www.fzi.de/en/home/>`__
-in Karlsruhe.
+in Karlsruhe. Currently the RobotDesigner is developed and maintained towards NRP
+compliance and biomimetic robot design capabilities under the lead of 
+`Benedikt Feldotto <http://www6.in.tum.de/en/people/benedikt-feldotto-msc/>`__ at 
+the `Chair of Robotics, Artificial Intelligence and Real-Time Systems 
+<http://www6.in.tum.de/en/home/>`__ at Technical University of Munich.
 
 History
 ^^^^^^^
@@ -95,7 +99,7 @@ added to the software. This software is still developed and available
 license <http://www.gnu.org/licenses/gpl-2.0.html>`__ from
 `here <https://gitlab.com/h2t/roboteditor>`__.
 
-he *NRP RobotDesigner* is a fork of the *RobotEditor*, which has been
+The *NRP RobotDesigner* is a fork of the *RobotEditor*, which has been
 chosen as the basis after a comparison to competing projects (e.g.,
 `phobos <https://github.com/rock-simulation/phobos>`__). It will enrich
 the existing project by components required for the NRP (e.g., for
