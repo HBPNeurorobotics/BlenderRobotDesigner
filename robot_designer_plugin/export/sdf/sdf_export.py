@@ -208,7 +208,8 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         operator.logger.info("walk_segments: %s" % str(segment))
 
         child = tree.add()
-        trafo, _ = getTransformFromBlender(segment)
+        trafo, dummy = segment.RobotDesigner.getTransform()
+        #trafo, _ = getTransformFromBlender(segment)
 
         # child.joint.origin.rpy = list_to_string(trafo.to_euler())
         # child.joint.origin.xyz = list_to_string([i * j for i, j in zip(trafo.translation, blender_scale_factor)])

@@ -513,7 +513,7 @@ class Importer(object):
             inertia_location = string_to_list(node.link.inertial[0].pose[0])[0:3]
             inertia_rotation = string_to_list(node.link.inertial[0].pose[0])[3:]
 
-            bpy.data.objects[node.link.name].location = inertia_location
+            bpy.data.objects[node.link.name].location = [inertia_location[1], inertia_location[2], inertia_location[0]]
             bpy.data.objects[node.link.name].rotation_euler = inertia_rotation
 
             # set inertia
