@@ -49,6 +49,12 @@ def get_muscles(active_model_name, context):
   return list(filter(lambda obj: obj.RobotEditor.muscles.robotName == active_model_name, context.scene.objects))
 
 
+def get_wrapping_objects(active_model_name, context):
+  meshes = [obj for obj in context.scene.objects if
+             obj.RobotEditor.tag == "WRAPPING" and obj.parent.name == active_model_name]
+  return meshes
+
+
 class OsimExporter(object):
   def __init__(self):
     self.doc = osim_dom.OpenSimDocument()
@@ -61,7 +67,8 @@ class OsimExporter(object):
           Thelen2003Muscle=[],
           RigidTendonMuscle=[]
         )
-      )
+      ),
+      BodySet=[]
     )
     self.muscle_type_to_pyxb_list = {
       'Millard2012EquilibriumMuscle' : self.doc.Model.ForceSet.objects.Millard2012EquilibriumMuscle,
@@ -79,10 +86,12 @@ class OsimExporter(object):
       f.write(output)
 
 
-  def add_muscles(self, context, muscles):
+  def add_muscles(self, context, muscles, wrapping_objects):
     print ("Exporting Muscles:", muscles)
     for m in muscles:
-      self._add_blender_muscle(m, context)
+      wrapping_list = [w for w in wrapping_objects if
+                       w.RobotEditor.muscles.name == m.name]
+      self._add_blender_muscle(m, wrapping_list, context)
 
 
   def _select_pyxb_muscle_class(self, obj):
@@ -96,7 +105,7 @@ class OsimExporter(object):
            str(obj.RobotEditor.muscles.muscleType)]
 
 
-  def _add_blender_muscle(self, m, context):
+  def _add_blender_muscle(self, m, w, context):
     try:
       pyxb_class = self._select_pyxb_muscle_class(m)
     except KeyError as e:
@@ -112,6 +121,11 @@ class OsimExporter(object):
           objects = pyxb.BIND(
             PathPoint = self._build_pyxb_path_nodes_list(m, context)
           )
+        ),
+        PathWrapSet=pyxb.BIND(
+          objects=pyxb.BIND(
+            PathWrap=self._build_pyxb_path_wraps_list(m, w, context)
+          )
         )
       ),
       # TODO: Fix hardcoded values
@@ -120,6 +134,125 @@ class OsimExporter(object):
       tendon_slack_length = m.RobotEditor.muscles.length * 0.1
     )
     self._add_pyxb_muscle(m, context)
+
+
+  def add_body_set(self, context, wrapping):
+    bodyset = osim_dom.BodySet(
+        name = "",
+        objects = pyxb.BIND(
+            Body= self._add_body(context, wrapping)
+        )
+    )
+    self.doc.Model.BodySet.append(bodyset)
+
+
+
+  def _add_body(self, context, wrapping):
+    def body(body, objects):
+      return osim_dom.Body(
+        name = body.name,
+        WrapObjectSet = self._add_wrap_set(objects)
+      )
+    bodies = []
+    #bodies.append(body())
+    for bone in context.active_object.data.bones:
+      object_list=[]
+      for object in wrapping:
+        if object.parent_bone == bone.name:
+          object_list.append(object)
+
+      if len(object_list) != 0:
+        bodies.append(body(bone, object_list))
+
+    return bodies
+
+
+  def _add_wrap_set(self, wrapping):
+    cylinders = [cylinder for cylinder in wrapping if
+                 cylinder.RobotEditor.wrap.WrappingType == "WRAPPING_CYLINDER"]
+    spheres = [sphere for sphere in wrapping if
+               sphere.RobotEditor.wrap.WrappingType == "WRAPPING_SPHERE"]
+    def wrap_set():
+      return osim_dom.WrapObjectSet(
+        name = "",
+        objects = pyxb.BIND(
+          WrapCylinder=self._add_w_cylinder(cylinders),
+          WrapSphere=self._add_w_sphere(spheres)
+        )
+      )
+    wrapset = []
+    wrapset.append(wrap_set())
+    return wrapset
+
+  def _add_w_cylinder(self, cylinders):
+    clist=[]
+
+    def cylinder_to_pyxb(nd):
+      n, r, l, location, rotation = nd
+      return osim_dom.WrapCylinder(
+        xyz_body_rotation=osim_dom.vector3("%f %f %f" % (rotation[0], rotation[1], rotation[2])),
+        translation=osim_dom.vector3("%f %f %f" % (location[0], location[1], location[2])),
+        active="true",
+        radius=r,
+        length=l,
+        name=n
+      )
+
+    for c in cylinders:
+      # return list(map(cylinder_to_pyxb, self._get_wrapping_information(c)))
+      clist.append(cylinder_to_pyxb(self._get_wrapping_information(c)))
+    return clist
+
+  def _add_w_sphere(self, spheres):
+    slist=[]
+
+    def sphere_to_pyxb(nd):
+      n, r, l, location, rotation = nd
+      return osim_dom.WrapSphere(
+        translation=osim_dom.vector3("%f %f %f" % (location[0], location[1], location[2])),
+        active="true",
+        radius=r,
+        name=n
+      )
+
+    for s in spheres:
+      slist.append(sphere_to_pyxb(self._get_wrapping_information(s)))
+    return slist
+
+  def _get_wrapping_information(self, wrapping):
+    blender_scale_factor = bpy.context.active_object.scale
+    blender_scale_factor = [blender_scale_factor[0], blender_scale_factor[2], blender_scale_factor[1]]
+    segment = wrapping.parent_bone
+    pose_bone = bpy.context.active_object.pose.bones[segment]
+    pose = pose_bone.matrix.inverted() * bpy.context.active_object.matrix_world.inverted() * \
+           bpy.data.objects[wrapping.name].matrix_world
+
+    pose_xyz = [i * j for i, j in zip(pose.translation, blender_scale_factor)]
+    pose_rpy = pose.to_euler()
+
+    name = wrapping.name
+    radius = wrapping.scale[0]
+    depth = wrapping.scale[2]
+    #location = wrapping.location
+    #rotation = wrapping.rotation_euler
+    return (name, radius, depth, pose_xyz, pose_rpy) #originally location, rotation
+
+
+  def _build_pyxb_path_wraps_list(self, m, w, context):
+    #length = len(w) + 1
+
+    wrapping_objects = [objects for objects in m.RobotEditor.muscles.connectedWraps]
+    length = len(wrapping_objects)+1
+
+    def path_wrap_to_pyxb(obj):
+      i, object = obj
+      return osim_dom.PathWrap(
+        wrap_object=object.wrappingName, #originally object.name
+        method='midpoint',
+        name='PathWrap%i' % (length-i)
+      )
+
+    return list(map(path_wrap_to_pyxb, enumerate(wrapping_objects))) #originally was enumerate(w)
 
 
   def _build_pyxb_path_nodes_list(self, m, context):
@@ -179,9 +312,12 @@ def create_osim(operator: RDOperator, context,
   # Might be set at another place. Therefore need to clear it.
 
   muscles = get_muscles(context.active_object.name, context)
+  wrapping_objects = get_wrapping_objects(context.active_object.name, context)
   if muscles:
     pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(None)
     exporter = OsimExporter()
-    exporter.add_muscles(context, muscles)
+    exporter.add_muscles(context, muscles, wrapping_objects)
+    if wrapping_objects:
+      exporter.add_body_set(context, wrapping_objects)
     exporter.write_osim_file(
       os.path.join(toplevel_directory, "muscles.osim"))

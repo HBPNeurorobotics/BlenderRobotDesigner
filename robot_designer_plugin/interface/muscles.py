@@ -41,7 +41,7 @@ import math
 
 from . import menus
 from ..operators import sensors
-from .helpers import EditMusclesBox, WrappingBox, getSingleSegment, AttachWrapBox, WrapPropertiesBox
+from .helpers import EditMusclesBox, WrappingBox, getSingleSegment, AttachWrapBox, WrapPropertiesBox, MusclePropertiesBox
 from ..core.gui import InfoBox
 from ..properties.globals import global_properties
 from ..properties.objects import RDScaler
@@ -131,29 +131,64 @@ def draw(layout, context):
                 row7.label(text="Attach pathpoints to segments:")
                 row7.menu(menus.SegmentsMusclesMenu.bl_idname, text="Select Segment")
 
-                musclebox = box.box()
-                musclebox.label("Muscle Characteristics")
-                # show length of muscle
-                row = musclebox.row()
-                row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'length', text="Muscle length")
-                muscles.CalculateMuscleLength.place_button(row, infoBox=infoBox, text="Calculate").muscle = active_muscle
+                musclepropertiesbox = MusclePropertiesBox.get(box, context, "Muscle Properties", icon="SCRIPTWIN")
+                if musclepropertiesbox:
 
-                # Muscle Characteristics
-                # max force
-                row = musclebox.row()
-                row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'max_isometric_force', text="Max isometric Force")
+                    musclebox = musclepropertiesbox.box()
+                    musclebox.label("Muscle Characteristics")
+                    # show length of muscle
+                    row = musclebox.row()
+                    row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'length', text="Muscle length")
+                    muscles.CalculateMuscleLength.place_button(row, infoBox=infoBox, text="Calculate").muscle = active_muscle
 
-                # muscle type
-                row = musclebox.row()
-                if active_muscle != '':
-                   row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'muscleType', text='Muscle Type')
-                box.row()
+                    # Muscle Characteristics
+                    # max force
+                    row = musclebox.row()
+                    row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'max_isometric_force', text="Max isometric Force")
 
-                settingsbox = box.box()
-                row1 = settingsbox.row()
-                row1.label("Settings: ")
-                row2 = settingsbox.row()
-                global_properties.muscle_dim.prop(context.scene, row2, expand=True)
+                    # muscle type
+                    row = musclebox.row()
+                    if active_muscle != '':
+                       row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'muscleType', text='Muscle Type')
+                    box.row()
+
+                    settingsbox = musclepropertiesbox.box()
+                    row1 = settingsbox.row()
+                    row1.label("Settings: ")
+                    row2 = settingsbox.row()
+                    global_properties.muscle_dim.prop(context.scene, row2, expand=True)
+
+                wrapbox = box.box()
+                row0 = wrapbox.row()
+                row0.label(text="Muscle wrapping objects")
+                row1 = wrapbox.row()
+                column = row1.column(align=True)
+                #mesh_generation.CreateWrappingSphere.place_button(column, text="Add Wrapping Sphere", infoBox=infoBox)
+                #mesh_generation.CreateWrappingCylinder.place_button(column, text="Add Wrapping Cylinder",
+                                                                    #infoBox=infoBox)
+
+                j=0
+                try:
+                    for connected_wraps in bpy.data.objects[active_muscle].RobotEditor.muscles.connectedWraps:
+                        for wrapping_objects in context.scene.objects:
+                            if wrapping_objects.name == connected_wraps.wrappingName:
+                                j = j+1
+                                row2 = wrapbox.row(align=True)
+                                row2.prop(wrapping_objects, 'name', text=str(j))
+                                mesh_generation.DisconnectWrappingObject.place_button\
+                                    (row2, text='Disconnect from Muscle', infoBox=infoBox).wrappingOrder = j
+
+                    row3 = wrapbox.row()
+                    row3.label(text='Add existing wrapping object to muscle: ')
+                    row3.menu(menus.ConnectWrapMenu.bl_idname, text='Select Wrapping Object')
+
+
+
+                except:
+                    musclepropertiesbox.row()
+                    box.row()
+                    pass
+
 
              except:
                  pointbox.row()
@@ -185,7 +220,7 @@ def draw(layout, context):
             selected_objects = [i for i in context.selected_objects if i.name != context.active_object.name]
             if len(selected_objects):
                 meshes = global_properties.mesh_name.get(context.scene)
-                obj = bpy.data.objects[meshes].RobotEditor.scaling
+                obj = bpy.data.objects[meshes].RobotEditor.wrap.scaling #changed to wrap.scaling
             if bpy.data.objects[meshes].RobotEditor.wrap.WrappingType == "WRAPPING_SPHERE":
                 boxy.prop(obj, "scale_all", slider=False, text="Scale Sphere: ")
             elif bpy.data.objects[meshes].RobotEditor.wrap.WrappingType == "WRAPPING_CYLINDER":

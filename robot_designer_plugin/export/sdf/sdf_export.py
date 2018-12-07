@@ -115,7 +115,7 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
     if not export_collision:
         meshes = [obj.name for obj in context.scene.objects if
                   obj.type == "MESH" and obj.name == name and
-                  not obj.RobotEditor.tag == "COLLISION"]
+                  obj.RobotEditor.tag == "VISUAL"] #TODO: Change to if VISUAL
         directory = os.path.join(directory, "meshes", "visual")
 
     else:

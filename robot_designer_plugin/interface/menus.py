@@ -49,7 +49,7 @@ from bpy.props import IntProperty, StringProperty, CollectionProperty
 # ######
 # RobotDesigner imports
 
-from ..operators import segments, model, rigid_bodies, dynamics, sensors, muscles
+from ..operators import segments, model, rigid_bodies, dynamics, sensors, muscles, mesh_generation
 
 from ..core import PluginManager
 from ..core.config import OPERATOR_PREFIX
@@ -140,6 +140,25 @@ class SegmentsMusclesMenu(bpy.types.Menu, BaseMenu):
 
             recursion(current_model.data.bones[root].children)
 
+@PluginManager.register_class
+class ConnectWrapMenu(bpy.types.Menu, BaseMenu):
+    bl_idname = OPERATOR_PREFIX + "musclewrapmenu"
+    bl_label = "Select Wrapping Object"
+    filter = None
+    '''
+    Wrapping Objects must always be connected to a segment. Else the option to connect wrapping objects to a muscle
+    will not appear in the list. 
+    '''
+    @RDOperator.OperatorLogger
+    def draw(self, context):
+        layout = self.layout
+        current_model = context.active_object
+        active_muscle = global_properties.active_muscle.get(context.scene)
+        for obj in [wrap_object.name for wrap_object in context.scene.objects if wrap_object.RobotEditor.tag == "WRAPPING"
+                                                                       and current_model.name == wrap_object.parent.name]:
+            if obj not in [connected_wrap.wrappingName for connected_wrap in
+                           context.scene.objects[active_muscle].RobotEditor.muscles.connectedWraps]:
+                layout.operator(mesh_generation.SelectWrappingObject.bl_idname, text=obj).wrapping_name = obj
 
 class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
     """

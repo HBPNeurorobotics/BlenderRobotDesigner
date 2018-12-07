@@ -116,6 +116,60 @@ class RDMusclePoints(bpy.types.PropertyGroup):
 
     coordFrame = StringProperty(default="Select Segment")
 
+class RDMuscleNames(bpy.types.PropertyGroup):
+
+    name = StringProperty(default="Select Muscle")
+
+
+class RDWrappingObjects(bpy.types.PropertyGroup):
+    wrappingName = StringProperty(default="Wrapping Name")
+
+
+@PluginManager.register_property_group()
+class RDScaler(bpy.types.PropertyGroup):
+
+
+    def scale_all_update(self, context):
+
+        obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
+        scale_object = obj.RobotEditor.wrap.scaling #changed to wrap.scaling instead of scaling
+        obj.scale[0] = scale_object.scale_all
+        obj.scale[1] = scale_object.scale_all
+        obj.scale[2] = scale_object.scale_all
+
+    def scale_radius_update(self, context):
+
+        obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
+        scale_object = obj.RobotEditor.wrap.scaling
+        obj.scale[0] = scale_object.scale_radius
+        obj.scale[1] = scale_object.scale_radius
+
+    def scale_depth_update(self, context):
+
+        obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
+        scale_object = obj.RobotEditor.wrap.scaling
+        obj.scale[2] = scale_object.scale_depth
+
+    scale_all = FloatProperty(name="Scaler", default=1.0, update=scale_all_update)
+    scale_radius = FloatProperty(name="Scale Radius", default=1.0, update=scale_radius_update)
+    scale_depth = FloatProperty(name="Scale Depth", default=1.0, update=scale_depth_update)
+
+
+@PluginManager.register_property_group()
+class RDWrap(bpy.types.PropertyGroup):
+
+    WrappingType = EnumProperty(
+        items=[('WRAPPING_SPHERE', 'Wrapping Sphere', 'Wrapping Sphere'),
+               ('WRAPPING_CYLINDER', 'Wrapping Cylinder', 'Wrapping Cylinder')])
+
+    bpy.utils.register_class(RDMuscleNames)
+    muscleNames = CollectionProperty(type=RDMuscleNames)
+
+    scaling = PointerProperty(type=RDScaler)
+
+    #bpy.utils.register_class(RDWrappingObjects)
+    #WrappingObjects = CollectionProperty(type=RDWrappingObjects)
+
 
 @PluginManager.register_property_group()
 class RDMuscle(bpy.types.PropertyGroup):
@@ -155,42 +209,15 @@ class RDMuscle(bpy.types.PropertyGroup):
     bpy.utils.register_class(RDMusclePoints)
     pathPoints = CollectionProperty(type=RDMusclePoints)
 
+    bpy.utils.register_class(RDWrappingObjects)
+    connectedWraps = CollectionProperty(type=RDWrappingObjects)
 
-@PluginManager.register_property_group()
-class RDScaler(bpy.types.PropertyGroup):
+    #scaling = PointerProperty(type=RDScaler)
+
+    #wrap = PointerProperty(type=RDWrap)
 
 
-    def scale_all_update(self, context):
 
-        obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
-        scale_object = obj.RobotEditor.scaling
-        obj.scale[0] = scale_object.scale_all
-        obj.scale[1] = scale_object.scale_all
-        obj.scale[2] = scale_object.scale_all
-
-    def scale_radius_update(self, context):
-
-        obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
-        scale_object = obj.RobotEditor.scaling
-        obj.scale[0] = scale_object.scale_radius
-        obj.scale[1] = scale_object.scale_radius
-
-    def scale_depth_update(self, context):
-
-        obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
-        scale_object = obj.RobotEditor.scaling
-        obj.scale[2] = scale_object.scale_depth
-
-    scale_all = FloatProperty(name="Scaler", default=1.0, update=scale_all_update)
-    scale_radius = FloatProperty(name="Scale Radius", default=1.0, update=scale_radius_update)
-    scale_depth = FloatProperty(name="Scale Depth", default=1.0, update=scale_depth_update)
-
-@PluginManager.register_property_group()
-class RDWrapType(bpy.types.PropertyGroup):
-
-    WrappingType = EnumProperty(
-        items=[('WRAPPING_SPHERE', 'Wrapping Sphere', 'Wrapping Sphere'),
-               ('WRAPPING_CYLINDER', 'Wrapping Cylinder', 'Wrapping Cylinder')])
 
 
 @PluginManager.register_property_group()
@@ -237,7 +264,7 @@ class RDObjects(bpy.types.PropertyGroup):
 
     muscles = PointerProperty(type=RDMuscle)
 
-    scaling = PointerProperty(type=RDScaler)
+    #scaling = PointerProperty(type=RDScaler)
 
-    wrap = PointerProperty(type=RDWrapType)
+    wrap = PointerProperty(type=RDWrap)
 

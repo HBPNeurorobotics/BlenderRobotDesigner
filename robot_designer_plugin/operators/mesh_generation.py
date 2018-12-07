@@ -106,12 +106,22 @@ class CreateWrappingSphere(RDOperator):
         from .rigid_bodies import SelectGeometry
 
         model = bpy.context.active_object
+        active_muscle = bpy.data.objects[global_properties.active_muscle.get(bpy.context.scene)]
 
-        bpy.ops.mesh.primitive_uv_sphere_add(calc_uvs=True, view_align=False, enter_editmode=False)
+        bpy.ops.mesh.primitive_uv_sphere_add(size=1, calc_uvs=True, view_align=False, enter_editmode=False) #added size
+
 
         sphere = bpy.context.active_object
-
         sphere.name = self.sphere_name
+
+        sphere.RobotEditor.wrap.muscleNames.add()
+        nrm = len(sphere.RobotEditor.wrap.muscleNames)
+        sphere.RobotEditor.wrap.muscleNames[nrm-1].name = active_muscle.name
+        #sphere.RobotEditor.muscles.name = active_muscle.RobotEditor.muscles.name
+
+        active_muscle.RobotEditor.muscles.connectedWraps.add()
+        nrw = len(active_muscle.RobotEditor.muscles.connectedWraps)
+        active_muscle.RobotEditor.muscles.connectedWraps[nrw-1].wrappingName = sphere.name
 
         lmat = bpy.data.materials.new(self.sphere_name)
         lmat.diffuse_color = (0.0, 0.135, 0.0)
@@ -150,12 +160,21 @@ class CreateWrappingCylinder(RDOperator):
         from .rigid_bodies import SelectGeometry
 
         model = bpy.context.active_object
+        active_muscle = bpy.data.objects[global_properties.active_muscle.get(bpy.context.scene)]
 
-        bpy.ops.mesh.primitive_cylinder_add(view_align=False, enter_editmode=False)
+        bpy.ops.mesh.primitive_cylinder_add(radius=1, depth=1, view_align=False, enter_editmode=False) #added radius and depth
 
         cylinder = bpy.context.active_object
-
         cylinder.name = self.cylinder_name
+
+        cylinder.RobotEditor.wrap.muscleNames.add()
+        nrm = len(cylinder.RobotEditor.wrap.muscleNames)
+        cylinder.RobotEditor.wrap.muscleNames[nrm - 1].name = active_muscle.name
+        #cylinder.RobotEditor.muscles.name = active_muscle.RobotEditor.muscles.name
+
+        active_muscle.RobotEditor.muscles.connectedWraps.add()
+        nrw = len(active_muscle.RobotEditor.muscles.connectedWraps)
+        active_muscle.RobotEditor.muscles.connectedWraps[nrw - 1].wrappingName = cylinder.name
 
         lmat = bpy.data.materials.new(self.cylinder_name)
         lmat.diffuse_color = (0., 0.135, 0.0)
@@ -183,13 +202,24 @@ class RenameWrappingObject(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "rename_wrapping_object"
-    bl_label = "Rename wrapping object"
+    bl_label = "" # deleted Rename wrapping object from text
 
     new_name = StringProperty(name="Enter new name:")
 
 
     @RDOperator.OperatorLogger
     def execute(self, context):
+        selected_object = global_properties.mesh_name.get(context.scene)
+
+        for muscles in context.scene.objects[selected_object].RobotEditor.wrap.muscleNames:
+            i = 0
+            for connected_wraps in context.scene.objects[muscles.name].RobotEditor.muscles.connectedWraps:
+                if connected_wraps.wrappingName == selected_object:
+                    context.scene.objects[muscles.name].RobotEditor.muscles.connectedWraps[i].wrappingName = self.new_name
+                    break
+                i = i + 1
+
+
         bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)].name = self.new_name
         global_properties.mesh_name.set(context.scene, self.new_name)
         return {'FINISHED'}
@@ -211,12 +241,21 @@ class DeleteWrappingObject(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "delete_wrapping_object"
-    bl_label = "Delete wrapping object"
+    bl_label = "" # deleted Delete wrapping object from text
 
     @RDOperator.OperatorLogger
     def execute(self, context):
 
         selected_object = global_properties.mesh_name.get(context.scene)
+
+        for muscles in context.scene.objects[selected_object].RobotEditor.wrap.muscleNames:
+            i=0
+            for connected_wraps in context.scene.objects[muscles.name].RobotEditor.muscles.connectedWraps:
+                if connected_wraps.wrappingName == selected_object:
+                    context.scene.objects[muscles.name].RobotEditor.muscles.connectedWraps.remove(i)
+                    break
+                i = i+1
+
 
         bpy.data.objects.remove(bpy.data.objects[selected_object], True)
         bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
@@ -226,6 +265,36 @@ class DeleteWrappingObject(RDOperator):
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
 
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class DisconnectWrappingObject(RDOperator):
+
+    bl_idname = config.OPERATOR_PREFIX + "disconnect_wrapping_object"
+    bl_label = ""
+
+    wrappingOrder = bpy.props.IntProperty(name="Disconnect wrapping object:")
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+
+        active_muscle = global_properties.active_muscle.get(context.scene)
+
+        connected_wraps = context.scene.objects[active_muscle].RobotEditor.muscles.connectedWraps
+
+        active_wrap = connected_wraps[self.wrappingOrder-1].wrappingName
+
+        i = 0
+        for muscles in context.scene.objects[active_wrap].RobotEditor.wrap.muscleNames:
+            if muscles.name == active_muscle:
+                context.scene.objects[active_wrap].RobotEditor.wrap.muscleNames.remove(i)
+            i = i+1
+
+        connected_wraps.remove(self.wrappingOrder-1)
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
 
 @RDOperator.Preconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
 @PluginManager.register_class
@@ -245,7 +314,7 @@ class AttachWrappingObject(RDOperator):
         # in which case parent_bone should be left empty.
         # See also https://blender.stackexchange.com/questions/9200/make-object-a-a-parent-of-object-b-via-python
         # At this point bpy.context.scene.objects.active should point to the armature which will be the parent.
-        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+        bpy.ops.object.parent_set(type='BONE', keep_transform=False)
 
         return {'FINISHED'}
 
@@ -310,6 +379,41 @@ class DetachAllWrappingObjects(RDOperator):
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class SelectWrappingObject(RDOperator):
+    bl_idname = config.OPERATOR_PREFIX + "select_wrapping_object"
+    bl_label = "Select wrapping object: "
+
+    wrapping_name = StringProperty()
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+        model = bpy.data.objects[global_properties.model_name.get(context.scene)]
+        active_muscle = bpy.data.objects[global_properties.active_muscle.get(bpy.context.scene)]
+
+        wrapping_object = context.scene.objects[self.wrapping_name]
+        wrapping_object.RobotEditor.wrap.muscleNames.add()
+        nr = len(wrapping_object.RobotEditor.wrap.muscleNames)
+        wrapping_object.RobotEditor.wrap.muscleNames[nr - 1].name = active_muscle.name
+
+        wrapList = active_muscle.RobotEditor.muscles.connectedWraps
+        wrapList.add()
+        nrw = len(wrapList)
+        wrapList[nrw-1].wrappingName = self.wrapping_name
+
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
+    @classmethod
+    def run(cls, wrapping_name=""):
+        return super().run(**cls.pass_keywords())
+
+
 
 
 # operator to select mesh

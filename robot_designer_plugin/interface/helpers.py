@@ -105,6 +105,10 @@ class EditMusclesBox(CollapsibleBase):
     property_name = "edit_muscles_box"
 
 @PluginManager.register_class
+class MusclePropertiesBox(CollapsibleBase):
+    property_name = "muscle_properties_box"
+
+@PluginManager.register_class
 class WrappingBox(CollapsibleBase):
     property_name = "wrapping_box"
 
