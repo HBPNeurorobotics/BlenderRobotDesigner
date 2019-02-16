@@ -733,8 +733,6 @@ class Importer(object):
         model_name = bpy.context.active_object.name
         model_type = bpy.context.active_object.type
         bpy.context.active_object.RobotDesigner.modelMeta.model_folder = os.path.basename(os.path.dirname(self.file_path))
-        bpy.context.active_object.location = robot_location
-        bpy.context.active_object.rotation_euler = robot_rotation
 
         self.logger.debug('model_name: %s', model_name)
         self.logger.debug('model_type: %s', model_type)
@@ -768,6 +766,11 @@ class Importer(object):
             #          SelectCoordinateFrame.run(mesh_name='CoordinateFrame')
             #      except:
             #          pass
+
+
+        # set robot location and rotation
+        bpy.context.active_object.location = robot_location
+        bpy.context.active_object.rotation_euler = robot_rotation
 
         # bpy.ops.view3d.view_lock_to_active()
         bpy.context.active_object.show_x_ray = True
