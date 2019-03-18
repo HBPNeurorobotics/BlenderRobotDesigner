@@ -94,6 +94,8 @@ class UserInterface(bpy.types.Panel):
             row = layout.row(align=True)
             row.operator(gui.PrintTransformations.bl_idname)
             row = layout.row(align=True)
+            row.operator(gui.ConvertDAEPackages.bl_idname)
+            row = layout.row(align=True)
             global_properties.operator_debug_level.prop(bpy.context.scene, row, expand=True)
 
         # M. Welter: Why is this needed? There is already a perfectly fine gui to switch modes, even in a prominent place, .
