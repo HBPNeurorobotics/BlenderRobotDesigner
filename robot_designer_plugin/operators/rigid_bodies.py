@@ -90,6 +90,36 @@ class SelectGeometry(RDOperator):
         return {'FINISHED'}
 
 
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class RenameGeometry(RDOperator):
+    """
+    :term:`operator` for renaming the selected mesh
+    """
+
+    bl_idname = config.OPERATOR_PREFIX + "rename_mesh"
+    bl_label = "Rename seleted mesh"
+    new_name = StringProperty(name="Enter new name:")
+
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected)
+    def execute(self, context):
+        mesh_name = global_properties.mesh_name.get(context.scene)
+        current_mesh = bpy.data.objects[mesh_name]
+        current_mesh.name = mesh_name.split('_')[0] + '_' + self.new_name
+        bpy.data.scenes["Scene"].RobotDesigner.mesh_name = current_mesh.name
+        bpy.data.objects[current_mesh.name].RobotDesigner.fileName = current_mesh.name
+        global_properties.mesh_name.set(context.scene, current_mesh.name)
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
+    @classmethod
+    def run(cls, new_name=""):
+        return super().run(**cls.pass_keywords())
+
 @RDOperator.Preconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
 @PluginManager.register_class
 class AssignGeometry(RDOperator):
