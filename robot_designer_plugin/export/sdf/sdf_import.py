@@ -34,6 +34,7 @@
 # ######
 # System imports
 import os
+import sys
 from math import *
 from mathutils import Euler, Matrix, Vector
 from pathlib import Path
@@ -87,6 +88,17 @@ class Importer(object):
         self.operator = operator
         self.controllers = None
 
+    def get_operating_system(self):
+        self.platforms = {
+            'linux1': 'Linux',
+            'linux2': 'Linux',
+            'darwin': 'Mac OS X',
+            'win32': 'Windows'
+        }
+        if sys.platform not in self.platforms:
+            return sys.platform
+
+        return self.platforms[sys.platform]
 
     def add_box(self, model):
         """
@@ -305,6 +317,12 @@ class Importer(object):
         #
         #     bpy.ops.mesh.primitive_cylinder_add(depth=c_depth, radius=c_radius)
         #     bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
+
+        operating_system = self.get_operating_system()
+        if operating_system == 'Windows':
+            mesh_path = mesh_path.replace(os.sep, '\\')
+        else:
+            pass
 
         fn, extension = os.path.splitext(mesh_path)
         if extension == ".stl" or extension == ".STL":
@@ -821,9 +839,9 @@ class Importer(object):
         bpy.context.active_object.RobotDesigner.modelMeta.model_description = model.description
 
 
-    @RDOperator.Preconditions(ObjectMode)
-    @PluginManager.register_class
-    class ImportPlain(RDOperator):
+@RDOperator.Preconditions(ObjectMode)
+@PluginManager.register_class
+class ImportPlain(RDOperator):
         """
         :term:`Operator<operator>` for importing a robot from a SDF plain file
         """
@@ -847,9 +865,9 @@ class Importer(object):
             return {'FINISHED'}
 
 
-    @RDOperator.Preconditions(ObjectMode)
-    @PluginManager.register_class
-    class ImportPackage(RDOperator):
+@RDOperator.Preconditions(ObjectMode)
+@PluginManager.register_class
+class ImportPackage(RDOperator):
         """
         :term:`Operator<operator>` for importing a robot from a ROS/SDF package
         """
@@ -879,9 +897,9 @@ class Importer(object):
             return {'FINISHED'}
 
 
-    @RDOperator.Preconditions(ObjectMode)
-    @PluginManager.register_class
-    class ImportZippedPackage(RDOperator):
+@RDOperator.Preconditions(ObjectMode)
+@PluginManager.register_class
+class ImportZippedPackage(RDOperator):
         """
         :term:`Operator<operator>` for importing a robot from a ROS package (SDF)
         """

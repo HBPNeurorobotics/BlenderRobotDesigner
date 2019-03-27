@@ -196,6 +196,25 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     :return:
     """
 
+    def get_operating_system():
+        platforms = {
+            'linux1': 'Linux',
+            'linux2': 'Linux',
+            'darwin': 'Mac OS X',
+            'win32': 'Windows'
+        }
+        if sys.platform not in platforms:
+            return sys.platform
+
+        return platforms[sys.platform]
+
+    operating_system = get_operating_system()
+
+    # the meshpath should contain slash not backslash, regardless of the operating system
+    if operating_system == 'Windows':
+        meshpath = meshpath.replace(os.sep, '/')
+    else:
+        pass
 
     def walk_segments(segment, tree, ref_pose):
         """
