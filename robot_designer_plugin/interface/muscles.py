@@ -163,9 +163,6 @@ def draw(layout, context):
                 row0.label(text="Muscle wrapping objects")
                 row1 = wrapbox.row()
                 column = row1.column(align=True)
-                #mesh_generation.CreateWrappingSphere.place_button(column, text="Add Wrapping Sphere", infoBox=infoBox)
-                #mesh_generation.CreateWrappingCylinder.place_button(column, text="Add Wrapping Cylinder",
-                                                                    #infoBox=infoBox)
 
                 j=0
                 try:
@@ -220,7 +217,7 @@ def draw(layout, context):
             selected_objects = [i for i in context.selected_objects if i.name != context.active_object.name]
             if len(selected_objects):
                 meshes = global_properties.mesh_name.get(context.scene)
-                obj = bpy.data.objects[meshes].RobotEditor.wrap.scaling #changed to wrap.scaling
+                obj = bpy.data.objects[meshes].RobotEditor.wrap.scaling
             if bpy.data.objects[meshes].RobotEditor.wrap.WrappingType == "WRAPPING_SPHERE":
                 boxy.prop(obj, "scale_all", slider=False, text="Scale Sphere: ")
             elif bpy.data.objects[meshes].RobotEditor.wrap.WrappingType == "WRAPPING_CYLINDER":

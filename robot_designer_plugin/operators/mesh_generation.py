@@ -108,8 +108,7 @@ class CreateWrappingSphere(RDOperator):
         model = bpy.context.active_object
         active_muscle = bpy.data.objects[global_properties.active_muscle.get(bpy.context.scene)]
 
-        bpy.ops.mesh.primitive_uv_sphere_add(size=1, calc_uvs=True, view_align=False, enter_editmode=False) #added size
-
+        bpy.ops.mesh.primitive_uv_sphere_add(size=1, calc_uvs=True, view_align=False, enter_editmode=False)
 
         sphere = bpy.context.active_object
         sphere.name = self.sphere_name
@@ -117,7 +116,6 @@ class CreateWrappingSphere(RDOperator):
         sphere.RobotEditor.wrap.muscleNames.add()
         nrm = len(sphere.RobotEditor.wrap.muscleNames)
         sphere.RobotEditor.wrap.muscleNames[nrm-1].name = active_muscle.name
-        #sphere.RobotEditor.muscles.name = active_muscle.RobotEditor.muscles.name
 
         active_muscle.RobotEditor.muscles.connectedWraps.add()
         nrw = len(active_muscle.RobotEditor.muscles.connectedWraps)
@@ -162,7 +160,7 @@ class CreateWrappingCylinder(RDOperator):
         model = bpy.context.active_object
         active_muscle = bpy.data.objects[global_properties.active_muscle.get(bpy.context.scene)]
 
-        bpy.ops.mesh.primitive_cylinder_add(radius=1, depth=1, view_align=False, enter_editmode=False) #added radius and depth
+        bpy.ops.mesh.primitive_cylinder_add(radius=1, depth=1, view_align=False, enter_editmode=False)
 
         cylinder = bpy.context.active_object
         cylinder.name = self.cylinder_name
@@ -170,7 +168,6 @@ class CreateWrappingCylinder(RDOperator):
         cylinder.RobotEditor.wrap.muscleNames.add()
         nrm = len(cylinder.RobotEditor.wrap.muscleNames)
         cylinder.RobotEditor.wrap.muscleNames[nrm - 1].name = active_muscle.name
-        #cylinder.RobotEditor.muscles.name = active_muscle.RobotEditor.muscles.name
 
         active_muscle.RobotEditor.muscles.connectedWraps.add()
         nrw = len(active_muscle.RobotEditor.muscles.connectedWraps)
@@ -202,7 +199,7 @@ class RenameWrappingObject(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "rename_wrapping_object"
-    bl_label = "" # deleted Rename wrapping object from text
+    bl_label = ""
 
     new_name = StringProperty(name="Enter new name:")
 
@@ -215,10 +212,10 @@ class RenameWrappingObject(RDOperator):
             i = 0
             for connected_wraps in context.scene.objects[muscles.name].RobotEditor.muscles.connectedWraps:
                 if connected_wraps.wrappingName == selected_object:
-                    context.scene.objects[muscles.name].RobotEditor.muscles.connectedWraps[i].wrappingName = self.new_name
+                    context.scene.objects[muscles.name].RobotEditor.muscles.connectedWraps[i].wrappingName = \
+                        self.new_name
                     break
                 i = i + 1
-
 
         bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)].name = self.new_name
         global_properties.mesh_name.set(context.scene, self.new_name)
@@ -241,7 +238,7 @@ class DeleteWrappingObject(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "delete_wrapping_object"
-    bl_label = "" # deleted Delete wrapping object from text
+    bl_label = ""
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -369,7 +366,8 @@ class DetachAllWrappingObjects(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         from .rigid_bodies import SelectGeometry
-        meshes = [obj for obj in bpy.data.objects if obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotEditor.tag == 'WRAPPING']
+        meshes = [obj for obj in bpy.data.objects if obj.type == 'MESH' and
+                  obj.parent_bone is not '' and obj.RobotEditor.tag == 'WRAPPING']
 
         for mesh in meshes:
             SelectGeometry.run(geometry_name=mesh.name)
@@ -379,6 +377,7 @@ class DetachAllWrappingObjects(RDOperator):
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
+
 
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class

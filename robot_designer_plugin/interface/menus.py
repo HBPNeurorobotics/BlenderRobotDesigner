@@ -166,10 +166,10 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
     """
     bl_idname = "Override"
 
-    obj_tag = None # can be set to scene property // global_properties.mesh_type
-    show_connected = None # set to scene property // global_properties.list_meshes
-    blender_type = "CAMERA" # StringConstants.mesh
-    quick_search = None # global_properties.mesh_name
+    obj_tag = None # can be set to scene property
+    show_connected = None # set to scene property
+    blender_type = "CAMERA"
+    quick_search = None
     operator_property = "geometry_name"
     operator = rigid_bodies.SelectGeometry
     text = "Select Mesh"

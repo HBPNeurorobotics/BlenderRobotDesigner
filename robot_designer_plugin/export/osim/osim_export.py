@@ -154,7 +154,7 @@ class OsimExporter(object):
         WrapObjectSet = self._add_wrap_set(objects)
       )
     bodies = []
-    #bodies.append(body())
+
     for bone in context.active_object.data.bones:
       object_list=[]
       for object in wrapping:
@@ -199,7 +199,6 @@ class OsimExporter(object):
       )
 
     for c in cylinders:
-      # return list(map(cylinder_to_pyxb, self._get_wrapping_information(c)))
       clist.append(cylinder_to_pyxb(self._get_wrapping_information(c)))
     return clist
 
@@ -233,13 +232,11 @@ class OsimExporter(object):
     name = wrapping.name
     radius = wrapping.scale[0]
     depth = wrapping.scale[2]
-    #location = wrapping.location
-    #rotation = wrapping.rotation_euler
-    return (name, radius, depth, pose_xyz, pose_rpy) #originally location, rotation
+
+    return (name, radius, depth, pose_xyz, pose_rpy)
 
 
   def _build_pyxb_path_wraps_list(self, m, w, context):
-    #length = len(w) + 1
 
     wrapping_objects = [objects for objects in m.RobotEditor.muscles.connectedWraps]
     length = len(wrapping_objects)+1
@@ -247,12 +244,12 @@ class OsimExporter(object):
     def path_wrap_to_pyxb(obj):
       i, object = obj
       return osim_dom.PathWrap(
-        wrap_object=object.wrappingName, #originally object.name
+        wrap_object=object.wrappingName,
         method='midpoint',
         name='PathWrap%i' % (length-i)
       )
 
-    return list(map(path_wrap_to_pyxb, enumerate(wrapping_objects))) #originally was enumerate(w)
+    return list(map(path_wrap_to_pyxb, enumerate(wrapping_objects)))
 
 
   def _build_pyxb_path_nodes_list(self, m, context):

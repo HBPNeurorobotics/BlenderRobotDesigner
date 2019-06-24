@@ -116,6 +116,7 @@ class RDMusclePoints(bpy.types.PropertyGroup):
 
     coordFrame = StringProperty(default="Select Segment")
 
+
 class RDMuscleNames(bpy.types.PropertyGroup):
 
     name = StringProperty(default="Select Muscle")
@@ -132,7 +133,7 @@ class RDScaler(bpy.types.PropertyGroup):
     def scale_all_update(self, context):
 
         obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
-        scale_object = obj.RobotEditor.wrap.scaling #changed to wrap.scaling instead of scaling
+        scale_object = obj.RobotEditor.wrap.scaling
         obj.scale[0] = scale_object.scale_all
         obj.scale[1] = scale_object.scale_all
         obj.scale[2] = scale_object.scale_all
@@ -167,8 +168,6 @@ class RDWrap(bpy.types.PropertyGroup):
 
     scaling = PointerProperty(type=RDScaler)
 
-    #bpy.utils.register_class(RDWrappingObjects)
-    #WrappingObjects = CollectionProperty(type=RDWrappingObjects)
 
 
 @PluginManager.register_property_group()
@@ -212,9 +211,6 @@ class RDMuscle(bpy.types.PropertyGroup):
     bpy.utils.register_class(RDWrappingObjects)
     connectedWraps = CollectionProperty(type=RDWrappingObjects)
 
-    #scaling = PointerProperty(type=RDScaler)
-
-    #wrap = PointerProperty(type=RDWrap)
 
 
 
@@ -264,8 +260,6 @@ class RDObjects(bpy.types.PropertyGroup):
     author = PointerProperty(type=RDAuthor)
 
     muscles = PointerProperty(type=RDMuscle)
-
-    #scaling = PointerProperty(type=RDScaler)
 
     wrap = PointerProperty(type=RDWrap)
 
