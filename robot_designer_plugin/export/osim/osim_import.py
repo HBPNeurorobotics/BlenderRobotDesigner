@@ -79,7 +79,6 @@ class OsimImporter(object):
       RDmuscle.RobotEditor.muscles.muscleType = type
       RDmuscle.RobotEditor.muscles.length = muscle.optimal_fiber_length / 0.9
       RDmuscle.RobotEditor.muscles.max_isometric_force = muscle.max_isometric_force
-
       global_properties.active_muscle.set(bpy.context.scene, muscle.name)
 
       self.import_pathpoints(muscle, RDmuscle)

@@ -633,7 +633,7 @@ def create_config(operator: RDOperator, context,
     modelI = model_config_dom.model()
 
     # get model data
-    modelI.name = bpy.context.active_object.name
+    modelI.name = bpy.context.active_object.RobotEditor.modelMeta.model_config
     modelI.version = bpy.context.active_object.RobotEditor.modelMeta.model_version
 
     # get thumbnail data

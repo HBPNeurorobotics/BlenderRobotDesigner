@@ -327,6 +327,7 @@ class CreateNewModel(RDOperator):
         model_data.draw_type = 'STICK'
         scene = bpy.context.scene
         scene.objects.link(model_object)
+        bpy.data.objects[self.model_name].RobotEditor.modelMeta.model_config = self.model_name
         SelectModel.run(model_name=self.model_name)
         if self.base_segment_name:
             segments.CreateNewSegment.run(segment_name=self.base_segment_name)
