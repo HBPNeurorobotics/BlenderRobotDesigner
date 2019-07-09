@@ -48,16 +48,16 @@ reload(urdf)
 reload(sdf)
 reload(osim)
 
-PluginManager.register_plugin("SDF", [sdf.ImportPlain, sdf.ImportPackage, sdf.ImportZippedPackage, sdf.ExportPlain, sdf.ExportPackage, sdf.ExportZippedPackage])
-PluginManager.register_plugin("URDF", [urdf.ImportPlain, urdf.ImportPackage, urdf.ImportZippedPackage, urdf.ExportPlain, urdf.ExportPackage, urdf.ExportZippedPackage])
-
+PluginManager.register_plugin("SDF", [sdf.ImportPlain, sdf.ImportPackage, sdf.ImportZippedPackage, sdf.ExportPlain,
+                                      sdf.ExportPackage, sdf.ExportZippedPackage])
+PluginManager.register_plugin("URDF", [urdf.ImportPlain, urdf.ImportPackage, urdf.ImportZippedPackage, urdf.ExportPlain,
+                                       urdf.ExportPackage, urdf.ExportZippedPackage])
 
 # todo add all import export plugins into this directory.
 # The file dialog should have a selection box for the format
 # todo that includes all plugins and draw the operators and arguments
 # required (a draw function has to be included)
 __author__ = 'ulbrich-gchen'
-
 
 # draft for creating a plugin mechanism
 plugins = [('urdf', 'URDF', '.urdf', True, True), ('sdf', 'SDF', '.sdf', True, True),

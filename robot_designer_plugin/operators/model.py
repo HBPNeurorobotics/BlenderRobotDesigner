@@ -56,6 +56,7 @@ from ..core import config, PluginManager, RDOperator, Condition
 from .helpers import ModelSelected, NotEditMode, ObjectMode
 from ..properties.globals import global_properties
 
+
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class SelectCoordinateFrame(RDOperator):
@@ -78,7 +79,6 @@ class SelectCoordinateFrame(RDOperator):
         """
 
         return super().run(**cls.pass_keywords())
-
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
@@ -115,7 +115,6 @@ class RebuildModel(RDOperator):
 
         return super().run(**cls.pass_keywords())
 
-
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
@@ -140,7 +139,7 @@ class RebuildModel(RDOperator):
 
         # then markers
         marker_names = [obj.name for obj in context.scene.objects if
-                        obj.RobotEditor.tag == 'MARKER' and obj.parent_bone]
+                        obj.RobotDesigner.tag == 'MARKER' and obj.parent_bone]
 
         marker_bones_dictionary = dict()
 
@@ -156,7 +155,7 @@ class RebuildModel(RDOperator):
 
         # finally, physic frames
         ph_names = [obj.name for obj in context.scene.objects if
-                    obj.RobotEditor.tag == 'PHYSICS_FRAME' and obj.parent_bone]
+                    obj.RobotDesigner.tag == 'PHYSICS_FRAME' and obj.parent_bone]
 
         ph_bones_dictionary = dict()
 
@@ -171,6 +170,7 @@ class RebuildModel(RDOperator):
             dynamics.AssignPhysical.run()
 
         return {'FINISHED'}
+
 
 @PluginManager.register_class
 class SelectModel(RDOperator):
@@ -190,7 +190,6 @@ class SelectModel(RDOperator):
     def run(cls, model_name=""):
         return super().run(**cls.pass_keywords())
 
-
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
@@ -208,6 +207,7 @@ class SelectModel(RDOperator):
             baseBoneName = context.active_object.data.bones[0].name
             segments.SelectSegment.run(segment_name=baseBoneName)
         return {'FINISHED'}
+
 
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
@@ -231,7 +231,6 @@ class RenameModel(RDOperator):
         """
 
         return super().run(**cls.pass_keywords())
-
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
@@ -272,7 +271,6 @@ class JoinModels(RDOperator):
 
         return super().run(**cls.pass_keywords())
 
-
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
@@ -289,6 +287,7 @@ class JoinModels(RDOperator):
         # Might be swapped! todo check double
         segments.UpdateSegments.run(segment_name=sourceParentBoneName, recurse=True)
         return {'FINISHED'}
+
 
 @RDOperator.Preconditions(ObjectMode)
 @PluginManager.register_class
@@ -314,7 +313,6 @@ class CreateNewModel(RDOperator):
 
         return super().run(**cls.pass_keywords())
 
-
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
@@ -327,7 +325,7 @@ class CreateNewModel(RDOperator):
         model_data.draw_type = 'STICK'
         scene = bpy.context.scene
         scene.objects.link(model_object)
-        bpy.data.objects[self.model_name].RobotEditor.modelMeta.model_config = self.model_name
+        bpy.data.objects[self.model_name].RobotDesigner.modelMeta.model_config = self.model_name
         SelectModel.run(model_name=self.model_name)
         if self.base_segment_name:
             segments.CreateNewSegment.run(segment_name=self.base_segment_name)
@@ -373,24 +371,24 @@ class CreateNewModel(RDOperator):
 #         segment_name = bpy.data.armatures[armatureDataName].bones[0].name
 #
 #     if bpy.data.armatures[armatureDataName].bones[
-#         segment_name].RobotEditor.RD_Bone == False:
+#         segment_name].RobotDesigner.RD_Bone == False:
 #         print("Not updated (not a RD segment):", segment_name)
 #         return
 #
 #     # local variables for updating the constraints
 #     jointAxis = bpy.data.armatures[armatureDataName].bones[
-#         segment_name].RobotEditor.axis
+#         segment_name].RobotDesigner.axis
 #     min_rot = bpy.data.armatures[armatureDataName].bones[
-#         segment_name].RobotEditor.theta.min
+#         segment_name].RobotDesigner.theta.min
 #     max_rot = bpy.data.armatures[armatureDataName].bones[
-#         segment_name].RobotEditor.theta.max
+#         segment_name].RobotDesigner.theta.max
 #     jointMode = bpy.data.armatures[armatureDataName].bones[
-#         segment_name].RobotEditor.jointMode
+#         segment_name].RobotDesigner.jointMode
 #     jointValue = bpy.data.armatures[armatureDataName].bones[
-#         segment_name].RobotEditor.theta.value
+#         segment_name].RobotDesigner.theta.value
 #
 #     matrix, jointMatrix = bpy.data.armatures[armatureDataName].bones[
-#         segment_name].RobotEditor.getTransform()
+#         segment_name].RobotDesigner.getTransform()
 #
 #     bpy.ops.object.mode_set(mode='EDIT', toggle=False)
 #
@@ -423,13 +421,13 @@ class CreateNewModel(RDOperator):
 #     # Adding constraints for revolute joints
 #     # ---------- REMOVED DUE TO BUG IN BLENDER ------------
 #     if jointMode == 'REVOLUTE':
-#         if 'RobotEditorConstraint' not in pose_bone.constraints:
+#         if 'RobotDesignerConstraint' not in pose_bone.constraints:
 #             bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
 #             bpy.context.object.pose.bones[segment_name].constraints[
-#                 0].name = 'RobotEditorConstraint'
+#                 0].name = 'RobotDesignerConstraint'
 #         constraint = \
 #         [i for i in pose_bone.constraints if i.type == 'LIMIT_ROTATION'][0]
-#         constraint.name = 'RobotEditorConstraint'
+#         constraint.name = 'RobotDesignerConstraint'
 #         constraint.owner_space = 'LOCAL'
 #         constraint.use_limit_x = True
 #         constraint.use_limit_y = True

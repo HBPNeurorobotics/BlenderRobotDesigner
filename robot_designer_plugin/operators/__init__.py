@@ -38,6 +38,7 @@ from . import api, helpers, collision, dynamics, file, gui, model, rigid_bodies,
     mesh_generation, sensors, muscles
 
 from importlib import reload
+
 reload(api)
 reload(helpers)
 reload(collision)

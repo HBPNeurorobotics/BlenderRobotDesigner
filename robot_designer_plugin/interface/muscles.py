@@ -49,6 +49,7 @@ from ..operators import model, muscles, segments, mesh_generation
 
 from .helpers import create_segment_selector
 
+
 def draw(layout, context):
     """
     Draws the user interface for geometric modelling.
@@ -93,17 +94,17 @@ def draw(layout, context):
 
         # Muscle Pathpoints
         if active_muscle != '':
-             pointbox = box.box()
-             row3 = pointbox.row()
-             row3.label(text="Muscle attachment points")
+            pointbox = box.box()
+            row3 = pointbox.row()
+            row3.label(text="Muscle attachment points")
 
-             row4 = pointbox.row()
-             column = row4.column(align=True)
-             muscles.CreateNewPathpoint.place_button(column, text="Add new pathpoint", infoBox=infoBox)
+            row4 = pointbox.row()
+            column = row4.column(align=True)
+            muscles.CreateNewPathpoint.place_button(column, text="Add new pathpoint", infoBox=infoBox)
 
-             i = 0
-             # pathpoint characteristics
-             try:
+            i = 0
+            # pathpoint characteristics
+            try:
                 for obj in context.scene.objects[active_muscle].data.splines[0].points:
 
                     row5 = pointbox.row(align=True)
@@ -113,9 +114,10 @@ def draw(layout, context):
                     row5.prop(obj, 'co', text=str(i))
 
                     # assigned segment
-                    if bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[i-1].coordFrame not in \
+                    if bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[i - 1].coordFrame not in \
                             [bone.name for bone in bpy.data.objects[active_model].data.bones]: row5.alert = True
-                    row5.prop(bpy.data.objects[active_muscle].RobotEditor.muscles.pathPoints[i-1], 'coordFrame', text='')
+                    row5.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles.pathPoints[i - 1], 'coordFrame',
+                              text='')
                     row5.alert = False
 
                     # swap pathpoints
@@ -138,18 +140,20 @@ def draw(layout, context):
                     musclebox.label("Muscle Characteristics")
                     # show length of muscle
                     row = musclebox.row()
-                    row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'length', text="Muscle length")
-                    muscles.CalculateMuscleLength.place_button(row, infoBox=infoBox, text="Calculate").muscle = active_muscle
+                    row.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles, 'length', text="Muscle length")
+                    muscles.CalculateMuscleLength.place_button(row, infoBox=infoBox,
+                                                               text="Calculate").muscle = active_muscle
 
                     # Muscle Characteristics
                     # max force
                     row = musclebox.row()
-                    row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'max_isometric_force', text="Max isometric Force")
+                    row.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles, 'max_isometric_force',
+                             text="Max isometric Force")
 
                     # muscle type
                     row = musclebox.row()
                     if active_muscle != '':
-                       row.prop(bpy.data.objects[active_muscle].RobotEditor.muscles, 'muscleType', text='Muscle Type')
+                       row.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles, 'muscleType', text='Muscle Type')
                     box.row()
 
                     settingsbox = musclepropertiesbox.box()
@@ -166,7 +170,7 @@ def draw(layout, context):
 
                 j=0
                 try:
-                    for connected_wraps in bpy.data.objects[active_muscle].RobotEditor.muscles.connectedWraps:
+                    for connected_wraps in bpy.data.objects[active_muscle].RobotDesigner.muscles.connectedWraps:
                         for wrapping_objects in context.scene.objects:
                             if wrapping_objects.name == connected_wraps.wrappingName:
                                 j = j+1
@@ -187,10 +191,10 @@ def draw(layout, context):
                     pass
 
 
-             except:
-                 pointbox.row()
-                 box.row()
-                 pass
+            except:
+                pointbox.row()
+                box.row()
+                pass
 
     box = WrappingBox.get(layout, context, "Wrapping Objects", icon="LINKED")
     if box:
@@ -217,10 +221,10 @@ def draw(layout, context):
             selected_objects = [i for i in context.selected_objects if i.name != context.active_object.name]
             if len(selected_objects):
                 meshes = global_properties.mesh_name.get(context.scene)
-                obj = bpy.data.objects[meshes].RobotEditor.wrap.scaling
-            if bpy.data.objects[meshes].RobotEditor.wrap.WrappingType == "WRAPPING_SPHERE":
+                obj = bpy.data.objects[meshes].RobotDesigner.wrap.scaling
+            if bpy.data.objects[meshes].RobotDesigner.wrap.WrappingType == "WRAPPING_SPHERE":
                 boxy.prop(obj, "scale_all", slider=False, text="Scale Sphere: ")
-            elif bpy.data.objects[meshes].RobotEditor.wrap.WrappingType == "WRAPPING_CYLINDER":
+            elif bpy.data.objects[meshes].RobotDesigner.wrap.WrappingType == "WRAPPING_CYLINDER":
                 column = row4.column()
                 column.prop(obj, "scale_radius", slider=False, text="Scale Diameter ")
                 column.prop(obj, "scale_depth", slider=False, text="Scale Depth")
@@ -258,4 +262,4 @@ def draw(layout, context):
 
 
 
-    #infoBox.draw_info()
+    # infoBox.draw_info()

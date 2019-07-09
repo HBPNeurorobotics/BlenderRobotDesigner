@@ -1,180 +1,181 @@
-<?xml version="1.0" ?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <xsd:annotation>
-    <xsd:documentation xml:lang="en">
-      <![CDATA[These elements are specific to the ray (laser) sensor.]]>
-    </xsd:documentation>
-  </xsd:annotation>
-  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
-  <xsd:element name="ray">
-    <xsd:complexType>
-      <xsd:choice maxOccurs="unbounded">
-        <xsd:choice maxOccurs="1" minOccurs="1">
-        <xsd:element name="scan">
-          <xsd:complexType>
+<?xml version="1.0" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+            <![CDATA[These elements are specific to the ray (laser) sensor.]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+    <xsd:element name="ray">
+        <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">
-              <xsd:choice maxOccurs="1" minOccurs="1">
-              <xsd:element name="horizontal">
-                <xsd:complexType>
-                  <xsd:choice maxOccurs="unbounded">
-                    <xsd:choice maxOccurs="1" minOccurs="1">
-                    <xsd:element name="samples" type="xsd:unsignedInt">
-                      <xsd:annotation>
-                        <xsd:documentation xml:lang="en">
-                          <![CDATA[The number of simulated rays to generate per complete laser sweep cycle.]]>
-                        </xsd:documentation>
-                      </xsd:annotation>
+                <xsd:choice maxOccurs="1" minOccurs="1">
+                    <xsd:element name="scan">
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs="unbounded">
+                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                    <xsd:element name="horizontal">
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs="unbounded">
+                                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                                    <xsd:element name="samples" type="xsd:unsignedInt">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[The number of simulated rays to generate per complete laser sweep cycle.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                                    <xsd:element name="resolution" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[This number is multiplied by samples to determine the number of range data points returned. If resolution is less than one, range data is interpolated. If resolution is greater than one, range data is averaged.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                                    <xsd:element name="min_angle" type="xsd:double">
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                                    <xsd:element name="max_angle" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Must be greater or equal to min_angle]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="vertical">
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs="unbounded">
+                                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                                    <xsd:element name="samples" type="xsd:unsignedInt">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[The number of simulated rays to generate per complete laser sweep cycle.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="resolution" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[This number is multiplied by samples to determine the number of range data points returned. If resolution is less than one, range data is interpolated. If resolution is greater than one, range data is averaged.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                                    <xsd:element name="min_angle" type="xsd:double">
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                                    <xsd:element name="max_angle" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Must be greater or equal to min_angle]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
                     </xsd:element>
-                    </xsd:choice>
-                    <xsd:choice maxOccurs="1" minOccurs="1">
-                    <xsd:element name="resolution" type="xsd:double">
-                      <xsd:annotation>
-                        <xsd:documentation xml:lang="en">
-                          <![CDATA[This number is multiplied by samples to determine the number of range data points returned. If resolution is less than one, range data is interpolated. If resolution is greater than one, range data is averaged.]]>
-                        </xsd:documentation>
-                      </xsd:annotation>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="1">
+                    <xsd:element name="range">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[specifies range properties of each simulated ray]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs="unbounded">
+                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                    <xsd:element name="min" type="xsd:double">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[The minimum distance for each ray.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                    <xsd:element name="max" type="xsd:double">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[The maximum distance for each ray.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="resolution" type="xsd:double">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[Linear resolution of each ray.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
                     </xsd:element>
-                    </xsd:choice>
-                    <xsd:choice maxOccurs="1" minOccurs="1">
-                    <xsd:element name="min_angle" type="xsd:double">
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="noise">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[The properties of the noise model that should be applied to generated scans]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs="unbounded">
+                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                    <xsd:element name="type" type="xsd:string">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[The type of noise.  Currently supported types are: "gaussian" (draw noise values independently for each beam from a Gaussian distribution).]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="mean" type="xsd:double">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[For type "gaussian," the mean of the Gaussian distribution from which noise values are drawn.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="stddev" type="xsd:double">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[For type "gaussian," the standard deviation of the Gaussian distribution from which noise values are drawn.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
                     </xsd:element>
-                    </xsd:choice>
-                    <xsd:choice maxOccurs="1" minOccurs="1">
-                    <xsd:element name="max_angle" type="xsd:double">
-                      <xsd:annotation>
-                        <xsd:documentation xml:lang="en">
-                          <![CDATA[Must be greater or equal to min_angle]]>
-                        </xsd:documentation>
-                      </xsd:annotation>
-                    </xsd:element>
-                    </xsd:choice>
-                  </xsd:choice>
-                </xsd:complexType>
-              </xsd:element>
-              </xsd:choice>
-              <xsd:choice maxOccurs="1" minOccurs="0">
-              <xsd:element name="vertical">
-                <xsd:complexType>
-                  <xsd:choice maxOccurs="unbounded">
-                    <xsd:choice maxOccurs="1" minOccurs="1">
-                    <xsd:element name="samples" type="xsd:unsignedInt">
-                      <xsd:annotation>
-                        <xsd:documentation xml:lang="en">
-                          <![CDATA[The number of simulated rays to generate per complete laser sweep cycle.]]>
-                        </xsd:documentation>
-                      </xsd:annotation>
-                    </xsd:element>
-                    </xsd:choice>
-                    <xsd:choice maxOccurs="1" minOccurs="0">
-                    <xsd:element name="resolution" type="xsd:double">
-                      <xsd:annotation>
-                        <xsd:documentation xml:lang="en">
-                          <![CDATA[This number is multiplied by samples to determine the number of range data points returned. If resolution is less than one, range data is interpolated. If resolution is greater than one, range data is averaged.]]>
-                        </xsd:documentation>
-                      </xsd:annotation>
-                    </xsd:element>
-                    </xsd:choice>
-                    <xsd:choice maxOccurs="1" minOccurs="1">
-                    <xsd:element name="min_angle" type="xsd:double">
-                    </xsd:element>
-                    </xsd:choice>
-                    <xsd:choice maxOccurs="1" minOccurs="1">
-                    <xsd:element name="max_angle" type="xsd:double">
-                      <xsd:annotation>
-                        <xsd:documentation xml:lang="en">
-                          <![CDATA[Must be greater or equal to min_angle]]>
-                        </xsd:documentation>
-                      </xsd:annotation>
-                    </xsd:element>
-                    </xsd:choice>
-                  </xsd:choice>
-                </xsd:complexType>
-              </xsd:element>
-              </xsd:choice>
+                </xsd:choice>
             </xsd:choice>
-          </xsd:complexType>
-        </xsd:element>
-        </xsd:choice>
-        <xsd:choice maxOccurs="1" minOccurs="1">
-        <xsd:element name="range">
-          <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-              <![CDATA[specifies range properties of each simulated ray]]>
-            </xsd:documentation>
-          </xsd:annotation>
-          <xsd:complexType>
-            <xsd:choice maxOccurs="unbounded">
-              <xsd:choice maxOccurs="1" minOccurs="1">
-              <xsd:element name="min" type="xsd:double">
-                <xsd:annotation>
-                  <xsd:documentation xml:lang="en">
-                    <![CDATA[The minimum distance for each ray.]]>
-                  </xsd:documentation>
-                </xsd:annotation>
-              </xsd:element>
-              </xsd:choice>
-              <xsd:choice maxOccurs="1" minOccurs="1">
-              <xsd:element name="max" type="xsd:double">
-                <xsd:annotation>
-                  <xsd:documentation xml:lang="en">
-                    <![CDATA[The maximum distance for each ray.]]>
-                  </xsd:documentation>
-                </xsd:annotation>
-              </xsd:element>
-              </xsd:choice>
-              <xsd:choice maxOccurs="1" minOccurs="0">
-              <xsd:element name="resolution" type="xsd:double">
-                <xsd:annotation>
-                  <xsd:documentation xml:lang="en">
-                    <![CDATA[Linear resolution of each ray.]]>
-                  </xsd:documentation>
-                </xsd:annotation>
-              </xsd:element>
-              </xsd:choice>
-            </xsd:choice>
-          </xsd:complexType>
-        </xsd:element>
-        </xsd:choice>
-        <xsd:choice maxOccurs="1" minOccurs="0">
-        <xsd:element name="noise">
-          <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-              <![CDATA[The properties of the noise model that should be applied to generated scans]]>
-            </xsd:documentation>
-          </xsd:annotation>
-          <xsd:complexType>
-            <xsd:choice maxOccurs="unbounded">
-              <xsd:choice maxOccurs="1" minOccurs="1">
-              <xsd:element name="type" type="xsd:string">
-                <xsd:annotation>
-                  <xsd:documentation xml:lang="en">
-                    <![CDATA[The type of noise.  Currently supported types are: "gaussian" (draw noise values independently for each beam from a Gaussian distribution).]]>
-                  </xsd:documentation>
-                </xsd:annotation>
-              </xsd:element>
-              </xsd:choice>
-              <xsd:choice maxOccurs="1" minOccurs="0">
-              <xsd:element name="mean" type="xsd:double">
-                <xsd:annotation>
-                  <xsd:documentation xml:lang="en">
-                    <![CDATA[For type "gaussian," the mean of the Gaussian distribution from which noise values are drawn.]]>
-                  </xsd:documentation>
-                </xsd:annotation>
-              </xsd:element>
-              </xsd:choice>
-              <xsd:choice maxOccurs="1" minOccurs="0">
-              <xsd:element name="stddev" type="xsd:double">
-                <xsd:annotation>
-                  <xsd:documentation xml:lang="en">
-                    <![CDATA[For type "gaussian," the standard deviation of the Gaussian distribution from which noise values are drawn.]]>
-                  </xsd:documentation>
-                </xsd:annotation>
-              </xsd:element>
-              </xsd:choice>
-            </xsd:choice>
-          </xsd:complexType>
-        </xsd:element>
-        </xsd:choice>
-      </xsd:choice>
-    </xsd:complexType>
-  </xsd:element>
+        </xsd:complexType>
+    </xsd:element>
 </xsd:schema>

@@ -65,6 +65,7 @@ from ...operators.helpers import ModelSelected, ObjectMode
 from ...operators.model import SelectModel
 from ..osim.osim_export import create_osim, get_muscles
 
+from ...properties.segments import getTransformFromBlender
 from ...properties.globals import global_properties
 
 from pyxb import ContentNondeterminismExceededError, BIND
@@ -74,7 +75,6 @@ from .generic import model_config_dom
 from .generic import sdf_dom
 from pyxb.namespace import XMLSchema_instance as xsi
 import pyxb
-
 
 
 def _uri_for_meshes_and_muscles(in_ros_package: bool, abs_file_paths, toplevel_dir: str, file_path: str):
@@ -96,7 +96,7 @@ def _uri_for_meshes_and_muscles(in_ros_package: bool, abs_file_paths, toplevel_d
 
 
 def export_mesh(operator: RDOperator, context, name: str, directory: str, toplevel_dir: str, in_ros_package: bool,
-                abs_file_paths=False, export_collision=False):
+                                                          abs_file_paths = False, export_collision = False):
     """
     Exports a mesh to a separate file.
 
@@ -114,16 +114,20 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
 
     if not export_collision:
         meshes = [obj.name for obj in context.scene.objects if
+#<<<<<<< HEAD
                   obj.type == "MESH" and obj.name == name and
-                  obj.RobotEditor.tag == "VISUAL"] #TODO: Change to if VISUAL
+                  obj.RobotDesigner.tag == "VISUAL"] #TODO: Change to if VISUAL
+#=======
+#              obj.type == "MESH" and obj.name == name and
+#              not obj.RobotDesigner.tag == "COLLISION"]
+#>>>>>>> master
         directory = os.path.join(directory, "meshes", "visual")
 
     else:
         meshes = [obj.name for obj in context.scene.objects if
-                  obj.type == "MESH" and name == obj.name and
-                  obj.RobotEditor.tag == "COLLISION"]
+              obj.type == "MESH" and name == obj.name and
+              obj.RobotDesigner.tag == "COLLISION"]
         directory = os.path.join(directory, "meshes", "collisions")
-
 
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -145,12 +149,13 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
 
         if len(bm.vertices) > 1:
             if '.' in mesh:
-                file_path = os.path.join(directory, bpy.data.objects[mesh].RobotEditor.fileName.replace('.', '_') + '.dae')
+                file_path = os.path.join(directory,
+                                     bpy.data.objects[mesh].RobotDesigner.fileName.replace('.', '_') + '.dae')
             else:
-                file_path = os.path.join(directory, bpy.data.objects[mesh].RobotEditor.fileName + '.dae')
+                file_path = os.path.join(directory, bpy.data.objects[mesh].RobotDesigner.fileName + '.dae')
 
             hide_flag_backup = bpy.context.scene.objects.active.hide
-            bpy.context.scene.objects.active.hide = False # Blender does not want to export hidden objects.
+            bpy.context.scene.objects.active.hide = False  # Blender does not want to export hidden objects.
 
             bpy.ops.wm.collada_export(filepath=file_path, apply_modifiers=True, selected=True, use_texture_copies=True)
 
@@ -167,19 +172,22 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
         else:
             if '.' in mesh:
                 file_path = os.path.join(directory,
-                                         bpy.data.objects[mesh].RobotEditor.fileName.replace('.', '_') + '_vertices' + str(len(bm.vertices)) + '.dae')
+                                     bpy.data.objects[mesh].RobotDesigner.fileName.replace('.',
+                                                                                           '_') + '_vertices' + str(
+                                         len(bm.vertices)) + '.dae')
             else:
-                file_path = os.path.join(directory, bpy.data.objects[mesh].RobotEditor.fileName + '_vertices' + str(len(bm.vertices)) + '.dae')
+                file_path = os.path.join(directory, bpy.data.objects[mesh].RobotDesigner.fileName + '_vertices' + str(
+                    len(bm.vertices)) + '.dae')
 
         SelectModel.run(model_name=model_name)
 
         return _uri_for_meshes_and_muscles(in_ros_package, abs_file_paths, toplevel_dir, file_path)
 
-            # return ("model://" + os.path.join(model_folder_name, "meshes",
-            # mesh + ".dae"))
+        # return ("model://" + os.path.join(model_folder_name, "meshes",
+        # mesh + ".dae"))
 
 
-def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, toplevel_directory: str, in_ros_package: bool, abs_filepaths=False):
+def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, toplevel_directory: str, in_ros_package: bool, abs_filepaths = False):
     """
     Creates the SDF XML file and exports the meshes
 
@@ -193,6 +201,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     :return:
     """
 
+
     def walk_segments(segment, tree, ref_pose):
         """
         Recursively builds a SDF tree object hierarchy for export
@@ -204,7 +213,9 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         operator.logger.info("walk_segments: %s" % str(segment))
 
         child = tree.add()
-        trafo, dummy = segment.RobotEditor.getTransform()
+        trafo, dummy = segment.RobotDesigner.getTransform()
+        #trafo, _ = getTransformFromBlender(segment)
+
         # child.joint.origin.rpy = list_to_string(trafo.to_euler())
         # child.joint.origin.xyz = list_to_string([i * j for i, j in zip(trafo.translation, blender_scale_factor)])
 
@@ -224,7 +235,6 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         child.joint.name = segment.name
         child.link.name = segment.name.replace("_joint", "_link")
 
-
         if segment.parent:
             parent_link = [l for j, l in tree.connectedLinks.items() if segment.parent.name == j.name]
             if parent_link[0] in tree.connectedJoints:
@@ -240,16 +250,16 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         print("connected links (joint->link): ", {j.name: l.name for j, l in tree.connectedLinks.items()})
         print("connected joints (link->joint): ", {j.name: l for j, l in tree.connectedJoints.items()})
 
-        if segment.RobotEditor.axis_revert:
+        if segment.RobotDesigner.axis_revert:
             revert = -1
         else:
             revert = 1
 
-        if segment.RobotEditor.axis == 'X':
+        if segment.RobotDesigner.axis == 'X':
             joint_axis_xyz = list_to_string(Vector((1, 0, 0)) * revert)
-        elif segment.RobotEditor.axis == 'Y':
+        elif segment.RobotDesigner.axis == 'Y':
             joint_axis_xyz = list_to_string(Vector((0, 1, 0)) * revert)
-        elif segment.RobotEditor.axis == 'Z':
+        elif segment.RobotDesigner.axis == 'Z':
             joint_axis_xyz = list_to_string(Vector((0, 0, 1)) * revert)
 
         child.joint.axis[0].xyz.append(joint_axis_xyz)
@@ -258,7 +268,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         # child bone from the joint angle and axis w.r.t. the child edit pose. Hence Blenders/RD's
         # behaviour is consistent with Gazebo when this option is turned off.
 
-        #child.joint.axis[0].use_parent_model_frame.append(True)
+        # child.joint.axis[0].use_parent_model_frame.append(True)
 
         operator.logger.info(" joint axis xyz'%s'" % joint_axis_xyz)
 
@@ -269,36 +279,35 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         print('Axis limit:', child.joint.axis[0].limit)
         print('Axis xyz:', child.joint.axis[0].xyz)
 
-
         if segment.parent is None:
-            #print("Info: Root joint has no parent", segment, segment.RobotEditor.jointMode)
+            # print("Info: Root joint has no parent", segment, segment.RobotDesigner.jointMode)
             child.joint.type = 'fixed'
         else:
-            if segment.RobotEditor.jointMode == 'REVOLUTE':
+            if segment.RobotDesigner.jointMode == 'REVOLUTE':
                 child.joint.axis[0].limit[0].lower.append((radians(
-                    segment.RobotEditor.theta.min)))
+                    segment.RobotDesigner.theta.min)))
                 child.joint.axis[0].limit[0].upper.append((radians(
-                    segment.RobotEditor.theta.max)))
+                    segment.RobotDesigner.theta.max)))
                 child.joint.type = 'revolute'
-            if segment.RobotEditor.jointMode == 'PRISMATIC':
-                child.joint.axis[0].limit[0].lower.append(segment.RobotEditor.d.min)
-                child.joint.axis[0].limit[0].upper.append(segment.RobotEditor.d.max)
+            if segment.RobotDesigner.jointMode == 'PRISMATIC':
+                child.joint.axis[0].limit[0].lower.append(segment.RobotDesigner.d.min)
+                child.joint.axis[0].limit[0].upper.append(segment.RobotDesigner.d.max)
                 child.joint.type = 'prismatic'
-            if segment.RobotEditor.jointMode == 'REVOLUTE2':
+            if segment.RobotDesigner.jointMode == 'REVOLUTE2':
                 child.joint.type = 'revolute2'
-            if segment.RobotEditor.jointMode == 'UNIVERSAL':
+            if segment.RobotDesigner.jointMode == 'UNIVERSAL':
                 child.joint.type = 'universal'
-            if segment.RobotEditor.jointMode == 'BALL':
+            if segment.RobotDesigner.jointMode == 'BALL':
                 child.joint.type = 'ball'
-            if segment.RobotEditor.jointMode == 'FIXED':
+            if segment.RobotDesigner.jointMode == 'FIXED':
                 child.joint.type = 'fixed'
 
         operator.logger.info(" joint type'%s'" % child.joint.type)
 
-        # Add properties
+        ### Add Meshes
         armature = context.active_object
         connected_meshes = [mesh.name for mesh in context.scene.objects if
-                            mesh.type == 'MESH' and mesh.parent_bone == segment.name and mesh.parent == armature]
+                        mesh.type == 'MESH' and mesh.parent_bone == segment.name and mesh.parent == armature]
         # if len(connected_meshes) > 0:
         #     child.link.name = connected_meshes[0]
         # else:
@@ -312,55 +321,57 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             operator.logger.info("Connected mesh name: %s", mesh)
             pose_bone = context.active_object.pose.bones[segment.name]
             pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
-                   bpy.data.objects[mesh].matrix_world
+               bpy.data.objects[mesh].matrix_world
 
-           # bpy.context.active_object.matrix_world = segment_world * trafo_sdf * bpy.context.active_object.matrix_world  # * inverse_matrix(bpy.context.active_object.matrix_world)#* \
+            # bpy.context.active_object.matrix_world = segment_world * trafo_sdf * bpy.context.active_object.matrix_world  # * inverse_matrix(bpy.context.active_object.matrix_world)#* \
             #  bpy.context.active_object.matrix_world
 
             visual_path = export_mesh(operator, context, mesh, meshpath, toplevel_directory,
-                                      in_ros_package, abs_filepaths, export_collision=False)
+                                  in_ros_package, abs_filepaths, export_collision=False)
             operator.logger.info("visual mesh path: %s", visual_path)
 
             if visual_path and "_vertices1.dae" not in visual_path:
                 visual = child.add_mesh(visual_path,
-                                        [i * j for i, j in zip(bpy.data.objects[mesh].scale, blender_scale_factor)])
+                                    [i * j for i, j in zip(bpy.data.objects[mesh].scale, blender_scale_factor)])
                 visual_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
                 visual_pose_rpy = list_to_string(pose.to_euler())
 
                 visual.pose.append(' '.join([visual_pose_xyz, visual_pose_rpy]))
-                visual.name = bpy.data.objects[mesh].name #child.link.name
+                visual.name = bpy.data.objects[mesh].name  # child.link.name
             else:
                 operator.logger.info("No visual model for: %s", mesh)
 
             collision_path = export_mesh(operator, context, mesh, meshpath, toplevel_directory,
-                                         in_ros_package, abs_filepaths, export_collision=True)
+                                     in_ros_package, abs_filepaths, export_collision=True)
 
             operator.logger.info("collision mesh path: %s", collision_path)
 
             if collision_path and "_vertices1.dae" not in collision_path:
                 collision = child.add_collision(collision_path,
-                                                     [i * j for i, j in
-                                                      zip(bpy.data.objects[mesh].scale, blender_scale_factor)])
+                                            [i * j for i, j in
+                                             zip(bpy.data.objects[mesh].scale, blender_scale_factor)])
 
                 operator.logger.info(" collision mesh pose translation wo scale'%s'" % pose.translation)
                 operator.logger.info(" collision mesh pose scale factor'%s'" % blender_scale_factor)
-                operator.logger.info(" collision mesh pose translation wi scale'%s'" % [i * j for i, j in zip(pose.translation, blender_scale_factor)])
+                operator.logger.info(" collision mesh pose translation wi scale'%s'" % [i * j for i, j in
+                                                                                    zip(pose.translation,
+                                                                                        blender_scale_factor)])
 
                 collision_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
                 collision_pose_rpy = list_to_string(pose.to_euler())
 
                 collision.pose.append(' '.join([collision_pose_xyz, collision_pose_rpy]))
-                collision.name = bpy.data.objects[mesh].name #           child.link.name + '_collision'
+                collision.name = bpy.data.objects[mesh].name  # child.link.name + '_collision'
                 operator.logger.info(" collision mesh pose'%s'" % collision.pose[0])
-
-
 
             else:
                 operator.logger.info("No collision model for: %s", mesh)
 
+
+        ### Add Physics
         frame_names = [
             frame.name for frame in context.scene.objects if
-            frame.RobotEditor.tag == 'PHYSICS_FRAME' and frame.parent_bone == segment.name]
+            frame.RobotDesigner.tag == 'PHYSICS_FRAME' and frame.parent_bone == segment.name]
 
         # If no frame is connected create a default one. This is required for Gazebo!
         operator.logger.info("frame names: %s", frame_names)
@@ -375,41 +386,76 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             if bpy.data.objects[frame].parent_bone == segment.name:
                 pose_bone = context.active_object.pose.bones[segment.name]
 
+            # set mass
+            inertial.mass[0] = bpy.data.objects[frame].RobotDesigner.dynamics.mass
+            if inertial.mass[0] <= 0.:
+                raise ValueError("Mass of " + frame + " is not positive, but " + str(inertial.mass[0]))
+            # Ugly, to throw an exception here. But appending info_list did not print the info in the GUI.
 
-                # set mass
-                inertial.mass[0] = bpy.data.objects[frame].RobotEditor.dynamics.mass
-                if inertial.mass[0] <= 0.:
-                    raise ValueError("Mass of "+frame+" is not positive, but "+str(inertial.mass[0]))
-                # Ugly, to throw an exception here. But appending info_list did not print the info in the GUI.
+            # set inertia
+            inertial.inertia[0].ixx[0] = bpy.data.objects[frame].RobotDesigner.dynamics.inertiaXX
+            inertial.inertia[0].ixy[0] = bpy.data.objects[frame].RobotDesigner.dynamics.inertiaXY
+            inertial.inertia[0].ixz[0] = bpy.data.objects[frame].RobotDesigner.dynamics.inertiaXZ
+            inertial.inertia[0].iyy[0] = bpy.data.objects[frame].RobotDesigner.dynamics.inertiaYY
+            inertial.inertia[0].iyz[0] = bpy.data.objects[frame].RobotDesigner.dynamics.inertiaYZ
+            inertial.inertia[0].izz[0] = bpy.data.objects[frame].RobotDesigner.dynamics.inertiaZZ
 
-                # set inertia
-                inertial.inertia[0].ixx[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaXX
-                inertial.inertia[0].ixy[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaXY
-                inertial.inertia[0].ixz[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaXZ
-                inertial.inertia[0].iyy[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaYY
-                inertial.inertia[0].iyz[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaYZ
-                inertial.inertia[0].izz[0] = bpy.data.objects[frame].RobotEditor.dynamics.inertiaZZ
+            # set inertial pose
+            pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
+                   bpy.data.objects[frame].matrix_world
 
-                # set inertial pose
-                pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
-                       bpy.data.objects[frame].matrix_world
+            frame_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
+            frame_pose_rpy = list_to_string(pose.to_euler())
 
-                frame_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
-                frame_pose_rpy = list_to_string(pose.to_euler())
-
-                inertial.pose[0] = ' '.join([frame_pose_xyz, frame_pose_rpy])
+            inertial.pose[0] = ' '.join([frame_pose_xyz, frame_pose_rpy])
 
         #
         # # add joint controllers
-        # if operator.gazebo and segment.RobotEditor.jointController.isActive is True:
+        # if operator.gazebo and segment.RobotDesigner.jointController.isActive is True:
         #     controller = child.add_joint_controller(root.control_plugin)
         #     controller.joint_name = child.joint.name
-        #     controller.type = segment.RobotEditor.jointController.controllerType
-        #     if segment.RobotEditor.jointController.P <= 1.0:
-        #         segment.RobotEditor.jointController.P = 100
-        #     controller.pid = list_to_string([segment.RobotEditor.jointController.P,
-        #                                      segment.RobotEditor.jointController.I,
-        #                                      segment.RobotEditor.jointController.D])
+        #     controller.type = segment.RobotDesigner.jointController.controllerType
+        #     if segment.RobotDesigner.jointController.P <= 1.0:
+        #         segment.RobotDesigner.jointController.P = 100
+        #     controller.pid = list_to_string([segment.RobotDesigner.jointController.P,
+        #                                      segment.RobotDesigner.jointController.I,
+        #                                      segment.RobotDesigner.jointController.D])
+
+
+
+        ### add link sensors
+        sensor_names = [
+            sensor.name for sensor in context.scene.objects if
+            sensor.RobotDesigner.tag == 'SENSOR' and sensor.parent_bone == segment.name]
+
+        operator.logger.info(" sensor name'%s'" % sensor_names)
+
+        for sensor in sensor_names:
+            active_sensor = bpy.data.objects[sensor]
+            type = active_sensor.RobotDesigner.sensor_type
+            if type == 'CAMERA_SENSOR':
+                sensor_sdf = child.add_camera_sensor()
+                sensor_sdf.name = sensor
+                # camera
+                sensor_sdf.type = 'camera'
+                sensor_sdf.camera.name ='left eze'
+                # todo sensor_sdf.horizontal_fov = bpy.data.cameras[sensor].angle_x
+                # image
+             # todo   sensor_sdf.camera.image.append('imagename')
+            # todo    sensor_sdf.camera.image.width.append(active_sensor.RobotDesigner.cameraSensor.width)
+                # todo   sensor_sdf.camera.image.height = active_sensor.RobotDesigner.cameraSensor.height
+                # todo    sensor_sdf.camera.image.format = active_sensor.RobotDesigner.cameraSensor.format
+
+
+            else:
+                'type not found'
+           # elif type == 'CAMERA':   todo other sensor types
+            #   sensor_sdf.type = 'camera'
+
+
+  #      operator.logger.info(" sensor name'%s'" % child.link.sensor.name)
+
+
 
         # Add geometry
         for child_segments in segment.children:
@@ -420,13 +466,13 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     robot_name = context.active_object.name
 
     blender_scale_factor = context.active_object.scale
-    blender_scale_factor = [blender_scale_factor[0],blender_scale_factor[2],blender_scale_factor[1]]
+    blender_scale_factor = [blender_scale_factor[0], blender_scale_factor[2], blender_scale_factor[1]]
 
     root = sdf_tree.SDFTree.create_empty(robot_name)
 
-    #add model pose
+    # add model pose
     root.sdf.model[0].pose.append(' '.join([list_to_string(context.active_object.location),
-                                            list_to_string(context.active_object.rotation_euler)]))
+                                        list_to_string(context.active_object.rotation_euler)]))
 
     # todo SDF Plugin
     # build control plugin element
@@ -450,7 +496,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         root.sdf.model[0].plugin[0].filename = "libgazebo_ros_muscle_interface.so"
 
     root_segments = [b for b in context.active_object.data.bones if
-                     b.parent is None]
+                 b.parent is None]
 
     for segments in root_segments:
         operator.logger.info("Root Segment'%s'" % segments.name)
@@ -458,161 +504,158 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         walk_segments(segments, root, ref_pose)
 
     operator.logger.info("Writing to '%s'" % filepath)
-    root.write(filepath)
-
-#     # insert gazebo tags before "</robot>" tag
-#     if operator.gazebo:
-#         with open(filepath, "r") as f:
-#             content = f.read()
-#         gazebo_tags = global_properties.gazebo_tags.get(bpy.context.scene)
-#         content = content.replace("</robot>", gazebo_tags + "</robot>")
-#         with open(filepath, "w") as f:
-#             f.write(content)
-#
-# #
-# def create_package(operator: RDOperator, context, toplevel_dir, base_link_name):
-#     '''
-#     Create a ros package. Copies a template from the resources folder and replaces place holders with the robot name.
-#
-#     :param operator: The calling operator
-#     :param context: The current context
-#     :param toplevel_dir: The directory in which to export
-#     :return:
-#     '''
-#     import os
-#     import shutil
-#
-#     operator.logger.debug('Exporting to: %s', toplevel_dir)
-#     robot_name = context.active_object.name
-#
-#     target = os.path.join(toplevel_dir, robot_name + '_description')
-#
-#     try:
-#         shutil.copytree(os.path.join(config.resource_path,
-#                                      'robot_name_description'), target)
-#     except FileExistsError:
-#         operator.logger.error('Attempted to overwrite existing package')
-#         operator.report({'ERROR'}, 'File %s exists' % target)
-#
-#     for dname, dirs, files in os.walk(target, topdown=False):
-#         for dir in [i for i in dirs if "robot_name" in i]:
-#             os.rename(os.path.join(dname, dir),
-#                       os.path.join(dname, dir.replace("robot_name", robot_name)))
-#
-#         for fname in files:
-#             operator.logger.debug('File: %s, %s, %s, %s',
-#                                   fname, dname, dirs, robot_name)
-#             fpath = os.path.join(dname, fname)
-#             try:
-#                 with open(fpath) as f:
-#                     s = f.read()
-#                 s = s.replace("$robot_name$", robot_name)
-#                 with open(fpath, "w") as f:
-#                     f.write(s)
-#                 if "robot_name" in fname:
-#                     os.rename(os.path.join(dname, fname),
-#                               os.path.join(dname, fname.replace("robot_name", robot_name)))
-#             except UnicodeDecodeError:
-#                 pass
-#
-#     create_urdf(operator=operator, context=context, base_link_name=base_link_name,
-#                 filepath=os.path.join(target, "sdf", robot_name + ".sdf"),
-#                 meshpath=target, toplevel_directory=toplevel_dir, in_ros_package=True, abs_filepaths=False)
+    root.write(filepath)  # # insert gazebo tags before "</robot>" tag
+    #     if operator.gazebo:
+    #         with open(filepath, "r") as f:
+    #             content = f.read()
+    #         gazebo_tags = global_properties.gazebo_tags.get(bpy.context.scene)
+    #         content = content.replace("</robot>", gazebo_tags + "</robot>")
+    #         with open(filepath, "w") as f:
+    #             f.write(content)
+    #
+    # #
+    # def create_package(operator: RDOperator, context, toplevel_dir, base_link_name):
+    #     '''
+    #     Create a ros package. Copies a template from the resources folder and replaces place holders with the robot name.
+    #
+    #     :param operator: The calling operator
+    #     :param context: The current context
+    #     :param toplevel_dir: The directory in which to export
+    #     :return:
+    #     '''
+    #     import os
+    #     import shutil
+    #
+    #     operator.logger.debug('Exporting to: %s', toplevel_dir)
+    #     robot_name = context.active_object.name
+    #
+    #     target = os.path.join(toplevel_dir, robot_name + '_description')
+    #
+    #     try:
+    #         shutil.copytree(os.path.join(config.resource_path,
+    #                                      'robot_name_description'), target)
+    #     except FileExistsError:
+    #         operator.logger.error('Attempted to overwrite existing package')
+    #         operator.report({'ERROR'}, 'File %s exists' % target)
+    #
+    #     for dname, dirs, files in os.walk(target, topdown=False):
+    #         for dir in [i for i in dirs if "robot_name" in i]:
+    #             os.rename(os.path.join(dname, dir),
+    #                       os.path.join(dname, dir.replace("robot_name", robot_name)))
+    #
+    #         for fname in files:
+    #             operator.logger.debug('File: %s, %s, %s, %s',
+    #                                   fname, dname, dirs, robot_name)
+    #             fpath = os.path.join(dname, fname)
+    #             try:
+    #                 with open(fpath) as f:
+    #                        s = f.read()
+    #                 s = s.replace("$robot_name$", robot_name)
+    #                 with open(fpath, "w") as f:
+    #                     f.write(s)
+    #                 if "robot_name" in fname:
+    #                     os.rename(os.path.join(dname, fname),
+    #                               os.path.join(dname, fname.replace("robot_name", robot_name)))
+    #             except UnicodeDecodeError:
+    #                 pass
+    #
+    #     create_urdf(operator=operator, context=context, base_link_name=base_link_name,
+    #                 filepath=os.path.join(target, "sdf", robot_name + ".sdf"),
+    #                 meshpath=target, toplevel_directory=toplevel_dir, in_ros_package=True, abs_filepaths=False)
 
 
-# @RDOperator.Preconditions(ModelSelected, ObjectMode)
-# @PluginManager.register_class
-# class ExportZippedPackage(RDOperator):
-#     """
-#     :ref:`operator` for exporting  the selected robot to an SDF File into a zipped ROS package.
-#     """
-#
-#     bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_package_zipped'
-#     bl_label = "Export zipped ROS/SDF Package"
-#
-#     filter_glob = StringProperty(
-#         default="*.zip",
-#         options={'HIDDEN'},
-#     )
-#
-#     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
-#     gazebo = BoolProperty(name="Export Gazebo tags", default=True)
-#
-#     package_url = BoolProperty(name="Package URL", default=True)
-#     abs_file_path = BoolProperty(name="Absolute Filepaths", default=False)
-#
-#     base_link_name = StringProperty(name="Base link:", default="root_link")
-#
-#     @RDOperator.OperatorLogger
-#     @RDOperator.Postconditions(ModelSelected, ObjectMode)
-#     def execute(self, context):
-#         """
-#         Code snipped from `<http://stackoverflow.com/questions/1855095/how-to-create-a-zip-archive-of-a-directory>`_
-#         """
-#         import zipfile
-#
-#         if os.path.isdir(self.filepath):
-#             self.logger.debug(self.filepath)
-#             self.report({'ERROR'}, "No File selected!")
-#             return {'FINISHED'}
-#
-#         def zipdir(path, ziph):
-#             # ziph is zipfile handle
-#             for root, dirs, files in os.walk(path):
-#                 self.logger.debug("%s, %s, %s,", root, dirs, files)
-#                 for file in files:
-#                     file_path = os.path.join(root, file)
-#                     ziph.write(file_path, os.path.relpath(file_path, path))
-#
-#         with tempfile.TemporaryDirectory() as target:
-#             create_package(self, context, target, self.base_link_name)
-#
-#             with zipfile.ZipFile(self.filepath, 'w') as zipf:
-#                 zipdir(target, zipf)
-#
-#         return {'FINISHED'}
-#
-#     def invoke(self, context, event):
-#         context.window_manager.fileselect_add(self)
-#         return {'RUNNING_MODAL'}
+    # @RDOperator.Preconditions(ModelSelected, ObjectMode)
+    # @PluginManager.register_class
+    # class ExportZippedPackage(RDOperator):
+    #     """
+    #     :ref:`operator` for exporting  the selected robot to an SDF File into a zipped ROS package.
+    #     """
+    #
+    #     bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_package_zipped'
+    #     bl_label = "Export zipped ROS/SDF Package"
+    #
+    #     filter_glob = StringProperty(
+    #         default="*.zip",
+    #         options={'HIDDEN'},
+    #     )
+    #
+    #     filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+    #     gazebo = BoolProperty(name="Export Gazebo tags", default=True)
+    #
+    #     package_url = BoolProperty(name="Package URL", default=True)
+    #        abs_file_path = BoolProperty(name="Absolute Filepaths", default=False)
+    #
+    #     base_link_name = StringProperty(name="Base link:", default="root_link")
+    #
+    #     @RDOperator.OperatorLogger
+    #     @RDOperator.Postconditions(ModelSelected, ObjectMode)
+    #     def execute(self, context):
+    #         """
+    #         Code snipped from `<http://stackoverflow.com/questions/1855095/how-to-create-a-zip-archive-of-a-directory>`_
+    #         """
+    #         import zipfile
+    #
+    #         if os.path.isdir(self.filepath):
+    #             self.logger.debug(self.filepath)
+    #             self.report({'ERROR'}, "No File selected!")
+    #             return {'FINISHED'}
+    #
+    #         def zipdir(path, ziph):
+    #             # ziph is zipfile handle
+    #             for root, dirs, files in os.walk(path):
+    #                 self.logger.debug("%s, %s, %s,", root, dirs, files)
+    #                 for file in files:
+    #                     file_path = os.path.join(root, file)
+    #                     ziph.write(file_path, os.path.relpath(file_path, path))
+    #
+    #         with tempfile.TemporaryDirectory() as target:
+    #             create_package(self, context, target, self.base_link_name)
+    #
+    #             with zipfile.ZipFile(self.filepath, 'w') as zipf:
+    #                 zipdir(target, zipf)
+    #
+    #         return {'FINISHED'}
+    #
+    #     def invoke(self, context, event):
+    #         context.window_manager.fileselect_add(self)
+    #         return {'RUNNING_MODAL'}
 
-#
-# @RDOperator.Preconditions(ModelSelected, ObjectMode)
-# @PluginManager.register_class
-# class ExportPackage(RDOperator):
-#     """
-#     :ref:`operator` for exporting  the selected robot to an URDF File into a ROS package.
-#
-#     **Preconditions:**
-#
-#     **Postconditions:**
-#     """
-#
-#     # Obligatory class attributes
-#     bl_idname = config.OPERATOR_PREFIX + "export_to_sdf_package"
-#     bl_label = "Export ROS/SDF Package"
-#
-#     directory = StringProperty(
-#         name="Mesh directory", subtype='DIR_PATH', default="")
-#     gazebo = BoolProperty(name="Export Gazebo tags", default=True)
-#
-#     package_url = BoolProperty(name="Package URL", default=True)
-#     abs_file_path = BoolProperty(name="Absolute Filepaths", default=False)
-#     base_link_name = StringProperty(name="Base link:", default="root_link")
-#
-#     @RDOperator.OperatorLogger
-#     @RDOperator.Postconditions(ModelSelected, ObjectMode)
-#     def execute(self, context):
-#         create_package(self, context, self.directory, self.base_link_name)
-#         return {'FINISHED'}
-#
-#     def invoke(self, context, event):
-#         context.window_manager.fileselect_add(self)
-#         return {'RUNNING_MODAL'}
+    #
+    # @RDOperator.Preconditions(ModelSelected, ObjectMode)
+    # @PluginManager.register_class
+    # class ExportPackage(RDOperator):
+    #     """
+    #     :ref:`operator` for exporting  the selected robot to an URDF File into a ROS package.
+        #
+    #     **Preconditions:**
+    #
+    #     **Postconditions:**
+    #     """
+    #
+    #     # Obligatory class attributes
+    #     bl_idname = config.OPERATOR_PREFIX + "export_to_sdf_package"
+    #     bl_label = "Export ROS/SDF Package"
+    #
+    #     directory = StringProperty(
+    #         name="Mesh directory", subtype='DIR_PATH', default="")
+    #     gazebo = BoolProperty(name="Export Gazebo tags", default=True)
+    #
+    #     package_url = BoolProperty(name="Package URL", default=True)
+    #     abs_file_path = BoolProperty(name="Absolute Filepaths", default=False)
+    #     base_link_name = StringProperty(name="Base link:", default="root_link")
+    #
+    #     @RDOperator.OperatorLogger
+    #     @RDOperator.Postconditions(ModelSelected, ObjectMode)
+    #     def execute(self, context):
+    #         create_package(self, context, self.directory, self.base_link_name)
+    #         return {'FINISHED'}
+    #
+    #     def invoke(self, context, event):
+    #         context.window_manager.fileselect_add(self)
+    #         return {'RUNNING_MODAL'}
 
 
-def create_config(operator: RDOperator, context,
-                filepath: str, meshpath: str, toplevel_directory: str, in_ros_package: bool, abs_filepaths=False):
+def create_config(operator: RDOperator, context, filepath: str, meshpath: str, toplevel_directory: str, in_ros_package: bool, abs_filepaths = False):
     """
     Creates the model.config file and exports it
 
@@ -633,8 +676,8 @@ def create_config(operator: RDOperator, context,
     modelI = model_config_dom.model()
 
     # get model data
-    modelI.name = bpy.context.active_object.RobotEditor.modelMeta.model_config
-    modelI.version = bpy.context.active_object.RobotEditor.modelMeta.model_version
+    modelI.name = bpy.context.active_object.RobotDesigner.modelMeta.model_config
+    modelI.version = bpy.context.active_object.RobotDesigner.modelMeta.model_version
 
     # get thumbnail data
     modelI.thumbnail = "thumbnail.png"
@@ -647,17 +690,18 @@ def create_config(operator: RDOperator, context,
     modelI.sdf = sdf
 
     # get author data
-    author = model_config_dom.author_type(bpy.context.active_object.RobotEditor.author.authorName,bpy.context.active_object.RobotEditor.author.authorEmail)
+    author = model_config_dom.author_type(bpy.context.active_object.RobotDesigner.author.authorName,
+                                          bpy.context.active_object.RobotDesigner.author.authorEmail)
     modelI.author = author
 
-    modelI.description = bpy.context.active_object.RobotEditor.modelMeta.model_description
-
+    modelI.description = bpy.context.active_object.RobotDesigner.modelMeta.model_description
 
     # export model.config file
     with open(toplevel_directory + "/model.config", "w") as f:
         output = modelI.toDOM()
-        output.documentElement.setAttributeNS(xsi.uri(), 'xsi:schemaLocation','http://schemas.humanbrainproject.eu/SP10/2017/model_config ../model_configuration.xsd')
-        output.documentElement.setAttributeNS(xsi.uri(), 'xmlns:xsi','http://www.w3.org/2001/XMLSchema-instance')
+        output.documentElement.setAttributeNS(xsi.uri(), 'xsi:schemaLocation',
+                                              'http://schemas.humanbrainproject.eu/SP10/2017/model_config ../model_configuration.xsd')
+        output.documentElement.setAttributeNS(xsi.uri(), 'xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
         output = output.toprettyxml()
         f.write(output)
 
@@ -690,8 +734,8 @@ class ExportPlain(RDOperator):
         self.filepath = os.path.join(self.filepath, 'model.sdf')
 
         create_sdf(self, context, filepath=self.filepath,
-                    meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
-                    in_ros_package=False, abs_filepaths=self.abs_file_paths)
+                   meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
+                   in_ros_package=False, abs_filepaths=self.abs_file_paths)
         create_config(self, context, filepath=self.filepath,
                       meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                       in_ros_package=False, abs_filepaths=self.abs_file_paths)
@@ -712,7 +756,7 @@ class ExportPackage(RDOperator):
     :ref:`operator` for exporting  the selected robot to an SDF File into a ROS package including model.config file.
     """
 
-    bl_idname = config.OPERATOR_PREFIX + 'export_to_package'
+    bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_package'
     bl_label = "Export SDF - ROS package"
 
     filter_glob = StringProperty(
@@ -733,8 +777,8 @@ class ExportPackage(RDOperator):
         self.filepath = os.path.join(self.filepath, 'model.sdf')
 
         create_sdf(self, context, filepath=self.filepath,
-                    meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
-                    in_ros_package=False, abs_filepaths=self.abs_file_paths)
+                   meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
+                   in_ros_package=False, abs_filepaths=self.abs_file_paths)
         create_config(self, context, filepath=self.filepath,
                       meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                       in_ros_package=False, abs_filepaths=self.abs_file_paths)
@@ -744,9 +788,9 @@ class ExportPackage(RDOperator):
         return {'FINISHED'}
 
     def invoke(self, context, event):
-        self.filepath = context.active_object.RobotEditor.modelMeta.model_folder.replace(" ", "_")
+        self.filepath = context.active_object.RobotDesigner.modelMeta.model_folder.replace(" ", "_")
         if self.filepath == "":
-                self.filepath = global_properties.model_name.get(bpy.context.scene).replace(" ", "_")
+            self.filepath = global_properties.model_name.get(bpy.context.scene).replace(" ", "_")
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
 
@@ -795,8 +839,8 @@ class ExportZippedPackage(RDOperator):
 
         with tempfile.TemporaryDirectory() as target:
 
-            dir_name  = os.path.splitext(os.path.basename(self.filepath))[0]
-            temp_dir  = os.path.join(target, dir_name)
+            dir_name = os.path.splitext(os.path.basename(self.filepath))[0]
+            temp_dir = os.path.join(target, dir_name)
             temp_file = os.path.join(temp_dir, 'model.sdf')
             if not os.path.exists(temp_dir):
                 os.makedirs(temp_dir)
@@ -816,50 +860,50 @@ class ExportZippedPackage(RDOperator):
         return {'FINISHED'}
 
     def invoke(self, context, event):
-        self.filepath = context.active_object.RobotEditor.modelMeta.model_folder.replace(" ", "_")
+        self.filepath = context.active_object.RobotDesigner.modelMeta.model_folder.replace(" ", "_")
         if self.filepath == "":
-                self.filepath = global_properties.model_name.get(bpy.context.scene).replace(" ", "_")
+            self.filepath = global_properties.model_name.get(bpy.context.scene).replace(" ", "_")
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
 
-    #
-    #
-    # filepath = StringProperty(name="Filename", subtype='FILE_PATH')
-    # gazebo = BoolProperty(name="Export Gazebo tags", default=True)
-    #
-    # package_url = BoolProperty(name="Package URL", default=True)
-    #
-    # base_link_name = StringProperty(name="Base link:", default="root_link")
-    #
-    # @RDOperator.OperatorLogger
-    # @RDOperator.Postconditions(ModelSelected, ObjectMode)
-    # def execute(self, context):
-    #     """
-    #     Code snipped from `<http://stackoverflow.com/questions/1855095/how-to-create-a-zip-archive-of-a-directory>`_
-    #     """
-    #     import zipfile
-    #
-    #     if os.path.isdir(self.filepath):
-    #         self.logger.debug(self.filepath)
-    #         self.report({'ERROR'}, "No File selected!")
-    #         return {'FINISHED'}
-    #
-    #     def zipdir(path, ziph):
-    #         # ziph is zipfile handle
-    #         for root, dirs, files in os.walk(path):
-    #             self.logger.debug("%s, %s, %s,", root, dirs, files)
-    #             for file in files:
-    #                 file_path = os.path.join(root, file)
-    #                 ziph.write(file_path, os.path.relpath(file_path, path))
-    #
-    #     with tempfile.TemporaryDirectory() as target:
-    #         create_package(self, context, target, self.base_link_name)
-    #
-    #         with zipfile.ZipFile(self.filepath, 'w') as zipf:
-    #             zipdir(target, zipf)
-    #
-    #     return {'FINISHED'}
-    #
-    # def invoke(self, context, event):
-    #     context.window_manager.fileselect_add(self)
-    #     return {'RUNNING_MODAL'}
+        #
+        #
+        # filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+        # gazebo = BoolProperty(name="Export Gazebo tags", default=True)
+        #
+        # package_url = BoolProperty(name="Package URL", default=True)
+        #
+        # base_link_name = StringProperty(name="Base link:", default="root_link")
+        #
+        # @RDOperator.OperatorLogger
+        # @RDOperator.Postconditions(ModelSelected, ObjectMode)
+        # def execute(self, context):
+        #     """
+        #     Code snipped from `<http://stackoverflow.com/questions/1855095/how-to-create-a-zip-archive-of-a-directory>`_
+        #     """
+        #     import zipfile
+        #
+        #     if os.path.isdir(self.filepath):
+        #         self.logger.debug(self.filepath)
+        #         self.report({'ERROR'}, "No File selected!")
+        #         return {'FINISHED'}
+        #
+        #     def zipdir(path, ziph):
+        #         # ziph is zipfile handle
+        #         for root, dirs, files in os.walk(path):
+        #             self.logger.debug("%s, %s, %s,", root, dirs, files)
+        #             for file in files:
+        #                 file_path = os.path.join(root, file)
+        #                 ziph.write(file_path, os.path.relpath(file_path, path))
+        #
+        #     with tempfile.TemporaryDirectory() as target:
+        #         create_package(self, context, target, self.base_link_name)
+        #
+        #         with zipfile.ZipFile(self.filepath, 'w') as zipf:
+        #             zipdir(target, zipf)
+        #
+        #     return {'FINISHED'}
+        #
+        # def invoke(self, context, event):
+        #     context.window_manager.fileselect_add(self)
+        #     return {'RUNNING_MODAL'}

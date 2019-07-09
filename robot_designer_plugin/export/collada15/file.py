@@ -58,14 +58,15 @@ from ...operators.helpers import ModelSelected, ObjectMode
 
 # ######
 # Plugin imports
-from . import  fix
+from . import fix
 from . import collada
+
 
 def extractData(segment_name):
     tree = collada.Tree()
     arm = bpy.context.active_object
 
-    bpy.ops.roboteditor.select_segment(segment_name=segment_name)
+    bpy.ops.RobotDesigner.select_segment(segment_name=segment_name)
     currentBone = bpy.context.active_bone
 
     tree.name = segment_name
@@ -75,22 +76,22 @@ def extractData(segment_name):
     else:
         parentName = None
 
-    if currentBone.RobotEditor.axis_revert:
+    if currentBone.RobotDesigner.axis_revert:
         inverted = -1
     else:
         inverted = 1
 
     axis = ["0", "0", "0"]
-    if currentBone.RobotEditor.axis == 'X':
+    if currentBone.RobotDesigner.axis == 'X':
         axis[0] = str(inverted)
-    elif currentBone.RobotEditor.axis == 'Y':
+    elif currentBone.RobotDesigner.axis == 'Y':
         axis[1] = str(inverted)
-    elif currentBone.RobotEditor.axis == 'Z':
+    elif currentBone.RobotDesigner.axis == 'Z':
         axis[2] = str(inverted)
 
     tree.axis = axis
 
-    trafo, dummy = currentBone.RobotEditor.getTransform()
+    trafo, dummy = currentBone.RobotDesigner.getTransform()
     # translation
     tree.addTrafo([str(element) for element in trafo.translation])
     # rotation
@@ -99,15 +100,15 @@ def extractData(segment_name):
     tree.addTrafo([str(element) for element in [0, 1, 0, rotation.y]])
     tree.addTrafo([str(element) for element in [1, 0, 0, rotation.x]])
 
-    if currentBone.RobotEditor.jointMode == 'REVOLUTE':
-        tree.initialValue = str(currentBone.RobotEditor.theta.offset)
-        tree.min = str(currentBone.RobotEditor.theta.min)
-        tree.max = str(currentBone.RobotEditor.theta.max)
+    if currentBone.RobotDesigner.jointMode == 'REVOLUTE':
+        tree.initialValue = str(currentBone.RobotDesigner.theta.offset)
+        tree.min = str(currentBone.RobotDesigner.theta.min)
+        tree.max = str(currentBone.RobotDesigner.theta.max)
         tree.axis_type = 'revolute'
     else:
-        tree.initialValue = str(currentBone.RobotEditor.d.offset)
-        tree.min = str(currentBone.RobotEditor.d.min)
-        tree.max = str(currentBone.RobotEditor.d.max)
+        tree.initialValue = str(currentBone.RobotDesigner.d.offset)
+        tree.min = str(currentBone.RobotDesigner.d.min)
+        tree.max = str(currentBone.RobotDesigner.d.max)
         tree.axis_type = 'prismatic'
     children = [child.name for child in currentBone.children]
 
@@ -115,7 +116,7 @@ def extractData(segment_name):
                    mesh.type == 'MESH' and mesh.parent_bone == segment_name]
 
     markers = [m for m in bpy.data.objects if
-               m.RobotEditor.tag == 'MARKER' and m.parent_bone == segment_name]
+               m.RobotDesigner.tag == 'MARKER' and m.parent_bone == segment_name]
     # tree.markers = [(m.name,(currentBone.matrix_local.inverted()*m.matrix_world.translation).to_tuple())
     #  for m in markers]
     # tree.markers = [(m.name,(m.matrix_parent_inverse*m.matrix_world.translation).to_tuple()) for m in markers]
@@ -131,6 +132,8 @@ def extractData(segment_name):
         tree.addChild(extractData(child))
 
     return tree
+
+
 # @PluginManager.register_class
 # class ImportCollada15(RDOperator):
 #     """
@@ -165,14 +168,14 @@ def extractData(segment_name):
 
 @RDOperator.Preconditions(ObjectMode, ModelSelected)
 @PluginManager.register_class
-class RobotEditor_exportCollada(RDOperator):
+class RobotDesigner_exportCollada(RDOperator):
     """
     :term:`operator` for exporting a :term:`robot model` to COLLADA 1.5
     **Preconditions:**
 
     **Postconditions:**
     """
-    bl_idname = "roboteditor.colladaexport"
+    bl_idname = "robotdesigner.colladaexport"
     bl_label = "Export to COLLADA 1.5"
 
     filepath = StringProperty(subtype='FILE_PATH')
@@ -203,7 +206,7 @@ class RobotEditor_exportCollada(RDOperator):
         handler.attach(tree)
 
         massFrames = [obj for obj in context.scene.objects if
-                      obj.RobotEditor.tag == 'PHYSICS_FRAME' and obj.parent_bone is not '']
+                      obj.RobotDesigner.tag == 'PHYSICS_FRAME' and obj.parent_bone is not '']
         for frame in massFrames:
             # transform = frame.parent.data.bones[frame.parent_bone].matrix_local.inverted() * frame.matrix_local
             segment_name = frame.parent.data.bones[frame.parent_bone].name
@@ -231,8 +234,8 @@ class RobotEditor_exportCollada(RDOperator):
             # TODO also bring the matrix_local to all collisionmodels
             print("mass frames", frame.name, collisionModels)
             handler.addMassObject(frame.name, frameTrafos,
-                                  tuple(v for v in frame.RobotEditor.dynamics.inertiaTensor),
-                                  frame.RobotEditor.dynamics.mass, collisionModels,
+                                  tuple(v for v in frame.RobotDesigner.dynamics.inertiaTensor),
+                                  frame.RobotDesigner.dynamics.mass, collisionModels,
                                   collisionModelTransformations)
 
         handler.write(self.filepath)

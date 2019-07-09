@@ -47,7 +47,7 @@ resource_path = os.path.join(script_path, 'resources')
 
 # PLUGIN_PREFIX = "hbp_robot_designer."
 
-PLUGIN_PREFIX = "roboteditor"
+PLUGIN_PREFIX = "robotdesigner"
 OPERATOR_PREFIX = PLUGIN_PREFIX + '.'
 
 BACKTRACE_FILTER_FUNC = ('func_wrapper', 'op_logger', '__call__')

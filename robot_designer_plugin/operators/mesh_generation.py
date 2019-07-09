@@ -113,21 +113,21 @@ class CreateWrappingSphere(RDOperator):
         sphere = bpy.context.active_object
         sphere.name = self.sphere_name
 
-        sphere.RobotEditor.wrap.muscleNames.add()
-        nrm = len(sphere.RobotEditor.wrap.muscleNames)
-        sphere.RobotEditor.wrap.muscleNames[nrm-1].name = active_muscle.name
+        sphere.RobotDesigner.wrap.muscleNames.add()
+        nrm = len(sphere.RobotDesigner.wrap.muscleNames)
+        sphere.RobotDesigner.wrap.muscleNames[nrm-1].name = active_muscle.name
 
-        active_muscle.RobotEditor.muscles.connectedWraps.add()
-        nrw = len(active_muscle.RobotEditor.muscles.connectedWraps)
-        active_muscle.RobotEditor.muscles.connectedWraps[nrw-1].wrappingName = sphere.name
+        active_muscle.RobotDesigner.muscles.connectedWraps.add()
+        nrw = len(active_muscle.RobotDesigner.muscles.connectedWraps)
+        active_muscle.RobotDesigner.muscles.connectedWraps[nrw-1].wrappingName = sphere.name
 
         lmat = bpy.data.materials.new(self.sphere_name)
         lmat.diffuse_color = (0.0, 0.135, 0.0)
         lmat.use_shadeless = True
         sphere.data.materials.append(lmat)
 
-        sphere.RobotEditor.tag = 'WRAPPING'
-        sphere.RobotEditor.wrap.WrappingType = 'WRAPPING_SPHERE'
+        sphere.RobotDesigner.tag = 'WRAPPING'
+        sphere.RobotDesigner.wrap.WrappingType = 'WRAPPING_SPHERE'
 
         SelectModel.run(model_name=model.name)
         SelectGeometry.run(geometry_name=sphere.name)
@@ -165,21 +165,21 @@ class CreateWrappingCylinder(RDOperator):
         cylinder = bpy.context.active_object
         cylinder.name = self.cylinder_name
 
-        cylinder.RobotEditor.wrap.muscleNames.add()
-        nrm = len(cylinder.RobotEditor.wrap.muscleNames)
+        cylinder.RobotDesigner.wrap.muscleNames.add()
+        nrm = len(cylinder.RobotDesigner.wrap.muscleNames)
         cylinder.RobotEditor.wrap.muscleNames[nrm - 1].name = active_muscle.name
 
-        active_muscle.RobotEditor.muscles.connectedWraps.add()
-        nrw = len(active_muscle.RobotEditor.muscles.connectedWraps)
-        active_muscle.RobotEditor.muscles.connectedWraps[nrw - 1].wrappingName = cylinder.name
+        active_muscle.RobotDesigner.muscles.connectedWraps.add()
+        nrw = len(active_muscle.RobotDesigner.muscles.connectedWraps)
+        active_muscle.RobotDesigner.muscles.connectedWraps[nrw - 1].wrappingName = cylinder.name
 
         lmat = bpy.data.materials.new(self.cylinder_name)
         lmat.diffuse_color = (0., 0.135, 0.0)
         lmat.use_shadeless = True
         cylinder.data.materials.append(lmat)
 
-        cylinder.RobotEditor.tag = 'WRAPPING'
-        cylinder.RobotEditor.wrap.WrappingType = 'WRAPPING_CYLINDER'
+        cylinder.RobotDesigner.tag = 'WRAPPING'
+        cylinder.RobotDesigner.wrap.WrappingType = 'WRAPPING_CYLINDER'
 
         SelectModel.run(model_name=model.name)
         SelectGeometry.run(geometry_name=cylinder.name)
@@ -208,11 +208,11 @@ class RenameWrappingObject(RDOperator):
     def execute(self, context):
         selected_object = global_properties.mesh_name.get(context.scene)
 
-        for muscles in context.scene.objects[selected_object].RobotEditor.wrap.muscleNames:
+        for muscles in context.scene.objects[selected_object].RobotDesigner.wrap.muscleNames:
             i = 0
-            for connected_wraps in context.scene.objects[muscles.name].RobotEditor.muscles.connectedWraps:
+            for connected_wraps in context.scene.objects[muscles.name].RobotDesigner.muscles.connectedWraps:
                 if connected_wraps.wrappingName == selected_object:
-                    context.scene.objects[muscles.name].RobotEditor.muscles.connectedWraps[i].wrappingName = \
+                    context.scene.objects[muscles.name].RobotDesigner.muscles.connectedWraps[i].wrappingName = \
                         self.new_name
                     break
                 i = i + 1
@@ -245,11 +245,11 @@ class DeleteWrappingObject(RDOperator):
 
         selected_object = global_properties.mesh_name.get(context.scene)
 
-        for muscles in context.scene.objects[selected_object].RobotEditor.wrap.muscleNames:
+        for muscles in context.scene.objects[selected_object].RobotDesigner.wrap.muscleNames:
             i=0
-            for connected_wraps in context.scene.objects[muscles.name].RobotEditor.muscles.connectedWraps:
+            for connected_wraps in context.scene.objects[muscles.name].RobotDesigner.muscles.connectedWraps:
                 if connected_wraps.wrappingName == selected_object:
-                    context.scene.objects[muscles.name].RobotEditor.muscles.connectedWraps.remove(i)
+                    context.scene.objects[muscles.name].RobotDesigner.muscles.connectedWraps.remove(i)
                     break
                 i = i+1
 
@@ -276,14 +276,14 @@ class DisconnectWrappingObject(RDOperator):
 
         active_muscle = global_properties.active_muscle.get(context.scene)
 
-        connected_wraps = context.scene.objects[active_muscle].RobotEditor.muscles.connectedWraps
+        connected_wraps = context.scene.objects[active_muscle].RobotDesigner.muscles.connectedWraps
 
         active_wrap = connected_wraps[self.wrappingOrder-1].wrappingName
 
         i = 0
-        for muscles in context.scene.objects[active_wrap].RobotEditor.wrap.muscleNames:
+        for muscles in context.scene.objects[active_wrap].RobotDesigner.wrap.muscleNames:
             if muscles.name == active_muscle:
-                context.scene.objects[active_wrap].RobotEditor.wrap.muscleNames.remove(i)
+                context.scene.objects[active_wrap].RobotDesigner.wrap.muscleNames.remove(i)
             i = i+1
 
         connected_wraps.remove(self.wrappingOrder-1)
@@ -367,7 +367,7 @@ class DetachAllWrappingObjects(RDOperator):
     def execute(self, context):
         from .rigid_bodies import SelectGeometry
         meshes = [obj for obj in bpy.data.objects if obj.type == 'MESH' and
-                  obj.parent_bone is not '' and obj.RobotEditor.tag == 'WRAPPING']
+                  obj.parent_bone is not '' and obj.RobotDesigner.tag == 'WRAPPING']
 
         for mesh in meshes:
             SelectGeometry.run(geometry_name=mesh.name)
@@ -393,11 +393,11 @@ class SelectWrappingObject(RDOperator):
         active_muscle = bpy.data.objects[global_properties.active_muscle.get(bpy.context.scene)]
 
         wrapping_object = context.scene.objects[self.wrapping_name]
-        wrapping_object.RobotEditor.wrap.muscleNames.add()
-        nr = len(wrapping_object.RobotEditor.wrap.muscleNames)
-        wrapping_object.RobotEditor.wrap.muscleNames[nr - 1].name = active_muscle.name
+        wrapping_object.RobotDesigner.wrap.muscleNames.add()
+        nr = len(wrapping_object.RobotDesigner.wrap.muscleNames)
+        wrapping_object.RobotDesigner.wrap.muscleNames[nr - 1].name = active_muscle.name
 
-        wrapList = active_muscle.RobotEditor.muscles.connectedWraps
+        wrapList = active_muscle.RobotDesigner.muscles.connectedWraps
         wrapList.add()
         nrw = len(wrapList)
         wrapList[nrw-1].wrappingName = self.wrapping_name
@@ -475,7 +475,7 @@ class GenerateMeshFromSegment(RDOperator):
             bezier.matrix_world = bone_world
 
             print(bezier.matrix_world)
-            # e= C.active_bone.RobotEditor.Euler
+            # e= C.active_bone.RobotDesigner.Euler
 
             bpy.ops.object.mode_set(mode="EDIT", toggle=False)
 
@@ -517,11 +517,10 @@ class GenerateMeshFromSegment(RDOperator):
             bpy.ops.object.delete()
 
             SelectModel.run(model_name=model.name)
-            SelectGeometry.run(geometry_name=bezier.name) #
+            SelectGeometry.run(geometry_name=bezier.name)  #
             SelectSegment.run(segment_name=parent_name)
             AssignGeometry.run()
             SelectSegment.run(segment_name=bone_name)
-
 
         GenerateMeshFromJoint.run()
 
@@ -548,7 +547,7 @@ class GenerateMeshFromJoint(RDOperator):
         model = C.active_object
 
         bone_name = C.active_bone.name
-        axis = C.active_bone.RobotEditor.axis
+        axis = C.active_bone.RobotDesigner.axis
         pose_bone = C.active_object.pose.bones[bone_name]
         parent_bone = pose_bone.parent
         bone_to_parent = pose_bone.matrix.inverted() * parent_bone.matrix
@@ -563,7 +562,7 @@ class GenerateMeshFromJoint(RDOperator):
         # if there is no translation to parent, the parent (or its parent) draws the joint
         if bone_to_parent.translation.length > 0.001:
 
-            max_length = max(distance_to_children+[segment_length])
+            max_length = max(distance_to_children + [segment_length])
             # If there is only one children, and its a distance 0, we have a ball joint
             if len(pose_bone.children) == 1 and distance_to_children[0] < 0.001:
 
@@ -581,8 +580,7 @@ class GenerateMeshFromJoint(RDOperator):
 
                 C.active_object.matrix_world = bone_world * m
             else:
-                bpy.ops.mesh.primitive_cone_add(radius1=segment_length/10,radius2=segment_length/10)
-
+                bpy.ops.mesh.primitive_cone_add(radius1=segment_length / 10, radius2=segment_length / 10)
 
             C.active_object.name = bone_name + '_axis'
             new_name = C.active_object.name

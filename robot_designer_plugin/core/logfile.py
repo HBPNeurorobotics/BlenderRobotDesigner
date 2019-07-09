@@ -155,7 +155,7 @@ def log_callstack_last(back_trace=False):
     print("Parsing stack")
 
     for path, line, func, code in stack:
-        print(path,func)
+        print(path, func)
         if func not in BACKTRACE_FILTER_FUNC:
             if func not in BACKTRACE_FILTER_HIDE_CODE:
                 file = os.path.split(path)[-1]

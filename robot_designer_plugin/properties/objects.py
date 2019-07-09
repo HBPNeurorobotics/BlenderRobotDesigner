@@ -60,9 +60,9 @@ class RDDynamics(bpy.types.PropertyGroup):
     '''
     # from mathutils import Vector
     # def updateCoM(self, context):
-    #    frame = bpy.data.objects[bpy.context.scene.RobotEditor.physicsFrameName]
-    #    position = Vector((frame.RobotEditor.dynamics.CoM[0],frame.RobotEditor.dynamics.CoM[1],
-    # frame.RobotEditor.dynamics.CoM[2]))
+    #    frame = bpy.data.objects[bpy.context.scene.RobotDesigner.physicsFrameName]
+    #    position = Vector((frame.RobotDesigner.dynamics.CoM[0],frame.RobotDesigner.dynamics.CoM[1],
+    # frame.RobotDesigner.dynamics.CoM[2]))
     #    frame.location = position
 
     mass = FloatProperty(name="Mass (kg)", precision=4, step=0.1, default=1.0)
@@ -75,7 +75,11 @@ class RDDynamics(bpy.types.PropertyGroup):
     inertiaYZ = FloatProperty(name="", precision=4, step=0.1, default=0.0)
     inertiaZZ = FloatProperty(name="", precision=4, step=0.1, default=1.0)
 
-
+@PluginManager.register_property_group()
+class RDSensorNoise(bpy.types.PropertyGroup):
+    type = EnumProperty(items=[('gaussian', 'Gaussian', 'Gaussian')])
+    mean = FloatProperty(name="mean", default=0)
+    stddev = FloatProperty(name="stddev", default=0)
 
 @PluginManager.register_property_group()
 class RDCamera(bpy.types.PropertyGroup):
@@ -90,15 +94,89 @@ class RDCamera(bpy.types.PropertyGroup):
                                  ('BAYER_GRBG8', 'BAYER_GRBG8', 'BAYER_GRBG8')
                                  ])
 
+    noise = PointerProperty(type=RDSensorNoise)
+
 
 @PluginManager.register_property_group()
-class RDLaser(bpy.types.PropertyGroup):
+class RDContactSensor(bpy.types.PropertyGroup):
+    collision = StringProperty(name="collision", default="__default__")
+    topic = StringProperty(name="topic", default="__default_topic__")
+
+
+@PluginManager.register_property_group()
+class RDForceTorqueSensor(bpy.types.PropertyGroup):
+    frame = StringProperty(name="frame", default="child")
+    measure_direction = StringProperty(name="measure_direction", default="child_to_parent")
+
+
+@PluginManager.register_property_group()
+class RDDepthCameraSensor(bpy.types.PropertyGroup):
+    output = StringProperty(name="output", default="depths")
+
+
+@PluginManager.register_property_group()
+class RDAltimeterSensor(bpy.types.PropertyGroup):
+    vptype = StringProperty(name="type", default="none")
+    vpmean = FloatProperty(name="mean", default=0)
+    vpstddev = FloatProperty(name="stddev", default=0)
+    vpbias_mean = FloatProperty(name="stddev", default=0)
+    vpbias_stddev = FloatProperty(name="bias_stddev", default=0)
+    vpprecision = FloatProperty(name="precision", default=0)
+    vvtype = StringProperty(name="type", default="none")
+    vvmean = FloatProperty(name="mean", default=0)
+    vvstddev = FloatProperty(name="stddev", default=0)
+    vvbias_mean = FloatProperty(name="stddev", default=0)
+    vvbias_stddev = FloatProperty(name="bias_stddev", default=0)
+    vvprecision = FloatProperty(name="precision", default=0)
+
+
+@PluginManager.register_property_group()
+class RDIMUSensor(bpy.types.PropertyGroup):
+    localization = StringProperty(name="localization", default="CUSTOM")
+    custom_rpy = FloatVectorProperty(name="custom_rpy", precision=4, default=[0.0, 0.0, 0.0])
+    grav_dir_x = FloatVectorProperty(name="grav_dir_x", precision=4, default=[1.0, 0.0, 0.0])
+    parent_frame = StringProperty(name="parent_frame", default="Name of parent frame")
+    topic = StringProperty(name="topic", default="__default_topic__")
+    vvtype = StringProperty(name="type", default="none")
+    avxmean = FloatProperty(name="mean", default=0)
+    avxstddev = FloatProperty(name="stddev", default=0)
+    avxbias_mean = FloatProperty(name="stddev", default=0)
+    avxbias_stddev = FloatProperty(name="bias_stddev", default=0)
+    avxprecision = FloatProperty(name="precision", default=0)
+    avymean = FloatProperty(name="mean", default=0)
+    avystddev = FloatProperty(name="stddev", default=0)
+    avybias_mean = FloatProperty(name="stddev", default=0)
+    avybias_stddev = FloatProperty(name="bias_stddev", default=0)
+    avyprecision = FloatProperty(name="precision", default=0)
+    avzmean = FloatProperty(name="mean", default=0)
+    avzstddev = FloatProperty(name="stddev", default=0)
+    avzbias_mean = FloatProperty(name="stddev", default=0)
+    avzbias_stddev = FloatProperty(name="bias_stddev", default=0)
+    avzprecision = FloatProperty(name="precision", default=0)
+    laxmean = FloatProperty(name="mean", default=0)
+    laxstddev = FloatProperty(name="stddev", default=0)
+    laxbias_mean = FloatProperty(name="stddev", default=0)
+    laxbias_stddev = FloatProperty(name="bias_stddev", default=0)
+    laxprecision = FloatProperty(name="precision", default=0)
+    laymean = FloatProperty(name="mean", default=0)
+    laystddev = FloatProperty(name="stddev", default=0)
+    laybias_mean = FloatProperty(name="stddev", default=0)
+    laybias_stddev = FloatProperty(name="bias_stddev", default=0)
+    layprecision = FloatProperty(name="precision", default=0)
+    lazmean = FloatProperty(name="mean", default=0)
+    lazstddev = FloatProperty(name="stddev", default=0)
+    lazbias_mean = FloatProperty(name="stddev", default=0)
+    lazbias_stddev = FloatProperty(name="bias_stddev", default=0)
+    lazprecision = FloatProperty(name="precision", default=0)
+
+
+@PluginManager.register_property_group()
+class RDLaserSensor(bpy.types.PropertyGroup):
     horizontal_samples = IntProperty(name="horizontal samples", default=320, min=1)
     vertical_samples = IntProperty(name="vertical samples", default=240, min=1)
     resolution = EnumProperty(items=[('8-Bit', '8-Bit', '8-Bit'),
                                      ('16-Bit', '16-Bit', '16-Bit')
                                      ])
-
 
 
 class SceneSettingItem(bpy.types.PropertyGroup):
@@ -133,7 +211,7 @@ class RDScaler(bpy.types.PropertyGroup):
     def scale_all_update(self, context):
 
         obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
-        scale_object = obj.RobotEditor.wrap.scaling
+        scale_object = obj.RobotDesigner.wrap.scaling
         obj.scale[0] = scale_object.scale_all
         obj.scale[1] = scale_object.scale_all
         obj.scale[2] = scale_object.scale_all
@@ -141,14 +219,14 @@ class RDScaler(bpy.types.PropertyGroup):
     def scale_radius_update(self, context):
 
         obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
-        scale_object = obj.RobotEditor.wrap.scaling
+        scale_object = obj.RobotDesigner.wrap.scaling
         obj.scale[0] = scale_object.scale_radius
         obj.scale[1] = scale_object.scale_radius
 
     def scale_depth_update(self, context):
 
         obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
-        scale_object = obj.RobotEditor.wrap.scaling
+        scale_object = obj.RobotDesigner.wrap.scaling
         obj.scale[2] = scale_object.scale_depth
 
     scale_all = FloatProperty(name="Scaler", default=1.0, update=scale_all_update)
@@ -179,25 +257,25 @@ class RDMuscle(bpy.types.PropertyGroup):
     def muscle_type_update(self, context):
         active_muscle = global_properties.active_muscle.get(bpy.context.scene)
 
-        # if bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MYOROBOTICS':
+        # if bpy.data.objects[active_muscle].RobotDesigner.muscles.muscleType == 'MYOROBOTICS':
         #    color = (1.0,0.0,0.0)
-        if bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MILLARD_EQUIL':
+        if bpy.data.objects[active_muscle].RobotDesigner.muscles.muscleType == 'MILLARD_EQUIL':
             color = (0.8, 0.3, 0.0)
-        elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'MILLARD_ACCEL':
+        elif bpy.data.objects[active_muscle].RobotDesigner.muscles.muscleType == 'MILLARD_ACCEL':
             color = (0.3, 0.8, 0.0)
-        elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'THELEN':
+        elif bpy.data.objects[active_muscle].RobotDesigner.muscles.muscleType == 'THELEN':
             color = (1.0, 0.0, 0.0)
-        elif bpy.data.objects[active_muscle].RobotEditor.muscles.muscleType == 'RIGID_TENDON':
+        elif bpy.data.objects[active_muscle].RobotDesigner.muscles.muscleType == 'RIGID_TENDON':
             color = (0.0, 0.0, 1.0)
 
         bpy.data.objects[active_muscle].data.materials[active_muscle + '_vis'].diffuse_color = color
 
     muscleType = EnumProperty(
-        items=[#('MYOROBOTICS', 'Myorobotics', 'Myorobotics Muscle'),
-               ('MILLARD_EQUIL', 'Millard Equilibrium 2012', 'Millard Equilibrium 2012 Muscle'),
-               ('MILLARD_ACCEL', 'Millard Acceleration 2012', 'Millard Acceleration 2012 Muscle'),
-               ('THELEN', 'Thelen 2003', 'Thelen 2003 Muscle'),
-               ('RIGID_TENDON', 'Rigid Tendon', 'Rigid Tendon Muscle')],
+        items=[  # ('MYOROBOTICS', 'Myorobotics', 'Myorobotics Muscle'),
+            ('MILLARD_EQUIL', 'Millard Equilibrium 2012', 'Millard Equilibrium 2012 Muscle'),
+            ('MILLARD_ACCEL', 'Millard Acceleration 2012', 'Millard Acceleration 2012 Muscle'),
+            ('THELEN', 'Thelen 2003', 'Thelen 2003 Muscle'),
+            ('RIGID_TENDON', 'Rigid Tendon', 'Rigid Tendon Muscle')],
         name="Muscle Type:", update=muscle_type_update
     )
 
@@ -229,18 +307,18 @@ class RDModelMeta(bpy.types.PropertyGroup):
 
 @PluginManager.register_property_group()
 class RDAuthor(bpy.types.PropertyGroup):
-   '''
-   Property group that contains author details such as name and email
-   '''
-   authorName = StringProperty(name="author name")
-   authorEmail = StringProperty(name ="author email")
+    '''
+    Property group that contains author details such as name and email
+    '''
+    authorName = StringProperty(name="author name")
+    authorEmail = StringProperty(name="author email")
 
 
 @PluginManager.register_property_group(bpy.types.Object)
 class RDObjects(bpy.types.PropertyGroup):
     '''
     Property group that stores general information for individual Blender
-    objects with respect to the RobotEditor
+    objects with respect to the RobotDesigner
     '''
     fileName = StringProperty(name="Mesh File Name")
     tag = EnumProperty(
@@ -250,16 +328,30 @@ class RDObjects(bpy.types.PropertyGroup):
                ('ARMATURE', 'Armature', 'Armature'),
                ('COLLISION', 'Collision', 'Collision'),
                ('WRAPPING', 'Wrapping', 'Wrapping'),
-               ('CAMERA_SENSOR', 'Camera sensor', 'Camera sensor'),
-               ('LASER_SENSOR', 'Laser sensor', 'Laser sensor')]
+               ('SENSOR', 'Sensor', 'Sensor')
+               ]
+    )
+
+    fileName = StringProperty(name="Mesh File Name")
+    sensor_type = EnumProperty(
+        items=[('CAMERA_SENSOR', 'Camera sensor', 'Camera sensor'),
+               ('LASER_SENSOR', 'Laser sensor', 'Laser sensor'),
+               ('CONTACT_SENSOR', 'Contact Sensors', 'Edit contact sensors'),
+               ('FORCE_TORQUE_SENSOR', 'Force Torque Sensors', 'Edit force torque sensors'),
+               ('DEPTH_CAMERA_SENSOR', 'Depth Camera Sensors', 'Edit depth camera sensors'),
+               ('ALTIMETER_SENSOR', 'Altimeter Sensors', 'Edit altimeter sensors'),
+               ('IMU_SENSOR', 'IMU Sensors', 'Edit IMU sensors')]
     )
 
     dynamics = PointerProperty(type=RDDynamics)
-    camera = PointerProperty(type=RDCamera)
     modelMeta = PointerProperty(type=RDModelMeta)
     author = PointerProperty(type=RDAuthor)
-
+    cameraSensor = PointerProperty(type=RDCamera)
+    contactSensor = PointerProperty(type=RDContactSensor)
+    forceTorqueSensor = PointerProperty(type=RDForceTorqueSensor)
+    depthCameraSensor = PointerProperty(type=RDDepthCameraSensor)
+    altimeterSensor = PointerProperty(type=RDAltimeterSensor)
+    imuSensor = PointerProperty(type=RDIMUSensor)
+    laserSensor = PointerProperty(type=RDLaserSensor)
     muscles = PointerProperty(type=RDMuscle)
-
     wrap = PointerProperty(type=RDWrap)
-

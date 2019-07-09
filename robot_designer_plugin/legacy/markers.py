@@ -4,8 +4,8 @@ from bpy.props import *
 
 
 # operator to create new marker
-class RobotEditor_createMarker(bpy.types.Operator):
-    bl_idname = "roboteditor.createmarker"
+class RobotDesigner_createMarker(bpy.types.Operator):
+    bl_idname = "robotdesigner.createmarker"
     bl_label = "Create Marker"
 
     markerName = StringProperty(name="Marker Name")
@@ -17,7 +17,7 @@ class RobotEditor_createMarker(bpy.types.Operator):
         context.active_object.name = self.markerName
         bpy.ops.object.empty_add(type='PLAIN_AXES')
         context.active_object.name = "MARKER_" + self.markerName
-        context.active_object.RobotEditor.tag = 'MARKER'
+        context.active_object.RobotDesigner.tag = 'MARKER'
 
         for obj in bpy.data.objects:
             obj.select = False
@@ -27,8 +27,8 @@ class RobotEditor_createMarker(bpy.types.Operator):
         context.scene.objects.active = bpy.data.objects["MARKER_" + self.markerName]
         bpy.ops.object.parent_set()
 
-        bpy.ops.roboteditor.selectarmature(armatureName=armName)
-        bpy.ops.roboteditor.selectmarker(markerName="MARKER_" + self.markerName)
+        bpy.ops.RobotDesigner.selectarmature(armatureName=armName)
+        bpy.ops.RobotDesigner.selectmarker(markerName="MARKER_" + self.markerName)
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -36,14 +36,14 @@ class RobotEditor_createMarker(bpy.types.Operator):
 
 
 # operator to select marker
-class RobotEditor_selectMarker(bpy.types.Operator):
-    bl_idname = "roboteditor.selectmarker"
+class RobotDesigner_selectMarker(bpy.types.Operator):
+    bl_idname = "robotdesigner.selectmarker"
     bl_label = "Select Marker"
 
     markerName = StringProperty()
 
     def execute(self, context):
-        context.scene.RobotEditor.markerName = self.markerName
+        context.scene.RobotDesigner.markerName = self.markerName
         marker = bpy.data.objects[self.markerName]
         arm = context.active_object
 
@@ -57,26 +57,26 @@ class RobotEditor_selectMarker(bpy.types.Operator):
 
 
 # dynamic menu to select from markers
-class RobotEditor_markerMenu(bpy.types.Menu):
-    bl_idname = "roboteditor.markermenu"
+class RobotDesigner_markerMenu(bpy.types.Menu):
+    bl_idname = "robotdesigner.markermenu"
     bl_label = "Select Marker"
 
     def draw(self, context):
         layout = self.layout
         markerNames = [obj.name for obj in bpy.data.objects if
-                       obj.RobotEditor.tag == 'MARKER' and context.scene.RobotEditor.liveSearchMarkers in obj.name]
+                       obj.RobotDesigner.tag == 'MARKER' and context.scene.RobotDesigner.liveSearchMarkers in obj.name]
 
         for marker in sorted(markerNames, key=str.lower):
             if bpy.data.objects[marker].parent_bone:
                 text = marker + " --> " + bpy.data.objects[marker].parent_bone
             else:
                 text = marker
-            layout.operator("roboteditor.selectmarker", text=text).markerName = marker
+            layout.operator("RobotDesigner.selectmarker", text=text).markerName = marker
 
 
 # operator to assign marker to bone
-class RobotEditor_assignMarker(bpy.types.Operator):
-    bl_idname = "roboteditor.assignmarker"
+class RobotDesigner_assignMarker(bpy.types.Operator):
+    bl_idname = "robotdesigner.assignmarker"
     bl_label = "Assign Marker to Bone"
 
     def execute(self, context):
@@ -85,12 +85,12 @@ class RobotEditor_assignMarker(bpy.types.Operator):
 
 
 # operator to unassign marker from bone
-class RobotEditor_unassignMarker(bpy.types.Operator):
-    bl_idname = "roboteditor.unassignmarker"
+class RobotDesigner_unassignMarker(bpy.types.Operator):
+    bl_idname = "robotdesigner.unassignmarker"
     bl_label = "Unassign marker"
 
     def execute(self, context):
-        currentMarker = bpy.data.objects[context.scene.RobotEditor.markerName]
+        currentMarker = bpy.data.objects[context.scene.RobotDesigner.markerName]
         marker_global = currentMarker.matrix_world
         currentMarker.parent = None
         currentMarker.matrix_world = marker_global
@@ -100,41 +100,41 @@ class RobotEditor_unassignMarker(bpy.types.Operator):
 
 # defines the UI part of the markers submenu
 def draw(layout, context):
-    layout.operator("roboteditor.createmarker")
+    layout.operator("robotdesigner.createmarker")
     layout.label("Select marker")
     topRow = layout.column(align=True)
     markerMenuText = ""
-    if context.active_bone and not context.scene.RobotEditor.markerName == "":
-        marker = bpy.data.objects[context.scene.RobotEditor.markerName]
+    if context.active_bone and not context.scene.RobotDesigner.markerName == "":
+        marker = bpy.data.objects[context.scene.RobotDesigner.markerName]
 
         if marker.parent_bone:
-            markerMenuText = context.scene.RobotEditor.markerName + " --> " + marker.parent_bone
+            markerMenuText = context.scene.RobotDesigner.markerName + " --> " + marker.parent_bone
         else:
-            markerMenuText = context.scene.RobotEditor.markerName
-    topRow.menu("roboteditor.markermenu", text=markerMenuText)
-    topRow.prop(context.scene.RobotEditor, "liveSearchMarkers", icon='VIEWZOOM', text="")
+            markerMenuText = context.scene.RobotDesigner.markerName
+    topRow.menu("robotdesigner.markermenu", text=markerMenuText)
+    topRow.prop(context.scene.RobotDesigner, "liveSearchMarkers", icon='VIEWZOOM', text="")
     topRow.separator()
-    topRow.operator("roboteditor.unassignmarker")
+    topRow.operator("robotdesigner.unassignmarker")
 
     layout.label("Select Bone:")
     lowerRow = layout.column(align=True)
-    lowerRow.menu("roboteditor.bonemenu", text=context.active_bone.name)
-    lowerRow.prop(context.scene.RobotEditor, "liveSearchBones", icon='VIEWZOOM', text="")
+    lowerRow.menu("robotdesigner.bonemenu", text=context.active_bone.name)
+    lowerRow.prop(context.scene.RobotDesigner, "liveSearchBones", icon='VIEWZOOM', text="")
     lowerRow.separator()
-    lowerRow.operator("roboteditor.assignmarker")
+    lowerRow.operator("robotdesigner.assignmarker")
 
 
 def register():
-    bpy.utils.register_class(RobotEditor_createMarker)
-    bpy.utils.register_class(RobotEditor_selectMarker)
-    bpy.utils.register_class(RobotEditor_markerMenu)
-    bpy.utils.register_class(RobotEditor_assignMarker)
-    bpy.utils.register_class(RobotEditor_unassignMarker)
+    bpy.utils.register_class(RobotDesigner_createMarker)
+    bpy.utils.register_class(RobotDesigner_selectMarker)
+    bpy.utils.register_class(RobotDesigner_markerMenu)
+    bpy.utils.register_class(RobotDesigner_assignMarker)
+    bpy.utils.register_class(RobotDesigner_unassignMarker)
 
 
 def unregister():
-    bpy.utils.unregister_class(RobotEditor_createMarker)
-    bpy.utils.unregister_class(RobotEditor_selectMarker)
-    bpy.utils.unregister_class(RobotEditor_markerMenu)
-    bpy.utils.unregister_class(RobotEditor_assignMarker)
-    bpy.utils.unregister_class(RobotEditor_unassignMarker)
+    bpy.utils.unregister_class(RobotDesigner_createMarker)
+    bpy.utils.unregister_class(RobotDesigner_selectMarker)
+    bpy.utils.unregister_class(RobotDesigner_markerMenu)
+    bpy.utils.unregister_class(RobotDesigner_assignMarker)
+    bpy.utils.unregister_class(RobotDesigner_unassignMarker)
