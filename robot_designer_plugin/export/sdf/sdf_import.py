@@ -814,7 +814,7 @@ class Importer(object):
         model = model_config_dom.CreateFromDocument(model_config_xml)
 
         # read model data
-        bpy.context.active_object.name = model.name
+        bpy.context.active_object.RobotDesigner.modelMeta.model_config = model.name
         bpy.context.active_object.RobotDesigner.modelMeta.model_version = str(model.version)
 
         # read author todo multiple authors

@@ -114,8 +114,13 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
 
     if not export_collision:
         meshes = [obj.name for obj in context.scene.objects if
-              obj.type == "MESH" and obj.name == name and
-              not obj.RobotDesigner.tag == "COLLISION"]
+#<<<<<<< HEAD
+                  obj.type == "MESH" and obj.name == name and
+                  obj.RobotDesigner.tag == "VISUAL"] #TODO: Change to if VISUAL
+#=======
+#              obj.type == "MESH" and obj.name == name and
+#              not obj.RobotDesigner.tag == "COLLISION"]
+#>>>>>>> master
         directory = os.path.join(directory, "meshes", "visual")
 
     else:
@@ -458,7 +463,6 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             ref_pose = string_to_list(child.link.pose[0])
             walk_segments(child_segments, child, ref_pose)
 
-
     robot_name = context.active_object.name
 
     blender_scale_factor = context.active_object.scale
@@ -672,7 +676,7 @@ def create_config(operator: RDOperator, context, filepath: str, meshpath: str, t
     modelI = model_config_dom.model()
 
     # get model data
-    modelI.name = bpy.context.active_object.name
+    modelI.name = bpy.context.active_object.RobotDesigner.modelMeta.model_config
     modelI.version = bpy.context.active_object.RobotDesigner.modelMeta.model_version
 
     # get thumbnail data

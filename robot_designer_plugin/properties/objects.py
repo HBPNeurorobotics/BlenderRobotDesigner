@@ -195,6 +195,59 @@ class RDMusclePoints(bpy.types.PropertyGroup):
     coordFrame = StringProperty(default="Select Segment")
 
 
+class RDMuscleNames(bpy.types.PropertyGroup):
+
+    name = StringProperty(default="Select Muscle")
+
+
+class RDWrappingObjects(bpy.types.PropertyGroup):
+    wrappingName = StringProperty(default="Wrapping Name")
+
+
+@PluginManager.register_property_group()
+class RDScaler(bpy.types.PropertyGroup):
+
+
+    def scale_all_update(self, context):
+
+        obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
+        scale_object = obj.RobotDesigner.wrap.scaling
+        obj.scale[0] = scale_object.scale_all
+        obj.scale[1] = scale_object.scale_all
+        obj.scale[2] = scale_object.scale_all
+
+    def scale_radius_update(self, context):
+
+        obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
+        scale_object = obj.RobotDesigner.wrap.scaling
+        obj.scale[0] = scale_object.scale_radius
+        obj.scale[1] = scale_object.scale_radius
+
+    def scale_depth_update(self, context):
+
+        obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
+        scale_object = obj.RobotDesigner.wrap.scaling
+        obj.scale[2] = scale_object.scale_depth
+
+    scale_all = FloatProperty(name="Scaler", default=1.0, update=scale_all_update)
+    scale_radius = FloatProperty(name="Scale Radius", default=1.0, update=scale_radius_update)
+    scale_depth = FloatProperty(name="Scale Depth", default=1.0, update=scale_depth_update)
+
+
+@PluginManager.register_property_group()
+class RDWrap(bpy.types.PropertyGroup):
+
+    WrappingType = EnumProperty(
+        items=[('WRAPPING_SPHERE', 'Wrapping Sphere', 'Wrapping Sphere'),
+               ('WRAPPING_CYLINDER', 'Wrapping Cylinder', 'Wrapping Cylinder')])
+
+    bpy.utils.register_class(RDMuscleNames)
+    muscleNames = CollectionProperty(type=RDMuscleNames)
+
+    scaling = PointerProperty(type=RDScaler)
+
+
+
 @PluginManager.register_property_group()
 class RDMuscle(bpy.types.PropertyGroup):
     '''
@@ -233,15 +286,23 @@ class RDMuscle(bpy.types.PropertyGroup):
     bpy.utils.register_class(RDMusclePoints)
     pathPoints = CollectionProperty(type=RDMusclePoints)
 
+    bpy.utils.register_class(RDWrappingObjects)
+    connectedWraps = CollectionProperty(type=RDWrappingObjects)
+
+
+
+
+
 
 @PluginManager.register_property_group()
 class RDModelMeta(bpy.types.PropertyGroup):
-    '''
-    Property group that contains model meta data suc as name, version and description
-    '''
-    model_version = StringProperty(name='Version', default="1.0")
-    model_folder = StringProperty(name='Folder', default="")
-    model_description = StringProperty(name='Description')
+   '''
+   Property group that contains model meta data suc as name, version and description
+   '''
+   model_config = StringProperty(name='Config Name')
+   model_version = StringProperty(name='Version', default="1.0")
+   model_folder = StringProperty(name='Folder', default="")
+   model_description = StringProperty(name='Description')
 
 
 @PluginManager.register_property_group()
@@ -266,6 +327,7 @@ class RDObjects(bpy.types.PropertyGroup):
                ('PHYSICS_FRAME', 'Physics Frame', 'Physics Frame'),
                ('ARMATURE', 'Armature', 'Armature'),
                ('COLLISION', 'Collision', 'Collision'),
+               ('WRAPPING', 'Wrapping', 'Wrapping'),
                ('SENSOR', 'Sensor', 'Sensor')
                ]
     )
@@ -292,3 +354,4 @@ class RDObjects(bpy.types.PropertyGroup):
     imuSensor = PointerProperty(type=RDIMUSensor)
     laserSensor = PointerProperty(type=RDLaserSensor)
     muscles = PointerProperty(type=RDMuscle)
+    wrap = PointerProperty(type=RDWrap)

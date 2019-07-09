@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xsd:schema xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+
+  <xsd:element name="OpenSimDocument">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Model">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="ForceSet">
+                <xsd:complexType>
+                  <xsd:sequence>
+                    <xsd:element name="objects">
+                      <xsd:complexType>
+                        <xsd:choice minOccurs="0" maxOccurs='unbounded'>
+                          <xsd:element name="Millard2012EquilibriumMuscle" type="Millard2012EquilibriumMuscle"/>
+                          <xsd:element name="Millard2012AccelerationMuscle" type="Millard2012AccelerationMuscle"/>
+                          <xsd:element name="Thelen2003Muscle" type="Thelen2003Muscle"/>
+                          <xsd:element name="RigidTendonMuscle" type="RigidTendonMuscle"/>
+                        </xsd:choice>
+                      </xsd:complexType>
+                    </xsd:element>
+                  </xsd:sequence>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element name="BodySet" type="BodySet" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+      <xsd:attribute type="xsd:string" name="Version"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:group name="BasicMuscleElements">
+    <xsd:sequence>
+    <xsd:element ref="GeometryPath"/>
+    <xsd:element type="xsd:float" name="optimal_force" minOccurs="0"/>
+    <xsd:element type="xsd:float" name="max_isometric_force">
+      <xsd:annotation>
+        <xsd:documentation>Maximum isometric force that the fibers can generate.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:element>
+    <xsd:element type="xsd:float" name="min_control" minOccurs="0"/>
+    <xsd:element type="xsd:float" name="max_control" minOccurs="0">
+      <xsd:annotation>
+        <xsd:documentation>Maximum allowed value for control signal. Used primarily when solving for control values.Maximum allowed value for control signal.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:element>
+    <xsd:element type="xsd:float" name="optimal_fiber_length">
+      <xsd:annotation>
+        <xsd:documentation>Optimal length of the muscle fibers.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:element>
+    <xsd:element type="xsd:float" name="tendon_slack_length">
+      <xsd:annotation>
+        <xsd:documentation>Resting length of the tendonResting length of the tendon.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:element>
+    <xsd:element type="xsd:float" name="pennation_angle_at_optimal" minOccurs="0">
+      <xsd:annotation>
+        <xsd:documentation>Angle between tendon and fibers at optimal fiber length expressed in radians.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:element>
+    <xsd:element type="xsd:float" name="max_contraction_velocity" minOccurs="0"/>
+    <xsd:element type="xsd:float" name="ignore_tendon_compliance" minOccurs="0"/>
+    <xsd:element type="xsd:float" name="ignore_activation_dynamics" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:group>
+
+  <xsd:complexType name="BodySet">
+    <xsd:sequence>
+      <xsd:element name="objects">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="Body" type="Body" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute type="xsd:string" name="name"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="Body">
+    <xsd:sequence>
+      <xsd:element name="WrapObjectSet" type="WrapObjectSet" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute type="xsd:string" name="name"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="WrapObjectSet">
+    <xsd:sequence>
+      <xsd:element name="objects">
+        <xsd:complexType>
+          <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="WrapCylinder" type="WrapCylinder"/>
+            <xsd:element name="WrapSphere" type="WrapSphere"/>
+          </xsd:choice>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute type="xsd:string" name="name"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="Millard2012EquilibriumMuscle">
+      <xsd:sequence>
+        <xsd:group ref="BasicMuscleElements"/>
+        <xsd:element type="xsd:float" name="fiber_damping" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="default_activation" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="default_fiber_length" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="activation_time_constant" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="deactivation_time_constant" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="minimum_activation" minOccurs="0"/>
+      </xsd:sequence>
+      <xsd:attribute type="xsd:string" name="name"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="Millard2012AccelerationMuscle">
+      <xsd:sequence>
+        <xsd:group ref="BasicMuscleElements"/>
+        <xsd:element type="xsd:float" name="default_activation" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="default_fiber_length" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="default_fiber_velocity" minOccurs="0"/>
+        <xsd:element name="MuscleFirstOrderActivationDynamicModel" minOccurs="0">
+          <xsd:annotation>
+            <xsd:documentation>Activation dynamics model with a lower boundactivation.</xsd:documentation>
+          </xsd:annotation>
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element type="xsd:float" name="minimum_activation">
+                <xsd:annotation>
+                  <xsd:documentation>Activation lower bound.</xsd:documentation>
+                </xsd:annotation>
+              </xsd:element>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+        <xsd:element type="xsd:float" name="fiber_damping" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="fiber_force_length_damping" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="fiber_compressive_force_length_damping" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="fiber_compressive_force_cos_pennation_damping" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="tendon_force_length_damping" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="mass" minOccurs="0"/>
+      </xsd:sequence>
+      <xsd:attribute type="xsd:string" name="name"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="Thelen2003Muscle">
+    <xsd:sequence>
+      <xsd:group ref="BasicMuscleElements"/>
+      <xsd:element type="xsd:float" name="activation_time_constant" minOccurs="0"/>
+      <xsd:element type="xsd:float" name="deactivation_time_constant" minOccurs="0"/>
+      <xsd:element type="xsd:float" name="FmaxTendonStrain" minOccurs="0"/>
+      <xsd:element type="xsd:float" name="FmaxMuscleStrain" minOccurs="0"/>
+      <xsd:element type="xsd:float" name="KshapeActive" minOccurs="0"/>
+      <xsd:element type="xsd:float" name="KshapePassive" minOccurs="0"/>
+      <xsd:element type="xsd:float" name="Af" minOccurs="0"/>
+      <xsd:element type="xsd:float" name="Flen" minOccurs="0"/>
+      <xsd:element type="xsd:float" name="fv_linear_extrap_threshold" minOccurs="0"/>
+    </xsd:sequence>
+    <xsd:attribute type="xsd:string" name="name"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="RigidTendonMuscle">
+    <xsd:sequence>
+      <xsd:group ref="BasicMuscleElements"/>
+    </xsd:sequence>
+    <xsd:attribute type="xsd:string" name="name"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="WrapCylinder">
+    <xsd:sequence>
+      <xsd:element type="vector3" name="xyz_body_rotation"/>
+      <xsd:element type="vector3" name="translation"/>
+      <xsd:element type="xsd:string" name="active"/>
+      <xsd:element type="xsd:float" name="radius"/>
+      <xsd:element type="xsd:float" name="length"/>
+    </xsd:sequence>
+    <xsd:attribute type="xsd:string" name="name"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="WrapSphere">
+    <xsd:sequence>
+      <xsd:element type="vector3" name="translation"/>
+      <xsd:element type="xsd:string" name="active"/>
+      <xsd:element type="xsd:float" name="radius"/>
+    </xsd:sequence>
+    <xsd:attribute type="xsd:string" name="name"/>
+  </xsd:complexType>
+
+  <xsd:element name="GeometryPath">
+    <xsd:annotation>
+      <xsd:documentation>The set of points defining the path of the muscle.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="PathPointSet">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="objects">
+                <xsd:complexType>
+                  <xsd:choice maxOccurs="unbounded" minOccurs="2">
+                    <xsd:element ref="PathPoint"/>
+                  </xsd:choice>
+                </xsd:complexType>
+              </xsd:element>
+              <xsd:element type="xsd:string" name="groups" minOccurs="0"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+		<xsd:element name="PathWrapSet" minOccurs="0">
+			<xsd:complexType>
+			  <xsd:sequence>
+				<xsd:element name="objects">
+				  <xsd:complexType>
+					<xsd:choice maxOccurs="unbounded" minOccurs="0">
+					  <xsd:element ref="PathWrap"/>
+					</xsd:choice>
+				  </xsd:complexType>
+				</xsd:element>
+			  </xsd:sequence>
+			</xsd:complexType>
+		  </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  
+  <xsd:element name="PathWrap">
+	<xsd:complexType>
+	  <xsd:sequence>
+		<xsd:element type="xsd:string" name="wrap_object"/>
+		<xsd:element type="xsd:string" name="method"/>
+	  </xsd:sequence>
+	  <xsd:attribute type="xsd:string" name="name"/>
+	</xsd:complexType>
+  </xsd:element>
+
+  <xsd:element name="PathPoint">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element type="vector3" name="location"/>
+        <xsd:element type="xsd:string" name="body"/>
+      </xsd:sequence>
+      <xsd:attribute type="xsd:string" name="name"/>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:simpleType name="vector3">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="(\s*(\-?\+?)(\d+)(\d*\.*\d*)e?E?(\-?\+?)[0-9]*\s+){2}(\s*(\-?\+?)(\d+)(\d*\.*\d*)e?E?(\-?\+?)[0-9]*\s*)"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>
