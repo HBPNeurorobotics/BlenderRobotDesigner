@@ -141,6 +141,7 @@ class SegmentsMusclesMenu(bpy.types.Menu, BaseMenu):
 
             recursion(current_model.data.bones[root].children)
 
+
 @PluginManager.register_class
 class ConnectWrapMenu(bpy.types.Menu, BaseMenu):
     bl_idname = OPERATOR_PREFIX + "musclewrapmenu"
@@ -155,11 +156,12 @@ class ConnectWrapMenu(bpy.types.Menu, BaseMenu):
         layout = self.layout
         current_model = context.active_object
         active_muscle = global_properties.active_muscle.get(context.scene)
-        for obj in [wrap_object.name for wrap_object in context.scene.objects if wrap_object.RobotEditor.tag == "WRAPPING"
-                                                                       and current_model.name == wrap_object.parent.name]:
+        for obj in [wrap_object.name for wrap_object in context.scene.objects
+                    if wrap_object.RobotDesigner.tag == "WRAPPING" and current_model.name == wrap_object.parent.name]:
             if obj not in [connected_wrap.wrappingName for connected_wrap in
-                           context.scene.objects[active_muscle].RobotEditor.muscles.connectedWraps]:
+                           context.scene.objects[active_muscle].RobotDesigner.muscles.connectedWraps]:
                 layout.operator(mesh_generation.SelectWrappingObject.bl_idname, text=obj).wrapping_name = obj
+
 
 class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
     """
@@ -338,7 +340,7 @@ class WrappingObjectsMenu(ConnectedObjectsMenu):
         if status == 'all':
             obj_names = [obj.name for obj in context.scene.objects if
                          obj.type == self.blender_type and
-                         obj.RobotEditor.tag == 'WRAPPING' and
+                         obj.RobotDesigner.tag == 'WRAPPING' and
                          not obj.hide]
         elif status == 'none':
             obj_names = []

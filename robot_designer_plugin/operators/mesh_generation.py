@@ -167,7 +167,7 @@ class CreateWrappingCylinder(RDOperator):
 
         cylinder.RobotDesigner.wrap.muscleNames.add()
         nrm = len(cylinder.RobotDesigner.wrap.muscleNames)
-        cylinder.RobotEditor.wrap.muscleNames[nrm - 1].name = active_muscle.name
+        cylinder.RobotDesigner.wrap.muscleNames[nrm - 1].name = active_muscle.name
 
         active_muscle.RobotDesigner.muscles.connectedWraps.add()
         nrw = len(active_muscle.RobotDesigner.muscles.connectedWraps)
