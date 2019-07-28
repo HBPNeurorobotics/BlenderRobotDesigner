@@ -115,6 +115,7 @@ class RDGlobals(PropertyGroupHandlerBase):
         Hides/Shows mesh objects in dependence of the respective Global property
         """
 
+        current_wrapping_display = bpy.context.scene.RobotDesigner.display_wrapping_selection
         hide_geometry = global_properties.display_mesh_selection.get(context.scene)
         geometry_name = [obj.name for obj in bpy.data.objects if
                          not obj.parent_bone is None and
@@ -122,14 +123,66 @@ class RDGlobals(PropertyGroupHandlerBase):
 
         for mesh in geometry_name:
             obj = bpy.data.objects[mesh]
+            if current_wrapping_display == 'all':
+                obj.hide = True
+                if hide_geometry == 'all':
+                    obj.hide = False
+                elif hide_geometry == 'collision':
+                    if obj.RobotDesigner.tag == 'COLLISION' or obj.RobotDesigner.tag == 'WRAPPING':
+                        obj.hide = False
+                elif hide_geometry == 'visual':
+                    if obj.RobotDesigner.tag == 'DEFAULT' or obj.RobotDesigner.tag == 'WRAPPING':
+                        obj.hide = False
+                elif hide_geometry == 'none':
+                    if obj.RobotDesigner.tag == 'WRAPPING':
+                        obj.hide = False
+            elif current_wrapping_display == 'none':
+                obj.hide = True
+                if hide_geometry == 'all' and obj.RobotDesigner.tag != 'WRAPPING':
+                    obj.hide = False
+                elif hide_geometry == 'collision' and obj.RobotDesigner.tag == 'COLLISION':
+                    obj.hide = False
+                elif hide_geometry == 'visual' and obj.RobotDesigner.tag == 'DEFAULT':
+                    obj.hide = False
+                elif hide_geometry == 'none':
+                    obj.hide = True
+            else:
+                obj.hide = True
+
+
+    @staticmethod
+    def display_wrapping_geometries(self, context):
+
+        current_mesh_display = bpy.context.scene.RobotDesigner.display_mesh_selection
+        hide_geometry = global_properties.display_wrapping_selection.get(context.scene)
+        geometry_name = [obj.name for obj in bpy.data.objects if
+                    not obj.parent_bone is None and
+                    obj.type == 'MESH']
+
+        for mesh in geometry_name:
+            obj = bpy.data.objects[mesh]
             if hide_geometry == 'all':
-                obj.hide = False
-            elif hide_geometry == 'collision' and obj.RobotDesigner.tag == 'COLLISION':
-                obj.hide = False
-            elif hide_geometry == 'visual' and obj.RobotDesigner.tag == 'DEFAULT':
-                obj.hide = False
+                if current_mesh_display == 'collision':
+                    if obj.RobotDesigner.tag == 'WRAPPING' or obj.RobotDesigner.tag == 'COLLISION':
+                        obj.hide = False
+                elif current_mesh_display == 'visual':
+                    if obj.RobotDesigner.tag == 'WRAPPING' or obj.RobotDesigner.tag == 'DEFAULT':
+                        obj.hide = False
+                elif current_mesh_display == 'none':
+                    if obj.RobotDesigner.tag == 'WRAPPING':
+                        obj.hide = False
+                elif current_mesh_display == 'all':
+                    obj.hide = False
             elif hide_geometry == 'none':
                 obj.hide = True
+                if current_mesh_display == 'collision' and obj.RobotDesigner.tag == 'COLLISION':
+                    obj.hide = False
+                elif current_mesh_display == 'visual' and obj.RobotDesigner.tag == 'DEFAULT':
+                    obj.hide = False
+                elif current_mesh_display == 'all' and obj.RobotDesigner.tag != 'WRAPPING':
+                    obj.hide = False
+                elif current_mesh_display == 'none':
+                    obj.hide = True
             else:
                 obj.hide = True
 
@@ -220,9 +273,9 @@ class RDGlobals(PropertyGroupHandlerBase):
         print("in the function")
         active_model = self.model_name
         for muscle in [obj.name for obj in bpy.data.objects
-                       if bpy.data.objects[obj.name].RobotDesigner.muscles.robotName == active_model]:
-            bpy.data.objects[muscle].data.bevel_depth = self.muscle_dim
-            print("changeing ----")
+            if bpy.data.objects[obj.name].RobotDesigner.muscles.robotName == active_model]:
+                bpy.data.objects[muscle].data.bevel_depth = self.muscle_dim
+                print("changing ----")
 
     def __init__(self):
 
@@ -255,7 +308,7 @@ class RDGlobals(PropertyGroupHandlerBase):
                    ('files', 'Files', 'Export Armature')],
         ))
 
-        # Holds the selection to operate on colission geometries OR visual geometries
+        # Holds the selection to operate on collision geometries OR visual geometries
         self.mesh_type = PropertyHandler(EnumProperty(
             items=[('DEFAULT', 'Visual geometries', 'Edit visual geometries'),
                    ('COLLISION', 'Collision geometries', 'Edit collision geometries')]
@@ -294,7 +347,7 @@ class RDGlobals(PropertyGroupHandlerBase):
             BoolProperty(name="Assign as Collision Mesh", description="Adds a collision tag to the mesh",
                          default=False))
 
-        # Holds the selection of wheter do hide/display connected/unassigned meshes in the 3D viewport
+        # Holds the selection of whether do hide/display connected/unassigned meshes in the 3D viewport
         self.display_mesh_selection = PropertyHandler(EnumProperty(
             items=[('all', 'All',
                     'Show all objects in viewport'),
@@ -304,6 +357,12 @@ class RDGlobals(PropertyGroupHandlerBase):
                     'Show only connected visual models'),
                    ('none', "None", "Show no connected model")],
             update=self.display_geometries))
+
+        self.display_wrapping_selection = PropertyHandler(EnumProperty(
+            items=[('all', 'All',
+                    'Show all wrapping objects'),
+                   ('none', "None", "Show no wrapping models")],
+            update=self.display_wrapping_geometries))
 
         # Holds the selection to list connected or unassigned segments in dropdown menus
         self.list_segments = PropertyHandler(EnumProperty(

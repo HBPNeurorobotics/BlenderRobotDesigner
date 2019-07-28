@@ -398,6 +398,24 @@ class SDFTree(object):
 
     #    return joint_controller
 
+    def add_camera_sensor(self):
+        """
+        Adds a sensor to current segment.
+
+        :param file_name: Name of the file
+        :type file_name: string
+        :return:
+        """
+        link_sensor = sdf_dom.sensor()
+        self.link.sensor.append(link_sensor)
+        link_sensor.pose.append('0 0 0 0 0 0')
+        camera = sdf_dom.camera()
+        link_sensor.append(camera)
+      #  image = sdf_dom.image()
+      #  camera.append(image)
+
+        return link_sensor
+
     def set_defaults(self):
         """
         Adds defaults to missing values.

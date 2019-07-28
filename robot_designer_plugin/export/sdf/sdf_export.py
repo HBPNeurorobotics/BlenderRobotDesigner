@@ -114,8 +114,13 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
 
     if not export_collision:
         meshes = [obj.name for obj in context.scene.objects if
-              obj.type == "MESH" and obj.name == name and
-              not obj.RobotDesigner.tag == "COLLISION"]
+#<<<<<<< HEAD
+                  obj.type == "MESH" and obj.name == name and
+                  obj.RobotDesigner.tag == "VISUAL"] #TODO: Change to if VISUAL
+#=======
+#              obj.type == "MESH" and obj.name == name and
+#              not obj.RobotDesigner.tag == "COLLISION"]
+#>>>>>>> master
         directory = os.path.join(directory, "meshes", "visual")
 
     else:
@@ -208,7 +213,8 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         operator.logger.info("walk_segments: %s" % str(segment))
 
         child = tree.add()
-        trafo, _ = getTransformFromBlender(segment)
+        trafo, dummy = segment.RobotDesigner.getTransform()
+        #trafo, _ = getTransformFromBlender(segment)
 
         # child.joint.origin.rpy = list_to_string(trafo.to_euler())
         # child.joint.origin.xyz = list_to_string([i * j for i, j in zip(trafo.translation, blender_scale_factor)])
@@ -302,7 +308,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
         operator.logger.info(" joint type'%s'" % child.joint.type)
 
-        # Add properties
+        ### Add Meshes
         armature = context.active_object
         connected_meshes = [mesh.name for mesh in context.scene.objects if
                         mesh.type == 'MESH' and mesh.parent_bone == segment.name and mesh.parent == armature]
@@ -362,11 +368,11 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 collision.name = bpy.data.objects[mesh].name  # child.link.name + '_collision'
                 operator.logger.info(" collision mesh pose'%s'" % collision.pose[0])
 
-
-
             else:
                 operator.logger.info("No collision model for: %s", mesh)
 
+
+        ### Add Physics
         frame_names = [
             frame.name for frame in context.scene.objects if
             frame.RobotDesigner.tag == 'PHYSICS_FRAME' and frame.parent_bone == segment.name]
@@ -419,12 +425,47 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         #                                      segment.RobotDesigner.jointController.I,
         #                                      segment.RobotDesigner.jointController.D])
 
+
+
+        ### add link sensors
+        sensor_names = [
+            sensor.name for sensor in context.scene.objects if
+            sensor.RobotDesigner.tag == 'SENSOR' and sensor.parent_bone == segment.name]
+
+        operator.logger.info(" sensor name'%s'" % sensor_names)
+
+        for sensor in sensor_names:
+            active_sensor = bpy.data.objects[sensor]
+            type = active_sensor.RobotDesigner.sensor_type
+            if type == 'CAMERA_SENSOR':
+                sensor_sdf = child.add_camera_sensor()
+                sensor_sdf.name = sensor
+                # camera
+                sensor_sdf.type = 'camera'
+                sensor_sdf.camera.name ='left eze'
+                # todo sensor_sdf.horizontal_fov = bpy.data.cameras[sensor].angle_x
+                # image
+             # todo   sensor_sdf.camera.image.append('imagename')
+            # todo    sensor_sdf.camera.image.width.append(active_sensor.RobotDesigner.cameraSensor.width)
+                # todo   sensor_sdf.camera.image.height = active_sensor.RobotDesigner.cameraSensor.height
+                # todo    sensor_sdf.camera.image.format = active_sensor.RobotDesigner.cameraSensor.format
+
+
+            else:
+                'type not found'
+           # elif type == 'CAMERA':   todo other sensor types
+            #   sensor_sdf.type = 'camera'
+
+
+  #      operator.logger.info(" sensor name'%s'" % child.link.sensor.name)
+
+
+
         # Add geometry
         for child_segments in segment.children:
             operator.logger.info("Next Segment'%s'" % child_segments.name)
             ref_pose = string_to_list(child.link.pose[0])
             walk_segments(child_segments, child, ref_pose)
-
 
     robot_name = context.active_object.name
 
@@ -639,7 +680,7 @@ def create_config(operator: RDOperator, context, filepath: str, meshpath: str, t
     modelI = model_config_dom.model()
 
     # get model data
-    modelI.name = bpy.context.active_object.name
+    modelI.name = bpy.context.active_object.RobotDesigner.modelMeta.model_config
     modelI.version = bpy.context.active_object.RobotDesigner.modelMeta.model_version
 
     # get thumbnail data
