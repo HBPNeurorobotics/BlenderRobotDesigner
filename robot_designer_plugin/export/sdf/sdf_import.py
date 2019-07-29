@@ -531,7 +531,7 @@ class Importer(object):
             inertia_location = string_to_list(node.link.inertial[0].pose[0])[0:3]
             inertia_rotation = string_to_list(node.link.inertial[0].pose[0])[3:]
 
-            bpy.data.objects[node.link.name].location = inertia_location
+            bpy.data.objects[node.link.name].location = [inertia_location[1], inertia_location[2], inertia_location[0]]
             bpy.data.objects[node.link.name].rotation_euler = inertia_rotation
 
             # set inertia
@@ -751,8 +751,6 @@ class Importer(object):
         model_name = bpy.context.active_object.name
         model_type = bpy.context.active_object.type
         bpy.context.active_object.RobotDesigner.modelMeta.model_folder = os.path.basename(os.path.dirname(self.file_path))
-        bpy.context.active_object.location = robot_location
-        bpy.context.active_object.rotation_euler = robot_rotation
 
         self.logger.debug('model_name: %s', model_name)
         self.logger.debug('model_type: %s', model_type)
@@ -786,6 +784,11 @@ class Importer(object):
             #          SelectCoordinateFrame.run(mesh_name='CoordinateFrame')
             #      except:
             #          pass
+
+
+        # set robot location and rotation
+        bpy.context.active_object.location = robot_location
+        bpy.context.active_object.rotation_euler = robot_rotation
 
         # bpy.ops.view3d.view_lock_to_active()
         bpy.context.active_object.show_x_ray = True
@@ -829,7 +832,7 @@ class Importer(object):
         model = model_config_dom.CreateFromDocument(model_config_xml)
 
         # read model data
-        bpy.context.active_object.name = model.name
+        bpy.context.active_object.RobotDesigner.modelMeta.model_config = model.name
         bpy.context.active_object.RobotDesigner.modelMeta.model_version = str(model.version)
 
         # read author todo multiple authors

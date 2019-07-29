@@ -49,7 +49,7 @@ from bpy.props import IntProperty, StringProperty, CollectionProperty
 # ######
 # RobotDesigner imports
 
-from ..operators import segments, model, rigid_bodies, dynamics, sensors, muscles
+from ..operators import segments, model, rigid_bodies, dynamics, sensors, muscles, mesh_generation
 
 from ..core import PluginManager
 from ..core.config import OPERATOR_PREFIX
@@ -142,6 +142,27 @@ class SegmentsMusclesMenu(bpy.types.Menu, BaseMenu):
             recursion(current_model.data.bones[root].children)
 
 
+@PluginManager.register_class
+class ConnectWrapMenu(bpy.types.Menu, BaseMenu):
+    bl_idname = OPERATOR_PREFIX + "musclewrapmenu"
+    bl_label = "Select Wrapping Object"
+    filter = None
+    '''
+    Wrapping Objects must always be connected to a segment. Else the option to connect wrapping objects to a muscle
+    will not appear in the list. 
+    '''
+    @RDOperator.OperatorLogger
+    def draw(self, context):
+        layout = self.layout
+        current_model = context.active_object
+        active_muscle = global_properties.active_muscle.get(context.scene)
+        for obj in [wrap_object.name for wrap_object in context.scene.objects
+                    if wrap_object.RobotDesigner.tag == "WRAPPING" and current_model.name == wrap_object.parent.name]:
+            if obj not in [connected_wrap.wrappingName for connected_wrap in
+                           context.scene.objects[active_muscle].RobotDesigner.muscles.connectedWraps]:
+                layout.operator(mesh_generation.SelectWrappingObject.bl_idname, text=obj).wrapping_name = obj
+
+
 class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
     """
     :ref:`menu` for selecting sensors while displaying connections to robot segments in the scene.
@@ -176,6 +197,11 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.type == self.blender_type and
                              obj.RobotDesigner.tag == 'DEFAULT' and
+                             not obj.hide]
+            elif type == 'wrapping':
+                obj_names = [obj.name for obj in bpy.data.objects if
+                             obj.type == self.blender_type and
+                             obj.RobotDesigner.tag == 'WRAPPING' and
                              not obj.hide]
             elif type == 'none':
                 obj_names = []
@@ -290,6 +316,72 @@ class GeometriesMenu(ConnectedObjectsMenu):
     quick_search = global_properties.mesh_name
     operator_property = "geometry_name"
     operator = rigid_bodies.SelectGeometry
+
+
+@PluginManager.register_class
+class WrappingObjectsMenu(ConnectedObjectsMenu):
+
+    bl_idname = OPERATOR_PREFIX + "wrappingobjectsmenu"
+    bl_label = "Select Wrapping Object"
+
+    obj_tag = global_properties.mesh_type
+    show_connected = global_properties.list_meshes
+    blender_type = StringConstants.mesh
+    quick_search = global_properties.mesh_name
+    operator_property = "geometry_name"
+    operator = rigid_bodies.SelectGeometry
+
+    @RDOperator.OperatorLogger
+    def draw(self, context):
+        obj_tag = self.obj_tag.get(context.scene)
+        obj_hidden = self.show_connected.get(context.scene)
+        layout = self.layout
+        status = global_properties.display_wrapping_selection.get(context.scene)
+        if status == 'all':
+            obj_names = [obj.name for obj in context.scene.objects if
+                         obj.type == self.blender_type and
+                         obj.RobotDesigner.tag == 'WRAPPING' and
+                         not obj.hide]
+        elif status == 'none':
+            obj_names = []
+
+        self.logger.debug(obj_names)
+
+        for obj in obj_names:
+            if bpy.data.objects[obj].parent_bone:
+                text = obj + " --> " + bpy.data.objects[obj].parent_bone
+                if obj_hidden == 'disconnected':
+                    continue
+            else:
+                text = obj
+                if obj_hidden == 'connected':
+                    continue
+            setattr(layout.operator(self.operator.bl_idname, text=text), self.operator_property, obj)
+
+    @classmethod
+    def putMenu(cls,layout, context, text=None, **kwargs):
+
+        hide_obj = cls.show_connected.get(context.scene)
+
+        # Get selected meshes
+        selected = [i for i in bpy.context.selected_objects if i.type == cls.blender_type]
+
+        text = cls.text
+
+        if len(selected) == 1:
+            object = selected[0]
+            if object.parent_bone and not hide_obj == 'disconnected':
+                text = object.name + " --> " + object.parent_bone
+            elif not object.parent_bone and not hide_obj == 'connected':
+                text = object.name
+
+        layout.menu(cls.bl_idname, text=text)
+        row = layout.row(align=True)
+        cls.show_connected.prop(context.scene, row,  expand=True, icon_only=True)
+        row.separator()
+
+        cls.quick_search.prop_search(bpy.context.scene, row,
+                                     bpy.data, 'objects', icon='VIEWZOOM', text='')
 
 
 @PluginManager.register_class
