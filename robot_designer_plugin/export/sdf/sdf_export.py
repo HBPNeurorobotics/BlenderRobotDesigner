@@ -288,14 +288,14 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                     segment.RobotDesigner.theta.min)))
                 child.joint.axis[0].limit[0].upper.append((radians(
                     segment.RobotDesigner.theta.max)))
-                child.joint.axis[0].limit[0].velocity.append(bpy.context.active_bone.RobotDesigner.controller.maxVelocity)
-                child.joint.axis[0].limit[0].effort.append(bpy.context.active_bone.RobotDesigner.controller.maxTorque)
+                child.joint.axis[0].limit[0].effort.append(segment.RobotDesigner.controller.maxTorque)
+                child.joint.axis[0].limit[0].velocity.append(segment.RobotDesigner.controller.maxVelocity)
                 child.joint.type = 'revolute'
             if segment.RobotDesigner.jointMode == 'PRISMATIC':
                 child.joint.axis[0].limit[0].lower.append(segment.RobotDesigner.d.min)
                 child.joint.axis[0].limit[0].upper.append(segment.RobotDesigner.d.max)
-                child.joint.axis[0].limit[0].velocity.append(bpy.context.active_bone.RobotDesigner.controller.maxVelocity)
-                child.joint.axis[0].limit[0].effort.append(bpy.context.active_bone.RobotDesigner.controller.maxTorque)
+                child.joint.axis[0].limit[0].effort.append(segment.RobotDesigner.controller.maxTorque)
+                child.joint.axis[0].limit[0].velocity.append(segment.RobotDesigner.controller.maxVelocity)
                 child.joint.type = 'prismatic'
             if segment.RobotDesigner.jointMode == 'REVOLUTE2':
                 child.joint.type = 'revolute2'
