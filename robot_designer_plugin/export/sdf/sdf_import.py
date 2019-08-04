@@ -34,6 +34,7 @@
 # ######
 # System imports
 import os
+import sys
 from math import *
 from mathutils import Euler, Matrix, Vector
 from pathlib import Path
@@ -86,7 +87,6 @@ class Importer(object):
         self.logger = operator.logger
         self.operator = operator
         self.controllers = None
-
 
     def add_box(self, model):
         """
@@ -305,6 +305,7 @@ class Importer(object):
         #
         #     bpy.ops.mesh.primitive_cylinder_add(depth=c_depth, radius=c_radius)
         #     bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
+
 
         fn, extension = os.path.splitext(mesh_path)
         if extension == ".stl" or extension == ".STL":
