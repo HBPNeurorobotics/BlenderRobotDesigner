@@ -88,18 +88,6 @@ class Importer(object):
         self.operator = operator
         self.controllers = None
 
-    def get_operating_system(self):
-        self.platforms = {
-            'linux1': 'Linux',
-            'linux2': 'Linux',
-            'darwin': 'Mac OS X',
-            'win32': 'Windows'
-        }
-        if sys.platform not in self.platforms:
-            return sys.platform
-
-        return self.platforms[sys.platform]
-
     def add_box(self, model):
         """
         This function takes inputs and returns vertex and face arrays.
@@ -318,11 +306,6 @@ class Importer(object):
         #     bpy.ops.mesh.primitive_cylinder_add(depth=c_depth, radius=c_radius)
         #     bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
 
-        operating_system = self.get_operating_system()
-        if operating_system == 'Windows':
-            mesh_path = mesh_path.replace(os.sep, '\\')
-        else:
-            pass
 
         fn, extension = os.path.splitext(mesh_path)
         if extension == ".stl" or extension == ".STL":

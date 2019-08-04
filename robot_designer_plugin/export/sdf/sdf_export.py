@@ -82,17 +82,19 @@ def _uri_for_meshes_and_muscles(in_ros_package: bool, abs_file_paths, toplevel_d
     Generate proper URI's for included geometry files and muscle definitions (.osim).
 
     :param in_ros_package:  Whether to export into a ros package or plain files
-    :param abs_file_paths: If not intstalled into a ros package decides whether to use absolute file paths.
+    :param abs_file_paths: If not installed into a ros package decides whether to use absolute file paths.
     :param toplevel_dir: The directory in which to export
     :param file_path: The absolute path of the file for which to generate the URI.
     :return:
     """
     if in_ros_package:
-        return "package://" + os.path.relpath(file_path, str(Path(toplevel_dir).parent))
+        uri = os.path.relpath(file_path, str(Path(toplevel_dir).parent))
+        return "package://" + uri.replace(os.path.sep, '/')
     elif not abs_file_paths:
-        return "model://" + os.path.relpath(file_path, str(Path(toplevel_dir).parent))
+        uri = os.path.relpath(file_path, str(Path(toplevel_dir).parent))
+        return "model://" + uri.replace(os.path.sep, '/')
     else:
-        return "model://" + file_path
+        return "model://" + file_path.replace(os.path.sep, '/')
 
 
 def export_mesh(operator: RDOperator, context, name: str, directory: str, toplevel_dir: str, in_ros_package: bool,
@@ -141,7 +143,6 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
         # get the mesh vertices number
         bm = bpy.context.scene.objects.active.data
         # print("# of vertices=%d" % len(bm.vertices))
-
         if len(bm.vertices) > 1:
             if '.' in mesh:
                 file_path = os.path.join(directory,
@@ -151,7 +152,6 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
 
             hide_flag_backup = bpy.context.scene.objects.active.hide
             bpy.context.scene.objects.active.hide = False  # Blender does not want to export hidden objects.
-
             bpy.ops.wm.collada_export(filepath=file_path, apply_modifiers=True, selected=True, use_texture_copies=True)
 
             bpy.context.scene.objects.active.hide = hide_flag_backup
@@ -195,26 +195,6 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     :param abs_filepaths: If not intstalled into a ros package decides whether to use absolute file paths.
     :return:
     """
-
-    def get_operating_system():
-        platforms = {
-            'linux1': 'Linux',
-            'linux2': 'Linux',
-            'darwin': 'Mac OS X',
-            'win32': 'Windows'
-        }
-        if sys.platform not in platforms:
-            return sys.platform
-
-        return platforms[sys.platform]
-
-    operating_system = get_operating_system()
-
-    # the meshpath should contain slash not backslash, regardless of the operating system
-    if operating_system == 'Windows':
-        meshpath = meshpath.replace(os.sep, '/')
-    else:
-        pass
 
     def walk_segments(segment, tree, ref_pose):
         """
