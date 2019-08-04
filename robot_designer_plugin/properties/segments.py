@@ -56,9 +56,9 @@ class RDActuator(bpy.types.PropertyGroup):
     """
     Property group that contains all controller-related parameters
     """
-    maxVelocity = FloatProperty(name="max. Velocity", precision=4, step=100)
-    maxTorque = FloatProperty(name="max. Torque", precision=4, step=100)
-    isActive = BoolProperty(name="acitve?")
+    maxVelocity = FloatProperty(name="max. Velocity", precision=4, step=100, default=-1)
+    maxTorque = FloatProperty(name="max. Torque", precision=4, step=100, default=-1)
+    isActive = BoolProperty(name="active?")
     acceleration = FloatProperty(name="Acceleration", precision=4, step=100)
     deceleration = FloatProperty(name="Deceleration", precision=4, step=100)
 
@@ -73,7 +73,6 @@ class RDDegreeOfFreedom(bpy.types.PropertyGroup):
         if global_properties.do_kinematic_update.get(context.scene):
             segment_name = context.active_bone.name
             UpdateSegments.run(segment_name=segment_name, recurse=False)
-
 
     value = FloatProperty(name="Value", update=updateDoF, precision=4,
                       step=100)

@@ -457,10 +457,11 @@ class Importer(object):
         bpy.context.active_bone.RobotDesigner.Euler.gamma.value = round(degrees(euler[2]), 0)
 
         if parent_name:
-            if node.joint.axis[0].dynamics:
-                if len(node.joint.axis[0].limit):
-                    bpy.context.active_bone.RobotDesigner.controller.maxVelocity = float(get_list_value(
-                        node.joint.axis[0].limit[0].velocity, 0))
+            if len(node.joint.axis[0].limit):
+                bpy.context.active_bone.RobotDesigner.controller.maxTorque = float(get_list_value(
+                    node.joint.axis[0].limit[0].velocity, 0))
+                bpy.context.active_bone.RobotDesigner.controller.maxVelocity = float(get_list_value(
+                    node.joint.axis[0].limit[0].velocity, 0))
 
         # bpy.context.active_bone.RobotDesigner.controller.maxVelocity = float(tree.joint.limit.friction)
 
@@ -475,8 +476,10 @@ class Importer(object):
             if node.joint.type == 'prismatic':
                 bpy.context.active_bone.RobotDesigner.jointMode = 'PRISMATIC'
                 if len(node.joint.axis[0].limit):
-                    bpy.context.active_bone.RobotDesigner.d.max = float(get_list_value(node.joint.axis[0].limit[0].upper, 0))
-                    bpy.context.active_bone.RobotDesigner.d.min = float(get_list_value(node.joint.axis[0].limit[0].lower, 0))
+                    bpy.context.active_bone.RobotDesigner.d.max = \
+                        float(get_list_value(node.joint.axis[0].limit[0].upper, 0))
+                    bpy.context.active_bone.RobotDesigner.d.min = \
+                        float(get_list_value(node.joint.axis[0].limit[0].lower, 0))
             if node.joint.type == 'revolute2':
                 bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE2'
             if node.joint.type == 'universal':
