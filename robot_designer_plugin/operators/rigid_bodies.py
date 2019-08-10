@@ -107,9 +107,9 @@ class RenameGeometry(RDOperator):
     def execute(self, context):
         mesh_name = global_properties.mesh_name.get(context.scene)
         current_mesh = bpy.data.objects[mesh_name]
-        current_mesh.name = mesh_name.split('_')[0] + '_' + self.new_name
+        current_mesh.name = self.new_name
         bpy.data.scenes["Scene"].RobotDesigner.mesh_name = current_mesh.name
-        bpy.data.objects[current_mesh.name].RobotDesigner.fileName = current_mesh.name
+        # bpy.data.objects[current_mesh.name].RobotDesigner.fileName = current_mesh.name
         global_properties.mesh_name.set(context.scene, current_mesh.name)
         return {'FINISHED'}
 
