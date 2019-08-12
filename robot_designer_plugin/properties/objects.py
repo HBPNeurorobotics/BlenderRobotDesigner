@@ -41,17 +41,23 @@
 
 # Blender imports
 from glob import glob
+import mathutils
 
 import bpy
 from bpy.props import FloatProperty, StringProperty, \
-    EnumProperty, FloatVectorProperty, PointerProperty, IntProperty, CollectionProperty
+    EnumProperty, FloatVectorProperty, PointerProperty, IntProperty, CollectionProperty, BoolProperty
 
 # RobotDesigner imports
 from ..core import PluginManager
 from ..properties.globals import global_properties
 
+import numpy as np
+
 
 # from .globals import global_properties
+
+def raise_error(self, context):
+    self.layout.label("Invalid input!Please check the input mass and inertia!")
 
 @PluginManager.register_property_group()
 class RDDynamics(bpy.types.PropertyGroup):
@@ -65,21 +71,92 @@ class RDDynamics(bpy.types.PropertyGroup):
     # frame.RobotDesigner.dynamics.CoM[2]))
     #    frame.location = position
 
-    mass = FloatProperty(name="Mass (kg)", precision=4, step=0.1, default=1.0)
+    def get_x(self):
+        return self.get("inertiaXX", 1.0)
 
+    def get_y(self):
+        return self.get("inertiaYY", 1.0)
+
+    def get_z(self):
+        return self.get("inertiaZZ", 1.0)
+
+    def get_mass(self):
+        return self.get("mass", 1.0)
+
+    def set_x(self, value):
+        if (value < 0
+                or value + self.inertiaYY < self.inertiaZZ
+                or self.inertiaYY + self.inertiaZZ < value
+                or self.inertiaZZ + value < self.inertiaYY):
+            bpy.context.window_manager.popup_menu(raise_error, title="Error", icon='ERROR')
+        else:
+            self["inertiaXX"] = value
+
+    def set_y(self, value):
+        if (value < 0
+                or self.inertiaXX + value < self.inertiaZZ
+                or value + self.inertiaZZ < self.inertiaXX
+                or self.inertiaZZ + self.inertiaXX < value):
+            bpy.context.window_manager.popup_menu(raise_error, title="Error", icon='ERROR')
+        else:
+            self["inertiaYY"] = value
+
+    def set_z(self, value):
+        if (value < 0
+                or self.inertiaXX + self.inertiaYY < value
+                or self.inertiaYY + value < self.inertiaXX
+                or value + self.inertiaXX < self.inertiaYY):
+            bpy.context.window_manager.popup_menu(raise_error, title="Error", icon='ERROR')
+        else:
+            self["inertiaZZ"] = value
+
+    def set_mass(self, value):
+        if (value < 0):
+            bpy.context.window_manager.popup_menu(raise_error, title="Error", icon='ERROR')
+        else:
+            self["mass"] = value
+
+
+    def scale_update(self, context):
+        obj = [o for o in bpy.context.active_object.children if
+               o.RobotDesigner.tag == 'PHYSICS_FRAME' and o.parent_bone == bpy.context.active_bone.name]
+        frame, = obj
+        """
+        if(self.mass < 0
+                or self.inertiaXX < 0 or self.inertiaYY < 0 or self.inertiaZZ < 0
+                or self.inertiaXX + self.inertiaYY < self.inertiaZZ
+                or self.inertiaYY + self.inertiaZZ < self.inertiaXX
+                or self.inertiaZZ + self.inertiaXX < self.inertiaYY):
+            bpy.context.window_manager.popup_menu(raise_error, title="Error", icon='ERROR')
+        else:
+        """
+        boxScaleX = np.sqrt(6 * (self.inertiaZZ + self.inertiaYY - self.inertiaXX) / self.mass)
+        boxScaleY = np.sqrt(6 * (self.inertiaZZ + self.inertiaXX - self.inertiaYY) / self.mass)
+        boxScaleZ = np.sqrt(6 * (self.inertiaXX + self.inertiaYY - self.inertiaZZ) / self.mass)
+        frame.scale[0] = boxScaleX
+        frame.scale[1] = boxScaleY
+        frame.scale[2] = boxScaleZ
+
+    mass = FloatProperty(name="Mass (kg)", soft_min=0, precision=4, step=0.1, default=1.0,
+                         update=scale_update, get=get_mass, set=set_mass)
     # new inertia tensor
-    inertiaXX = FloatProperty(name="", precision=4, step=0.1, default=1.0)
+    inertiaXX = FloatProperty(name="", soft_min=0, precision=4, step=0.1, default=1.0,
+                              update=scale_update, get=get_x, set=set_x)
+    inertiaYY = FloatProperty(name="", soft_min=0, precision=4, step=0.1, default=1.0,
+                              update=scale_update, get=get_y, set=set_y)
+    inertiaZZ = FloatProperty(name="", soft_min=0, precision=4, step=0.1, default=1.0,
+                              update=scale_update, get=get_z, set=set_z)
     inertiaXY = FloatProperty(name="", precision=4, step=0.1, default=0.0)
     inertiaXZ = FloatProperty(name="", precision=4, step=0.1, default=0.0)
-    inertiaYY = FloatProperty(name="", precision=4, step=0.1, default=1.0)
     inertiaYZ = FloatProperty(name="", precision=4, step=0.1, default=0.0)
-    inertiaZZ = FloatProperty(name="", precision=4, step=0.1, default=1.0)
+
 
 @PluginManager.register_property_group()
 class RDSensorNoise(bpy.types.PropertyGroup):
     type = EnumProperty(items=[('gaussian', 'Gaussian', 'Gaussian')])
     mean = FloatProperty(name="mean", default=0)
     stddev = FloatProperty(name="stddev", default=0)
+
 
 @PluginManager.register_property_group()
 class RDCamera(bpy.types.PropertyGroup):
@@ -321,6 +398,7 @@ class RDObjects(bpy.types.PropertyGroup):
     objects with respect to the RobotDesigner
     '''
     fileName = StringProperty(name="Mesh File Name")
+    world = BoolProperty(name="Attach Link to World")
     tag = EnumProperty(
         items=[('DEFAULT', 'Default', 'Default'),
                ('MARKER', 'Marker', 'Marker'),
@@ -342,6 +420,11 @@ class RDObjects(bpy.types.PropertyGroup):
                ('ALTIMETER_SENSOR', 'Altimeter Sensors', 'Edit altimeter sensors'),
                ('IMU_SENSOR', 'IMU Sensors', 'Edit IMU sensors')]
     )
+
+
+               # ('BASIC_COLLISION_CUBE', 'basic collision cube', 'basic collision cube'),
+               # ('BASIC_COLLISION_CYLINDER', 'basic collision cylinder', 'basic collision cylinder'),
+               # ('BASIC_COLLISION_SPHERE', 'basic collision sphere', 'basic collision sphere')]
 
     dynamics = PointerProperty(type=RDDynamics)
     modelMeta = PointerProperty(type=RDModelMeta)

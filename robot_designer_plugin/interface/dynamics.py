@@ -67,15 +67,10 @@ def draw(layout, context):
 
     single_segment = getSingleSegment(context)
 
-    # menus.MassObjectMenu.putMenu(column, context)
-    # create_geometry_selection(column, context)
     row = box.column(align=True)
 
     dynamics.CreatePhysical.place_button(row, infoBox=infoBox)
     dynamics.ComputePhysical.place_button(row, infoBox=infoBox)
-
-    # dynamics.AssignPhysical.place_button(row,infoBox=infoBox)
-    # dynamics.DetachPhysical.place_button(row,infoBox=infoBox)
 
     objs = [o for o in context.active_object.children if
             o.RobotDesigner.tag == 'PHYSICS_FRAME' and o.parent_bone == single_segment.name]

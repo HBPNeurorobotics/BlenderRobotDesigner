@@ -44,13 +44,15 @@
 # ######
 # Blender imports
 import bpy
+import bmesh
 from bpy.props import StringProperty, BoolProperty
 # import mathutils
 
 # ######
 # RobotDesigner imports
 from ..core import config, PluginManager, Condition, RDOperator
-from .helpers import ModelSelected, SingleMeshSelected, ObjectMode, SingleSegmentSelected
+from .helpers import ModelSelected, SingleMeshSelected, ObjectMode, SingleSegmentSelected, NotEditMode
+from .model import SelectModel
 
 from ..properties.globals import global_properties
 
@@ -164,9 +166,11 @@ class AssignGeometry(RDOperator):
 
         print ("Attaching ", "COL" if self.attach_collision_geometry else "VIS", "to ", obj.name)
 
-        if self.attach_collision_geometry:
+        if self.attach_collision_geometry and obj.RobotDesigner.tag != 'COLLISION':
             obj.RobotDesigner.tag = 'COLLISION'
             new_name = "COL_" + new_name
+        elif obj.RobotDesigner.tag == 'COLLISION':
+            pass
         else:
             obj.RobotDesigner.tag = 'DEFAULT'
             new_name = "VIS_" + new_name

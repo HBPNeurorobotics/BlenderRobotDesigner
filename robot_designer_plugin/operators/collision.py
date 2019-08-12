@@ -47,7 +47,7 @@ import sys
 # ######
 # Blender imports
 import bpy
-from bpy.props import FloatProperty, IntProperty
+from bpy.props import FloatProperty, IntProperty, StringProperty
 # import mathutils
 import bmesh
 
@@ -331,3 +331,136 @@ class GenerateCollisionConvexHull(RDOperator):
             return {'CANCELLED'}
 
         return {'FINISHED'}
+
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class CreateBasicCollisionCube(RDOperator):
+    bl_idname = config.OPERATOR_PREFIX + "create_basic_collision_cube"
+    bl_label = "Create Basic Collision Cube"
+
+    cube_name = StringProperty(name="Enter collision cube name: ")
+
+    @classmethod
+    def run(cls, frameName=""):
+        return super().run(**cls.pass_keywords())
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected)
+    def execute(self, context):
+        from .model import SelectModel
+        from .rigid_bodies import SelectGeometry
+
+        model_name = context.active_object.name
+        bpy.ops.mesh.primitive_cube_add(radius=1.0)
+        cube = context.active_object
+        cube.name = self.cube_name
+        bpy.data.objects[cube.name].RobotDesigner.tag = 'COLLISION'
+
+        mat = bpy.data.materials.new('blue')
+        mat.diffuse_color = (0, 0, 1)
+        # mat.diffuse_shader = 'LAMBERT'
+        # mat.diffuse_intensity = 1.0
+        # mat.specular_color = (0.5, 0.5, 0)
+        # mat.specular_shader = 'COOKTORR'
+        # mat.specular_intensity = 0.5
+        # mat.alpha = 0.5
+        # mat.ambient = 1
+        cube.data.materials.append(mat)
+        # bpy.ops.render.render()
+
+        SelectModel.run(model_name=model_name)
+        SelectGeometry.run(geometry_name=cube.name)
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class CreateBasicCollisionCylinder(RDOperator):
+    bl_idname = config.OPERATOR_PREFIX + "create_basic_collision_cylinder"
+    bl_label = "Create Basic Collision Cylinder"
+
+    cylinder_name = StringProperty(name="Enter collision cylinder name: ")
+
+    @classmethod
+    def run(cls, frameName=""):
+        return super().run(**cls.pass_keywords())
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected)
+    def execute(self, context):
+        from .model import SelectModel
+        from .rigid_bodies import SelectGeometry
+
+        model_name = context.active_object.name
+        bpy.ops.mesh.primitive_cylinder_add(radius=1.0, depth=1.0)
+        cylinder = context.active_object
+        cylinder.name = self.cylinder_name
+        bpy.data.objects[cylinder.name].RobotDesigner.tag = 'COLLISION'
+
+        mat = bpy.data.materials.new('blue')
+        mat.diffuse_color = (0, 0, 1)
+        # mat.diffuse_shader = 'LAMBERT'
+        # mat.diffuse_intensity = 1.0
+        # mat.specular_color = (0.5, 0.5, 0)
+        # mat.specular_shader = 'COOKTORR'
+        # mat.specular_intensity = 0.5
+        # mat.alpha = 0.5
+        # mat.ambient = 1
+        cylinder.data.materials.append(mat)
+        # bpy.ops.render.render()
+
+        SelectModel.run(model_name=model_name)
+        SelectGeometry.run(geometry_name=cylinder.name)
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class CreateBasicCollisionSphere(RDOperator):
+    bl_idname = config.OPERATOR_PREFIX + "create_basic_collision_sphere"
+    bl_label = "Create Basic Collision Sphere"
+
+    sphere_name = StringProperty(name="Enter collision sphere name: ")
+
+    @classmethod
+    def run(cls, frameName=""):
+        return super().run(**cls.pass_keywords())
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected)
+    def execute(self, context):
+        from .model import SelectModel
+        from .rigid_bodies import SelectGeometry
+
+        model_name = context.active_object.name
+        bpy.ops.mesh.primitive_uv_sphere_add(size=1.0)
+        sphere = context.active_object
+        sphere.name = self.sphere_name
+        bpy.data.objects[sphere.name].RobotDesigner.tag = 'COLLISION'
+
+        mat = bpy.data.materials.new('blue')
+        mat.diffuse_color = (0, 0, 1)
+        # mat.diffuse_shader = 'LAMBERT'
+        # mat.diffuse_intensity = 1.0
+        # mat.specular_color = (0.5, 0.5, 0)
+        # mat.specular_shader = 'COOKTORR'
+        # mat.specular_intensity = 0.5
+        # mat.alpha = 0.5
+        # mat.ambient = 1
+        sphere.data.materials.append(mat)
+        # bpy.ops.render.render()
+
+        SelectModel.run(model_name=model_name)
+        SelectGeometry.run(geometry_name=sphere.name)
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
