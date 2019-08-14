@@ -279,11 +279,14 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         # if segment.parent is None:
             # print("Info: Root joint has no parent", segment, segment.RobotDesigner.jointMode)
 
-        if segment.parent is None and bpy.context.scene.RobotDesigner.world_property is True:
+        if segment.parent is None or bpy.context.scene.RobotDesigner.world_property is True:
             # print("Info: Root joint has no parent", segment, segment.RobotEditor.jointMode)
 
             child.joint.type = 'fixed'
-            child.joint.parent.append(bpy.context.active_object.name)
+            if bpy.context.scene.RobotDesigner.world_property is True:
+                child.joint.parent.append('world')
+            else:
+                pass
         else:
             if segment.RobotDesigner.jointMode == 'REVOLUTE':
                 child.joint.axis[0].limit[0].lower.append((radians(

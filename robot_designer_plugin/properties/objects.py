@@ -405,6 +405,9 @@ class RDObjects(bpy.types.PropertyGroup):
                ('PHYSICS_FRAME', 'Physics Frame', 'Physics Frame'),
                ('ARMATURE', 'Armature', 'Armature'),
                ('COLLISION', 'Collision', 'Collision'),
+               ('BASIC_COLLISION_CUBE', 'basic collision cube', 'basic collision cube'),
+               ('BASIC_COLLISION_CYLINDER', 'basic collision cylinder', 'basic collision cylinder'),
+               ('BASIC_COLLISION_SPHERE', 'basic collision sphere', 'basic collision sphere'),
                ('WRAPPING', 'Wrapping', 'Wrapping'),
                ('SENSOR', 'Sensor', 'Sensor')
                ]
@@ -422,9 +425,6 @@ class RDObjects(bpy.types.PropertyGroup):
     )
 
 
-               # ('BASIC_COLLISION_CUBE', 'basic collision cube', 'basic collision cube'),
-               # ('BASIC_COLLISION_CYLINDER', 'basic collision cylinder', 'basic collision cylinder'),
-               # ('BASIC_COLLISION_SPHERE', 'basic collision sphere', 'basic collision sphere')]
 
     dynamics = PointerProperty(type=RDDynamics)
     modelMeta = PointerProperty(type=RDModelMeta)
