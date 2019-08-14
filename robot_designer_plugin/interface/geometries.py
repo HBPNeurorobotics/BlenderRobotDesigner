@@ -173,6 +173,18 @@ def draw(layout, context):
             collision.GenerateAllCollisionConvexHull.place_button(column, infoBox=infoBox)
             collision.GenerateCollisionConvexHull.place_button(column, infoBox=infoBox)
 
+            row2 = box.row()
+            row2.label("Add basic collision shapes:")
+            row3 = box.row()
+            column = row3.column(align=True)
+            collision.CreateBasicCollisionCube.place_button(column, text='Create Cube', infoBox=infoBox)
+
+            column = row3.column(align=True)
+            collision.CreateBasicCollisionCylinder.place_button(column, text='Create Cylinder', infoBox=infoBox)
+
+            column = row3.column(align=True)
+            collision.CreateBasicCollisionSphere.place_button(column, text='Create Sphere', infoBox=infoBox)
+
             box.row()
             infoBox.draw_info()
 

@@ -124,7 +124,8 @@ def assign_the_physics_frame_to_the_bone(context, frame, bone):
 
 def just_create_the_physics_frame(context, name):
     armature = context.active_object
-    bpy.ops.object.empty_add(type='PLAIN_AXES')
+    #bpy.ops.object.empty_add(type='PLAIN_AXES')
+    bpy.ops.mesh.primitive_cube_add(radius=1.0)
     context.active_object.name = name
     context.active_object.RobotDesigner.tag = 'PHYSICS_FRAME'
     # set new mass object to cursor location
@@ -132,6 +133,17 @@ def just_create_the_physics_frame(context, name):
     context.active_object.location = [cursor.x, cursor.y, cursor.z]
     obj = context.active_object
     bpy.context.scene.objects.active = armature  # Restore the active object.
+
+    # change physics frame color
+    # obj.data.materials.clear()
+    mat = bpy.data.materials.new(name)
+    mat.diffuse_color = (1.0, 0.0, 1.0)
+    mat.diffuse_shader = 'LAMBERT'
+    mat.diffuse_intensity = 1.0
+
+    # mat = bpy.data.materials['MaterialName']
+    obj.data.materials.append(mat)
+
     return obj
 
 

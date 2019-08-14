@@ -94,6 +94,15 @@ class RDGlobals(PropertyGroupHandlerBase):
                 physics.hide = True
 
     @staticmethod
+    def attach_world(self, context):
+        obj = context.active_object
+        if self.world_property is True:
+            bpy.data.objects[obj.name].RobotDesigner.world = True
+            # export joint with fixed type
+        else:
+            bpy.data.objects[obj.name].RobotDesigner.world = False
+
+    @staticmethod
     def updateMuscleName(self, context):
 
         SelectMuscle.run(muscle_name=global_properties.active_muscle.get(context.scene))
@@ -119,30 +128,32 @@ class RDGlobals(PropertyGroupHandlerBase):
         hide_geometry = global_properties.display_mesh_selection.get(context.scene)
         geometry_name = [obj.name for obj in bpy.data.objects if
                          not obj.parent_bone is None and
-                         obj.type == 'MESH']
+                         obj.type == 'MESH' and
+                         obj.RobotDesigner.tag != 'PHYSICS_FRAME']
 
         for mesh in geometry_name:
             obj = bpy.data.objects[mesh]
+            tag = obj.RobotDesigner.tag
             if current_wrapping_display == 'all':
                 obj.hide = True
                 if hide_geometry == 'all':
                     obj.hide = False
                 elif hide_geometry == 'collision':
-                    if obj.RobotDesigner.tag == 'COLLISION' or obj.RobotDesigner.tag == 'WRAPPING':
+                    if tag == 'COLLISION' or tag == 'WRAPPING':
                         obj.hide = False
                 elif hide_geometry == 'visual':
-                    if obj.RobotDesigner.tag == 'DEFAULT' or obj.RobotDesigner.tag == 'WRAPPING':
+                    if tag == 'DEFAULT' or tag == 'WRAPPING':
                         obj.hide = False
                 elif hide_geometry == 'none':
-                    if obj.RobotDesigner.tag == 'WRAPPING':
+                    if tag == 'WRAPPING':
                         obj.hide = False
             elif current_wrapping_display == 'none':
                 obj.hide = True
-                if hide_geometry == 'all' and obj.RobotDesigner.tag != 'WRAPPING':
+                if hide_geometry == 'all' and tag != 'WRAPPING':
                     obj.hide = False
-                elif hide_geometry == 'collision' and obj.RobotDesigner.tag == 'COLLISION':
+                elif hide_geometry == 'collision' and tag == 'COLLISION':
                     obj.hide = False
-                elif hide_geometry == 'visual' and obj.RobotDesigner.tag == 'DEFAULT':
+                elif hide_geometry == 'visual' and tag == 'DEFAULT':
                     obj.hide = False
                 elif hide_geometry == 'none':
                     obj.hide = True
@@ -335,6 +346,9 @@ class RDGlobals(PropertyGroupHandlerBase):
         self.display_physics_selection = PropertyHandler(
             BoolProperty(name="Show Physics Frames", description="Show or hide physics frames", default=True,
                          update=self.display_physics))
+
+        # attach world property
+        self.world_property = PropertyHandler(BoolProperty(name="Attach Link to World", update=self.attach_world))
 
         # Holds the selection to list connected or unassigned meshes in dropdown menus
         self.list_meshes = PropertyHandler(EnumProperty(

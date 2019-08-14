@@ -47,6 +47,12 @@ def draw(layout, context):
     :param context:
     :return:
     """
+    settings = layout.row()
+    global_properties.display_physics_selection.prop(context.scene, settings)
+
+    settings2 = layout.row()
+    # global_properties.world_property.prop(context.scene, settings2)
+    settings2.prop(context.active_bone.RobotDesigner, "world")
 
     layout.label("Parent Mode:")
     layout.prop(context.active_bone.RobotDesigner, "parentMode", expand=True)

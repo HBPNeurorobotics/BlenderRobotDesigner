@@ -76,6 +76,8 @@ from .generic import sdf_dom
 from pyxb.namespace import XMLSchema_instance as xsi
 import pyxb
 
+from ...properties.objects import RDObjects
+#from ...properties.globals import world_property
 
 def _uri_for_meshes_and_muscles(in_ros_package: bool, abs_file_paths, toplevel_dir: str, file_path: str):
     """
@@ -273,9 +275,18 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         print('Axis limit:', child.joint.axis[0].limit)
         print('Axis xyz:', child.joint.axis[0].xyz)
 
-        if segment.parent is None:
+# <<<<<<< HEAD
+        # if segment.parent is None:
             # print("Info: Root joint has no parent", segment, segment.RobotDesigner.jointMode)
+
+        if segment.parent is None or bpy.context.scene.RobotDesigner.world_property is True:
+            # print("Info: Root joint has no parent", segment, segment.RobotEditor.jointMode)
+
             child.joint.type = 'fixed'
+            if bpy.context.scene.RobotDesigner.world_property is True:
+                child.joint.parent.append('world')
+            else:
+                pass
         else:
             if segment.RobotDesigner.jointMode == 'REVOLUTE':
                 child.joint.axis[0].limit[0].lower.append((radians(

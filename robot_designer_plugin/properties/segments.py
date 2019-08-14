@@ -266,6 +266,7 @@ class RDSegment(bpy.types.PropertyGroup):
     Euler = PointerProperty(type=RDEulerAnglesSegment)  # Frame relative to parent
     DH = PointerProperty(
         type=RDDenavitHartenbergSegment)  # Dito but in a different way. Only one, either DH or Euler is used.
+    world = BoolProperty(name="Attach Link to World", default=False)
 
 
 def getTransformFromBlender(bone):
