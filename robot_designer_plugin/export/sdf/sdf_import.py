@@ -505,16 +505,18 @@ class Importer(object):
 
         if len(node.link.inertial) > 0:
             i = node.link.inertial[0].inertia[0]
-            CreatePhysical.run(frameName=node.link.name)
-            SelectPhysical.run(frameName=node.link.name)
             SelectSegment.run(segment_name=segment_name)
-            AssignPhysical.run()
+            CreatePhysical.run(frameName=node.link.name)
+            # SelectPhysical.run(frameName=node.link.name)
+            # SelectSegment.run(segment_name=segment_name)
+            # AssignPhysical.run()
 
             # set mass
             bpy.data.objects[node.link.name].RobotDesigner.dynamics.mass = node.link.inertial[0].mass[0]
 
             # set center of mass position
             inertia_location = string_to_list(node.link.inertial[0].pose[0])[0:3]
+            inertia_location[1] = -1*(1.0 - inertia_location[1])
             inertia_rotation = string_to_list(node.link.inertial[0].pose[0])[3:]
 
             bpy.data.objects[node.link.name].location = [inertia_location[1], inertia_location[2], inertia_location[0]]
