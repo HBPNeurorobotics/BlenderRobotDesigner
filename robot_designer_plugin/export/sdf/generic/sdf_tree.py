@@ -45,6 +45,7 @@ class SDFTree(object):
         self.joint = None
         self.link = None
         self.sdf = None
+        self.world = True
 
         self.connectedLinks = connected_links
         self.connectedJoints = connected_joints
@@ -114,7 +115,7 @@ class SDFTree(object):
 
         # find root links (i.e., links that are NOT connected to a joint)
         child_links = [link.name for link in robot.link for joint in robot.joint if
-                       link.name == joint.child[0]]
+                       (link.name == joint.child[0] and joint.parent[0] != 'world')]
 
         ###  the link, not link name
         root_links = [link for link in robot.link if link.name not in child_links]
@@ -161,6 +162,14 @@ class SDFTree(object):
         # self.set_defaults() # todo:set defaults
 
         children = self.connectedJoints[link]
+
+        worldlink = [joint for joint in self.connectedLinks if
+                     ('_world' in joint.name and self.connectedLinks[joint] == link)]
+
+        if worldlink:
+            self.world = True
+        else:
+            self.world = False
 
         for joint in children:
             tree = SDFTree(connected_links=self.connectedLinks, connected_joints=self.connectedJoints,

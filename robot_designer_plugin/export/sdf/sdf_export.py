@@ -227,7 +227,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         if '.' in segment.name:
             segment.name = segment.name.replace('.', '_')
 
-        # sdf: here the chile does not mean the child of the joint!!!!it is different
+        # sdf: here the child does not mean the child of the joint!!!!it is different
         child.joint.name = segment.name
         child.link.name = segment.name.replace("_joint", "_link")
 
@@ -260,6 +260,36 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
         child.joint.axis[0].xyz.append(joint_axis_xyz)
 
+        if segment.RobotDesigner.world is True:
+            link2world = sdf_tree.SDFTree(connected_links=tree.connectedLinks.items(),
+                                          connected_joints=tree.connectedJoints.items(), robot=tree.robot)
+            link2world.joint = sdf_dom.joint()
+            link2world.robot.joint.append(link2world.joint)
+            joint_axis = sdf_dom.CTD_ANON_47()
+            if not link2world.joint.axis:
+                link2world.joint.axis.append(joint_axis)
+
+            link2world.joint.child.append(segment.name)
+            link2world.joint.name = segment.name + '_world'
+            link2world.joint.parent.append('world')
+            link2world.joint.axis[0].xyz.append(joint_axis_xyz)
+
+            if segment.parent is None:
+                link2world.joint.type = 'fixed'
+            else:
+                if segment.RobotDesigner.jointMode == 'REVOLUTE':
+                    link2world.joint.type = 'revolute'
+                elif segment.RobotDesigner.jointMode == 'PRISMATIC':
+                    link2world.joint.type = 'prismatic'
+                elif segment.RobotDesigner.jointMode == 'REVOLUTE2':
+                    link2world.joint.type = 'revolute2'
+                elif segment.RobotDesigner.jointMode == 'UNIVERSAL':
+                    link2world.joint.type = 'universal'
+                elif segment.RobotDesigner.jointMode == 'BALL':
+                    link2world.joint.type = 'ball'
+                elif segment.RobotDesigner.jointMode == 'FIXED':
+                    link2world.joint.type = 'fixed'
+
         # Settings the following flag is probably wrong. Why? Because RD derives the pose of the
         # child bone from the joint angle and axis w.r.t. the child edit pose. Hence Blenders/RD's
         # behaviour is consistent with Gazebo when this option is turned off.
@@ -279,14 +309,10 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         # if segment.parent is None:
             # print("Info: Root joint has no parent", segment, segment.RobotDesigner.jointMode)
 
-        if segment.parent is None or bpy.context.scene.RobotDesigner.world_property is True:
+        if segment.parent is None:
             # print("Info: Root joint has no parent", segment, segment.RobotEditor.jointMode)
 
             child.joint.type = 'fixed'
-            if bpy.context.scene.RobotDesigner.world_property is True:
-                child.joint.parent.append('world')
-            else:
-                pass
         else:
             if segment.RobotDesigner.jointMode == 'REVOLUTE':
                 child.joint.axis[0].limit[0].lower.append((radians(

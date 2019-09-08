@@ -412,6 +412,11 @@ class Importer(object):
         self.logger.info("converted local pose xyz -> %s", xyz)
         self.logger.info("converted local pose euler -> %s", euler)
 
+        if node.world is True:
+            bpy.context.active_bone.RobotDesigner.world = True
+        else:
+            bpy.context.active_bone.RobotDesigner.world = False
+
         # urdf xyz = string_to_list(get_value(node.joint.origin.xyz, "0 0 0"))
         # urdf euler = string_to_list(get_value(node.joint.origin.rpy, '0 0 0'))
 
