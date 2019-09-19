@@ -55,8 +55,10 @@ import bmesh
 # RobotDesigner imports
 from ..core import config, PluginManager, RDOperator
 from .helpers import ModelSelected, SingleMeshSelected
-from .rigid_bodies import SelectGeometry
-
+from .rigid_bodies import SelectGeometry, AssignGeometry
+from .segments import SelectSegment
+from .model import SelectModel
+from ..properties.globals import global_properties
 
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
@@ -335,86 +337,89 @@ class GenerateCollisionConvexHull(RDOperator):
 
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
-class CreateBasicCollisionCube(RDOperator):
-    bl_idname = config.OPERATOR_PREFIX + "create_basic_collision_cube"
-    bl_label = "Create Basic Collision Cube"
+class CreateBasicCollisionBox(RDOperator):
+    """
+    :ref:`operator` for creating a basic collision box
 
-    cube_name = StringProperty(name="Enter collision cube name: ")
+    **Preconditions:**
+
+    **Postconditions:**
+    """
+    bl_idname = config.OPERATOR_PREFIX + "create_basic_collision_box"
+    bl_label = "Create Basic Collision Box"
+
+    cube_name = StringProperty(name="Enter name: ")
 
     @classmethod
-    def run(cls, frameName=""):
+    def run(cls):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
-        from .model import SelectModel
-        from .rigid_bodies import SelectGeometry
 
-        model_name = context.active_object.name
+        model = context.active_object
+        segment = model.data.bones.active
         bpy.ops.mesh.primitive_cube_add(radius=1.0)
         cube = context.active_object
-        cube.name = self.cube_name
-        bpy.data.objects[cube.name].RobotDesigner.tag = 'COLLISION'
+        cube.name = "BASCOL_" + self.cube_name
+        bpy.data.objects[cube.name].RobotDesigner.tag = 'BASIC_COLLISION_BOX'
 
         mat = bpy.data.materials.new('blue')
         mat.diffuse_color = (0, 0, 1)
-        # mat.diffuse_shader = 'LAMBERT'
-        # mat.diffuse_intensity = 1.0
-        # mat.specular_color = (0.5, 0.5, 0)
-        # mat.specular_shader = 'COOKTORR'
-        # mat.specular_intensity = 0.5
-        # mat.alpha = 0.5
-        # mat.ambient = 1
         cube.data.materials.append(mat)
-        # bpy.ops.render.render()
 
-        SelectModel.run(model_name=model_name)
+        bpy.ops.object.select_all(action='DESELECT')
+        SelectModel.run(model_name=model.name)
         SelectGeometry.run(geometry_name=cube.name)
+        SelectSegment.run(segment_name=segment.name)
+        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
 
         return {'FINISHED'}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
 
+
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class CreateBasicCollisionCylinder(RDOperator):
+    """
+    :ref:`operator` for creating a basic collision cylinder
+
+    **Preconditions:**
+
+    **Postconditions:**
+    """
     bl_idname = config.OPERATOR_PREFIX + "create_basic_collision_cylinder"
     bl_label = "Create Basic Collision Cylinder"
 
-    cylinder_name = StringProperty(name="Enter collision cylinder name: ")
+    cylinder_name = StringProperty(name="Enter name: ")
 
     @classmethod
-    def run(cls, frameName=""):
+    def run(cls):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
-        from .model import SelectModel
-        from .rigid_bodies import SelectGeometry
 
-        model_name = context.active_object.name
+        model = context.active_object
+        segment = model.data.bones.active
         bpy.ops.mesh.primitive_cylinder_add(radius=1.0, depth=1.0)
         cylinder = context.active_object
-        cylinder.name = self.cylinder_name
-        bpy.data.objects[cylinder.name].RobotDesigner.tag = 'COLLISION'
+        cylinder.name = "BASCOL_" + self.cylinder_name
+        bpy.data.objects[cylinder.name].RobotDesigner.tag = 'BASIC_COLLISION_CYLINDER'
 
         mat = bpy.data.materials.new('blue')
         mat.diffuse_color = (0, 0, 1)
-        # mat.diffuse_shader = 'LAMBERT'
-        # mat.diffuse_intensity = 1.0
-        # mat.specular_color = (0.5, 0.5, 0)
-        # mat.specular_shader = 'COOKTORR'
-        # mat.specular_intensity = 0.5
-        # mat.alpha = 0.5
-        # mat.ambient = 1
         cylinder.data.materials.append(mat)
-        # bpy.ops.render.render()
 
-        SelectModel.run(model_name=model_name)
+        bpy.ops.object.select_all(action='DESELECT')
+        SelectModel.run(model_name=model.name)
         SelectGeometry.run(geometry_name=cylinder.name)
+        SelectSegment.run(segment_name=segment.name)
+        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
 
         return {'FINISHED'}
 
@@ -424,41 +429,42 @@ class CreateBasicCollisionCylinder(RDOperator):
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class CreateBasicCollisionSphere(RDOperator):
+    """
+    :ref:`operator` for creating a basic collision sphere
+
+    **Preconditions:**
+
+    **Postconditions:**
+    """
     bl_idname = config.OPERATOR_PREFIX + "create_basic_collision_sphere"
     bl_label = "Create Basic Collision Sphere"
 
-    sphere_name = StringProperty(name="Enter collision sphere name: ")
+    sphere_name = StringProperty(name="Enter name: ")
 
     @classmethod
-    def run(cls, frameName=""):
+    def run(cls):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
-        from .model import SelectModel
-        from .rigid_bodies import SelectGeometry
 
-        model_name = context.active_object.name
+        model = context.active_object
+        segment = model.data.bones.active
         bpy.ops.mesh.primitive_uv_sphere_add(size=1.0)
         sphere = context.active_object
-        sphere.name = self.sphere_name
-        bpy.data.objects[sphere.name].RobotDesigner.tag = 'COLLISION'
+        sphere.name = "BASCOL_" + self.sphere_name
+        bpy.data.objects[sphere.name].RobotDesigner.tag = 'BASIC_COLLISION_SPHERE'
 
         mat = bpy.data.materials.new('blue')
         mat.diffuse_color = (0, 0, 1)
-        # mat.diffuse_shader = 'LAMBERT'
-        # mat.diffuse_intensity = 1.0
-        # mat.specular_color = (0.5, 0.5, 0)
-        # mat.specular_shader = 'COOKTORR'
-        # mat.specular_intensity = 0.5
-        # mat.alpha = 0.5
-        # mat.ambient = 1
         sphere.data.materials.append(mat)
-        # bpy.ops.render.render()
 
-        SelectModel.run(model_name=model_name)
+        bpy.ops.object.select_all(action='DESELECT')
+        SelectModel.run(model_name=model.name)
         SelectGeometry.run(geometry_name=sphere.name)
+        SelectSegment.run(segment_name=segment.name)
+        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
 
         return {'FINISHED'}
 

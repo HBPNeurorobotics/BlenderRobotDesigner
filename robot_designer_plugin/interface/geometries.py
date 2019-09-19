@@ -109,7 +109,17 @@ def draw(layout, context):
             rigid_bodies.RenameGeometry.place_button(column, text='Rename selected geometry', infoBox=infoBox)
             box.prop(obj, "rotation_euler", slider=False, text="Rotation")
             box.prop(obj, "location", slider=False, text="Location")
-            box.prop(obj, "scale", slider=False, text="Scale (%s)" % obj.name)
+            row2 = box.row()
+            column = row2.column(align=True)
+            if obj.RobotDesigner.tag == 'BASIC_COLLISION_BOX':
+                box.prop(obj, "scale", slider=False, text="Scale (%s)" % obj.name)
+            elif obj.RobotDesigner.tag == 'BASIC_COLLISION_CYLINDER':
+                column.label("Scale (%s)" % obj.name)
+                column.prop(obj.RobotDesigner.scaling, "scale_radius", slider=False, text="Radius")
+                column.prop(obj.RobotDesigner.scaling, "scale_depth", slider=False, text="Depth")
+            elif obj.RobotDesigner.tag == 'BASIC_COLLISION_SPHERE':
+                column.label("Scale (%s)" % obj.name)
+                column.prop(obj.RobotDesigner.scaling, "scale_all", slider=False, text="Radius")
             box.prop(selected_objects[0].RobotDesigner, 'fileName')
 
         box.separator()
@@ -179,7 +189,7 @@ def draw(layout, context):
             row2.label("Add basic collision shapes:")
             row3 = box.row()
             column = row3.column(align=True)
-            collision.CreateBasicCollisionCube.place_button(column, text='Create Cube', infoBox=infoBox)
+            collision.CreateBasicCollisionBox.place_button(column, text='Create Box', infoBox=infoBox)
 
             column = row3.column(align=True)
             collision.CreateBasicCollisionCylinder.place_button(column, text='Create Cylinder', infoBox=infoBox)

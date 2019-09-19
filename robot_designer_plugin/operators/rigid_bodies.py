@@ -164,12 +164,13 @@ class AssignGeometry(RDOperator):
         if len(new_name) > len('COL_'):
             new_name = maybe_remove_prefix(new_name, 'COL_')
 
-        print ("Attaching ", "COL" if self.attach_collision_geometry else "VIS", "to ", obj.name)
+        print("Attaching ", "COL" if self.attach_collision_geometry else "VIS", "to ", obj.name)
 
-        if self.attach_collision_geometry and obj.RobotDesigner.tag != 'COLLISION':
+        if self.attach_collision_geometry and \
+                obj.RobotDesigner.tag != 'COLLISION' and 'BASIC_COLLISION_' not in obj.RobotDesigner.tag:
             obj.RobotDesigner.tag = 'COLLISION'
             new_name = "COL_" + new_name
-        elif obj.RobotDesigner.tag == 'COLLISION':
+        elif obj.RobotDesigner.tag == 'COLLISION' or 'BASIC_COLLISION_' in obj.RobotDesigner.tag:
             pass
         else:
             obj.RobotDesigner.tag = 'DEFAULT'
@@ -250,6 +251,8 @@ class DetachGeometry(RDOperator):
         current_mesh.RobotDesigner.tag = 'DEFAULT'
         if current_mesh.name.startswith("VIS_") or current_mesh.name.startswith("COL_"):
             current_mesh.name = current_mesh.name[4:]
+        elif current_mesh.name.startswith("BASCOL_"):
+            current_mesh.name = current_mesh.name[7:]
 
         current_mesh.matrix_world = mesh_global
 
@@ -280,13 +283,17 @@ class DetachAllGeometries(RDOperator):
         mesh_type = global_properties.display_mesh_selection.get(context.scene)
         if mesh_type == 'all':
             meshes = [obj for obj in bpy.data.objects if
-                      obj.type == 'MESH' and obj.parent_bone is not '']
+                      obj.type == 'MESH' and obj.parent_bone is not '' and
+                      obj.RobotDesigner.tag != 'WRAPPING' and obj.RobotDesigner.tag != 'PHYSICS_FRAME']
         elif mesh_type == 'visual':
             meshes = [obj for obj in bpy.data.objects if
-                      obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotDesigner.tag != 'COLLISION']
+                      obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotDesigner.tag == 'DEFAULT']
         elif mesh_type == 'collision':
             meshes = [obj for obj in bpy.data.objects if
                       obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotDesigner.tag == 'COLLISION']
+        elif mesh_type == 'bascol':
+            meshes = [obj for obj in bpy.data.objects if
+                      obj.type == 'MESH' and obj.parent_bone is not '' and 'BASIC_COLLISION_' in obj.RobotDesigner.tag]
         else:
             self.confirmation = False
 
@@ -296,6 +303,9 @@ class DetachAllGeometries(RDOperator):
                 DetachGeometry.run()
                 if mesh.name.startswith("VIS_") or mesh.name.startswith("COL_"):
                     mesh.name = mesh.name[4:]
+                    mesh.RobotDesigner.tag = 'DEFAULT'
+                elif mesh.name.startswith("BASCOL_"):
+                    mesh.name = mesh.name[7:]
                     mesh.RobotDesigner.tag = 'DEFAULT'
 
         return {'FINISHED'}

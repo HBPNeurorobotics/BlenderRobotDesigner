@@ -402,6 +402,27 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             else:
                 operator.logger.info("No collision model for: %s", mesh)
 
+            if 'BASIC_COLLISION_' in bpy.data.objects[mesh].RobotDesigner.tag:
+                collision = child.add_basic(bpy.data.objects[mesh].RobotDesigner.tag,
+                                            [i * j for i, j in
+                                             zip(bpy.data.objects[mesh].scale, blender_scale_factor)]
+                                            )
+
+                operator.logger.info(" basic collision mesh pose translation wo scale'%s'" % pose.translation)
+                operator.logger.info(" basic collision mesh pose scale factor'%s'" % blender_scale_factor)
+                operator.logger.info(" basic collision mesh pose translation wi scale'%s'" % [i * j for i, j in
+                                                                                        zip(pose.translation,
+                                                                                            blender_scale_factor)])
+
+                collision_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
+                collision_pose_rpy = list_to_string(pose.to_euler())
+
+                collision.pose.append(' '.join([collision_pose_xyz, collision_pose_rpy]))
+                collision.name = bpy.data.objects[mesh].name  # child.link.name + '_collision'
+                operator.logger.info(" basic collision mesh pose'%s'" % collision.pose[0])
+            else:
+                operator.logger.info("No basic collision model for: %s", mesh)
+
 
         ### Add Physics
         frame_names = [

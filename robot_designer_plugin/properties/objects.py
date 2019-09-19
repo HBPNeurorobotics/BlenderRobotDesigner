@@ -283,12 +283,15 @@ class RDWrappingObjects(bpy.types.PropertyGroup):
 
 @PluginManager.register_property_group()
 class RDScaler(bpy.types.PropertyGroup):
-
+    """
+    Property Group in order to limit scaling options
+    """
 
     def scale_all_update(self, context):
 
         obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
-        scale_object = obj.RobotDesigner.wrap.scaling
+        # scale_object = obj.RobotDesigner.wrap.scaling
+        scale_object = obj.RobotDesigner.scaling
         obj.scale[0] = scale_object.scale_all
         obj.scale[1] = scale_object.scale_all
         obj.scale[2] = scale_object.scale_all
@@ -296,17 +299,19 @@ class RDScaler(bpy.types.PropertyGroup):
     def scale_radius_update(self, context):
 
         obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
-        scale_object = obj.RobotDesigner.wrap.scaling
+        # scale_object = obj.RobotDesigner.wrap.scaling
+        scale_object = obj.RobotDesigner.scaling
         obj.scale[0] = scale_object.scale_radius
         obj.scale[1] = scale_object.scale_radius
 
     def scale_depth_update(self, context):
 
         obj = bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)]
-        scale_object = obj.RobotDesigner.wrap.scaling
+        # scale_object = obj.RobotDesigner.wrap.scaling
+        scale_object = obj.RobotDesigner.scaling
         obj.scale[2] = scale_object.scale_depth
 
-    scale_all = FloatProperty(name="Scaler", default=1.0, update=scale_all_update)
+    scale_all = FloatProperty(name="Scale All", default=1.0, update=scale_all_update)
     scale_radius = FloatProperty(name="Scale Radius", default=1.0, update=scale_radius_update)
     scale_depth = FloatProperty(name="Scale Depth", default=1.0, update=scale_depth_update)
 
@@ -321,7 +326,7 @@ class RDWrap(bpy.types.PropertyGroup):
     bpy.utils.register_class(RDMuscleNames)
     muscleNames = CollectionProperty(type=RDMuscleNames)
 
-    scaling = PointerProperty(type=RDScaler)
+    # scaling = PointerProperty(type=RDScaler)
 
 
 
@@ -407,7 +412,7 @@ class RDObjects(bpy.types.PropertyGroup):
                ('COLLISION', 'Collision', 'Collision'),
                ('WRAPPING', 'Wrapping', 'Wrapping'),
                ('SENSOR', 'Sensor', 'Sensor'),
-               ('BASIC_COLLISION_CUBE', 'basic collision cube', 'basic collision cube'),
+               ('BASIC_COLLISION_BOX', 'basic collision box', 'basic collision box'),
                ('BASIC_COLLISION_CYLINDER', 'basic collision cylinder', 'basic collision cylinder'),
                ('BASIC_COLLISION_SPHERE', 'basic collision sphere', 'basic collision sphere')
                ]
@@ -438,3 +443,4 @@ class RDObjects(bpy.types.PropertyGroup):
     laserSensor = PointerProperty(type=RDLaserSensor)
     muscles = PointerProperty(type=RDMuscle)
     wrap = PointerProperty(type=RDWrap)
+    scaling = PointerProperty(type=RDScaler)

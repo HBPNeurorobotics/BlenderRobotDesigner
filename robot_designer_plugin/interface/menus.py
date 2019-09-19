@@ -187,11 +187,17 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
             if type == 'all':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.type == self.blender_type and
+                             obj.RobotDesigner.tag != 'WRAPPING' and obj.RobotDesigner.tag != 'PHYSICS_FRAME' and
                              not obj.hide]
             elif type == 'collision':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.type == self.blender_type and
-                             obj.RobotDesigner.tag == 'COLLISION' and
+                             (obj.RobotDesigner.tag == 'COLLISION' or 'BASIC_COLLISION_' in obj.RobotDesigner.tag) and
+                             not obj.hide]
+            elif type == 'bascol':
+                obj_names = [obj.name for obj in bpy.data.objects if
+                             obj.type == self.blender_type and
+                             'BASIC_COLLISION_' in obj.RobotDesigner.tag and
                              not obj.hide]
             elif type == 'visual':
                 obj_names = [obj.name for obj in bpy.data.objects if

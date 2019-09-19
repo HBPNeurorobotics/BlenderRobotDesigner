@@ -124,42 +124,27 @@ class RDGlobals(PropertyGroupHandlerBase):
         Hides/Shows mesh objects in dependence of the respective Global property
         """
 
-        current_wrapping_display = bpy.context.scene.RobotDesigner.display_wrapping_selection
         hide_geometry = global_properties.display_mesh_selection.get(context.scene)
         geometry_name = [obj.name for obj in bpy.data.objects if
                          not obj.parent_bone is None and
                          obj.type == 'MESH' and
-                         obj.RobotDesigner.tag != 'PHYSICS_FRAME']
+                         obj.RobotDesigner.tag != 'PHYSICS_FRAME' and obj.RobotDesigner.tag != 'WRAPPING']
 
         for mesh in geometry_name:
             obj = bpy.data.objects[mesh]
             tag = obj.RobotDesigner.tag
-            if current_wrapping_display == 'all':
+            if hide_geometry == 'all':
+                obj.hide = False
+            elif hide_geometry == 'collision' and (tag == 'COLLISION' or 'BASIC_COLLISION_' in tag):
+                obj.hide = False
+            elif hide_geometry == 'visual' and tag == 'DEFAULT':
+                obj.hide = False
+            elif hide_geometry == 'bascol' and 'BASIC_COLLISION_' in tag:
+                obj.hide = False
+            elif hide_geometry == 'none':
                 obj.hide = True
-                if hide_geometry == 'all':
-                    obj.hide = False
-                elif hide_geometry == 'collision':
-                    if tag == 'COLLISION' or tag == 'WRAPPING':
-                        obj.hide = False
-                elif hide_geometry == 'visual':
-                    if tag == 'DEFAULT' or tag == 'WRAPPING':
-                        obj.hide = False
-                elif hide_geometry == 'none':
-                    if tag == 'WRAPPING':
-                        obj.hide = False
-            elif current_wrapping_display == 'none':
-                obj.hide = True
-                if hide_geometry == 'all' and tag != 'WRAPPING':
-                    obj.hide = False
-                elif hide_geometry == 'collision' and tag == 'COLLISION':
-                    obj.hide = False
-                elif hide_geometry == 'visual' and tag == 'DEFAULT':
-                    obj.hide = False
-                elif hide_geometry == 'none':
-                    obj.hide = True
             else:
                 obj.hide = True
-
 
     @staticmethod
     def display_wrapping_geometries(self, context):
@@ -367,6 +352,8 @@ class RDGlobals(PropertyGroupHandlerBase):
                     'Show all objects in viewport'),
                    ('collision', 'Collision',
                     'Show only connected collision models'),
+                   ('bascol', 'BASCOL',
+                    'Show only connected basic collision shapes'),
                    ('visual', 'Visual',
                     'Show only connected visual models'),
                    ('none', "None", "Show no connected model")],
