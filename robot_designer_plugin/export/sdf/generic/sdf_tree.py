@@ -45,6 +45,7 @@ class SDFTree(object):
         self.joint = None
         self.link = None
         self.sdf = None
+        self.world = True
 
         self.connectedLinks = connected_links
         self.connectedJoints = connected_joints
@@ -114,7 +115,7 @@ class SDFTree(object):
 
         # find root links (i.e., links that are NOT connected to a joint)
         child_links = [link.name for link in robot.link for joint in robot.joint if
-                       link.name == joint.child[0]]
+                       (link.name == joint.child[0] and joint.parent[0] != 'world')]
 
         ###  the link, not link name
         root_links = [link for link in robot.link if link.name not in child_links]
@@ -161,6 +162,14 @@ class SDFTree(object):
         # self.set_defaults() # todo:set defaults
 
         children = self.connectedJoints[link]
+
+        worldlink = [joint for joint in self.connectedLinks if
+                     ('_world' in joint.name and self.connectedLinks[joint] == link)]
+
+        if worldlink:
+            self.world = True
+        else:
+            self.world = False
 
         for joint in children:
             tree = SDFTree(connected_links=self.connectedLinks, connected_joints=self.connectedJoints,
@@ -338,6 +347,33 @@ class SDFTree(object):
         # print('debug add_collisionmodel: ' + file_name)
         # collision.geometry.mesh.filename = file_name
         link_collision.geometry[0].mesh[0].scale.append(list_to_string(scale_factor))
+        return link_collision
+
+    def add_basic(self, tag, scale_factor=(1.0, 1.0, 1.0)):
+        """
+        Add a basic collision model without a mesh
+
+        :param tag: Basic collision tag
+        :param scale_factor:
+        :return: string: Collision file that is used in the sdf
+        """
+
+        link_collision = sdf_dom.collision()
+        link_geometry = sdf_dom.geometry()
+        self.link.collision.append(link_collision)
+        link_collision.geometry.append(link_geometry)
+
+        if tag == 'BASIC_COLLISION_BOX':
+            link_collision.geometry[0].box.append(sdf_dom.box())
+            link_collision.geometry[0].box[0].size.append(list_to_string(scale_factor))
+        elif tag == 'BASIC_COLLISION_CYLINDER':
+            link_collision.geometry[0].cylinder.append(sdf_dom.cylinder())
+            link_collision.geometry[0].cylinder[0].radius.append(scale_factor[0])
+            link_collision.geometry[0].cylinder[0].length.append(scale_factor[2])
+        elif tag == 'BASIC_COLLISION_SPHERE':
+            link_collision.geometry[0].sphere.append(sdf_dom.sphere())
+            link_collision.geometry[0].sphere[0].radius.append(scale_factor[0])
+
         return link_collision
 
     def add_inertial(self):

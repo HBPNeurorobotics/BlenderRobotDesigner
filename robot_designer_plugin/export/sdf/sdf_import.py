@@ -131,9 +131,9 @@ class Importer(object):
         # determine prefix path for loading meshes in case of paths relative to ROS_PACKAGE_PATH
         prefix_folder = ""
         self.logger.debug('model_geometry_bbox: %s', model.geometry[0].box[0].size[0])
-        width = string_to_list(model.geometry[0].box[0].size[0])[0] / 2
-        depth = string_to_list(model.geometry[0].box[0].size[0])[1] / 2
-        height = string_to_list(model.geometry[0].box[0].size[0])[2] / 2
+        width = string_to_list(model.geometry[0].box[0].size[0])[0] # / 2
+        depth = string_to_list(model.geometry[0].box[0].size[0])[1] # / 2
+        height = string_to_list(model.geometry[0].box[0].size[0])[2] # / 2
         verts = [(+1.0, +1.0, -1.0),
                  (+1.0, -1.0, -1.0),
                  (-1.0, -1.0, -1.0),
@@ -178,6 +178,12 @@ class Importer(object):
         model_name = bpy.context.active_object.name
         model_type = bpy.context.active_object.type
 
+        mat = bpy.data.materials.new('blue')
+        mat.diffuse_color = (0, 0, 1)
+        bpy.context.active_object.data.materials.append(mat)
+
+        bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_BOX"
+
         self.logger.debug('model_name (geometry): %s', model_name)
         self.logger.debug('model_type (geometry): %s', model_type)
 
@@ -207,15 +213,21 @@ class Importer(object):
         prefix_folder = ""
         c_radius = model.geometry[0].sphere[0].radius[0]
 
-        bpy.ops.mesh.primitive_uv_sphere_add(segments=8, ring_count=4, size=c_radius, location=(0, 0, 0))
-        # bpy.ops.mesh.primitive_cylinder_add(depth=c_depth,radius=c_radius, location=(0, 0, 0))
+        bpy.ops.mesh.primitive_uv_sphere_add(size=c_radius, location=(0, 0, 0))
         bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
 
         self.logger.debug('Active robot name: %s', bpy.context.active_object.RobotDesigner.fileName)
 
+        bpy.context.active_object.name = os.path.basename(model.name)
         model_name = bpy.context.active_object.name
         # bpy.context.active_object.type = 'ARMATURE'
         model_type = bpy.context.active_object.type
+
+        mat = bpy.data.materials.new('blue')
+        mat.diffuse_color = (0, 0, 1)
+        bpy.context.active_object.data.materials.append(mat)
+
+        bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_SPHERE"
 
         self.logger.debug('model_name (geometry): %s', model_name)
         self.logger.debug('model_type (geometry): %s', model_type)
@@ -252,9 +264,16 @@ class Importer(object):
 
         self.logger.debug('Active robot name: %s', bpy.context.active_object.RobotDesigner.fileName)
 
+        bpy.context.active_object.name = os.path.basename(model.name)
         model_name = bpy.context.active_object.name
         # bpy.context.active_object.type = 'ARMATURE'
         model_type = bpy.context.active_object.type
+
+        mat = bpy.data.materials.new('blue')
+        mat.diffuse_color = (0, 0, 1)
+        bpy.context.active_object.data.materials.append(mat)
+
+        bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_CYLINDER"
 
         self.logger.debug('model_name (geometry): %s', model_name)
         self.logger.debug('model_type (geometry): %s', model_type)
@@ -411,6 +430,11 @@ class Importer(object):
         self.logger.info("parent link pose xyzeuler-> %s", ref_pose)
         self.logger.info("converted local pose xyz -> %s", xyz)
         self.logger.info("converted local pose euler -> %s", euler)
+
+        if node.world is True:
+            bpy.context.active_bone.RobotDesigner.world = True
+        else:
+            bpy.context.active_bone.RobotDesigner.world = False
 
         # urdf xyz = string_to_list(get_value(node.joint.origin.xyz, "0 0 0"))
         # urdf euler = string_to_list(get_value(node.joint.origin.rpy, '0 0 0'))
@@ -660,6 +684,7 @@ class Importer(object):
                                           homo2origin(bpy.context.active_object.matrix_world))
                         self.logger.info("Model type: " + str(model_type))
                         # Remove multiple "COL_" and "VIS_" strings before renaming
+                        '''
                         if model_type == COLLISON:
                             # %2d changed to %d because it created unwanted space with one digit numbers
                             if not model.name.startswith("COL_"):
@@ -673,6 +698,7 @@ class Importer(object):
                                 bpy.context.active_object.name = "VIS_%s" % (model.name)
                             else:
                                 bpy.context.active_object.name = "%s" % (model.name)
+                        '''
 
                         if not model.name.endswith("_" + str(nr)) and nr != 0:
                             bpy.context.active_object.name = "%s_%d" % (model.name, nr)
@@ -680,7 +706,8 @@ class Importer(object):
                         # remove spaces from link name
                         bpy.context.active_object.name = bpy.context.active_object.name.replace(" ", "")
 
-                        if type == "mesh": print(bpy.context.active_object.name)
+                        if type == "mesh":
+                            print(bpy.context.active_object.name)
 
                         # The name might be altered by blender
                         assigned_name = bpy.context.active_object.name
