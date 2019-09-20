@@ -227,7 +227,7 @@ def draw(layout, context):
                 boxy.prop(obj, "scale_all", slider=False, text="Scale Sphere: ")
             elif bpy.data.objects[meshes].RobotDesigner.wrap.WrappingType == "WRAPPING_CYLINDER":
                 column = row4.column()
-                column.prop(obj, "scale_radius", slider=False, text="Scale Diameter ")
+                column.prop(obj, "scale_radius", slider=False, text="Scale Radius")
                 column.prop(obj, "scale_depth", slider=False, text="Scale Depth")
                 row5 = boxy.row()
                 row5.prop(bpy.data.objects[meshes], "rotation_euler", slider=False, text="Rotate: ")

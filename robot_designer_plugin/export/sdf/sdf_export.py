@@ -273,22 +273,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             link2world.joint.name = segment.name + '_world'
             link2world.joint.parent.append('world')
             link2world.joint.axis[0].xyz.append(joint_axis_xyz)
-
-            if segment.parent is None:
-                link2world.joint.type = 'fixed'
-            else:
-                if segment.RobotDesigner.jointMode == 'REVOLUTE':
-                    link2world.joint.type = 'revolute'
-                elif segment.RobotDesigner.jointMode == 'PRISMATIC':
-                    link2world.joint.type = 'prismatic'
-                elif segment.RobotDesigner.jointMode == 'REVOLUTE2':
-                    link2world.joint.type = 'revolute2'
-                elif segment.RobotDesigner.jointMode == 'UNIVERSAL':
-                    link2world.joint.type = 'universal'
-                elif segment.RobotDesigner.jointMode == 'BALL':
-                    link2world.joint.type = 'ball'
-                elif segment.RobotDesigner.jointMode == 'FIXED':
-                    link2world.joint.type = 'fixed'
+            link2world.joint.type = 'fixed'
 
         # Settings the following flag is probably wrong. Why? Because RD derives the pose of the
         # child bone from the joint angle and axis w.r.t. the child edit pose. Hence Blenders/RD's

@@ -360,7 +360,7 @@ class CreateBasicCollisionBox(RDOperator):
 
         model = context.active_object
         segment = model.data.bones.active
-        bpy.ops.mesh.primitive_cube_add(radius=1.0)
+        bpy.ops.mesh.primitive_cube_add(radius=0.5)
         cube = context.active_object
         cube.name = "BASCOL_" + self.cube_name
         bpy.data.objects[cube.name].RobotDesigner.tag = 'BASIC_COLLISION_BOX'

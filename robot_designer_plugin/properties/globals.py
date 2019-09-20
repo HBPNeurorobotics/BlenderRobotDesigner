@@ -149,37 +149,16 @@ class RDGlobals(PropertyGroupHandlerBase):
     @staticmethod
     def display_wrapping_geometries(self, context):
 
-        current_mesh_display = bpy.context.scene.RobotDesigner.display_mesh_selection
         hide_geometry = global_properties.display_wrapping_selection.get(context.scene)
         geometry_name = [obj.name for obj in bpy.data.objects if
                     not obj.parent_bone is None and
-                    obj.type == 'MESH']
+                    obj.type == 'MESH' and obj.RobotDesigner.tag == 'WRAPPING']
 
         for mesh in geometry_name:
             obj = bpy.data.objects[mesh]
             if hide_geometry == 'all':
-                if current_mesh_display == 'collision':
-                    if obj.RobotDesigner.tag == 'WRAPPING' or obj.RobotDesigner.tag == 'COLLISION':
-                        obj.hide = False
-                elif current_mesh_display == 'visual':
-                    if obj.RobotDesigner.tag == 'WRAPPING' or obj.RobotDesigner.tag == 'DEFAULT':
-                        obj.hide = False
-                elif current_mesh_display == 'none':
-                    if obj.RobotDesigner.tag == 'WRAPPING':
-                        obj.hide = False
-                elif current_mesh_display == 'all':
-                    obj.hide = False
+                obj.hide = False
             elif hide_geometry == 'none':
-                obj.hide = True
-                if current_mesh_display == 'collision' and obj.RobotDesigner.tag == 'COLLISION':
-                    obj.hide = False
-                elif current_mesh_display == 'visual' and obj.RobotDesigner.tag == 'DEFAULT':
-                    obj.hide = False
-                elif current_mesh_display == 'all' and obj.RobotDesigner.tag != 'WRAPPING':
-                    obj.hide = False
-                elif current_mesh_display == 'none':
-                    obj.hide = True
-            else:
                 obj.hide = True
 
     @staticmethod

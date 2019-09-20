@@ -131,9 +131,9 @@ class Importer(object):
         # determine prefix path for loading meshes in case of paths relative to ROS_PACKAGE_PATH
         prefix_folder = ""
         self.logger.debug('model_geometry_bbox: %s', model.geometry[0].box[0].size[0])
-        width = string_to_list(model.geometry[0].box[0].size[0])[0] # / 2
-        depth = string_to_list(model.geometry[0].box[0].size[0])[1] # / 2
-        height = string_to_list(model.geometry[0].box[0].size[0])[2] # / 2
+        width = string_to_list(model.geometry[0].box[0].size[0])[0] / 2
+        depth = string_to_list(model.geometry[0].box[0].size[0])[1] / 2
+        height = string_to_list(model.geometry[0].box[0].size[0])[2] / 2
         verts = [(+1.0, +1.0, -1.0),
                  (+1.0, -1.0, -1.0),
                  (-1.0, -1.0, -1.0),
@@ -540,10 +540,11 @@ class Importer(object):
 
             # set center of mass position
             inertia_location = string_to_list(node.link.inertial[0].pose[0])[0:3]
-            inertia_location[1] = -1*(1.0 - inertia_location[1])
+            inertia_location[1] = inertia_location[1] - 1.0
             inertia_rotation = string_to_list(node.link.inertial[0].pose[0])[3:]
 
-            bpy.data.objects[node.link.name].location = [inertia_location[1], inertia_location[2], inertia_location[0]]
+            # bpy.data.objects[node.link.name].location = [inertia_location[1], inertia_location[2], inertia_location[0]]
+            bpy.data.objects[node.link.name].location = inertia_location
             bpy.data.objects[node.link.name].rotation_euler = inertia_rotation
 
             # set inertia
