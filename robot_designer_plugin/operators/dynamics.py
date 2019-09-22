@@ -111,6 +111,7 @@ class CreatePhysical(RDOperator):
 
         if frame:
             SelectPhysical.run(frameName=frame.name)
+            frame.RobotDesigner.dynamics.scale_update(context)
 
         return {'FINISHED'}
 

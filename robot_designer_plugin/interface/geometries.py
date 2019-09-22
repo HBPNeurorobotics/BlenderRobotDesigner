@@ -111,15 +111,15 @@ def draw(layout, context):
             box.prop(obj, "location", slider=False, text="Location")
             row2 = box.row()
             column = row2.column(align=True)
-            if obj.RobotDesigner.tag == 'BASIC_COLLISION_BOX':
-                box.prop(obj, "scale", slider=False, text="Scale (%s)" % obj.name)
-            elif obj.RobotDesigner.tag == 'BASIC_COLLISION_CYLINDER':
+            if obj.RobotDesigner.tag == 'BASIC_COLLISION_CYLINDER':
                 column.label("Scale (%s)" % obj.name)
                 column.prop(obj.RobotDesigner.scaling, "scale_radius", slider=False, text="Radius")
                 column.prop(obj.RobotDesigner.scaling, "scale_depth", slider=False, text="Depth")
             elif obj.RobotDesigner.tag == 'BASIC_COLLISION_SPHERE':
                 column.label("Scale (%s)" % obj.name)
                 column.prop(obj.RobotDesigner.scaling, "scale_all", slider=False, text="Radius")
+            else:
+                box.prop(obj, "scale", slider=False, text="Scale (%s)" % obj.name)
             box.prop(selected_objects[0].RobotDesigner, 'fileName')
 
         box.separator()

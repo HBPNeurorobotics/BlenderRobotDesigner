@@ -121,7 +121,7 @@ class RDDynamics(bpy.types.PropertyGroup):
         obj = [o for o in bpy.context.active_object.children if
                o.RobotDesigner.tag == 'PHYSICS_FRAME' and o.parent_bone == bpy.context.active_bone.name]
         frame, = obj
-        """
+
         if(self.mass < 0
                 or self.inertiaXX < 0 or self.inertiaYY < 0 or self.inertiaZZ < 0
                 or self.inertiaXX + self.inertiaYY < self.inertiaZZ
@@ -129,14 +129,13 @@ class RDDynamics(bpy.types.PropertyGroup):
                 or self.inertiaZZ + self.inertiaXX < self.inertiaYY):
             bpy.context.window_manager.popup_menu(raise_error, title="Error", icon='ERROR')
         else:
-        """
-        boxScaleX = np.sqrt(6 * (self.inertiaZZ + self.inertiaYY - self.inertiaXX) / self.mass)
-        boxScaleY = np.sqrt(6 * (self.inertiaZZ + self.inertiaXX - self.inertiaYY) / self.mass)
-        boxScaleZ = np.sqrt(6 * (self.inertiaXX + self.inertiaYY - self.inertiaZZ) / self.mass)
-        frame.scale[0] = boxScaleX
-        frame.scale[1] = boxScaleY
-        frame.scale[2] = boxScaleZ
-
+            boxScaleX = np.sqrt(6 * (self.inertiaZZ + self.inertiaYY - self.inertiaXX) / self.mass)
+            boxScaleY = np.sqrt(6 * (self.inertiaZZ + self.inertiaXX - self.inertiaYY) / self.mass)
+            boxScaleZ = np.sqrt(6 * (self.inertiaXX + self.inertiaYY - self.inertiaZZ) / self.mass)
+            frame.scale[0] = boxScaleX
+            frame.scale[1] = boxScaleY
+            frame.scale[2] = boxScaleZ
+    '''
     mass = FloatProperty(name="Mass (kg)", soft_min=0, precision=4, step=0.1, default=1.0,
                          update=scale_update, get=get_mass, set=set_mass)
     # new inertia tensor
@@ -146,6 +145,19 @@ class RDDynamics(bpy.types.PropertyGroup):
                               update=scale_update, get=get_y, set=set_y)
     inertiaZZ = FloatProperty(name="", soft_min=0, precision=4, step=0.1, default=1.0,
                               update=scale_update, get=get_z, set=set_z)
+    inertiaXY = FloatProperty(name="", precision=4, step=0.1, default=0.0)
+    inertiaXZ = FloatProperty(name="", precision=4, step=0.1, default=0.0)
+    inertiaYZ = FloatProperty(name="", precision=4, step=0.1, default=0.0)
+    '''
+    mass = FloatProperty(name="Mass (kg)", soft_min=0, precision=4, step=0.1, default=1.0,
+                         update=scale_update)
+    # new inertia tensor
+    inertiaXX = FloatProperty(name="", soft_min=0, precision=4, step=0.1, default=1.0,
+                              update=scale_update)
+    inertiaYY = FloatProperty(name="", soft_min=0, precision=4, step=0.1, default=1.0,
+                              update=scale_update)
+    inertiaZZ = FloatProperty(name="", soft_min=0, precision=4, step=0.1, default=1.0,
+                              update=scale_update)
     inertiaXY = FloatProperty(name="", precision=4, step=0.1, default=0.0)
     inertiaXZ = FloatProperty(name="", precision=4, step=0.1, default=0.0)
     inertiaYZ = FloatProperty(name="", precision=4, step=0.1, default=0.0)
