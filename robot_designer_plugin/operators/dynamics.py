@@ -141,6 +141,10 @@ def just_create_the_physics_frame(context, name):
     mat.diffuse_color = (1.0, 0.0, 1.0)
     mat.diffuse_shader = 'LAMBERT'
     mat.diffuse_intensity = 1.0
+    mat.use_transparency = True
+    mat.alpha = 0.3
+    bpy.data.objects[name].show_transparent = True
+
 
     # mat = bpy.data.materials['MaterialName']
     obj.data.materials.append(mat)
@@ -254,9 +258,11 @@ class ComputePhysical(RDOperator):
         else:
             return
         bounds = the_mesh.bound_box
+        dimension = the_mesh.dimensions
         len = (bounds[-1][0] - bounds[0][0],
                bounds[-1][1] - bounds[0][1],
                bounds[1][2] - bounds[0][2])  # The 1 is no error!
+        len = (dimension[0], dimension[1], dimension[2])
         com = list(map(lambda x: x * 0.5,
                        (bounds[-1][0] + bounds[0][0],
                         bounds[-1][1] + bounds[0][1],
@@ -266,7 +272,7 @@ class ComputePhysical(RDOperator):
         Iunit = (1. / 12. * (len[1] ** 2 + len[2] ** 2),
                  1. / 12. * (len[0] ** 2 + len[2] ** 2),
                  1. / 12. * (len[0] ** 2 + len[1] ** 2))
-        print ("bone:", bone, len, mass, Iunit, com)
+        print("bone:", bone, len, mass, Iunit, com)
         d = associations.physics_frame.RobotDesigner.dynamics
         d.inertiaXX = mass * Iunit[0]
         d.inertiaYY = mass * Iunit[1]
@@ -280,6 +286,7 @@ class ComputePhysical(RDOperator):
         # print ("Setting matrix "+str(the_mesh.matrix_world))
         m_com = Matrix.Translation(com)
         associations.physics_frame.matrix_world = the_mesh.matrix_world * m_com
+        d.scale_update(bpy.context)
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
@@ -292,11 +299,11 @@ class ComputePhysical(RDOperator):
         for obj in armature.children:
             if obj.parent_bone:
                 bone = armature.data.bones[obj.parent_bone]
-                print ("visit ", obj, obj.parent_bone, bone, bone.select)
+                print("visit ", obj, obj.parent_bone, bone, bone.select)
                 if bone.select:
                     if obj.RobotDesigner.tag == 'PHYSICS_FRAME':
                         segment_associations[bone].physics_frame = obj
-                    elif obj.RobotDesigner.tag == 'COLLISION':
+                    elif obj.RobotDesigner.tag == 'COLLISION' or 'BASIC_COLLISION_' in obj.RobotDesigner.tag:
                         segment_associations[bone].collision = obj
                     elif obj.RobotDesigner.tag == 'DEFAULT':
                         segment_associations[bone].visual = obj
