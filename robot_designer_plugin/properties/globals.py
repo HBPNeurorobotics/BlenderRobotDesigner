@@ -228,8 +228,12 @@ class RDGlobals(PropertyGroupHandlerBase):
     @staticmethod
     def name_update(self, context):
         """
-        updates the robot name for every assigned muscle
+        updates the robot name of the active object, the armature and  for every assigned muscle
         """
+        # update aramture name
+        bpy.data.armatures[self.old_name].name = self.model_name
+
+        # update muscle attachement name
         if self.old_name != '':
             muscles = [obj for obj in bpy.data.objects if obj.RobotDesigner.muscles.robotName == self.old_name]
 
@@ -238,7 +242,9 @@ class RDGlobals(PropertyGroupHandlerBase):
 
             self.old_name = self.model_name
 
+        # update active object name
         bpy.context.active_object.name = self.model_name
+
 
     @staticmethod
     def muscle_dim_update(self, context):
