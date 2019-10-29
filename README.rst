@@ -219,7 +219,7 @@ Features
     -  Convex hull computation
     -  Conversion from deformable meshes to rigid bodies. This is useful to
        transform deformable actors such as those created by
-       `MakeHuman <http://www.makehuman.org/>`__ into robots. This is used
+       `MakeHuman <http://www.makehumancommunity.org/>`__ into robots. This is used
        to provide a standard humanoid robot model to the NRP.
     -  Generation of links and joint geometries based on the kinematic
        description (*still experimental*).
