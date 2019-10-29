@@ -367,6 +367,9 @@ class CreateBasicCollisionBox(RDOperator):
 
         mat = bpy.data.materials.new('blue')
         mat.diffuse_color = (0, 0, 1)
+        mat.use_transparency = True
+        mat.alpha = 0.3
+        bpy.data.objects[cube.name].show_transparent = True
         cube.data.materials.append(mat)
 
         bpy.ops.object.select_all(action='DESELECT')
@@ -413,6 +416,9 @@ class CreateBasicCollisionCylinder(RDOperator):
 
         mat = bpy.data.materials.new('blue')
         mat.diffuse_color = (0, 0, 1)
+        mat.use_transparency = True
+        mat.alpha = 0.3
+        bpy.data.objects[cylinder.name].show_transparent = True
         cylinder.data.materials.append(mat)
 
         bpy.ops.object.select_all(action='DESELECT')
@@ -458,6 +464,9 @@ class CreateBasicCollisionSphere(RDOperator):
 
         mat = bpy.data.materials.new('blue')
         mat.diffuse_color = (0, 0, 1)
+        mat.use_transparency = True
+        mat.alpha = 0.3
+        bpy.data.objects[sphere.name].show_transparent = True
         sphere.data.materials.append(mat)
 
         bpy.ops.object.select_all(action='DESELECT')

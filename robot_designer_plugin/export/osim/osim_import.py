@@ -32,7 +32,7 @@ import logging
 # ######
 # Blender imports
 import bpy
-from mathutils import Matrix
+from mathutils import Matrix, Euler, Vector
 ########
 # RD imports
 from ..osim import osim_dom  # xsd bindings
@@ -40,6 +40,12 @@ from ...core import config, PluginManager, RDOperator
 from ...properties.globals import global_properties
 
 from ...operators.muscles import CreateNewMuscle, CreateNewPathpoint
+from ...operators.segments import SelectSegment
+from ...operators.model import SelectModel
+from ...operators.rigid_bodies import SelectGeometry
+from ...operators.mesh_generation import AttachWrappingObject
+
+from ..sdf.generic.helpers import string_to_list
 
 # logger = logging.getLogger('SDF')
 # logger.setLevel(logging.DEBUG)
@@ -82,6 +88,26 @@ class OsimImporter(object):
 
         self.import_pathpoints(muscle, RDmuscle)
 
+        self.connect_wrapping_objects(muscle, RDmuscle)
+
+    def connect_wrapping_objects(self, muscle, RDmuscle):
+        w = 0
+        while True:
+            try:
+                path = muscle.GeometryPath.PathWrapSet.objects.PathWrap[w]
+                wrapping_object = bpy.context.scene.objects[path.wrap_object]
+                wrapping_object.RobotDesigner.wrap.muscleNames.add()
+                nr = len(wrapping_object.RobotDesigner.wrap.muscleNames)
+                wrapping_object.RobotDesigner.wrap.muscleNames[nr - 1].name = RDmuscle.name
+
+                wrapList = RDmuscle.RobotDesigner.muscles.connectedWraps
+                wrapList.add()
+                nrw = len(wrapList)
+                wrapList[nrw - 1].wrappingName = wrapping_object.name
+                w += 1
+            except:
+                break
+
     def import_pathpoints(self, muscle, RDmuscle):
         """
             import muscle pathpoints from the osim file
@@ -119,10 +145,117 @@ class OsimImporter(object):
             except:
                 break
 
+    def import_wrapping_sphere(self, body, wrapping):
+        radius = wrapping.radius
+        bpy.ops.mesh.primitive_uv_sphere_add(size=radius, calc_uvs=True, view_align=False, enter_editmode=False)
+        sphere = bpy.context.active_object
+        sphere.name = wrapping.name
+
+        lmat = bpy.data.materials.new(sphere.name)
+        lmat.diffuse_color = (0.0, 0.135, 0.0)
+        lmat.use_shadeless = True
+        sphere.data.materials.append(lmat)
+
+        sphere.RobotDesigner.tag = 'WRAPPING'
+        sphere.RobotDesigner.wrap.WrappingType = 'WRAPPING_SPHERE'
+
+        model = bpy.data.objects[global_properties.model_name.get(bpy.context.scene)]
+        print("model: ", model.name)
+        pose_bone = model.pose.bones[body.name]
+        segment_world = model.matrix_world * pose_bone.matrix
+
+        model_posexyz = string_to_list(wrapping.translation[:])[0:3]
+        model_poserpy = [0, 0, 0]
+        trafo = Matrix.Translation(Vector(model_posexyz)) * \
+            Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
+
+        bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+        bpy.context.active_object.matrix_world = segment_world * trafo * bpy.context.active_object.matrix_world
+
+        assigned_name = bpy.context.active_object.name
+
+        bpy.ops.object.transform_apply(location=False,
+                                       rotation=False,
+                                       scale=True)
+        SelectModel.run(model_name=model.name)
+        SelectSegment.run(segment_name=body.name)
+        SelectGeometry.run(geometry_name=assigned_name)
+
+        AttachWrappingObject.run()
+
+    def import_wrapping_cylinder(self, body, wrapping):
+        radius = wrapping.radius
+        depth = wrapping.length
+        bpy.ops.mesh.primitive_cylinder_add(radius=radius, depth=depth, view_align=False, enter_editmode=False)
+        cylinder = bpy.context.active_object
+        cylinder.name = wrapping.name
+
+        lmat = bpy.data.materials.new(cylinder.name)
+        lmat.diffuse_color = (0.0, 0.135, 0.0)
+        lmat.use_shadeless = True
+        cylinder.data.materials.append(lmat)
+
+        cylinder.RobotDesigner.tag = 'WRAPPING'
+        cylinder.RobotDesigner.wrap.WrappingType = 'WRAPPING_CYLINDER'
+
+        model = bpy.data.objects[global_properties.model_name.get(bpy.context.scene)]
+        print("model: ", model.name)
+        pose_bone = model.pose.bones[body.name]
+        segment_world = model.matrix_world * pose_bone.matrix
+
+        model_posexyz = string_to_list(wrapping.translation[:])
+        model_poserpy = string_to_list(wrapping.xyz_body_rotation[:])
+        trafo = Matrix.Translation(Vector(model_posexyz)) * \
+                Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
+
+        bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+        bpy.context.active_object.matrix_world = segment_world * trafo * bpy.context.active_object.matrix_world
+
+        assigned_name = bpy.context.active_object.name
+
+        bpy.ops.object.transform_apply(location=False,
+                                       rotation=False,
+                                       scale=True)
+        SelectModel.run(model_name=model.name)
+        SelectSegment.run(segment_name=body.name)
+        SelectGeometry.run(geometry_name=assigned_name)
+
+        AttachWrappingObject.run()
+
     def import_osim(self):
         """
-        Imports all listed muscles in .osim file
+        Imports all listed muscles and wrapping objects in .osim file
         """
+        # import wrapping objects
+        # If multiple BodySets or WrapObjectSets exist, the loop can be easily enhanced.
+        # However since osim_export does not have support for multiple BodySets, this has been left out for now.
+        b = 0
+        while True:
+            try:
+                body = self.muscles.Model.BodySet[0].objects.Body[b]
+                print("\nimporting for ", body.name)
+                s = 0
+                while True:
+                    try:
+                        wrapping_sphere = body.WrapObjectSet[0].objects.WrapSphere[s]
+                        print("importing wrapping sphere: ", wrapping_sphere.name)
+                        self.import_wrapping_sphere(body, wrapping_sphere)
+                        s += 1
+                    except:
+                        break
+                c = 0
+                while True:
+                    try:
+                        wrapping_cylinder = body.WrapObjectSet[0].objects.WrapCylinder[c]
+                        print("importing wrapping cylinder: ", wrapping_cylinder.name)
+                        self.import_wrapping_cylinder(body, wrapping_cylinder)
+                        c += 1
+                    except:
+                        break
+                b += 1
+            except:
+                break
+
         # import Thelen2003 Muscles
         m = 0
         while (True):
