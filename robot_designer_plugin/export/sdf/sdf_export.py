@@ -260,20 +260,20 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
         child.joint.axis[0].xyz.append(joint_axis_xyz)
 
+        # If link should be connected to world, create an additional joint with parent world and type fixed
         if segment.RobotDesigner.world is True:
-            link2world = sdf_tree.SDFTree(connected_links=tree.connectedLinks.items(),
-                                          connected_joints=tree.connectedJoints.items(), robot=tree.robot)
-            link2world.joint = sdf_dom.joint()
-            link2world.robot.joint.append(link2world.joint)
+            world_joint = sdf_dom.joint()
             joint_axis = sdf_dom.CTD_ANON_47()
-            if not link2world.joint.axis:
-                link2world.joint.axis.append(joint_axis)
+            if not world_joint.axis:
+                world_joint.axis.append(joint_axis)
 
-            link2world.joint.child.append(segment.name)
-            link2world.joint.name = segment.name + '_world'
-            link2world.joint.parent.append('world')
-            link2world.joint.axis[0].xyz.append(joint_axis_xyz)
-            link2world.joint.type = 'fixed'
+            world_joint.child.append(segment.name)
+            world_joint.name = segment.name + '_world'
+            world_joint.parent.append('world')
+            world_joint.axis[0].xyz.append(joint_axis_xyz)
+            world_joint.type = 'fixed'
+
+            child.robot.joint.append(world_joint)
 
         # Settings the following flag is probably wrong. Why? Because RD derives the pose of the
         # child bone from the joint angle and axis w.r.t. the child edit pose. Hence Blenders/RD's
@@ -290,28 +290,27 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         print('Axis limit:', child.joint.axis[0].limit)
         print('Axis xyz:', child.joint.axis[0].xyz)
 
-# <<<<<<< HEAD
-        # if segment.parent is None:
-            # print("Info: Root joint has no parent", segment, segment.RobotDesigner.jointMode)
-
         if segment.parent is None:
             # print("Info: Root joint has no parent", segment, segment.RobotEditor.jointMode)
 
             child.joint.type = 'fixed'
         else:
+            # Export individual limits only if set as active in GUI
             if segment.RobotDesigner.jointMode == 'REVOLUTE':
-                child.joint.axis[0].limit[0].lower.append((radians(
-                    segment.RobotDesigner.theta.min)))
-                child.joint.axis[0].limit[0].upper.append((radians(
-                    segment.RobotDesigner.theta.max)))
-                child.joint.axis[0].limit[0].effort.append(segment.RobotDesigner.controller.maxTorque)
-                child.joint.axis[0].limit[0].velocity.append(segment.RobotDesigner.controller.maxVelocity)
+                if segment.RobotDesigner.controller.isActive is True:
+                    child.joint.axis[0].limit.append(sdf_dom.CTD_ANON_49())
+                    child.joint.axis[0].limit[0].lower.append((radians(segment.RobotDesigner.theta.min)))
+                    child.joint.axis[0].limit[0].upper.append((radians(segment.RobotDesigner.theta.max)))
+                    child.joint.axis[0].limit[0].effort.append(segment.RobotDesigner.controller.maxTorque)
+                    child.joint.axis[0].limit[0].velocity.append(segment.RobotDesigner.controller.maxVelocity)
                 child.joint.type = 'revolute'
             if segment.RobotDesigner.jointMode == 'PRISMATIC':
-                child.joint.axis[0].limit[0].lower.append(segment.RobotDesigner.d.min)
-                child.joint.axis[0].limit[0].upper.append(segment.RobotDesigner.d.max)
-                child.joint.axis[0].limit[0].effort.append(segment.RobotDesigner.controller.maxTorque)
-                child.joint.axis[0].limit[0].velocity.append(segment.RobotDesigner.controller.maxVelocity)
+                if segment.RobotDesigner.controller.isActive is True:
+                    child.joint.axis[0].limit.append(sdf_dom.CTD_ANON_49())
+                    child.joint.axis[0].limit[0].lower.append(segment.RobotDesigner.d.min)
+                    child.joint.axis[0].limit[0].upper.append(segment.RobotDesigner.d.max)
+                    child.joint.axis[0].limit[0].effort.append(segment.RobotDesigner.controller.maxTorque)
+                    child.joint.axis[0].limit[0].velocity.append(segment.RobotDesigner.controller.maxVelocity)
                 child.joint.type = 'prismatic'
             if segment.RobotDesigner.jointMode == 'REVOLUTE2':
                 child.joint.type = 'revolute2'
@@ -450,19 +449,18 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
             inertial.pose[0] = ' '.join([frame_pose_xyz, frame_pose_rpy])
 
-        #
-        # # add joint controllers
-        # if operator.gazebo and segment.RobotDesigner.jointController.isActive is True:
-        #     controller = child.add_joint_controller(root.control_plugin)
-        #     controller.joint_name = child.joint.name
-        #     controller.type = segment.RobotDesigner.jointController.controllerType
-        #     if segment.RobotDesigner.jointController.P <= 1.0:
-        #         segment.RobotDesigner.jointController.P = 100
-        #     controller.pid = list_to_string([segment.RobotDesigner.jointController.P,
-        #                                      segment.RobotDesigner.jointController.I,
-        #                                      segment.RobotDesigner.jointController.D])
-
-
+        # add joint controllers
+        if operator.gazebo and segment.RobotDesigner.jointController.isActive is True:
+            # controller = child.add_joint_controller(root.control_plugin)
+            controller = sdf_dom.CTD_ANON_74()  # not final: need to figure out why controller class is not generated
+            controller.joint_name = child.joint.name
+            controller.type = segment.RobotDesigner.jointController.controllerType
+            if segment.RobotDesigner.jointController.P <= 1.0:
+                segment.RobotDesigner.jointController.P = 100
+            controller.pid = list_to_string([segment.RobotDesigner.jointController.P,
+                                             segment.RobotDesigner.jointController.I,
+                                             segment.RobotDesigner.jointController.D])
+            root.control_plugin.controller.append(controller)
 
         ### add link sensors
         sensor_names = [
@@ -517,8 +515,15 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
     # todo SDF Plugin
     # build control plugin element
-    # if operator.gazebo:
-    #     root.control_plugin = root.add_joint_control_plugin()
+    # if there is a segment which has a controller attached to it: then create controller plugin
+    for segment in bpy.context.active_object.data.bones:
+        if segment.RobotDesigner.jointController.isActive is True:
+            if operator.gazebo:
+                root.sdf.model[0].plugin.append(sdf_dom.plugin())
+                root.control_plugin = root.sdf.model[0].plugin[len(root.sdf.model[0].plugin)-1]
+                root.control_plugin.name = robot_name + "_controller"
+                root.control_plugin.filename = "libgeneric_controller_plugin.so"
+            break
 
     # add root geometries to root.link
     muscles = get_muscles(robot_name, context)
@@ -533,8 +538,9 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
         # add OpenSim muscle plugin
         root.sdf.model[0].plugin.append(sdf_dom.plugin())
-        root.sdf.model[0].plugin[0].name = "muscle_interface_plugin"
-        root.sdf.model[0].plugin[0].filename = "libgazebo_ros_muscle_interface.so"
+        length = len(root.sdf.model[0].plugin)
+        root.sdf.model[0].plugin[length-1].name = "muscle_interface_plugin"
+        root.sdf.model[0].plugin[length-1].filename = "libgazebo_ros_muscle_interface.so"
 
     root_segments = [b for b in context.active_object.data.bones if
                  b.parent is None]

@@ -439,14 +439,16 @@ class Importer(object):
         # urdf xyz = string_to_list(get_value(node.joint.origin.xyz, "0 0 0"))
         # urdf euler = string_to_list(get_value(node.joint.origin.rpy, '0 0 0'))
 
-        # urdf if segment_name in self.controllers:
-        #    controller = self.controllers[segment_name]
-        #    PID = controller.pid.split(" ")
-        #    bpy.context.active_bone.RobotDesigner.jointController.isActive = True
-        #    bpy.context.active_bone.RobotDesigner.jointController.controllerType = controller.type
-        #    bpy.context.active_bone.RobotDesigner.jointController.P = float(PID[0])
-        #    bpy.context.active_bone.RobotDesigner.jointController.I = float(PID[1])
-        #    bpy.context.active_bone.RobotDesigner.jointController.D = float(PID[2])
+        # urdf
+        # import joint controllers
+        if segment_name in self.controllers:
+            controller = self.controllers[segment_name]
+            PID = controller.pid.split(" ")
+            bpy.context.active_bone.RobotDesigner.jointController.isActive = True
+            bpy.context.active_bone.RobotDesigner.jointController.controllerType = controller.type
+            bpy.context.active_bone.RobotDesigner.jointController.P = float(PID[0])
+            bpy.context.active_bone.RobotDesigner.jointController.I = float(PID[1])
+            bpy.context.active_bone.RobotDesigner.jointController.D = float(PID[2])
 
         if parent_name:
             axis = string_to_list(node.joint.axis[0].xyz[0])
@@ -483,9 +485,10 @@ class Importer(object):
         if parent_name:
             if len(node.joint.axis[0].limit):
                 bpy.context.active_bone.RobotDesigner.controller.maxTorque = float(get_list_value(
-                    node.joint.axis[0].limit[0].velocity, 0))
+                    node.joint.axis[0].limit[0].effort, 0))
                 bpy.context.active_bone.RobotDesigner.controller.maxVelocity = float(get_list_value(
                     node.joint.axis[0].limit[0].velocity, 0))
+                bpy.context.active_bone.RobotDesigner.controller.isActive = True
 
         # bpy.context.active_bone.RobotDesigner.controller.maxVelocity = float(tree.joint.limit.friction)
 
@@ -745,7 +748,7 @@ class Importer(object):
 
 
     def import_file(self):
-        muscles, robot_name, robot_location, robot_rotation, root_links, kinematic_chains = \
+        muscles, robot_name, robot_location, robot_rotation, root_links, kinematic_chains, self.controllers = \
             sdf_tree.SDFTree.parse(self.file_path)
 
         self.MUSCLE_PATH = muscles

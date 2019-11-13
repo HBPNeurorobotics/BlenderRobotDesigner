@@ -90,7 +90,7 @@ class SDFTree(object):
         # easily searchable during tree traversal
         controller_cache = {}
         gazebo_tags = []
-        logger.debug("Built controller cache:")
+        # logger.debug("Built controller cache:")
         #  logger.debug(robot.plugin[0].filename)
 
         for plugin in robot.plugin:
@@ -99,11 +99,12 @@ class SDFTree(object):
                 # print(robot.plugin[0].orderedContent()[0])
                 element = robot.plugin[0].orderedContent()[0]
                 #             logger.debug("Found controller for joint: " + element.value()[0].xsdConstraintsOK(location=None) + ", caching it.")
-                #            controller_cache[plugin.controller.joint_name] = plugin.controller
+                # controller_cache[plugin.controller[0].joint_name] = plugin.controller
+                controller_cache = {controller.joint_name: controller for controller in plugin.controller}
                 #              # remove last tag from the last, it is handled by controller plugin differently
                 #              gazebo_tags.pop()
-                #  logger.debug("Built controller cache:")
-                #  logger.debug(controller_cache)
+                logger.debug("Built controller cache:")
+                logger.debug(controller_cache)
 
         # create mapping from (parent) links to joints  (a list)
         connected_joints = {link: [joint for joint in robot.joint if link.name == joint.parent[0]] for link
@@ -147,7 +148,7 @@ class SDFTree(object):
             # todo: parse joint controllers
 
         logger.debug("kinematic chains: %s", kinematic_chains)
-        return muscles, robot.name, robot_location, robot_rotation, root_links, kinematic_chains  # , controller_cache, gazebo_tags
+        return muscles, robot.name, robot_location, robot_rotation, root_links, kinematic_chains, controller_cache # , gazebo_tags
 
     def build(self, link, joint=None, depth=0):
         """
@@ -467,7 +468,7 @@ class SDFTree(object):
         # if not joint_axis.xyz:
         #     print(vars(joint_axis.xyz))
         #     joint_axis.xyz.append('0 0 0 0')
-        joint_axis_limit = sdf_dom.CTD_ANON_49()
+        # joint_axis_limit = sdf_dom.CTD_ANON_49()
 
         link_inertial = sdf_dom.inertial()
         link_inertial_inertia = sdf_dom.CTD_ANON_45()
@@ -476,13 +477,13 @@ class SDFTree(object):
         if not joint.axis:
             joint.axis.append(joint_axis)
 
-        if not joint.axis[0].limit:
-            print('Set defaults: Joint Axis Limit ')
-            joint.axis[0].limit.append(joint_axis_limit)
-            # joint.axis[0].limit.append(BIND())
+        # if not joint.axis[0].limit:
+        #     print('Set defaults: Joint Axis Limit ')
+        #     joint.axis[0].limit.append(joint_axis_limit)
+        #     # joint.axis[0].limit.append(BIND())
 
         if not link.inertial:
-            print('Set defaults: Joint Axis Limit ')
+            print('Set defaults: Inertia ')
             link.inertial.append(link_inertial)
 
         if not link.inertial[0].inertia:

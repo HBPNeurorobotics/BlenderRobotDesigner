@@ -58,7 +58,7 @@ class RDActuator(bpy.types.PropertyGroup):
     """
     maxVelocity = FloatProperty(name="max. Velocity", precision=4, step=100, default=-1)
     maxTorque = FloatProperty(name="max. Torque", precision=4, step=100, default=-1)
-    isActive = BoolProperty(name="active?")
+    isActive = BoolProperty(name="Active", default=False)
     acceleration = FloatProperty(name="Acceleration", precision=4, step=100)
     deceleration = FloatProperty(name="Deceleration", precision=4, step=100)
 
@@ -87,7 +87,7 @@ class RDJointController(bpy.types.PropertyGroup):
     """
     Property group for joint controllers
     """
-    isActive = BoolProperty(name="Active", default=True)
+    isActive = BoolProperty(name="Active", default=False)
 
     controllerType = EnumProperty(
         items=[('position', 'Position', 'Position'),

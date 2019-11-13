@@ -8,9 +8,17 @@
     <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
     <xsd:element name="plugin">
         <xsd:complexType>
-            <xsd:sequence>
-                <xsd:any maxOccurs="unbounded" minOccurs="0" processContents="lax"/>
-            </xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:element name="controller">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element type="xsd:string" name="type"/>
+                            <xsd:element type="vector3" name="pid"/>
+                        </xsd:sequence>
+                        <xsd:attribute name="joint_name" type="xsd:string" use="required"/>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:choice>
             <xsd:attribute name="name" type="xsd:string" use="required">
                 <xsd:annotation>
                     <xsd:documentation xml:lang="en">
