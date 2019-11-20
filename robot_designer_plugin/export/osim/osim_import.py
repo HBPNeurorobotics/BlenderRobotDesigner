@@ -91,15 +91,25 @@ class OsimImporter(object):
         self.connect_wrapping_objects(muscle, RDmuscle)
 
     def connect_wrapping_objects(self, muscle, RDmuscle):
+        """
+        Create dependencies between muscle and corresponding wrapping objects
+        :param muscle: .osim pyxb muscle instance
+        :param RDmuscle: muscle object
+        :return:
+        """
+
+        # iterate through all connected wrapping objects to the pyxb muscle instance
         w = 0
         while True:
             try:
+                # add muscle to muscle list of all connected wrapping objects
                 path = muscle.GeometryPath.PathWrapSet.objects.PathWrap[w]
                 wrapping_object = bpy.context.scene.objects[path.wrap_object]
                 wrapping_object.RobotDesigner.wrap.muscleNames.add()
                 nr = len(wrapping_object.RobotDesigner.wrap.muscleNames)
                 wrapping_object.RobotDesigner.wrap.muscleNames[nr - 1].name = RDmuscle.name
 
+                # add wrapping object to wrapping objects list of muscle
                 wrapList = RDmuscle.RobotDesigner.muscles.connectedWraps
                 wrapList.add()
                 nrw = len(wrapList)
@@ -146,8 +156,15 @@ class OsimImporter(object):
                 break
 
     def import_wrapping_sphere(self, body, wrapping):
+        """
+        Create wrapping sphere from osim file
+        :param body: parent segment
+        :param wrapping: .osim pyxb wrapping object instance
+        :return:
+        """
         radius = wrapping.radius
-        bpy.ops.mesh.primitive_uv_sphere_add(size=radius, calc_uvs=True, view_align=False, enter_editmode=False)
+        bpy.ops.mesh.primitive_uv_sphere_add(size=1.0, calc_uvs=True, view_align=False,
+                                             enter_editmode=False, location=(0, 0, 0))
         sphere = bpy.context.active_object
         sphere.name = wrapping.name
 
@@ -160,7 +177,6 @@ class OsimImporter(object):
         sphere.RobotDesigner.wrap.WrappingType = 'WRAPPING_SPHERE'
 
         model = bpy.data.objects[global_properties.model_name.get(bpy.context.scene)]
-        print("model: ", model.name)
         pose_bone = model.pose.bones[body.name]
         segment_world = model.matrix_world * pose_bone.matrix
 
@@ -181,12 +197,23 @@ class OsimImporter(object):
         SelectSegment.run(segment_name=body.name)
         SelectGeometry.run(geometry_name=assigned_name)
 
+        bpy.data.objects[sphere.name].RobotDesigner.scaling.scale_all = radius
+        # Model has to be selected and active in order to update scale
+        bpy.data.objects[sphere.name].RobotDesigner.scaling.scale_all_update(bpy.context)
+
         AttachWrappingObject.run()
 
     def import_wrapping_cylinder(self, body, wrapping):
+        """
+        Create wrapping cylinder from osim file
+        :param body: parent segment
+        :param wrapping: .osim pyxb wrapping object instance
+        :return:
+        """
         radius = wrapping.radius
         depth = wrapping.length
-        bpy.ops.mesh.primitive_cylinder_add(radius=radius, depth=depth, view_align=False, enter_editmode=False)
+        bpy.ops.mesh.primitive_cylinder_add(radius=radius, depth=depth, view_align=False,
+                                            enter_editmode=False, location=(0, 0, 0))
         cylinder = bpy.context.active_object
         cylinder.name = wrapping.name
 
@@ -199,7 +226,6 @@ class OsimImporter(object):
         cylinder.RobotDesigner.wrap.WrappingType = 'WRAPPING_CYLINDER'
 
         model = bpy.data.objects[global_properties.model_name.get(bpy.context.scene)]
-        print("model: ", model.name)
         pose_bone = model.pose.bones[body.name]
         segment_world = model.matrix_world * pose_bone.matrix
 
@@ -219,6 +245,11 @@ class OsimImporter(object):
         SelectModel.run(model_name=model.name)
         SelectSegment.run(segment_name=body.name)
         SelectGeometry.run(geometry_name=assigned_name)
+
+        bpy.data.objects[cylinder.name].RobotDesigner.scaling.scale_radius = radius
+        bpy.data.objects[cylinder.name].RobotDesigner.scaling.scale_depth = depth
+        # Model has to be selected and active in order to update scale
+        bpy.data.objects[cylinder.name].RobotDesigner.scaling.scale_all_update(bpy.context)
 
         AttachWrappingObject.run()
 
