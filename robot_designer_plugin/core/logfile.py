@@ -62,7 +62,7 @@ from ..core.config import BACKTRACE_MESSAGE_CALLSTACK, BACKTRACE_MESSAGE, BACKTR
 from importlib import reload
 
 reload(logging)
-logging.basicConfig(format='[%(levelname)5s|%(name)10s|%(filename)12s:%(lineno)03d|%(funcName)s()] %(message)s\n',
+logging.basicConfig(format='[%(levelname)5s|%(name)10s|%(filename)12s:%(lineno)03d|%(funcName)s()] %(message)s',
                     filename=os.path.join(script_path, 'resources/log.txt'), filemode='w')
 
 operator_logger = logging.getLogger('Operators')
@@ -155,7 +155,7 @@ def log_callstack_last(back_trace=False):
     print("Parsing stack")
 
     for path, line, func, code in stack:
-        print(path,func)
+        print(path, func)
         if func not in BACKTRACE_FILTER_FUNC:
             if func not in BACKTRACE_FILTER_HIDE_CODE:
                 file = os.path.split(path)[-1]

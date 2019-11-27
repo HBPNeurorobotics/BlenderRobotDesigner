@@ -47,6 +47,7 @@ from ..core import Condition, PluginManager
 from ..core.constants import StringConstants
 from ..core import RDOperator
 
+
 def _vec_roll_to_mat3(vec, roll):
     """
     Function to convert a given rotation vector and a roll angle along this axis into a 3x3 rotation matrix
@@ -107,7 +108,7 @@ class ModelSelected(Condition):
         :return: True if the condition is met, else false. String with error message.
         """
         if bpy.context.active_object:
-            return bpy.context.active_object.type == 'ARMATURE', "Model not selected and active." #or bpy.context.active_object.type == 'MESH'
+            return bpy.context.active_object.type == 'ARMATURE', "Model not selected and active."  # or bpy.context.active_object.type == 'MESH'
         else:
             return False, "No model selected"
 
@@ -123,6 +124,21 @@ class SingleSegmentSelected(Condition):
         if bpy.context.active_bone:
             selected_segments = [i for i in bpy.context.active_object.data.bones if i.select]
             return len(selected_segments) == 1, "Single Segment must be selected"
+        else:
+            return False, "No Object select"
+
+
+class AtLeastOneSegmentSelected(Condition):
+    @staticmethod
+    def check():
+        """
+        :ref:`condition` that assures that at least one bone of the active object is selected
+
+        :return: True if the condition is met, else false. String with error message.
+        """
+        if bpy.context.active_bone:
+            selected_segments = [i for i in bpy.context.active_object.data.bones if i.select]
+            return len(selected_segments) >= 1, "At least one segment must be selected"
         else:
             return False, "No Object select"
 
@@ -170,7 +186,7 @@ class NotEditMode(Condition):
         :term:`condition` that assures that the :term:`edit mode` is *not* selected.
         """
         if bpy.context.object:
-            return bpy.context.object.mode != 'EDIT', "Must not be in edot mode"
+            return bpy.context.object.mode != 'EDIT', "Must not be in edit mode"
         else:
             return True, ""
 
@@ -192,7 +208,7 @@ class SingleMassObjectSelected(Condition):
         :term:`condition` that assures that a :class:`bpy.types.Camera` associated object is selected.
         """
         selected = [i for i in bpy.context.selected_objects if
-                    i.type == StringConstants.empty and i.RobotEditor.tag == "PHYSICS_FRAME"]
+                    i.type == StringConstants.empty and i.RobotDesigner.tag == "PHYSICS_FRAME"]
         return len(selected) == 1, "Single mass object must be selected."
 
 
@@ -215,7 +231,7 @@ class SelectObjectBase(RDOperator):
 
         arm = context.active_object
 
-        for obj in bpy.data.objects:
+        for obj in context.scene.objects:
             obj.select = False
 
         mesh.select = True
@@ -239,7 +255,7 @@ class AssignObjectBase(RDOperator):
         bpy.ops.object.parent_set(type='BONE', keep_transform=True)
         return {'FINISHED'}
 
-		
+
 class ObjectScaled(Condition):
     @staticmethod
     def check():
@@ -247,6 +263,7 @@ class ObjectScaled(Condition):
         :term:`condition` that assures that model has been scaled before the operation.
         """
         if bpy.context.active_object:
-            return (bpy.context.active_object.scale.x == bpy.context.active_object.scale.y == bpy.context.active_object.scale.z == 1.0), "Object has to be scaled!"
+            return (
+                   bpy.context.active_object.scale.x == bpy.context.active_object.scale.y == bpy.context.active_object.scale.z == 1.0), "Object has to be scaled!"
         else:
             return True, ""

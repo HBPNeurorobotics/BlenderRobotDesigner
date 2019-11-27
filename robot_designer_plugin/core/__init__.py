@@ -69,4 +69,3 @@ from .pluginmanager import PluginManager
 from .conditions import Condition
 from .operators import RDOperator
 # from .resources import reload_resources
-

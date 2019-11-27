@@ -28,9 +28,9 @@ def parseTree(tree, parentName):
     # print("parsetree")
     armName = bpy.context.active_object.name
     armatures.createBone(armName, tree.name, parentName)
-    bpy.ops.roboteditor.select_segment(segment_name=tree.name)
+    bpy.ops.RobotDesigner.select_segment(segment_name=tree.name)
     # print(tree.name)
-    boneProp = bpy.context.active_bone.RobotEditor
+    boneProp = bpy.context.active_bone.RobotDesigner
 
     m = Matrix()
     # print(tree.transformations)
@@ -49,50 +49,46 @@ def parseTree(tree, parentName):
             raise Exception("ParsingError")
             # print(m)
 
-    bpy.context.active_bone.RobotEditor.Euler.x.value = m.translation[0] / 1000
-    bpy.context.active_bone.RobotEditor.Euler.y.value = m.translation[1] / 1000
-    bpy.context.active_bone.RobotEditor.Euler.z.value = m.translation[2] / 1000
+    bpy.context.active_bone.RobotDesigner.Euler.x.value = m.translation[0] / 1000
+    bpy.context.active_bone.RobotDesigner.Euler.y.value = m.translation[1] / 1000
+    bpy.context.active_bone.RobotDesigner.Euler.z.value = m.translation[2] / 1000
 
-    bpy.context.active_bone.RobotEditor.Euler.gamma.value = degrees(m.to_euler().z)
-    bpy.context.active_bone.RobotEditor.Euler.beta.value = degrees(m.to_euler().y)
-    bpy.context.active_bone.RobotEditor.Euler.alpha.value = degrees(m.to_euler().x)
+    bpy.context.active_bone.RobotDesigner.Euler.gamma.value = degrees(m.to_euler().z)
+    bpy.context.active_bone.RobotDesigner.Euler.beta.value = degrees(m.to_euler().y)
+    bpy.context.active_bone.RobotDesigner.Euler.alpha.value = degrees(m.to_euler().x)
 
     if tree.axis_type == 'revolute':
-        bpy.context.active_bone.RobotEditor.jointMode = 'REVOLUTE'
+        bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE'
         # boneProp.theta.value = float(tree.initalValue)
-        bpy.context.active_bone.RobotEditor.theta.max = float(tree.max)
-        bpy.context.active_bone.RobotEditor.theta.min = float(tree.min)
+        bpy.context.active_bone.RobotDesigner.theta.max = float(tree.max)
+        bpy.context.active_bone.RobotDesigner.theta.min = float(tree.min)
     else:
-        bpy.context.active_bone.RobotEditor.jointMode = 'PRISMATIC'
+        bpy.context.active_bone.RobotDesigner.jointMode = 'PRISMATIC'
         # boneProp.d.value = float(tree.initialValue)
-        bpy.context.active_bone.RobotEditor.d.max = float(tree.max)
-        bpy.context.active_bone.RobotEditor.d.min = float(tree.min)
+        bpy.context.active_bone.RobotDesigner.d.max = float(tree.max)
+        bpy.context.active_bone.RobotDesigner.d.min = float(tree.min)
 
     if tree.axis is not None:
         for i, axis in enumerate(tree.axis):
             if axis == -1.0:
-                bpy.context.active_bone.RobotEditor.axis_revert = True
+                bpy.context.active_bone.RobotDesigner.axis_revert = True
                 tree.axis[i] = 1.0
 
         if tree.axis == [1.0, 0.0, 0.0]:
-            bpy.context.active_bone.RobotEditor.axis = 'X'
+            bpy.context.active_bone.RobotDesigner.axis = 'X'
         elif tree.axis == [0.0, 1.0, 0.0]:
-            bpy.context.active_bone.RobotEditor.axis = 'Y'
+            bpy.context.active_bone.RobotDesigner.axis = 'Y'
         elif tree.axis == [0.0, 0.0, 1.0]:
-            bpy.context.active_bone.RobotEditor.axis = 'Z'
+            bpy.context.active_bone.RobotDesigner.axis = 'Z'
     # print("parsetree done")
 
     for child in tree.children:
         parseTree(child, tree.name)
 
 
-
-
-
-
 # operator to import an MMM-Motion
-class RobotEditor_importMMM(bpy.types.Operator):
-    bl_idname = "roboteditor.mmmimport"
+class RobotDesigner_importMMM(bpy.types.Operator):
+    bl_idname = "RobotDesigner.mmmimport"
     bl_label = "Import MMM"
     filepath = StringProperty(subtype='FILE_PATH')
 
@@ -106,13 +102,13 @@ class RobotEditor_importMMM(bpy.types.Operator):
 
 
 def draw(layout, context):
-    layout.operator("roboteditor.colladaexport")
-    layout.operator("roboteditor.mmmimport")
+    layout.operator("RobotDesigner.colladaexport")
+    layout.operator("RobotDesigner.mmmimport")
 
 
 # operator to import the kinematics in a SIMOX-XML file
-class RobotEditor_importSIMOX(bpy.types.Operator):
-    bl_idname = "roboteditor.simoximport"
+class RobotDesigner_importSIMOX(bpy.types.Operator):
+    bl_idname = "RobotDesigner.simoximport"
     bl_label = "Import SIMOX XML"
     filepath = StringProperty(subtype='FILE_PATH')
 
@@ -124,9 +120,3 @@ class RobotEditor_importSIMOX(bpy.types.Operator):
     def invoke(self, context, event):
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
-
-
-
-
-
-

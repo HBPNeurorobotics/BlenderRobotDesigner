@@ -56,11 +56,12 @@ class RDActuator(bpy.types.PropertyGroup):
     """
     Property group that contains all controller-related parameters
     """
-    maxVelocity = FloatProperty(name="max. Velocity", precision=4, step=100)
-    maxTorque = FloatProperty(name="max. Torque", precision=4, step=100)
-    isActive = BoolProperty(name="acitve?")
+    maxVelocity = FloatProperty(name="max. Velocity", precision=4, step=100, default=-1)
+    maxTorque = FloatProperty(name="max. Torque", precision=4, step=100, default=-1)
+    isActive = BoolProperty(name="Active", default=False)
     acceleration = FloatProperty(name="Acceleration", precision=4, step=100)
     deceleration = FloatProperty(name="Deceleration", precision=4, step=100)
+
 
 @PluginManager.register_property_group()
 class RDDegreeOfFreedom(bpy.types.PropertyGroup):
@@ -71,28 +72,27 @@ class RDDegreeOfFreedom(bpy.types.PropertyGroup):
     def updateDoF(self: memoryview, context):
         if global_properties.do_kinematic_update.get(context.scene):
             segment_name = context.active_bone.name
-
-            UpdateSegments.run(segment_name=segment_name)
+            UpdateSegments.run(segment_name=segment_name, recurse=False)
 
     value = FloatProperty(name="Value", update=updateDoF, precision=4,
-                          step=100)
+                      step=100)
     offset = FloatProperty(name="Offset", update=updateDoF, precision=4,
-                           step=100)
+                       step=100)
     min = FloatProperty(name="Min", default=-90.0, precision=4, step=100)
     max = FloatProperty(name="Max", default=90.0, precision=4, step=100)
+
 
 @PluginManager.register_property_group()
 class RDJointController(bpy.types.PropertyGroup):
     """
     Property group for joint controllers
     """
-    isActive = BoolProperty(name="Active", default=True)
+    isActive = BoolProperty(name="Active", default=False)
 
     controllerType = EnumProperty(
         items=[('position', 'Position', 'Position'),
                ('velocity', 'Velocity', 'Velocity')],
-        name="Controller mode:"
-    )
+        name="Controller mode:")
 
     # controllerType = EnumProperty(
     #     items=[('PID', 'PID controller', 'PID controller'),
@@ -103,6 +103,7 @@ class RDJointController(bpy.types.PropertyGroup):
     P = FloatProperty(name="P", precision=4, step=100, default=1.0)
     I = FloatProperty(name="I", precision=4, step=100, default=1.0)
     D = FloatProperty(name="D", precision=4, step=100, default=1.0)
+
 
 @PluginManager.register_property_group()
 class RDEulerAnglesSegment(bpy.types.PropertyGroup):
@@ -151,21 +152,18 @@ class RDDenavitHartenbergSegment(bpy.types.PropertyGroup):
     alpha = PointerProperty(type=RDDegreeOfFreedom)
     a = PointerProperty(type=RDDegreeOfFreedom)
 
+
 @PluginManager.register_property_group(bpy.types.Bone)
 class RDSegment(bpy.types.PropertyGroup):
     """
-    Bone property, contains all relevant bone information for RobotEditor
+    Bone property, contains all relevant bone information for RobotDesigner
     """
 
     def callbackSegments(self, context):
-        try:
-            logger.debug("Callback called")
-            armName = context.active_object.name
-            segment_name = context.active_bone.name
-
-            UpdateSegments.run(segment_name=segment_name)
-        except:
-            pass
+        armName = context.active_object.name
+        segment_name = context.active_bone.name
+        # We should not have to recurse when updating a local property.
+        UpdateSegments.run(segment_name=segment_name, recurse=False)
 
     def getTransform(self):
         """
@@ -193,24 +191,24 @@ class RDSegment(bpy.types.PropertyGroup):
         if self.jointMode == 'REVOLUTE':
             if self.axis == 'X':
                 rotation = Euler(
-                        (radians(self.theta.value + self.theta.offset), 0, 0),
-                        'XYZ').to_matrix()
+                    (radians(self.theta.value + self.theta.offset), 0, 0),
+                    'XYZ').to_matrix()
                 rotation.resize_4x4()
                 axis_matrix = Euler((radians(180 * (1 - inverted) / 2), 0, 0),
                                     'XYZ').to_matrix()
                 axis_matrix.resize_4x4()
             elif self.axis == 'Y':
                 rotation = Euler(
-                        (0, radians(self.theta.value + self.theta.offset), 0),
-                        'XYZ').to_matrix()
+                    (0, radians(self.theta.value + self.theta.offset), 0),
+                    'XYZ').to_matrix()
                 rotation.resize_4x4()
                 axis_matrix = Euler((0, radians(180 * (1 - inverted) / 2), 0),
                                     'XYZ').to_matrix()
                 axis_matrix.resize_4x4()
             elif self.axis == 'Z':
                 rotation = Euler(
-                        (0, 0, radians(self.theta.value + self.theta.offset)),
-                        'XYZ').to_matrix()
+                    (0, 0, radians(self.theta.value + self.theta.offset)),
+                    'XYZ').to_matrix()
                 rotation.resize_4x4()
                 axis_matrix = Euler((0, 0, radians(180 * (1 - inverted) / 2)),
                                     'XYZ').to_matrix()
@@ -219,13 +217,13 @@ class RDSegment(bpy.types.PropertyGroup):
         if self.jointMode == 'PRISMATIC':
             if self.axis == 'X':
                 translation = Matrix.Translation(
-                        (inverted * (self.d.value + self.d.offset), 0, 0, 1))
+                    (inverted * (self.d.value + self.d.offset), 0, 0, 1))
             elif self.axis == 'Y':
                 translation = Matrix.Translation(
-                        (0, inverted * (self.d.value + self.d.offset), 0, 1))
+                    (0, inverted * (self.d.value + self.d.offset), 0, 1))
             elif self.axis == 'Z':
                 translation = Matrix.Translation(
-                        (0, 0, inverted * (self.d.value + self.d.offset), 1))
+                    (0, 0, inverted * (self.d.value + self.d.offset), 1))
 
         if self.jointMode == 'FIXED' or self.jointMode == 'REVOLUTE2' or self.jointMode == 'UNIVERSAL' or self.jointMode == 'BALL':  # todo: check if this is right for fixed joint type
             translation = Matrix.Translation((0, 0, 0, 1))
@@ -234,26 +232,26 @@ class RDSegment(bpy.types.PropertyGroup):
         # return parentMatrix, translation*rotation
 
     jointMode = EnumProperty(
-            items=[('PRISMATIC', 'Prismatic', 'prismatic joint'),
-                   ('REVOLUTE', 'Revolute', 'revolute joint'),
-                   ('REVOLUTE2', 'Revolute2', 'revolute2 joint'),
-                   ('UNIVERSAL', 'Universal', 'universal joint'),
-                   ('BALL', 'Ball', 'ball joint'),
-                   ('FIXED', 'Fixed', 'fixed joint')],
-            name="Joint Mode", update=callbackSegments
+        items=[('REVOLUTE', 'Revolute', 'revolute joint'),
+               ('PRISMATIC', 'Prismatic', 'prismatic joint'),
+               ('REVOLUTE2', 'Revolute2', 'revolute2 joint'),
+               ('UNIVERSAL', 'Universal', 'universal joint'),
+               ('BALL', 'Ball', 'ball joint'),
+               ('FIXED', 'Fixed', 'fixed joint')],
+        name="Joint Mode", update=callbackSegments
     )
 
     parentMode = EnumProperty(
-            items=[('EULER', 'Euler', 'Euler mode'),
-                   ('DH', 'DH', 'DH mode')],
-            name="Parent Mode", update=callbackSegments
+        items=[('EULER', 'Euler', 'Euler mode'),
+               ('DH', 'DH', 'DH mode')],
+        name="Parent Mode", update=callbackSegments
     )
 
     axis = EnumProperty(
-            items=[('X', 'X', 'X Axis'),
-                   ('Y', 'Y', 'Y Axis'),
-                   ('Z', 'Z', 'Z Axis')],
-            name="Active Axis", default='Z', update=callbackSegments
+        items=[('X', 'X', 'X Axis'),
+               ('Y', 'Y', 'Y Axis'),
+               ('Z', 'Z', 'Z Axis')],
+        name="Active Axis", default='Z', update=callbackSegments
     )
 
     RD_Bone = BoolProperty(name="Created by RD", default=False)
@@ -261,14 +259,27 @@ class RDSegment(bpy.types.PropertyGroup):
     axis_revert = BoolProperty(name="Axis reverted?", default=False,
                                update=callbackSegments)
 
-
     controller = PointerProperty(type=RDActuator)
-    theta = PointerProperty(type=RDDegreeOfFreedom)
+    theta = PointerProperty(type=RDDegreeOfFreedom)  # Joint transform + limits, relative to local frame.
     d = PointerProperty(type=RDDegreeOfFreedom)
     jointController = PointerProperty(type=RDJointController)
-    Euler = PointerProperty(type=RDEulerAnglesSegment)
-    DH = PointerProperty(type=RDDenavitHartenbergSegment)
+    Euler = PointerProperty(type=RDEulerAnglesSegment)  # Frame relative to parent
+    DH = PointerProperty(
+        type=RDDenavitHartenbergSegment)  # Dito but in a different way. Only one, either DH or Euler is used.
+    world = BoolProperty(name="Attach Link to World", default=False)
 
-# Resolving circular dependencies
 
-
+def getTransformFromBlender(bone):
+    # In whatever mode we currently are, get me a normal bpy.types.Bone.
+    # bone = bpy.context.active_object.data.bones[bone.name]
+    # On the other hand ...
+    assert isinstance(bone, bpy.types.Bone)
+    parent = bone.parent
+    if parent is not None:
+        pose_wrt_parent = parent.matrix_local.inverted() * bone.matrix_local
+    else:
+        pose_wrt_parent = bone.matrix_local
+    # Now, compute the joint Trafo. RD Applies the joint trafo to the pose bone.
+    # What is computed here as pose_wrt_parent refers to the edit bones.
+    _, joint_trafo = bone.RobotDesigner.getTransform()
+    return pose_wrt_parent, joint_trafo

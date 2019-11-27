@@ -49,7 +49,7 @@ def read(filepath):
     frameCounter = start  # count the current frame in blender
 
     # disable kinematic updates for import
-    bpy.context.scene.RobotEditor.doKinematicUpdate = False
+    bpy.context.scene.RobotDesigner.doKinematicUpdate = False
 
     for [i, [timestamp, root_position, root_rotation, joint_position]] in enumerate(
             itertools.zip_longest(timestamps, root_positions, root_rotations, joint_positions,
@@ -82,12 +82,12 @@ def read(filepath):
         # bpy.context.active_object.rotation_euler = Euler(root_rotation, "XYZ")
         for [x, value] in enumerate(joint_position):
             if x < len(names):
-                bpy.ops.roboteditor.select_segment(segment_name=names[x])
+                bpy.ops.RobotDesigner.select_segment(segment_name=names[x])
                 try:
-                    bpy.context.active_bone.RobotEditor.theta.value = value / pi * 180.0
+                    bpy.context.active_bone.RobotDesigner.theta.value = value / pi * 180.0
                 except KeyError:
                     print("Error updating %s" % s)
-                    # print(names[x], value/pi*180, bpy.context.active_bone.RobotEditor.theta.value)
+                    # print(names[x], value/pi*180, bpy.context.active_bone.RobotDesigner.theta.value)
 
         bpy.ops.object.mode_set(mode='POSE')
         bpy.ops.pose.select_all(action='SELECT')
@@ -97,7 +97,7 @@ def read(filepath):
 
         # armatures.updateKinematics(armName,segment_name)
 
-    bpy.context.scene.RobotEditor.doKinematicUpdate = True
+    bpy.context.scene.RobotDesigner.doKinematicUpdate = True
 
 # if __name__ == "__main__":
 #    import sys

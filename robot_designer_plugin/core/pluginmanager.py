@@ -186,7 +186,6 @@ class PluginManager(object):
     @classmethod
     def load_icon(cls, id: str, filename: str):
         '''
-
         :param id: ID of the label
         :param filename: Relative to :data:`.config/resource_path`
         :return: None
@@ -197,10 +196,10 @@ class PluginManager(object):
         else:
             cls._icons_to_register.append((id, file_path, 'IMAGE'))
 
+
     @classmethod
     def get_icon(cls, id: str):
         '''
-
         :param id:
         :return:
         '''
@@ -209,6 +208,7 @@ class PluginManager(object):
             return cls._bl_icons_dict[id].icon_id
         else:
             return 0
+
 
     @classmethod
     def clear(cls):
@@ -221,6 +221,7 @@ class PluginManager(object):
         cls._bools_to_register.clear()
         cls._icons_to_register.clear()
 
+
     @classmethod
     def get_property(cls, obj, prop):
         '''
@@ -231,6 +232,7 @@ class PluginManager(object):
         '''
         args, varargs, keywords, locals = inspect.getargvalues(inspect.currentframe())
         print(args, varargs, keywords, locals)
+
 
     @classmethod
     def register(cls):
@@ -255,7 +257,7 @@ class PluginManager(object):
 
                 bpy.utils.register_class(prop)
                 if extends in (bpy.types.Object, bpy.types.Scene, bpy.types.Bone):
-                    setattr(extends, 'RobotEditor', bpy.props.PointerProperty(type=getattr(bpy.types, prop.__name__)))
+                    setattr(extends, 'RobotDesigner', bpy.props.PointerProperty(type=getattr(bpy.types, prop.__name__)))
                 cls._registered_properties.append((prop, extends))
 
             for i in cls._property_fields.items():
@@ -281,6 +283,7 @@ class PluginManager(object):
 
         cls.clear()
 
+
     @classmethod
     def unregister(cls):
         """
@@ -298,7 +301,7 @@ class PluginManager(object):
             for prop, extends in cls._registered_properties:
                 bpy.utils.unregister_class(prop)
                 if extends in (bpy.types.Object, bpy.types.Scene, bpy.types.Bone):
-                    delattr(extends, "RobotEditor")
+                    delattr(extends, "RobotDesigner")
 
             for prop in cls._registered_bools:
                 delattr(bpy.types.Scene, prop)

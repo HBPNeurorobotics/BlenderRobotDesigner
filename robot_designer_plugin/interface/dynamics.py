@@ -57,60 +57,55 @@ def draw(layout, context):
     if not check_armature(layout, context):
         return
 
+    settings = layout.row()
+    global_properties.display_physics_selection.prop(context.scene, settings)
+
     box = layout.box()
-    box.label("Select mass object")
+    box.label("Edit Mass Object")
     infoBox = InfoBox(box)
     row = box.row()
-    column = row.column(align=True)
 
     single_segment = getSingleSegment(context)
 
-    column.menu(menus.SegmentsGeometriesMenu.bl_idname,
-                text=single_segment.name if single_segment else "Select Segment")
-
-    row2 = column.row(align=True)
-
-    global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
-    row2.separator()
-    global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
-                                               icon='VIEWZOOM',
-                                               text='')
-
-    column = row.column(align=True)
-    menus.MassObjectMenu.putMenu(column, context)
-    # create_geometry_selection(column, context)
     row = box.column(align=True)
-    dynamics.AssignPhysical.place_button(row,infoBox=infoBox)
-    dynamics.DetachPhysical.place_button(row,infoBox=infoBox)
-    dynamics.CreatePhysical.place_button(row,infoBox=infoBox)
 
-    obj = getSingleObject(context)
-    if obj and obj.RobotEditor.tag=="PHYSICS_FRAME":
-        frame_name = global_properties.physics_frame_name.get(context.scene)
-        box = layout.box()
-        box.label("Properties", icon="MODIFIER")
-        frame = bpy.data.objects[frame_name]
-        box.prop(frame.RobotEditor.dynamics, "mass")
-        box.separator()
+    dynamics.CreatePhysical.place_button(row, infoBox=infoBox)
+    dynamics.ComputePhysical.place_button(row, infoBox=infoBox)
 
-        row_t = box.row(align=True)
-        row_r = box.row(align=True)
-        row_t.prop(frame.RobotEditor.dynamics, "inertiaTrans")
-        row_r.prop(frame.RobotEditor.dynamics, "inertiaRot")
+    objs = [o for o in context.active_object.children if
+            o.RobotDesigner.tag == 'PHYSICS_FRAME' and o.parent_bone == single_segment.name]
+    try:
+        obj, = objs
+        # obj = getSingleObject(context)
+        if obj and obj.RobotDesigner.tag == "PHYSICS_FRAME":
+            frame_name = obj.name
+            box = layout.box()
+            box.label("Mass properties (" + single_segment.name + ")", icon="MODIFIER")
+            frame = bpy.data.objects[frame_name]
+            box.prop(frame.RobotDesigner.dynamics, "mass")
+            box.separator()
 
-        row0 = box.row(align=True)
-        row1 = box.row(align=True)
-        row2 = box.row(align=True)
-        row3 = box.row(align=True)
-        row0.label("Inertia Matrix")
-        row1.prop(frame.RobotEditor.dynamics, "inertiaXX")
-        row2.prop(frame.RobotEditor.dynamics, "inertiaXY")
-        row3.prop(frame.RobotEditor.dynamics, "inertiaXZ")
-        row1.prop(frame.RobotEditor.dynamics, "inertiaXY")
-        row2.prop(frame.RobotEditor.dynamics, "inertiaYY")
-        row3.prop(frame.RobotEditor.dynamics, "inertiaYZ")
-        row1.prop(frame.RobotEditor.dynamics, "inertiaXZ")
-        row2.prop(frame.RobotEditor.dynamics, "inertiaYZ")
-        row3.prop(frame.RobotEditor.dynamics, "inertiaZZ")
+            row_t = box.row(align=True)
+            row_r = box.row(align=True)
+
+            row_t.prop(bpy.data.objects[frame_name], 'location', text="Translation")
+            row_r.prop(bpy.data.objects[frame_name], 'rotation_euler', text="Rotation")
+
+            row0 = box.row(align=True)
+            row1 = box.row(align=True)
+            row2 = box.row(align=True)
+            row3 = box.row(align=True)
+            row0.label("Inertia Matrix")
+            row1.prop(frame.RobotDesigner.dynamics, "inertiaXX")
+            row2.prop(frame.RobotDesigner.dynamics, "inertiaXY")
+            row3.prop(frame.RobotDesigner.dynamics, "inertiaXZ")
+            row1.prop(frame.RobotDesigner.dynamics, "inertiaXY")
+            row2.prop(frame.RobotDesigner.dynamics, "inertiaYY")
+            row3.prop(frame.RobotDesigner.dynamics, "inertiaYZ")
+            row1.prop(frame.RobotDesigner.dynamics, "inertiaXZ")
+            row2.prop(frame.RobotDesigner.dynamics, "inertiaYZ")
+            row3.prop(frame.RobotDesigner.dynamics, "inertiaZZ")
+    except:
+        pass
 
     infoBox.draw_info()

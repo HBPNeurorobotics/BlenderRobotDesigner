@@ -1,1 +1,1 @@
-version='Mockup'
+version = 'Mockup'

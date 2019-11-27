@@ -23,13 +23,20 @@ import os
 try:
 
     from . import core
+
     reload(core)  # Must be the first to reload
 
 except Exception as e:
     print("Could not load core functionality!", type(e).__name__, e)
     raise e
-    def register(): pass
-    def unregister(): pass
+
+
+    def register():
+        pass
+
+
+    def unregister():
+        pass
 
 try:
     from . import export
@@ -45,6 +52,7 @@ try:
     reload(interface)
 
     core.PluginManager.load_icon('hbp', 'icons/hbp.png')
+
 
     def register():
         import sys
@@ -77,13 +85,17 @@ try:
 
 except Exception as e:
     from .core.logfile import core_logger, EXCEPTION_MESSAGE, log_callstack
+
     core_logger.error("Could not import submodules:\n" + EXCEPTION_MESSAGE,
                       type(e).__name__, e, log_callstack(), log_callstack(True))
 
-    def register(): pass
-    def unregister(): pass
+
+    def register():
+        pass
 
 
+    def unregister():
+        pass
 
 bl_info = {
     "name": "NRP Robot Designer",
@@ -94,5 +106,3 @@ bl_info = {
     "category": "Editor"}
 
 additionalModulePath = True
-
-

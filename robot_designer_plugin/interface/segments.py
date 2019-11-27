@@ -37,6 +37,7 @@
 
 # Blender imports
 import bpy
+import bpy_types
 
 # RobotDesigner imports
 from .model import check_armature
@@ -49,6 +50,7 @@ from .helpers import PhysicsBox
 from .helpers import LinkBox
 from . import menus
 
+
 def draw(layout, context):
     """
     Draws the user interface for modifying segments.
@@ -58,6 +60,9 @@ def draw(layout, context):
     """
     if not check_armature(layout, context):
         return
+
+    layout.operator(segments.ImportBlenderArmature.bl_idname, text="(Re)Import Bones")
+
     # layout.label("Active Bone:")
     if context.active_bone is not None:
 
@@ -68,41 +73,35 @@ def draw(layout, context):
         column = row.column(align=True)
         create_segment_selector(column, context)
 
-        box = layout.box()
-        row = box.row()
-
-        if not context.active_bone.RobotEditor.RD_Bone:
-            row.label("Not a bone created by the Robot designer")
+        if (context.mode == "OBJECT" or context.mode == 'POSE'):
+            assert isinstance(context.active_bone, bpy_types.Bone), 'Given object or pose mode, we should get a bone here but we got ' + str(type(context.active_bone))
+            box = layout.box()
             row = box.row()
-            row.operator(segments.ImportBlenderArmature.bl_idname, text="Import native Blender segment")
-            row.prop(context.active_bone.RobotEditor, "RD_Bone")
+            if context.active_bone.RobotDesigner.RD_Bone:
+                row.label("Edit:")
+                global_properties.segment_tab.prop(bpy.context.scene, row, expand=True)
+                tab = global_properties.segment_tab.get(bpy.context.scene)
+                if tab == "kinematics":
+                    kinematics.draw(box, context)
+                elif tab == "dynamics":
+                    dynamics.draw(box, context)
+                    box = PhysicsBox.get(layout, context, 'Physics')
+                    if box:
+                        odeBox = layout.box()
+                        odeBox.label(text="ODE")
+                        odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'cmf_damping', text='CMF-Damping')
+                        odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'i_s_damper', text='I. S. Damper')
+                        odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'cmf', text='CMF')
+                        odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'erp', text='ERP')
+                elif tab == "controller":
+                    controllers.draw(box, context)
 
+            linkBox = LinkBox.get(layout, context, 'SDF-Properties')
+            if linkBox:
+                linkBox.prop(bpy.context.active_object.RobotDesigner.linkInfo, 'link_self_collide', text='Self Collide')
+                linkBox.prop(bpy.context.active_object.RobotDesigner.linkInfo, 'gravity', text='Gravity')
         else:
-            row.label("Edit:")
-
-            global_properties.segment_tab.prop(bpy.context.scene,row,expand=True)
-
-            tab = global_properties.segment_tab.get(bpy.context.scene)
-
-            if tab == "kinematics":
-                kinematics.draw(box, context)
-            elif tab == "dynamics":
-                dynamics.draw(box, context)
-                box = PhysicsBox.get(layout, context, 'Physics')
-                if box:
-                    odeBox = layout.box()
-                    odeBox.label(text="ODE")
-                    odeBox.prop(bpy.context.active_object.RobotEditor.ode, 'cmf_damping', text='CMF-Damping')
-                    odeBox.prop(bpy.context.active_object.RobotEditor.ode, 'i_s_damper', text='I. S. Damper')
-                    odeBox.prop(bpy.context.active_object.RobotEditor.ode, 'cmf', text='CMF')
-                    odeBox.prop(bpy.context.active_object.RobotEditor.ode, 'erp', text='ERP')
-
-            elif tab == "controller":
-                controllers.draw(box, context)
-        linkBox = LinkBox.get(layout, context, 'SDF-Properties')
-        if linkBox:
-            linkBox.prop(bpy.context.active_object.RobotEditor.linkInfo, 'link_self_collide', text='Self Collide')
-            linkBox.prop(bpy.context.active_object.RobotEditor.linkInfo, 'gravity', text='Gravity')
-
+            box = layout.box()
+            box.label("Must be in object or pose mode.")
     else:
         layout.operator(segments.CreateNewSegment.bl_idname, text="Create new base bone")

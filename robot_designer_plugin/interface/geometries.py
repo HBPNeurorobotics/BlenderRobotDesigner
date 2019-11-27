@@ -42,7 +42,7 @@ import bpy
 from .model import check_armature
 
 from . import menus
-from ..operators import rigid_bodies, soft_bodies, collision, mesh_generation
+from ..operators import rigid_bodies, soft_bodies, collision, mesh_generation, segments
 from .helpers import drawInfoBox, info_list, getSingleSegment, ConnectGeometryBox, DisconnectGeometryBox, \
     CollisionBox, GeometrySettingsBox, PolygonReductionBox, MeshGenerationBox, create_segment_selector, DeformableBox
 from ..core.logfile import LogFunction
@@ -62,82 +62,107 @@ def draw(layout, context):
     if not check_armature(layout, context):
         return
 
-    if len([i for i in context.selected_objects if i.type=="MESH"])==0:
+    if len([i for i in context.selected_objects if i.type == "MESH"]) == 0:
         info_list.append("No mesh selected")
-    elif len(context.selected_objects)>2:
+    elif len(context.selected_objects) > 2:
         info_list.append("Too many objects selected")
 
     box = layout.box()
     row = box.row(align=True)
     row.label("Mesh type:")
-    global_properties.mesh_type.prop(context.scene,row, expand=True)
+    global_properties.mesh_type.prop(context.scene, row, expand=True)
     row = box.row(align=True)
     row.label("Show:")
     global_properties.display_mesh_selection.prop(context.scene, row, expand=True)
+
+    if 1:
+        row = box.row()
+        column = row.column(align=True)
+        column.label("Segment Selector")
+        # Start of segment menu code.
+        single_segment = getSingleSegment(context)
+        column.menu(menus.SegmentsGeometriesMenu.bl_idname,
+                    text=single_segment.name if single_segment else "")
+        row2 = column.row(align=True)
+        global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
+
+        global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
+                                                   icon='VIEWZOOM',
+                                                   text='')
+        # End of segment menu code.
+        column = row.column(align=True)
+        column.label("Mesh Selector")
+        menus.GeometriesMenu.putMenu(column, context)
 
     box = GeometrySettingsBox.get(layout, context, "Geometry Properties", icon="SCRIPTWIN")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
         column = row.column(align=True)
-        menus.GeometriesMenu.putMenu(column, context)
-        # create_geometry_selection(column, context)
-
-        column = row.column(align=True)
-        rigid_bodies.RenameAllGeometries.place_button(column, infoBox=infoBox)
         rigid_bodies.SetGeometryActive.place_button(column, infoBox=infoBox)
         rigid_bodies.SelectAllGeometries.place_button(column, infoBox=infoBox)
-       # context.scene.objects.active
+        rigid_bodies.RenameAllGeometries.place_button(column, infoBox=infoBox)
+
+        # context.scene.objects.active
         selected_objects = [i for i in context.selected_objects if i.name != context.active_object.name]
         if len(selected_objects):
             obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
-            box.prop(obj, "scale", slider=False, text="Scale")
-            box.prop(selected_objects[0].RobotEditor, 'fileName')
+            rigid_bodies.RenameGeometry.place_button(column, text='Rename selected geometry', infoBox=infoBox)
+            box.prop(obj, "rotation_euler", slider=False, text="Rotation")
+            box.prop(obj, "location", slider=False, text="Location")
+            row2 = box.row()
+            column = row2.column(align=True)
+            if obj.RobotDesigner.tag == 'BASIC_COLLISION_CYLINDER':
+                column.label("Scale (%s)" % obj.name)
+                column.prop(obj.RobotDesigner.scaling, "scale_radius", slider=False, text="Radius")
+                column.prop(obj.RobotDesigner.scaling, "scale_depth", slider=False, text="Depth")
+            elif obj.RobotDesigner.tag == 'BASIC_COLLISION_SPHERE':
+                column.label("Scale (%s)" % obj.name)
+                column.prop(obj.RobotDesigner.scaling, "scale_all", slider=False, text="Radius")
+            else:
+                box.prop(obj, "scale", slider=False, text="Scale (%s)" % obj.name)
+            box.prop(selected_objects[0].RobotDesigner, 'fileName')
 
         box.separator()
         infoBox.draw_info()
-
 
     box = ConnectGeometryBox.get(layout, context, "Attach Geometry", icon="LINKED")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
-        column = row.column(align=True)
 
+        # column = row.column(align=True)
+        # single_segment = getSingleSegment(context)
+        #
+        # column.menu(menus.SegmentsGeometriesMenu.bl_idname,
+        #             text=single_segment.name if single_segment else "Select Segment")
+        # row2 = column.row(align=True)
+        # global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
+        #
+        # row2.separator()
+        #
+        # global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
+        #                  icon='VIEWZOOM',
+        #                  text='')
+        # column = row.column(align=True)
+        # menus.GeometriesMenu.putMenu(column, context)
 
-        single_segment = getSingleSegment(context)
-
-        column.menu(menus.SegmentsGeometriesMenu.bl_idname,
-                    text=single_segment.name if single_segment else "Select Segment")
-        row2 = column.row(align=True)
-
-        global_properties.list_segments.prop(context.scene, row2, expand=True, icon_only=True)
-        row2.separator()
-
-        global_properties.segment_name.prop_search(context.scene, row2, context.active_object.data, 'bones',
-                         icon='VIEWZOOM',
-                         text='')
-
-
-        column = row.column(align=True)
-        menus.GeometriesMenu.putMenu(column, context)
-        #create_geometry_selection(column, context)
 
         row = box.column(align=True)
-        global_properties.assign_collision.prop(context.scene, row)
         rigid_bodies.AssignGeometry.place_button(row, infoBox=infoBox)
+        segments.ConvertVertexMapSkinning.place_button(row, infoBox=infoBox)
 
         box.separator()
         infoBox.draw_info()
-
 
     box = DisconnectGeometryBox.get(layout, context, "Detach Geometry", icon="UNLINKED")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
-        column = row.column(align=True)
-        menus.GeometriesMenu.putMenu(column, context)
-        #create_geometry_selection(column, context)
+
+        # column = row.column(align=True)
+        # menus.GeometriesMenu.putMenu(column, context)
+        # create_geometry_selection(column, context)
 
         column = row.column(align=True)
         rigid_bodies.DetachGeometry.place_button(column, infoBox=infoBox)
@@ -146,21 +171,32 @@ def draw(layout, context):
         box.separator()
         infoBox.draw_info()
 
-
     if global_properties.mesh_type.get(context.scene) == "DEFAULT":
         box = CollisionBox.get(layout, context, "Generate collision meshes", icon='SURFACE_NCURVE')
         if box:
             infoBox = InfoBox(box)
             row = box.row()
-            column = row.column(align=True)
 
-            menus.GeometriesMenu.putMenu(column, context)
-            #create_geometry_selection(column, context)
+            # column = row.column(align=True)
+            # menus.GeometriesMenu.putMenu(column, context)
+            # create_geometry_selection(column, context)
             column = row.column(align=True)
             collision.GenerateAllCollisionMeshes.place_button(column, infoBox=infoBox)
             collision.GenerateCollisionMesh.place_button(column, infoBox=infoBox)
             collision.GenerateAllCollisionConvexHull.place_button(column, infoBox=infoBox)
             collision.GenerateCollisionConvexHull.place_button(column, infoBox=infoBox)
+
+            row2 = box.row()
+            row2.label("Add basic collision shapes:")
+            row3 = box.row()
+            column = row3.column(align=True)
+            collision.CreateBasicCollisionBox.place_button(column, text='Create Box', infoBox=infoBox)
+
+            column = row3.column(align=True)
+            collision.CreateBasicCollisionCylinder.place_button(column, text='Create Cylinder', infoBox=infoBox)
+
+            column = row3.column(align=True)
+            collision.CreateBasicCollisionSphere.place_button(column, text='Create Sphere', infoBox=infoBox)
 
             box.row()
             infoBox.draw_info()
@@ -169,34 +205,32 @@ def draw(layout, context):
     if box:
         infoBox = InfoBox(box)
         row = box.row()
-        column = row.column(align=True)
-        create_segment_selector(column, context)
+        # column = row.column(align=True)
+        # create_segment_selector(column, context)
         column = row.column(align=True)
         mesh_generation.GenerateMeshFromSegment.place_button(column, infoBox=infoBox)
-        mesh_generation.GenerateMeshFromAllSegment.place_button(column,infoBox=infoBox)
+        mesh_generation.GenerateMeshFromAllSegment.place_button(column, infoBox=infoBox)
         box.separator()
         infoBox.draw_info()
-
 
     box = DeformableBox.get(layout, context, "Deformable Geometries", icon="STYLUS_PRESSURE")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
-        column = row.column(align=True)
-        menus.GeometriesMenu.putMenu(column, context)
+        # column = row.column(align=True)
+        # menus.GeometriesMenu.putMenu(column, context)
         column = row.column(align=True)
         soft_bodies.ConvertSoftBodies.place_button(column, infoBox=infoBox)
         box.separator()
         infoBox.draw_info()
-
 
     box = PolygonReductionBox.get(layout, context, "Polygon Reduction", icon="MOD_DECIM")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
         row.alignment = 'EXPAND'
-        column = row.column(align=True)
-        menus.GeometriesMenu.putMenu(column, context)
+        # column = row.column(align=True)
+        # menus.GeometriesMenu.putMenu(column, context)
         column = row.column(align=True)
 
         obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
@@ -216,55 +250,55 @@ def draw(layout, context):
     if box:
         box1 = BounceBox.get(layout, context, "Bounce")
         if box1:
-            box1.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'restitution_coeff', text='Restitution Coeff.')
-            box1.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'threshold', text='Threshold')
+            box1.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'restitution_coeff', text='Restitution Coeff.')
+            box1.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'threshold', text='Threshold')
         box2 = FrictionBox.get(layout, context, "Friction")
         if box2:
             box3 = box2.box()
             box3.label(text ="Torsional")
-            box3.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'coefficient', text='Coefficient')
-            box3.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'use_patch_radius', text='Use Patch Radius')
-            box3.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'patch_radius', text='Patch Radius')
-            box3.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'surface_radius', text='Surface Radius')
+            box3.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'coefficient', text='Coefficient')
+            box3.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'use_patch_radius', text='Use Patch Radius')
+            box3.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'patch_radius', text='Patch Radius')
+            box3.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'surface_radius', text='Surface Radius')
             box4 = box3.box()
             box4.label(text="ODE")
-            box4.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'slip',
+            box4.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'slip',
                               text='Slip')
 
             box5 = box2.box()
             box5.label(text ="ODE")
-            box5.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'mu', text='Mu')
-            box5.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'mu2', text='Mu2')
-            box5.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'fdir1', text='FDir1')
-            box5.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'slip1', text='Slip1')
-            box5.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'slip2', text='Slip2')
+            box5.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'mu', text='Mu')
+            box5.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'mu2', text='Mu2')
+            box5.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'fdir1', text='FDir1')
+            box5.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'slip1', text='Slip1')
+            box5.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'slip2', text='Slip2')
 
         box6 = ContactBox.get(layout, context, "Contact")
         if box6:
-            box6.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'collide_wo_contact', text='Collide without contact')
-            box6.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'collide_wo_contact_bitmask', text='Collide without contac bitmask')
-            box6.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'collide_bitmask', text='Collide bitmask')
-            box6.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'category_bitmask', text='Category bitmask')
-            box6.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'poissons_ratio', text='Poissons Ratio')
-            box6.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'elastic_modulus', text="Elastic Modulus")
+            box6.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'collide_wo_contact', text='Collide without contact')
+            box6.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'collide_wo_contact_bitmask', text='Collide without contac bitmask')
+            box6.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'collide_bitmask', text='Collide bitmask')
+            box6.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'category_bitmask', text='Category bitmask')
+            box6.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'poissons_ratio', text='Poissons Ratio')
+            box6.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'elastic_modulus', text="Elastic Modulus")
 
             box7 = box6.box()
             box7.label(text="ODE")
-            box7.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'soft_cfm', text="Soft CMF")
-            box7.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'soft_erp', text='Soft ERP')
-            box7.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'kp', text='Kp')
-            box7.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'kd', text='Kd')
-            box7.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'max_vel', text='Max. Vel')
-            box7.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'min_depth', text='Min. Depth')
+            box7.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'soft_cfm', text="Soft CMF")
+            box7.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'soft_erp', text='Soft ERP')
+            box7.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'kp', text='Kp')
+            box7.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'kd', text='Kd')
+            box7.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'max_vel', text='Max. Vel')
+            box7.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'min_depth', text='Min. Depth')
 
         box8 = SoftContactBox.get(layout, context, "Soft Contact")
         if box8:
             box9 = box8.box()
             box9.label(text="Dart")
-            box9.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'bone_attachment', text="Bone Attachment")
-            box9.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'stiffness', text='Stifness')
-            box9.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'damping', text='Damping')
-            box9.prop(bpy.context.active_object.RobotEditor.sdfCollisionProps, 'flesh_mass_fraction', text='Flesh mass fraction')
+            box9.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'bone_attachment', text="Bone Attachment")
+            box9.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'stiffness', text='Stifness')
+            box9.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'damping', text='Damping')
+            box9.prop(bpy.context.active_object.RobotDesigner.sdfCollisionProps, 'flesh_mass_fraction', text='Flesh mass fraction')
 
 
     drawInfoBox(layout,context)

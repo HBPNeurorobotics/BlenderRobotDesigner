@@ -36,14 +36,15 @@
 This module adds SDF support to the RobotDesigner
 """
 
-
 from . import sdf_export, sdf_import, generic
 
 from importlib import reload
+
 reload(generic)
 reload(sdf_export)
 reload(sdf_import)
 
 from .sdf_import import ImportPlain, ImportPackage, ImportZippedPackage
 from .sdf_export import ExportPlain, ExportPackage, ExportZippedPackage
+
 __author__ = 'gchen'

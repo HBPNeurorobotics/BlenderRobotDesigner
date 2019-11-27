@@ -56,8 +56,9 @@ from .helpers import drawInfoBox, push_info, ModelPropertiesBox
 
 from mathutils import Vector
 
-from ..operators.helpers import PoseMode, NotEditMode
+from ..operators.helpers import PoseMode, NotEditMode, ObjectMode
 from ..properties.globals import global_properties
+
 
 @LogFunction
 def check_armature(layout, context):
@@ -72,8 +73,8 @@ def check_armature(layout, context):
         return True
     else:
         layout.menu(menus.ModelMenu.bl_idname, text="Select Robot")
-        layout.menu(menus.ModelMenu.bl_idname, text="Select Robot")
         return False
+
 
 @LogFunction
 def draw(layout, context):
@@ -89,7 +90,7 @@ def draw(layout, context):
         is_model_selected = True
 
         box = layout.box()
-        infoBox=InfoBox(box)
+        infoBox = InfoBox(box)
 
         row = box.row(align=True)
         row.label(text="Select Robot:")
@@ -109,6 +110,16 @@ def draw(layout, context):
 
         box = layout.box()
         infoBox = InfoBox(box)
+        box.label("Model Pose:")
+        row = box.row()
+        row.prop(bpy.data.objects[global_properties.model_name.get(context.scene)], "location", slider=False,
+                 text="Position")
+        row = box.row()
+        row.prop(bpy.data.objects[global_properties.model_name.get(context.scene)], "rotation_euler", slider=False,
+                 text="Rotation")
+
+        box = layout.box()
+        infoBox = InfoBox(box)
         box.label("Segment structure:")
 
         if context.active_bone and context.active_bone.parent:
@@ -119,7 +130,7 @@ def draw(layout, context):
         row = box.row(align=True)
         left_column = row.column(align=True)
         create_segment_selector(left_column, context)
-        left_column.operator("pose.select_all", text="Deselect all").action="DESELECT"
+        left_column.operator("pose.select_all", text="Deselect all").action = "DESELECT"
         row.separator()
         right_column = row.column(align=False)
         segments.RenameSegment.place_button(right_column, infoBox=infoBox)
@@ -130,14 +141,13 @@ def draw(layout, context):
         left_column.separator()
         row = box.row()
         row.label("Re-assign parent:")
-        menus.AssignParentMenu.putMenu(row, context,text=parent_name)
+        menus.AssignParentMenu.putMenu(row, context, text=parent_name)
 
-        if context.active_object.scale != Vector((1.0,1.0,1.0)):
+        if context.active_object.scale != Vector((1.0, 1.0, 1.0)):
             infoBox.add_message("Warning: You should not use a global scale factor"
                                 "for the kinematics. Units will be displayed without this factor")
 
         infoBox.draw_info()
-
 
         box = ModelPropertiesBox.get(layout, context, 'Model properties')
         if box:
@@ -150,10 +160,11 @@ def draw(layout, context):
         box = layout.box()
         box.label(text="Custom Gazebo tags")
         global_properties.gazebo_tags.prop(bpy.context.scene, box)
+        push_info(NotEditMode)
     else:
         layout.menu(menus.ModelMenu.bl_idname, text="Select Robot")
         layout.label(text="Select robot first")
+        push_info(ObjectMode)
 
-    push_info(PoseMode)
-    drawInfoBox(layout, context)#["Some operations require to be in pose mode"] if context.mode == "OBJECT" else [])
+    drawInfoBox(layout, context)  # ["Some operations require to be in pose mode"] if context.mode == "OBJECT" else [])
     return is_model_selected

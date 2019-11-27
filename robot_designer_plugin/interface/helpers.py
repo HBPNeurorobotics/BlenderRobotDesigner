@@ -42,9 +42,11 @@ from ..core.gui import CollapsibleBase
 from ..core.pluginmanager import PluginManager
 from ..properties.globals import global_properties
 
+
 @PluginManager.register_class
 class GeometrySettingsBox(CollapsibleBase):
     property_name = "geometry_settings_box"
+
 
 @PluginManager.register_class
 class DisconnectGeometryBox(CollapsibleBase):
@@ -65,9 +67,11 @@ class CollisionBox(CollapsibleBase):
 class DeformableBox(CollapsibleBase):
     property_name = "deformable_box"
 
+
 @PluginManager.register_class
 class PolygonReductionBox(CollapsibleBase):
     property_name = "polygon_reduction_box"
+
 
 @PluginManager.register_class
 class ModelPropertiesBox(CollapsibleBase):
@@ -117,25 +121,47 @@ class ControllerBox(CollapsibleBase):
 class MeshGenerationBox(CollisionBox):
     property_name = "mesh_generation_box"
 
+
 @PluginManager.register_class
 class AttachSensorBox(CollapsibleBase):
     property_name = "attach_sensor_box"
+
 
 @PluginManager.register_class
 class DetachSensorBox(CollapsibleBase):
     property_name = "detach_sensor_box"
 
+
 @PluginManager.register_class
 class SensorPropertiesBox(CollapsibleBase):
     property_name = "sensor_properties_box"
+
 
 @PluginManager.register_class
 class EditMusclesBox(CollapsibleBase):
     property_name = "edit_muscles_box"
 
+
+@PluginManager.register_class
+class MusclePropertiesBox(CollapsibleBase):
+    property_name = "muscle_properties_box"
+
+@PluginManager.register_class
+class WrappingBox(CollapsibleBase):
+    property_name = "wrapping_box"
+
+@PluginManager.register_class
+class AttachWrapBox(CollapsibleBase):
+    property_name = "attach_wrap_box"
+
+@PluginManager.register_class
+class WrapPropertiesBox(CollapsibleBase):
+    property_name = "wrap_properties_box"
+
 @PluginManager.register_class
 class DebugBox(CollapsibleBase):
     property_name = "debug_box"
+
 
 info_list = []
 
@@ -143,8 +169,10 @@ info_list = []
 def push_info(message_or_condition):
     # Check if list or tuple .. print only if condition is not met.
     if issubclass(message_or_condition, Condition):
-        info_list.append(message_or_condition.check()[1])
-        print(info_list)
+        ok, potential_error_message = message_or_condition.check()
+        if not ok:
+            info_list.append(potential_error_message)
+            # print(info_list)
     else:
         info_list.append(message_or_condition)
 
@@ -161,12 +189,14 @@ def getSingleSegment(context):
             info_list.append("Multiple segments selected, some operators not available")
     return None
 
+
 def getSingleObject(context):
     selected = [i for i in context.selected_objects if i.type != "ARMATURE"]
-    if len(selected)==1:
+    if len(selected) == 1:
         return selected[0]
     else:
         return None
+
 
 def drawInfoBox(layout, context, infos=[]):
     global info_list
@@ -186,5 +216,5 @@ def create_segment_selector(layout, context):
     single_segment = getSingleSegment(context)
     layout.menu(menus.SegmentsMenu.bl_idname, text=single_segment.name if single_segment else "Select Segment")
     global_properties.segment_name.prop_search(context.scene, layout, context.active_object.data, 'bones',
-                       icon='VIEWZOOM',
-                       text='')
+                                               icon='VIEWZOOM',
+                                               text='')
