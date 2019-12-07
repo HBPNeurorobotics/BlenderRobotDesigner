@@ -85,6 +85,7 @@ def draw(layout, context):
                     kinematics.draw(box, context)
                 elif tab == "dynamics":
                     dynamics.draw(box, context)
+                    '''
                     box = PhysicsBox.get(layout, context, 'Physics')
                     if box:
                         odeBox = layout.box()
@@ -93,9 +94,10 @@ def draw(layout, context):
                         odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'i_s_damper', text='I. S. Damper')
                         odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'cmf', text='CMF')
                         odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'erp', text='ERP')
+                    '''
                 elif tab == "controller":
                     controllers.draw(box, context)
-
+            # link
             linkBox = LinkBox.get(layout, context, 'SDF-Properties')
             if linkBox:
                 linkBox.prop(bpy.context.active_object.RobotDesigner.linkInfo, 'link_self_collide', text='Self Collide')

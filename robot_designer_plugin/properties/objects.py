@@ -431,10 +431,10 @@ class Ode(bpy.types.PropertyGroup):
     '''
     Property group that contains ODE data
     '''
-    cmf_damping = StringProperty(name='CFM Damping')
-    i_s_damper = StringProperty(name='Implicit-something-Damper')
-    cmf = StringProperty(name='CMF')
-    erp = StringProperty(name='ERP')
+    cmf_damping = StringProperty(name='CFM Damping')  # should be cfm_damping. should be bool property
+    i_s_damper = StringProperty(name='Implicit-something-Damper')  # is implicit_spring_damper. is type bool
+    cmf = StringProperty(name='CMF')  # is cfm. is type double
+    erp = StringProperty(name='ERP')  # is type double
 
 
 @PluginManager.register_property_group()
@@ -442,7 +442,7 @@ class SDFCollisionProperties(bpy.types.PropertyGroup):
     '''
     Property group that contains SDF-Collision-parameters
     '''
-    restitution_coeff = IntProperty(name="Restitution Coeff.", default=0, min =0, max=1)
+    restitution_coeff = IntProperty(name="Restitution Coeff.", default=0, min=0, max=1)
     threshold = IntProperty(name='Threshold', default=0, min=0, max=1000)
     coefficient = IntProperty(name='Coefficient', default=1, min=0, max=1)
     use_patch_radius = BoolProperty(name = "Use patch radius", default=True)
@@ -457,12 +457,12 @@ class SDFCollisionProperties(bpy.types.PropertyGroup):
     collide_wo_contact = BoolProperty(name="Colide without contact", default=True)
     collide_wo_contact_bitmask = IntProperty(name='Colide without contact bitmask', default=1, min=0, max=1000)
     collide_bitmask = IntProperty(name='Collide bitmask', default=65535, min=0, max=65535)
-    category_bitmask = IntProperty(name='Category bitmask', default=655355, min=0, max=65535)
+    category_bitmask = IntProperty(name='Category bitmask', default=65535, min=0, max=65535)
     poissons_ratio = FloatProperty(name='Poissons Ratio', default=0.3, min=-1, max=0.5)
     elastic_modulus = FloatProperty(name='Elastic Modulus', default=-1, min=-1, max=0)
     soft_cfm = FloatProperty(name='Soft CFM', default=0, min=0, max=1)
     soft_erp = FloatProperty(name='Soft ERP', default=0.2, min=0, max=1)
-    kp = FloatProperty(name='Kp', default=1000000000000, min=0, max=1000000000000)
+    kp = FloatProperty(name='Kp', default=1000000000000, min=0, max=1000000000000)  # max number cannot be displayed
     kd = FloatProperty(name='Kd', default=1, min=0, max=1)
     max_vel = FloatProperty(name='Max. Vel.', default=0.01, min=0, max=1)
     min_depth = FloatProperty(name='Min. Depth', default=0, min=0, max=10)

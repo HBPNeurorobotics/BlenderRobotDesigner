@@ -45,6 +45,7 @@ from .model import check_armature
 from ..properties.globals import global_properties
 from ..core.gui import InfoBox
 from .helpers import getSingleSegment, getSingleObject
+from .helpers import PhysicsBox
 
 
 def draw(layout, context):
@@ -107,5 +108,22 @@ def draw(layout, context):
             row3.prop(frame.RobotDesigner.dynamics, "inertiaZZ")
     except:
         pass
+    layout.separator()
+    # joint
+    box = PhysicsBox.get(layout, context, 'Physics')
+    if box:
+        '''
+        odeBox = box.box()
+        odeBox.label(text="ODE")
+        odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'cmf_damping', text='CMF-Damping')
+        odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'i_s_damper', text='I. S. Damper')
+        odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'cmf', text='CMF')
+        odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'erp', text='ERP')
+        '''
+        box.label(text="ODE:")
+        box.prop(bpy.context.active_object.RobotDesigner.ode, 'cmf_damping', text='CMF-Damping')
+        box.prop(bpy.context.active_object.RobotDesigner.ode, 'i_s_damper', text='I. S. Damper')
+        box.prop(bpy.context.active_object.RobotDesigner.ode, 'cmf', text='CMF')
+        box.prop(bpy.context.active_object.RobotDesigner.ode, 'erp', text='ERP')
 
     infoBox.draw_info()
