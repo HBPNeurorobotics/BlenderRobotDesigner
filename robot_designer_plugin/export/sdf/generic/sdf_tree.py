@@ -163,9 +163,12 @@ class SDFTree(object):
         # self.set_defaults() # todo:set defaults
 
         children = self.connectedJoints[link]
-
+        '''
         worldlink = [joint for joint in self.connectedLinks if
-                     ('_world' in joint.name and self.connectedLinks[joint] == link)]
+                     ('_world' in joint.name and self.connectedLinks[joint] == link)]  # maybe change this?
+        '''
+        worldlink = [joint for joint in self.connectedLinks if
+                     (joint.parent[0] == 'world' and self.connectedLinks[joint] == link)]
 
         if worldlink:
             self.world = True

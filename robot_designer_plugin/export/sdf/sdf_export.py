@@ -71,7 +71,7 @@ from ...properties.globals import global_properties
 from pyxb import ContentNondeterminismExceededError, BIND
 
 # config file generation
-from .generic import model_config_dom
+from .generic import model_config_dom, robot_model_config_dom
 from .generic import sdf_dom
 from pyxb.namespace import XMLSchema_instance as xsi
 import pyxb
@@ -194,7 +194,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     :param meshpath: Path to the mesh directory
     :param toplevel_directory: The directory in which to export
     :param in_ros_package: Whether to export into a ros package or plain files
-    :param abs_filepaths: If not intstalled into a ros package decides whether to use absolute file paths.
+    :param abs_filepaths: If not installed into a ros package decides whether to use absolute file paths.
     :return:
     """
 
@@ -712,15 +712,15 @@ def create_config(operator: RDOperator, context, filepath: str, meshpath: str, t
     #   :param meshpath: Path to the mesh directory
     :param toplevel_directory: The directory in which to export
     :param in_ros_package: Whether to export into a ros package or plain files
-    :param abs_filepaths: If not intstalled into a ros package decides whether to use absolute file paths.
+    :param abs_filepaths: If not installed into a ros package decides whether to use absolute file paths.
     :return:
     """
 
     # set namespace
-    pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace("http://schemas.humanbrainproject.eu/SP10/2017/model_config")
+    pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace("http://schemas.humanbrainproject.eu/SP10/2017/robot_model_config")
 
     # create model config element
-    modelI = model_config_dom.model()
+    modelI = robot_model_config_dom.model()
 
     # get model data
     modelI.name = bpy.context.active_object.RobotDesigner.modelMeta.model_config
@@ -730,16 +730,17 @@ def create_config(operator: RDOperator, context, filepath: str, meshpath: str, t
     modelI.thumbnail = "thumbnail.png"
 
     # set sdf fixed name
-    sdf = model_config_dom.sdf_versioned()
+    sdf = robot_model_config_dom.sdf_versioned()
     sdf._setValue("model.sdf")
     sdf.version = 1.5
 
     modelI.sdf = sdf
 
     # get author data
-    author = model_config_dom.author_type(bpy.context.active_object.RobotDesigner.author.authorName,
+    author = robot_model_config_dom.author_type(bpy.context.active_object.RobotDesigner.author.authorName,
                                           bpy.context.active_object.RobotDesigner.author.authorEmail)
-    modelI.author = author
+    # modelI.author = author
+    modelI.author.append(author)
 
     modelI.description = bpy.context.active_object.RobotDesigner.modelMeta.model_description
 
@@ -747,7 +748,7 @@ def create_config(operator: RDOperator, context, filepath: str, meshpath: str, t
     with open(toplevel_directory + "/model.config", "w") as f:
         output = modelI.toDOM()
         output.documentElement.setAttributeNS(xsi.uri(), 'xsi:schemaLocation',
-                                              'http://schemas.humanbrainproject.eu/SP10/2017/model_config ../model_configuration.xsd')
+                                              'http://schemas.humanbrainproject.eu/SP10/2017/robot_model_config ../robot_model_configuration.xsd')
         output.documentElement.setAttributeNS(xsi.uri(), 'xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
         output = output.toprettyxml()
         f.write(output)
