@@ -67,7 +67,7 @@ from ...properties.globals import global_properties
 import logging
 
 # model.config file reading
-from .generic import model_config_dom
+from .generic import model_config_dom, robot_model_config_dom
 
 __author__ = 'Benedikt Feldotto(TUM), Guang Chen(TUM), Stefan Ulbrich(FZI)'
 
@@ -341,7 +341,7 @@ class Importer(object):
         bpy.context.active_object.RobotDesigner.fileName = os.path.basename(os.path.splitext(mesh_path)[0])
 
         self.logger.debug('Active robot name: %s', bpy.context.active_object.RobotDesigner.fileName)
-
+        bpy.context.active_object.name = os.path.basename(model.name)
         model_name = bpy.context.active_object.name
         # bpy.context.active_object.type = 'ARMATURE'
         model_type = bpy.context.active_object.type
@@ -848,15 +848,15 @@ class Importer(object):
         :return:
         """
         model_config_xml = open(self.base_dir + '/model.config').read()
-        model = model_config_dom.CreateFromDocument(model_config_xml)
+        model = robot_model_config_dom.CreateFromDocument(model_config_xml)
 
         # read model data
         bpy.context.active_object.RobotDesigner.modelMeta.model_config = model.name
         bpy.context.active_object.RobotDesigner.modelMeta.model_version = str(model.version)
 
         # read author todo multiple authors
-        bpy.context.active_object.RobotDesigner.author.authorName = model.author.name[0]
-        bpy.context.active_object.RobotDesigner.author.authorEmail = model.author.email[0]
+        bpy.context.active_object.RobotDesigner.author.authorName = model.author[0].name[0]
+        bpy.context.active_object.RobotDesigner.author.authorEmail = model.author[0].email[0]
 
         bpy.context.active_object.RobotDesigner.modelMeta.model_description = model.description
 

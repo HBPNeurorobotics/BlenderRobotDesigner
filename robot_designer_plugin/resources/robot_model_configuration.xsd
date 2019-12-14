@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schemas.humanbrainproject.eu/SP10/2017/robot_model_config"
+    xmlns="http://schemas.humanbrainproject.eu/SP10/2017/robot_model_config" attributeFormDefault="unqualified" elementFormDefault="qualified">
+
+    <!--Root element of the model.config file -->
+    <xs:element name="model" type="ModelConfiguration"/>
+    <xs:complexType name="ModelConfiguration">
+        <xs:all>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="version" type="xs:decimal" minOccurs="0" maxOccurs="1" />
+            <xs:element name="maturity" type="maturity_type" minOccurs="0" maxOccurs="1" >
+                <xs:annotation>
+                    <xs:documentation>The maturity of the model. Determines whether it is shown by default to the user or only browsable in dev mode.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="license" type="xs:string" minOccurs="0" maxOccurs="1" />
+            <xs:element name="thumbnail" type="xs:string" minOccurs="0"/>
+            <xs:element name="frontend_skin_model" type="frontend_skin_model" minOccurs="0" maxOccurs="1" />
+            <xs:element name="sdf" type="sdf_versioned"/>
+            <xs:element name="author" type="author_type" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="website" type="xs:string" minOccurs="0" maxOccurs="1" />
+            <xs:element name="documentation" type="documentation_type" minOccurs ="0"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:simpleType name="maturity_type">
+        <xs:annotation>
+            <xs:documentation>This type denotes a maturity of a model. It can either be development or production.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="development"/>
+            <xs:enumeration value="production"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="sdf_versioned">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="version" type="xs:decimal">
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="author_type">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="email" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="documentation_type">
+        <xs:sequence>
+            <xs:element name="sensors" type="sensors_type" minOccurs ="0"/>
+            <xs:element name="actuators" type="actuators_type" minOccurs ="0"/>
+            <xs:element name="publication" type="publication_type" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="youtube" type="youtube_resource" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="picture" type="url_resource" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="sensors_type">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="sensor">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+                    <xs:attribute name="type" type="sensor_type" use="required"></xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="sensor_type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="camera"/>
+            <xs:enumeration value="audio"/>
+            <xs:enumeration value="contact"/>
+            <xs:enumeration value="laser"/>
+            <xs:enumeration value="ultrasound"/>
+            <xs:enumeration value="radar"/>
+            <xs:enumeration value="gps"/>
+            <xs:enumeration value="olfaction"/>
+            <xs:enumeration value="other"/>
+            <xs:enumeration value="force_torque"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:complexType name="actuators_type">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="actuator">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
+                    <xs:attribute name="type" type="actuator_type" use="required"></xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="actuator_type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="motor"/>
+            <xs:enumeration value="muscle"/>
+            <xs:enumeration value="linear"/>
+            <xs:enumeration value="pneumatic"/>
+            <xs:enumeration value="hydraulic"/>
+            <xs:enumeration value="other"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+
+    <xs:complexType name="youtube_resource">
+        <xs:attribute name="title" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="youtube-id" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="url_resource">
+        <xs:attribute name="title" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="url" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+
+
+    <xs:complexType name="publication_type">
+        <xs:attribute name="title" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="url" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="authors" type="xs:string" use="required"></xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="frontend_skin_model">
+        <xs:all>
+            <xs:element name="mesh" type="xs:string"/>
+            <xs:element name="scale" type="xs:float"/>
+        </xs:all>
+    </xs:complexType>
+
+</xs:schema>
