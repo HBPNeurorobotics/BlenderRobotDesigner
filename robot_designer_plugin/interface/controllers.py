@@ -67,8 +67,6 @@ def draw(layout, context):
                 box.prop(context.active_bone.RobotDesigner.d, "min")
                 box.prop(context.active_bone.RobotDesigner.d, "max")
 
-        layout.separator()
-
         box = ControllerBox.get(layout, context, 'Controller')
         if box:
             box.label("Joint controller:")

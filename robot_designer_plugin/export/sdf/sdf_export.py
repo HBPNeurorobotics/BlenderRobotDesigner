@@ -215,6 +215,19 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         # child.joint.origin.rpy = list_to_string(trafo.to_euler())
         # child.joint.origin.xyz = list_to_string([i * j for i, j in zip(trafo.translation, blender_scale_factor)])
 
+        # Link Sdf properties export
+        child.link.gravity.append(segment.RobotDesigner.linkInfo.gravity)
+        child.link.self_collide.append(segment.RobotDesigner.linkInfo.link_self_collide)
+
+        # joint ode properties
+        child.joint.physics.append(sdf_dom.CTD_ANON_53())
+        child.joint.physics[0].ode.append(sdf_dom.CTD_ANON_55())
+        child.joint.physics[0].ode[0].cfm_damping.append(segment.RobotDesigner.ode.cfm_damping)
+        child.joint.physics[0].ode[0].implicit_spring_damper.append(segment.RobotDesigner.ode.i_s_damper)
+        child.joint.physics[0].ode[0].cfm.append(segment.RobotDesigner.ode.cfm)
+        child.joint.physics[0].ode[0].erp.append(segment.RobotDesigner.ode.erp)
+
+
         pose_xyz = list_to_string([i * j for i, j in zip(trafo.translation, blender_scale_factor)])
         pose_rpy = list_to_string(trafo.to_euler())
         pose_xyz, pose_rpy = localpose2globalpose(ref_pose, pose_rpy, pose_xyz)
@@ -382,6 +395,44 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 collision.pose.append(' '.join([collision_pose_xyz, collision_pose_rpy]))
                 collision.name = bpy.data.objects[mesh].name  # child.link.name + '_collision'
                 operator.logger.info(" collision mesh pose'%s'" % collision.pose[0])
+
+                # add surface properties
+                collision.surface.append(sdf_dom.surface())
+                surface_property = bpy.data.objects[mesh].RobotDesigner.sdfCollisionProps
+
+                # add bounce properties
+                collision.surface[0].bounce.append(sdf_dom.CTD_ANON_88())
+                bounce = collision.surface[0].bounce[0]
+                bounce.restitution_coefficient.append(surface_property.restitution_coeff)
+                bounce.threshold.append(surface_property.threshold)
+
+                # add friction properties
+                collision.surface[0].friction.append(sdf_dom.CTD_ANON_89())
+                collision.surface[0].friction[0].ode.append(sdf_dom.CTD_ANON_90())
+                friction_ode = collision.surface[0].friction[0].ode[0]
+                friction_ode.mu.append(surface_property.mu)
+                friction_ode.mu2.append(surface_property.mu2)
+                fdir1 = "%f %f %f" % (surface_property.fdir1[0], surface_property.fdir1[1], surface_property.fdir1[2])
+                friction_ode.fdir1.append(fdir1)
+                friction_ode.slip1.append(surface_property.slip1)
+                friction_ode.slip2.append(surface_property.slip2)
+
+                # add contact properties
+                collision.surface[0].contact.append(sdf_dom.CTD_ANON_92())
+                contact = collision.surface[0].contact[0]
+                contact.collide_without_contact.append(surface_property.collide_wo_contact)
+                contact.collide_without_contact_bitmask.append(surface_property.collide_wo_contact_bitmask)
+                contact.collide_bitmask.append(surface_property.collide_bitmask)
+                contact.ode.append(sdf_dom.CTD_ANON_93())
+                contact_ode = contact.ode[0]
+                contact_ode.soft_cfm.append(surface_property.soft_cfm)
+                contact_ode.soft_erp.append(surface_property.soft_erp)
+                contact_ode.kp.append(surface_property.kp)
+                contact_ode.kd.append(surface_property.kd)
+                contact_ode.max_vel.append(surface_property.max_vel)
+                contact_ode.min_depth.append(surface_property.min_depth)
+                # add soft contact properties
+                # not yet implemented dart properties.
 
             else:
                 operator.logger.info("No collision model for: %s", mesh)

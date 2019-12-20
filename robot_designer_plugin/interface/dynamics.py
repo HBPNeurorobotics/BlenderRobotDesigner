@@ -45,7 +45,7 @@ from .model import check_armature
 from ..properties.globals import global_properties
 from ..core.gui import InfoBox
 from .helpers import getSingleSegment, getSingleObject
-from .helpers import PhysicsBox
+from .helpers import PhysicsBox, LinkBox, InertiaBox
 
 
 def draw(layout, context):
@@ -108,22 +108,20 @@ def draw(layout, context):
             row3.prop(frame.RobotDesigner.dynamics, "inertiaZZ")
     except:
         pass
-    layout.separator()
-    # joint
+    # layout.separator()
+    # joint physics properties
     box = PhysicsBox.get(layout, context, 'Physics')
     if box:
-        '''
-        odeBox = box.box()
-        odeBox.label(text="ODE")
-        odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'cmf_damping', text='CMF-Damping')
-        odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'i_s_damper', text='I. S. Damper')
-        odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'cmf', text='CMF')
-        odeBox.prop(bpy.context.active_object.RobotDesigner.ode, 'erp', text='ERP')
-        '''
         box.label(text="ODE:")
-        box.prop(bpy.context.active_object.RobotDesigner.ode, 'cmf_damping', text='CMF-Damping')
-        box.prop(bpy.context.active_object.RobotDesigner.ode, 'i_s_damper', text='I. S. Damper')
-        box.prop(bpy.context.active_object.RobotDesigner.ode, 'cmf', text='CMF')
-        box.prop(bpy.context.active_object.RobotDesigner.ode, 'erp', text='ERP')
+        box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm_damping', text='CFM-Damping')
+        box.prop(bpy.context.active_bone.RobotDesigner.ode, 'i_s_damper', text='I. S. Damper')  # implicit spring
+        box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm', text='CFM')  # constraint force mixing
+        box.prop(bpy.context.active_bone.RobotDesigner.ode, 'erp', text='ERP')  # error reduction parameter
+
+    # link properties
+    linkBox = LinkBox.get(layout, context, 'Link Properties')
+    if linkBox:
+        linkBox.prop(bpy.context.active_bone.RobotDesigner.linkInfo, 'link_self_collide', text='Self Collide')
+        linkBox.prop(bpy.context.active_bone.RobotDesigner.linkInfo, 'gravity', text='Gravity')
 
     infoBox.draw_info()

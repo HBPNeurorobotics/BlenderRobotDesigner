@@ -422,8 +422,8 @@ class LinkInfo(bpy.types.PropertyGroup):
     '''
     Property group that contains information about link's gravity and self collision
     '''
-    link_self_collide = BoolProperty(name='Self Collide')
-    gravity = BoolProperty(name='Gravity')
+    link_self_collide = BoolProperty(name='Self Collide', default=False)
+    gravity = BoolProperty(name='Gravity', default=True)
 
 
 @PluginManager.register_property_group()
@@ -431,10 +431,10 @@ class Ode(bpy.types.PropertyGroup):
     '''
     Property group that contains ODE data
     '''
-    cmf_damping = StringProperty(name='CFM Damping')  # should be cfm_damping. should be bool property
-    i_s_damper = StringProperty(name='Implicit-something-Damper')  # is implicit_spring_damper. is type bool
-    cmf = StringProperty(name='CMF')  # is cfm. is type double
-    erp = StringProperty(name='ERP')  # is type double
+    cfm_damping = BoolProperty(name='CFM Damping', default=False)
+    i_s_damper = BoolProperty(name='Implicit-Spring-Damper', default=False)
+    cfm = FloatProperty(name='CFM', default=0)
+    erp = FloatProperty(name='ERP', default=0.2)
 
 
 @PluginManager.register_property_group()
@@ -442,30 +442,30 @@ class SDFCollisionProperties(bpy.types.PropertyGroup):
     '''
     Property group that contains SDF-Collision-parameters
     '''
-    restitution_coeff = IntProperty(name="Restitution Coeff.", default=0, min=0, max=1)
-    threshold = IntProperty(name='Threshold', default=0, min=0, max=1000)
-    coefficient = IntProperty(name='Coefficient', default=1, min=0, max=1)
-    use_patch_radius = BoolProperty(name = "Use patch radius", default=True)
-    patch_radius = IntProperty(name = 'Patch Radius', default=0, min=0, max=1000)
-    surface_radius = IntProperty(name='Surface Radius', default=0, min=0, max=1000)
-    slip = IntProperty(name='Slip', default=0, min=0, max=1)
-    mu = IntProperty(name='Mu', default=1, min=0, max=1)
-    mu2 = IntProperty(name='Mu2', default=1, min=0, max=1)
-    fdir1 = IntVectorProperty(name='FDir1', default=(0,0,0), min=0, max=1)
-    slip1 = IntProperty(name='Slip1', default=0, min=0, max=1)
-    slip2 = IntProperty(name='Slip2', default=0, min=0, max=1)
-    collide_wo_contact = BoolProperty(name="Colide without contact", default=True)
+    restitution_coeff = FloatProperty(name="Restitution Coeff.", default=0, min=0, max=1)
+    threshold = FloatProperty(name='Threshold', default=100000, min=0)  # changed default from 0. Removed max
+    coefficient = FloatProperty(name='Coefficient', default=1, min=0, max=1)
+    use_patch_radius = BoolProperty(name="Use patch radius", default=True)
+    patch_radius = FloatProperty(name='Patch Radius', default=0, min=0, max=1000)  # keep this max?
+    surface_radius = FloatProperty(name='Surface Radius', default=0, min=0, max=1000)  # keep this max?
+    slip = FloatProperty(name='Slip', default=0, min=0, max=1)
+    mu = FloatProperty(name='Mu', default=1, min=0, max=1)
+    mu2 = FloatProperty(name='Mu2', default=1, min=0, max=1)
+    fdir1 = FloatVectorProperty(name='FDir1', default=(0, 0, 0), min=0, max=1)
+    slip1 = FloatProperty(name='Slip1', default=0, min=0, max=1)
+    slip2 = FloatProperty(name='Slip2', default=0, min=0, max=1)
+    collide_wo_contact = BoolProperty(name="Colide without contact", default=False)
     collide_wo_contact_bitmask = IntProperty(name='Colide without contact bitmask', default=1, min=0, max=1000)
     collide_bitmask = IntProperty(name='Collide bitmask', default=65535, min=0, max=65535)
     category_bitmask = IntProperty(name='Category bitmask', default=65535, min=0, max=65535)
     poissons_ratio = FloatProperty(name='Poissons Ratio', default=0.3, min=-1, max=0.5)
-    elastic_modulus = FloatProperty(name='Elastic Modulus', default=-1, min=-1, max=0)
-    soft_cfm = FloatProperty(name='Soft CFM', default=0, min=0, max=1)
-    soft_erp = FloatProperty(name='Soft ERP', default=0.2, min=0, max=1)
+    elastic_modulus = FloatProperty(name='Elastic Modulus', default=-1, min=-1, max=0)  # valid limits?
+    soft_cfm = FloatProperty(name='Soft CFM', default=0, min=0, max=1)  # valid limits?
+    soft_erp = FloatProperty(name='Soft ERP', default=0.2, min=0, max=1)  # valid limits?
     kp = FloatProperty(name='Kp', default=1000000000000, min=0, max=1000000000000)  # max number cannot be displayed
-    kd = FloatProperty(name='Kd', default=1, min=0, max=1)
-    max_vel = FloatProperty(name='Max. Vel.', default=0.01, min=0, max=1)
-    min_depth = FloatProperty(name='Min. Depth', default=0, min=0, max=10)
+    kd = FloatProperty(name='Kd', default=1, min=0, max=1)  # valid limits?
+    max_vel = FloatProperty(name='Max. Vel.', default=0.01, min=0, max=1)  # valid limits?
+    min_depth = FloatProperty(name='Min. Depth', default=0, min=0, max=10)  # valid limits?
     bone_attachment = FloatProperty(name='Bone Attachment', default=100, min=0, max=1000)
     stiffness = FloatProperty(name='Stiffness', default=100, min=0, max=10000)
     damping = FloatProperty(name='Damping', default=10, min=0, max=100)

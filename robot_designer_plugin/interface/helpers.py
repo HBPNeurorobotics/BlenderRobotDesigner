@@ -79,7 +79,7 @@ class ModelPropertiesBox(CollapsibleBase):
 
 @PluginManager.register_class
 class PhysicsBox(CollapsibleBase):
-    property_name = "Physics_box"\
+    property_name = "Physics_box"
 
 @PluginManager.register_class
 class RobotSelfCollisionBox(CollapsibleBase):
