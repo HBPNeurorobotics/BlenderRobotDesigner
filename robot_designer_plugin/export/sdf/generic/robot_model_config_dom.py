@@ -1,7 +1,7 @@
-# C:/Users/Jin-Ho/Desktop/HBP/BlenderRobotDesigner/robot_designer_plugin/export/sdf/generic\robot_model_config_dom.py
+# C:/Users/Jin-Ho/Desktop/HBP/BlenderRobotDesigner/robot_designer_plugin/export/sdf/generic\robot_model_config_dom_test.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:21e0df4f43fd2ef466c22083dc298aa5044036b7
-# Generated 2019-12-07 18:04:11.852519 by PyXB version 1.2.5 using Python 3.7.0.final.0
+# Generated 2020-01-05 23:12:58.959257 by PyXB version 1.2.5 using Python 3.7.0.final.0
 # Namespace http://schemas.humanbrainproject.eu/SP10/2017/robot_model_config
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:96bc80d2-1913-11ea-94d6-bc8385d547cd')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:87b7c586-3008-11ea-b4a5-bc8385d547cd')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -195,7 +195,7 @@ class ModelConfiguration (pyxb.binding.basis.complexTypeDefinition):
 
     
     # Element {http://schemas.humanbrainproject.eu/SP10/2017/robot_model_config}author uses Python identifier author
-    __author = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'author'), 'author', '__httpschemas_humanbrainproject_euSP102017robot_model_config_ModelConfiguration_httpschemas_humanbrainproject_euSP102017robot_model_configauthor', True, pyxb.utils.utility.Location('file:///C:/Users/Jin-Ho/Desktop/HBP/BlenderRobotDesigner/robot_designer_plugin/resources/robot_model_configuration.xsd', 20, 12), )
+    __author = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'author'), 'author', '__httpschemas_humanbrainproject_euSP102017robot_model_config_ModelConfiguration_httpschemas_humanbrainproject_euSP102017robot_model_configauthor', False, pyxb.utils.utility.Location('file:///C:/Users/Jin-Ho/Desktop/HBP/BlenderRobotDesigner/robot_designer_plugin/resources/robot_model_configuration.xsd', 20, 12), )
 
     
     author = property(__author.value, __author.set, None, None)
@@ -826,7 +826,7 @@ def _BuildAutomaton_8 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('file:///C:/Users/Jin-Ho/Desktop/HBP/BlenderRobotDesigner/robot_designer_plugin/resources/robot_model_configuration.xsd', 20, 12))
+    cc_0 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('file:///C:/Users/Jin-Ho/Desktop/HBP/BlenderRobotDesigner/robot_designer_plugin/resources/robot_model_configuration.xsd', 20, 12))
     counters.add(cc_0)
     states = []
     final_update = set()
@@ -915,7 +915,7 @@ def _BuildAutomaton ():
     counters.add(cc_3)
     cc_4 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('file:///C:/Users/Jin-Ho/Desktop/HBP/BlenderRobotDesigner/robot_designer_plugin/resources/robot_model_configuration.xsd', 18, 12))
     counters.add(cc_4)
-    cc_5 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('file:///C:/Users/Jin-Ho/Desktop/HBP/BlenderRobotDesigner/robot_designer_plugin/resources/robot_model_configuration.xsd', 20, 12))
+    cc_5 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('file:///C:/Users/Jin-Ho/Desktop/HBP/BlenderRobotDesigner/robot_designer_plugin/resources/robot_model_configuration.xsd', 20, 12))
     counters.add(cc_5)
     cc_6 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('file:///C:/Users/Jin-Ho/Desktop/HBP/BlenderRobotDesigner/robot_designer_plugin/resources/robot_model_configuration.xsd', 22, 12))
     counters.add(cc_6)

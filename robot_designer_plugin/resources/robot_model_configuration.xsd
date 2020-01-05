@@ -17,7 +17,7 @@
             <xs:element name="thumbnail" type="xs:string" minOccurs="0"/>
             <xs:element name="frontend_skin_model" type="frontend_skin_model" minOccurs="0" maxOccurs="1" />
             <xs:element name="sdf" type="sdf_versioned"/>
-            <xs:element name="author" type="author_type" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="author" type="author_type" minOccurs="0" maxOccurs="1" />
             <xs:element name="description" type="xs:string"/>
             <xs:element name="website" type="xs:string" minOccurs="0" maxOccurs="1" />
             <xs:element name="documentation" type="documentation_type" minOccurs ="0"/>
@@ -64,8 +64,8 @@
         <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="sensor">
                 <xs:complexType>
-                    <xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
-                    <xs:attribute name="type" type="sensor_type" use="required"></xs:attribute>
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="type" type="sensor_type" use="required"/>
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -91,8 +91,8 @@
         <xs:sequence minOccurs="0" maxOccurs="unbounded">
             <xs:element name="actuator">
                 <xs:complexType>
-                    <xs:attribute name="name" type="xs:string" use="required"></xs:attribute>
-                    <xs:attribute name="type" type="actuator_type" use="required"></xs:attribute>
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="type" type="actuator_type" use="required"/>
                 </xs:complexType>
             </xs:element>
         </xs:sequence>
@@ -111,20 +111,20 @@
 
 
     <xs:complexType name="youtube_resource">
-        <xs:attribute name="title" type="xs:string" use="required"></xs:attribute>
-        <xs:attribute name="youtube-id" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="title" type="xs:string" use="required"/>
+        <xs:attribute name="youtube-id" type="xs:string" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="url_resource">
-        <xs:attribute name="title" type="xs:string" use="required"></xs:attribute>
-        <xs:attribute name="url" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="title" type="xs:string" use="required"/>
+        <xs:attribute name="url" type="xs:string" use="required"/>
     </xs:complexType>
 
 
     <xs:complexType name="publication_type">
-        <xs:attribute name="title" type="xs:string" use="required"></xs:attribute>
-        <xs:attribute name="url" type="xs:string" use="required"></xs:attribute>
-        <xs:attribute name="authors" type="xs:string" use="required"></xs:attribute>
+        <xs:attribute name="title" type="xs:string" use="required"/>
+        <xs:attribute name="url" type="xs:string" use="required"/>
+        <xs:attribute name="authors" type="xs:string" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="frontend_skin_model">
