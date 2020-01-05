@@ -194,9 +194,9 @@ class Importer(object):
             model_posexyz = [0, 0, 0]
             model_poserpy = [0, 0, 0]
         else:
-            self.logger.debug('model_pose (geometry): %s', model.pose[0])
-            model_posexyz = string_to_list(model.pose[0])[0:3]
-            model_poserpy = string_to_list(model.pose[0])[3:]
+            self.logger.debug('model_pose (geometry): %s', model.pose[0].value())
+            model_posexyz = string_to_list(model.pose[0].value())[0:3]
+            model_poserpy = string_to_list(model.pose[0].value())[3:]
 
         return Matrix.Translation(Vector(model_posexyz)) * \
                Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
@@ -285,9 +285,9 @@ class Importer(object):
             model_posexyz = [0, 0, 0]
             model_poserpy = [0, 0, 0]
         else:
-            self.logger.debug('model_pose (geometry): %s', model.pose[0])
-            model_posexyz = string_to_list(model.pose[0])[0:3]
-            model_poserpy = string_to_list(model.pose[0])[3:]
+            self.logger.debug('model_pose (geometry): %s', model.pose[0].value())
+            model_posexyz = string_to_list(model.pose[0].value())[0:3]
+            model_poserpy = string_to_list(model.pose[0].value())[3:]
 
         return Matrix.Translation(Vector(model_posexyz)) * \
                Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
@@ -362,9 +362,9 @@ class Importer(object):
             model_posexyz = [0, 0, 0]
             model_poserpy = [0, 0, 0]
         else:
-            self.logger.debug('model_pose (geometry): %s', model.pose[0])
-            model_posexyz = string_to_list(model.pose[0])[0:3]
-            model_poserpy = string_to_list(model.pose[0])[3:]
+            self.logger.debug('model_pose (geometry): %s', model.pose[0].value())
+            model_posexyz = string_to_list(model.pose[0].value())[0:3]
+            model_poserpy = string_to_list(model.pose[0].value())[3:]
 
         return Matrix.Translation(Vector(model_posexyz)) * \
                Euler(model_poserpy, 'XYZ').to_matrix().to_4x4() * scale_matrix
@@ -419,7 +419,7 @@ class Importer(object):
         if not node.link.pose:
             child_link_pose = [0, 0, 0, 0, 0, 0]
         else:
-            child_link_pose = string_to_list(get_value(node.link.pose[0], "0 0 0 0 0 0"))
+            child_link_pose = string_to_list(get_value(node.link.pose[0].value(), "0 0 0 0 0 0"))
         # child_link_pose = pose_modelpose(child_link_pose,  string_to_list("0 0 0.6 0 1.57 0"))
 
         parent_pose_homo = pose_float2homogeneous(rounded(ref_pose))
@@ -542,9 +542,9 @@ class Importer(object):
             bpy.data.objects[node.link.name].RobotDesigner.dynamics.mass = node.link.inertial[0].mass[0]
 
             # set center of mass position
-            inertia_location = string_to_list(node.link.inertial[0].pose[0])[0:3]
+            inertia_location = string_to_list(node.link.inertial[0].pose[0].value())[0:3]
             inertia_location[1] = inertia_location[1] - 1.0
-            inertia_rotation = string_to_list(node.link.inertial[0].pose[0])[3:]
+            inertia_rotation = string_to_list(node.link.inertial[0].pose[0].value())[3:]
 
             # bpy.data.objects[node.link.name].location = [inertia_location[1], inertia_location[2], inertia_location[0]]
             bpy.data.objects[node.link.name].location = inertia_location

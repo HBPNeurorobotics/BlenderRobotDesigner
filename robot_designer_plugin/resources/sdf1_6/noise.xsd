@@ -1,0 +1,106 @@
+<?xml version='1.0' ?>
+<xsd:schema xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+    <xsd:annotation>
+        <xsd:documentation xml:lang='en'>
+            <![CDATA[The properties of a sensor noise model.]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/types.xsd'/>
+    <xsd:element name='noise'>
+        <xsd:complexType>
+            <xsd:choice maxOccurs='unbounded'>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='function' type='xsd:string'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[For type "generic*", the name of the function should be used.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='mean' type='xsd:double'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[
+      For type "gaussian*", the mean of the Gaussian distribution from which
+      noise values are drawn.
+    ]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='stddev' type='xsd:double'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[For type "gaussian*", the standard deviation of the Gaussian distribution from which noise values are drawn.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='bias_mean' type='xsd:double'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[For type "gaussian*", the mean of the Gaussian distribution from which bias values are drawn.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='bias_stddev' type='xsd:double'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[For type "gaussian*", the standard deviation of the Gaussian distribution from which bias values are drawn.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='dynamic_bias_stddev' type='xsd:double'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[For type "gaussian*", the standard deviation of the noise used to drive a process to model slow variations in a sensor bias.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='dynamic_bias_correlation_time' type='xsd:double'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[For type "gaussian*", the correlation time in seconds of the noise used to drive a process to model slow variations in a sensor bias. A typical value, when used, would be on the order of 3600 seconds (1 hour).]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='precision' type='xsd:double'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[
+      For type "gaussian_quantized", the precision of output signals. A value
+      of zero implies infinite precision / no quantization.
+    ]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:choice>
+            <xsd:attribute name='type' type='xsd:string' use='required' >
+                <xsd:annotation>
+                    <xsd:documentation xml:lang='en'>
+                        <![CDATA[
+      The type of noise. Currently supported types are:
+      "none" (no noise).
+      "gaussian" (draw noise values independently for each measurement from a Gaussian distribution).
+      "gaussian_quantized" ("gaussian" plus quantization of outputs (ie. rounding))
+      "generic" (draw noise values independently for each measurement from a different function of distribution).
+    ]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
