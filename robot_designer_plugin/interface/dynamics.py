@@ -45,7 +45,7 @@ from .model import check_armature
 from ..properties.globals import global_properties
 from ..core.gui import InfoBox
 from .helpers import getSingleSegment, getSingleObject
-from .helpers import PhysicsBox, LinkBox, InertiaBox
+from .helpers import PhysicsBox, LinkBox
 
 
 def draw(layout, context):
