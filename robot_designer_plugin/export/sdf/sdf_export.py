@@ -276,9 +276,9 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         # If link should be connected to world, create an additional joint with parent world and type fixed
         if segment.RobotDesigner.world is True:
             world_joint = sdf_dom.joint()
-            joint_axis = sdf_dom.CTD_ANON_47()
+            # joint_axis = sdf_dom.CTD_ANON_57()
             if not world_joint.axis:
-                world_joint.axis.append(joint_axis)
+                world_joint.axis = [pyxb.BIND()]
 
             world_joint.child.append(segment.name)
             world_joint.name = segment.name + '_world'
@@ -304,14 +304,15 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         print('Axis xyz:', child.joint.axis[0].xyz)
 
         if segment.parent is None:
-            # print("Info: Root joint has no parent", segment, segment.RobotEditor.jointMode)
+            # print("Info: RootM joint has no parent", segment, segment.RobotEditor.jointode)
 
             child.joint.type = 'fixed'
         else:
             # Export individual limits only if set as active in GUI
             if segment.RobotDesigner.jointMode == 'REVOLUTE':
                 if segment.RobotDesigner.controller.isActive is True:
-                    child.joint.axis[0].limit.append(sdf_dom.CTD_ANON_49())
+                    # child.joint.axis[0].limit.append(sdf_dom.CTD_ANON_59())
+                    child.joint.axis[0].limit = [pyxb.BIND()]
                     child.joint.axis[0].limit[0].lower.append((radians(segment.RobotDesigner.theta.min)))
                     child.joint.axis[0].limit[0].upper.append((radians(segment.RobotDesigner.theta.max)))
                     child.joint.axis[0].limit[0].effort.append(segment.RobotDesigner.controller.maxTorque)
@@ -319,7 +320,8 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 child.joint.type = 'revolute'
             if segment.RobotDesigner.jointMode == 'PRISMATIC':
                 if segment.RobotDesigner.controller.isActive is True:
-                    child.joint.axis[0].limit.append(sdf_dom.CTD_ANON_49())
+                    # child.joint.axis[0].limit.append(sdf_dom.CTD_ANON_59())
+                    child.joint.axis[0].limit = [pyxb.BIND()]
                     child.joint.axis[0].limit[0].lower.append(segment.RobotDesigner.d.min)
                     child.joint.axis[0].limit[0].upper.append(segment.RobotDesigner.d.max)
                     child.joint.axis[0].limit[0].effort.append(segment.RobotDesigner.controller.maxTorque)
@@ -394,7 +396,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
                 collision.pose.append(' '.join([collision_pose_xyz, collision_pose_rpy]))
                 collision.name = bpy.data.objects[mesh].name  # child.link.name + '_collision'
-                operator.logger.info(" collision mesh pose'%s'" % collision.pose[0])
+                operator.logger.info(" collision mesh pose'%s'" % collision.pose[0].value())
 
                 # add surface properties
                 collision.surface.append(sdf_dom.surface())
@@ -454,7 +456,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
                 collision.pose.append(' '.join([collision_pose_xyz, collision_pose_rpy]))
                 collision.name = bpy.data.objects[mesh].name  # child.link.name + '_collision'
-                operator.logger.info(" basic collision mesh pose'%s'" % collision.pose[0])
+                operator.logger.info(" basic collision mesh pose'%s'" % collision.pose[0].value())
             else:
                 operator.logger.info("No basic collision model for: %s", mesh)
 
@@ -502,15 +504,18 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
         # add joint controllers
         if operator.gazebo and segment.RobotDesigner.jointController.isActive is True:
-            # controller = child.add_joint_controller(root.control_plugin)
-            controller = sdf_dom.CTD_ANON_74()  # not final: need to figure out why controller class is not generated
-            controller.joint_name = child.joint.name
-            controller.type = segment.RobotDesigner.jointController.controllerType
             if segment.RobotDesigner.jointController.P <= 1.0:
                 segment.RobotDesigner.jointController.P = 100
-            controller.pid = list_to_string([segment.RobotDesigner.jointController.P,
+
+            controller_pid = list_to_string([segment.RobotDesigner.jointController.P,
                                              segment.RobotDesigner.jointController.I,
                                              segment.RobotDesigner.jointController.D])
+
+            controller = pyxb.BIND(
+                joint_name=child.joint.name,
+                type=segment.RobotDesigner.jointController.controllerType,
+                pid=controller_pid
+            )
             root.control_plugin.controller.append(controller)
 
         ### add link sensors
@@ -545,12 +550,18 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
   #      operator.logger.info(" sensor name'%s'" % child.link.sensor.name)
 
-
+        '''
+        A quick word on poses in sdf 1.6
+        The way it works hasn't changed from 1.5
+        You first have to append before you can freely set a value in it.
+        Difference is when calling the value. 
+        In 1.6, you have to use: ...pose[0].value() in order to call the value of the pose. 
+        '''
 
         # Add geometry
         for child_segments in segment.children:
             operator.logger.info("Next Segment'%s'" % child_segments.name)
-            ref_pose = string_to_list(child.link.pose[0])
+            ref_pose = string_to_list(child.link.pose[0].value())
             walk_segments(child_segments, child, ref_pose)
 
     robot_name = context.active_object.name
@@ -562,7 +573,8 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
     # add model pose
     root.sdf.model[0].pose.append(' '.join([list_to_string(context.active_object.location),
-                                        list_to_string(context.active_object.rotation_euler)]))
+                                            list_to_string(context.active_object.rotation_euler)]))
+
 
     # todo SDF Plugin
     # build control plugin element
@@ -574,6 +586,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 root.control_plugin = root.sdf.model[0].plugin[len(root.sdf.model[0].plugin)-1]
                 root.control_plugin.name = robot_name + "_controller"
                 root.control_plugin.filename = "libgeneric_controller_plugin.so"
+                root.control_plugin.controller = []
             break
 
     # add root geometries to root.link
@@ -783,7 +796,7 @@ def create_config(operator: RDOperator, context, filepath: str, meshpath: str, t
     # set sdf fixed name
     sdf = robot_model_config_dom.sdf_versioned()
     sdf._setValue("model.sdf")
-    sdf.version = 1.5
+    sdf.version = 1.6
 
     modelI.sdf = sdf
 

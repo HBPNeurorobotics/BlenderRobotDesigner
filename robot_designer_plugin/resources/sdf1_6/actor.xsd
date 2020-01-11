@@ -1,0 +1,224 @@
+<?xml version='1.0' ?>
+<xsd:schema xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+    <xsd:annotation>
+        <xsd:documentation xml:lang='en'>
+            <![CDATA[A special kind of model which can have a scripted motion. This includes both global waypoint type animations and skeleton animations.]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/types.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/frame.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/pose.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/link.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/joint.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/plugin.xsd'/>
+    <xsd:element name='actor'>
+        <xsd:complexType>
+            <xsd:choice maxOccurs='unbounded'>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='static' type='xsd:boolean'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[(DEPRECATION WARNING: This is deprecated in 1.6 and removed in 1.7. Actors should be static, so this is always true.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='skin'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Skin file which defines a visual and the underlying skeleton which moves it.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                    <xsd:element name='filename' type='xsd:string'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Path to skin file, accepted formats: COLLADA, BVH.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='scale' type='xsd:double'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Scale the skin's size.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='unbounded'>
+                    <xsd:element name='animation'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Animation file defines an animation for the skeleton in the skin. The skeleton must be compatible with the skin skeleton.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                    <xsd:element name='filename' type='xsd:string'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Path to animation file. Accepted formats: COLLADA, BVH.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='scale' type='xsd:double'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Scale for the animation skeleton.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='interpolate_x' type='xsd:boolean'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Set to true so the animation is interpolated on X.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                            <xsd:attribute name='name' type='xsd:string' use='required' >
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang='en'>
+                                        <![CDATA[Unique name for animation.]]>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:attribute>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                    <xsd:element name='script'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Adds scripted trajectories to the actor.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='loop' type='xsd:boolean'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Set this to true for the script to be repeated in a loop. For a fluid continuous motion, make sure the last waypoint matches the first one.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='delay_start' type='xsd:double'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[This is the time to wait before starting the script. If running in a loop, this time will be waited before starting each cycle.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='auto_start' type='xsd:boolean'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Set to true if the animation should start as soon as the simulation starts playing. It is useful to set this to false if the animation should only start playing only when triggered by a plugin, for example.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='unbounded'>
+                                    <xsd:element name='trajectory'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[The trajectory contains a series of keyframes to be followed.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs='unbounded'>
+                                                <xsd:choice  minOccurs='0' maxOccurs='unbounded'>
+                                                    <xsd:element name='waypoint'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Each point in the trajectory.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                        <xsd:complexType>
+                                                            <xsd:choice maxOccurs='unbounded'>
+                                                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                                                    <xsd:element name='time' type='xsd:double'>
+                                                                        <xsd:annotation>
+                                                                            <xsd:documentation xml:lang='en'>
+                                                                                <![CDATA[The time in seconds, counted from the beginning of the script, when the pose should be reached.]]>
+                                                                            </xsd:documentation>
+                                                                        </xsd:annotation>
+                                                                    </xsd:element>
+                                                                </xsd:choice>
+                                                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                                                    <xsd:element name='pose' type='pose'>
+                                                                        <xsd:annotation>
+                                                                            <xsd:documentation xml:lang='en'>
+                                                                                <![CDATA[The pose which should be reached at the given time.]]>
+                                                                            </xsd:documentation>
+                                                                        </xsd:annotation>
+                                                                    </xsd:element>
+                                                                </xsd:choice>
+                                                            </xsd:choice>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                            <xsd:attribute name='id' type='xsd:int' use='required' >
+                                                <xsd:annotation>
+                                                    <xsd:documentation xml:lang='en'>
+                                                        <![CDATA[Unique id for a trajectory.]]>
+                                                    </xsd:documentation>
+                                                </xsd:annotation>
+                                            </xsd:attribute>
+                                            <xsd:attribute name='type' type='xsd:string' use='required' >
+                                                <xsd:annotation>
+                                                    <xsd:documentation xml:lang='en'>
+                                                        <![CDATA[If it matches the type of an animation, they will be played at the same time.]]>
+                                                    </xsd:documentation>
+                                                </xsd:annotation>
+                                            </xsd:attribute>
+                                            <xsd:attribute name='tension' type='xsd:double' use='optional' default='0.0'>
+                                                <xsd:annotation>
+                                                    <xsd:documentation xml:lang='en'>
+                                                        <![CDATA[The tension of the trajectory spline. The default value of zero equates to a Catmull-Rom spline, which may also cause the animation to overshoot keyframes. A value of one will cause the animation to stick to the keyframes.]]>
+                                                    </xsd:documentation>
+                                                </xsd:annotation>
+                                            </xsd:attribute>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:element ref='frame'/>
+                <xsd:element ref='pose'/>
+                <xsd:element ref='link'/>
+                <xsd:element ref='joint'/>
+                <xsd:element ref='plugin'/>
+            </xsd:choice>
+            <xsd:attribute name='name' type='xsd:string' use='required' >
+                <xsd:annotation>
+                    <xsd:documentation xml:lang='en'>
+                        <![CDATA[A unique name for the actor.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
