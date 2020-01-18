@@ -443,11 +443,11 @@ class SDFCollisionProperties(bpy.types.PropertyGroup):
     Property group that contains SDF-Collision-parameters
     '''
     restitution_coeff = FloatProperty(name="Restitution Coeff.", default=0, min=0, max=1)
-    threshold = FloatProperty(name='Threshold', default=100000, min=0)  # changed default from 0. Removed max
+    threshold = FloatProperty(name='Threshold', default=100000, min=0)
     coefficient = FloatProperty(name='Coefficient', default=1, min=0, max=1)
     use_patch_radius = BoolProperty(name="Use patch radius", default=True)
-    patch_radius = FloatProperty(name='Patch Radius', default=0, min=0, max=1000)  # keep this max?
-    surface_radius = FloatProperty(name='Surface Radius', default=0, min=0, max=1000)  # keep this max?
+    patch_radius = FloatProperty(name='Patch Radius', default=0, min=0)
+    surface_radius = FloatProperty(name='Surface Radius', default=0, min=0)
     slip = FloatProperty(name='Slip', default=0, min=0, max=1)
     mu = FloatProperty(name='Mu', default=1, min=0, max=1)
     mu2 = FloatProperty(name='Mu2', default=1, min=0, max=1)
@@ -455,17 +455,17 @@ class SDFCollisionProperties(bpy.types.PropertyGroup):
     slip1 = FloatProperty(name='Slip1', default=0, min=0, max=1)
     slip2 = FloatProperty(name='Slip2', default=0, min=0, max=1)
     collide_wo_contact = BoolProperty(name="Colide without contact", default=False)
-    collide_wo_contact_bitmask = IntProperty(name='Colide without contact bitmask', default=1, min=0, max=1000)
-    collide_bitmask = IntProperty(name='Collide bitmask', default=65535, min=0, max=65535)
-    category_bitmask = IntProperty(name='Category bitmask', default=65535, min=0, max=65535)
+    collide_wo_contact_bitmask = IntProperty(name='Colide without contact bitmask', default=1, min=0)
+    collide_bitmask = IntProperty(name='Collide bitmask', default=65535, min=0)
+    category_bitmask = IntProperty(name='Category bitmask', default=65535, min=0)  # if not specified, same as collide bitmask
     poissons_ratio = FloatProperty(name='Poissons Ratio', default=0.3, min=-1, max=0.5)
-    elastic_modulus = FloatProperty(name='Elastic Modulus', default=-1, min=-1, max=0)  # valid limits?
-    soft_cfm = FloatProperty(name='Soft CFM', default=0, min=0, max=1)  # valid limits?
-    soft_erp = FloatProperty(name='Soft ERP', default=0.2, min=0, max=1)  # valid limits?
-    kp = FloatProperty(name='Kp', default=1000000000000, min=0, max=1000000000000)  # max number cannot be displayed
-    kd = FloatProperty(name='Kd', default=1, min=0, max=1)  # valid limits?
-    max_vel = FloatProperty(name='Max. Vel.', default=0.01, min=0, max=1)  # valid limits?
-    min_depth = FloatProperty(name='Min. Depth', default=0, min=0, max=10)  # valid limits?
+    elastic_modulus = FloatProperty(name='Elastic Modulus', default=-1, min=-1)
+    soft_cfm = FloatProperty(name='Soft CFM', default=0, min=0)
+    soft_erp = FloatProperty(name='Soft ERP', default=0.2, min=0, max=1)
+    kp = FloatProperty(name='Kp', default=1000000000000, min=0, max=1000000000000)  # max number cannot be displayed in blender
+    kd = FloatProperty(name='Kd', default=1, min=0, max=1)
+    max_vel = FloatProperty(name='Max. Vel.', default=0.01, min=0, max=1)  # TODO: check validity of limit
+    min_depth = FloatProperty(name='Min. Depth', default=0, min=0, max=10)  # TODO: check validity of limit
     bone_attachment = FloatProperty(name='Bone Attachment', default=100, min=0, max=1000)
     stiffness = FloatProperty(name='Stiffness', default=100, min=0, max=10000)
     damping = FloatProperty(name='Damping', default=10, min=0, max=100)

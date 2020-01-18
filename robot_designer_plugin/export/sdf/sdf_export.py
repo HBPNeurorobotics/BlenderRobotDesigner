@@ -218,10 +218,9 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         # Link Sdf properties export
         child.link.gravity.append(segment.RobotDesigner.linkInfo.gravity)
         child.link.self_collide.append(segment.RobotDesigner.linkInfo.link_self_collide)
-
         # joint ode properties
-        child.joint.physics.append(sdf_dom.CTD_ANON_53())
-        child.joint.physics[0].ode.append(sdf_dom.CTD_ANON_55())
+        child.joint.physics = [pyxb.BIND()]
+        child.joint.physics[0].ode = [pyxb.BIND()]
         child.joint.physics[0].ode[0].cfm_damping.append(segment.RobotDesigner.ode.cfm_damping)
         child.joint.physics[0].ode[0].implicit_spring_damper.append(segment.RobotDesigner.ode.i_s_damper)
         child.joint.physics[0].ode[0].cfm.append(segment.RobotDesigner.ode.cfm)
@@ -403,14 +402,23 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 surface_property = bpy.data.objects[mesh].RobotDesigner.sdfCollisionProps
 
                 # add bounce properties
-                collision.surface[0].bounce.append(sdf_dom.CTD_ANON_88())
+                collision.surface[0].bounce = [pyxb.BIND()]
                 bounce = collision.surface[0].bounce[0]
                 bounce.restitution_coefficient.append(surface_property.restitution_coeff)
                 bounce.threshold.append(surface_property.threshold)
 
                 # add friction properties
-                collision.surface[0].friction.append(sdf_dom.CTD_ANON_89())
-                collision.surface[0].friction[0].ode.append(sdf_dom.CTD_ANON_90())
+                collision.surface[0].friction = [pyxb.BIND()]
+                friction = collision.surface[0].friction[0]
+                friction.torsional = [pyxb.BIND()]
+                torsional = friction.torsional[0]
+                torsional.coefficient.append(surface_property.coefficient)
+                torsional.use_patch_radius.append(surface_property.use_patch_radius)
+                torsional.patch_radius.append(surface_property.patch_radius)
+                torsional.surface_radius.append(surface_property.surface_radius)
+                torsional.ode = [pyxb.BIND()]
+                torsional.ode[0].slip.append(surface_property.slip)
+                friction.ode = [pyxb.BIND()]
                 friction_ode = collision.surface[0].friction[0].ode[0]
                 friction_ode.mu.append(surface_property.mu)
                 friction_ode.mu2.append(surface_property.mu2)
@@ -420,12 +428,15 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 friction_ode.slip2.append(surface_property.slip2)
 
                 # add contact properties
-                collision.surface[0].contact.append(sdf_dom.CTD_ANON_92())
+                collision.surface[0].contact = [pyxb.BIND()]
                 contact = collision.surface[0].contact[0]
                 contact.collide_without_contact.append(surface_property.collide_wo_contact)
                 contact.collide_without_contact_bitmask.append(surface_property.collide_wo_contact_bitmask)
                 contact.collide_bitmask.append(surface_property.collide_bitmask)
-                contact.ode.append(sdf_dom.CTD_ANON_93())
+                contact.category_bitmask.append(surface_property.category_bitmask)
+                contact.poissons_ratio.append(surface_property.poissons_ratio)
+                contact.elastic_modulus.append(surface_property.elastic_modulus)
+                contact.ode = [pyxb.BIND()]
                 contact_ode = contact.ode[0]
                 contact_ode.soft_cfm.append(surface_property.soft_cfm)
                 contact_ode.soft_erp.append(surface_property.soft_erp)
@@ -804,7 +815,7 @@ def create_config(operator: RDOperator, context, filepath: str, meshpath: str, t
     author = robot_model_config_dom.author_type(bpy.context.active_object.RobotDesigner.author.authorName,
                                           bpy.context.active_object.RobotDesigner.author.authorEmail)
     # modelI.author = author
-    modelI.author.append(author)
+    modelI.author = author
 
     modelI.description = bpy.context.active_object.RobotDesigner.modelMeta.model_description
 

@@ -78,8 +78,8 @@ class RDOde(bpy.types.PropertyGroup):
     '''
     cfm_damping = BoolProperty(name='CFM Damping', default=False)
     i_s_damper = BoolProperty(name='Implicit-Spring-Damper', default=False)
-    cfm = FloatProperty(name='CFM', default=0)
-    erp = FloatProperty(name='ERP', default=0.2)
+    cfm = FloatProperty(name='CFM', default=0, min=0)
+    erp = FloatProperty(name='ERP', default=0.2, min=0, max=1)
 
 
 @PluginManager.register_property_group()

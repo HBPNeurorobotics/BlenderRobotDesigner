@@ -518,6 +518,14 @@ class Importer(object):
         else:
             bpy.context.active_bone.RobotDesigner.jointMode = 'FIXED'
 
+        # import joint physics if they exist
+        if parent_name:
+            if len(node.joint.physics):
+                bpy.context.active_bone.RobotDesigner.ode.cfm_damping = node.joint.physics[0].ode[0].cfm_damping[0]
+                bpy.context.active_bone.RobotDesigner.ode.i_s_damper = node.joint.physics[0].ode[0].implicit_spring_damper[0]
+                bpy.context.active_bone.RobotDesigner.ode.cfm = node.joint.physics[0].ode[0].cfm[0]
+                bpy.context.active_bone.RobotDesigner.ode.erp = node.joint.physics[0].ode[0].erp[0]
+
         model = bpy.context.active_object
         model_name = model.name
 
@@ -529,6 +537,10 @@ class Importer(object):
 
         segment_world = model.matrix_world * pose_bone.matrix
         # segment_world = pose_float2homogeneous(rounded(string_to_list("0 0 0.6 0 0 -1.570796")))*pose_bone.matrix
+
+        # import segment physics properties
+        bpy.context.active_bone.RobotDesigner.linkInfo.gravity = node.link.gravity[0]
+        bpy.context.active_bone.RobotDesigner.linkInfo.link_self_collide = node.link.self_collide[0]
 
         if len(node.link.inertial) > 0:
             i = node.link.inertial[0].inertia[0]
@@ -724,6 +736,32 @@ class Importer(object):
                         SelectGeometry.run(geometry_name=assigned_name)
 
                         if model_type == COLLISON:
+                            # import surface properties
+                            if len(model.surface):
+                                surface = bpy.data.objects[assigned_name].RobotDesigner.sdfCollisionProps
+                                surface.restitution_coeff = model.surface[0].bounce[0].restitution_coefficient[0]
+                                surface.threshold = model.surface[0].bounce[0].threshold[0]
+                                surface.coefficient = model.surface[0].friction[0].torsional[0].coefficient[0]
+                                surface.use_patch_radius = model.surface[0].friction[0].torsional[0].use_patch_radius[0]
+                                surface.surface_radius = model.surface[0].friction[0].torsional[0].surface_radius[0]
+                                surface.slip = model.surface[0].friction[0].torsional[0].ode[0].slip[0]
+                                surface.mu = model.surface[0].friction[0].ode[0].mu[0]
+                                surface.mu2 = model.surface[0].friction[0].ode[0].mu2[0]
+                                surface.fdir1 = string_to_list(model.surface[0].friction[0].ode[0].fdir1[0])
+                                surface.slip1 = model.surface[0].friction[0].ode[0].slip1[0]
+                                surface.slip2 = model.surface[0].friction[0].ode[0].slip2[0]
+                                surface.collide_wo_contact = model.surface[0].contact[0].collide_without_contact[0]
+                                surface.collide_wo_contact_bitmask = model.surface[0].contact[0].collide_without_contact_bitmask[0]
+                                surface.collide_bitmask = model.surface[0].contact[0].collide_bitmask[0]
+                                surface.category_bitmask = model.surface[0].contact[0].category_bitmask[0]
+                                surface.poissons_ratio = model.surface[0].contact[0].poissons_ratio[0]
+                                surface.elastic_modulus = model.surface[0].contact[0].elastic_modulus[0]
+                                surface.soft_cfm = model.surface[0].contact[0].ode[0].soft_cfm[0]
+                                surface.soft_erp = model.surface[0].contact[0].ode[0].soft_erp[0]
+                                surface.kp = model.surface[0].contact[0].ode[0].kp[0]
+                                surface.kd = model.surface[0].contact[0].ode[0].kd[0]
+                                surface.max_vel = model.surface[0].contact[0].ode[0].max_vel[0]
+                                surface.min_depth = model.surface[0].contact[0].ode[0].min_depth[0]
                             AssignGeometry.run(attach_collision_geometry=True)
                         else:
                             AssignGeometry.run()
@@ -855,8 +893,8 @@ class Importer(object):
         bpy.context.active_object.RobotDesigner.modelMeta.model_version = str(model.version)
 
         # read author todo multiple authors
-        bpy.context.active_object.RobotDesigner.author.authorName = model.author[0].name[0]
-        bpy.context.active_object.RobotDesigner.author.authorEmail = model.author[0].email[0]
+        bpy.context.active_object.RobotDesigner.author.authorName = model.author.name[0]
+        bpy.context.active_object.RobotDesigner.author.authorEmail = model.author.email[0]
 
         bpy.context.active_object.RobotDesigner.modelMeta.model_description = model.description
 
