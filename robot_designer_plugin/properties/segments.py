@@ -62,6 +62,25 @@ class RDActuator(bpy.types.PropertyGroup):
     acceleration = FloatProperty(name="Acceleration", precision=4, step=100)
     deceleration = FloatProperty(name="Deceleration", precision=4, step=100)
 
+@PluginManager.register_property_group()
+class RDLinkInfo(bpy.types.PropertyGroup):
+    '''
+    Property group that contains information about link's gravity and self collision
+    '''
+    link_self_collide = BoolProperty(name='Self Collide', default=False)
+    gravity = BoolProperty(name='Gravity', default=True)
+
+
+@PluginManager.register_property_group()
+class RDOde(bpy.types.PropertyGroup):
+    '''
+    Property group that contains ODE data
+    '''
+    cfm_damping = BoolProperty(name='CFM Damping', default=False)
+    i_s_damper = BoolProperty(name='Implicit-Spring-Damper', default=False)
+    cfm = FloatProperty(name='CFM', default=0, min=0)
+    erp = FloatProperty(name='ERP', default=0.2, min=0, max=1)
+
 
 @PluginManager.register_property_group()
 class RDDegreeOfFreedom(bpy.types.PropertyGroup):
@@ -263,6 +282,8 @@ class RDSegment(bpy.types.PropertyGroup):
     theta = PointerProperty(type=RDDegreeOfFreedom)  # Joint transform + limits, relative to local frame.
     d = PointerProperty(type=RDDegreeOfFreedom)
     jointController = PointerProperty(type=RDJointController)
+    linkInfo = PointerProperty(type=RDLinkInfo)
+    ode = PointerProperty(type=RDOde)
     Euler = PointerProperty(type=RDEulerAnglesSegment)  # Frame relative to parent
     DH = PointerProperty(
         type=RDDenavitHartenbergSegment)  # Dito but in a different way. Only one, either DH or Euler is used.

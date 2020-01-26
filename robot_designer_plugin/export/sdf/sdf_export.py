@@ -215,6 +215,18 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         # child.joint.origin.rpy = list_to_string(trafo.to_euler())
         # child.joint.origin.xyz = list_to_string([i * j for i, j in zip(trafo.translation, blender_scale_factor)])
 
+        # Link Sdf properties export
+        child.link.gravity.append(segment.RobotDesigner.linkInfo.gravity)
+        child.link.self_collide.append(segment.RobotDesigner.linkInfo.link_self_collide)
+        # joint ode properties
+        child.joint.physics = [pyxb.BIND()]
+        child.joint.physics[0].ode = [pyxb.BIND()]
+        child.joint.physics[0].ode[0].cfm_damping.append(segment.RobotDesigner.ode.cfm_damping)
+        child.joint.physics[0].ode[0].implicit_spring_damper.append(segment.RobotDesigner.ode.i_s_damper)
+        child.joint.physics[0].ode[0].cfm.append(segment.RobotDesigner.ode.cfm)
+        child.joint.physics[0].ode[0].erp.append(segment.RobotDesigner.ode.erp)
+
+
         pose_xyz = list_to_string([i * j for i, j in zip(trafo.translation, blender_scale_factor)])
         pose_rpy = list_to_string(trafo.to_euler())
         pose_xyz, pose_rpy = localpose2globalpose(ref_pose, pose_rpy, pose_xyz)
@@ -384,6 +396,56 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 collision.pose.append(' '.join([collision_pose_xyz, collision_pose_rpy]))
                 collision.name = bpy.data.objects[mesh].name  # child.link.name + '_collision'
                 operator.logger.info(" collision mesh pose'%s'" % collision.pose[0].value())
+
+                # add surface properties
+                collision.surface.append(sdf_dom.surface())
+                surface_property = bpy.data.objects[mesh].RobotDesigner.sdfCollisionProps
+
+                # add bounce properties
+                collision.surface[0].bounce = [pyxb.BIND()]
+                bounce = collision.surface[0].bounce[0]
+                bounce.restitution_coefficient.append(surface_property.restitution_coeff)
+                bounce.threshold.append(surface_property.threshold)
+
+                # add friction properties
+                collision.surface[0].friction = [pyxb.BIND()]
+                friction = collision.surface[0].friction[0]
+                friction.torsional = [pyxb.BIND()]
+                torsional = friction.torsional[0]
+                torsional.coefficient.append(surface_property.coefficient)
+                torsional.use_patch_radius.append(surface_property.use_patch_radius)
+                torsional.patch_radius.append(surface_property.patch_radius)
+                torsional.surface_radius.append(surface_property.surface_radius)
+                torsional.ode = [pyxb.BIND()]
+                torsional.ode[0].slip.append(surface_property.slip)
+                friction.ode = [pyxb.BIND()]
+                friction_ode = collision.surface[0].friction[0].ode[0]
+                friction_ode.mu.append(surface_property.mu)
+                friction_ode.mu2.append(surface_property.mu2)
+                fdir1 = "%f %f %f" % (surface_property.fdir1[0], surface_property.fdir1[1], surface_property.fdir1[2])
+                friction_ode.fdir1.append(fdir1)
+                friction_ode.slip1.append(surface_property.slip1)
+                friction_ode.slip2.append(surface_property.slip2)
+
+                # add contact properties
+                collision.surface[0].contact = [pyxb.BIND()]
+                contact = collision.surface[0].contact[0]
+                contact.collide_without_contact.append(surface_property.collide_wo_contact)
+                contact.collide_without_contact_bitmask.append(surface_property.collide_wo_contact_bitmask)
+                contact.collide_bitmask.append(surface_property.collide_bitmask)
+                contact.category_bitmask.append(surface_property.category_bitmask)
+                contact.poissons_ratio.append(surface_property.poissons_ratio)
+                contact.elastic_modulus.append(surface_property.elastic_modulus)
+                contact.ode = [pyxb.BIND()]
+                contact_ode = contact.ode[0]
+                contact_ode.soft_cfm.append(surface_property.soft_cfm)
+                contact_ode.soft_erp.append(surface_property.soft_erp)
+                contact_ode.kp.append(surface_property.kp)
+                contact_ode.kd.append(surface_property.kd)
+                contact_ode.max_vel.append(surface_property.max_vel)
+                contact_ode.min_depth.append(surface_property.min_depth)
+                # add soft contact properties
+                # not yet implemented dart properties.
 
             else:
                 operator.logger.info("No collision model for: %s", mesh)
@@ -753,7 +815,7 @@ def create_config(operator: RDOperator, context, filepath: str, meshpath: str, t
     author = robot_model_config_dom.author_type(bpy.context.active_object.RobotDesigner.author.authorName,
                                           bpy.context.active_object.RobotDesigner.author.authorEmail)
     # modelI.author = author
-    modelI.author.append(author)
+    modelI.author = author
 
     modelI.description = bpy.context.active_object.RobotDesigner.modelMeta.model_description
 

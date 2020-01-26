@@ -77,16 +77,45 @@ class PolygonReductionBox(CollapsibleBase):
 class ModelPropertiesBox(CollapsibleBase):
     property_name = "coordinate_frame_box"
 
+@PluginManager.register_class
+class PhysicsBox(CollapsibleBase):
+    property_name = "Physics_box"
+
+@PluginManager.register_class
+class RobotSelfCollisionBox(CollapsibleBase):
+    property_name = "rself_collision"
+
+@PluginManager.register_class
+class LinkBox(CollapsibleBase):
+    property_name = "link_box"
+
+@PluginManager.register_class
+class SDFCollisionPropertiesBox(CollapsibleBase):
+    property_name = "sdf_collision_box"
+
+@PluginManager.register_class
+class BounceBox(CollapsibleBase):
+    property_name = "bounce_box"
+
+@PluginManager.register_class
+class FrictionBox(CollapsibleBase):
+    property_name = "friction_box"
+
+@PluginManager.register_class
+class ContactBox(CollapsibleBase):
+    property_name = "contact_box"
+
+@PluginManager.register_class
+class SoftContactBox(CollapsibleBase):
+    property_name = "soft_contact_box"
 
 @PluginManager.register_class
 class ControllerLimitsBox(CollapsibleBase):
     property_name = "controller_limits_box"
 
-
 @PluginManager.register_class
 class ControllerBox(CollapsibleBase):
     property_name = "controller_box"
-
 
 @PluginManager.register_class
 class MeshGenerationBox(CollisionBox):

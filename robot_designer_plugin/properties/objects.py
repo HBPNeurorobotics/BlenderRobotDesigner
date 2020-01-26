@@ -45,7 +45,8 @@ import mathutils
 
 import bpy
 from bpy.props import FloatProperty, StringProperty, \
-    EnumProperty, FloatVectorProperty, PointerProperty, IntProperty, CollectionProperty, BoolProperty
+    EnumProperty, IntVectorProperty, FloatVectorProperty, PointerProperty, IntProperty, CollectionProperty, BoolProperty
+
 
 # RobotDesigner imports
 from ..core import PluginManager
@@ -390,13 +391,85 @@ class RDMuscle(bpy.types.PropertyGroup):
 
 @PluginManager.register_property_group()
 class RDModelMeta(bpy.types.PropertyGroup):
-   '''
-   Property group that contains model meta data suc as name, version and description
-   '''
-   model_config = StringProperty(name='Config Name')
-   model_version = StringProperty(name='Version', default="1.0")
-   model_folder = StringProperty(name='Folder', default="")
-   model_description = StringProperty(name='Description')
+    '''
+    Property group that contains model meta data suc as name, version and description
+    '''
+    model_config = StringProperty(name='Config Name')
+    model_version = StringProperty(name='Version', default="1.0")
+    model_folder = StringProperty(name='Folder', default="")
+    model_description = StringProperty(name='Description')
+
+
+@PluginManager.register_property_group()
+class ModelMeta(bpy.types.PropertyGroup):
+    '''
+    Property group that contains model meta data suc as name, version and description
+    '''
+    var1 = StringProperty(name='Var1')
+    var2 = StringProperty(name='Var2')
+
+
+@PluginManager.register_property_group()
+class RobotSelfCollision(bpy.types.PropertyGroup):
+    '''
+    Property group that contains information about self collision
+    '''
+    robot_self_collide = BoolProperty(name='Self Collide')
+
+
+@PluginManager.register_property_group()
+class LinkInfo(bpy.types.PropertyGroup):
+    '''
+    Property group that contains information about link's gravity and self collision
+    '''
+    link_self_collide = BoolProperty(name='Self Collide', default=False)
+    gravity = BoolProperty(name='Gravity', default=True)
+
+
+@PluginManager.register_property_group()
+class Ode(bpy.types.PropertyGroup):
+    '''
+    Property group that contains ODE data
+    '''
+    cfm_damping = BoolProperty(name='CFM Damping', default=False)
+    i_s_damper = BoolProperty(name='Implicit-Spring-Damper', default=False)
+    cfm = FloatProperty(name='CFM', default=0)
+    erp = FloatProperty(name='ERP', default=0.2)
+
+
+@PluginManager.register_property_group()
+class SDFCollisionProperties(bpy.types.PropertyGroup):
+    '''
+    Property group that contains SDF-Collision-parameters
+    '''
+    restitution_coeff = FloatProperty(name="Restitution Coeff.", default=0, min=0, max=1)
+    threshold = FloatProperty(name='Threshold', default=100000, min=0)
+    coefficient = FloatProperty(name='Coefficient', default=1, min=0, max=1)
+    use_patch_radius = BoolProperty(name="Use patch radius", default=True)
+    patch_radius = FloatProperty(name='Patch Radius', default=0, min=0)
+    surface_radius = FloatProperty(name='Surface Radius', default=0, min=0)
+    slip = FloatProperty(name='Slip', default=0, min=0, max=1)
+    mu = FloatProperty(name='Mu', default=1, min=0, max=1)
+    mu2 = FloatProperty(name='Mu2', default=1, min=0, max=1)
+    fdir1 = FloatVectorProperty(name='FDir1', default=(0, 0, 0), min=0, max=1)
+    slip1 = FloatProperty(name='Slip1', default=0, min=0, max=1)
+    slip2 = FloatProperty(name='Slip2', default=0, min=0, max=1)
+    collide_wo_contact = BoolProperty(name="Colide without contact", default=False)
+    collide_wo_contact_bitmask = IntProperty(name='Colide without contact bitmask', default=1, min=0)
+    collide_bitmask = IntProperty(name='Collide bitmask', default=65535, min=0)
+    category_bitmask = IntProperty(name='Category bitmask', default=65535, min=0)  # if not specified, same as collide bitmask
+    poissons_ratio = FloatProperty(name='Poissons Ratio', default=0.3, min=-1, max=0.5)
+    elastic_modulus = FloatProperty(name='Elastic Modulus', default=-1, min=-1)
+    soft_cfm = FloatProperty(name='Soft CFM', default=0, min=0)
+    soft_erp = FloatProperty(name='Soft ERP', default=0.2, min=0, max=1)
+    kp = FloatProperty(name='Kp', default=1000000000000, min=0, max=1000000000000)  # max number cannot be displayed in blender
+    kd = FloatProperty(name='Kd', default=1, min=0, max=1)
+    max_vel = FloatProperty(name='Max. Vel.', default=0.01, min=0, max=1)  # TODO: check validity of limit
+    min_depth = FloatProperty(name='Min. Depth', default=0, min=0, max=10)  # TODO: check validity of limit
+    bone_attachment = FloatProperty(name='Bone Attachment', default=100, min=0, max=1000)
+    stiffness = FloatProperty(name='Stiffness', default=100, min=0, max=10000)
+    damping = FloatProperty(name='Damping', default=10, min=0, max=100)
+    flesh_mass_fraction = FloatProperty(name='Flesh mass fraction', default=0.05, min=0, max=1)
 
 
 @PluginManager.register_property_group()
@@ -441,10 +514,15 @@ class RDObjects(bpy.types.PropertyGroup):
                ('IMU_SENSOR', 'IMU Sensors', 'Edit IMU sensors')]
     )
 
-
-
     dynamics = PointerProperty(type=RDDynamics)
     modelMeta = PointerProperty(type=RDModelMeta)
+
+    modelMeta1 = PointerProperty(type=ModelMeta)
+    robotSelfCollision = PointerProperty(type=RobotSelfCollision)
+    linkInfo = PointerProperty(type=LinkInfo)
+    ode = PointerProperty(type=Ode)
+    sdfCollisionProps = PointerProperty(type=SDFCollisionProperties)
+
     author = PointerProperty(type=RDAuthor)
     cameraSensor = PointerProperty(type=RDCamera)
     contactSensor = PointerProperty(type=RDContactSensor)

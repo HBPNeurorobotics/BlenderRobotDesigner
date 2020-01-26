@@ -46,6 +46,9 @@ from .helpers import create_segment_selector
 from ..operators import segments
 from ..core.pluginmanager import PluginManager
 from ..properties.globals import global_properties
+from .helpers import PhysicsBox
+from .helpers import LinkBox
+from . import menus
 
 
 def draw(layout, context):
