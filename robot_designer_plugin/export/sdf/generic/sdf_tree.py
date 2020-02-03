@@ -45,7 +45,6 @@ class SDFTree(object):
         self.joint = None
         self.link = None
         self.sdf = None
-        self.world = True
 
         self.connectedLinks = connected_links
         self.connectedJoints = connected_joints
@@ -121,6 +120,9 @@ class SDFTree(object):
         ###  the link, not link name
         root_links = [link for link in robot.link if link.name not in child_links]
 
+        # look for root links connected to world and create mapping from root link to world joint
+        world_joints = {link: joint for link in root_links for joint in robot.joint if link.name == joint.child[0]}
+
         logger.debug("Root links: %s", [i.name for i in root_links])
         logger.debug("connected links: %s", {j.name: l.name for j, l in connected_links.items()})
 
@@ -143,7 +145,11 @@ class SDFTree(object):
             # print({j.name: l.name for j, l in tree.connectedLinks.items()})
             # print(tree.joint, tree.link)
             kinematic_chains.append(tree)
-            tree.build(link, None)
+            try:
+                if world_joints[link]:
+                    tree.build(link, world_joints[link])
+            except KeyError:
+                tree.build(link, None)
 
             # todo: parse joint controllers
 
@@ -163,13 +169,6 @@ class SDFTree(object):
         # self.set_defaults() # todo:set defaults
 
         children = self.connectedJoints[link]
-        worldlink = [joint for joint in self.connectedLinks if
-                     (joint.parent[0] == 'world' and self.connectedLinks[joint] == link)]
-
-        if worldlink:
-            self.world = True
-        else:
-            self.world = False
 
         for joint in children:
             tree = SDFTree(connected_links=self.connectedLinks, connected_joints=self.connectedJoints,
@@ -212,7 +211,7 @@ class SDFTree(object):
         :param file_name:
         :return:
         """
-        print("connected joints: ", {j.name: l for j, l in self.connectedJoints.items()})
+        print("connected joints: ", {l.name: j[0].name for l, j in self.connectedJoints.items()})
 
         print("connected links: ", {j.name: l.name for j, l in self.connectedLinks.items()})
 

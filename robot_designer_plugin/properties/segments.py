@@ -41,7 +41,7 @@ from math import radians
 
 # Blender imports
 import bpy
-from bpy.props import FloatProperty, BoolProperty, EnumProperty, PointerProperty
+from bpy.props import FloatProperty, BoolProperty, EnumProperty, PointerProperty, StringProperty
 
 # RobotDesigner imports
 from ..operators.segments import UpdateSegments
@@ -288,6 +288,7 @@ class RDSegment(bpy.types.PropertyGroup):
     DH = PointerProperty(
         type=RDDenavitHartenbergSegment)  # Dito but in a different way. Only one, either DH or Euler is used.
     world = BoolProperty(name="Attach Link to World", default=False)
+    joint_name = StringProperty(name="Joint name: ")  # Name of parent joint of segment
 
 
 def getTransformFromBlender(bone):

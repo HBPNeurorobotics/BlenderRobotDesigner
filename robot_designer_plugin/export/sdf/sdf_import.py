@@ -431,11 +431,6 @@ class Importer(object):
         self.logger.info("converted local pose xyz -> %s", xyz)
         self.logger.info("converted local pose euler -> %s", euler)
 
-        if node.world is True:
-            bpy.context.active_bone.RobotDesigner.world = True
-        else:
-            bpy.context.active_bone.RobotDesigner.world = False
-
         # urdf xyz = string_to_list(get_value(node.joint.origin.xyz, "0 0 0"))
         # urdf euler = string_to_list(get_value(node.joint.origin.rpy, '0 0 0'))
 
@@ -450,7 +445,7 @@ class Importer(object):
             bpy.context.active_bone.RobotDesigner.jointController.I = float(PID[1])
             bpy.context.active_bone.RobotDesigner.jointController.D = float(PID[2])
 
-        if parent_name:
+        if node.joint:
             axis = string_to_list(node.joint.axis[0].xyz[0])
         else:
             axis = string_to_list('1 0 0')
@@ -482,7 +477,14 @@ class Importer(object):
         bpy.context.active_bone.RobotDesigner.Euler.beta.value = round(degrees(euler[1]), 0)
         bpy.context.active_bone.RobotDesigner.Euler.gamma.value = round(degrees(euler[2]), 0)
 
-        if parent_name:
+        # Set joint names
+        if node.joint:
+            bpy.context.active_bone.RobotDesigner.joint_name = node.joint.name
+            # Set attach link to world to true if world joint.
+            if node.joint.parent[0] == 'world':
+                bpy.context.active_bone.RobotDesigner.world = True
+
+        if node.joint:
             if len(node.joint.axis[0].limit):
                 bpy.context.active_bone.RobotDesigner.controller.maxTorque = float(get_list_value(
                     node.joint.axis[0].limit[0].effort, 0))
@@ -492,7 +494,7 @@ class Importer(object):
 
         # bpy.context.active_bone.RobotDesigner.controller.maxVelocity = float(tree.joint.limit.friction)
 
-        if parent_name:
+        if node.joint:
             if node.joint.type == 'revolute':
                 bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE'
                 if len(node.joint.axis[0].limit):
@@ -519,7 +521,7 @@ class Importer(object):
             bpy.context.active_bone.RobotDesigner.jointMode = 'FIXED'
 
         # import joint physics if they exist
-        if parent_name:
+        if node.joint:
             if len(node.joint.physics):
                 bpy.context.active_bone.RobotDesigner.ode.cfm_damping = node.joint.physics[0].ode[0].cfm_damping[0]
                 bpy.context.active_bone.RobotDesigner.ode.i_s_damper = node.joint.physics[0].ode[0].implicit_spring_damper[0]
