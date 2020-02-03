@@ -239,9 +239,9 @@ class Importer(object):
             model_posexyz = [0, 0, 0]
             model_poserpy = [0, 0, 0]
         else:
-            self.logger.debug('model_pose (geometry): %s', model.pose[0])
-            model_posexyz = string_to_list(model.pose[0])[0:3]
-            model_poserpy = string_to_list(model.pose[0])[3:]
+            self.logger.debug('model_pose (geometry): %s', model.pose[0].value())
+            model_posexyz = string_to_list(model.pose[0].value())[0:3]
+            model_poserpy = string_to_list(model.pose[0].value())[3:]
 
         return Matrix.Translation(Vector(model_posexyz)) * \
                Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
