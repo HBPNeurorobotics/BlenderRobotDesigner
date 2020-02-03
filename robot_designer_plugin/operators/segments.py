@@ -118,7 +118,10 @@ class RenameSegment(RDOperator):
 
     @RDOperator.OperatorLogger
     def execute(self, context):
+        old_name = context.active_bone.name
         context.active_bone.name = self.new_name
+        if context.active_bone.RobotDesigner.joint_name == old_name + "_joint":
+            context.active_bone.RobotDesigner.joint_name = self.new_name + "_joint"
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -403,6 +406,42 @@ class DeleteSegment(RDOperator):
 #     def invoke(self, context, event):
 #         return context.window_manager.invoke_props_dialog(self)
 
+@RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)
+@PluginManager.register_class
+class SetDefaultJointName(RDOperator):
+    """
+    :term:`operator` for setting joint name to a default name
+    """
+    bl_idname = config.OPERATOR_PREFIX + "default_joint_name"
+    bl_label = "Set joint name to default name"
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+        context.active_bone.RobotDesigner.joint_name = context.active_bone.name + "_joint"
+        return {'FINISHED'}
+
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class SetDefaultJointNameAll(RDOperator):
+    """
+    :term:`operator` for setting joint name to a default name for all segments
+    """
+    bl_idname = config.OPERATOR_PREFIX + "default_joint_name_all"
+    bl_label = "Set joint name to default name for all segments"
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+        if not (context.active_object.type == 'ARMATURE'):  # or context.active_object.type == 'MESH'
+            raise Exception("BoneSelectionException")
+
+        model = bpy.context.active_object
+
+        for b in model.data.bones:
+            b.RobotDesigner.joint_name = b.name + "_joint"
+        return {'FINISHED'}
+
+
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class CreateNewSegment(RDOperator):
@@ -461,6 +500,8 @@ class CreateNewSegment(RDOperator):
         SelectSegment.run(segment_name=segment_name)
 
         context.active_bone.RobotDesigner.RD_Bone = True
+        # default parent joint name of link
+        context.active_bone.RobotDesigner.joint_name = segment_name + "_joint"
 
         if not parent_name:
             context.active_bone.RobotDesigner.Euler.alpha.value = 90.0

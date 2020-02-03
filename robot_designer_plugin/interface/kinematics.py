@@ -37,6 +37,7 @@
 
 import bpy
 from ..properties.globals import global_properties
+from ..operators import segments
 
 
 def draw(layout, context):
@@ -51,8 +52,10 @@ def draw(layout, context):
     global_properties.display_physics_selection.prop(context.scene, settings)
 
     settings2 = layout.row()
-    # global_properties.world_property.prop(context.scene, settings2)
     settings2.prop(context.active_bone.RobotDesigner, "world")
+    # if not root segment, disable attaching link to world
+    if context.active_bone.parent is not None:
+        settings2.enabled = False
 
     layout.label("Parent Mode:")
     layout.prop(context.active_bone.RobotDesigner, "parentMode", expand=True)
@@ -75,16 +78,26 @@ def draw(layout, context):
         parent_column.prop(context.active_bone.RobotDesigner.DH.alpha, "value", slider=False, text="alpha")
         parent_column.prop(context.active_bone.RobotDesigner.DH.a, "value", slider=False, text="a")
 
-    layout.label("Active Axis:")
-    axis_row = layout.row()
-    axis_row.prop(context.active_bone.RobotDesigner, "axis", expand=True)
-    axis_row.prop(context.active_bone.RobotDesigner, "axis_revert")
+    jointbox = layout.box()
+    jointbox.label("Joint:")
+    # Only show joint if not root bone. Unless root bone is connected to world
+    if (context.active_bone.parent is not None) or (context.active_bone.RobotDesigner.world is True):
+        name = jointbox.column(align=True)
+        name.prop(context.active_bone.RobotDesigner, "joint_name")
+        default_row = jointbox.row()
+        default_row.alignment = 'RIGHT'
+        column = default_row.column(align=True)
+        segments.SetDefaultJointName.place_button(column, text="Default Name")
+        segments.SetDefaultJointNameAll.place_button(column, text="Default Name All")
 
-    # Only show joint if not root bone
-    if not context.active_bone.parent == None:
-        layout.label("Joint Type:")
-        layout.prop(context.active_bone.RobotDesigner, "jointMode", expand=True)
-        joint_column = layout.column(align=True)
+        jointbox.label("Active Axis:")
+        axis_row = jointbox.row()
+        axis_row.prop(context.active_bone.RobotDesigner, "axis", expand=True)
+        axis_row.prop(context.active_bone.RobotDesigner, "axis_revert")
+
+        jointbox.label("Joint Type:")
+        jointbox.prop(context.active_bone.RobotDesigner, "jointMode", expand=True)
+        joint_column = jointbox.column(align=True)
 
         if context.active_bone.RobotDesigner.jointMode == 'REVOLUTE':
             joint_column.label("theta:")

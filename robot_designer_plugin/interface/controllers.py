@@ -51,28 +51,33 @@ def draw(layout, context):
     if not check_armature(layout, context):
         return
     if context.active_bone is not None:
+        # Joint controller limit properties
+        # Only shown for child segments. Unless root segment is connected to world
+        limit_box = ControllerLimitsBox.get(layout, context, 'Limits')
+        if limit_box:
+            if (context.active_bone.parent is not None) or (context.active_bone.RobotDesigner.world is True):
+                limit_box.prop(context.active_bone.RobotDesigner.controller, "maxVelocity")
+                limit_box.prop(context.active_bone.RobotDesigner.controller, "maxTorque")
+                limit_box.prop(context.active_bone.RobotDesigner.controller, "acceleration")
+                limit_box.prop(context.active_bone.RobotDesigner.controller, "deceleration")
+                limit_box.prop(context.active_bone.RobotDesigner.controller, "isActive")
+                limit_box.label("Joint Limits:")
+                if context.active_bone.RobotDesigner.jointMode == 'REVOLUTE':
+                    limit_box.prop(context.active_bone.RobotDesigner.theta, "min")
+                    limit_box.prop(context.active_bone.RobotDesigner.theta, "max")
+                else:
+                    limit_box.prop(context.active_bone.RobotDesigner.d, "min")
+                    limit_box.prop(context.active_bone.RobotDesigner.d, "max")
 
-        box = ControllerLimitsBox.get(layout, context, 'Limits')
-        if box:
-            box.prop(context.active_bone.RobotDesigner.controller, "maxVelocity")
-            box.prop(context.active_bone.RobotDesigner.controller, "maxTorque")
-            box.prop(context.active_bone.RobotDesigner.controller, "acceleration")
-            box.prop(context.active_bone.RobotDesigner.controller, "deceleration")
-            box.prop(context.active_bone.RobotDesigner.controller, "isActive")
-            box.label("Joint Limits:")
-            if context.active_bone.RobotDesigner.jointMode == 'REVOLUTE':
-                box.prop(context.active_bone.RobotDesigner.theta, "min")
-                box.prop(context.active_bone.RobotDesigner.theta, "max")
-            else:
-                box.prop(context.active_bone.RobotDesigner.d, "min")
-                box.prop(context.active_bone.RobotDesigner.d, "max")
-
-        box = ControllerBox.get(layout, context, 'Controller')
-        if box:
-            box.label("Joint controller:")
-            box.prop(context.active_bone.RobotDesigner.jointController, "isActive")
-            box.prop(context.active_bone.RobotDesigner.jointController, "controllerType")
-            box.separator()
-            box.prop(context.active_bone.RobotDesigner.jointController, "P")
-            box.prop(context.active_bone.RobotDesigner.jointController, "I")
-            box.prop(context.active_bone.RobotDesigner.jointController, "D")
+        # Joint controller properties
+        # Only shown for child segments. Unless root segment is connected to world
+        control_box = ControllerBox.get(layout, context, 'Controller')
+        if control_box:
+            if (context.active_bone.parent is not None) or (context.active_bone.RobotDesigner.world is True):
+                control_box.label("Joint controller:")
+                control_box.prop(context.active_bone.RobotDesigner.jointController, "isActive")
+                control_box.prop(context.active_bone.RobotDesigner.jointController, "controllerType")
+                control_box.separator()
+                control_box.prop(context.active_bone.RobotDesigner.jointController, "P")
+                control_box.prop(context.active_bone.RobotDesigner.jointController, "I")
+                control_box.prop(context.active_bone.RobotDesigner.jointController, "D")
