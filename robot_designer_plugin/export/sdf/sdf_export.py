@@ -363,7 +363,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                                      in_ros_package, abs_filepaths, export_collision=True)
 
             operator.logger.info("collision mesh path: %s", collision_path)
-
+            # this does not include basic collision objects
             if collision_path and "_vertices1.dae" not in collision_path:
                 collision = child.add_collision(collision_path,
                                             [i * j for i, j in
@@ -381,7 +381,31 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 collision.pose.append(' '.join([collision_pose_xyz, collision_pose_rpy]))
                 collision.name = bpy.data.objects[mesh].name  # child.link.name + '_collision'
                 operator.logger.info(" collision mesh pose'%s'" % collision.pose[0].value())
+            else:
+                operator.logger.info("No collision model for: %s", mesh)
+            # add basic collision objects
+            if 'BASIC_COLLISION_' in bpy.data.objects[mesh].RobotDesigner.tag:
+                collision = child.add_basic(bpy.data.objects[mesh].RobotDesigner.tag,
+                                            [i * j for i, j in
+                                             zip(bpy.data.objects[mesh].scale, blender_scale_factor)]
+                                            )
 
+                operator.logger.info(" basic collision mesh pose translation wo scale'%s'" % pose.translation)
+                operator.logger.info(" basic collision mesh pose scale factor'%s'" % blender_scale_factor)
+                operator.logger.info(" basic collision mesh pose translation wi scale'%s'" % [i * j for i, j in
+                                                                                        zip(pose.translation,
+                                                                                            blender_scale_factor)])
+
+                collision_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
+                collision_pose_rpy = list_to_string(pose.to_euler())
+
+                collision.pose.append(' '.join([collision_pose_xyz, collision_pose_rpy]))
+                collision.name = bpy.data.objects[mesh].name  # child.link.name + '_collision'
+                operator.logger.info(" basic collision mesh pose'%s'" % collision.pose[0].value())
+            else:
+                operator.logger.info("No basic collision model for: %s", mesh)
+            # export surface properties for both collision and basic collision objects
+            if 'COLLISION' in bpy.data.objects[mesh].RobotDesigner.tag:
                 # add surface properties
                 collision.surface.append(sdf_dom.surface())
                 surface_property = bpy.data.objects[mesh].RobotDesigner.sdfCollisionProps
@@ -431,30 +455,6 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 contact_ode.min_depth.append(surface_property.min_depth)
                 # add soft contact properties
                 # not yet implemented dart properties.
-
-            else:
-                operator.logger.info("No collision model for: %s", mesh)
-
-            if 'BASIC_COLLISION_' in bpy.data.objects[mesh].RobotDesigner.tag:
-                collision = child.add_basic(bpy.data.objects[mesh].RobotDesigner.tag,
-                                            [i * j for i, j in
-                                             zip(bpy.data.objects[mesh].scale, blender_scale_factor)]
-                                            )
-
-                operator.logger.info(" basic collision mesh pose translation wo scale'%s'" % pose.translation)
-                operator.logger.info(" basic collision mesh pose scale factor'%s'" % blender_scale_factor)
-                operator.logger.info(" basic collision mesh pose translation wi scale'%s'" % [i * j for i, j in
-                                                                                        zip(pose.translation,
-                                                                                            blender_scale_factor)])
-
-                collision_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
-                collision_pose_rpy = list_to_string(pose.to_euler())
-
-                collision.pose.append(' '.join([collision_pose_xyz, collision_pose_rpy]))
-                collision.name = bpy.data.objects[mesh].name  # child.link.name + '_collision'
-                operator.logger.info(" basic collision mesh pose'%s'" % collision.pose[0].value())
-            else:
-                operator.logger.info("No basic collision model for: %s", mesh)
 
 
         ### Add Physics

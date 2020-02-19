@@ -222,8 +222,10 @@ class OsimExporter(object):
         pose_rpy = pose.to_euler()
 
         name = wrapping.name
-        radius = wrapping.scale[0]
-        depth = wrapping.scale[2]
+
+        scale = [i * j for i, j in zip(bpy.data.objects[wrapping.name].scale, blender_scale_factor)]
+        radius = scale[0]
+        depth = scale[2]
 
         return (name, radius, depth, pose_xyz, pose_rpy)
 

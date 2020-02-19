@@ -199,6 +199,7 @@ class OsimImporter(object):
 
         bpy.data.objects[sphere.name].RobotDesigner.scaling.scale_all = radius
         # Model has to be selected and active in order to update scale
+        # Geometry has to be selected, else the update function itself will take a different object
         bpy.data.objects[sphere.name].RobotDesigner.scaling.scale_all_update(bpy.context)
 
         AttachWrappingObject.run()
@@ -212,7 +213,7 @@ class OsimImporter(object):
         """
         radius = wrapping.radius
         depth = wrapping.length
-        bpy.ops.mesh.primitive_cylinder_add(radius=radius, depth=depth, view_align=False,
+        bpy.ops.mesh.primitive_cylinder_add(radius=1.0, depth=1.0, view_align=False,
                                             enter_editmode=False, location=(0, 0, 0))
         cylinder = bpy.context.active_object
         cylinder.name = wrapping.name
@@ -249,7 +250,9 @@ class OsimImporter(object):
         bpy.data.objects[cylinder.name].RobotDesigner.scaling.scale_radius = radius
         bpy.data.objects[cylinder.name].RobotDesigner.scaling.scale_depth = depth
         # Model has to be selected and active in order to update scale
-        bpy.data.objects[cylinder.name].RobotDesigner.scaling.scale_all_update(bpy.context)
+        # Geometry has to be selected, else the update function itself will take a different object
+        bpy.data.objects[cylinder.name].RobotDesigner.scaling.scale_radius_update(bpy.context)
+        bpy.data.objects[cylinder.name].RobotDesigner.scaling.scale_depth_update(bpy.context)
 
         AttachWrappingObject.run()
 

@@ -121,16 +121,20 @@ class Importer(object):
         return verts, faces
 
 
-    def import_box(self, model):
+    def import_box(self, model, type):
         """
-        Adds a geometry to the blender scene. Uses the self.file_name variable of the parenting context
+        Adds a box with radius 0.5 to the blender scene. Uses the self.file_name variable of the parenting context
+        The correct lengths are adjusted later together with the scaling
         :param model: A sdf_dom.visual object.
+        :param type: COLLISION or VISUAL. COLLISION = 1. VISUAL = 0
         :return: Returns the transformation in the origin element (a 4x4 blender matrix).
         """
 
         # determine prefix path for loading meshes in case of paths relative to ROS_PACKAGE_PATH
         prefix_folder = ""
         self.logger.debug('model_geometry_bbox: %s', model.geometry[0].box[0].size[0])
+        # Previous method for making a box. While it has its uses, for simple box creation, not needed.
+        '''
         width = string_to_list(model.geometry[0].box[0].size[0])[0] / 2
         depth = string_to_list(model.geometry[0].box[0].size[0])[1] / 2
         height = string_to_list(model.geometry[0].box[0].size[0])[2] / 2
@@ -167,22 +171,25 @@ class Importer(object):
         bpy.ops.object.select_all(False)
         bpy.context.scene.objects.active = obj  # bpy.data.objects[object]
         bpy.context.active_object.select = True
+        '''
 
         # bpy.context.scene.objects.active = obj
-
+        bpy.ops.mesh.primitive_cube_add(radius=0.5)
 
         bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
 
         self.logger.debug('Active robot name: %s', bpy.context.active_object.RobotDesigner.fileName)
 
+        bpy.context.active_object.name = os.path.basename(model.name)
         model_name = bpy.context.active_object.name
         model_type = bpy.context.active_object.type
 
-        mat = bpy.data.materials.new('blue')
-        mat.diffuse_color = (0, 0, 1)
-        bpy.context.active_object.data.materials.append(mat)
+        if type == 1:
+            mat = bpy.data.materials.new('blue')
+            mat.diffuse_color = (0, 0, 1)
+            bpy.context.active_object.data.materials.append(mat)
 
-        bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_BOX"
+            bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_BOX"
 
         self.logger.debug('model_name (geometry): %s', model_name)
         self.logger.debug('model_type (geometry): %s', model_type)
@@ -202,10 +209,12 @@ class Importer(object):
                Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
 
 
-    def import_sphere(self, model):
+    def import_sphere(self, model, type):
         """
-        Adds a geometry to the blender scene. Uses the self.file_name variable of the parenting context
+        Adds a sphere of radius 1.0 to the blender scene. Uses the self.file_name variable of the parenting context
+        The correct lengths are adjusted later together with the scaling
         :param model: A sdf_dom.visual object.
+        :param type: COLLISION or VISUAL. COLLISION = 1. VISUAL = 0
         :return: Returns the transformation in the origin element (a 4x4 blender matrix).
         """
 
@@ -213,7 +222,7 @@ class Importer(object):
         prefix_folder = ""
         c_radius = model.geometry[0].sphere[0].radius[0]
 
-        bpy.ops.mesh.primitive_uv_sphere_add(size=c_radius, location=(0, 0, 0))
+        bpy.ops.mesh.primitive_uv_sphere_add(size=1.0, location=(0, 0, 0))
         bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
 
         self.logger.debug('Active robot name: %s', bpy.context.active_object.RobotDesigner.fileName)
@@ -223,16 +232,17 @@ class Importer(object):
         # bpy.context.active_object.type = 'ARMATURE'
         model_type = bpy.context.active_object.type
 
-        mat = bpy.data.materials.new('blue')
-        mat.diffuse_color = (0, 0, 1)
-        bpy.context.active_object.data.materials.append(mat)
+        if type == 1:
+            mat = bpy.data.materials.new('blue')
+            mat.diffuse_color = (0, 0, 1)
+            bpy.context.active_object.data.materials.append(mat)
 
-        bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_SPHERE"
+            bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_SPHERE"
 
         self.logger.debug('model_name (geometry): %s', model_name)
         self.logger.debug('model_type (geometry): %s', model_type)
 
-        self.logger.debug('model_geometry_sphere: radius %s, depth ', c_radius)
+        self.logger.debug('model_geometry_sphere: radius %s', c_radius)
 
         # todo: if geometry pose is missing
         if not model.pose:
@@ -247,10 +257,12 @@ class Importer(object):
                Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
 
 
-    def import_cylinder(self, model):
+    def import_cylinder(self, model, type):
         """
-        Adds a geometry to the blender scene. Uses the self.file_name variable of the parenting context
+        Adds a cylinder of radius 1.0 and depth 1.0 to the blender scene. Uses the self.file_name variable of the parenting context
+        The correct lengths are adjusted later together with the scaling
         :param model: A sdf_dom.visual object.
+        :param type: COLLISION or VISUAL. COLLISION = 1. VISUAL = 0
         :return: Returns the transformation in the origin element (a 4x4 blender matrix).
         """
 
@@ -259,7 +271,7 @@ class Importer(object):
         c_radius = model.geometry[0].cylinder[0].radius[0]
         c_depth = model.geometry[0].cylinder[0].length[0]
 
-        bpy.ops.mesh.primitive_cylinder_add(depth=c_depth, radius=c_radius, location=(0, 0, 0))
+        bpy.ops.mesh.primitive_cylinder_add(depth=1.0, radius=1.0, location=(0, 0, 0))
         bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
 
         self.logger.debug('Active robot name: %s', bpy.context.active_object.RobotDesigner.fileName)
@@ -269,11 +281,12 @@ class Importer(object):
         # bpy.context.active_object.type = 'ARMATURE'
         model_type = bpy.context.active_object.type
 
-        mat = bpy.data.materials.new('blue')
-        mat.diffuse_color = (0, 0, 1)
-        bpy.context.active_object.data.materials.append(mat)
+        if type == 1:
+            mat = bpy.data.materials.new('blue')
+            mat.diffuse_color = (0, 0, 1)
+            bpy.context.active_object.data.materials.append(mat)
 
-        bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_CYLINDER"
+            bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_CYLINDER"
 
         self.logger.debug('model_name (geometry): %s', model_name)
         self.logger.debug('model_type (geometry): %s', model_type)
@@ -541,8 +554,9 @@ class Importer(object):
         # segment_world = pose_float2homogeneous(rounded(string_to_list("0 0 0.6 0 0 -1.570796")))*pose_bone.matrix
 
         # import segment physics properties
-        bpy.context.active_bone.RobotDesigner.linkInfo.gravity = node.link.gravity[0]
-        bpy.context.active_bone.RobotDesigner.linkInfo.link_self_collide = node.link.self_collide[0]
+        if len(node.link.gravity) > 0:
+            bpy.context.active_bone.RobotDesigner.linkInfo.gravity = node.link.gravity[0]
+            bpy.context.active_bone.RobotDesigner.linkInfo.link_self_collide = node.link.self_collide[0]
 
         if len(node.link.inertial) > 0:
             i = node.link.inertial[0].inertia[0]
@@ -662,13 +676,13 @@ class Importer(object):
                     self.logger.debug("geometry %s", model.geometry[0])
 
                     if type == "cylinder":
-                        trafo_sdf = self.import_cylinder(model)
+                        trafo_sdf = self.import_cylinder(model, model_type)
                         print("import cyl")
                     elif type == "box":
-                        trafo_sdf = self.import_box(model)
+                        trafo_sdf = self.import_box(model, model_type)
                         print("import box")
                     elif type == "sphere":
-                        trafo_sdf = self.import_sphere(model)
+                        trafo_sdf = self.import_sphere(model, model_type)
                         print("import sphere")
                     else:
                         trafo_sdf = self.import_geometry(model)
@@ -768,12 +782,30 @@ class Importer(object):
                         else:
                             AssignGeometry.run()
 
-                        # scale geometry
+                        # Write scale values into scale_factor
+                        # for objects other than mesh, scaling works correctly iff the model and geometry are selected
+                        # else a different object will be scaled and/or will not scale at all
                         if type == "mesh" and model.geometry[0].mesh[0].scale != []:
                             scale_factor = string_to_list(model.geometry[0].mesh[0].scale[0])
+                        elif type == 'cylinder':
+                            c_radius = model.geometry[0].cylinder[0].radius[0]
+                            c_depth = model.geometry[0].cylinder[0].length[0]
+                            bpy.data.objects[assigned_name].RobotDesigner.scaling.scale_radius = c_radius
+                            bpy.data.objects[assigned_name].RobotDesigner.scaling.scale_depth = c_depth
+                            scale_factor = [c_radius, c_radius, c_depth]
+                        elif type == 'sphere':
+                            s_radius = model.geometry[0].sphere[0].radius[0]
+                            bpy.data.objects[assigned_name].RobotDesigner.scaling.scale_all = s_radius
+                            scale_factor = [s_radius, s_radius, s_radius]
+                        elif type == 'box':
+                            b_width = string_to_list(model.geometry[0].box[0].size[0])[0]
+                            b_depth = string_to_list(model.geometry[0].box[0].size[0])[1]
+                            b_height = string_to_list(model.geometry[0].box[0].size[0])[2]
+                            scale_factor = [b_width, b_depth, b_height]
                         else:
                             scale_factor = [1, 1, 1]
 
+                        # Scale the geometry
                         bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)].scale = scale_factor
 
                         # bpy.context.active_object.scale = scale_factor
