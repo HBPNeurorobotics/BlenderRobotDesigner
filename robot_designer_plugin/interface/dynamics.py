@@ -72,6 +72,7 @@ def draw(layout, context):
 
     dynamics.CreatePhysical.place_button(row, infoBox=infoBox)
     dynamics.ComputePhysical.place_button(row, infoBox=infoBox)
+    dynamics.ComputeMass.place_button(row, infoBox=infoBox)
 
     objs = [o for o in context.active_object.children if
             o.RobotDesigner.tag == 'PHYSICS_FRAME' and o.parent_bone == single_segment.name]

@@ -72,52 +72,6 @@ class RDDynamics(bpy.types.PropertyGroup):
     # frame.RobotDesigner.dynamics.CoM[2]))
     #    frame.location = position
 
-    def get_x(self):
-        return self.get("inertiaXX", 1.0)
-
-    def get_y(self):
-        return self.get("inertiaYY", 1.0)
-
-    def get_z(self):
-        return self.get("inertiaZZ", 1.0)
-
-    def get_mass(self):
-        return self.get("mass", 1.0)
-
-    def set_x(self, value):
-        if (value < 0
-                or value + self.inertiaYY < self.inertiaZZ
-                or self.inertiaYY + self.inertiaZZ < value
-                or self.inertiaZZ + value < self.inertiaYY):
-            bpy.context.window_manager.popup_menu(raise_error, title="Error", icon='ERROR')
-        else:
-            self["inertiaXX"] = value
-
-    def set_y(self, value):
-        if (value < 0
-                or self.inertiaXX + value < self.inertiaZZ
-                or value + self.inertiaZZ < self.inertiaXX
-                or self.inertiaZZ + self.inertiaXX < value):
-            bpy.context.window_manager.popup_menu(raise_error, title="Error", icon='ERROR')
-        else:
-            self["inertiaYY"] = value
-
-    def set_z(self, value):
-        if (value < 0
-                or self.inertiaXX + self.inertiaYY < value
-                or self.inertiaYY + value < self.inertiaXX
-                or value + self.inertiaXX < self.inertiaYY):
-            bpy.context.window_manager.popup_menu(raise_error, title="Error", icon='ERROR')
-        else:
-            self["inertiaZZ"] = value
-
-    def set_mass(self, value):
-        if (value < 0):
-            bpy.context.window_manager.popup_menu(raise_error, title="Error", icon='ERROR')
-        else:
-            self["mass"] = value
-
-
     def scale_update(self, context):
         obj = [o for o in bpy.context.active_object.children if
                o.RobotDesigner.tag == 'PHYSICS_FRAME' and o.parent_bone == bpy.context.active_bone.name]
@@ -136,20 +90,7 @@ class RDDynamics(bpy.types.PropertyGroup):
             frame.scale[0] = boxScaleX
             frame.scale[1] = boxScaleY
             frame.scale[2] = boxScaleZ
-    '''
-    mass = FloatProperty(name="Mass (kg)", soft_min=0, precision=4, step=0.1, default=1.0,
-                         update=scale_update, get=get_mass, set=set_mass)
-    # new inertia tensor
-    inertiaXX = FloatProperty(name="", soft_min=0, precision=4, step=0.1, default=1.0,
-                              update=scale_update, get=get_x, set=set_x)
-    inertiaYY = FloatProperty(name="", soft_min=0, precision=4, step=0.1, default=1.0,
-                              update=scale_update, get=get_y, set=set_y)
-    inertiaZZ = FloatProperty(name="", soft_min=0, precision=4, step=0.1, default=1.0,
-                              update=scale_update, get=get_z, set=set_z)
-    inertiaXY = FloatProperty(name="", precision=4, step=0.1, default=0.0)
-    inertiaXZ = FloatProperty(name="", precision=4, step=0.1, default=0.0)
-    inertiaYZ = FloatProperty(name="", precision=4, step=0.1, default=0.0)
-    '''
+
     mass = FloatProperty(name="Mass (kg)", soft_min=0, precision=4, step=0.1, default=1.0,
                          update=scale_update)
     # new inertia tensor

@@ -235,6 +235,93 @@ class AssignPhysical(RDOperator):
 @PluginManager.register_class
 class ComputePhysical(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "computephysicsframe"
+    bl_label = "Compute inertia from meshes"
+
+    from_visual_geometry = BoolProperty(name="From visual geometry")
+
+    class SegmentAssociations(object):
+        def __init__(self):
+            self.visual = None
+            self.collision = None
+            self.physics_frame = None
+
+        def __str__(self):
+            return '<' + ', '.join([str(self.visual), str(self.collision), str(self.physics_frame)]) + '>'
+
+    def maybe_compute_inertia(self, bone, associations):
+        assert associations.physics_frame is not None
+        if associations.collision and not self.from_visual_geometry:
+            the_mesh = associations.collision
+        elif associations.visual and self.from_visual_geometry:
+            the_mesh = associations.visual
+        else:
+            return
+        bounds = the_mesh.bound_box
+        dimension = the_mesh.dimensions
+        len = (bounds[-1][0] - bounds[0][0],
+               bounds[-1][1] - bounds[0][1],
+               bounds[1][2] - bounds[0][2])  # The 1 is no error!
+        len = (dimension[0], dimension[1], dimension[2])
+        com = list(map(lambda x: x * 0.5,
+                       (bounds[-1][0] + bounds[0][0],
+                        bounds[-1][1] + bounds[0][1],
+                        bounds[1][2] + bounds[0][2])))
+        mass = 1.0
+        # Of a Brick.
+        Iunit = (1. / 12. * (len[1] ** 2 + len[2] ** 2),
+                 1. / 12. * (len[0] ** 2 + len[2] ** 2),
+                 1. / 12. * (len[0] ** 2 + len[1] ** 2))
+        print("bone:", bone, len, mass, Iunit, com)
+        d = associations.physics_frame.RobotDesigner.dynamics
+        d.inertiaXX = mass * Iunit[0]
+        d.inertiaYY = mass * Iunit[1]
+        d.inertiaZZ = mass * Iunit[2]
+        d.inertiaXY = 0.
+        d.inertiaXZ = 0.
+        d.inertiaYZ = 0.
+        d.mass = mass
+        # d.inertiaTrans = com
+        # d.inertiaRot   = [0., 0., 0.]
+        # print ("Setting matrix "+str(the_mesh.matrix_world))
+        m_com = Matrix.Translation(com)
+        associations.physics_frame.matrix_world = the_mesh.matrix_world * m_com
+        d.scale_update(bpy.context)
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected)
+    def execute(self, context):
+        armature = context.active_object
+        # print (self.__class__.__name__)
+
+        # Mapping from bone to things
+        segment_associations = defaultdict(self.SegmentAssociations)
+        for obj in armature.children:
+            if obj.parent_bone:
+                bone = armature.data.bones[obj.parent_bone]
+                print("visit ", obj, obj.parent_bone, bone, bone.select)
+                if bone.select:
+                    if obj.RobotDesigner.tag == 'PHYSICS_FRAME':
+                        segment_associations[bone].physics_frame = obj
+                    elif obj.RobotDesigner.tag == 'COLLISION' or 'BASIC_COLLISION_' in obj.RobotDesigner.tag:
+                        segment_associations[bone].collision = obj
+                    elif obj.RobotDesigner.tag == 'DEFAULT':
+                        segment_associations[bone].visual = obj
+
+        bones = [b for b in armature.data.bones if b.select]
+
+        for bone in bones:
+            self.maybe_compute_inertia(bone, segment_associations[bone])
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class ComputeMass(RDOperator):
+    bl_idname = config.OPERATOR_PREFIX + "computemass"
     bl_label = "Compute mass properties from meshes"
 
     density = FloatProperty(name="Density (kg/m^3)", precision=4, step=0.01, default=1.0)
@@ -263,29 +350,13 @@ class ComputePhysical(RDOperator):
                bounds[-1][1] - bounds[0][1],
                bounds[1][2] - bounds[0][2])  # The 1 is no error!
         len = (dimension[0], dimension[1], dimension[2])
-        com = list(map(lambda x: x * 0.5,
-                       (bounds[-1][0] + bounds[0][0],
-                        bounds[-1][1] + bounds[0][1],
-                        bounds[1][2] + bounds[0][2])))
         mass = len[0] * len[1] * len[2] * self.density
         # Of a Brick.
-        Iunit = (1. / 12. * (len[1] ** 2 + len[2] ** 2),
-                 1. / 12. * (len[0] ** 2 + len[2] ** 2),
-                 1. / 12. * (len[0] ** 2 + len[1] ** 2))
-        print("bone:", bone, len, mass, Iunit, com)
         d = associations.physics_frame.RobotDesigner.dynamics
-        d.inertiaXX = mass * Iunit[0]
-        d.inertiaYY = mass * Iunit[1]
-        d.inertiaZZ = mass * Iunit[2]
-        d.inertiaXY = 0.
-        d.inertiaXZ = 0.
-        d.inertiaYZ = 0.
         d.mass = mass
         # d.inertiaTrans = com
         # d.inertiaRot   = [0., 0., 0.]
         # print ("Setting matrix "+str(the_mesh.matrix_world))
-        m_com = Matrix.Translation(com)
-        associations.physics_frame.matrix_world = the_mesh.matrix_world * m_com
         d.scale_update(bpy.context)
 
     @RDOperator.OperatorLogger
