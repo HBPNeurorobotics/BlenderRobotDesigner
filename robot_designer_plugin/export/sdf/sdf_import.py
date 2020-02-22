@@ -174,7 +174,7 @@ class Importer(object):
         '''
 
         # bpy.context.scene.objects.active = obj
-        bpy.ops.mesh.primitive_cube_add(radius=0.5)
+        bpy.ops.mesh.primitive_cube_add(radius=0.5, location=(0, 0, 0))
 
         bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
 
