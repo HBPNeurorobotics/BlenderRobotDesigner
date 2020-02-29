@@ -497,6 +497,7 @@ class Importer(object):
             if node.joint.parent[0] == 'world':
                 bpy.context.active_bone.RobotDesigner.world = True
 
+        # Set joint controller
         if node.joint:
             if len(node.joint.axis[0].limit):
                 bpy.context.active_bone.RobotDesigner.controller.maxTorque = float(get_list_value(
@@ -533,13 +534,22 @@ class Importer(object):
         else:
             bpy.context.active_bone.RobotDesigner.jointMode = 'FIXED'
 
-        # import joint physics if they exist
         if node.joint:
+            # import joint physics if they exist
             if len(node.joint.physics):
                 bpy.context.active_bone.RobotDesigner.ode.cfm_damping = node.joint.physics[0].ode[0].cfm_damping[0]
-                bpy.context.active_bone.RobotDesigner.ode.i_s_damper = node.joint.physics[0].ode[0].implicit_spring_damper[0]
+                bpy.context.active_bone.RobotDesigner.ode.i_s_damper = \
+                    node.joint.physics[0].ode[0].implicit_spring_damper[0]
                 bpy.context.active_bone.RobotDesigner.ode.cfm = node.joint.physics[0].ode[0].cfm[0]
                 bpy.context.active_bone.RobotDesigner.ode.erp = node.joint.physics[0].ode[0].erp[0]
+
+            if len(node.joint.axis[0].dynamics):
+                bpy.context.active_bone.RobotDesigner.dynamics.damping = node.joint.axis[0].dynamics[0].damping[0]
+                bpy.context.active_bone.RobotDesigner.dynamics.friction = node.joint.axis[0].dynamics[0].friction[0]
+                bpy.context.active_bone.RobotDesigner.dynamics.spring_reference = \
+                    node.joint.axis[0].dynamics[0].spring_reference[0]
+                bpy.context.active_bone.RobotDesigner.dynamics.spring_stiffness = \
+                    node.joint.axis[0].dynamics[0].spring_stiffness[0]
 
         model = bpy.context.active_object
         model_name = model.name
@@ -566,8 +576,10 @@ class Importer(object):
             # SelectSegment.run(segment_name=segment_name)
             # AssignPhysical.run()
 
+            inertia_name = "PHYS_" + node.link.name
+
             # set mass
-            bpy.data.objects[node.link.name].RobotDesigner.dynamics.mass = node.link.inertial[0].mass[0]
+            bpy.data.objects[inertia_name].RobotDesigner.dynamics.mass = node.link.inertial[0].mass[0]
 
             # set center of mass position
             inertia_location = string_to_list(node.link.inertial[0].pose[0].value())[0:3]
@@ -575,16 +587,16 @@ class Importer(object):
             inertia_rotation = string_to_list(node.link.inertial[0].pose[0].value())[3:]
 
             # bpy.data.objects[node.link.name].location = [inertia_location[1], inertia_location[2], inertia_location[0]]
-            bpy.data.objects[node.link.name].location = inertia_location
-            bpy.data.objects[node.link.name].rotation_euler = inertia_rotation
+            bpy.data.objects[inertia_name].location = inertia_location
+            bpy.data.objects[inertia_name].rotation_euler = inertia_rotation
 
             # set inertia
-            bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaXX = i.ixx[0]
-            bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaXY = i.ixy[0]
-            bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaXZ = i.ixz[0]
-            bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaYY = i.iyy[0]
-            bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaYZ = i.iyz[0]
-            bpy.data.objects[node.link.name].RobotDesigner.dynamics.inertiaZZ = i.izz[0]
+            bpy.data.objects[inertia_name].RobotDesigner.dynamics.inertiaXX = i.ixx[0]
+            bpy.data.objects[inertia_name].RobotDesigner.dynamics.inertiaXY = i.ixy[0]
+            bpy.data.objects[inertia_name].RobotDesigner.dynamics.inertiaXZ = i.ixz[0]
+            bpy.data.objects[inertia_name].RobotDesigner.dynamics.inertiaYY = i.iyy[0]
+            bpy.data.objects[inertia_name].RobotDesigner.dynamics.inertiaYZ = i.iyz[0]
+            bpy.data.objects[inertia_name].RobotDesigner.dynamics.inertiaZZ = i.izz[0]
 
         model = bpy.context.active_object
         model_name = model.name
