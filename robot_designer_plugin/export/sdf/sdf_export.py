@@ -445,6 +445,10 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 contact.category_bitmask.append(surface_property.category_bitmask)
                 contact.poissons_ratio.append(surface_property.poissons_ratio)
                 contact.elastic_modulus.append(surface_property.elastic_modulus)
+                contact.opensim = [pyxb.BIND()]
+                contact_opensim = contact.opensim[0]
+                contact_opensim.stiffness.append(surface_property.osim_stiffness)
+                contact_opensim.dissipation.append(surface_property.osim_dissipation)
                 contact.ode = [pyxb.BIND()]
                 contact_ode = contact.ode[0]
                 contact_ode.soft_cfm.append(surface_property.soft_cfm)

@@ -772,6 +772,8 @@ class Importer(object):
                                 surface.category_bitmask = model.surface[0].contact[0].category_bitmask[0]
                                 surface.poissons_ratio = model.surface[0].contact[0].poissons_ratio[0]
                                 surface.elastic_modulus = model.surface[0].contact[0].elastic_modulus[0]
+                                surface.osim_stiffness = model.surface[0].contact[0].opensim[0].stiffness[0]
+                                surface.osim_dissipation = model.surface[0].contact[0].opensim[0].dissipation[0]
                                 surface.soft_cfm = model.surface[0].contact[0].ode[0].soft_cfm[0]
                                 surface.soft_erp = model.surface[0].contact[0].ode[0].soft_erp[0]
                                 surface.kp = model.surface[0].contact[0].ode[0].kp[0]

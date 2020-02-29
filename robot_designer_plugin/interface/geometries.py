@@ -284,21 +284,26 @@ def draw(layout, context):
             box6.prop(obj.RobotDesigner.sdfCollisionProps, 'elastic_modulus', text="Elastic Modulus")
 
             box7 = box6.box()
-            box7.label(text="ODE")
-            box7.prop(obj.RobotDesigner.sdfCollisionProps, 'soft_cfm', text="Soft CMF")
-            box7.prop(obj.RobotDesigner.sdfCollisionProps, 'soft_erp', text='Soft ERP')
-            box7.prop(obj.RobotDesigner.sdfCollisionProps, 'kp', text='Kp')
-            box7.prop(obj.RobotDesigner.sdfCollisionProps, 'kd', text='Kd')
-            box7.prop(obj.RobotDesigner.sdfCollisionProps, 'max_vel', text='Max. Vel')
-            box7.prop(obj.RobotDesigner.sdfCollisionProps, 'min_depth', text='Min. Depth')
+            box7.label(text="Opensim")
+            box7.prop(obj.RobotDesigner.sdfCollisionProps, 'osim_stiffness', text='Stiffness')
+            box7.prop(obj.RobotDesigner.sdfCollisionProps, 'osim_dissipation', text='Dissipation')
 
-        box8 = SoftContactBox.get(SDFbox, context, "Soft Contact")
-        if box8:
-            box8.row().label(text="Dart:")
-            box8.prop(obj.RobotDesigner.sdfCollisionProps, 'bone_attachment', text="Bone Attachment")
-            box8.prop(obj.RobotDesigner.sdfCollisionProps, 'stiffness', text='Stifness')
-            box8.prop(obj.RobotDesigner.sdfCollisionProps, 'damping', text='Damping')
-            box8.prop(obj.RobotDesigner.sdfCollisionProps, 'flesh_mass_fraction', text='Flesh mass fraction')
+            box8 = box6.box()
+            box8.label(text="ODE")
+            box8.prop(obj.RobotDesigner.sdfCollisionProps, 'soft_cfm', text="Soft CMF")
+            box8.prop(obj.RobotDesigner.sdfCollisionProps, 'soft_erp', text='Soft ERP')
+            box8.prop(obj.RobotDesigner.sdfCollisionProps, 'kp', text='Kp')
+            box8.prop(obj.RobotDesigner.sdfCollisionProps, 'kd', text='Kd')
+            box8.prop(obj.RobotDesigner.sdfCollisionProps, 'max_vel', text='Max. Vel')
+            box8.prop(obj.RobotDesigner.sdfCollisionProps, 'min_depth', text='Min. Depth')
+
+        box9 = SoftContactBox.get(SDFbox, context, "Soft Contact")
+        if box9:
+            box9.row().label(text="Dart:")
+            box9.prop(obj.RobotDesigner.sdfCollisionProps, 'bone_attachment', text="Bone Attachment")
+            box9.prop(obj.RobotDesigner.sdfCollisionProps, 'dart_stiffness', text='Stifness')
+            box9.prop(obj.RobotDesigner.sdfCollisionProps, 'damping', text='Damping')
+            box9.prop(obj.RobotDesigner.sdfCollisionProps, 'flesh_mass_fraction', text='Flesh mass fraction')
 
 
     drawInfoBox(layout,context)
