@@ -225,6 +225,11 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         child.joint.physics[0].ode[0].implicit_spring_damper.append(segment.RobotDesigner.ode.i_s_damper)
         child.joint.physics[0].ode[0].cfm.append(segment.RobotDesigner.ode.cfm)
         child.joint.physics[0].ode[0].erp.append(segment.RobotDesigner.ode.erp)
+        child.joint.axis[0].dynamics = [pyxb.BIND()]
+        child.joint.axis[0].dynamics[0].damping.append(segment.RobotDesigner.dynamics.damping)
+        child.joint.axis[0].dynamics[0].friction.append(segment.RobotDesigner.dynamics.friction)
+        child.joint.axis[0].dynamics[0].spring_reference.append(segment.RobotDesigner.dynamics.spring_reference)
+        child.joint.axis[0].dynamics[0].spring_stiffness.append(segment.RobotDesigner.dynamics.spring_stiffness)
 
 
         pose_xyz = list_to_string([i * j for i, j in zip(trafo.translation, blender_scale_factor)])

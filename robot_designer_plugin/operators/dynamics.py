@@ -127,7 +127,8 @@ def just_create_the_physics_frame(context, name):
     armature = context.active_object
     #bpy.ops.object.empty_add(type='PLAIN_AXES')
     bpy.ops.mesh.primitive_cube_add(radius=0.5)
-    context.active_object.name = name
+    context.active_object.name = 'PHYS_' + name
+    frame = context.active_object.name
     context.active_object.RobotDesigner.tag = 'PHYSICS_FRAME'
     # set new mass object to cursor location
     cursor = bpy.context.scene.cursor_location
@@ -137,13 +138,13 @@ def just_create_the_physics_frame(context, name):
 
     # change physics frame color
     # obj.data.materials.clear()
-    mat = bpy.data.materials.new(name)
+    mat = bpy.data.materials.new(frame)
     mat.diffuse_color = (1.0, 0.0, 1.0)
     mat.diffuse_shader = 'LAMBERT'
     mat.diffuse_intensity = 1.0
     mat.use_transparency = True
     mat.alpha = 0.3
-    bpy.data.objects[name].show_transparent = True
+    bpy.data.objects[frame].show_transparent = True
 
 
     # mat = bpy.data.materials['MaterialName']

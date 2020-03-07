@@ -67,7 +67,7 @@ class RDLinkInfo(bpy.types.PropertyGroup):
     '''
     Property group that contains information about link's gravity and self collision
     '''
-    link_self_collide = BoolProperty(name='Self Collide', default=False)
+    link_self_collide = BoolProperty(name='Self Collide', default=True)
     gravity = BoolProperty(name='Gravity', default=True)
 
 
@@ -80,6 +80,17 @@ class RDOde(bpy.types.PropertyGroup):
     i_s_damper = BoolProperty(name='Implicit-Spring-Damper', default=False)
     cfm = FloatProperty(name='CFM', default=0, min=0)
     erp = FloatProperty(name='ERP', default=0.2, min=0, max=1)
+
+
+@PluginManager.register_property_group()
+class RDDynamics(bpy.types.PropertyGroup):
+    '''
+    Property group that contains joint dynamics data
+    '''
+    damping = FloatProperty(name='Damping', default=0)
+    friction = FloatProperty(name='Friction', default=0)
+    spring_reference = FloatProperty(name='Spring Reference', default=0)
+    spring_stiffness = FloatProperty(name='Spring Stiffness', default=0)
 
 
 @PluginManager.register_property_group()
@@ -284,6 +295,7 @@ class RDSegment(bpy.types.PropertyGroup):
     jointController = PointerProperty(type=RDJointController)
     linkInfo = PointerProperty(type=RDLinkInfo)
     ode = PointerProperty(type=RDOde)
+    dynamics = PointerProperty(type=RDDynamics)
     Euler = PointerProperty(type=RDEulerAnglesSegment)  # Frame relative to parent
     DH = PointerProperty(
         type=RDDenavitHartenbergSegment)  # Dito but in a different way. Only one, either DH or Euler is used.

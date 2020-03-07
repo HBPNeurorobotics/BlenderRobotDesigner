@@ -112,14 +112,33 @@ def draw(layout, context):
 
     # joint physics properties
     # Only shown for child segments. Unless root segment is connected to world.
-    box = PhysicsBox.get(layout, context, 'Joint Physics')
+    box = PhysicsBox.get(layout, context, 'Joint')
     if box:
         if (context.active_bone.parent is not None) or (context.active_bone.RobotDesigner.world is True):
-            box.label(text="ODE:")
-            box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm_damping', text='CFM-Damping')
-            box.prop(bpy.context.active_bone.RobotDesigner.ode, 'i_s_damper', text='I. S. Damper')  # implicit spring
-            box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm', text='CFM')  # constraint force mixing
-            box.prop(bpy.context.active_bone.RobotDesigner.ode, 'erp', text='ERP')  # error reduction parameter
+            # box.label(text="ODE:")
+            # box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm_damping', text='CFM-Damping')
+            # box.prop(bpy.context.active_bone.RobotDesigner.ode, 'i_s_damper', text='I. S. Damper')  # implicit spring
+            # box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm', text='CFM')  # constraint force mixing
+            # box.prop(bpy.context.active_bone.RobotDesigner.ode, 'erp', text='ERP')  # error reduction parameter
+
+            physics_box = box.box()
+            physics_box.label(text="Physics")
+            physics_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm_damping', text='CFM-Damping')
+            physics_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'i_s_damper',
+                             text='I. S. Damper')  # implicit spring
+            physics_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm', text='CFM')  # constraint force mixing
+            physics_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'erp', text='ERP')  # error reduction parameter
+
+            dynamics_box = box.box()
+            dynamics_box.label(text="Dynamics")
+            dynamics_box.prop(bpy.context.active_bone.RobotDesigner.dynamics, 'damping', text='Damping')
+            dynamics_box.prop(bpy.context.active_bone.RobotDesigner.dynamics, 'friction', text='Friction')
+            dynamics_box.prop(
+                bpy.context.active_bone.RobotDesigner.dynamics, 'spring_reference', text='Spring Reference')
+            dynamics_box.prop(
+                bpy.context.active_bone.RobotDesigner.dynamics, 'spring_stiffness', text='Spring Stiffness')
+
+
 
     # link properties
     linkBox = LinkBox.get(layout, context, 'Link Properties')
