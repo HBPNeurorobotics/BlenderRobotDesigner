@@ -507,24 +507,25 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
             inertial.pose[0] = ' '.join([frame_pose_xyz, frame_pose_rpy])
 
-        # add joint controllers
-        if operator.gazebo and segment.RobotDesigner.jointController.isActive is True:
-            if segment.parent is None and segment.RobotDesigner.world is False:
-                pass
-            else:
-                if segment.RobotDesigner.jointController.P <= 1.0:
-                    segment.RobotDesigner.jointController.P = 100
+        # add joint controllers iff no muscles in the model
+        if not root.sdf.model[0].muscles:
+            if operator.gazebo and segment.RobotDesigner.jointController.isActive is True:
+                if segment.parent is None and segment.RobotDesigner.world is False:
+                    pass
+                else:
+                    if segment.RobotDesigner.jointController.P <= 1.0:
+                        segment.RobotDesigner.jointController.P = 100
 
-                controller_pid = list_to_string([segment.RobotDesigner.jointController.P,
-                                                 segment.RobotDesigner.jointController.I,
-                                                 segment.RobotDesigner.jointController.D])
+                    controller_pid = list_to_string([segment.RobotDesigner.jointController.P,
+                                                     segment.RobotDesigner.jointController.I,
+                                                     segment.RobotDesigner.jointController.D])
 
-                controller = pyxb.BIND(
-                    joint_name=child.joint.name,
-                    type=segment.RobotDesigner.jointController.controllerType,
-                    pid=controller_pid
-                )
-                root.control_plugin.controller.append(controller)
+                    controller = pyxb.BIND(
+                        joint_name=child.joint.name,
+                        type=segment.RobotDesigner.jointController.controllerType,
+                        pid=controller_pid
+                    )
+                    root.control_plugin.controller.append(controller)
 
         ### add link sensors
         sensor_names = [
@@ -586,24 +587,8 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     # A link for world. Used for export of root links connected to world
     root.link.name = 'world'
 
-    # todo SDF Plugin
-    # build control plugin element
-    # if there is a segment which has a controller attached to it: then create controller plugin
-    for segment in bpy.context.active_object.data.bones:
-        # The joint controller might still be active even if the root segment is not connected to world.
-        # An if clause to ignore the controller in such a scenario
-        if segment.parent is None and segment.RobotDesigner.world is False:
-            pass
-        elif segment.RobotDesigner.jointController.isActive is True:
-            if operator.gazebo:
-                root.sdf.model[0].plugin.append(sdf_dom.plugin())
-                root.control_plugin = root.sdf.model[0].plugin[len(root.sdf.model[0].plugin)-1]
-                root.control_plugin.name = robot_name + "_controller"
-                root.control_plugin.filename = "libgeneric_controller_plugin.so"
-                root.control_plugin.controller = []
-                break
-
     # add root geometries to root.link
+    # a model that has muscles, should not have controllers
     muscles = get_muscles(robot_name, context)
     if muscles:
         # add muscles path tag
@@ -619,6 +604,21 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         length = len(root.sdf.model[0].plugin)
         root.sdf.model[0].plugin[length-1].name = "muscle_interface_plugin"
         root.sdf.model[0].plugin[length-1].filename = "libgazebo_ros_muscle_interface.so"
+    else:
+        # if there is a segment which has a controller attached to it: then create controller plugin
+        for segment in bpy.context.active_object.data.bones:
+            # The joint controller might still be active even if the root segment is not connected to world.
+            # An if clause to ignore the controller in such a scenario
+            if segment.parent is None and segment.RobotDesigner.world is False:
+                pass
+            elif segment.RobotDesigner.jointController.isActive is True:
+                if operator.gazebo:
+                    root.sdf.model[0].plugin.append(sdf_dom.plugin())
+                    root.control_plugin = root.sdf.model[0].plugin[len(root.sdf.model[0].plugin) - 1]
+                    root.control_plugin.name = robot_name + "_controller"
+                    root.control_plugin.filename = "libgeneric_controller_plugin.so"
+                    root.control_plugin.controller = []
+                    break
 
     root_segments = [b for b in context.active_object.data.bones if
                  b.parent is None]
