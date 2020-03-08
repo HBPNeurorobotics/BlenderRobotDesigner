@@ -1,0 +1,611 @@
+<?xml version='1.0' ?>
+<xsd:schema xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+    <xsd:annotation>
+        <xsd:documentation xml:lang='en'>
+            <![CDATA[A joint connections two links with kinematic and dynamic properties.]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/types.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/frame.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/pose.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/sensor.xsd'/>
+    <xsd:element name='joint'>
+        <xsd:complexType>
+            <xsd:choice maxOccurs='unbounded'>
+                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                    <xsd:element name='parent' type='xsd:string'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Name of the parent link]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                    <xsd:element name='child' type='xsd:string'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Name of the child link]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='gearbox_ratio' type='xsd:double'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Parameter for gearbox joints.  Given theta_1 and theta_2 defined in description for gearbox_reference_body, theta_2 = -gearbox_ratio * theta_1.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='gearbox_reference_body' type='xsd:string'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Parameter for gearbox joints.  Gearbox ratio is enforced over two joint angles.  First joint angle (theta_1) is the angle from the gearbox_reference_body to the parent link in the direction of the axis element and the second joint angle (theta_2) is the angle from the gearbox_reference_body to the child link in the direction of the axis2 element.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='thread_pitch' type='xsd:double'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Parameter for screw joints.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='axis'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[
+      Parameters related to the axis of rotation for revolute joints,
+      the axis of translation for prismatic joints.
+    ]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='initial_position' type='xsd:double'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[
+        Default joint position for this joint axis.
+      ]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                    <xsd:element name='xyz' type='vector3'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[
+        Represents the x,y,z components of the axis unit vector. The axis is
+        expressed in the joint frame unless the use_parent_model_frame
+        flag is set to true. The vector should be normalized.
+      ]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                    <xsd:element name='use_parent_model_frame' type='xsd:boolean'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[
+        Flag to interpret the axis xyz element in the parent model frame instead
+        of joint frame. Provided for Gazebo compatibility
+        (see https://bitbucket.org/osrf/gazebo/issue/494 ).
+      ]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='dynamics'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[An element specifying physical properties of the joint. These values are used to specify modeling properties of the joint, particularly useful for simulation.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs='unbounded'>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='damping' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[The physical velocity dependent viscous damping coefficient of the joint.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='friction' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[The physical static friction value of the joint.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                                    <xsd:element name='spring_reference' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[The spring reference position for this joint axis.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                                    <xsd:element name='spring_stiffness' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[The spring stiffness for this joint axis.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                    <xsd:element name='limit'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[specifies the limits of this joint]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs='unbounded'>
+                                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                                    <xsd:element name='lower' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[An attribute specifying the lower joint limit (radians for revolute joints, meters for prismatic joints). Omit if joint is continuous.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                                    <xsd:element name='upper' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[An attribute specifying the upper joint limit (radians for revolute joints, meters for prismatic joints). Omit if joint is continuous.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='effort' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[An attribute for enforcing the maximum joint effort applied by Joint::SetForce.  Limit is not enforced if value is negative.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='velocity' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[(not implemented) An attribute for enforcing the maximum joint velocity.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='stiffness' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Joint stop stiffness. Support physics engines: SimBody.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='dissipation' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Joint stop dissipation.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='axis2'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[
+      Parameters related to the second axis of rotation for revolute2 joints and universal joints.
+    ]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='initial_position' type='xsd:double'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[
+        Default joint position for this joint axis.
+      ]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                    <xsd:element name='xyz' type='vector3'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[
+        Represents the x,y,z components of the axis unit vector. The axis is
+        expressed in the joint frame unless the use_parent_model_frame
+        flag is set to true. The vector should be normalized.
+      ]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                    <xsd:element name='use_parent_model_frame' type='xsd:boolean'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[
+        Flag to interpret the axis xyz element in the parent model frame instead
+        of joint frame. Provided for Gazebo compatibility
+        (see https://bitbucket.org/osrf/gazebo/issue/494 ).
+      ]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='dynamics'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[An element specifying physical properties of the joint. These values are used to specify modeling properties of the joint, particularly useful for simulation.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs='unbounded'>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='damping' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[The physical velocity dependent viscous damping coefficient of the joint.  EXPERIMENTAL: if damping coefficient is negative and implicit_spring_damper is true, adaptive damping is used.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='friction' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[The physical static friction value of the joint.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                                    <xsd:element name='spring_reference' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[The spring reference position for this joint axis.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                                    <xsd:element name='spring_stiffness' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[The spring stiffness for this joint axis.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='limit'>
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs='unbounded'>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='lower' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[An attribute specifying the lower joint limit (radians for revolute joints, meters for prismatic joints). Omit if joint is continuous.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='upper' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[An attribute specifying the upper joint limit (radians for revolute joints, meters for prismatic joints). Omit if joint is continuous.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='effort' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[An attribute for enforcing the maximum joint effort applied by Joint::SetForce.  Limit is not enforced if value is negative.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='velocity' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[(not implemented) An attribute for enforcing the maximum joint velocity.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='stiffness' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Joint stop stiffness. Supported physics engines: SimBody.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='dissipation' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Joint stop dissipation. Supported physics engines: SimBody.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='physics'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Parameters that are specific to a certain physics engine.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='simbody'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Simbody specific parameters]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs='unbounded'>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='must_be_loop_joint' type='xsd:boolean'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Force cut in the multibody graph at this joint.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='ode'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[ODE specific parameters]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs='unbounded'>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='provide_feedback' type='xsd:boolean'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[(DEPRECATION WARNING:  In SDF 1.5 this tag will be replaced by the same tag directly under the physics-block.  For now, this tag overrides the one outside of ode-block, but in SDF 1.5 this tag will be removed completely.)  If provide feedback is set to true, ODE will compute the constraint forces at this joint.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='cfm_damping' type='xsd:boolean'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[If cfm damping is set to true, ODE will use CFM to simulate damping, allows for infinite damping, and one additional constraint row (previously used for joint limit) is always active.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='implicit_spring_damper' type='xsd:boolean'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[If implicit_spring_damper is set to true, ODE will use CFM, ERP to simulate stiffness and damping, allows for infinite damping, and one additional constraint row (previously used for joint limit) is always active.  This replaces cfm_damping parameter in sdf 1.4.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='fudge_factor' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Scale the excess for in a joint motor at joint limits. Should be between zero and one.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='cfm' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Constraint force mixing for constrained directions]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='erp' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Error reduction parameter for constrained directions]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='bounce' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Bounciness of the limits]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='max_force' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Maximum force or torque used to reach the desired velocity.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='velocity' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[The desired velocity of the joint. Should only be set if you want the joint to move on load.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='limit'>
+                                                        <xsd:complexType>
+                                                            <xsd:choice maxOccurs='unbounded'>
+                                                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                                                    <xsd:element name='cfm' type='xsd:double'>
+                                                                        <xsd:annotation>
+                                                                            <xsd:documentation xml:lang='en'>
+                                                                                <![CDATA[Constraint force mixing parameter used by the joint stop]]>
+                                                                            </xsd:documentation>
+                                                                        </xsd:annotation>
+                                                                    </xsd:element>
+                                                                </xsd:choice>
+                                                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                                                    <xsd:element name='erp' type='xsd:double'>
+                                                                        <xsd:annotation>
+                                                                            <xsd:documentation xml:lang='en'>
+                                                                                <![CDATA[Error reduction parameter used by the joint stop]]>
+                                                                            </xsd:documentation>
+                                                                        </xsd:annotation>
+                                                                    </xsd:element>
+                                                                </xsd:choice>
+                                                            </xsd:choice>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='suspension'>
+                                                        <xsd:complexType>
+                                                            <xsd:choice maxOccurs='unbounded'>
+                                                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                                                    <xsd:element name='cfm' type='xsd:double'>
+                                                                        <xsd:annotation>
+                                                                            <xsd:documentation xml:lang='en'>
+                                                                                <![CDATA[Suspension constraint force mixing parameter]]>
+                                                                            </xsd:documentation>
+                                                                        </xsd:annotation>
+                                                                    </xsd:element>
+                                                                </xsd:choice>
+                                                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                                                    <xsd:element name='erp' type='xsd:double'>
+                                                                        <xsd:annotation>
+                                                                            <xsd:documentation xml:lang='en'>
+                                                                                <![CDATA[Suspension error reduction parameter]]>
+                                                                            </xsd:documentation>
+                                                                        </xsd:annotation>
+                                                                    </xsd:element>
+                                                                </xsd:choice>
+                                                            </xsd:choice>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='provide_feedback' type='xsd:boolean'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[If provide feedback is set to true, physics engine will compute the constraint forces at this joint.  For now, provide_feedback under ode block will override this tag and given user warning about the migration.  provide_feedback under ode is scheduled to be removed in SDF 1.5.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:element ref='frame'/>
+                <xsd:element ref='pose'/>
+                <xsd:element ref='sensor'/>
+            </xsd:choice>
+            <xsd:attribute name='name' type='xsd:string' use='required' >
+                <xsd:annotation>
+                    <xsd:documentation xml:lang='en'>
+                        <![CDATA[A unique name for the joint within the scope of the model.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name='type' type='xsd:string' use='required' >
+                <xsd:annotation>
+                    <xsd:documentation xml:lang='en'>
+                        <![CDATA[The type of joint, which must be one of the following:
+      (revolute) a hinge joint that rotates on a single axis with either a fixed or continuous range of motion,
+      (gearbox) geared revolute joints,
+      (revolute2) same as two revolute joints connected in series,
+      (prismatic) a sliding joint that slides along an axis with a limited range specified by upper and lower limits,
+      (ball) a ball and socket joint,
+      (screw) a single degree of freedom joint with coupled sliding and rotational motion,
+      (universal) like a ball joint, but constrains one degree of freedom,
+      (fixed) a joint with zero degrees of freedom that rigidly connects two links.
+    ]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

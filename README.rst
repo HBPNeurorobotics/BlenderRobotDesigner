@@ -136,8 +136,9 @@ funding agencies, industry and partners from outside the European Union.
 The Neurorobotics Platform [#]_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The Neurorobotics sub-project will develop the Neurorobotics Platform
-which will offer scientists and technology developers a software and
+The Neurorobotics sub-project will develop the `Neurorobotics Platform
+<http://neurorobotics.net>`__ which will 
+offer scientists and technology developers a software and
 hardware infrastructure allowing them to connect pre-validated brain
 models to detailed simulations of robot bodies and environments and to
 use the resulting neurorobotic systems in in silico experiments and
@@ -181,7 +182,7 @@ Important: You should have a latest blender (version>=2.77) on your computer. Yo
 
 1.  Download blender from the dedicated website: https://www.blender.org/download/
 2.  Download the “installer.blend” from our github: https://github.com/HBPNeurorobotics/BlenderRobotDesigner/blob/master/installer.blend
-3.  Launch blender and open the installer.blend file, click “run script” and wait until “RD Installation Done!” appears in your terminal
+3.  Launch blender and open the installer.blend file, click “run script” and wait until “RD Installation Done!” appears in your terminal (Windows Users run Blender as administrator, as several python packages will be installed)
 4.  Relaunch blender, you will find the HBP add-on on the top left of blender GUI (Note: if the HBP tab does not appear in the tool shelf, navigate to File->User Preferences->Add-Ons tab, search for and select the NRP Robot Designer add-on, and click “Save User Settings”)
 
 (Note: Launch blender from terminal to make sure that you choose the right version of blender if you have multiple blenders on your computer)
@@ -218,7 +219,7 @@ Features
     -  Convex hull computation
     -  Conversion from deformable meshes to rigid bodies. This is useful to
        transform deformable actors such as those created by
-       `MakeHuman <http://www.makehuman.org/>`__ into robots. This is used
+       `MakeHuman <http://www.makehumancommunity.org/>`__ into robots. This is used
        to provide a standard humanoid robot model to the NRP.
     -  Generation of links and joint geometries based on the kinematic
        description (*still experimental*).
@@ -290,7 +291,9 @@ Planned features
 
 One of the key aspects of the ongoing development is data persistence,
 that is, the ability to store robot models in different file formats and
-different storage mechanisms. \* Human Brain Project Collaboratory Upload: 
+different storage mechanisms. 
+
+Human Brain Project Collaboratory Upload: 
 The zipped Robot model package can be directly uploaded to the 
 Neurorobotics platform to be used in the web-based simulator. As well 
 a robot model can be downloaded from a collaboratory to be modified and adapted

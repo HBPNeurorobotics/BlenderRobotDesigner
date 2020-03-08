@@ -46,5 +46,3 @@ reload(objects)
 # PluginManager.register_property_groups(segments.RDSegment, bpy.types.Bone)
 # PluginManager.register_property_groups(objects.RDObjects, bpy.types.Object)
 # PluginManager.register_property_groups(globals.RDGlobals, bpy.types.Scene)
-
-

@@ -1,81 +1,82 @@
-<?xml version="1.0" ?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <xsd:annotation>
-    <xsd:documentation xml:lang="en">
-      <![CDATA[An audio source.]]>
-    </xsd:documentation>
-  </xsd:annotation>
-  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
-  <xsd:element name="audio_source">
-    <xsd:complexType>
-      <xsd:choice maxOccurs="unbounded">
-        <xsd:choice maxOccurs="1" minOccurs="1">
-        <xsd:element name="uri" type="xsd:string">
-          <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-              <![CDATA[URI of the audio media.]]>
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-        </xsd:choice>
-        <xsd:choice maxOccurs="1" minOccurs="0">
-        <xsd:element name="pitch" type="xsd:double">
-          <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-              <![CDATA[Pitch for the audio media, in Hz]]>
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-        </xsd:choice>
-        <xsd:choice maxOccurs="1" minOccurs="0">
-        <xsd:element name="gain" type="xsd:double">
-          <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-              <![CDATA[Gain for the audio media, in dB.]]>
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-        </xsd:choice>
-        <xsd:choice maxOccurs="1" minOccurs="0">
-        <xsd:element name="contact">
-          <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-              <![CDATA[List of collision objects that will trigger audio playback.]]>
-            </xsd:documentation>
-          </xsd:annotation>
-          <xsd:complexType>
+<?xml version="1.0" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+            <![CDATA[An audio source.]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+    <xsd:element name="audio_source">
+        <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">
-              <xsd:choice maxOccurs="unbounded" minOccurs="1">
-              <xsd:element name="collision" type="xsd:string">
-                <xsd:annotation>
-                  <xsd:documentation xml:lang="en">
-                    <![CDATA[Name of child collision element that will trigger audio playback.]]>
-                  </xsd:documentation>
-                </xsd:annotation>
-              </xsd:element>
-              </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="1">
+                    <xsd:element name="uri" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[URI of the audio media.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="pitch" type="xsd:double">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Pitch for the audio media, in Hz]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="gain" type="xsd:double">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Gain for the audio media, in dB.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="contact">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[List of collision objects that will trigger audio playback.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs="unbounded">
+                                <xsd:choice maxOccurs="unbounded" minOccurs="1">
+                                    <xsd:element name="collision" type="xsd:string">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[Name of child collision element that will trigger audio playback.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="loop" type="xsd:boolean">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[True to make the audio source loop playback.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="pose" type="pose">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[A position and orientation in the parent coordinate frame for the audio source. Position(x,y,z) and rotation (roll, pitch yaw) in the parent coordinate frame.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
             </xsd:choice>
-          </xsd:complexType>
-        </xsd:element>
-        </xsd:choice>
-        <xsd:choice maxOccurs="1" minOccurs="0">
-        <xsd:element name="loop" type="xsd:boolean">
-          <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-              <![CDATA[True to make the audio source loop playback.]]>
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-        </xsd:choice>
-        <xsd:choice maxOccurs="1" minOccurs="0">
-        <xsd:element name="pose" type="pose">
-          <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-              <![CDATA[A position and orientation in the parent coordinate frame for the audio source. Position(x,y,z) and rotation (roll, pitch yaw) in the parent coordinate frame.]]>
-            </xsd:documentation>
-          </xsd:annotation>
-        </xsd:element>
-        </xsd:choice>
-      </xsd:choice>
-    </xsd:complexType>
-  </xsd:element>
+        </xsd:complexType>
+    </xsd:element>
 </xsd:schema>

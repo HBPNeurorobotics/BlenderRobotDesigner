@@ -2,19 +2,20 @@ import logging
 
 import sdf_dom
 
-#from helpers import list_to_string
+# from helpers import list_to_string
 from pyxb import ContentNondeterminismExceededError
 import os
 import re
 import sys
 from pathlib import Path
 
-
 from pprint import pprint
 
 logger = logging.getLogger('SDF')
 logger.setLevel(logging.DEBUG)
-#~/Documents/blender-2.78-d35bf3f-linux-glibc219-x86_64/2.78/python/bin/pyxbgen -u sdf_model.xsd -m sdf_model_dom
+
+
+# ~/Documents/blender-2.78-d35bf3f-linux-glibc219-x86_64/2.78/python/bin/pyxbgen -u sdf_model.xsd -m sdf_model_dom
 
 def set_value(l):
     """
@@ -23,6 +24,7 @@ def set_value(l):
     :return: string representing the list
     """
     return ' '.join(i for i in l)
+
 
 def list_to_string(l):
     """
@@ -33,6 +35,7 @@ def list_to_string(l):
     :return:
     """
     return " ".join([str(i).rstrip('0').rstrip('.') for i in l])
+
 
 def string_to_list(s):
     """
@@ -94,27 +97,27 @@ class SDFTree(object):
         print('The name of the robot ', robot)
 
         for link in robot.link:
-          #  print(link.visual[0].name)
-          #  print(link.visual[0].geometry[0].mesh[0].uri[0])
-          #  print(link.visual[0].pose[0])
-          #  print(string_to_list(link.visual[0].pose[0])[0:3])
-          #  print(string_to_list(link.visual[0].pose[0])[3:])
+            #  print(link.visual[0].name)
+            #  print(link.visual[0].geometry[0].mesh[0].uri[0])
+            #  print(link.visual[0].pose[0])
+            #  print(string_to_list(link.visual[0].pose[0])[0:3])
+            #  print(string_to_list(link.visual[0].pose[0])[3:])
 
-           # mesh_url = link.visual[0].geometry[0].mesh[0].uri
-            #mesh_path = mesh_url.replace('model://', '')
+            # mesh_url = link.visual[0].geometry[0].mesh[0].uri
+            # mesh_path = mesh_url.replace('model://', '')
 
-            #Path('C:\Program Files').parent
+            # Path('C:\Program Files').parent
 
-          #  if (link.visual[0].geometry[0].mesh[0].scale) == []:
-                print('No scale')
-          #  for visual in link.visual:
-                #for geometry in visual.geometry:
-               # if visual.geometry.mesh is not None:
-          #          print('Having mesh')
+            #  if (link.visual[0].geometry[0].mesh[0].scale) == []:
+            print('No scale')
+            #  for visual in link.visual:
+            # for geometry in visual.geometry:
+            # if visual.geometry.mesh is not None:
+            #          print('Having mesh')
 
-          #  gg = link.visual[0].geometry
-          #  for fg in gg:
-          #      print(fg.mesh)
+            #  gg = link.visual[0].geometry
+            #  for fg in gg:
+            #      print(fg.mesh)
 
         for joint in robot.joint:
             print('Parent link:', joint.parent[0])
@@ -123,7 +126,7 @@ class SDFTree(object):
             print('Dynamic:', joint.type)
             print('Axis xyz:', joint.axis[0].xyz[0])
 
-        #for link in robot.link:
+        # for link in robot.link:
         #    print('Link pose:', link.pose)
 
         # create mapping from (parent) links to joints  (a list)
@@ -131,7 +134,6 @@ class SDFTree(object):
                             in robot.link}
 
         print("connected joints: ", {j.name: l for j, l in connected_joints.items()})
-
 
         for joint in robot.joint:
             print(joint.child[0])
@@ -186,9 +188,9 @@ class SDFTree(object):
             print("connected joints: ", {j.name: l for j, l in chain.connectedJoints.items()})
             print("chain child: ", chain.children)
 
-        #logger.debug("kinematic chains: %s", kinematic_chains)
-        #print(repr(kinematic_chains))
-        return robot.name, root_links, kinematic_chains#, controller_cache, gazebo_tags
+        # logger.debug("kinematic chains: %s", kinematic_chains)
+        # print(repr(kinematic_chains))
+        return robot.name, root_links, kinematic_chains  # , controller_cache, gazebo_tags
 
     def build(self, link, joint=None, depth=0):
         """
@@ -200,13 +202,13 @@ class SDFTree(object):
         self.children = []
         self.joint = joint
         self.link = link
-        #self.set_defaults() # todo:set defaults
+        # self.set_defaults() # todo:set defaults
 
         children = self.connectedJoints[link]
 
         for joint in children:
             tree = SDFTree(connected_links=self.connectedLinks, connected_joints=self.connectedJoints,
-                            robot=self.robot)
+                           robot=self.robot)
             self.children.append(tree)
             tree.build(self.connectedLinks[joint], joint, depth + 1)
 
@@ -227,11 +229,11 @@ class SDFTree(object):
         tree.robot.link.append(tree.link)
         tree.joint = sdf_model_dom.CTD_ANON_48()
 
-        #tree.set_defaults() # todo set defaults
+        # tree.set_defaults() # todo set defaults
 
         # build empty gazebo tag for control plugins
-        #tree.gazebo_tag = urdf_dom.GazeboType()
-        #tree.robot.gazebo.append(tree.gazebo_tag)
+        # tree.gazebo_tag = urdf_dom.GazeboType()
+        # tree.robot.gazebo.append(tree.gazebo_tag)
 
         return tree
 
@@ -263,7 +265,6 @@ class SDFTree(object):
             # output = output.replace(">", ">\n")
             f.write(output)
             # self.robot.export(f,0)
-
 
     def _write(self):
         """
@@ -298,7 +299,7 @@ class SDFTree(object):
 
         return tree
 
-    def add_mesh(self, file_name, scale_factor=(1.0,1.0,1.0)):
+    def add_mesh(self, file_name, scale_factor=(1.0, 1.0, 1.0)):
         """
         Adds a mesh to current segment.
 
@@ -306,7 +307,7 @@ class SDFTree(object):
         :type file_name: string
         :return:
         """
-        visual = sdf_model_dom.CTD_ANON_96()   # CTD_ANON_60_visual  CTD_ANON_96
+        visual = sdf_model_dom.CTD_ANON_96()  # CTD_ANON_60_visual  CTD_ANON_96
         self.link.visual.append(visual)
         visual.geometry = sdf_model_dom.CTD_ANON_96.geometry()
         visual.origin = sdf_model_dom.CTD_ANON_96.pose()
@@ -315,7 +316,7 @@ class SDFTree(object):
         visual.geometry.mesh.scale = list_to_string(scale_factor)
         return visual
 
-    def add_collisionmodel(self, file_name,scale_factor=(1.0,1.0,1.0)):
+    def add_collisionmodel(self, file_name, scale_factor=(1.0, 1.0, 1.0)):
         """
         Add a collision model to a mesh object
 
@@ -344,8 +345,8 @@ class SDFTree(object):
         inertial.mass = sdf_model_dom.CTD_ANON_46.mass()
         inertial.mass.value_ = "1.0"
         inertial.inertia = sdf_model_dom.CTD_ANON_46()
-        inertial.inertia.ixx = inertial.inertia.izz =  inertial.inertia.iyy = "1.0"
-        inertial.inertia.ixy = inertial.inertia.ixz =  inertial.inertia.iyz = "0.0"
+        inertial.inertia.ixx = inertial.inertia.izz = inertial.inertia.iyy = "1.0"
+        inertial.inertia.ixy = inertial.inertia.ixz = inertial.inertia.iyz = "0.0"
         inertial.origin = sdf_model_dom.CTD_ANON_46.pose()
         inertial.origin.xyz = "0 0 0"
         inertial.origin.rpy = "0 0 0"
@@ -353,20 +354,21 @@ class SDFTree(object):
         # print('debug add_inertial: ')
         return inertial
 
-    #def add_joint_control_plugin(self):
-     #    """
-     #    Adds a reference to the generic control plugin of the NRP backend.
+        # def add_joint_control_plugin(self):
+        #    """
+        #    Adds a reference to the generic control plugin of the NRP backend.
 
-     #   :return: Reference to the plugin type defined in the URDF
-     #   """
+        #   :return: Reference to the plugin type defined in the URDF
+        #   """
 
-     #   plugin = urdf_dom.GazeboPluginType()
-     #   plugin.name = "generic_controller"
-     #   plugin.filename = "libgeneric_controller_plugin.so"
-     #   self.gazebo_tag.plugin.append(plugin)
+        #   plugin = urdf_dom.GazeboPluginType()
+        #   plugin.name = "generic_controller"
+        #   plugin.filename = "libgeneric_controller_plugin.so"
+        #   self.gazebo_tag.plugin.append(plugin)
+
     #    return plugin
 
-    #def add_joint_controller(self, control_plugin):
+    # def add_joint_controller(self, control_plugin):
     #    """
     #    Add a controller definition to a robot object
 
@@ -398,7 +400,7 @@ class SDFTree(object):
             joint.limit.effort = 100.0
             joint.limit.lower = joint.limit.upper = joint.limit.velocity = 1.0
 
-        #if joint.calibration is None:  # todo calibration tag ignored
+        # if joint.calibration is None:  # todo calibration tag ignored
         #    joint.calibration = sdf_model_dom.CalibrationType()
         #    joint.calibration.reference_position = 0.0
         #    joint.calibration.rising = 0.0  # there are no default values in the XSD?
@@ -450,6 +452,7 @@ class SDFTree(object):
             print("Root link: %s" % self.link.name)
         for tree in self.children:
             tree.show(depth + 1)
+
 
 # debugging the module
 if __name__ == "__main__":

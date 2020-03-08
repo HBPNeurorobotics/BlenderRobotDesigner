@@ -1,0 +1,44 @@
+<?xml version='1.0' ?>
+<xsd:schema xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+    <xsd:annotation>
+        <xsd:documentation xml:lang='en'>
+            <![CDATA[The shape of the visual or collision object.]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/types.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/box_shape.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/cylinder_shape.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/heightmap_shape.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/image_shape.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/mesh_shape.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/plane_shape.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/polyline_shape.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/sphere_shape.xsd'/>
+    <xsd:element name='geometry'>
+        <xsd:complexType>
+            <xsd:choice maxOccurs='unbounded'>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='empty'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[You can use the empty tag to make empty geometries.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:element ref='box'/>
+                <xsd:element ref='cylinder'/>
+                <xsd:element ref='heightmap'/>
+                <xsd:element ref='image'/>
+                <xsd:element ref='mesh'/>
+                <xsd:element ref='plane'/>
+                <xsd:element ref='polyline'/>
+                <xsd:element ref='sphere'/>
+            </xsd:choice>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

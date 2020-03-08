@@ -1,0 +1,233 @@
+<?xml version='1.0' ?>
+<xsd:schema xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+    <xsd:annotation>
+        <xsd:documentation xml:lang='en'>
+            <![CDATA[Specifies the look of the environment.]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/types.xsd'/>
+    <xsd:element name='scene'>
+        <xsd:complexType>
+            <xsd:choice maxOccurs='unbounded'>
+                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                    <xsd:element name='ambient' type='color'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Color of the ambient light.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                    <xsd:element name='background' type='color'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Color of the background.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='sky'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Properties for the sky]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='time' type='xsd:double'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Time of day [0..24]]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='sunrise' type='xsd:double'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Sunrise time [0..24]]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='sunset' type='xsd:double'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Sunset time [0..24]]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='clouds'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Sunset time [0..24]]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs='unbounded'>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='speed' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Speed of the clouds]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='direction' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Direction of the cloud movement]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='humidity' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Density of clouds]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='mean_size' type='xsd:double'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Average size of the clouds]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                                    <xsd:element name='ambient' type='color'>
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang='en'>
+                                                                <![CDATA[Ambient cloud color]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                    <xsd:element name='shadows' type='xsd:boolean'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Enable/disable shadows]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='fog'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Controls fog]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='color' type='color'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Fog color]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='type' type='xsd:string'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Fog type: constant, linear, quadratic]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='start' type='xsd:double'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Distance to start of fog]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='end' type='xsd:double'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Distance to end of fog]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='density' type='xsd:double'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Density of fog]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='grid' type='xsd:boolean'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Enable/disable the grid]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='origin_visual' type='xsd:boolean'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Show/hide world origin indicator]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='render_settings'>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='fsaa' type='xsd:int'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[The level of multisampling to use for full-screen anti-aliasing (FSAA) for this camera's render target (usually a render texture target).]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:choice>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

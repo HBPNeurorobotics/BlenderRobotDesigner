@@ -1,29 +1,38 @@
-<?xml version="1.0" ?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <xsd:annotation>
-    <xsd:documentation xml:lang="en">
-      <![CDATA[A plugin is a dynamically loaded chunk of code. It can exist as a child of world, model, and sensor.]]>
-    </xsd:documentation>
-  </xsd:annotation>
-  <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
-  <xsd:element name="plugin">
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:any maxOccurs="unbounded" minOccurs="0" processContents="lax"/>
-      </xsd:sequence>
-      <xsd:attribute name="name" type="xsd:string" use="required">
-        <xsd:annotation>
-          <xsd:documentation xml:lang="en">
-            <![CDATA[A unique name for the plugin, scoped to its parent.]]>
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-      <xsd:attribute name="filename" type="xsd:string" use="required">
-        <xsd:annotation>
-          <xsd:documentation xml:lang="en">
-            <![CDATA[Name of the shared library to load. If the filename is not a full path name, the file will be searched for in the configuration paths.]]>
-          </xsd:documentation>
-        </xsd:annotation>
-      </xsd:attribute>
-    </xsd:complexType>
-  </xsd:element>
+<?xml version="1.0" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+            <![CDATA[A plugin is a dynamically loaded chunk of code. It can exist as a child of world, model, and sensor.]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+    <xsd:element name="plugin">
+        <xsd:complexType>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:element name="controller">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element type="xsd:string" name="type"/>
+                            <xsd:element type="vector3" name="pid"/>
+                        </xsd:sequence>
+                        <xsd:attribute name="joint_name" type="xsd:string" use="required"/>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:choice>
+            <xsd:attribute name="name" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        <![CDATA[A unique name for the plugin, scoped to its parent.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="filename" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        <![CDATA[Name of the shared library to load. If the filename is not a full path name, the file will be searched for in the configuration paths.]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
 </xsd:schema>

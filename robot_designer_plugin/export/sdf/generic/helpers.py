@@ -37,21 +37,24 @@
 # system imports
 import re
 import numbers
-from .transformations import compose_matrix, concatenate_matrices, inverse_matrix, translation_from_matrix, euler_from_matrix
+from .transformations import compose_matrix, concatenate_matrices, inverse_matrix, translation_from_matrix, \
+    euler_from_matrix
 
 # Blender-specific imports
 from mathutils import *
 
 __author__ = 'ulbrich'
 
+
 def string2float_list(s):
     return [float(i) for i in s.split()]
+
 
 def rounded(val):
     if isinstance(val, str):
         return rounded(float(val))
     elif isinstance(val, numbers.Number):
-        return int(round(val,6) * 1e5) / 1.0e5
+        return int(round(val, 6) * 1e5) / 1.0e5
     else:
         return [rounded(v) for v in val]
 
@@ -79,6 +82,7 @@ def pose_float2homogeneous(pose_float):
     homogeneous = compose_matrix(None, None, angles, translate)
     return homogeneous
 
+
 def localpose2globalpose(ref_pose_global, angles, translate):
     localhomo = compose_matrix(None, None, string2float_list(angles), string2float_list(translate))
     translate = ref_pose_global[:3]
@@ -95,6 +99,7 @@ def pose2origin(parent_pose_homo, self_pose_homo):
     org_xyz = translation_from_matrix(relative_matrix)
     org_rpy = euler_from_matrix(relative_matrix)
     return org_xyz, org_rpy
+
 
 def homo2origin(self_pose_homo):
     org_xyz = translation_from_matrix(self_pose_homo)
@@ -143,7 +148,7 @@ def list_to_string(l):
     :param l:
     :return:
     """
-    #return " ".join([str(i).rstrip('0').rstrip('.') for i in l])  BUG e10 ->  e1
+    # return " ".join([str(i).rstrip('0').rstrip('.') for i in l])  BUG e10 ->  e1
     return " ".join([str(i) for i in l])
 
 

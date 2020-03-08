@@ -1,0 +1,109 @@
+<?xml version='1.0' ?>
+<xsd:schema xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+    <xsd:annotation>
+        <xsd:documentation xml:lang='en'>
+            <![CDATA[
+    The population element defines how and where a set of models will
+    be automatically populated in Gazebo.
+  ]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/types.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/box_shape.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/cylinder_shape.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/frame.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/pose.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/model.xsd'/>
+    <xsd:element name='population'>
+        <xsd:complexType>
+            <xsd:choice maxOccurs='unbounded'>
+                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                    <xsd:element name='model_count' type='xsd:int'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[The number of models to place.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                    <xsd:element name='distribution'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[
+      Specifies the type of object distribution and its optional parameters.
+    ]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                    <xsd:element name='type' type='xsd:string'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[
+        Define how the objects will be placed in the specified region.
+        - random: Models placed at random.
+        - uniform: Models approximately placed in a 2D grid pattern with control
+            over the number of objects.
+        - grid: Models evenly placed in a 2D grid pattern. The number of objects
+            is not explicitly specified, it is based on the number of rows and
+            columns of the grid.
+        - linear-x: Models evently placed in a row along the global x-axis.
+        - linear-y: Models evently placed in a row along the global y-axis.
+        - linear-z: Models evently placed in a row along the global z-axis.
+      ]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='rows' type='xsd:int'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Number of rows in the grid.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='cols' type='xsd:int'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Number of columns in the grid.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='step' type='vector3'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Distance between elements of the grid.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:element ref='box'/>
+                <xsd:element ref='cylinder'/>
+                <xsd:element ref='frame'/>
+                <xsd:element ref='pose'/>
+                <xsd:element ref='model'/>
+            </xsd:choice>
+            <xsd:attribute name='name' type='xsd:string' use='required' >
+                <xsd:annotation>
+                    <xsd:documentation xml:lang='en'>
+                        <![CDATA[
+      A unique name for the population. This name must not match
+      another population in the world.
+    ]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

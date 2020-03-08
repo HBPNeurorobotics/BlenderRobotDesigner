@@ -1,0 +1,115 @@
+<?xml version='1.0' ?>
+<xsd:schema xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+    <xsd:annotation>
+        <xsd:documentation xml:lang='en'>
+            <![CDATA[The material of the visual element.]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/types.xsd'/>
+    <xsd:element name='material'>
+        <xsd:complexType>
+            <xsd:choice maxOccurs='unbounded'>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='script'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Name of material from an installed script file. This will override the color element if the script exists.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='1' maxOccurs='unbounded'>
+                                    <xsd:element name='uri' type='xsd:string'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[URI of the material script file]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                    <xsd:element name='name' type='xsd:string'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Name of the script within the script file]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='shader'>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='normal_map' type='xsd:string'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[filename of the normal map]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                            <xsd:attribute name='type' type='xsd:string' use='required' >
+                                <xsd:annotation>
+                                    <xsd:documentation xml:lang='en'>
+                                        <![CDATA[vertex, pixel, normal_map_objectspace, normal_map_tangentspace]]>
+                                    </xsd:documentation>
+                                </xsd:annotation>
+                            </xsd:attribute>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='lighting' type='xsd:boolean'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[If false, dynamic lighting will be disabled]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='ambient' type='color'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[The ambient color of a material specified by set of four numbers representing red/green/blue, each in the range of [0,1].]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='diffuse' type='color'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[The diffuse color of a material specified by set of four numbers representing red/green/blue/alpha, each in the range of [0,1].]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='specular' type='color'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[The specular color of a material specified by set of four numbers representing red/green/blue/alpha, each in the range of [0,1].]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='emissive' type='color'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[The emissive color of a material specified by set of four numbers representing red/green/blue, each in the range of [0,1].]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:choice>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

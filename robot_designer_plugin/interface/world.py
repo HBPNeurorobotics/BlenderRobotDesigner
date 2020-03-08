@@ -70,7 +70,7 @@ def draw(layout, context):
     #todo change to dropdown just like adding a sensor
     global_properties.light_s_name.prop(bpy.context.scene, box1)
     global_properties.cast_shadows.prop(bpy.context.scene, box1)
-    global_properties.difuse.prop(bpy.context.scene, box1)
+    global_properties.diffuse.prop(bpy.context.scene, box1)
     global_properties.specular.prop(bpy.context.scene, box1)
 
     # Included Models

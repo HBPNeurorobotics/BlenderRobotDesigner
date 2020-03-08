@@ -53,6 +53,7 @@ from .helpers import ModelSelected, SingleSegmentSelected, ObjectMode, SingleCam
 
 from ..properties.globals import global_properties
 
+
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class SelectSensor(RDOperator):
@@ -79,37 +80,52 @@ class SelectSensor(RDOperator):
         Object.select = True
         arm.select = True
 
+        global_properties.active_sensor.set(context.scene, self.object_name)
+
         return {'FINISHED'}
 
 
-@RDOperator.Preconditions(ModelSelected, SingleCameraSelected, SingleSegmentSelected)
+@RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)
 @PluginManager.register_class
-class AssignCameraSensor(RDOperator):
+class AttachSensor(RDOperator):
     """
     :term:`Operator <operator>` for assigning a camera sensor to a :term:`segment`.
     """
-    bl_idname = config.OPERATOR_PREFIX + "assign_camera_sensor"
-    bl_label = "Assign Camera"
+    bl_idname = config.OPERATOR_PREFIX + "assign_sensor"
+    bl_label = "Attach Sensor"
 
     @classmethod
     def run(cls):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
-    @RDOperator.Postconditions(ModelSelected, SingleCameraSelected, SingleSegmentSelected)
+    @RDOperator.Postconditions(ModelSelected, SingleSegmentSelected)
     def execute(self, context):
-        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+        if bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotDesigner.tag == 'SENSOR':
+            sensor_type = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotDesigner.sensor_type
+            if sensor_type in ['CAMERA_SENSOR', 'DEPTH_CAMERA_SENSOR', 'LASER_SENSOR', 'ALTIMETER_SENSOR',
+                               'IMU_SENSOR']:
+                bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+
+            elif sensor_type == 'FORCE_TORQUE_SENSOR':
+                # todo attach force torque sensor to joint
+                print("attaching force torque sensor")
+
+            elif sensor_type == 'CONTACT_SENSOR':
+                # todo attach contact sensor to collision shape
+                print("attaching contact sensor")
+
         return {'FINISHED'}
 
 
-@RDOperator.Preconditions(ModelSelected, SingleCameraSelected)
+@RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
-class DetachCameraSensor(RDOperator):
+class DetachSensor(RDOperator):
     """
     :term:`Operator <operator>` for detaching a single camera sensor from a :term:`segment`.
     """
-    bl_idname = config.OPERATOR_PREFIX + "detach_camera_sensor"
-    bl_label = "Detach selected sensor"
+    bl_idname = config.OPERATOR_PREFIX + "detach_sensor"
+    bl_label = "Detach sensor"
 
     @classmethod
     def run(cls):
@@ -118,7 +134,7 @@ class DetachCameraSensor(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleCameraSelected)
     def execute(self, context):
-        sensor_name = global_properties.camera_sensor_name.get(context.scene)
+        sensor_name = global_properties.active_sensor.get(context.scene)
         current_sensor = bpy.data.objects[sensor_name]
         mesh_global = current_sensor.matrix_world
         current_sensor.parent = None
@@ -144,22 +160,22 @@ class ConvertCameraToSensor(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleCameraSelected)
     def execute(self, context):
-
         selected = [i for i in context.selected_objects if i.type != "ARMATURE"][0]
 
-        selected.RobotEditor.tag = "CAMERA_SENSOR"
+        selected.RobotDesigner.tag = "SENSOR"
+        selected.RobotDesigner.sensor_type = "CAMERA_SENSOR"
         return {'FINISHED'}
 
 
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
-class CreateOpticalSensor(RDOperator):
+class CreateSensor(RDOperator):
     """
     :term:`Operator <operator>` for creating a new :term:`optical sensor`.
     """
 
-    bl_idname = config.OPERATOR_PREFIX + "create_optical_sensor"
-    bl_label = "Create optical sensor"
+    bl_idname = config.OPERATOR_PREFIX + "create_sensor"
+    bl_label = "Create sensor"
 
     sensor_type = StringProperty(default="CAMERA_SENSOR")
     sensor_name = StringProperty(name="Sensor Name")
@@ -169,20 +185,83 @@ class CreateOpticalSensor(RDOperator):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
-    @RDOperator.Postconditions(ModelSelected, SingleCameraSelected)
+    @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         from .model import SelectModel
 
         model_name = context.active_object.name
 
-        bpy.ops.object.camera_add()
+        if self.sensor_type in ["CAMERA_SENSOR", "DEPTH_CAMERA_SENSOR", "LASER_SENSOR"]:
+            # add camera type sensor
+            bpy.ops.object.camera_add()
+        else:
+            # add other type sensor
+            bpy.ops.object.empty_add(type='PLAIN_AXES')
 
-        context.active_object.RobotEditor.tag = self.sensor_type
+        print("adding", self.sensor_type)
+
+        context.active_object.RobotDesigner.tag = 'SENSOR'
+        context.active_object.RobotDesigner.sensor_type = self.sensor_type
         context.active_object.name = self.sensor_name
         sensor_name = context.active_object.name
 
         SelectModel.run(model_name=model_name)
         SelectSensor.run(object_name=sensor_name)
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        self.sensor_type = global_properties.display_sensor_type.get(context.scene)
+        return context.window_manager.invoke_props_dialog(self)
+
+
+@RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)
+@PluginManager.register_class
+class RenameSensor(RDOperator):
+    """
+    :term:`operator` for renaming the selected muscle
+
+
+    """
+    bl_idname = config.OPERATOR_PREFIX + "rename_sensor"
+    bl_label = "Rename active sensor"
+
+    new_name = StringProperty(name="Enter new name:")
+
+    # todo
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+        bpy.data.objects[global_properties.active_sensor.get(context.scene)].name = self.new_name
+        global_properties.active_sensor.set(context.scene, self.new_name)
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        return context.window_manager.invoke_props_dialog(self)
+
+    @classmethod
+    def run(cls, new_name=""):
+        return super().run(**cls.pass_keywords())
+
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class DeleteSensor(RDOperator):
+    """
+    :term:`operator` for deleting the selected muscle.
+
+
+    """
+    bl_idname = config.OPERATOR_PREFIX + "delete_sensor"
+    bl_label = "Delete active sensor"
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+        # todo
+        active_sensor = global_properties.active_sensor.get(context.scene)
+
+        # remove muscle and all its data
+        bpy.data.objects.remove(bpy.data.objects[active_sensor], True)
+        bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
 
         return {'FINISHED'}
 

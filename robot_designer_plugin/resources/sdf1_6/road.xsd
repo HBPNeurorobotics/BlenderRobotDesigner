@@ -1,0 +1,37 @@
+<?xml version='1.0' ?>
+<xsd:schema xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/types.xsd'/>
+    <xsd:include schemaLocation='../../../robot_designer_plugin/resources/sdf1_6/material.xsd'/>
+    <xsd:element name='road'>
+        <xsd:complexType>
+            <xsd:choice maxOccurs='unbounded'>
+                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                    <xsd:element name='width' type='xsd:double'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Width of the road]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='1' maxOccurs='unbounded'>
+                    <xsd:element name='point' type='vector3'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[A series of points that define the path of the road.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:element ref='material'/>
+            </xsd:choice>
+            <xsd:attribute name='name' type='xsd:string' use='required' >
+                <xsd:annotation>
+                    <xsd:documentation xml:lang='en'>
+                        <![CDATA[Name of the road]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

@@ -78,7 +78,7 @@ class ConvertSoftBodies(RDOperator):
 
     @RDOperator.OperatorLogger
     def execute(self, context):
-        self.logger.debug("Running ConvertSoftBodies with parameters: %s %s", self.smooth, self.solidify )
+        self.logger.debug("Running ConvertSoftBodies with parameters: %s %s", self.smooth, self.solidify)
 
         from .segments import SelectSegment
         from .rigid_bodies import SelectGeometry, AssignGeometry, SetGeometryActive
@@ -106,7 +106,6 @@ class ConvertSoftBodies(RDOperator):
         for v in mesh_object.data.vertices:
             for g in v.groups:
 
-
                 # Already a vertex above the threshold is an overlap
                 if self.remove_overlaps and g.weight > self.t2 and maxima[v.index] > self.t2:
                     indices[v.index] = -1
@@ -121,18 +120,18 @@ class ConvertSoftBodies(RDOperator):
 
 
 
-                # if g.weight > maxima[v.index]:
-                #
-                #     if self.remove_overlaps:
-                #         if maxima[v.index] > self.t2:
-                #             indices[v.index] = -1
-                #         else:
-                #             indices[v.index] = g.group
-                #     else:
-                #         if g.weight > self.t1:
-                #             indices[v.index] = g.group
-                #
-                #     maxima[v.index] = g.weight
+                        # if g.weight > maxima[v.index]:
+                        #
+                        #     if self.remove_overlaps:
+                        #         if maxima[v.index] > self.t2:
+                        #             indices[v.index] = -1
+                        #         else:
+                        #             indices[v.index] = g.group
+                        #     else:
+                        #         if g.weight > self.t1:
+                        #             indices[v.index] = g.group
+                        #
+                        #     maxima[v.index] = g.weight
 
             # Remove vertex from all or all but one group. When removing the v.groups attribute changes so it has to
             # be copied first.
@@ -140,8 +139,8 @@ class ConvertSoftBodies(RDOperator):
             for index in vertex_groups_indices:
                 if indices[v.index] != index:
                     mesh_object.vertex_groups[index].remove([v.index])
-            if v.index == -1 and 'RDNone' in mesh_object.vertex_groups: # 'REPLACE', 'ADD', 'SUBTRACT')
-                mesh_object.vertex_groups['RDNone'].add([v.index],0.9,"ADD")
+            if v.index == -1 and 'RDNone' in mesh_object.vertex_groups:  # 'REPLACE', 'ADD', 'SUBTRACT')
+                mesh_object.vertex_groups['RDNone'].add([v.index], 0.9, "ADD")
 
         if self.separate:
             for m in mesh_object.modifiers:
@@ -170,7 +169,7 @@ class ConvertSoftBodies(RDOperator):
                     SelectModel.run(model_name=model_name)
                     SelectGeometry.run(geometry_name=object)
                     SetGeometryActive.run()
-                    bpy.ops.object.mode_set(mode="EDIT",toggle=False)
+                    bpy.ops.object.mode_set(mode="EDIT", toggle=False)
                     bpy.ops.mesh.select_all(action='SELECT')
                     bpy.ops.mesh.region_to_loop()
                     bpy.ops.mesh.vertices_smooth(repeat=15)
@@ -191,7 +190,6 @@ class ConvertSoftBodies(RDOperator):
                 for bone, object in bone2object.items():
                     try:
 
-
                         SelectModel.run(model_name=model_name)
                         if bone in bpy.context.active_object.data.bones:
                             SelectSegment.run(segment_name=bone)
@@ -209,7 +207,6 @@ class ConvertSoftBodies(RDOperator):
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
 
-
     def draw(self, context):
         layout = self.layout
 
@@ -221,12 +218,9 @@ class ConvertSoftBodies(RDOperator):
         row = layout.row()
         row.prop(self, "separate")
         row = layout.row()
-        row.prop(self,"assign_to_model")
+        row.prop(self, "assign_to_model")
         row = layout.row()
         row.prop(self, "smooth")
         row = layout.row()
         row.prop(self, "solidify")
         row.prop(self, "thickness")
-
-
-

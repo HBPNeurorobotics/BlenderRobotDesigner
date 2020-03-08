@@ -58,6 +58,7 @@ from ..core.operators import RDOperator
 from .helpers import ModelSelected, ObjectMode
 from .segments import SelectSegment
 
+
 # from .. import export
 
 
@@ -70,7 +71,6 @@ class Traverse(RDOperator):
 
     **Effects:**
     """
-
 
     @RDOperator.Postconditions(ModelSelected, ObjectMode)
     @RDOperator.OperatorLogger
@@ -91,19 +91,19 @@ class Traverse(RDOperator):
 
         SelectSegment.run(segment_name=self.segment_name)
 
-        if not bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.RD_Bone:
+        if not bpy.data.armatures[armature_data_ame].bones[segment_name].RobotDesigner.RD_Bone:
             self.logger.info("Not updated (not a RD segment): %s", segment_name)
             return
 
         # local variables for updating the constraints
-        joint_axis = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.axis
-        min_rot = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.min
-        max_rot = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.max
-        jointMode = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.jointMode
-        jointValue = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotEditor.theta.value
+        joint_axis = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotDesigner.axis
+        min_rot = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotDesigner.theta.min
+        max_rot = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotDesigner.theta.max
+        jointMode = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotDesigner.jointMode
+        jointValue = bpy.data.armatures[armature_data_ame].bones[segment_name].RobotDesigner.theta.value
 
         matrix, joint_matrix = bpy.data.armatures[armature_data_ame].bones[
-            segment_name].RobotEditor.getTransform()
+            segment_name].RobotDesigner.getTransform()
 
         bpy.ops.object.mode_set(mode='EDIT', toggle=False)
 
@@ -132,13 +132,13 @@ class Traverse(RDOperator):
         pose_bone.matrix_basis = joint_matrix
 
         if jointMode == 'REVOLUTE':
-            if 'RobotEditorConstraint' not in pose_bone.constraints:
+            if 'RobotDesignerConstraint' not in pose_bone.constraints:
                 bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
                 bpy.context.object.pose.bones[segment_name].constraints[
-                    0].name = 'RobotEditorConstraint'
+                    0].name = 'RobotDesignerConstraint'
             constraint = \
                 [i for i in pose_bone.constraints if i.type == 'LIMIT_ROTATION'][0]
-            constraint.name = 'RobotEditorConstraint'
+            constraint.name = 'RobotDesignerConstraint'
             constraint.owner_space = 'LOCAL'
             constraint.use_limit_x = True
             constraint.use_limit_y = True
@@ -170,7 +170,6 @@ class Traverse(RDOperator):
         SelectSegment.run(segment_name=segment_name)
 
         return {'FINISHED'}
-
 
 # # todo to be replaced completely by plugin structure
 #
