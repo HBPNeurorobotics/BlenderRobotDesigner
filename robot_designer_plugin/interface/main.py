@@ -66,7 +66,7 @@ class UserInterface(bpy.types.Panel):
     @LogFunction
     def draw(self, context):
         from ..operators import gui
-        from . import files, model, segments, geometries, sensors, muscles
+        from . import files, model, segments, geometries, sensors, muscles, world
         layout = self.layout
 
         layout.label("HBP Neurorobotics RobotDesigner", icon_value=PluginManager.get_icon('hbp'))
@@ -90,6 +90,8 @@ class UserInterface(bpy.types.Panel):
         #     markers.draw(layout, context)
         elif control == 'files':
             files.draw(layout, context)
+        elif control == 'world':
+            world.draw(layout, context)
         elif control == 'tools':
             row = layout.row(align=True)
             row.operator(gui.PrintTransformations.bl_idname)
