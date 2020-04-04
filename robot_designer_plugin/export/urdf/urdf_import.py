@@ -434,7 +434,7 @@ class ImportPackage(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "import_urdf_package"
     bl_label = "Import URDF - ROS package"
 
-    filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+    filepath: StringProperty(name="Filename", subtype='FILE_PATH')
 
     # directory = StringProperty(
     #        name="Mesh directory", subtype='DIR_PATH', default="")
@@ -462,7 +462,7 @@ class ImportZippedPackage(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "import_urdf_zipped_package"
     bl_label = "Import URDF - ROS zipped package"
 
-    filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+    filepath: StringProperty(name="Filename", subtype='FILE_PATH')
 
     def invoke(self, context, event):
         context.window_manager.fileselect_add(self)
@@ -509,7 +509,7 @@ class ImportPlain(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "import_urdf_plain"
     bl_label = "Import URDF - plain"
 
-    filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+    filepath: StringProperty(name="Filename", subtype='FILE_PATH')
 
     def invoke(self, context, event):
         context.window_manager.fileselect_add(self)

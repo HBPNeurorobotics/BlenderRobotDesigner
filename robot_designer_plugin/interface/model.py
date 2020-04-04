@@ -110,7 +110,7 @@ def draw(layout, context):
 
         box = layout.box()
         infoBox = InfoBox(box)
-        box.label("Model Pose:")
+        box.label(text="Model Pose:")
         row = box.row()
         row.prop(bpy.data.objects[global_properties.model_name.get(context.scene)], "location", slider=False,
                  text="Position")
@@ -120,7 +120,7 @@ def draw(layout, context):
 
         box = layout.box()
         infoBox = InfoBox(box)
-        box.label("Segment structure:")
+        box.label(text="Segment structure:")
 
         if context.active_bone and context.active_bone.parent:
             parent_name = context.active_bone.parent.name
@@ -140,7 +140,7 @@ def draw(layout, context):
         segments.DeleteSegment.place_button(right_column, text="Delete active Bone", infoBox=infoBox)
         left_column.separator()
         row = box.row()
-        row.label("Re-assign parent:")
+        row.label(text="Re-assign parent:")
         menus.AssignParentMenu.putMenu(row, context, text=parent_name)
 
         if context.active_object.scale != Vector((1.0, 1.0, 1.0)):
@@ -153,7 +153,7 @@ def draw(layout, context):
         if box:
             row = box.row(align=True)
             column = row.column(align=True)
-            column.label("Custom coordinate frames:")
+            column.label(text="Custom coordinate frames:")
             column = row.column(align=True)
             column.menu(menus.CoordinateFrameMenu.bl_idname, text='None')
 

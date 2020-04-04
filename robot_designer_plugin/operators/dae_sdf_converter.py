@@ -23,16 +23,26 @@ def create_sdf_folder(sdf_name):
         os.mkdir(output_folder)
         os.mkdir(output_temp_folder)
         print('Output folder does not exist. Create it now.')
+        if os.path.isdir(output_folder):
+            print('Successful in making output folders!')
 
     # create the sdf_name folder
     f = '%s/%s' % (output_folder, sdf_name)
     if not os.path.isdir(f):
         os.mkdir(f)
+        if os.path.isdir(f):
+            print('Created: ', f)
+        else:
+            print('You fucked up bro')
 
     # create the sdf_name/mesh folder
     f = '%s/%s/mesh' % (output_folder, sdf_name)
     if not os.path.isdir(f):
         os.mkdir(f)
+        if os.path.isdir(f):
+            print('Created: ', f)
+        else:
+            print('trol')
 
 def delete_sdf_folder(sdf_name):
     '''
@@ -171,7 +181,7 @@ def clear_scene(keep_obj=False):
     # https://blenderscripting.blogspot.com/2012/03/deleting-objects-from-scene.html
     # bpy.ops.object.mode_set(mode='OBJECT')
 
-    bpy.ops.object.select_by_type(type='LAMP')
+    bpy.ops.object.select_by_type(type='LIGHT')
     bpy.ops.object.delete(use_global=False)
     bpy.ops.object.select_by_type(type='CAMERA')
     bpy.ops.object.delete(use_global=False)
@@ -240,10 +250,10 @@ def obj_scale(obj):
         factor = MAX_D / l[1]
     print('The scale factor of the obj: %.4f' % factor)
     # Set the obj as current active object
-    obj.select = True
+    obj.select_set(True)
     bpy.ops.transform.resize(value=(factor, factor, factor))
     # Change the origin of the object
-    obj.select = True
+    obj.select_set(True)
     # https://docs.blender.org/api/blender_python_api_current/bpy.ops.object.html#bpy.ops.object.origin_set
     bpy.ops.object.origin_set(type='GEOMETRY_ORIGIN', center='BOUNDS')
     # Move the object to world origin
@@ -262,8 +272,8 @@ def obj_remesh(obj):
     parameters:
         - obj : the Mesh to be remeshed
     '''
-    obj.select = True
-    bpy.context.scene.objects.active = obj
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
     bpy.ops.object.modifier_add(type='REMESH')
     obj.modifiers['Remesh'].mode = 'BLOCKS'
     obj.modifiers['Remesh'].octree_depth = 6
@@ -277,7 +287,6 @@ def obj_merge():
     Merge all the Mesh in the current scene as one Mesh.
     '''
     scene = bpy.context.scene
-
     obs = []
     for ob in scene.objects:
         # whatever objects you want to join...
@@ -289,8 +298,7 @@ def obj_merge():
     ctx['active_object'] = obs[0]
     ctx['selected_objects'] = obs
     # we need the scene bases as well for joining
-    ctx['selected_editable_bases'] = [
-        scene.object_bases[ob.name] for ob in obs]
+    ctx['selected_editable_objects'] = obs
     bpy.ops.object.join(ctx)
 
 def obj_calc_inertia(obj, density=1000):

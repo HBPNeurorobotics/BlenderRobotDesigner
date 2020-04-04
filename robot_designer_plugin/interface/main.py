@@ -55,10 +55,10 @@ from .helpers import DebugBox
 
 
 @PluginManager.register_class
-class UserInterface(bpy.types.Panel):
+class ROBOTDESIGNER_PT_UserInterface(bpy.types.Panel):
     bl_label = "NRP Robot Designer"
     bl_space_type = "VIEW_3D"
-    bl_region_type = "TOOLS"
+    bl_region_type = "UI"
     bl_category = "HBP"
     bl_options = {"HIDE_HEADER"}
 
@@ -69,7 +69,7 @@ class UserInterface(bpy.types.Panel):
         from . import files, model, segments, geometries, sensors, muscles, world
         layout = self.layout
 
-        layout.label("HBP Neurorobotics RobotDesigner", icon_value=PluginManager.get_icon('hbp'))
+        layout.label(text="HBP Neurorobotics RobotDesigner", icon_value=PluginManager.get_icon('hbp'))
         layout.separator()
 
         global_properties.gui_tab.prop(bpy.context.scene, layout, expand=True)
@@ -115,7 +115,7 @@ class UserInterface(bpy.types.Panel):
         if InfoBox.global_messages:
             box = DebugBox.get(row, context, "Debug")
             if box:
-                box.label("press <F8> to clear", icon="INFO")
+                box.label(text="press <F8> to clear", icon="INFO")
                 InfoBox.draw_global_info(box)
 
     def draw_header(self, context):

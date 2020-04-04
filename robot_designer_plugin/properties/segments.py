@@ -56,19 +56,19 @@ class RDActuator(bpy.types.PropertyGroup):
     """
     Property group that contains all controller-related parameters
     """
-    maxVelocity = FloatProperty(name="max. Velocity", precision=4, step=100, default=-1)
-    maxTorque = FloatProperty(name="max. Torque", precision=4, step=100, default=-1)
-    isActive = BoolProperty(name="Active", default=False)
-    acceleration = FloatProperty(name="Acceleration", precision=4, step=100)
-    deceleration = FloatProperty(name="Deceleration", precision=4, step=100)
+    maxVelocity: FloatProperty(name="max. Velocity", precision=4, step=100, default=-1)
+    maxTorque: FloatProperty(name="max. Torque", precision=4, step=100, default=-1)
+    isActive: BoolProperty(name="Active", default=False)
+    acceleration: FloatProperty(name="Acceleration", precision=4, step=100)
+    deceleration: FloatProperty(name="Deceleration", precision=4, step=100)
 
 @PluginManager.register_property_group()
 class RDLinkInfo(bpy.types.PropertyGroup):
     '''
     Property group that contains information about link's gravity and self collision
     '''
-    link_self_collide = BoolProperty(name='Self Collide', default=True)
-    gravity = BoolProperty(name='Gravity', default=True)
+    link_self_collide: BoolProperty(name='Self Collide', default=False)
+    gravity: BoolProperty(name='Gravity', default=True)
 
 
 @PluginManager.register_property_group()
@@ -76,10 +76,10 @@ class RDOde(bpy.types.PropertyGroup):
     '''
     Property group that contains ODE data
     '''
-    cfm_damping = BoolProperty(name='CFM Damping', default=False)
-    i_s_damper = BoolProperty(name='Implicit-Spring-Damper', default=False)
-    cfm = FloatProperty(name='CFM', default=0, min=0)
-    erp = FloatProperty(name='ERP', default=0.2, min=0, max=1)
+    cfm_damping: BoolProperty(name='CFM Damping', default=False)
+    i_s_damper: BoolProperty(name='Implicit-Spring-Damper', default=False)
+    cfm: FloatProperty(name='CFM', default=0, min=0)
+    erp: FloatProperty(name='ERP', default=0.2, min=0, max=1)
 
 
 @PluginManager.register_property_group()
@@ -104,12 +104,12 @@ class RDDegreeOfFreedom(bpy.types.PropertyGroup):
             segment_name = context.active_bone.name
             UpdateSegments.run(segment_name=segment_name, recurse=False)
 
-    value = FloatProperty(name="Value", update=updateDoF, precision=4,
-                      step=100)
-    offset = FloatProperty(name="Offset", update=updateDoF, precision=4,
-                       step=100)
-    min = FloatProperty(name="Min", default=-90.0, precision=4, step=100)
-    max = FloatProperty(name="Max", default=90.0, precision=4, step=100)
+    value: FloatProperty(name="Value", update=updateDoF, precision=4,
+                         step=100)
+    offset: FloatProperty(name="Offset", update=updateDoF, precision=4,
+                          step=100)
+    min: FloatProperty(name="Min", default=-90.0, precision=4, step=100)
+    max: FloatProperty(name="Max", default=90.0, precision=4, step=100)
 
 
 @PluginManager.register_property_group()
@@ -117,9 +117,9 @@ class RDJointController(bpy.types.PropertyGroup):
     """
     Property group for joint controllers
     """
-    isActive = BoolProperty(name="Active", default=False)
+    isActive: BoolProperty(name="Active", default=False)
 
-    controllerType = EnumProperty(
+    controllerType: EnumProperty(
         items=[('position', 'Position', 'Position'),
                ('velocity', 'Velocity', 'Velocity')],
         name="Controller mode:")
@@ -130,9 +130,9 @@ class RDJointController(bpy.types.PropertyGroup):
     #     name="Controller type:"
     # )
 
-    P = FloatProperty(name="P", precision=4, step=100, default=1.0)
-    I = FloatProperty(name="I", precision=4, step=100, default=1.0)
-    D = FloatProperty(name="D", precision=4, step=100, default=1.0)
+    P: FloatProperty(name="P", precision=4, step=100, default=1.0)
+    I: FloatProperty(name="I", precision=4, step=100, default=1.0)
+    D: FloatProperty(name="D", precision=4, step=100, default=1.0)
 
 
 @PluginManager.register_property_group()
@@ -148,14 +148,14 @@ class RDEulerAnglesSegment(bpy.types.PropertyGroup):
 
         transl = Matrix.Translation((self.x.value, self.y.value, self.z.value))
         # print("here",transl * rot)
-        return transl * rot
+        return transl @ rot
 
-    x = PointerProperty(type=RDDegreeOfFreedom)
-    y = PointerProperty(type=RDDegreeOfFreedom)
-    z = PointerProperty(type=RDDegreeOfFreedom)
-    alpha = PointerProperty(type=RDDegreeOfFreedom)
-    beta = PointerProperty(type=RDDegreeOfFreedom)
-    gamma = PointerProperty(type=RDDegreeOfFreedom)
+    x: PointerProperty(type=RDDegreeOfFreedom)
+    y: PointerProperty(type=RDDegreeOfFreedom)
+    z: PointerProperty(type=RDDegreeOfFreedom)
+    alpha: PointerProperty(type=RDDegreeOfFreedom)
+    beta: PointerProperty(type=RDDegreeOfFreedom)
+    gamma: PointerProperty(type=RDDegreeOfFreedom)
 
 
 @PluginManager.register_property_group()
@@ -175,12 +175,12 @@ class RDDenavitHartenbergSegment(bpy.types.PropertyGroup):
 
         translation = Matrix.Translation((self.a.value, 0, self.d.value, 1))
 
-        return translation * alphaMatrix * thetaMatrix
+        return translation @ alphaMatrix @ thetaMatrix
 
-    theta = PointerProperty(type=RDDegreeOfFreedom)
-    d = PointerProperty(type=RDDegreeOfFreedom)
-    alpha = PointerProperty(type=RDDegreeOfFreedom)
-    a = PointerProperty(type=RDDegreeOfFreedom)
+    theta: PointerProperty(type=RDDegreeOfFreedom)
+    d: PointerProperty(type=RDDegreeOfFreedom)
+    alpha: PointerProperty(type=RDDegreeOfFreedom)
+    a: PointerProperty(type=RDDegreeOfFreedom)
 
 
 @PluginManager.register_property_group(bpy.types.Bone)
@@ -258,10 +258,10 @@ class RDSegment(bpy.types.PropertyGroup):
         if self.jointMode == 'FIXED' or self.jointMode == 'REVOLUTE2' or self.jointMode == 'UNIVERSAL' or self.jointMode == 'BALL':  # todo: check if this is right for fixed joint type
             translation = Matrix.Translation((0, 0, 0, 1))
 
-        return parentMatrix * axis_matrix, translation * rotation
+        return parentMatrix @ axis_matrix, translation @ rotation
         # return parentMatrix, translation*rotation
 
-    jointMode = EnumProperty(
+    jointMode: EnumProperty(
         items=[('REVOLUTE', 'Revolute', 'revolute joint'),
                ('PRISMATIC', 'Prismatic', 'prismatic joint'),
                ('REVOLUTE2', 'Revolute2', 'revolute2 joint'),
@@ -271,36 +271,35 @@ class RDSegment(bpy.types.PropertyGroup):
         name="Joint Mode", update=callbackSegments
     )
 
-    parentMode = EnumProperty(
+    parentMode: EnumProperty(
         items=[('EULER', 'Euler', 'Euler mode'),
                ('DH', 'DH', 'DH mode')],
         name="Parent Mode", update=callbackSegments
     )
 
-    axis = EnumProperty(
+    axis: EnumProperty(
         items=[('X', 'X', 'X Axis'),
                ('Y', 'Y', 'Y Axis'),
                ('Z', 'Z', 'Z Axis')],
         name="Active Axis", default='Z', update=callbackSegments
     )
 
-    RD_Bone = BoolProperty(name="Created by RD", default=False)
+    RD_Bone: BoolProperty(name="Created by RD", default=False)
 
-    axis_revert = BoolProperty(name="Axis reverted?", default=False,
-                               update=callbackSegments)
+    axis_revert: BoolProperty(name="Axis reverted?", default=False,
+                              update=callbackSegments)
 
-    controller = PointerProperty(type=RDActuator)
-    theta = PointerProperty(type=RDDegreeOfFreedom)  # Joint transform + limits, relative to local frame.
-    d = PointerProperty(type=RDDegreeOfFreedom)
-    jointController = PointerProperty(type=RDJointController)
-    linkInfo = PointerProperty(type=RDLinkInfo)
-    ode = PointerProperty(type=RDOde)
-    dynamics = PointerProperty(type=RDDynamics)
-    Euler = PointerProperty(type=RDEulerAnglesSegment)  # Frame relative to parent
-    DH = PointerProperty(
+    controller: PointerProperty(type=RDActuator)
+    theta: PointerProperty(type=RDDegreeOfFreedom)  # Joint transform + limits, relative to local frame.
+    d: PointerProperty(type=RDDegreeOfFreedom)
+    jointController: PointerProperty(type=RDJointController)
+    linkInfo: PointerProperty(type=RDLinkInfo)
+    ode: PointerProperty(type=RDOde)
+    Euler: PointerProperty(type=RDEulerAnglesSegment)  # Frame relative to parent
+    DH: PointerProperty(
         type=RDDenavitHartenbergSegment)  # Dito but in a different way. Only one, either DH or Euler is used.
-    world = BoolProperty(name="Attach Link to World", default=False)
-    joint_name = StringProperty(name="Joint name: ")  # Name of parent joint of segment
+    world: BoolProperty(name="Attach Link to World", default=False)
+    joint_name: StringProperty(name="Joint name: ")  # Name of parent joint of segment
 
 
 def getTransformFromBlender(bone):
@@ -310,7 +309,7 @@ def getTransformFromBlender(bone):
     assert isinstance(bone, bpy.types.Bone)
     parent = bone.parent
     if parent is not None:
-        pose_wrt_parent = parent.matrix_local.inverted() * bone.matrix_local
+        pose_wrt_parent = parent.matrix_local.inverted() @ bone.matrix_local
     else:
         pose_wrt_parent = bone.matrix_local
     # Now, compute the joint Trafo. RD Applies the joint trafo to the pose bone.

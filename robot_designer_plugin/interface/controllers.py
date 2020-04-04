@@ -61,7 +61,7 @@ def draw(layout, context):
                 limit_box.prop(context.active_bone.RobotDesigner.controller, "acceleration")
                 limit_box.prop(context.active_bone.RobotDesigner.controller, "deceleration")
                 limit_box.prop(context.active_bone.RobotDesigner.controller, "isActive")
-                limit_box.label("Joint Limits:")
+                limit_box.label(text="Joint Limits:")
                 if context.active_bone.RobotDesigner.jointMode == 'REVOLUTE':
                     limit_box.prop(context.active_bone.RobotDesigner.theta, "min")
                     limit_box.prop(context.active_bone.RobotDesigner.theta, "max")
@@ -74,7 +74,7 @@ def draw(layout, context):
         control_box = ControllerBox.get(layout, context, 'Controller')
         if control_box:
             if (context.active_bone.parent is not None) or (context.active_bone.RobotDesigner.world is True):
-                control_box.label("Joint controller:")
+                control_box.label(text="Joint controller:")
                 control_box.prop(context.active_bone.RobotDesigner.jointController, "isActive")
                 control_box.prop(context.active_bone.RobotDesigner.jointController, "controllerType")
                 control_box.separator()

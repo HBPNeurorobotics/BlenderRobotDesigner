@@ -68,7 +68,7 @@ class SelectGeometry(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "select_geometry"
     bl_label = "Select geometry"
 
-    geometry_name = StringProperty()
+    geometry_name: StringProperty()
 
     @classmethod
     def run(cls, geometry_name=""):
@@ -101,7 +101,7 @@ class RenameGeometry(RDOperator):
 
     bl_idname = config.OPERATOR_PREFIX + "rename_mesh"
     bl_label = "Rename seleted mesh"
-    new_name = StringProperty(name="Enter new name:")
+    new_name: StringProperty(name="Enter new name:")
 
 
     @RDOperator.OperatorLogger
@@ -131,7 +131,7 @@ class AssignGeometry(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "assign_geometry"
     bl_label = "Assign selected geometry to active segment"
 
-    attach_collision_geometry = BoolProperty(name="Assign as Collision Mesh",
+    attach_collision_geometry: BoolProperty(name="Assign as Collision Mesh",
                                              description="Adds a collision tag to the mesh",
                                              default=False)
 
@@ -270,7 +270,7 @@ class DetachAllGeometries(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "unassignallmeshes"
     bl_label = "Detach all geometries"
 
-    confirmation = BoolProperty(
+    confirmation: BoolProperty(
         name="This disconnects all collision OR visual geometries from the model. Are you sure?")
 
     @classmethod
@@ -342,8 +342,8 @@ class SelectAllGeometries(RDOperator):
         bpy.ops.object.select_all(action='DESELECT')
 
         for mesh in meshes:
-            bpy.data.objects[mesh].select = True
-            context.scene.objects.active = bpy.data.objects[mesh]
+            bpy.data.objects[mesh].select_set(True)
+            context.view_layer.objects.active = bpy.data.objects[mesh]
 
         return {'FINISHED'}
 
@@ -366,8 +366,8 @@ class SetGeometryActive(RDOperator):
         selected = [i.name for i in bpy.context.selected_objects if i.type == 'MESH'][0]
         bpy.ops.object.mode_set(mode='OBJECT')
         bpy.ops.object.select_all(action='DESELECT')
-        bpy.data.objects[selected].select = True
-        context.scene.objects.active = bpy.data.objects[selected]
+        bpy.data.objects[selected].select_set(True)
+        context.view_layer.objects.active = bpy.data.objects[selected]
         return {'FINISHED'}
 
 

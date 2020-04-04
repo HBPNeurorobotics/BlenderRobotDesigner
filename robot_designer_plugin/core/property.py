@@ -203,6 +203,12 @@ class PropertyGroupHandlerBase(object):
         PluginManager._registered_properties.append((newPropertyGroup, btype))
         if btype:
             setattr(btype, 'RobotDesigner',
-                    bpy.props.PointerProperty(type=getattr(bpy.types, newPropertyGroup.__name__)))
+                    bpy.props.PointerProperty(type=newPropertyGroup))
+            '''
+            According to blender: 
+            Classes registered by addons are no longer available in bpy.types. 
+            Instead addons can import their own modules and access the classes directly.
+            This is probably why the above code isn't working. But how to do it then? 
+            '''
             core_logger.debug("Assigning property to: %s", btype)
         return newPropertyGroup

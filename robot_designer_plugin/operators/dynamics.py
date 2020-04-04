@@ -74,7 +74,7 @@ class CreatePhysical(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "createphysicsframe"
     bl_label = "Create And Attach Physics Frames"
 
-    frameName = StringProperty()
+    frameName: StringProperty()
 
     @classmethod
     def run(cls, frameName=""):
@@ -107,7 +107,7 @@ class CreatePhysical(RDOperator):
             # https: // blender.stackexchange.com / questions / 80306 / location - still - the - same - although - its - moved
             special_bone = armature.pose.bones[bone.name]
             # frame.worldPosition = armature.matrix_world.to_translation() + 0.5 * (bone.active_pose_bone.tail + bone.active_pose_bone.head)
-            frame.matrix_world = armature.matrix_world * special_bone.matrix
+            frame.matrix_world = armature.matrix_world @ special_bone.matrix
 
         if frame:
             SelectPhysical.run(frameName=frame.name)
@@ -126,24 +126,24 @@ def assign_the_physics_frame_to_the_bone(context, frame, bone):
 def just_create_the_physics_frame(context, name):
     armature = context.active_object
     #bpy.ops.object.empty_add(type='PLAIN_AXES')
-    bpy.ops.mesh.primitive_cube_add(radius=0.5)
+    bpy.ops.mesh.primitive_cube_add(size=1.0)
     context.active_object.name = 'PHYS_' + name
     frame = context.active_object.name
     context.active_object.RobotDesigner.tag = 'PHYSICS_FRAME'
     # set new mass object to cursor location
-    cursor = bpy.context.scene.cursor_location
+    cursor = bpy.context.scene.cursor.location
     context.active_object.location = [cursor.x, cursor.y, cursor.z]
     obj = context.active_object
-    bpy.context.scene.objects.active = armature  # Restore the active object.
+    bpy.context.view_layer.objects.active = armature  # Restore the active object.
 
     # change physics frame color
     # obj.data.materials.clear()
     mat = bpy.data.materials.new(frame)
-    mat.diffuse_color = (1.0, 0.0, 1.0)
-    mat.diffuse_shader = 'LAMBERT'
-    mat.diffuse_intensity = 1.0
-    mat.use_transparency = True
-    mat.alpha = 0.3
+    mat.diffuse_color = (1.0, 0.0, 1.0, 0.5)
+    # mat.diffuse_shader = 'LAMBERT'
+    # mat.diffuse_intensity = 1.0
+    # mat.use_transparency = True
+    # mat.alpha = 0.3
     bpy.data.objects[frame].show_transparent = True
 
 
@@ -167,7 +167,7 @@ class SelectPhysical(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "selectphysicsframe"
     bl_label = "Select Physics Frame"
 
-    frameName = StringProperty()
+    frameName: StringProperty()
 
     @classmethod
     def run(cls, frameName=""):
@@ -181,12 +181,12 @@ class SelectPhysical(RDOperator):
         frame = bpy.data.objects[self.frameName]
 
         for obj in bpy.data.objects:
-            obj.select = False
+            obj.select_set(False)
 
-        frame.select = True
-        arm.select = True
+        frame.select_set(True)
+        arm.select_set(True)
 
-        context.scene.objects.active = arm
+        context.view_layer.objects.active = arm
 
         return {'FINISHED'}
 
@@ -238,7 +238,7 @@ class ComputePhysical(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "computephysicsframe"
     bl_label = "Compute inertia from meshes"
 
-    from_visual_geometry = BoolProperty(name="From visual geometry")
+    from_visual_geometry: BoolProperty(name="From visual geometry")
 
     class SegmentAssociations(object):
         def __init__(self):
@@ -285,7 +285,7 @@ class ComputePhysical(RDOperator):
         # d.inertiaRot   = [0., 0., 0.]
         # print ("Setting matrix "+str(the_mesh.matrix_world))
         m_com = Matrix.Translation(com)
-        associations.physics_frame.matrix_world = the_mesh.matrix_world * m_com
+        associations.physics_frame.matrix_world = the_mesh.matrix_world @ m_com
         d.scale_update(bpy.context)
 
     @RDOperator.OperatorLogger
@@ -325,8 +325,8 @@ class ComputeMass(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "computemass"
     bl_label = "Compute mass properties from meshes"
 
-    density = FloatProperty(name="Density (kg/m^3)", precision=4, step=0.01, default=1.0)
-    from_visual_geometry = BoolProperty(name="From visual geometry")
+    density: FloatProperty(name="Density (kg/m^3)", precision=4, step=0.01, default=1.0)
+    from_visual_geometry: BoolProperty(name="From visual geometry")
 
     class SegmentAssociations(object):
         def __init__(self):
@@ -405,7 +405,7 @@ class DetachPhysical(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "unassignphysicsframe"
     bl_label = "Unassign selected physics frame"
 
-    frameName = StringProperty()
+    frameName: StringProperty()
 
     @classmethod
     def run(cls, frameName=""):

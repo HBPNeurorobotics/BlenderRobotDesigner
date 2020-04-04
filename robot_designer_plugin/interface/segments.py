@@ -69,7 +69,7 @@ def draw(layout, context):
         box = layout.box()
         row = box.row(align=True)
         column = row.column(align=True)
-        column.label('Active segment:')
+        column.label(text='Active segment:')
         column = row.column(align=True)
         create_segment_selector(column, context)
 
@@ -78,7 +78,7 @@ def draw(layout, context):
             box = layout.box()
             row = box.row()
             if context.active_bone.RobotDesigner.RD_Bone:
-                row.label("Edit:")
+                row.label(text="Edit:")
                 global_properties.segment_tab.prop(bpy.context.scene, row, expand=True)
                 tab = global_properties.segment_tab.get(bpy.context.scene)
                 if tab == "kinematics":
@@ -89,6 +89,6 @@ def draw(layout, context):
                     controllers.draw(box, context)
         else:
             box = layout.box()
-            box.label("Must be in object or pose mode.")
+            box.label(text="Must be in object or pose mode.")
     else:
         layout.operator(segments.CreateNewSegment.bl_idname, text="Create new base bone")

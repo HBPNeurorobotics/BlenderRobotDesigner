@@ -215,7 +215,7 @@ class OsimExporter(object):
         blender_scale_factor = [blender_scale_factor[0], blender_scale_factor[2], blender_scale_factor[1]]
         segment = wrapping.parent_bone
         pose_bone = bpy.context.active_object.pose.bones[segment]
-        pose = pose_bone.matrix.inverted() * bpy.context.active_object.matrix_world.inverted() * \
+        pose = pose_bone.matrix.inverted() @ bpy.context.active_object.matrix_world.inverted() @ \
                bpy.data.objects[wrapping.name].matrix_world
 
         pose_xyz = [i * j for i, j in zip(pose.translation, blender_scale_factor)]
@@ -263,18 +263,18 @@ class OsimExporter(object):
             x, y, z = pt.co
             active_model = global_properties.model_name.get(context.scene)
             pose_bone = bpy.data.objects[active_model].pose.bones[parent]
-            pose = pose_bone.matrix.inverted() * bpy.data.objects[active_model].matrix_world.inverted() * \
+            pose = pose_bone.matrix.inverted() @ bpy.data.objects[active_model].matrix_world.inverted() @ \
                    bpy.data.objects[m.name].matrix_world
             vec = mathutils.Vector((x,y,z,1))
             trans = mathutils.Matrix.Translation(vec)
-            pose_rel = pose * trans
+            pose_rel = pose @ trans
 
             # bpy.data.meshes.remove(muscle_mesh, True)
             m.data.bevel_depth = global_properties.muscle_dim.get(context.scene)
             return (name, parent, (pose_rel[0][3], pose_rel[1][3], pose_rel[2][3]))
 
         m.data.bevel_depth = 0
-        muscle_mesh = m.to_mesh(bpy.context.scene, apply_modifiers=True, settings='PREVIEW')
+        muscle_mesh = m.to_mesh()
 
         return map(transform_vertex, enumerate(muscle_mesh.vertices))
 

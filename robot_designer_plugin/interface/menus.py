@@ -52,7 +52,7 @@ from bpy.props import IntProperty, StringProperty, CollectionProperty
 from ..operators import segments, model, rigid_bodies, dynamics, sensors, muscles, mesh_generation
 
 from ..core import PluginManager
-from ..core.config import OPERATOR_PREFIX
+from ..core.config import OPERATOR_PREFIX, MENU_PREFIX
 from ..core.operators import RDOperator
 from ..core.logfile import gui_logger
 from ..properties.globals import global_properties
@@ -73,7 +73,7 @@ class SegmentsGeometriesMenu(bpy.types.Menu, BaseMenu):
     """
     :ref:`menu` for selecting robot segments while displaying connections to geometries in the scene.
     """
-    bl_idname = OPERATOR_PREFIX + "bonemeshmenu"
+    bl_idname = MENU_PREFIX + "bonemeshmenu"
     bl_label = "Select Bone"
     filter = None
 
@@ -111,7 +111,7 @@ class SegmentsMusclesMenu(bpy.types.Menu, BaseMenu):
     """
     :ref:`menu` for selecting robot segments to be assigned to muscle pathpoint.
     """
-    bl_idname = OPERATOR_PREFIX + "bonemuscleenu"
+    bl_idname = MENU_PREFIX + "bonemuscleenu"
     bl_label = "Select Muscle"
     filter = None
 
@@ -144,7 +144,7 @@ class SegmentsMusclesMenu(bpy.types.Menu, BaseMenu):
 
 @PluginManager.register_class
 class ConnectWrapMenu(bpy.types.Menu, BaseMenu):
-    bl_idname = OPERATOR_PREFIX + "musclewrapmenu"
+    bl_idname = MENU_PREFIX + "musclewrapmenu"
     bl_label = "Select Wrapping Object"
     filter = None
     '''
@@ -188,27 +188,27 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.type == self.blender_type and
                              obj.RobotDesigner.tag != 'WRAPPING' and obj.RobotDesigner.tag != 'PHYSICS_FRAME' and
-                             not obj.hide]
+                             not obj.hide_get()]
             elif type == 'collision':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.type == self.blender_type and
                              (obj.RobotDesigner.tag == 'COLLISION' or 'BASIC_COLLISION_' in obj.RobotDesigner.tag) and
-                             not obj.hide]
+                             not obj.hide_get()]
             elif type == 'bascol':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.type == self.blender_type and
                              'BASIC_COLLISION_' in obj.RobotDesigner.tag and
-                             not obj.hide]
+                             not obj.hide_get()]
             elif type == 'visual':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.type == self.blender_type and
                              obj.RobotDesigner.tag == 'DEFAULT' and
-                             not obj.hide]
+                             not obj.hide_get()]
             elif type == 'wrapping':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.type == self.blender_type and
                              obj.RobotDesigner.tag == 'WRAPPING' and
-                             not obj.hide]
+                             not obj.hide_get()]
             elif type == 'none':
                 obj_names = []
 
@@ -220,47 +220,47 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
             if type == 'ALL':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.RobotDesigner.tag == "SENSOR" and
-                             not obj.hide]
+                             not obj.hide_get()]
             elif type == 'CAMERA_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.RobotDesigner.tag == "SENSOR" and
                              obj.RobotDesigner.sensor_type == 'CAMERA_SENSOR' and
-                             not obj.hide]
+                             not obj.hide_get()]
             elif type == 'DEPTH_CAMERA_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.RobotDesigner.tag == "SENSOR" and
                              obj.RobotDesigner.sensor_type == 'DEPTH_CAMERA_SENSOR' and
-                             not obj.hide]
+                             not obj.hide_get()]
             elif type == 'LASER_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.RobotDesigner.tag == "SENSOR" and
                              obj.RobotDesigner.sensor_type == 'LASER_SENSOR' and
-                             not obj.hide]
+                             not obj.hide_get()]
             elif type == 'IMU_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.RobotDesigner.tag == "SENSOR" and
                              obj.RobotDesigner.sensor_type == 'IMU_SENSOR' and
-                             not obj.hide]
+                             not obj.hide_get()]
             elif type == 'DEPTH_CAMERA_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.RobotDesigner.tag == "SENSOR" and
                              obj.RobotDesigner.sensor_type == 'DEPTH_CAMERA_SENSOR' and
-                             not obj.hide]
+                             not obj.hide_get()]
             elif type == 'FORCE_TORQUE_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.RobotDesigner.tag == "SENSOR" and
                              obj.RobotDesigner.sensor_type == 'FORCE_TORQUE_SENSOR' and
-                             not obj.hide]
+                             not obj.hide_get()]
             elif type == 'CONTACT_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.RobotDesigner.tag == "SENSOR" and
                              obj.RobotDesigner.sensor_type == 'CONTACT_SENSOR' and
-                             not obj.hide]
+                             not obj.hide_get()]
             elif type == 'ALTIMETER_SENSOR':
                 obj_names = [obj.name for obj in bpy.data.objects if
                              obj.RobotDesigner.tag == "SENSOR" and
                              obj.RobotDesigner.sensor_type == 'ALTIMETER_SENSOR' and
-                             not obj.hide]
+                             not obj.hide_get()]
             elif type == 'none':
                 obj_names = []
 
@@ -313,7 +313,7 @@ class GeometriesMenu(ConnectedObjectsMenu):
     """
     :ref:`menu` for selecting geometries while displaying connections to robot segments in the scene.
     """
-    bl_idname = OPERATOR_PREFIX + "meshmenu"
+    bl_idname = MENU_PREFIX + "meshmenu"
     bl_label = "Select Geometry"
 
     obj_tag = global_properties.mesh_type
@@ -327,7 +327,7 @@ class GeometriesMenu(ConnectedObjectsMenu):
 @PluginManager.register_class
 class WrappingObjectsMenu(ConnectedObjectsMenu):
 
-    bl_idname = OPERATOR_PREFIX + "wrappingobjectsmenu"
+    bl_idname = MENU_PREFIX + "wrappingobjectsmenu"
     bl_label = "Select Wrapping Object"
 
     obj_tag = global_properties.mesh_type
@@ -347,7 +347,7 @@ class WrappingObjectsMenu(ConnectedObjectsMenu):
             obj_names = [obj.name for obj in context.scene.objects if
                          obj.type == self.blender_type and
                          obj.RobotDesigner.tag == 'WRAPPING' and
-                         not obj.hide]
+                         not obj.hide_get()]
         elif status == 'none':
             obj_names = []
 
@@ -395,7 +395,7 @@ class SensorMenu(ConnectedObjectsMenu):
     """
     :ref:`menu` for selecting sensors and their connection to robot segments.
     """
-    bl_idname = OPERATOR_PREFIX + "sensor_menu"
+    bl_idname = MENU_PREFIX + "sensor_menu"
     bl_label = "Select Sensor"
 
     obj_tag = global_properties.display_sensor_type  # can be set to scene property
@@ -412,7 +412,7 @@ class MassObjectMenu(ConnectedObjectsMenu):
     """
     :ref:`menu` for selecting :term:`mass entities` while displaying connections to robot segments in the scene.
     """
-    bl_idname = OPERATOR_PREFIX + "mass_object_menu"
+    bl_idname = MENU_PREFIX + "mass_object_menu"
     bl_label = "Select mass object"
 
     obj_tag = global_properties.physics_type
@@ -435,7 +435,7 @@ class MassObjectMenu(ConnectedObjectsMenu):
     def may_show(obj, obj_hidden):
         connected = (obj.parent_bone or obj_hidden != 'disconnected') and \
                     (not obj.parent_bone or obj_hidden != 'connected')
-        return connected and obj.type == MassObjectMenu.blender_type and not obj.hide and obj.RobotDesigner.tag == 'PHYSICS_FRAME'
+        return connected and obj.type == MassObjectMenu.blender_type and not obj.hide_get() and obj.RobotDesigner.tag == 'PHYSICS_FRAME'
 
     @RDOperator.OperatorLogger
     def draw(self, context):
@@ -456,7 +456,7 @@ class MassObjectMenu(ConnectedObjectsMenu):
 
         # Get selected meshes
         current_model = context.active_object
-        selected = [obj for obj in context.scene.objects if cls.may_show(obj, hide_obj) and obj.select]
+        selected = [obj for obj in context.scene.objects if cls.may_show(obj, hide_obj) and obj.select_get()]
 
         text = cls.text
         if len(selected) == 1:
@@ -478,7 +478,7 @@ class ModelMenu(bpy.types.Menu, BaseMenu):
     :ref:`menu` for selecting robot models or optionally create new ones.
     """
 
-    bl_idname = OPERATOR_PREFIX + "armaturemenu"
+    bl_idname = MENU_PREFIX + "armaturemenu"
     bl_label = "Selecht Model"
 
     @RDOperator.OperatorLogger
@@ -498,7 +498,7 @@ class JoinModelMenu(bpy.types.Menu, BaseMenu):
     """
     :ref:`menu` for joining two robot models.
     """
-    bl_idname = OPERATOR_PREFIX + "joinarmaturemenu"
+    bl_idname = MENU_PREFIX + "joinarmaturemenu"
     bl_label = "Join selected armature with different armature"
 
     @RDOperator.OperatorLogger
@@ -519,7 +519,7 @@ class CoordinateFrameMenu(bpy.types.Menu, BaseMenu):
     """
     :ref:`menu` to select alternative display for the coordinate frames.
     """
-    bl_idname = OPERATOR_PREFIX + "cfmenu"
+    bl_idname = MENU_PREFIX + "cfmenu"
     bl_label = "Select Mesh"
 
     axis = IntProperty(default=0)
@@ -541,7 +541,7 @@ class MuscleMenu(bpy.types.Menu, BaseMenu):
     """
     :ref:`menu` to select alternative display for the coordinate frames.
     """
-    bl_idname = OPERATOR_PREFIX + "musclemenu"
+    bl_idname = MENU_PREFIX + "musclemenu"
     bl_label = "Select Muscle"
     axis = IntProperty(default=0)
 
@@ -564,7 +564,7 @@ class MusclePointsMenu(bpy.types.Menu, BaseMenu):
     """
     :ref:`menu` to select alternative display for the coordinate frames.
     """
-    bl_idname = OPERATOR_PREFIX + "musclepointsmenu"
+    bl_idname = MENU_PREFIX + "musclepointsmenu"
     bl_label = "Select Muscle Pathpoint"
     axis = IntProperty(default=0)
 
@@ -586,7 +586,7 @@ class SegmentsMenu(bpy.types.Menu, BaseMenu):
     """
     :ref:`menu` for selecting robot segments.
     """
-    bl_idname = OPERATOR_PREFIX + "bonemenu"
+    bl_idname = MENU_PREFIX + "bonemenu"
     bl_label = "Select Segment"
 
     @RDOperator.OperatorLogger
@@ -613,7 +613,7 @@ class AssignParentMenu(bpy.types.Menu, BaseMenu):
     """
     :ref:`menu` for re-assigning the parent of a robot segments.
     """
-    bl_idname = OPERATOR_PREFIX + "assignparentbonemenu"
+    bl_idname = MENU_PREFIX + "assignparentbonemenu"
     bl_label = "Assign parent to bone"
 
     @RDOperator.OperatorLogger

@@ -62,7 +62,7 @@ def draw(layout, context):
     global_properties.display_physics_selection.prop(context.scene, settings)
 
     box = layout.box()
-    box.label("Edit Mass Object")
+    box.label(text="Edit Mass Object")
     infoBox = InfoBox(box)
     row = box.row()
 
@@ -82,7 +82,7 @@ def draw(layout, context):
         if obj and obj.RobotDesigner.tag == "PHYSICS_FRAME":
             frame_name = obj.name
             box = layout.box()
-            box.label("Mass properties (" + single_segment.name + ")", icon="MODIFIER")
+            box.label(text="Mass properties (" + single_segment.name + ")", icon="MODIFIER")
             frame = bpy.data.objects[frame_name]
             box.prop(frame.RobotDesigner.dynamics, "mass")
             box.separator()
@@ -97,7 +97,7 @@ def draw(layout, context):
             row1 = box.row(align=True)
             row2 = box.row(align=True)
             row3 = box.row(align=True)
-            row0.label("Inertia Matrix")
+            row0.label(text="Inertia Matrix")
             row1.prop(frame.RobotDesigner.dynamics, "inertiaXX")
             row2.prop(frame.RobotDesigner.dynamics, "inertiaXY")
             row3.prop(frame.RobotDesigner.dynamics, "inertiaXZ")
