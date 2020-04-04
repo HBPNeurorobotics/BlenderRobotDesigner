@@ -103,3 +103,40 @@ class ConvertDAEPackages(RDOperator):
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
 
+
+@PluginManager.register_class
+class StlToDaeConverter(RDOperator):
+    """
+    :ref:`operator` for converting all .stl files in a folder to .dae files.
+    **Preconditions:**
+    **Postconditions:**
+    """
+    bl_idname = config.OPERATOR_PREFIX + "convert_stl_to_dae"
+    bl_label = "Convert all .stl files in folder to .dae files"
+
+    directory = bpy.props.StringProperty(subtype='DIR_PATH')
+
+    @classmethod
+    def poll(cls, context):
+        return True
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+        print('.stl input folder is:', self.directory)
+
+        output_dir = os.path.join(self.directory, 'dae_files')
+        os.mkdir(output_dir)
+
+        for file in os.listdir(self.directory):
+            if file.endswith(".stl"):
+                # import .stl file, export .dae file, delete mesh in blender
+                print("Converting file: ", file)
+                bpy.ops.import_mesh.stl(filepath=os.path.join(self.directory, file))
+                bpy.ops.wm.collada_export(filepath=os.path.join(output_dir, file.replace('.stl', '.dae')))
+                bpy.ops.object.delete()
+
+        return {'FINISHED'}
+
+    def invoke(self, context, event):
+        context.window_manager.fileselect_add(self)
+        return {'RUNNING_MODAL'}
