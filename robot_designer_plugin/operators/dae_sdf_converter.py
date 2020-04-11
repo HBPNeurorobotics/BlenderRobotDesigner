@@ -23,26 +23,16 @@ def create_sdf_folder(sdf_name):
         os.mkdir(output_folder)
         os.mkdir(output_temp_folder)
         print('Output folder does not exist. Create it now.')
-        if os.path.isdir(output_folder):
-            print('Successful in making output folders!')
 
     # create the sdf_name folder
     f = '%s/%s' % (output_folder, sdf_name)
     if not os.path.isdir(f):
         os.mkdir(f)
-        if os.path.isdir(f):
-            print('Created: ', f)
-        else:
-            print('You fucked up bro')
 
     # create the sdf_name/mesh folder
     f = '%s/%s/mesh' % (output_folder, sdf_name)
     if not os.path.isdir(f):
         os.mkdir(f)
-        if os.path.isdir(f):
-            print('Created: ', f)
-        else:
-            print('trol')
 
 def delete_sdf_folder(sdf_name):
     '''

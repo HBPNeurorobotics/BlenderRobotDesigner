@@ -195,12 +195,9 @@ class SelectModel(RDOperator):
     def execute(self, context):
         from . import segments
         for obj in context.scene.objects:
-            # obj.select = False
             obj.select_set(False)
 
-        # context.scene.objects.active = bpy.data.objects[self.model_name]
         context.view_layer.objects.active = bpy.data.objects[self.model_name]
-        # context.active_object.select = True
         context.active_object.select_set(True)
         global_properties.model_name.set(context.scene, self.model_name)
         global_properties.old_name.set(context.scene, self.model_name)
@@ -327,7 +324,6 @@ class CreateNewModel(RDOperator):
         model_data.show_axes = True
         model_data.display_type = 'STICK'
         scene = bpy.context.scene
-        # scene.objects.link(model_object)
         scene.collection.objects.link(model_object)
         bpy.data.objects[self.model_name].RobotDesigner.modelMeta.model_config = self.model_name
         SelectModel.run(model_name=self.model_name)
