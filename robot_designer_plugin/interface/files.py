@@ -94,6 +94,8 @@ def draw(layout, context):
     #      global_properties.git_url.prop(context.scene, layout)
 
     row = file_box.row()
+    global_properties.export_thumbnail.prop(context.scene, row)
+    row = file_box.row()
     column = row.column()
 
     plugins = []

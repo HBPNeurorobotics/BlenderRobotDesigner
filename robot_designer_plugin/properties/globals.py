@@ -407,6 +407,10 @@ class RDGlobals(PropertyGroupHandlerBase):
         self.muscle_dim = PropertyHandler(
             FloatProperty(name="Muscle Dimension:", default=0.05, update=self.muscle_dim_update))
 
+        self.export_thumbnail = PropertyHandler(
+            BoolProperty(name="Create and Export Thumbnail", description="Generated and exports a rendered \
+                                thumbnail from the current scene image", default=True))
+
 
 global_properties = RDGlobals()
 global_properties.register(bpy.types.Scene)

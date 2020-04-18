@@ -43,10 +43,12 @@ from ..core import PluginManager
 from . import urdf
 from . import sdf
 from . import osim
+from . import generic_tools
 
 reload(urdf)
 reload(sdf)
 reload(osim)
+reload(generic_tools)
 
 PluginManager.register_plugin("SDF", [sdf.ImportPackage, sdf.ImportZippedPackage,
                                       sdf.ExportPackage, sdf.ExportZippedPackage])

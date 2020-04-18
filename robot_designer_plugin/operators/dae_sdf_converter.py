@@ -5,7 +5,6 @@ import sys
 import shutil
 import numpy as np
 
-# this is a blender python script, which requires to be excuted within blenders python console
 import bpy
 
 output_folder = './output'

@@ -65,6 +65,7 @@ from ...core import config, PluginManager, RDOperator
 from ...operators.helpers import ModelSelected, ObjectMode
 from ...operators.model import SelectModel
 from ..osim.osim_export import create_osim, get_muscles
+from ..generic_tools import create_thumbnail
 
 from ...properties.segments import getTransformFromBlender
 from ...properties.globals import global_properties
@@ -930,6 +931,7 @@ class ExportPlain(RDOperator):
         create_osim(self, context, filepath=self.filepath,
                     meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                     in_ros_package=False, abs_filepaths=self.abs_file_paths)
+        create_thumbnail(toplevel_directory=toplevel_dir)
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -973,6 +975,7 @@ class ExportPackage(RDOperator):
         create_osim(self, context, filepath=self.filepath,
                     meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                     in_ros_package=False, abs_filepaths=self.abs_file_paths)
+        create_thumbnail(toplevel_directory=toplevel_dir)
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -1041,6 +1044,7 @@ class ExportZippedPackage(RDOperator):
             create_osim(self, context, filepath=self.filepath,
                         meshpath=temp_dir, toplevel_directory=temp_dir,
                         in_ros_package=False, abs_filepaths=self.abs_file_paths)
+            create_thumbnail(toplevel_directory=temp_dir)
             self.logger.debug(temp_file)
             with zipfile.ZipFile(self.filepath, 'w') as zipf:
                 zipdir(target, zipf)
