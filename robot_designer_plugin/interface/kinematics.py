@@ -48,8 +48,6 @@ def draw(layout, context):
     :param context:
     :return:
     """
-    settings = layout.row()
-    global_properties.display_physics_selection.prop(context.scene, settings)
 
     settings2 = layout.row()
     settings2.prop(context.active_bone.RobotDesigner, "world")

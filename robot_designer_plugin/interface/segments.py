@@ -63,6 +63,9 @@ def draw(layout, context):
 
     layout.operator(segments.ImportBlenderArmature.bl_idname, text="(Re)Import Bones")
 
+    settings = layout.row()
+    global_properties.display_physics_selection.prop(context.scene, settings)
+
     # layout.label("Active Bone:")
     if context.active_bone is not None:
 
