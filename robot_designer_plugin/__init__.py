@@ -101,7 +101,7 @@ bl_info = {
     "name": "NRP Robot Designer",
     "author": "Stefan Ulbrich (FZI), Michael Bechtel",
     "version": (0, 1),
-    "blender": (2, 78, 1),
+    "blender": (2, 80, 2),
     "location": "View3D > Tools",
     "category": "Editor"}
 

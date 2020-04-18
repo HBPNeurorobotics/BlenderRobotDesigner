@@ -65,12 +65,12 @@ class RenameMuscle(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "rename_muscle"
     bl_label = "Rename active muscle"
 
-    new_name = StringProperty(name="Enter new name:")
+    new_name: StringProperty(name="Enter new name:")
 
     @RDOperator.OperatorLogger
     def execute(self, context):
         bpy.data.objects[global_properties.active_muscle.get(context.scene)].name = self.new_name
-        global_properties.active_muscle.set(context.scene, self.new_name)
+        global_properties.active_muscle.set(context.scene, self.new_name) # TODO: change material name as well?
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -97,9 +97,9 @@ class DeleteMuscle(RDOperator):
         active_muscle = global_properties.active_muscle.get(context.scene)
 
         # remove muscle and all its data
-        bpy.data.objects.remove(bpy.data.objects[active_muscle], True)
-        bpy.data.materials.remove(bpy.data.materials[active_muscle + "_vis"], True)
-        bpy.data.curves.remove(bpy.data.curves[active_muscle], True)
+        bpy.data.objects.remove(bpy.data.objects[active_muscle], do_unlink=True)
+        bpy.data.materials.remove(bpy.data.materials[active_muscle + "_vis"], do_unlink=True)
+        bpy.data.curves.remove(bpy.data.curves[active_muscle], do_unlink=True)
         global_properties.active_muscle.set(context.scene, '')
         bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
 
@@ -120,7 +120,7 @@ class CreateNewMuscle(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "create_muscle"
     bl_label = "Create new muscle"
 
-    muscle_name = StringProperty(name="Enter new muscle name:")
+    muscle_name: StringProperty(name="Enter new muscle name:")
 
     @classmethod
     def run(cls, muscle_name):  # , parent_name=""):
@@ -139,13 +139,13 @@ class CreateNewMuscle(RDOperator):
 
         # create muscle object with visualization data
         muscle = bpy.data.objects.new(self.muscle_name, muscleVis)
-        bpy.context.scene.objects.link(muscle)
+        bpy.context.scene.collection.objects.link(muscle)
         muscle.location = (0.0, 0.0, 0.0)
 
         # setup a material
         lmat = bpy.data.materials.new(self.muscle_name + "_vis")
-        lmat.diffuse_color = (0.0, 0.0, 1.0)
-        lmat.use_shadeless = True
+        lmat.diffuse_color = (0.0, 0.0, 1.0, 1.0)
+        # lmat.use_shadeless = True
         muscle.data.materials.append(lmat)
 
         muscleData = muscle.RobotDesigner.muscles
@@ -172,7 +172,7 @@ class SelectMuscle(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "selectm"
     bl_label = "Select Muscle"
 
-    muscle_name = StringProperty()
+    muscle_name: StringProperty()
 
     @classmethod
     def run(cls, muscle_name=""):
@@ -228,7 +228,7 @@ class CreateNewPathpoint(RDOperator):
 
         if flag == 0:
             active_muscle.data.splines[0].points.add(1)
-        cursor = bpy.context.scene.cursor_location
+        cursor = bpy.context.scene.cursor.location
 
         nr = len(active_muscle.data.splines[0].points)
         active_muscle.data.splines[0].points[nr - 1].co = [cursor.x, cursor.y, cursor.z, 1]
@@ -254,7 +254,7 @@ class SelectMusclePathPoint(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "select_muscle_pathpoint"
     bl_label = "Select Muscle Pathpoint"
 
-    muscle_pathpoint_name = StringProperty()
+    muscle_pathpoint_name: StringProperty()
 
     @classmethod
     def run(cls, muscle_pathpoint=""):
@@ -291,13 +291,13 @@ class DeletePathpoint(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "delete_muscle_pathpoint"
     bl_label = ""
 
-    pathpoint = bpy.props.IntProperty(name="Delete pathpoint:")  # defining the property
+    pathpoint: bpy.props.IntProperty(name="Delete pathpoint:")  # defining the property
 
     @RDOperator.OperatorLogger
     def execute(self, context):
         active_muscle = global_properties.active_muscle.get(context.scene)
-        bpy.context.scene.objects.active = None
-        bpy.context.scene.objects.active = bpy.data.objects[active_muscle]
+        bpy.context.view_layer.objects.active = None
+        bpy.context.view_layer.objects.active = bpy.data.objects[active_muscle]
 
         bpy.ops.object.mode_set(mode='EDIT')
 
@@ -306,7 +306,7 @@ class DeletePathpoint(RDOperator):
 
         bpy.ops.object.mode_set(mode='OBJECT')
 
-        bpy.context.scene.objects.active = bpy.data.objects[global_properties.model_name.get(context.scene)]
+        bpy.context.view_layer.objects.active = bpy.data.objects[global_properties.model_name.get(context.scene)]
 
         return {'FINISHED'}
 
@@ -325,7 +325,7 @@ class MovePathpointUp(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "move_pathpoint_up"
     bl_label = ""
 
-    nr = bpy.props.IntProperty(name="Move up pathpoint:")
+    nr: bpy.props.IntProperty(name="Move up pathpoint:")
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -364,7 +364,7 @@ class MovePathpointDown(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "move_pathpoint_down"
     bl_label = ""
 
-    nr = bpy.props.IntProperty(name="Move down pathpoint:")
+    nr: bpy.props.IntProperty(name="Move down pathpoint:")
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -402,8 +402,8 @@ class SelectSegmentMuscle(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "select_segment_muscle"
     bl_label = "Select Segment to attach muscle pathpoint"
 
-    segment_name = StringProperty()
-    pathpoint_nr = IntProperty(default=1)
+    segment_name: StringProperty()
+    pathpoint_nr: IntProperty(default=1)
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -440,7 +440,7 @@ class SelectSegmentMuscle(RDOperator):
         hok.subtarget = self.segment_name
         hok.falloff_type = 'NONE'
 
-        context.scene.objects.active = bpy.data.objects[active_muscle]
+        context.view_layer.objects.active = bpy.data.objects[active_muscle]
         bpy.ops.object.mode_set(mode='EDIT')
         bpy.ops.curve.select_all(action='DESELECT')
         muscle_object.data.splines[0].points[self.pathpoint_nr - 1].select = True
@@ -452,7 +452,7 @@ class SelectSegmentMuscle(RDOperator):
 
         bpy.ops.object.mode_set(mode='OBJECT')
 
-        bpy.context.scene.objects.active = bpy.data.objects[active_model]
+        bpy.context.view_layer.objects.active = bpy.data.objects[active_model]
 
         return {'FINISHED'}
 
@@ -477,7 +477,7 @@ class CalculateMuscleLength(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "calc_muscle_length"
     bl_label = ""
 
-    muscle = bpy.props.StringProperty()
+    muscle: bpy.props.StringProperty()
 
     @RDOperator.OperatorLogger
     def execute(self, context):

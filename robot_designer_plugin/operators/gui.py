@@ -65,9 +65,9 @@ class PrintTransformations(RDOperator):
     def execute(self, context):
         active_object = bpy.context.active_object
 
-        for ob in [obj for obj in context.scene.objects if obj.select]:
+        for ob in [obj for obj in context.scene.objects if obj.select_get()]:
             print('Transformation from %(from)s to %(to)s:' % {'from': active_object.name, 'to': ob.name})
-            transform = active_object.matrix_world.inverted() * ob.matrix_world
+            transform = active_object.matrix_world.inverted() @ ob.matrix_world
             print(transform)
 
         return {'FINISHED'}
@@ -85,9 +85,9 @@ class ConvertDAEPackages(RDOperator):
 
     # this can be look into the one of the export or import python file.
     # need to set a path so so we can get the file name and path
-    filepath = bpy.props.StringProperty(subtype='FILE_PATH')
-    filename = bpy.props.StringProperty(subtype='FILE_NAME')
-    directory = bpy.props.StringProperty(subtype='DIR_PATH')
+    filepath: bpy.props.StringProperty(subtype='FILE_PATH')
+    filename: bpy.props.StringProperty(subtype='FILE_NAME')
+    directory: bpy.props.StringProperty(subtype='DIR_PATH')
 
     @classmethod
     def poll(cls, context):
@@ -96,7 +96,7 @@ class ConvertDAEPackages(RDOperator):
     @RDOperator.OperatorLogger
     def execute(self, context):
         # print(self.filepath)
-        dae_sdf_converter(self.filepath)
+        dae_sdf_converter(self.directory)
         return {'FINISHED'}
 
     def invoke(self, context, event):

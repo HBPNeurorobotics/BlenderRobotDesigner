@@ -89,9 +89,9 @@ class RDGlobals(PropertyGroupHandlerBase):
     def display_physics(self, context):
         for physics in [physics for physics in bpy.data.objects if physics.RobotDesigner.tag == 'PHYSICS_FRAME']:
             if self.display_physics_selection == True:
-                physics.hide = False
+                physics.hide_set(False)
             else:
-                physics.hide = True
+                physics.hide_set(True)
 
     @staticmethod
     def attach_world(self, context):
@@ -111,9 +111,9 @@ class RDGlobals(PropertyGroupHandlerBase):
     def update_geometry_name(self, context):
         print("Update Mesh name")
         for i in [i for i in bpy.context.selected_objects if i.name != context.active_object.name]:
-            i.select = False
+            i.select_set(False)
         try:
-            bpy.data.objects[global_properties.mesh_name.get(context.scene)].select = True
+            bpy.data.objects[global_properties.mesh_name.get(context.scene)].select_set(True)
         except KeyError:
             print ("Selecting ", global_properties.mesh_name.get(context.scene), " failed due to key error!")
             pass  # This happens when the search title is selected
@@ -134,17 +134,17 @@ class RDGlobals(PropertyGroupHandlerBase):
             obj = bpy.data.objects[mesh]
             tag = obj.RobotDesigner.tag
             if hide_geometry == 'all':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_geometry == 'collision' and (tag == 'COLLISION' or 'BASIC_COLLISION_' in tag):
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_geometry == 'visual' and tag == 'DEFAULT':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_geometry == 'bascol' and 'BASIC_COLLISION_' in tag:
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_geometry == 'none':
-                obj.hide = True
+                obj.hide_set(True)
             else:
-                obj.hide = True
+                obj.hide_set(True)
 
     @staticmethod
     def display_wrapping_geometries(self, context):
@@ -157,9 +157,9 @@ class RDGlobals(PropertyGroupHandlerBase):
         for mesh in geometry_name:
             obj = bpy.data.objects[mesh]
             if hide_geometry == 'all':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_geometry == 'none':
-                obj.hide = True
+                obj.hide_set(True)
 
     @staticmethod
     def display_muscles(self, context):
@@ -175,21 +175,21 @@ class RDGlobals(PropertyGroupHandlerBase):
             obj = bpy.data.objects[muscle]
             muscle_type = obj.RobotDesigner.muscles.muscleType
             if hide_muscles == 'all':
-                obj.hide = False
+                obj.hide_set(False)
                 # elif hide_muscles == 'MYOROBOTICS' and obj.RobotDesigner.muscles.muscleType == 'MYOROBOTICS':
                 #     obj.hide = False
             elif hide_muscles == 'MILLARD_EQUIL' and muscle_type == 'MILLARD_EQUIL':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_muscles == 'MILLARD_ACCEL' and muscle_type == 'MILLARD_ACCEL':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_muscles == 'THELEN' and muscle_type == 'THELEN':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_muscles == 'RIGID_TENDON' and muscle_type == 'RIGID_TENDON':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_muscles == 'none':
-                obj.hide = True
+                obj.hide_set(True)
             else:
-                obj.hide = True
+                obj.hide_set(True)
 
     @staticmethod
     def display_sensors(self, context):
@@ -205,25 +205,25 @@ class RDGlobals(PropertyGroupHandlerBase):
             obj = bpy.data.objects[sensor]
             sensor_type = obj.RobotDesigner.sensor_type
             if hide_sensors == 'ALL':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_sensors == 'CAMERA_SENSOR' and sensor_type == 'CAMERA_SENSOR':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_sensors == 'DEPTH_CAMERA_SENSOR' and sensor_type == 'DEPTH_CAMERA_SENSOR':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_sensors == 'LASER_SENSOR' and sensor_type == 'LASER_SENSOR':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_sensors == 'IMU_SENSOR' and sensor_type == 'IMU_SENSOR':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_sensors == 'ALTIMETER_SENSOR' and sensor_type == 'ALTIMETER_SENSOR':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_sensors == 'FORCE_TORQUE_SENSOR' and sensor_type == 'FORCE_TORQUE_SENSOR':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_sensors == 'CONTACT_SENSOR' and sensor_type == 'CONTACT_SENSOR':
-                obj.hide = False
+                obj.hide_set(False)
             elif hide_sensors == 'none':
-                obj.hide = True
+                obj.hide_set(True)
             else:
-                obj.hide = True
+                obj.hide_set(True)
 
     @staticmethod
     def name_update(self, context):

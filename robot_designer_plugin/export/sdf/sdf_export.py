@@ -49,6 +49,7 @@ from math import radians
 import tempfile
 from pathlib import Path
 import pyxb
+import xml.etree.ElementTree as ET
 
 # ######
 # Blender imports
@@ -99,6 +100,22 @@ def _uri_for_meshes_and_muscles(in_ros_package: bool, abs_file_paths, toplevel_d
         return "model://" + file_path.replace(os.path.sep, '/')
 
 
+def indent(elem, level=0):
+    i = "\n" + level*"  "
+    if len(elem):
+        if not elem.text or not elem.text.strip():
+            elem.text = i + "  "
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+        for elem in elem:
+            indent(elem, level+1)
+        if not elem.tail or not elem.tail.strip():
+            elem.tail = i
+    else:
+        if level and (not elem.tail or not elem.tail.strip()):
+            elem.tail = i
+
+
 def export_mesh(operator: RDOperator, context, name: str, directory: str, toplevel_dir: str, in_ros_package: bool,
                                                           abs_file_paths = False, export_collision = False):
     """
@@ -138,12 +155,12 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
 
         model_name = bpy.context.active_object.name
         bpy.ops.object.select_all(action='DESELECT')
-        bpy.data.objects[mesh].select = True
-        bpy.context.scene.objects.active = bpy.data.objects[mesh]
+        bpy.data.objects[mesh].select_set(True)
+        bpy.context.view_layer.objects.active = bpy.data.objects[mesh]
         # bpy.context.active_object.select = True
 
         # get the mesh vertices number
-        bm = bpy.context.scene.objects.active.data
+        bm = bpy.context.view_layer.objects.active.data
         # print("# of vertices=%d" % len(bm.vertices))
         if len(bm.vertices) > 1:
             if '.' in mesh:
@@ -152,11 +169,57 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
             else:
                 file_path = os.path.join(directory, bpy.data.objects[mesh].RobotDesigner.fileName + '.dae')
 
-            hide_flag_backup = bpy.context.scene.objects.active.hide
-            bpy.context.scene.objects.active.hide = False  # Blender does not want to export hidden objects.
+            hide_flag_backup = bpy.context.view_layer.objects.active.hide_get()
+            bpy.context.view_layer.objects.active.hide_set(False)  # Blender does not want to export hidden objects.
             bpy.ops.wm.collada_export(filepath=file_path, apply_modifiers=True, selected=True, use_texture_copies=True)
 
-            bpy.context.scene.objects.active.hide = hide_flag_backup
+            tree = ET.parse(source=file_path)
+            collada = tree.getroot()
+            if collada.tag[0] == '{':
+                uri, ignore, tag = collada.tag[1:].partition("}")
+                xmlns = '{' + uri + '}'
+                ET.register_namespace('', uri)
+                # ET.register_namespace('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
+            else:
+                xmlns = ''
+
+            lib_geometries = collada.find(xmlns + 'library_geometries')
+            geometry_id = lib_geometries[0].get('id')
+            mesh_url = '#' + geometry_id
+
+            node_attr = {'id': mesh, 'name': mesh, 'type': 'NODE'}
+            inst_geo_attr = {'url': mesh_url, 'name': mesh}
+
+            lib_visual = collada.find(xmlns + 'library_visual_scenes')
+            visual_scene = lib_visual.find(xmlns + 'visual_scene')
+            if len(visual_scene) == 0:
+                node = visual_scene.makeelement('node', node_attr)
+                visual_scene.append(node)
+                instance = node.makeelement('instance_geometry', inst_geo_attr)
+                node.append(instance)
+
+                collada.set('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
+
+                indent(collada)
+                ET.ElementTree(collada).write(file_path, encoding="utf-8", xml_declaration=True)
+
+            # for elem in collada:
+            #     scene = elem.find(xmlns + 'visual_scene')
+            #     try:
+            #         node = scene.makeelement('node', node_attr)
+            #         scene.append(node)
+            #         instance = node.makeelement('instance_geometry', inst_geo_attr)
+            #         instance.text = None
+            #         node.append(instance)
+            #     except:
+            #         pass
+
+            # collada.set('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
+
+            # ET.ElementTree(collada).write(file_path, encoding="utf-8", xml_declaration=True)
+
+
+            bpy.context.view_layer.objects.active.hide_set(hide_flag_backup)
 
             # quick fix for dispersed meshes
             # todo: find appropriate solution
@@ -343,7 +406,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         for mesh in connected_meshes:
             operator.logger.info("Connected mesh name: %s", mesh)
             pose_bone = context.active_object.pose.bones[segment.name]
-            pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
+            pose = pose_bone.matrix.inverted() @ context.active_object.matrix_world.inverted() @ \
                bpy.data.objects[mesh].matrix_world
 
             # bpy.context.active_object.matrix_world = segment_world * trafo_sdf * bpy.context.active_object.matrix_world  # * inverse_matrix(bpy.context.active_object.matrix_world)#* \
@@ -499,7 +562,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             inertial.inertia[0].izz[0] = bpy.data.objects[frame].RobotDesigner.dynamics.inertiaZZ
 
             # set inertial pose
-            pose = pose_bone.matrix.inverted() * context.active_object.matrix_world.inverted() * \
+            pose = pose_bone.matrix.inverted() @ context.active_object.matrix_world.inverted() @ \
                    bpy.data.objects[frame].matrix_world
 
             frame_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
@@ -841,16 +904,16 @@ class ExportPlain(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_plain'
     bl_label = "Export SDF - plain"
 
-    filter_glob = StringProperty(
+    filter_glob: StringProperty(
         default="*.sdf",
         options={'HIDDEN'},
     )
 
-    abs_file_paths = BoolProperty(name="Absolute Filepaths", default=False)
+    abs_file_paths: BoolProperty(name="Absolute Filepaths", default=False)
     package_url = False
 
-    gazebo = BoolProperty(name="Export Gazebo tags", default=True)
-    filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+    gazebo: BoolProperty(name="Export Gazebo tags", default=True)
+    filepath: StringProperty(name="Filename", subtype='FILE_PATH')
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, ObjectMode)
@@ -884,16 +947,16 @@ class ExportPackage(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_package'
     bl_label = "Export SDF - ROS package"
 
-    filter_glob = StringProperty(
+    filter_glob: StringProperty(
         default="*.sdf",
         options={'HIDDEN'},
     )
 
-    abs_file_paths = BoolProperty(name="Absolute Filepaths", default=False)
+    abs_file_paths: BoolProperty(name="Absolute Filepaths", default=False)
     package_url = False
 
-    gazebo = BoolProperty(name="Export Gazebo tags", default=True)
-    filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+    gazebo: BoolProperty(name="Export Gazebo tags", default=True)
+    filepath: StringProperty(name="Filename", subtype='FILE_PATH')
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, ObjectMode)
@@ -930,16 +993,16 @@ class ExportZippedPackage(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_package_zipped'
     bl_label = "Export SDF - ROS zipped package"
 
-    filter_glob = StringProperty(
+    filter_glob: StringProperty(
         default="*.zip",
         options={'HIDDEN'},
     )
 
-    abs_file_paths = BoolProperty(name="Absolute Filepaths", default=False)
+    abs_file_paths: BoolProperty(name="Absolute Filepaths", default=False)
     package_url = False
 
-    gazebo = BoolProperty(name="Export Gazebo tags", default=True)
-    filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+    gazebo: BoolProperty(name="Export Gazebo tags", default=True)
+    filepath: StringProperty(name="Filename", subtype='FILE_PATH')
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, ObjectMode)

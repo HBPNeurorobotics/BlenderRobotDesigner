@@ -174,7 +174,7 @@ class Importer(object):
         '''
 
         # bpy.context.scene.objects.active = obj
-        bpy.ops.mesh.primitive_cube_add(radius=0.5, location=(0, 0, 0))
+        bpy.ops.mesh.primitive_cube_add(size=0.5, location=(0, 0, 0))
 
         bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
 
@@ -186,7 +186,7 @@ class Importer(object):
 
         if type == 1:
             mat = bpy.data.materials.new('blue')
-            mat.diffuse_color = (0, 0, 1)
+            mat.diffuse_color = (0, 0, 1, 0.5)
             bpy.context.active_object.data.materials.append(mat)
 
             bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_BOX"
@@ -205,7 +205,7 @@ class Importer(object):
             model_posexyz = string_to_list(model.pose[0].value())[0:3]
             model_poserpy = string_to_list(model.pose[0].value())[3:]
 
-        return Matrix.Translation(Vector(model_posexyz)) * \
+        return Matrix.Translation(Vector(model_posexyz)) @ \
                Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
 
 
@@ -222,7 +222,7 @@ class Importer(object):
         prefix_folder = ""
         c_radius = model.geometry[0].sphere[0].radius[0]
 
-        bpy.ops.mesh.primitive_uv_sphere_add(size=1.0, location=(0, 0, 0))
+        bpy.ops.mesh.primitive_uv_sphere_add(radius=1.0, location=(0, 0, 0))
         bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
 
         self.logger.debug('Active robot name: %s', bpy.context.active_object.RobotDesigner.fileName)
@@ -234,7 +234,7 @@ class Importer(object):
 
         if type == 1:
             mat = bpy.data.materials.new('blue')
-            mat.diffuse_color = (0, 0, 1)
+            mat.diffuse_color = (0, 0, 1, 0.5)
             bpy.context.active_object.data.materials.append(mat)
 
             bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_SPHERE"
@@ -253,7 +253,7 @@ class Importer(object):
             model_posexyz = string_to_list(model.pose[0].value())[0:3]
             model_poserpy = string_to_list(model.pose[0].value())[3:]
 
-        return Matrix.Translation(Vector(model_posexyz)) * \
+        return Matrix.Translation(Vector(model_posexyz)) @ \
                Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
 
 
@@ -283,7 +283,7 @@ class Importer(object):
 
         if type == 1:
             mat = bpy.data.materials.new('blue')
-            mat.diffuse_color = (0, 0, 1)
+            mat.diffuse_color = (0, 0, 1, 0.5)
             bpy.context.active_object.data.materials.append(mat)
 
             bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_CYLINDER"
@@ -302,7 +302,7 @@ class Importer(object):
             model_posexyz = string_to_list(model.pose[0].value())[0:3]
             model_poserpy = string_to_list(model.pose[0].value())[3:]
 
-        return Matrix.Translation(Vector(model_posexyz)) * \
+        return Matrix.Translation(Vector(model_posexyz)) @ \
                Euler(model_poserpy, 'XYZ').to_matrix().to_4x4()
 
 
@@ -379,8 +379,8 @@ class Importer(object):
             model_posexyz = string_to_list(model.pose[0].value())[0:3]
             model_poserpy = string_to_list(model.pose[0].value())[3:]
 
-        return Matrix.Translation(Vector(model_posexyz)) * \
-               Euler(model_poserpy, 'XYZ').to_matrix().to_4x4() * scale_matrix
+        return Matrix.Translation(Vector(model_posexyz)) @ \
+               Euler(model_poserpy, 'XYZ').to_matrix().to_4x4() @ scale_matrix
 
 
     def parse(self, node: sdf_tree.SDFTree, ref_pose, parent_name = ""):
@@ -560,7 +560,7 @@ class Importer(object):
         self.logger.debug("active object matrix world: %s",
                           homo2origin(model.matrix_world))
 
-        segment_world = model.matrix_world * pose_bone.matrix
+        segment_world = model.matrix_world @ pose_bone.matrix
         # segment_world = pose_float2homogeneous(rounded(string_to_list("0 0 0.6 0 0 -1.570796")))*pose_bone.matrix
 
         # import segment physics properties
@@ -607,7 +607,7 @@ class Importer(object):
         self.logger.debug("active object matrix world: %s",
                           homo2origin(model.matrix_world))
 
-        segment_world = model.matrix_world * pose_bone.matrix
+        segment_world = model.matrix_world @ pose_bone.matrix
         # segment_world = pose_float2homogeneous(rounded(string_to_list("0 0 0.6 0 0 -1.570796")))*pose_bone.matrix
 
         self.logger.debug("[VISUAL] parsed: " + str(len(list(node.link.visual))) + " visual meshes.")
@@ -702,7 +702,7 @@ class Importer(object):
                     # if there are multiple objects in the COLLADA file, they will be selected
                     selected_objects = [i for i in bpy.context.selected_objects]
                     for object in selected_objects:
-                        bpy.context.scene.objects.active = object  # bpy.data.objects[object]
+                        bpy.context.view_layer.objects.active = object  # bpy.data.objects[object]
                         bpy.ops.object.parent_clear(type="CLEAR_KEEP_TRANSFORM")
                     for object in selected_objects:
                         if object.type != 'MESH':
@@ -711,8 +711,8 @@ class Importer(object):
 
                         # Select the object (and deselect others)
                         bpy.ops.object.select_all(False)
-                        bpy.context.scene.objects.active = object  # bpy.data.objects[object]
-                        bpy.context.active_object.select = True
+                        bpy.context.view_layer.objects.active = object  # bpy.data.objects[object]
+                        bpy.context.active_object.select_set(True)
                         self.logger.debug("active object matrix world (from mesh): %s",
                                           homo2origin(bpy.context.active_object.matrix_world))
                         # bpy.context.active_object.matrix_world = pose_float2homogeneous(rounded(string_to_list("0 0 0 0 0 0")))
@@ -722,7 +722,7 @@ class Importer(object):
                         # if len(model.geometry[0].mesh) > 0:
                         bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
                         # after applying transform, matrix world becomes zero again
-                        bpy.context.active_object.matrix_world = segment_world * trafo_sdf * bpy.context.active_object.matrix_world  # * inverse_matrix(bpy.context.active_object.matrix_world)#* \
+                        bpy.context.active_object.matrix_world = segment_world @ trafo_sdf @ bpy.context.active_object.matrix_world  # * inverse_matrix(bpy.context.active_object.matrix_world)#* \
                         #  bpy.context.active_object.matrix_world
                         self.logger.debug("active object matrix world (after transfer): %s",
                                           homo2origin(bpy.context.active_object.matrix_world))
@@ -896,7 +896,7 @@ class Importer(object):
         bpy.context.active_object.rotation_euler = robot_rotation
 
         # bpy.ops.view3d.view_lock_to_active()
-        bpy.context.active_object.show_x_ray = True
+        bpy.context.active_object.show_in_front = True
 
 
     # @RDOperator.Preconditions(ObjectMode)
@@ -958,7 +958,7 @@ class ImportPlain(RDOperator):
         bl_idname = config.OPERATOR_PREFIX + "import_sdf_plain"
         bl_label = "Import SDF - plain"
 
-        filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+        filepath: StringProperty(name="Filename", subtype='FILE_PATH')
 
         def invoke(self, context, event):
             context.window_manager.fileselect_add(self)
@@ -984,7 +984,7 @@ class ImportPackage(RDOperator):
         bl_idname = config.OPERATOR_PREFIX + "import_sdf_package"
         bl_label = "Import SDF - ROS Package"
 
-        filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+        filepath: StringProperty(name="Filename", subtype='FILE_PATH')
 
         def invoke(self, context, event):
             context.window_manager.fileselect_add(self)
@@ -1016,7 +1016,7 @@ class ImportZippedPackage(RDOperator):
         bl_idname = config.OPERATOR_PREFIX + "import_sdf_zipped_package"
         bl_label = "Import SDF - ROS zipped package"
 
-        filepath = StringProperty(name="Filename", subtype='FILE_PATH')
+        filepath: StringProperty(name="Filename", subtype='FILE_PATH')
 
         def invoke(self, context, event):
             context.window_manager.fileselect_add(self)

@@ -78,7 +78,7 @@ def draw(layout, context):
         author_box.prop(bpy.context.active_object.RobotDesigner.author, 'authorEmail', text='Email')
 
     layout = layout.box()
-    layout.label('Import/Export')
+    layout.label(text='Import/Export')
 
     # # Will be added again once GIT persistence has been decided on
     #

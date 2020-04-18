@@ -73,9 +73,9 @@ class GenerateAllCollisionMeshes(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "generatallecollisionmeshes"
     bl_label = "Generate All Collision Meshes"
 
-    shrinkWrapOffset = FloatProperty(name="Shrinkwrap Offset", default=0.001,
-                                     unit='LENGTH', min=0, max=0.5)
-    subdivisionLevels = IntProperty(name="Subdivision Levels", default=2)
+    shrinkWrapOffset: FloatProperty(name="Shrinkwrap Offset", default=0.001,
+                                    unit='LENGTH', min=0, max=0.5)
+    subdivisionLevels: IntProperty(name="Subdivision Levels", default=2)
 
     @RDOperator.OperatorLogger
     # @Postconditions(ModelSelected)
@@ -141,9 +141,9 @@ class GenerateCollisionMesh(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "generatecollisionmesh"
     bl_label = "Generate Collision Mesh for selected"
 
-    shrinkWrapOffset = FloatProperty(name="Shrinkwrap Offset", default=0.001,
-                                     unit='LENGTH', min=0, max=0.5)
-    subdivisionLevels = IntProperty(name="Subdivision Levels", default=2)
+    shrinkWrapOffset: FloatProperty(name="Shrinkwrap Offset", default=0.001,
+                                    unit='LENGTH', min=0, max=0.5)
+    subdivisionLevels: IntProperty(name="Subdivision Levels", default=2)
 
     @classmethod
     def run(cls, shrinkWrapOffset, subdivisionLevels):
@@ -158,7 +158,7 @@ class GenerateCollisionMesh(RDOperator):
         armature = context.active_object.name
 
         bpy.ops.object.select_all(action='DESELECT')
-        bpy.context.scene.objects.active = bpy.data.objects[target_name]
+        bpy.context.view_layer.objects.active = bpy.data.objects[target_name]
 
         d = bpy.data.objects[target_name].dimensions
         bpy.ops.mesh.primitive_cube_add(
@@ -198,7 +198,7 @@ class GenerateCollisionMesh(RDOperator):
 
         model.SelectModel.run(model_name=armature)
         segments.SelectSegment.run(segment_name=bpy.data.objects[target_name].parent_bone)
-        bpy.data.objects[name].select = True
+        bpy.data.objects[name].select_set(True)
         bpy.ops.object.parent_set(type='BONE', keep_transform=True)
         bpy.ops.object.select_all(action='DESELECT')
         model.SelectModel.run(model_name=armature)
@@ -243,15 +243,15 @@ class GenerateCollisionConvexHull(RDOperator):
         exp_object = bpy.data.objects[target_name]
         orig_object = bpy.data.objects[target_name]
 
-        orig_object.select = True
+        orig_object.select_set(True)
         orig_object.name = target_name + "_CONVEX_HULL_TMP_OBJECT"
         bpy.ops.object.duplicate()
 
         for obj in bpy.context.scene.objects:
             if obj.type == 'MESH' and obj.name == target_name + "_CONVEX_HULL_TMP_OBJECT" + ".001":
                 obj.name = cv_hull_obj_name
-                obj.select = True
-                exp_object.select = False
+                obj.select_set(True)
+                exp_object.select_set(False)
                 exp_object = obj
 
         try:
@@ -300,7 +300,7 @@ class GenerateCollisionConvexHull(RDOperator):
             bm.to_mesh(collisionMesh)
             bm.free()
 
-            exp_object.select = True
+            exp_object.select_set(True)
 
             exp_object.RobotDesigner.tag = 'COLLISION'
             self.logger.debug("Created mesh: %s", exp_object.name)
@@ -321,7 +321,7 @@ class GenerateCollisionConvexHull(RDOperator):
             bpy.ops.object.select_all(action='DESELECT')
             model.SelectModel.run(model_name=armature)
             segments.SelectSegment.run(segment_name=bpy.data.objects[target_name].parent_bone)
-            bpy.data.objects[cv_hull_obj_name].select = True
+            bpy.data.objects[cv_hull_obj_name].select_set(True)
             bpy.ops.object.parent_set(type='BONE', keep_transform=True)
             model.SelectModel.run(model_name=armature)
 
@@ -348,7 +348,7 @@ class CreateBasicCollisionBox(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "create_basic_collision_box"
     bl_label = "Create Basic Collision Box"
 
-    cube_name = StringProperty(name="Enter name: ")
+    cube_name: StringProperty(name="Enter name: ")
 
     @classmethod
     def run(cls):
@@ -360,16 +360,16 @@ class CreateBasicCollisionBox(RDOperator):
 
         model = context.active_object
         segment = model.data.bones.active
-        bpy.ops.mesh.primitive_cube_add(radius=0.5)
+        bpy.ops.mesh.primitive_cube_add(size=1.0)
         cube = context.active_object
         cube.name = "BASCOL_" + self.cube_name
         bpy.data.objects[cube.name].RobotDesigner.tag = 'BASIC_COLLISION_BOX'
 
         mat = bpy.data.materials.new('blue')
-        mat.diffuse_color = (0, 0, 1)
-        mat.use_transparency = True
-        mat.alpha = 0.3
-        bpy.data.objects[cube.name].show_transparent = True
+        mat.diffuse_color = (0, 0, 1, 0.5)
+        # mat.use_transparency = True
+        # mat.alpha = 0.3
+        # bpy.data.objects[cube.name].show_transparent = True
         cube.data.materials.append(mat)
 
         bpy.ops.object.select_all(action='DESELECT')
@@ -397,7 +397,7 @@ class CreateBasicCollisionCylinder(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "create_basic_collision_cylinder"
     bl_label = "Create Basic Collision Cylinder"
 
-    cylinder_name = StringProperty(name="Enter name: ")
+    cylinder_name: StringProperty(name="Enter name: ")
 
     @classmethod
     def run(cls):
@@ -415,10 +415,10 @@ class CreateBasicCollisionCylinder(RDOperator):
         bpy.data.objects[cylinder.name].RobotDesigner.tag = 'BASIC_COLLISION_CYLINDER'
 
         mat = bpy.data.materials.new('blue')
-        mat.diffuse_color = (0, 0, 1)
-        mat.use_transparency = True
-        mat.alpha = 0.3
-        bpy.data.objects[cylinder.name].show_transparent = True
+        mat.diffuse_color = (0, 0, 1, 0.5)
+        # mat.use_transparency = True
+        # mat.alpha = 0.3
+        # bpy.data.objects[cylinder.name].show_transparent = True
         cylinder.data.materials.append(mat)
 
         bpy.ops.object.select_all(action='DESELECT')
@@ -445,7 +445,7 @@ class CreateBasicCollisionSphere(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "create_basic_collision_sphere"
     bl_label = "Create Basic Collision Sphere"
 
-    sphere_name = StringProperty(name="Enter name: ")
+    sphere_name: StringProperty(name="Enter name: ")
 
     @classmethod
     def run(cls):
@@ -457,16 +457,16 @@ class CreateBasicCollisionSphere(RDOperator):
 
         model = context.active_object
         segment = model.data.bones.active
-        bpy.ops.mesh.primitive_uv_sphere_add(size=1.0)
+        bpy.ops.mesh.primitive_uv_sphere_add(radius=1.0)
         sphere = context.active_object
         sphere.name = "BASCOL_" + self.sphere_name
         bpy.data.objects[sphere.name].RobotDesigner.tag = 'BASIC_COLLISION_SPHERE'
 
         mat = bpy.data.materials.new('blue')
-        mat.diffuse_color = (0, 0, 1)
-        mat.use_transparency = True
-        mat.alpha = 0.3
-        bpy.data.objects[sphere.name].show_transparent = True
+        mat.diffuse_color = (0, 0, 1, 0.5)
+        # mat.use_transparency = True
+        # mat.alpha = 0.3
+        # bpy.data.objects[sphere.name].show_transparent = True
         sphere.data.materials.append(mat)
 
         bpy.ops.object.select_all(action='DESELECT')

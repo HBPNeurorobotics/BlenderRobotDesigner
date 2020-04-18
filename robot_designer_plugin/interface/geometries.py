@@ -69,16 +69,16 @@ def draw(layout, context):
 
     box = layout.box()
     row = box.row(align=True)
-    row.label("Mesh type:")
+    row.label(text="Mesh type:")
     global_properties.mesh_type.prop(context.scene, row, expand=True)
     row = box.row(align=True)
-    row.label("Show:")
+    row.label(text="Show:")
     global_properties.display_mesh_selection.prop(context.scene, row, expand=True)
 
     if 1:
         row = box.row()
         column = row.column(align=True)
-        column.label("Segment Selector")
+        column.label(text="Segment Selector")
         # Start of segment menu code.
         single_segment = getSingleSegment(context)
         column.menu(menus.SegmentsGeometriesMenu.bl_idname,
@@ -91,10 +91,10 @@ def draw(layout, context):
                                                    text='')
         # End of segment menu code.
         column = row.column(align=True)
-        column.label("Mesh Selector")
+        column.label(text="Mesh Selector")
         menus.GeometriesMenu.putMenu(column, context)
 
-    box = GeometrySettingsBox.get(layout, context, "Geometry Properties", icon="SCRIPTWIN")
+    box = GeometrySettingsBox.get(layout, context, "Geometry Properties", icon="PREFERENCES")
     if box:
         infoBox = InfoBox(box)
         row = box.row()
@@ -113,11 +113,11 @@ def draw(layout, context):
             row2 = box.row()
             column = row2.column(align=True)
             if obj.RobotDesigner.tag == 'BASIC_COLLISION_CYLINDER':
-                column.label("Scale (%s)" % obj.name)
+                column.label(text="Scale (%s)" % obj.name)
                 column.prop(obj.RobotDesigner.scaling, "scale_radius", slider=False, text="Radius")
                 column.prop(obj.RobotDesigner.scaling, "scale_depth", slider=False, text="Depth")
             elif obj.RobotDesigner.tag == 'BASIC_COLLISION_SPHERE':
-                column.label("Scale (%s)" % obj.name)
+                column.label(text="Scale (%s)" % obj.name)
                 column.prop(obj.RobotDesigner.scaling, "scale_all", slider=False, text="Radius")
             else:
                 box.prop(obj, "scale", slider=False, text="Scale (%s)" % obj.name)
@@ -187,7 +187,7 @@ def draw(layout, context):
             collision.GenerateCollisionConvexHull.place_button(column, infoBox=infoBox)
 
             row2 = box.row()
-            row2.label("Add basic collision shapes:")
+            row2.label(text="Add basic collision shapes:")
             row3 = box.row()
             column = row3.column(align=True)
             collision.CreateBasicCollisionBox.place_button(column, text='Create Box', infoBox=infoBox)
@@ -246,7 +246,7 @@ def draw(layout, context):
         box.separator()
         infoBox.draw_info()
 
-    SDFbox = SDFCollisionPropertiesBox.get(layout, context, "SDF Collision Surface Properties", icon="WIRE")
+    SDFbox = SDFCollisionPropertiesBox.get(layout, context, "SDF Collision Surface Properties", icon="SHADING_WIRE")
     if SDFbox:
         obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
         box1 = BounceBox.get(SDFbox, context, "Bounce")

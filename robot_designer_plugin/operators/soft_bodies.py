@@ -63,18 +63,18 @@ class ConvertSoftBodies(RDOperator):
 
     bl_idname = config.OPERATOR_PREFIX + "disjoint_vertex_groups"
     bl_label = "Make disjoint vertex groups"
-    remove_overlaps = BoolProperty(name="Remove overlaps?")
-    separate = BoolProperty(name="Separate by vertex groups?")
-    assign_to_model = BoolProperty(name="Assign separated meshes to bones")
+    remove_overlaps: BoolProperty(name="Remove overlaps?")
+    separate: BoolProperty(name="Separate by vertex groups?")
+    assign_to_model: BoolProperty(name="Assign separated meshes to bones")
 
-    smooth = BoolProperty(name="Smooth seams", default=False)
-    solidify = BoolProperty(name="Make solid", default=False)
+    smooth: BoolProperty(name="Smooth seams", default=False)
+    solidify: BoolProperty(name="Make solid", default=False)
 
-    t1 = FloatProperty(name="Minimum weight", default=0.5, min=0.0, max=1.0)
-    t2 = FloatProperty(name="Maximum common weight", default=0.5, min=0.0,
-                       max=1.0)
+    t1: FloatProperty(name="Minimum weight", default=0.5, min=0.0, max=1.0)
+    t2: FloatProperty(name="Maximum common weight", default=0.5, min=0.0,
+                      max=1.0)
 
-    thickness = FloatProperty(name="Thickness", unit='LENGTH', min=0.0, max=1.0, default=0.2)
+    thickness: FloatProperty(name="Thickness", unit='LENGTH', min=0.0, max=1.0, default=0.2)
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -94,8 +94,8 @@ class ConvertSoftBodies(RDOperator):
         # Make object active
         bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
         bpy.ops.object.select_all(action="DESELECT")
-        mesh_object.select = True
-        context.scene.objects.active = mesh_object
+        mesh_object.select_set(True)
+        context.view_layer.objects.active = mesh_object
 
         maxima = [0] * len(mesh_object.data.vertices)
         indices = [-1] * len(mesh_object.data.vertices)

@@ -49,6 +49,7 @@ resource_path = os.path.join(script_path, 'resources')
 
 PLUGIN_PREFIX = "robotdesigner"
 OPERATOR_PREFIX = PLUGIN_PREFIX + '.'
+MENU_PREFIX = "ROBOTDESIGNER_MT_"
 
 BACKTRACE_FILTER_FUNC = ('func_wrapper', 'op_logger', '__call__')
 BACKTRACE_FILTER_HIDE_CODE = ('run', 'runNestedOperator')

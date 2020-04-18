@@ -392,18 +392,18 @@ class ExportZippedPackage(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + 'export_to_urdf_package_zipped'
     bl_label = "Export URDF - ROS zipped Package"
 
-    filter_glob = StringProperty(
+    filter_glob: StringProperty(
         default="*.zip",
         options={'HIDDEN'},
     )
 
-    filepath = StringProperty(name="Filename", subtype='FILE_PATH')
-    gazebo = BoolProperty(name="Export Gazebo tags", default=True)
+    filepath: StringProperty(name="Filename", subtype='FILE_PATH')
+    gazebo: BoolProperty(name="Export Gazebo tags", default=True)
 
-    package_url = BoolProperty(name="Package URL", default=True)
-    abs_file_path = BoolProperty(name="Absolute Filepaths", default=False)
+    package_url: BoolProperty(name="Package URL", default=True)
+    abs_file_path: BoolProperty(name="Absolute Filepaths", default=False)
 
-    base_link_name = StringProperty(name="Base link:", default="root_link")
+    base_link_name: StringProperty(name="Base link:", default="root_link")
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, ObjectMode)
@@ -454,13 +454,13 @@ class ExportPackage(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "export_to_urdf_package"
     bl_label = "Export URDF - ROS package"
 
-    directory = StringProperty(
+    directory: StringProperty(
         name="Mesh directory", subtype='DIR_PATH', default="")
-    gazebo = BoolProperty(name="Export Gazebo tags", default=True)
+    gazebo: BoolProperty(name="Export Gazebo tags", default=True)
 
-    package_url = BoolProperty(name="Package URL", default=True)
-    abs_file_path = BoolProperty(name="Absolute Filepaths", default=False)
-    base_link_name = StringProperty(name="Base link:", default="root_link")
+    package_url: BoolProperty(name="Package URL", default=True)
+    abs_file_path: BoolProperty(name="Absolute Filepaths", default=False)
+    base_link_name: StringProperty(name="Base link:", default="root_link")
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, ObjectMode)
@@ -483,17 +483,17 @@ class ExportPlain(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + 'export_to_urdf_plain'
     bl_label = "Export URDF - plain"
 
-    filter_glob = StringProperty(
+    filter_glob: StringProperty(
         default="*.urdf",
         options={'HIDDEN'},
     )
 
-    abs_file_paths = BoolProperty(name="Absolute Filepaths", default=False)
+    abs_file_paths: BoolProperty(name="Absolute Filepaths", default=False)
     package_url = False
 
-    gazebo = BoolProperty(name="Export Gazebo tags", default=True)
-    filepath = StringProperty(name="Filename", subtype='FILE_PATH')
-    base_link_name = StringProperty(name="Base link:", default="root_link")
+    gazebo: BoolProperty(name="Export Gazebo tags", default=True)
+    filepath: StringProperty(name="Filename", subtype='FILE_PATH')
+    base_link_name: StringProperty(name="Base link:", default="root_link")
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, ObjectMode)

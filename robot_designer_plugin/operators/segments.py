@@ -65,7 +65,7 @@ class SelectSegment(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "select_segment"
     bl_label = "Select Segment"
 
-    segment_name = StringProperty()
+    segment_name: StringProperty()
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -114,7 +114,7 @@ class RenameSegment(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "rename_segment"
     bl_label = "Rename active segment"
 
-    new_name = StringProperty(name="Enter new name:")
+    new_name: StringProperty(name="Enter new name:")
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -143,7 +143,7 @@ class InsertNewParentSegment(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "createparentbone"
     bl_label = "Create new parent Bone"
 
-    segment_name = StringProperty(name="Enter new parent bone name:")
+    segment_name: StringProperty(name="Enter new parent bone name:")
 
     @classmethod
     def run(cls, segment_name):
@@ -204,7 +204,7 @@ class AssignParentSegment(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "assignparentbone"
     bl_label = "Assign parent bone"
 
-    parent_name = StringProperty()
+    parent_name: StringProperty()
 
     @classmethod
     def run(cls, parent_name):
@@ -250,7 +250,7 @@ class ImportBlenderArmature(RDOperator):
         bone.RobotDesigner.RD_Bone = False
         parent = bone.parent
         if parent is not None:
-            m = parent.matrix_local.inverted() * bone.matrix_local
+            m = parent.matrix_local.inverted() @ bone.matrix_local
         else:
             m = bone.matrix_local
         euler = m.to_euler()
@@ -342,7 +342,7 @@ class DeleteSegment(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "deletebone"
     bl_label = "Delete segment and ALL its children"
 
-    confirmation = BoolProperty(name="Are you sure?")
+    confirmation: BoolProperty(name="Are you sure?")
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -454,7 +454,7 @@ class CreateNewSegment(RDOperator):
     bl_label = "Create new segment"
 
     # model_name = StringProperty()
-    segment_name = StringProperty(name="Enter new segment name:")
+    segment_name: StringProperty(name="Enter new segment name:")
 
     # parent_name = StringProperty(default="")
 
@@ -567,8 +567,8 @@ class UpdateSegments(RDOperator):
     bl_label = "update model"
 
     # model_name = StringProperty()
-    segment_name = StringProperty(default="")
-    recurse = BoolProperty(default=True)
+    segment_name: StringProperty(default="")
+    recurse: BoolProperty(default=True)
 
     @RDOperator.Postconditions(ModelSelected)
     @RDOperator.OperatorLogger
@@ -606,7 +606,7 @@ class UpdateSegments(RDOperator):
         # Express desired matrix in frame of the Armature
         if editbone.parent is not None:
             transform = editbone.parent.matrix.copy()
-            matrix = transform * matrix
+            matrix = transform @ matrix
 
         # Adjust bone properties to match RD transform specs.
         # Try to move it around rigidly. Keep length.

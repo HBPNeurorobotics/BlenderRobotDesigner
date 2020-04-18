@@ -62,7 +62,7 @@ class SelectSensor(RDOperator):
     """
     bl_idname = config.OPERATOR_PREFIX + "select_camera_sensor"
     bl_label = "Select Camera"
-    object_name = StringProperty()
+    object_name: StringProperty()
 
     @classmethod
     def run(cls, object_name=""):
@@ -75,10 +75,10 @@ class SelectSensor(RDOperator):
         arm = context.active_object
 
         for obj in bpy.data.objects:
-            obj.select = False
+            obj.select_set(False)
 
-        Object.select = True
-        arm.select = True
+        Object.select_set(True)
+        arm.select_set(True)
 
         global_properties.active_sensor.set(context.scene, self.object_name)
 
@@ -151,7 +151,7 @@ class ConvertCameraToSensor(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "convert_camera_to_sensor"
     bl_label = "Convert camera object to sensor"
 
-    sensor_type = StringProperty(default="CAMERA_SENSOR")
+    sensor_type: StringProperty(default="CAMERA_SENSOR")
 
     @classmethod
     def run(cls, sensor_type):
@@ -177,8 +177,8 @@ class CreateSensor(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "create_sensor"
     bl_label = "Create sensor"
 
-    sensor_type = StringProperty(default="CAMERA_SENSOR")
-    sensor_name = StringProperty(name="Sensor Name")
+    sensor_type: StringProperty(default="CAMERA_SENSOR")
+    sensor_name: StringProperty(name="Sensor Name")
 
     @classmethod
     def run(cls, sensor_type):
@@ -226,7 +226,7 @@ class RenameSensor(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "rename_sensor"
     bl_label = "Rename active sensor"
 
-    new_name = StringProperty(name="Enter new name:")
+    new_name: StringProperty(name="Enter new name:")
 
     # todo
     @RDOperator.OperatorLogger
@@ -260,7 +260,7 @@ class DeleteSensor(RDOperator):
         active_sensor = global_properties.active_sensor.get(context.scene)
 
         # remove muscle and all its data
-        bpy.data.objects.remove(bpy.data.objects[active_sensor], True)
+        bpy.data.objects.remove(bpy.data.objects[active_sensor], do_unlink=True)
         bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
 
         return {'FINISHED'}

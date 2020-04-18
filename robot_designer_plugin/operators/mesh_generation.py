@@ -92,7 +92,7 @@ class CreateWrappingSphere(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "create_sphere"
     bl_label = "Create new sphere"
 
-    sphere_name = StringProperty(name="Enter new sphere name:")
+    sphere_name: StringProperty(name="Enter new sphere name:")
 
     @classmethod
     def run(cls, sphere_name):
@@ -108,7 +108,7 @@ class CreateWrappingSphere(RDOperator):
         model = bpy.context.active_object
         active_muscle = bpy.data.objects[global_properties.active_muscle.get(bpy.context.scene)]
 
-        bpy.ops.mesh.primitive_uv_sphere_add(size=1, calc_uvs=True, view_align=False, enter_editmode=False)
+        bpy.ops.mesh.primitive_uv_sphere_add(radius=1.0, calc_uvs=True, enter_editmode=False) # TODO: check if 0.5 is correct
 
         sphere = bpy.context.active_object
         sphere.name = self.sphere_name
@@ -122,8 +122,8 @@ class CreateWrappingSphere(RDOperator):
         active_muscle.RobotDesigner.muscles.connectedWraps[nrw-1].wrappingName = sphere.name
 
         lmat = bpy.data.materials.new(self.sphere_name)
-        lmat.diffuse_color = (0.0, 0.135, 0.0)
-        lmat.use_shadeless = True
+        lmat.diffuse_color = (0.0, 0.135, 0.0, 1)
+        # lmat.use_shadeless = True
         sphere.data.materials.append(lmat)
 
         sphere.RobotDesigner.tag = 'WRAPPING'
@@ -144,7 +144,7 @@ class CreateWrappingCylinder(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "create_cylinder"
     bl_label = "Create new cylinder"
 
-    cylinder_name = StringProperty(name="Enter new cylinder name:")
+    cylinder_name: StringProperty(name="Enter new cylinder name:")
 
     @classmethod
     def run(cls, cylinder_name):
@@ -160,7 +160,7 @@ class CreateWrappingCylinder(RDOperator):
         model = bpy.context.active_object
         active_muscle = bpy.data.objects[global_properties.active_muscle.get(bpy.context.scene)]
 
-        bpy.ops.mesh.primitive_cylinder_add(radius=1, depth=1, view_align=False, enter_editmode=False)
+        bpy.ops.mesh.primitive_cylinder_add(radius=1, depth=1, enter_editmode=False)
 
         cylinder = bpy.context.active_object
         cylinder.name = self.cylinder_name
@@ -174,8 +174,8 @@ class CreateWrappingCylinder(RDOperator):
         active_muscle.RobotDesigner.muscles.connectedWraps[nrw - 1].wrappingName = cylinder.name
 
         lmat = bpy.data.materials.new(self.cylinder_name)
-        lmat.diffuse_color = (0., 0.135, 0.0)
-        lmat.use_shadeless = True
+        lmat.diffuse_color = (0., 0.135, 0.0, 1)
+        # lmat.use_shadeless = True
         cylinder.data.materials.append(lmat)
 
         cylinder.RobotDesigner.tag = 'WRAPPING'
@@ -201,7 +201,7 @@ class RenameWrappingObject(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "rename_wrapping_object"
     bl_label = ""
 
-    new_name = StringProperty(name="Enter new name:")
+    new_name: StringProperty(name="Enter new name:")
 
 
     @RDOperator.OperatorLogger
@@ -254,7 +254,7 @@ class DeleteWrappingObject(RDOperator):
                 i = i+1
 
 
-        bpy.data.objects.remove(bpy.data.objects[selected_object], True)
+        bpy.data.objects.remove(bpy.data.objects[selected_object], do_unlink=True)
         bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
 
         return {'FINISHED'}
@@ -269,7 +269,7 @@ class DisconnectWrappingObject(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "disconnect_wrapping_object"
     bl_label = ""
 
-    wrappingOrder = bpy.props.IntProperty(name="Disconnect wrapping object:")
+    wrappingOrder: bpy.props.IntProperty(name="Disconnect wrapping object:")
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -385,7 +385,7 @@ class SelectWrappingObject(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "select_wrapping_object"
     bl_label = "Select wrapping object: "
 
-    wrapping_name = StringProperty()
+    wrapping_name: StringProperty()
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -449,11 +449,11 @@ class GenerateMeshFromSegment(RDOperator):
         parent_bone = C.active_object.pose.bones[C.active_bone.parent.name]
         parent_name = parent_bone.name
 
-        parent_frame = model.matrix_world * parent_bone.matrix
+        parent_frame = model.matrix_world @ parent_bone.matrix
 
-        bone_world = model.matrix_world * pose_bone.matrix
-        bone_to_parent = bone_world.inverted() * parent_frame
-        parent_to_bone = parent_frame.inverted() * bone_world
+        bone_world = model.matrix_world @ pose_bone.matrix
+        bone_to_parent = bone_world.inverted() @ parent_frame
+        parent_to_bone = parent_frame.inverted() @ bone_world
         l = bone_to_parent.translation.length
 
         v1 = bone_to_parent.translation
@@ -501,11 +501,11 @@ class GenerateMeshFromSegment(RDOperator):
 
             # m[3][3] = 0
             # b.co = (bone_to_parent *m).translation
-            print(m, bone_to_parent.inverted() * parent_frame * m)
-            b.handle_left = (bone_to_parent * m).translation
+            print(m, bone_to_parent.inverted() @ parent_frame @ m)
+            b.handle_left = (bone_to_parent @ m).translation
             m.translation = -1 * v2
 
-            b.handle_right = (bone_to_parent * m).translation
+            b.handle_right = (bone_to_parent @ m).translation
             print(v2, b.handle_right, b.handle_left)
 
             # print(a.co,b.co)
@@ -513,7 +513,7 @@ class GenerateMeshFromSegment(RDOperator):
             bpy.ops.object.mode_set(mode="OBJECT", toggle=False)
             bpy.ops.object.convert(target='MESH')
             bpy.ops.object.select_all(action='DESELECT')
-            bevel.select = True
+            bevel.select_set(True)
             bpy.ops.object.delete()
 
             SelectModel.run(model_name=model.name)
@@ -550,11 +550,11 @@ class GenerateMeshFromJoint(RDOperator):
         axis = C.active_bone.RobotDesigner.axis
         pose_bone = C.active_object.pose.bones[bone_name]
         parent_bone = pose_bone.parent
-        bone_to_parent = pose_bone.matrix.inverted() * parent_bone.matrix
-        bone_world = model.matrix_world * pose_bone.matrix
+        bone_to_parent = pose_bone.matrix.inverted() @ parent_bone.matrix
+        bone_world = model.matrix_world @ pose_bone.matrix
 
         segment_length = bone_to_parent.translation.length
-        distance_to_children = [(child.matrix.inverted() * pose_bone.matrix).translation.length for child in
+        distance_to_children = [(child.matrix.inverted() @ pose_bone.matrix).translation.length for child in
                                 pose_bone.children]
 
         self.logger.debug("%s, %s", segment_length, distance_to_children)

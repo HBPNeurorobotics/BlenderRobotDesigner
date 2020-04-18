@@ -65,7 +65,7 @@ def draw(layout, context):
     box = layout.box()
     row = box.row(align=True)
     column = row.column(align=True)
-    column.label("Show:")
+    column.label(text="Show:")
     column = row.column(align=True)
     row = column.row(align=True)
     global_properties.display_sensor_type.prop(context.scene, row, expand=True)
@@ -75,7 +75,7 @@ def draw(layout, context):
     row = column.row(align=True)
 
     sensorbox = layout.box()
-    sensorbox.label("Select Sensor:")
+    sensorbox.label(text="Select Sensor:")
     row = sensorbox.row()
     columnl = row.column()
     menus.SensorMenu.putMenu(columnl, context)
@@ -127,11 +127,11 @@ def draw(layout, context):
 
             elif sensor_type == 'FORCE_TORQUE_SENSOR':
                 # todo sensor that can be attached to joints
-                row.label('not yet supported')
+                row.label(text='not yet supported')
 
             elif sensor_type == 'CONTACT_SENSOR':
                 # todo sensor that can be attached to collision mesh
-                row.label('not yet supported')
+                row.label(text='not yet supported')
 
         box = SensorPropertiesBox.get(layout, context, "Sensor Properties")
         if box:

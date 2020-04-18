@@ -63,11 +63,11 @@ def draw(layout, context):
     box = layout.box()
     row = box.row()
     # selective display muscle type
-    row.label("Show Muscle Type:")
+    row.label(text="Show Muscle Type:")
     col = row.column()
     global_properties.display_muscle_selection.prop(context.scene, col, expand=True)
     row = box.row()
-    row.label("Show Wrapping Objects: ")
+    row.label(text="Show Wrapping Objects: ")
     col = row.column()
     global_properties.display_wrapping_selection.prop(context.scene, col, expand=True)
 
@@ -133,11 +133,11 @@ def draw(layout, context):
                 row7.label(text="Attach pathpoints to segments:")
                 row7.menu(menus.SegmentsMusclesMenu.bl_idname, text="Select Segment")
 
-                musclepropertiesbox = MusclePropertiesBox.get(box, context, "Muscle Properties", icon="SCRIPTWIN")
+                musclepropertiesbox = MusclePropertiesBox.get(box, context, "Muscle Properties", icon="PREFERENCES")
                 if musclepropertiesbox:
 
                     musclebox = musclepropertiesbox.box()
-                    musclebox.label("Muscle Characteristics")
+                    musclebox.label(text="Muscle Characteristics")
                     # show length of muscle
                     row = musclebox.row()
                     row.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles, 'length', text="Muscle length")
@@ -158,7 +158,7 @@ def draw(layout, context):
 
                     settingsbox = musclepropertiesbox.box()
                     row1 = settingsbox.row()
-                    row1.label("Settings: ")
+                    row1.label(text="Settings: ")
                     row2 = settingsbox.row()
                     global_properties.muscle_dim.prop(context.scene, row2, expand=True)
 
@@ -206,7 +206,7 @@ def draw(layout, context):
         mesh_generation.CreateWrappingCylinder.place_button(column, text="Add Wrapping Cylinder", infoBox=infoBox)
 
         row1 = box.row()
-        row1.label("Select: ")
+        row1.label(text="Select: ")
         row2 = box.row()
         column = row2.column(align=True)
         menus.WrappingObjectsMenu.putMenu(column, context)
@@ -214,7 +214,7 @@ def draw(layout, context):
         mesh_generation.RenameWrappingObject.place_button(column, text="Rename Wrapping Object", infoBox=infoBox)
         mesh_generation.DeleteWrappingObject.place_button(column, text="Delete Wrapping Object", infoBox=infoBox)
 
-        boxy = WrapPropertiesBox.get(box, context, "Wrapping Object Properties", icon="SCRIPTWIN")
+        boxy = WrapPropertiesBox.get(box, context, "Wrapping Object Properties", icon="PREFERENCES")
         if boxy:
             infoBox = InfoBox(boxy)
             row4 = boxy.row()

@@ -113,7 +113,7 @@ class Traverse(RDOperator):
 
         if editbone.parent is not None:
             transform = editbone.parent.matrix.copy()
-            matrix = transform * matrix
+            matrix = transform @ matrix
 
         pos = matrix.to_translation()
         axis, roll = _mat3_to_vec_roll(matrix.to_3x3())
