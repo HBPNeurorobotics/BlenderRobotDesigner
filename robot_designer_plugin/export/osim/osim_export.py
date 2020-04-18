@@ -247,6 +247,9 @@ class OsimExporter(object):
     def _build_pyxb_path_nodes_list(self, m, context):
         def transform_to_pyxb(nd):
             name, parent, (x, y ,z) = nd
+            x = x * bpy.data.objects[context.active_object.name].scale[0]
+            y = y * bpy.data.objects[context.active_object.name].scale[1]
+            z = z * bpy.data.objects[context.active_object.name].scale[2]
             return osim_dom.PathPoint(
                 location = osim_dom.vector3("%f %f %f" % (x, y, z)),
                 body = parent,
