@@ -110,8 +110,16 @@ class SoftContactBox(CollapsibleBase):
     property_name = "soft_contact_box"
 
 @PluginManager.register_class
-class ControllerLimitsBox(CollapsibleBase):
-    property_name = "controller_limits_box"
+class JointLimitsBox(CollapsibleBase):
+    property_name = "joint_limits_box"
+
+@PluginManager.register_class
+class JointPhysicsBox(CollapsibleBase):
+    property_name = "joint_physics_box"
+
+@PluginManager.register_class
+class JointDynamicsBox(CollapsibleBase):
+    property_name = "joint_dynamics_box"
 
 @PluginManager.register_class
 class ControllerBox(CollapsibleBase):

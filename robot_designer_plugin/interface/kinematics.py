@@ -55,9 +55,13 @@ def draw(layout, context):
     if context.active_bone.parent is not None:
         settings2.enabled = False
 
-    layout.label(text="Parent Mode:")
-    layout.prop(context.active_bone.RobotDesigner, "parentMode", expand=True)
-    parent_column = layout.column(align=True)
+    linkbox = layout.box()
+    linkbox.label(text="Link:")
+
+    column = linkbox.column()
+    column.label(text="Parent Mode:")
+    column.prop(context.active_bone.RobotDesigner, "parentMode", expand=True)
+    parent_column = linkbox.column(align=True)
 
     if context.active_bone.RobotDesigner.parentMode == 'EULER':
         parent_column.label(text="Euler position:")
@@ -76,17 +80,16 @@ def draw(layout, context):
         parent_column.prop(context.active_bone.RobotDesigner.DH.alpha, "value", slider=False, text="alpha")
         parent_column.prop(context.active_bone.RobotDesigner.DH.a, "value", slider=False, text="a")
 
-    jointbox = layout.box()
-    jointbox.label(text="Joint:")
-    # Only show joint if not root bone. Unless root bone is connected to world
     if (context.active_bone.parent is not None) or (context.active_bone.RobotDesigner.world is True):
+        # Only show joint if not root bone. Unless root bone is connected to world
+        jointbox = layout.box()
+        jointbox.label(text="Joint:")
+
         name = jointbox.column(align=True)
         name.prop(context.active_bone.RobotDesigner, "joint_name")
-        default_row = jointbox.row()
-        default_row.alignment = 'RIGHT'
-        column = default_row.column(align=True)
-        segments.SetDefaultJointName.place_button(column, text="Default Name")
-        segments.SetDefaultJointNameAll.place_button(column, text="Default Name All")
+        row = jointbox.row(align=True)
+        segments.SetDefaultJointName.place_button(row, text="Default Name")
+        segments.SetDefaultJointNameAll.place_button(row, text="Default Name All")
 
         jointbox.label(text="Active Axis:")
         axis_row = jointbox.row()

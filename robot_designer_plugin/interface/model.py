@@ -105,7 +105,6 @@ def draw(layout, context):
         row = box.row(align=True)
         row.label(text="Merge with another robot model")
         menus.JoinModelMenu.putMenu(row, context, text="")
-        layout.separator()
         infoBox.draw_info()
 
         box = layout.box()
