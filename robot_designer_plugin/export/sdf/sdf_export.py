@@ -945,7 +945,7 @@ class ExportPackage(RDOperator):
     """
 
     bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_package'
-    bl_label = "Export SDF - ROS package"
+    bl_label = "Export SDF"
 
     filter_glob: StringProperty(
         default="*.sdf",
@@ -991,7 +991,7 @@ class ExportZippedPackage(RDOperator):
     """
 
     bl_idname = config.OPERATOR_PREFIX + 'export_to_sdf_package_zipped'
-    bl_label = "Export SDF - ROS zipped package"
+    bl_label = "Export SDF as zipped folder"
 
     filter_glob: StringProperty(
         default="*.zip",

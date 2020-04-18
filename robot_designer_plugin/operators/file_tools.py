@@ -46,34 +46,6 @@ from .dae_sdf_converter import dae_sdf_converter
 
 
 @PluginManager.register_class
-class PrintTransformations(RDOperator):
-    """
-    :ref:`operator` for print transformation matrix from active object to all selected objects.
-
-    **Preconditions:**
-
-    **Postconditions:**
-    """
-    bl_idname = config.OPERATOR_PREFIX + "printtransformations"
-    bl_label = "Print transformation matrix from active object to all selected objects"
-
-    @classmethod
-    def poll(cls, context):
-        return True
-
-    @RDOperator.OperatorLogger
-    def execute(self, context):
-        active_object = bpy.context.active_object
-
-        for ob in [obj for obj in context.scene.objects if obj.select_get()]:
-            print('Transformation from %(from)s to %(to)s:' % {'from': active_object.name, 'to': ob.name})
-            transform = active_object.matrix_world.inverted() @ ob.matrix_world
-            print(transform)
-
-        return {'FINISHED'}
-
-
-@PluginManager.register_class
 class ConvertDAEPackages(RDOperator):
     """
     :ref:`operator` for converting the .dae files in a folder to SDF packages.
@@ -81,7 +53,7 @@ class ConvertDAEPackages(RDOperator):
     **Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "convertdaepackages"
-    bl_label = "Convert the .dae files in a folder to SDF packages"
+    bl_label = "Convert all .dae files in a folder to SDF packages"
 
     # this can be look into the one of the export or import python file.
     # need to set a path so so we can get the file name and path
@@ -140,3 +112,31 @@ class StlToDaeConverter(RDOperator):
     def invoke(self, context, event):
         context.window_manager.fileselect_add(self)
         return {'RUNNING_MODAL'}
+
+
+@PluginManager.register_class
+class PrintTransformations(RDOperator):
+    """
+    :ref:`operator` for print transformation matrix from active object to all selected objects.
+
+    **Preconditions:**
+
+    **Postconditions:**
+    """
+    bl_idname = config.OPERATOR_PREFIX + "printtransformations"
+    bl_label = "Print transformation matrix from active object to all selected objects"
+
+    @classmethod
+    def poll(cls, context):
+        return True
+
+    @RDOperator.OperatorLogger
+    def execute(self, context):
+        active_object = bpy.context.active_object
+
+        for ob in [obj for obj in context.scene.objects if obj.select_get()]:
+            print('Transformation from %(from)s to %(to)s:' % {'from': active_object.name, 'to': ob.name})
+            transform = active_object.matrix_world.inverted() @ ob.matrix_world
+            print(transform)
+
+        return {'FINISHED'}

@@ -334,6 +334,7 @@ class CreateNewModel(RDOperator):
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
 
+
 # def createArmature(new_name):
 #     """
 #     Creates a new armature

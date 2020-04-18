@@ -65,7 +65,7 @@ class ROBOTDESIGNER_PT_UserInterface(bpy.types.Panel):
     from ..core.logfile import LogFunction
     @LogFunction
     def draw(self, context):
-        from ..operators import gui
+        from ..operators import file_tools
         from . import files, model, segments, geometries, sensors, muscles, world
         layout = self.layout
 
@@ -92,16 +92,6 @@ class ROBOTDESIGNER_PT_UserInterface(bpy.types.Panel):
             files.draw(layout, context)
         elif control == 'world':
             world.draw(layout, context)
-        elif control == 'tools':
-            row = layout.row(align=True)
-            row.operator(gui.PrintTransformations.bl_idname)
-            row = layout.row(align=True)
-            row.operator(gui.ConvertDAEPackages.bl_idname)
-            row = layout.row(align=True)
-            row.operator(gui.StlToDaeConverter.bl_idname)
-            row = layout.row(align=True)
-            global_properties.operator_debug_level.prop(bpy.context.scene, row, expand=True)
-
 
         layout.separator()
         row = layout.row(align=True)

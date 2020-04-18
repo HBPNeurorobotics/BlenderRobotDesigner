@@ -284,10 +284,8 @@ class RDGlobals(PropertyGroupHandlerBase):
                    ('sensors', 'Sensors', 'Attach sensors to the robot'),
                    ('muscles', 'Muscles', 'Attach muscles to the robot'),
                    # ('markers', 'Markers', 'Assign markers to bones'),
-                   # ('controller', 'Controller', 'Modify controller parameter'),
-                   ('tools', 'Tools', 'Tools'),
-                   ('files', 'Files', 'Export Armature'),
-                   ('world', 'World', 'Set world parameters')],
+                   ('files', 'Files', 'Export Armature')]
+                   #('world', 'World', 'Set world parameters')],
         ))
 
         # Holds the selection to operate on collision geometries OR visual geometries
@@ -389,8 +387,8 @@ class RDGlobals(PropertyGroupHandlerBase):
         self.specular = PropertyHandler(FloatVectorProperty(name="Specular", default=(0.1,0.1,0.1), min=0, max=255))
 
         self.operator_debug_level = PropertyHandler(EnumProperty(
-            items=[('debug', 'Debug', 'Log everything including debug messages (verbose)'),
-                   ('info', 'Info', 'Log information'),
+            items=[('info', 'Info', 'Log information'),
+                   ('debug', 'Debug', 'Log everything including debug messages (verbose)'),
                    ('warning', 'Warning', 'Log only warnings'),
                    ('error', 'Error', 'Log only errors')], update=self.debug_level_callback))
 

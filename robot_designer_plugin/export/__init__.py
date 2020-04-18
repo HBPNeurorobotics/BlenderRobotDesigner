@@ -48,10 +48,10 @@ reload(urdf)
 reload(sdf)
 reload(osim)
 
-PluginManager.register_plugin("SDF", [sdf.ImportPlain, sdf.ImportPackage, sdf.ImportZippedPackage, sdf.ExportPlain,
+PluginManager.register_plugin("SDF", [sdf.ImportPackage, sdf.ImportZippedPackage,
                                       sdf.ExportPackage, sdf.ExportZippedPackage])
-PluginManager.register_plugin("URDF", [urdf.ImportPlain, urdf.ImportPackage, urdf.ImportZippedPackage, urdf.ExportPlain,
-                                       urdf.ExportPackage, urdf.ExportZippedPackage])
+# PluginManager.register_plugin("URDF", [urdf.ImportPlain, urdf.ImportPackage, urdf.ImportZippedPackage, urdf.ExportPlain,
+#                                       urdf.ExportPackage, urdf.ExportZippedPackage])
 
 # todo add all import export plugins into this directory.
 # The file dialog should have a selection box for the format
@@ -60,5 +60,6 @@ PluginManager.register_plugin("URDF", [urdf.ImportPlain, urdf.ImportPackage, urd
 __author__ = 'ulbrich-gchen'
 
 # draft for creating a plugin mechanism
-plugins = [('urdf', 'URDF', '.urdf', True, True), ('sdf', 'SDF', '.sdf', True, True),
-           ('simox', 'SIMOX XML', '.xml', True, False), ('collada', 'COLLADA v1.5', '.dae', False, True)]
+plugins = [ ('sdf', 'SDF', '.sdf', True, True)]
+           #('urdf', 'URDF', '.urdf', True, True),
+           # ('simox', 'SIMOX XML', '.xml', True, False), ('collada', 'COLLADA v1.5', '.dae', False, True)]

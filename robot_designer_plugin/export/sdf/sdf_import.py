@@ -982,7 +982,7 @@ class ImportPackage(RDOperator):
 
         # Obligatory class attributes
         bl_idname = config.OPERATOR_PREFIX + "import_sdf_package"
-        bl_label = "Import SDF - ROS Package"
+        bl_label = "Import SDF"
 
         filepath: StringProperty(name="Filename", subtype='FILE_PATH')
 
@@ -1014,7 +1014,7 @@ class ImportZippedPackage(RDOperator):
 
         # Obligatory class attributes
         bl_idname = config.OPERATOR_PREFIX + "import_sdf_zipped_package"
-        bl_label = "Import SDF - ROS zipped package"
+        bl_label = "Import SDF from zipped folder"
 
         filepath: StringProperty(name="Filename", subtype='FILE_PATH')
 

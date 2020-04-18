@@ -43,6 +43,7 @@ from .model import check_armature
 from ..core import PluginManager
 from ..core.gui import InfoBox
 from ..properties.globals import global_properties
+from ..operators import file_tools
 
 
 def draw(layout, context):
@@ -70,30 +71,29 @@ def draw(layout, context):
         author_box = box.box()
         author_box.label(text="Author")
 
-        ## to support multiple authors
+        ## todo support multiple authors
         # file.CreateAuthor.place_button(author_box, "Create new")
         # author_box.menu(menus.AuthorMenu.bl_idname, text="Author 1")
 
         author_box.prop(bpy.context.active_object.RobotDesigner.author, 'authorName', text='Name')
         author_box.prop(bpy.context.active_object.RobotDesigner.author, 'authorEmail', text='Email')
 
-    layout = layout.box()
-    layout.label(text='Import/Export')
+    file_box = layout.box()
+    file_box.label(text='Import/Export')
 
-    # # Will be added again once GIT persistence has been decided on
-    #
+    # # GIT upload/download support functions
     # global_properties.storage_mode.prop(context.scene,layout, expand=True)
     # storage_mode = global_properties.storage_mode.get(context.scene)
-    #
+    # #
     # if storage_mode == 'local':
     #     pass
     # elif storage_mode == 'git':
-    #     global_properties.git_repository.prop(context.scene, layout)
-    #     global_properties.git_url.prop(context.scene, layout)
+    #      global_properties.git_repository.prop(context.scene, layout)
+    #      global_properties.git_url.prop(context.scene, layout)
     # elif storage_mode == 'temporary':
-    #     global_properties.git_url.prop(context.scene, layout)
+    #      global_properties.git_url.prop(context.scene, layout)
 
-    row = layout.row()
+    row = file_box.row()
     column = row.column()
 
     plugins = []
@@ -103,13 +103,44 @@ def draw(layout, context):
         if not label in plugins:
             box = column.box()
             row2 = box.row(align=True)
-            infoBox = InfoBox(row2)
+
             column2 = row2.column(align=True)
             column2.label(text=label)
-            column2 = row2.column(align=True)
+            button_columns = row2.column()
+            row_import = button_columns.row()
+            column_import = row_import.column(align=True)
+            row_export = button_columns.row()
+            column_export = row_export.column(align=True)
+
+            info_row = button_columns.row()
+            infoBox = InfoBox(info_row)
+
+
             if not draw_function:
-                for operator in operators:
-                    operator.place_button(layout=column2, infoBox=infoBox)
-            row2 = box.row(align=True)
+                for operator in operators[:len(operators)//2]:
+                    # Import operators
+                    operator.place_button(layout=column_import, infoBox=infoBox)
+
+                for operator in operators[len(operators)//2:]:
+                    # Export operators
+                    operator.place_button(layout=column_export, infoBox=infoBox)
+
             infoBox.draw_info()
         plugins.append(label)
+
+
+    tools_box = layout.box()
+    tools_box.label(text='File Tools')
+
+    row = tools_box.row(align=True)
+    row.operator(file_tools.ConvertDAEPackages.bl_idname)
+    row = tools_box.row(align=True)
+    row.operator(file_tools.StlToDaeConverter.bl_idname)
+
+    settings_box = layout.box()
+    settings_box.label(text="RobotDesigner Settings")
+    row = settings_box.row()
+    row.label(text='Debugger Level')
+    global_properties.operator_debug_level.prop(bpy.context.scene, row, expand=True)
+    row = settings_box.row(align=True)
+    row.operator(file_tools.PrintTransformations.bl_idname)

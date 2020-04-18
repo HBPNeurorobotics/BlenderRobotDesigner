@@ -166,5 +166,6 @@ def draw(layout, context):
         layout.label(text="Select robot first")
         push_info(ObjectMode)
 
+
     drawInfoBox(layout, context)  # ["Some operations require to be in pose mode"] if context.mode == "OBJECT" else [])
     return is_model_selected
