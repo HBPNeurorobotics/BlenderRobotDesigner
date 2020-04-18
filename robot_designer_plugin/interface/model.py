@@ -117,6 +117,8 @@ def draw(layout, context):
         row = box.row()
         row.prop(bpy.data.objects[global_properties.model_name.get(context.scene)], "rotation_euler", slider=False,
                  text="Rotation")
+        row = box.row()
+        row.prop(bpy.data.objects[global_properties.model_name.get(context.scene)], "scale", slider=False)
 
         box = layout.box()
         infoBox = InfoBox(box)
