@@ -70,6 +70,9 @@ def draw(layout, context):
     row.label(text="Show Wrapping Objects: ")
     col = row.column()
     global_properties.display_wrapping_selection.prop(context.scene, col, expand=True)
+    row = box.row()
+    row.label(text="Visualization: ")
+    global_properties.muscle_dim.prop(context.scene, row, expand=True)
 
     box = EditMusclesBox.get(layout, context, "Edit Muscles", icon="LINKED")
     if box:
@@ -154,13 +157,7 @@ def draw(layout, context):
                     row = musclebox.row()
                     if active_muscle != '':
                        row.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles, 'muscleType', text='Muscle Type')
-                    box.row()
 
-                    settingsbox = musclepropertiesbox.box()
-                    row1 = settingsbox.row()
-                    row1.label(text="Settings: ")
-                    row2 = settingsbox.row()
-                    global_properties.muscle_dim.prop(context.scene, row2, expand=True)
 
                 wrapbox = box.box()
                 row0 = wrapbox.row()

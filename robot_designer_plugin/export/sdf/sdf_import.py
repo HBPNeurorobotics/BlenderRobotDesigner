@@ -537,19 +537,27 @@ class Importer(object):
         if node.joint:
             # import joint physics if they exist
             if len(node.joint.physics):
-                bpy.context.active_bone.RobotDesigner.ode.cfm_damping = node.joint.physics[0].ode[0].cfm_damping[0]
-                bpy.context.active_bone.RobotDesigner.ode.i_s_damper = \
-                    node.joint.physics[0].ode[0].implicit_spring_damper[0]
-                bpy.context.active_bone.RobotDesigner.ode.cfm = node.joint.physics[0].ode[0].cfm[0]
-                bpy.context.active_bone.RobotDesigner.ode.erp = node.joint.physics[0].ode[0].erp[0]
+                if len(node.joint.physics[0].ode):
+                    rd_physcis_ode = bpy.context.active_bone.RobotDesigner.ode
+                    if len(node.joint.physics[0].ode[0].cfm_damping):
+                        rd_physcis_ode.cfm_damping = node.joint.physics[0].ode[0].cfm_damping[0]
+                    if len(node.joint.physics[0].ode[0].implicit_spring_damper):
+                        rd_physcis_ode.i_s_damper = node.joint.physics[0].ode[0].implicit_spring_damper[0]
+                    if len(node.joint.physics[0].ode[0].cfm):
+                        rd_physcis_ode.cfm = node.joint.physics[0].ode[0].cfm[0]
+                    if len(node.joint.physics[0].ode[0].erp):
+                        rd_physcis_ode.erp = node.joint.physics[0].ode[0].erp[0]
 
             if len(node.joint.axis[0].dynamics):
-                bpy.context.active_bone.RobotDesigner.dynamics.damping = node.joint.axis[0].dynamics[0].damping[0]
-                bpy.context.active_bone.RobotDesigner.dynamics.friction = node.joint.axis[0].dynamics[0].friction[0]
-                bpy.context.active_bone.RobotDesigner.dynamics.spring_reference = \
-                    node.joint.axis[0].dynamics[0].spring_reference[0]
-                bpy.context.active_bone.RobotDesigner.dynamics.spring_stiffness = \
-                    node.joint.axis[0].dynamics[0].spring_stiffness[0]
+                rd_dynamics = bpy.context.active_bone.RobotDesigner.dynamics
+                if len(node.joint.axis[0].dynamics[0].damping):
+                    rd_dynamics.damping = node.joint.axis[0].dynamics[0].damping[0]
+                if len(node.joint.axis[0].dynamics[0].friction):
+                    rd_dynamics.dynamics.friction = node.joint.axis[0].dynamics[0].friction[0]
+                if len(node.joint.axis[0].dynamics[0].spring_reference):
+                    rd_dynamics.spring_reference = node.joint.axis[0].dynamics[0].spring_reference[0]
+                if len(node.joint.axis[0].dynamics[0].spring_stiffness):
+                    rd_dynamics.spring_stiffness = node.joint.axis[0].dynamics[0].spring_stiffness[0]
 
         model = bpy.context.active_object
         model_name = model.name
