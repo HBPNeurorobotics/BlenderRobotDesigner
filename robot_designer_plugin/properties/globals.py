@@ -176,8 +176,8 @@ class RDGlobals(PropertyGroupHandlerBase):
             muscle_type = obj.RobotDesigner.muscles.muscleType
             if hide_muscles == 'all':
                 obj.hide_set(False)
-                # elif hide_muscles == 'MYOROBOTICS' and obj.RobotDesigner.muscles.muscleType == 'MYOROBOTICS':
-                #     obj.hide = False
+            elif hide_muscles == 'MYOROBOTICS' and muscle_type == 'MYOROBOTICS':
+                obj.hide_set(False)
             elif hide_muscles == 'MILLARD_EQUIL' and muscle_type == 'MILLARD_EQUIL':
                 obj.hide_set(False)
             elif hide_muscles == 'MILLARD_ACCEL' and muscle_type == 'MILLARD_ACCEL':
@@ -396,11 +396,11 @@ class RDGlobals(PropertyGroupHandlerBase):
 
         self.display_muscle_selection = PropertyHandler(EnumProperty(
             items=[('all', 'All', 'Show all muscles'),
-                   #       ('MYOROBOTICS', 'Myorobotics', 'Show only Myorobotics Muscles'),
                    ('MILLARD_EQUIL', 'Millard Equilibrium 2012', 'Show only Millard Equilibrium 2012 Muscles'),
                    ('MILLARD_ACCEL', 'Millard Acceleration 2012', 'Show only Millard Acceleration 2012 Muscles'),
                    ('THELEN', 'Thelen 2003', 'Show only Thelen 2003 Muscles'),
                    ('RIGID_TENDON', 'Rigid Tendon', 'Show only Rigid Tendon Muscles'),
+                   ('MYOROBOTICS', 'Myorobotics', 'Show only Myorobotics Muscles'),
                    ('none', "None", "Show no muscles")],
             update=self.display_muscles))
 

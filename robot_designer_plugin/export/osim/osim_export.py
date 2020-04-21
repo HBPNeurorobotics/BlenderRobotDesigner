@@ -65,7 +65,8 @@ class OsimExporter(object):
                     Millard2012EquilibriumMuscle=[],
                     Millard2012AccelerationMuscle=[],
                     Thelen2003Muscle=[],
-                    RigidTendonMuscle=[]
+                    RigidTendonMuscle=[],
+                    MyoroboticsMuscle=[]
                 )
             ),
             BodySet=[]
@@ -75,6 +76,7 @@ class OsimExporter(object):
             'Millard2012AccelerationMuscle': self.doc.Model.ForceSet.objects.Millard2012AccelerationMuscle,
             'Thelen2003Muscle' : self.doc.Model.ForceSet.objects.Thelen2003Muscle,
             'RigidTendonMuscle' : self.doc.Model.ForceSet.objects.RigidTendonMuscle,
+            'MyoroboticsMuscle' : self.doc.Model.ForceSet.objects.MyoroboticsMuscle
         }
 
     def write_osim_file(self, filename):
@@ -97,6 +99,7 @@ class OsimExporter(object):
             'MILLARD_ACCEL'  : osim_dom.Millard2012AccelerationMuscle,
             'THELEN': osim_dom.Thelen2003Muscle,
             'RIGID_TENDON': osim_dom.RigidTendonMuscle,
+            'MYOROBOTICS': osim_dom.MyoroboticsMuscle
         }
         return muscle_type_to_pyxb_type[
             str(obj.RobotDesigner.muscles.muscleType)]
@@ -110,25 +113,42 @@ class OsimExporter(object):
         # calc muscle length
         bpy.ops.robotdesigner.calc_muscle_length(muscle=m.name)
 
-        m = pyxb_class(
-            name = m.name,
-            GeometryPath=osim_dom.GeometryPath(
-                PathPointSet = pyxb.BIND(
-                    objects = pyxb.BIND(
-                        PathPoint = self._build_pyxb_path_nodes_list(m, context)
+        if m.RobotDesigner.muscles.muscleType in \
+                ['THELEN', 'MILLARD_EQUIL', 'MILLARD_ACCEL', 'RIGID_TENDON']:
+            m = pyxb_class(
+                name = m.name,
+                GeometryPath=osim_dom.GeometryPath(
+                    PathPointSet = pyxb.BIND(
+                        objects = pyxb.BIND(
+                            PathPoint = self._build_pyxb_path_nodes_list(m, context)
+                        )
+                    ),
+                    PathWrapSet=pyxb.BIND(
+                        objects=pyxb.BIND(
+                            PathWrap=self._build_pyxb_path_wraps_list(m, w, context)
+                        )
                     )
                 ),
-                PathWrapSet=pyxb.BIND(
-                    objects=pyxb.BIND(
-                        PathWrap=self._build_pyxb_path_wraps_list(m, w, context)
+                # TODO: Fix hardcoded values
+                max_isometric_force = m.RobotDesigner.muscles.max_isometric_force,
+                optimal_fiber_length = m.RobotDesigner.muscles.length * 0.9,
+                tendon_slack_length = m.RobotDesigner.muscles.length * 0.1)
+        else:
+            m = pyxb_class(
+                name = m.name,
+                GeometryPath=osim_dom.GeometryPath(
+                    PathPointSet = pyxb.BIND(
+                        objects = pyxb.BIND(
+                            PathPoint = self._build_pyxb_path_nodes_list(m, context)
+                        )
+                    ),
+                    PathWrapSet=pyxb.BIND(
+                        objects=pyxb.BIND(
+                            PathWrap=self._build_pyxb_path_wraps_list(m, w, context)
+                        )
                     )
                 )
-            ),
-            # TODO: Fix hardcoded values
-            max_isometric_force = m.RobotDesigner.muscles.max_isometric_force,
-            optimal_fiber_length = m.RobotDesigner.muscles.length * 0.9,
-            tendon_slack_length = m.RobotDesigner.muscles.length * 0.1
-        )
+            )
         self._add_pyxb_muscle(m, context)
 
     def add_body_set(self, context, wrapping):

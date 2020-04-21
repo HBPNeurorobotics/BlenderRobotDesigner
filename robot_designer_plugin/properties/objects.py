@@ -303,6 +303,8 @@ class RDMuscle(bpy.types.PropertyGroup):
             color = (1.0, 0.0, 0.0, 1.0)
         elif bpy.data.objects[active_muscle].RobotDesigner.muscles.muscleType == 'RIGID_TENDON':
             color = (0.0, 0.0, 1.0, 1.0)
+        elif bpy.data.objects[active_muscle].RobotDesigner.muscles.muscleType == 'MYOROBOTICS':
+            color = (0.0, 1.0, 1.0, 1.0)
 
         bpy.data.objects[active_muscle].data.materials[active_muscle + '_vis'].diffuse_color = color
 
@@ -311,7 +313,8 @@ class RDMuscle(bpy.types.PropertyGroup):
             ('MILLARD_EQUIL', 'Millard Equilibrium 2012', 'Millard Equilibrium 2012 Muscle'),
             ('MILLARD_ACCEL', 'Millard Acceleration 2012', 'Millard Acceleration 2012 Muscle'),
             ('THELEN', 'Thelen 2003', 'Thelen 2003 Muscle'),
-            ('RIGID_TENDON', 'Rigid Tendon', 'Rigid Tendon Muscle')],
+            ('RIGID_TENDON', 'Rigid Tendon', 'Rigid Tendon Muscle'),
+            ('MYOROBOTICS', 'Myorobotics Muscle', 'Myorobotics Muscle')],
         name="Muscle Type:", update=muscle_type_update
     )
 

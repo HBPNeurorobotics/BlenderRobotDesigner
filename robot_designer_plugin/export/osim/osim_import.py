@@ -81,14 +81,16 @@ class OsimImporter(object):
         RDmuscle = bpy.data.objects[muscle.name]
 
         RDmuscle.RobotDesigner.muscles.muscleType = type
-        RDmuscle.RobotDesigner.muscles.length = muscle.optimal_fiber_length / 0.9
-        RDmuscle.RobotDesigner.muscles.max_isometric_force = muscle.max_isometric_force
+
+        if type in ['THELEN', 'MILLARD_EQUIL', 'MILLARD_ACCEL', 'RIGID_TENDON']:
+            RDmuscle.RobotDesigner.muscles.length = muscle.optimal_fiber_length / 0.9
+            RDmuscle.RobotDesigner.muscles.max_isometric_force = muscle.max_isometric_force
 
         global_properties.active_muscle.set(bpy.context.scene, muscle.name)
-
         self.import_pathpoints(muscle, RDmuscle)
 
         self.connect_wrapping_objects(muscle, RDmuscle)
+
 
     def connect_wrapping_objects(self, muscle, RDmuscle):
         """
@@ -330,6 +332,17 @@ class OsimImporter(object):
             try:
                 muscle = self.muscles.Model.ForceSet.objects.RigidTendonMuscle[m]
                 type = 'RIGID_TENDON'
+                self.import_muscles(muscle, type)
+                m += 1
+            except:
+                break
+
+        # import Myorobotics Muscles
+        m = 0
+        while (True):
+            try:
+                muscle = self.muscles.Model.ForceSet.objects.MyoroboticsMuscle[m]
+                type = 'MYOROBOTICS'
                 self.import_muscles(muscle, type)
                 m += 1
             except:
