@@ -144,10 +144,14 @@ def draw(layout, context):
     row = layout.row()
     debug_box = DebugBox.get(row, context, "Debug Tools")
     if debug_box:
+
         row = debug_box.row()
         row.label(text='Level')
         global_properties.operator_debug_level.prop(bpy.context.scene, row, expand=True)
-        row = debug_box.row(align=True)
+
+        row = debug_box.column(align=False)
         row.operator(file_tools.PrintTransformations.bl_idname)
+        row.operator('script.reload', text="Reload Addon Scripts")
+
 
 
