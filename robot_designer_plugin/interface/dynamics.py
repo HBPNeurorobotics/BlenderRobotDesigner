@@ -123,26 +123,24 @@ def draw(layout, context):
             # Only shown for child segments. Unless root segment is connected to world
             limit_box = JointLimitsBox.get(joint_box, context, 'Limits')
             if limit_box:
-                limit_box.prop(context.active_bone.RobotDesigner.controller, "maxVelocity")
-                limit_box.prop(context.active_bone.RobotDesigner.controller, "maxTorque")
-                limit_box.prop(context.active_bone.RobotDesigner.controller, "acceleration")
-                limit_box.prop(context.active_bone.RobotDesigner.controller, "deceleration")
-                limit_box.prop(context.active_bone.RobotDesigner.controller, "isActive")
-                limit_box.label(text="Joint Limits:")
+                limit_box.prop(context.active_bone.RobotDesigner.controller, "isActive", text="Active Limits")
+
                 if context.active_bone.RobotDesigner.jointMode == 'REVOLUTE':
-                    limit_box.prop(context.active_bone.RobotDesigner.theta, "min")
-                    limit_box.prop(context.active_bone.RobotDesigner.theta, "max")
+                    limit_box.prop(context.active_bone.RobotDesigner.theta, "min", text="Min.")
+                    limit_box.prop(context.active_bone.RobotDesigner.theta, "max", text="Max.")
                 else:
                     limit_box.prop(context.active_bone.RobotDesigner.d, "min")
                     limit_box.prop(context.active_bone.RobotDesigner.d, "max")
 
-            # box.label(text="ODE:")
-            # box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm_damping', text='CFM-Damping')
-            # box.prop(bpy.context.active_bone.RobotDesigner.ode, 'i_s_damper', text='I. S. Damper')  # implicit spring
-            # box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm', text='CFM')  # constraint force mixing
-            # box.prop(bpy.context.active_bone.RobotDesigner.ode, 'erp', text='ERP')  # error reduction parameter
 
-            #physics_box = box.box()
+                limit_box.prop(context.active_bone.RobotDesigner.controller, "maxVelocity")
+                limit_box.prop(context.active_bone.RobotDesigner.controller, "maxTorque")
+
+                ## URDF only
+                #limit_box.prop(context.active_bone.RobotDesigner.controller, "acceleration")
+                #limit_box.prop(context.active_bone.RobotDesigner.controller, "deceleration")
+
+
             physics_box = JointPhysicsBox.get(joint_box, context, 'Physics')
             if physics_box:
                 physics_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm_damping', text='CFM-Damping')

@@ -457,7 +457,6 @@ class RDObjects(bpy.types.PropertyGroup):
     objects with respect to the RobotDesigner
     '''
     fileName: StringProperty(name="Mesh File Name")
-    world: BoolProperty(name="Attach Link to World")
     tag: EnumProperty(
         items=[('DEFAULT', 'Default', 'Default'),
                ('MARKER', 'Marker', 'Marker'),

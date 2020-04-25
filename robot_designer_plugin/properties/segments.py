@@ -56,8 +56,8 @@ class RDActuator(bpy.types.PropertyGroup):
     """
     Property group that contains all controller-related parameters
     """
-    maxVelocity: FloatProperty(name="max. Velocity", precision=4, step=100, default=-1)
-    maxTorque: FloatProperty(name="max. Torque", precision=4, step=100, default=-1)
+    maxVelocity: FloatProperty(name="Max. Velocity", precision=4, step=100, default=-1)
+    maxTorque: FloatProperty(name="Max. Torque", precision=4, step=100, default=-1)
     isActive: BoolProperty(name="Active", default=False)
     acceleration: FloatProperty(name="Acceleration", precision=4, step=100)
     deceleration: FloatProperty(name="Deceleration", precision=4, step=100)

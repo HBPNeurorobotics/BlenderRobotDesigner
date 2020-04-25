@@ -553,7 +553,7 @@ class Importer(object):
                 if len(node.joint.axis[0].dynamics[0].damping):
                     rd_dynamics.damping = node.joint.axis[0].dynamics[0].damping[0]
                 if len(node.joint.axis[0].dynamics[0].friction):
-                    rd_dynamics.dynamics.friction = node.joint.axis[0].dynamics[0].friction[0]
+                    rd_dynamics.friction = node.joint.axis[0].dynamics[0].friction[0]
                 if len(node.joint.axis[0].dynamics[0].spring_reference):
                     rd_dynamics.spring_reference = node.joint.axis[0].dynamics[0].spring_reference[0]
                 if len(node.joint.axis[0].dynamics[0].spring_stiffness):
@@ -605,6 +605,11 @@ class Importer(object):
             bpy.data.objects[inertia_name].RobotDesigner.dynamics.inertiaYY = i.iyy[0]
             bpy.data.objects[inertia_name].RobotDesigner.dynamics.inertiaYZ = i.iyz[0]
             bpy.data.objects[inertia_name].RobotDesigner.dynamics.inertiaZZ = i.izz[0]
+
+            # hide if don't show interia selected in GUI
+            if global_properties.display_physics_selection.get(bpy.context.scene) == False:
+                print(' ----- hiding')
+                bpy.data.objects[inertia_name].hide_set(True)
 
         model = bpy.context.active_object
         model_name = model.name
