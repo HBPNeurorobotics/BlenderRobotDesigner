@@ -286,7 +286,7 @@ class RDSegment(bpy.types.PropertyGroup):
 
     RD_Bone: BoolProperty(name="Created by RD", default=False)
 
-    axis_revert: BoolProperty(name="Axis reverted?", default=False,
+    axis_revert: BoolProperty(name="Axis Reverted?", default=False,
                               update=callbackSegments)
 
     controller: PointerProperty(type=RDActuator)
@@ -300,7 +300,7 @@ class RDSegment(bpy.types.PropertyGroup):
     DH: PointerProperty(
         type=RDDenavitHartenbergSegment)  # Dito but in a different way. Only one, either DH or Euler is used.
     world: BoolProperty(name="Attach Link to World", default=False)
-    joint_name: StringProperty(name="Joint name: ")  # Name of parent joint of segment
+    joint_name: StringProperty(name="Joint Name: ")  # Name of parent joint of segment
 
 
 def getTransformFromBlender(bone):

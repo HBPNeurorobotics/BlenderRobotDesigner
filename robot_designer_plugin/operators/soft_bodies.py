@@ -62,7 +62,7 @@ class ConvertSoftBodies(RDOperator):
     """
 
     bl_idname = config.OPERATOR_PREFIX + "disjoint_vertex_groups"
-    bl_label = "Make disjoint vertex groups"
+    bl_label = "Make Disjoint Vertex Groups"
     remove_overlaps: BoolProperty(name="Remove overlaps?")
     separate: BoolProperty(name="Separate by vertex groups?")
     assign_to_model: BoolProperty(name="Assign separated meshes to bones")

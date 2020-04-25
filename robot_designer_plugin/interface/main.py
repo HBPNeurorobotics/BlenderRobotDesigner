@@ -99,7 +99,7 @@ class ROBOTDESIGNER_PT_UserInterface(bpy.types.Panel):
         if InfoBox.global_messages:
             box = DebugBox.get(row, context, "Debug")
             if box:
-                box.label(text="press <F8> to clear", icon="INFO")
+                box.label(text="Press <F8> to Clear", icon="INFO")
                 InfoBox.draw_global_info(box)
 
     def draw_header(self, context):

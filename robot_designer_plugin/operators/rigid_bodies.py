@@ -66,7 +66,7 @@ class SelectGeometry(RDOperator):
     second to the selected model (Blender object with :class:`bpy.types.Armature` data)
     """
     bl_idname = config.OPERATOR_PREFIX + "select_geometry"
-    bl_label = "Select geometry"
+    bl_label = "Select Geometry"
 
     geometry_name: StringProperty()
 
@@ -100,7 +100,7 @@ class RenameGeometry(RDOperator):
     """
 
     bl_idname = config.OPERATOR_PREFIX + "rename_mesh"
-    bl_label = "Rename seleted mesh"
+    bl_label = "Rename Selected Mesh"
     new_name: StringProperty(name="Enter new name:")
 
 
@@ -129,7 +129,7 @@ class AssignGeometry(RDOperator):
     :ref:`operator` for assigning a geometry to a segment.
     """
     bl_idname = config.OPERATOR_PREFIX + "assign_geometry"
-    bl_label = "Assign selected geometry to active segment"
+    bl_label = "Assign Selected Geometry to Active Segment"
 
     attach_collision_geometry: BoolProperty(name="Assign as Collision Mesh",
                                              description="Adds a collision tag to the mesh",
@@ -195,7 +195,7 @@ class RenameAllGeometries(RDOperator):
     :ref:`operator` for renaming geometries using their parented segment's name.
     """
     bl_idname = config.OPERATOR_PREFIX + "rename_geometries"
-    bl_label = "Rename geometries after segments"
+    bl_label = "Rename Geometries After Segments"
 
     @classmethod
     def run(cls):
@@ -234,7 +234,7 @@ class DetachGeometry(RDOperator):
     :term:`operator` for detaching a single :term:`geometry` form a :term:`segment`.
     """
     bl_idname = config.OPERATOR_PREFIX + "unassignmesh"
-    bl_label = "Detach selected geometry"
+    bl_label = "Detach Selected Geometry"
 
     @classmethod
     def run(cls):
@@ -268,7 +268,7 @@ class DetachAllGeometries(RDOperator):
     :ref:`operator` for detaching *all* :term:`geometries` from the selected :term:`model`.
     """
     bl_idname = config.OPERATOR_PREFIX + "unassignallmeshes"
-    bl_label = "Detach all geometries"
+    bl_label = "Detach All Geometries"
 
     confirmation: BoolProperty(
         name="This disconnects all collision OR visual geometries from the model. Are you sure?")
@@ -325,7 +325,7 @@ class SelectAllGeometries(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "setallmeshesactiveobject"
-    bl_label = "Select all geometries"
+    bl_label = "Select All Geometries"
 
     @classmethod
     def run(cls):
@@ -355,7 +355,7 @@ class SetGeometryActive(RDOperator):
     :ref:`operator` for ...
     """
     bl_idname = config.OPERATOR_PREFIX + "setseletedmeshactiveobject"
-    bl_label = "Make geometry active"
+    bl_label = "Make Geometry Active"
 
     @classmethod
     def run(cls):
@@ -380,7 +380,7 @@ class ReduceAllGeometry(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "polygonallreduction"
-    bl_label = "Apply to all meshes"
+    bl_label = "Apply to All Meshes"
 
     @classmethod
     def run(cls):

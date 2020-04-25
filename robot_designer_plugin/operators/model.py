@@ -105,7 +105,7 @@ class RebuildModel(RDOperator):
     **RDOperator.Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "rebuildmodel"
-    bl_label = "Rebuild model"
+    bl_label = "Rebuild Model"
 
     @classmethod
     def run(cls):
@@ -182,7 +182,7 @@ class SelectModel(RDOperator):
     **RDOperator.Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "selectarmature"
-    bl_label = "Select model"
+    bl_label = "Select Model"
 
     model_name: StringProperty()
 
@@ -220,7 +220,7 @@ class RenameModel(RDOperator):
     **RDOperator.Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "renamearmature"
-    bl_label = "Rename selected armature"
+    bl_label = "Rename Selected Armature"
 
     newName: StringProperty(name="Enter new name:")
 
@@ -259,7 +259,7 @@ class JoinModels(RDOperator):
     """
     bl_idname = config.OPERATOR_PREFIX + "joinarmature"
 
-    bl_label = "Join two models"
+    bl_label = "Join Two Models"
 
     targetArmatureName: StringProperty()
 
@@ -300,7 +300,7 @@ class CreateNewModel(RDOperator):
     **RDOperator.Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "create_model"
-    bl_label = "Create new robot model"
+    bl_label = "Create New Robot Model"
 
     model_name: StringProperty(name="Enter model name:")
     base_segment_name: StringProperty(name="Enter root segment name:", default="")

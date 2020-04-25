@@ -72,7 +72,7 @@ def draw(layout, context):
     global_properties.display_wrapping_selection.prop(context.scene, col, expand=True)
     row = box.row()
     row.label(text="Visualization: ")
-    global_properties.muscle_dim.prop(context.scene, row, expand=True)
+    global_properties.muscle_dim.prop(context.scene, row, expand=True, slider=True)
 
     box = EditMusclesBox.get(layout, context, "Edit Muscles", icon="LINKED")
     if box:
@@ -89,9 +89,9 @@ def draw(layout, context):
                     text=active_muscle if not active_muscle == '' else "Select Muscle")
 
         column = row1.column(align=True)
-        muscles.CreateNewMuscle.place_button(column, text="Create new muscle", infoBox=infoBox)
-        muscles.RenameMuscle.place_button(column, text="Rename active muscle", infoBox=infoBox)
-        muscles.DeleteMuscle.place_button(column, text="Delete active muscle", infoBox=infoBox)
+        muscles.CreateNewMuscle.place_button(column, text="Create New Muscle", infoBox=infoBox)
+        muscles.RenameMuscle.place_button(column, text="Rename Active Muscle", infoBox=infoBox)
+        muscles.DeleteMuscle.place_button(column, text="Delete Active Muscle", infoBox=infoBox)
 
         row2 = box.row()
 
@@ -99,11 +99,11 @@ def draw(layout, context):
         if active_muscle != '':
             pointbox = box.box()
             row3 = pointbox.row()
-            row3.label(text="Muscle attachment points")
+            row3.label(text="Muscle Attachment Points")
 
             row4 = pointbox.row()
             column = row4.column(align=True)
-            muscles.CreateNewPathpoint.place_button(column, text="Add new pathpoint", infoBox=infoBox)
+            muscles.CreateNewPathpoint.place_button(column, text="Add New Pathpoint", infoBox=infoBox)
 
             i = 0
             # pathpoint characteristics
@@ -133,7 +133,7 @@ def draw(layout, context):
                 row7 = pointbox.row()
 
                 # assign segments to pathpoints
-                row7.label(text="Attach pathpoints to segments:")
+                row7.label(text="Attach Pathpoints to Segments:")
                 row7.menu(menus.SegmentsMusclesMenu.bl_idname, text="Select Segment")
 
                 musclepropertiesbox = MusclePropertiesBox.get(box, context, "Muscle Properties", icon="PREFERENCES")
@@ -151,7 +151,7 @@ def draw(layout, context):
                     # max force
                     row = musclebox.row()
                     row.prop(bpy.data.objects[active_muscle].RobotDesigner.muscles, 'max_isometric_force',
-                             text="Max isometric Force")
+                             text="Max Isometric Force")
 
                     # muscle type
                     row = musclebox.row()
@@ -174,10 +174,10 @@ def draw(layout, context):
                                 row2 = wrapbox.row(align=True)
                                 row2.prop(wrapping_objects, 'name', text=str(j))
                                 mesh_generation.DisconnectWrappingObject.place_button\
-                                    (row2, text='Disconnect from Muscle', infoBox=infoBox).wrappingOrder = j
+                                    (row2, text='Disconnect From Muscle', infoBox=infoBox).wrappingOrder = j
 
                     row3 = wrapbox.row()
-                    row3.label(text='Add existing wrapping object to muscle: ')
+                    row3.label(text='Add Existing Wrapping Object to Muscle: ')
                     row3.menu(menus.ConnectWrapMenu.bl_idname, text='Select Wrapping Object')
 
 
@@ -255,7 +255,7 @@ def draw(layout, context):
             column = row3.column(align=True)
             mesh_generation.AttachWrappingObject.place_button(column, text="Attach Wrapping Object", infoBox=infoBox)
             mesh_generation.DetachWrappingObject.place_button(column, text="Detach Wrapping Object", infoBox=infoBox)
-            mesh_generation.DetachAllWrappingObjects.place_button(column, text="Detach all Wrapping Objects",
+            mesh_generation.DetachAllWrappingObjects.place_button(column, text="Detach All Wrapping Objects",
                                                                 infoBox=infoBox)
 
 

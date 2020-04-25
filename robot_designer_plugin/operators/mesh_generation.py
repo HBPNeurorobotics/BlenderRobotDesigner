@@ -63,7 +63,7 @@ class GenerateMeshFromAllSegment(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "generate_all_meshes"
-    bl_label = "Generate geometry for all segments"
+    bl_label = "Generate Geometry for All Segments"
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
@@ -90,7 +90,7 @@ class GenerateMeshFromAllSegment(RDOperator):
 @PluginManager.register_class
 class CreateWrappingSphere(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "create_sphere"
-    bl_label = "Create new sphere"
+    bl_label = "Create New Sphere"
 
     sphere_name: StringProperty(name="Enter new sphere name:")
 
@@ -142,7 +142,7 @@ class CreateWrappingSphere(RDOperator):
 @PluginManager.register_class
 class CreateWrappingCylinder(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "create_cylinder"
-    bl_label = "Create new cylinder"
+    bl_label = "Create New Cylinder"
 
     cylinder_name: StringProperty(name="Enter new cylinder name:")
 
@@ -199,7 +199,7 @@ class RenameWrappingObject(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "rename_wrapping_object"
-    bl_label = ""
+    bl_label = "Rename Wrapping Object"
 
     new_name: StringProperty(name="Enter new name:")
 
@@ -238,7 +238,7 @@ class DeleteWrappingObject(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "delete_wrapping_object"
-    bl_label = ""
+    bl_label = "Delete Wrapping Object"
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -267,7 +267,7 @@ class DeleteWrappingObject(RDOperator):
 class DisconnectWrappingObject(RDOperator):
 
     bl_idname = config.OPERATOR_PREFIX + "disconnect_wrapping_object"
-    bl_label = ""
+    bl_label = "Detach Wrapping Object"
 
     wrappingOrder: bpy.props.IntProperty(name="Disconnect wrapping object:")
 
@@ -300,7 +300,7 @@ class AttachWrappingObject(RDOperator):
     :ref:`operator` for assigning a geometry to a segment.
     """
     bl_idname = config.OPERATOR_PREFIX + "attach_wrapping_object"
-    bl_label = "Assign object to active segment?"
+    bl_label = "Attach Wrapping Object to Active Segment"
 
 
     @RDOperator.OperatorLogger
@@ -326,7 +326,7 @@ class DetachWrappingObject(RDOperator):
     :term:`operator` for detaching a single :term:`geometry` from a :term:`segment`.
     """
     bl_idname = config.OPERATOR_PREFIX + "detach_wrapping_object"
-    bl_label = "Detach selected object?"
+    bl_label = "Detach Selected Wrapping Object"
 
     @classmethod
     def run(cls):
@@ -356,7 +356,7 @@ class DetachAllWrappingObjects(RDOperator):
     :ref:`operator` for detaching *all* :term:`geometries` from the selected :term:`model`.
     """
     bl_idname = config.OPERATOR_PREFIX + "detach_all_meshes"
-    bl_label = "Detach all wrapping geometries?"
+    bl_label = "Detach All Wrapping Objects"
 
     @classmethod
     def run(cls, confirmation=True):
@@ -383,7 +383,7 @@ class DetachAllWrappingObjects(RDOperator):
 @PluginManager.register_class
 class SelectWrappingObject(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "select_wrapping_object"
-    bl_label = "Select wrapping object: "
+    bl_label = "Select Wrapping Object: "
 
     wrapping_name: StringProperty()
 
@@ -424,7 +424,7 @@ class GenerateMeshFromSegment(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "generate_mesh"
-    bl_label = "Generate geometry for segment"
+    bl_label = "Generate Geometry for Segment"
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleSegmentSelected)  # Not SingleMeshSelected, in case of abortion
@@ -531,7 +531,7 @@ class GenerateMeshFromSegment(RDOperator):
 @PluginManager.register_class
 class GenerateMeshFromJoint(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "generate_joint"
-    bl_label = "Generate geometry for joint"
+    bl_label = "Generate Geometry for Joint"
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleSegmentSelected)  # Not SingleMeshSelected, in case of abortion

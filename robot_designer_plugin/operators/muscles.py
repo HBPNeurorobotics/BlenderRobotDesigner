@@ -63,7 +63,7 @@ class RenameMuscle(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "rename_muscle"
-    bl_label = "Rename active muscle"
+    bl_label = "Rename Active Muscle"
 
     new_name: StringProperty(name="Enter new name:")
 
@@ -90,7 +90,7 @@ class DeleteMuscle(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "deletemuscle"
-    bl_label = "Delete active muscle"
+    bl_label = "Delete Active Muscle"
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -118,7 +118,7 @@ class CreateNewMuscle(RDOperator):
     before might be necessary.
     """
     bl_idname = config.OPERATOR_PREFIX + "create_muscle"
-    bl_label = "Create new muscle"
+    bl_label = "Create New Muscle"
 
     muscle_name: StringProperty(name="Enter new muscle name:")
 
@@ -206,7 +206,7 @@ class CreateNewPathpoint(RDOperator):
     :term:`Operator <operator> for creating a new pathpoint as a spline point on the muscle object
     """
     bl_idname = config.OPERATOR_PREFIX + "create_muscle_pathpoint"
-    bl_label = "Add current cursor location as pathpoint?"
+    bl_label = "Add Current Cursor Location as Pathpoint"
 
     # model_name = StringProperty()
     # parent_name = StringProperty(default="")
@@ -400,7 +400,7 @@ class SelectSegmentMuscle(RDOperator):
     :term:`Operator<operator>` for selecting a segment to be assigned to a pathpoint.
     """
     bl_idname = config.OPERATOR_PREFIX + "select_segment_muscle"
-    bl_label = "Select Segment to attach muscle pathpoint"
+    bl_label = "Select Segment to Attach Muscle Pathpoint"
 
     segment_name: StringProperty()
     pathpoint_nr: IntProperty(default=1)
@@ -475,7 +475,7 @@ class CalculateMuscleLength(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "calc_muscle_length"
-    bl_label = ""
+    bl_label = "Calculate Muscle Length"
 
     muscle: bpy.props.StringProperty()
 

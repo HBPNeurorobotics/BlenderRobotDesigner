@@ -53,7 +53,7 @@ class ConvertDAEPackages(RDOperator):
     **Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "convertdaepackages"
-    bl_label = "Convert all .dae files in a folder to SDF packages"
+    bl_label = "Convert All '.dae' Files in Folder to SDF Packages"
 
     # this can be look into the one of the export or import python file.
     # need to set a path so so we can get the file name and path
@@ -84,7 +84,7 @@ class StlToDaeConverter(RDOperator):
     **Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "convert_stl_to_dae"
-    bl_label = "Convert all .stl files in folder to .dae files"
+    bl_label = "Convert All '.stl' Files in Folder to '.dae' Files"
 
     directory = bpy.props.StringProperty(subtype='DIR_PATH')
 
@@ -124,7 +124,7 @@ class PrintTransformations(RDOperator):
     **Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "printtransformations"
-    bl_label = "Print transformation matrix from active object to all selected objects"
+    bl_label = "Print Transformation Matrix from Active Object to All Selected Objects"
 
     @classmethod
     def poll(cls, context):

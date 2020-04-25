@@ -72,7 +72,7 @@ class CreatePhysical(RDOperator):
     **Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "createphysicsframe"
-    bl_label = "Create And Attach Physics Frames"
+    bl_label = "Create And Attach Physics Frame"
 
     frameName: StringProperty()
 
@@ -203,7 +203,7 @@ class AssignPhysical(RDOperator):
     **Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "assignphysicsframe"
-    bl_label = "Assign selected physics frame to active bone"
+    bl_label = "Assign Selected Physics Frame To Active Bone"
 
     @classmethod
     def run(cls):
@@ -236,7 +236,7 @@ class AssignPhysical(RDOperator):
 @PluginManager.register_class
 class ComputePhysical(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "computephysicsframe"
-    bl_label = "Compute inertia from meshes"
+    bl_label = "Compute Inertia From Mesh"
 
     from_visual_geometry: BoolProperty(name="From visual geometry")
 
@@ -323,7 +323,7 @@ class ComputePhysical(RDOperator):
 @PluginManager.register_class
 class ComputeMass(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "computemass"
-    bl_label = "Compute mass properties from meshes"
+    bl_label = "Compute Mass Properties From Mesh"
 
     density: FloatProperty(name="Density (kg/m^3)", precision=4, step=0.01, default=1.0)
     from_visual_geometry: BoolProperty(name="From visual geometry")
@@ -403,7 +403,7 @@ class DetachPhysical(RDOperator):
     **Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "unassignphysicsframe"
-    bl_label = "Unassign selected physics frame"
+    bl_label = "Detach Selected Physics Frame"
 
     frameName: StringProperty()
 
@@ -422,3 +422,5 @@ class DetachPhysical(RDOperator):
         current_frame.parent = None
         current_frame.matrix_world = physNode_global
         return {'FINISHED'}
+
+

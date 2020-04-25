@@ -81,7 +81,7 @@ def draw(layout, context):
             if obj and obj.RobotDesigner.tag == "PHYSICS_FRAME":
                 frame_name = obj.name
                 box = linkBox.box()
-                box.label(text="Mass properties (" + single_segment.name + ")", icon="MODIFIER")
+                box.label(text="Mass Properties (" + single_segment.name + ")", icon="MODIFIER")
                 frame = bpy.data.objects[frame_name]
                 box.prop(frame.RobotDesigner.dynamics, "mass")
                 box.separator()
@@ -117,7 +117,7 @@ def draw(layout, context):
     # joint physics properties
     # Only shown for child segments. Unless root segment is connected to world.
     joint_box = PhysicsBox.get(layout, context, 'Joint')
-    if box:
+    if joint_box:
         if (context.active_bone.parent is not None) or (context.active_bone.RobotDesigner.world is True):
             # Joint controller limit properties
             # Only shown for child segments. Unless root segment is connected to world

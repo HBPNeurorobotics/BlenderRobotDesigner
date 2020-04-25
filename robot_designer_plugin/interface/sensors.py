@@ -71,7 +71,7 @@ def draw(layout, context):
     global_properties.display_sensor_type.prop(context.scene, row, expand=True)
 
     box = layout.box()
-    box.label(text="-- Import/Export of Sensors under development --")
+    box.label(text="-- Import/Export of Sensors in Development --")
     row = column.row(align=True)
 
     sensorbox = layout.box()
@@ -84,16 +84,16 @@ def draw(layout, context):
 
     infoBox = InfoBox(sensorbox)
     mode = global_properties.display_sensor_type.get(context.scene)
-    sensors.CreateSensor.place_button(columnr, "Create new sensor").sensor_type = mode
-    sensors.RenameSensor.place_button(columnr, text="Rename active sensor", infoBox=infoBox)
-    sensors.DeleteSensor.place_button(columnr, text="Delete active sensor", infoBox=infoBox)
+    sensors.CreateSensor.place_button(columnr, "Create New Sensor").sensor_type = mode
+    sensors.RenameSensor.place_button(columnr, text="Rename Active Sensor", infoBox=infoBox)
+    sensors.DeleteSensor.place_button(columnr, text="Delete Active Sensor", infoBox=infoBox)
 
     tag = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotDesigner.tag
     sensor_type = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotDesigner.sensor_type
 
     row = sensorbox.row()
     row.prop(bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotDesigner, 'sensor_type',
-             text="Sensor type")
+             text="Sensor Type")
 
     if tag == 'SENSOR':
         box = AttachSensorBox.get(layout, context, "Attach/Detach", icon="LINKED")
@@ -127,11 +127,11 @@ def draw(layout, context):
 
             elif sensor_type == 'FORCE_TORQUE_SENSOR':
                 # todo sensor that can be attached to joints
-                row.label(text='not yet supported')
+                row.label(text='Not Supported Yet')
 
             elif sensor_type == 'CONTACT_SENSOR':
                 # todo sensor that can be attached to collision mesh
-                row.label(text='not yet supported')
+                row.label(text='Not Supported Yet')
 
         box = SensorPropertiesBox.get(layout, context, "Sensor Properties")
         if box:
@@ -142,14 +142,14 @@ def draw(layout, context):
 
             if sensor_type == "CAMERA_SENSOR":
                 column = row.column(align=True)
-                column.prop(sensor.data, 'angle_x', text="Horizontal field of view")
+                column.prop(sensor.data, 'angle_x', text="Horizontal Field of View")
                 column = row.column(align=True)
                 column.prop(sensor.data, 'angle_y')
                 row = box.row()
                 column = row.column(align=True)
-                column.prop(sensor.RobotDesigner.cameraSensor, 'width', text='width (px.)')
+                column.prop(sensor.RobotDesigner.cameraSensor, 'width', text='Width (px.)')
                 column = row.column(align=True)
-                column.prop(sensor.RobotDesigner.cameraSensor, 'height', text="height (px.)")
+                column.prop(sensor.RobotDesigner.cameraSensor, 'height', text="Height (px.)")
                 row = box.row()
                 column = row.column(align=True)
                 column.prop(sensor.data, 'clip_start')
@@ -162,23 +162,23 @@ def draw(layout, context):
                 row = noisebox.row()
                 row.prop(sensor.RobotDesigner.cameraSensor.noise, 'type', text="Type")
                 row.prop(sensor.RobotDesigner.cameraSensor.noise, 'mean', text="Mean")
-                row.prop(sensor.RobotDesigner.cameraSensor.noise, 'stddev', text="stddev")
+                row.prop(sensor.RobotDesigner.cameraSensor.noise, 'stddev', text="Stddev")
 
             elif sensor_type == "CONTACT_SENSOR":
                 column = row.column(align=True)
-                column.prop(bpy.context.active_object.RobotDesigner.contactSensor, 'collision', text='collision')
-                column.prop(bpy.context.active_object.RobotDesigner.contactSensor, 'topic', text='topic')
+                column.prop(bpy.context.active_object.RobotDesigner.contactSensor, 'collision', text='Collision')
+                column.prop(bpy.context.active_object.RobotDesigner.contactSensor, 'topic', text='Topic')
 
 
             elif sensor_type == "FORCE_TORQUE_SENSOR":
                 column = row.column(align=True)
-                column.prop(bpy.context.active_object.RobotDesigner.forceTorqueSensor, 'frame', text='frame')
+                column.prop(bpy.context.active_object.RobotDesigner.forceTorqueSensor, 'frame', text='Frame')
                 column.prop(bpy.context.active_object.RobotDesigner.forceTorqueSensor, 'measure_direction',
                             text='measure direction')
 
             elif sensor_type == "DEPTH_CAMERA_SENSOR":
                 column = row.column(align=True)
-                column.prop(bpy.context.active_object.RobotDesigner.depthCameraSensor, 'output', text='output')
+                column.prop(bpy.context.active_object.RobotDesigner.depthCameraSensor, 'output', text='Output')
 
             elif sensor_type == "ALTIMETER_SENSOR":
                 row = box.row(align=True)
@@ -204,21 +204,21 @@ def draw(layout, context):
 
             elif sensor_type == "IMU_SENSOR":
                 box0 = box.box()
-                box0.label(text="Orientation reference frame")
+                box0.label(text="Orientation Reference Frame")
 
                 row1 = box0.row(align=True)
                 row2 = box0.row(align=True)
                 row3 = box0.row(align=True)
                 row4 = box0.row(align=True)
                 row5 = box0.row(align=True)
-                row1.prop(bpy.context.active_object.RobotDesigner.imuSensor, 'localization', text='localization')
-                row2.prop(bpy.context.active_object.RobotDesigner.imuSensor, 'custom_rpy', text='custom_rpy')
-                row3.prop(bpy.context.active_object.RobotDesigner.imuSensor, 'grav_dir_x', text='grav_dir_x')
-                row4.prop(bpy.context.active_object.RobotDesigner.imuSensor, 'parent_frame', text='parent_frame')
-                row5.prop(bpy.context.active_object.RobotDesigner.imuSensor, 'topic', text='topic')
+                row1.prop(bpy.context.active_object.RobotDesigner.imuSensor, 'localization', text='Localization')
+                row2.prop(bpy.context.active_object.RobotDesigner.imuSensor, 'custom_rpy', text='Custom_rpy')
+                row3.prop(bpy.context.active_object.RobotDesigner.imuSensor, 'grav_dir_x', text='Grav_dir_x')
+                row4.prop(bpy.context.active_object.RobotDesigner.imuSensor, 'parent_frame', text='Parent_frame')
+                row5.prop(bpy.context.active_object.RobotDesigner.imuSensor, 'topic', text='Topic')
 
                 box1 = box.box()
-                box1.label(text="Angular velocity")
+                box1.label(text="Angular Velocity")
 
                 row = box1.row(align=True)
                 col1 = row.column(align=True)
@@ -287,13 +287,13 @@ def draw(layout, context):
 
 
             else:
-                infoBox.add_message('No sensor (or more than one) selected')
+                infoBox.add_message('No Sensor (or More Than One) Selected')
                 # sensors.ConvertCameraToSensor.place_button(row,"Convert to laser scanner sensor",infoBox).sensor_type = "LASER_SENSOR"
 
     if tag != 'SENSOR':
         if bpy.data.objects[global_properties.active_sensor.get(context.scene)].type == 'CAMERA':
             row = sensorbox.row()
-            sensors.ConvertCameraToSensor.place_button(row, "Convert to camera sensor",
+            sensors.ConvertCameraToSensor.place_button(row, "Convert to Camera Sensor",
                                                        infoBox).sensor_type = "CAMERA_SENSOR"
         row = box.row()
         column = row.column(align=True)

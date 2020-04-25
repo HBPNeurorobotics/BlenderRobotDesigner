@@ -106,7 +106,7 @@ class GenerateAllCollisionConvexHull(RDOperator):
     **Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "generatallecollisionconvexhull"
-    bl_label = "Generate convex hulls for all collision meshes"
+    bl_label = "Generate Convex Hulls For All Collision Meshes"
 
     @RDOperator.OperatorLogger
     # @Postconditions(ModelSelected)
@@ -139,7 +139,7 @@ class GenerateCollisionMesh(RDOperator):
     **Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "generatecollisionmesh"
-    bl_label = "Generate Collision Mesh for selected"
+    bl_label = "Generate Collision Mesh For Selected"
 
     shrinkWrapOffset: FloatProperty(name="Shrinkwrap Offset", default=0.001,
                                     unit='LENGTH', min=0, max=0.5)
@@ -221,7 +221,7 @@ class GenerateCollisionConvexHull(RDOperator):
     **Postconditions:**
     """
     bl_idname = config.OPERATOR_PREFIX + "generateconvexhull"
-    bl_label = "Generate convex hull for selected"
+    bl_label = "Generate Convex Hull For Selected"
 
     @classmethod
     def run(cls):

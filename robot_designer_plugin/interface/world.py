@@ -75,5 +75,5 @@ def draw(layout, context):
 
     # Included Models
     box2 = box.box()
-    box2.label(text="Insert robot models here via dropdown menu ")
+    box2.label(text="Insert Tobot Models Here Via Dropdown Menu ")
     #todo list all added robots

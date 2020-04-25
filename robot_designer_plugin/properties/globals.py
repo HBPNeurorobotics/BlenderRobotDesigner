@@ -308,12 +308,12 @@ class RDGlobals(PropertyGroupHandlerBase):
             update=self.display_sensors
         ))
 
-        self.active_sensor = PropertyHandler(StringProperty(name="Active sensor", default=""))
+        self.active_sensor = PropertyHandler(StringProperty(name="Active Sensor", default=""))
 
-        self.physics_type = PropertyHandler(EnumProperty(items=[('PHYSICS_FRAME', 'Mass object', 'Mass object')]))
+        self.physics_type = PropertyHandler(EnumProperty(items=[('PHYSICS_FRAME', 'Mass Object', 'Mass Object')]))
 
         self.display_physics_selection = PropertyHandler(
-            BoolProperty(name="Show Physics Frames", description="Show or hide physics frames", default=True,
+            BoolProperty(name="Show Physics Frames", description="Show or Hide Physics Frames", default=True,
                          update=self.display_physics))
 
         # attach world property
@@ -321,63 +321,59 @@ class RDGlobals(PropertyGroupHandlerBase):
 
         # Holds the selection to list connected or unassigned meshes in dropdown menus
         self.list_meshes = PropertyHandler(EnumProperty(
-            items=[("all", 'List all', 'Show all meshes in menu', 'RESTRICT_VIEW_OFF', 1),
-                   ("connected", 'List connected', 'Show only connected meshes in menu', 'OUTLINER_OB_ARMATURE', 2),
-                   ('disconnected', 'List disconnected', 'Show only disconnected meshes in menu',
+            items=[("all", 'List All', 'Show All Meshes in Menu', 'RESTRICT_VIEW_OFF', 1),
+                   ("connected", 'List Connected', 'Show Only Connected Meshes in Menu', 'OUTLINER_OB_ARMATURE', 2),
+                   ('disconnected', 'List Disconnected', 'Show Only Disconnected Meshes in Menu',
                     'ARMATURE_DATA', 3)]))
 
         self.assign_collision = PropertyHandler(
-            BoolProperty(name="Assign as Collision Mesh", description="Adds a collision tag to the mesh",
+            BoolProperty(name="Assign as Collision Mesh", description="Adds a Collision Tag to the Mesh",
                          default=False))
 
         # Holds the selection of whether do hide/display connected/unassigned meshes in the 3D viewport
         self.display_mesh_selection = PropertyHandler(EnumProperty(
-            items=[('all', 'All',
-                    'Show all objects in viewport'),
-                   ('collision', 'Collision',
-                    'Show only connected collision models'),
-                   ('bascol', 'BASCOL',
-                    'Show only connected basic collision shapes'),
-                   ('visual', 'Visual',
-                    'Show only connected visual models'),
-                   ('none', "None", "Show no connected model")],
+            items=[('all', 'All', 'Show All Objects in Viewport'),
+                   ('collision', 'Collision', 'Show Only Connected Collision Geometries'),
+                   ('bascol', 'BASCOL', 'Show Only Connected Basic Collision Geometries'),
+                   ('visual', 'Visual', 'Show Only Connected Visual Geometries'),
+                   ('none', "None", "Show No Connected Geometries")],
             update=self.display_geometries))
 
         self.display_wrapping_selection = PropertyHandler(EnumProperty(
             items=[('all', 'All',
-                    'Show all wrapping objects'),
-                   ('none', "None", "Show no wrapping models")],
+                    'Show All Wrapping Objects'),
+                   ('none', "None", "Show No Wrapping Objects")],
             update=self.display_wrapping_geometries))
 
         # Holds the selection to list connected or unassigned segments in dropdown menus
         self.list_segments = PropertyHandler(EnumProperty(
-            items=[("all", 'List all', 'Show all bones in menu', 'RESTRICT_VIEW_OFF', 1),
-                   ("connected", 'List connected', 'Show only bones with connected meshes in menu',
+            items=[("all", 'List All', 'Show All Bones in Menu', 'RESTRICT_VIEW_OFF', 1),
+                   ("connected", 'List Connected', 'Show Only Bones with Connected Meshes in Menu',
                     'OUTLINER_OB_ARMATURE', 2,),
-                   ('disconnected', 'List disconnected',
-                    'List only bones without connected meshes in menu', 'ARMATURE_DATA', 3)]))
+                   ('disconnected', 'List Disconnected',
+                    'List Only Bones without Connected Meshes in Menu', 'ARMATURE_DATA', 3)]))
 
         self.storage_mode = PropertyHandler(EnumProperty(items=[('temporary', 'Non-persistant GIT',
-                                                                 'Stores/retrieves files from GIT temporary' +
+                                                                 'Stores/Retrieves Files from GIT Temporary' +
                                                                  ' repository'),
-                                                                ('git', 'Persitant GIT',
-                                                                 'Stores/retrieves files from persistent GIT repository'),
+                                                                ('git', 'Persistent GIT',
+                                                                 'Stores/Retrieves Files from Persistent GIT Repository'),
                                                                 ('local', 'Local',
-                                                                 'Stores/retrieves from local hard disk')]))
+                                                                 'Stores/Retrieves from Local Hard Disk')]))
         self.git_url = PropertyHandler(StringProperty(name='GIT URL'))
         self.git_repository = PropertyHandler(StringProperty(name='GIT Repository'))
 
         self.segment_tab = PropertyHandler(EnumProperty(
-            items=[('kinematics', 'Kinematics', 'Edit kinematic properties'),
-                   ('dynamics', 'Dynamics', 'Edit Dynamic properties'),
-                   ('controller', 'Controller', 'Edit Controller properties')],
+            items=[('kinematics', 'Kinematics', 'Edit Kinematic Properties'),
+                   ('dynamics', 'Dynamics', 'Edit Dynamic Properties'),
+                   ('controller', 'Controller', 'Edit Controller Properties')],
             name="asdf"))
 
-        self.bone_length = PropertyHandler(FloatProperty(name="Global bone length", default=1, min=0.001,
+        self.bone_length = PropertyHandler(FloatProperty(name="Global Bone Length", default=1, min=0.001,
                                                          update=self.updateGlobals))
         self.do_kinematic_update = PropertyHandler(BoolProperty(name="Import Update", default=True))
 
-        self.gazebo_tags = PropertyHandler(StringProperty(name="Gazebo tags", default=""))
+        self.gazebo_tags = PropertyHandler(StringProperty(name="Gazebo Tags", default=""))
 
         self.world_s_name = PropertyHandler(StringProperty(name="World Name"))
         self.gravity = PropertyHandler(FloatProperty(name="Gravity", default=9.8, min=0, max=9.8))
@@ -387,29 +383,29 @@ class RDGlobals(PropertyGroupHandlerBase):
         self.specular = PropertyHandler(FloatVectorProperty(name="Specular", default=(0.1,0.1,0.1), min=0, max=255))
 
         self.operator_debug_level = PropertyHandler(EnumProperty(
-            items=[('info', 'Info', 'Log information'),
-                   ('debug', 'Debug', 'Log everything including debug messages (verbose)'),
-                   ('warning', 'Warning', 'Log only warnings'),
-                   ('error', 'Error', 'Log only errors')], update=self.debug_level_callback))
+            items=[('info', 'Info', 'Log Information'),
+                   ('debug', 'Debug', 'Log Everything Including Debug Messages (Verbose)'),
+                   ('warning', 'Warning', 'Log Warnings Only'),
+                   ('error', 'Error', 'Log Errors Only')], update=self.debug_level_callback))
 
         self.active_muscle = PropertyHandler(StringProperty(name="Active Muscle", default=""))
 
         self.display_muscle_selection = PropertyHandler(EnumProperty(
-            items=[('all', 'All', 'Show all muscles'),
+            items=[('all', 'All', 'Show All Muscles'),
                    ('MILLARD_EQUIL', 'Millard Equilibrium 2012', 'Show only Millard Equilibrium 2012 Muscles'),
                    ('MILLARD_ACCEL', 'Millard Acceleration 2012', 'Show only Millard Acceleration 2012 Muscles'),
                    ('THELEN', 'Thelen 2003', 'Show only Thelen 2003 Muscles'),
                    ('RIGID_TENDON', 'Rigid Tendon', 'Show only Rigid Tendon Muscles'),
                    ('MYOROBOTICS', 'Myorobotics', 'Show only Myorobotics Muscles'),
-                   ('none', "None", "Show no muscles")],
+                   ('none', "None", "Show No Muscles")],
             update=self.display_muscles))
 
         self.muscle_dim = PropertyHandler(
-            FloatProperty(name="Muscle Dimension:", default=0.05, update=self.muscle_dim_update))
+            FloatProperty(name="Muscle Dimension:", default=0.005, min=0.001, max=0.1, update=self.muscle_dim_update))
 
         self.export_thumbnail = PropertyHandler(
-            BoolProperty(name="Create and Export Thumbnail", description="Generated and exports a rendered \
-                                thumbnail from the current scene image", default=True))
+            BoolProperty(name="Create and Export Thumbnail", description="Generates and Exports a Rendered \
+                                Thumbnail from the Current Scene Image", default=True))
 
 
 global_properties = RDGlobals()

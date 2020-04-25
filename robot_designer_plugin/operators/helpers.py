@@ -125,7 +125,7 @@ class SingleSegmentSelected(Condition):
             selected_segments = [i for i in bpy.context.active_object.data.bones if i.select]
             return len(selected_segments) == 1, "Single Segment must be selected"
         else:
-            return False, "No Object select"
+            return False, "No Object Selected"
 
 
 class AtLeastOneSegmentSelected(Condition):
@@ -140,7 +140,7 @@ class AtLeastOneSegmentSelected(Condition):
             selected_segments = [i for i in bpy.context.active_object.data.bones if i.select]
             return len(selected_segments) >= 1, "At least one segment must be selected"
         else:
-            return False, "No Object select"
+            return False, "No Object Selected"
 
 
 class SingleMeshSelected(Condition):
@@ -174,7 +174,7 @@ class PoseMode(Condition):
         :term:`condition` that assures that the :term:`pose mode` is selected.
         """
         if bpy.context.object:
-            return bpy.context.object.mode == 'POSE', "Must be in pose mode"
+            return bpy.context.object.mode == 'POSE', "Must be in Pose Mode"
         else:
             return True, ""
 
@@ -186,7 +186,7 @@ class NotEditMode(Condition):
         :term:`condition` that assures that the :term:`edit mode` is *not* selected.
         """
         if bpy.context.object:
-            return bpy.context.object.mode != 'EDIT', "Must not be in edit mode"
+            return bpy.context.object.mode != 'EDIT', "Must not be in Edit Mode"
         else:
             return True, ""
 

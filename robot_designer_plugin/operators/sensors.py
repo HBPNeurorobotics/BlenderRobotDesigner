@@ -125,7 +125,7 @@ class DetachSensor(RDOperator):
     :term:`Operator <operator>` for detaching a single camera sensor from a :term:`segment`.
     """
     bl_idname = config.OPERATOR_PREFIX + "detach_sensor"
-    bl_label = "Detach sensor"
+    bl_label = "Detach Sensor"
 
     @classmethod
     def run(cls):
@@ -149,7 +149,7 @@ class ConvertCameraToSensor(RDOperator):
     :term:`Operator <operator>` for detaching a single camera sensor from a :term:`segment`.
     """
     bl_idname = config.OPERATOR_PREFIX + "convert_camera_to_sensor"
-    bl_label = "Convert camera object to sensor"
+    bl_label = "Convert Camera Object to Sensor"
 
     sensor_type: StringProperty(default="CAMERA_SENSOR")
 
@@ -175,7 +175,7 @@ class CreateSensor(RDOperator):
     """
 
     bl_idname = config.OPERATOR_PREFIX + "create_sensor"
-    bl_label = "Create sensor"
+    bl_label = "Create Sensor"
 
     sensor_type: StringProperty(default="CAMERA_SENSOR")
     sensor_name: StringProperty(name="Sensor Name")
@@ -224,7 +224,7 @@ class RenameSensor(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "rename_sensor"
-    bl_label = "Rename active sensor"
+    bl_label = "Rename Active Sensor"
 
     new_name: StringProperty(name="Enter new name:")
 
@@ -252,7 +252,7 @@ class DeleteSensor(RDOperator):
 
     """
     bl_idname = config.OPERATOR_PREFIX + "delete_sensor"
-    bl_label = "Delete active sensor"
+    bl_label = "Delete Active Sensor"
 
     @RDOperator.OperatorLogger
     def execute(self, context):

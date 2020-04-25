@@ -69,7 +69,7 @@ def draw(layout, context):
 
     box = layout.box()
     row = box.row(align=True)
-    row.label(text="Mesh type:")
+    row.label(text="Mesh Type:")
     global_properties.mesh_type.prop(context.scene, row, expand=True)
     row = box.row(align=True)
     row.label(text="Show:")
@@ -107,7 +107,7 @@ def draw(layout, context):
         selected_objects = [i for i in context.selected_objects if i.name != context.active_object.name]
         if len(selected_objects):
             obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
-            rigid_bodies.RenameGeometry.place_button(column, text='Rename selected geometry', infoBox=infoBox)
+            rigid_bodies.RenameGeometry.place_button(column, text='Rename Selected Geometry', infoBox=infoBox)
             box.prop(obj, "rotation_euler", slider=False, text="Rotation")
             box.prop(obj, "location", slider=False, text="Location")
             row2 = box.row()
@@ -187,7 +187,7 @@ def draw(layout, context):
             collision.GenerateCollisionConvexHull.place_button(column, infoBox=infoBox)
 
             row2 = box.row()
-            row2.label(text="Add basic collision shapes:")
+            row2.label(text="Add Basic Collision Geometry:")
             row3 = box.row()
             column = row3.column(align=True)
             collision.CreateBasicCollisionBox.place_button(column, text='Create Box', infoBox=infoBox)
@@ -275,11 +275,11 @@ def draw(layout, context):
 
         box6 = ContactBox.get(SDFbox, context, "Contact")
         if box6:
-            box6.prop(obj.RobotDesigner.sdfCollisionProps, 'collide_wo_contact', text='Collide without contact')
+            box6.prop(obj.RobotDesigner.sdfCollisionProps, 'collide_wo_contact', text='Collide Without Contact')
             box6.prop(obj.RobotDesigner.sdfCollisionProps, 'collide_wo_contact_bitmask',
                       text='Collide without contact bitmask')
-            box6.prop(obj.RobotDesigner.sdfCollisionProps, 'collide_bitmask', text='Collide bitmask')
-            box6.prop(obj.RobotDesigner.sdfCollisionProps, 'category_bitmask', text='Category bitmask')
+            box6.prop(obj.RobotDesigner.sdfCollisionProps, 'collide_bitmask', text='Collide Bitmask')
+            box6.prop(obj.RobotDesigner.sdfCollisionProps, 'category_bitmask', text='Category Bitmask')
             box6.prop(obj.RobotDesigner.sdfCollisionProps, 'poissons_ratio', text='Poissons Ratio')
             box6.prop(obj.RobotDesigner.sdfCollisionProps, 'elastic_modulus', text="Elastic Modulus")
 
@@ -287,6 +287,8 @@ def draw(layout, context):
             box7.label(text="Opensim")
             box7.prop(obj.RobotDesigner.sdfCollisionProps, 'osim_stiffness', text='Stiffness')
             box7.prop(obj.RobotDesigner.sdfCollisionProps, 'osim_dissipation', text='Dissipation')
+            rigid_bodies.CalculateOsimSurfaceStiffness.place_button(row, infoBox=infoBox,
+                                                       text="Calculate Stiffness")
 
             box8 = box6.box()
             box8.label(text="ODE")
@@ -303,7 +305,7 @@ def draw(layout, context):
             box9.prop(obj.RobotDesigner.sdfCollisionProps, 'bone_attachment', text="Bone Attachment")
             box9.prop(obj.RobotDesigner.sdfCollisionProps, 'dart_stiffness', text='Stifness')
             box9.prop(obj.RobotDesigner.sdfCollisionProps, 'damping', text='Damping')
-            box9.prop(obj.RobotDesigner.sdfCollisionProps, 'flesh_mass_fraction', text='Flesh mass fraction')
+            box9.prop(obj.RobotDesigner.sdfCollisionProps, 'flesh_mass_fraction', text='Flesh Mass Fraction')
 
 
     drawInfoBox(layout,context)

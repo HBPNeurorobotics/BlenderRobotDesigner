@@ -413,7 +413,7 @@ class MassObjectMenu(ConnectedObjectsMenu):
     :ref:`menu` for selecting :term:`mass entities` while displaying connections to robot segments in the scene.
     """
     bl_idname = MENU_PREFIX + "mass_object_menu"
-    bl_label = "Select mass object"
+    bl_label = "Select Mass Object"
 
     obj_tag = global_properties.physics_type
     show_connected = global_properties.list_meshes
@@ -479,7 +479,7 @@ class ModelMenu(bpy.types.Menu, BaseMenu):
     """
 
     bl_idname = MENU_PREFIX + "armaturemenu"
-    bl_label = "Selecht Model"
+    bl_label = "Select Model"
 
     @RDOperator.OperatorLogger
     def draw(self, context):
@@ -499,7 +499,7 @@ class JoinModelMenu(bpy.types.Menu, BaseMenu):
     :ref:`menu` for joining two robot models.
     """
     bl_idname = MENU_PREFIX + "joinarmaturemenu"
-    bl_label = "Join selected armature with different armature"
+    bl_label = "Join Selected Armature With Another Armature"
 
     @RDOperator.OperatorLogger
     def draw(self, context):
@@ -614,7 +614,7 @@ class AssignParentMenu(bpy.types.Menu, BaseMenu):
     :ref:`menu` for re-assigning the parent of a robot segments.
     """
     bl_idname = MENU_PREFIX + "assignparentbonemenu"
-    bl_label = "Assign parent to bone"
+    bl_label = "Assign Parent to Bone"
 
     @RDOperator.OperatorLogger
     def draw(self, context):
