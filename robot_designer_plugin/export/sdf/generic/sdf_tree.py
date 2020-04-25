@@ -88,7 +88,7 @@ class SDFTree(object):
         # create a dictionary [ joint_name, controller ] which is
         # easily searchable during tree traversal
         controller_cache = {}
-        gazebo_tags = []
+        # gazebo_tags = []
         # logger.debug("Built controller cache:")
         #  logger.debug(robot.plugin[0].filename)
 

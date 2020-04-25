@@ -150,17 +150,18 @@ def draw(layout, context):
 
         infoBox.draw_info()
 
-        box = ModelPropertiesBox.get(layout, context, 'Model Properties')
+        box = ModelPropertiesBox.get(layout, context, 'Visualization Properties')
         if box:
             row = box.row(align=True)
             column = row.column(align=True)
-            column.label(text="Custom Coordinate Frames:")
+            column.label(text="Custom Segment Visualization:")
             column = row.column(align=True)
             column.menu(menus.CoordinateFrameMenu.bl_idname, text='None')
 
-        box = layout.box()
-        box.label(text="Custom Gazebo Tags")
-        global_properties.gazebo_tags.prop(bpy.context.scene, box)
+        ## URDF only
+        # box = layout.box()
+        # box.label(text="Custom Gazebo Tags")
+        # global_properties.gazebo_tags.prop(bpy.context.scene, box)
         push_info(NotEditMode)
     else:
         layout.menu(menus.ModelMenu.bl_idname, text="Select Robot")
