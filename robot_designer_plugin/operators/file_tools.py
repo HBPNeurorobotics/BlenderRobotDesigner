@@ -86,7 +86,7 @@ class StlToDaeConverter(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "convert_stl_to_dae"
     bl_label = "Convert All '.stl' Files in Folder to '.dae' Files"
 
-    directory = bpy.props.StringProperty(subtype='DIR_PATH')
+    directory: bpy.props.StringProperty(subtype='DIR_PATH')
 
     @classmethod
     def poll(cls, context):

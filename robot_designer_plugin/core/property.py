@@ -182,15 +182,17 @@ class PropertyGroupHandlerBase(object):
         if bpy.app.version == 'Mockup':
             return
 
-        newPropertyGroup = type(self.__class__.__name__ + "_unwrapped", (bpy.types.PropertyGroup,), {})
+        newPropertyGroup = type(self.__class__.__name__ + "_unwrapped", (bpy.types.PropertyGroup,), {'__annotations__': {}})
 
         for attr in self.__dict__.items():
             if isinstance(attr[1], PropertyHandler):
+
                 attr[1].property[1]['attr'] = attr[0]
-                # print(attr[0], attr[1].d)
                 property = attr[1].property
-                setattr(newPropertyGroup, attr[0], property)  # property[0](**property[1]))
+
+                newPropertyGroup.__annotations__.update({attr[0]: property})
                 attr[1].reference = parent + [attr[0]]
+
             elif isinstance(attr[1], PropertyGroupHandlerBase):
                 pg = attr[1].register(None, parent + [attr[0]])
                 print(type(pg), pg.__bases__)
@@ -199,6 +201,7 @@ class PropertyGroupHandlerBase(object):
                 setattr(newPropertyGroup, attr[0], p)
 
         core_logger.debug("Registering generated property group: %s", newPropertyGroup.__name__)
+
         bpy.utils.register_class(newPropertyGroup)
         PluginManager._registered_properties.append((newPropertyGroup, btype))
         if btype:
