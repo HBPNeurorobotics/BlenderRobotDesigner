@@ -208,6 +208,9 @@ class CreateNewPathpoint(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "create_muscle_pathpoint"
     bl_label = "Add Current Cursor Location as Pathpoint"
 
+    bl_description = "Add the current cursor location as a new pathpoint \n\n" \
+                     + "Select a cursor location with 'Shift' + RightClick"
+
     # model_name = StringProperty()
     # parent_name = StringProperty(default="")
 
