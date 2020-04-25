@@ -590,13 +590,14 @@ class Importer(object):
             bpy.data.objects[inertia_name].RobotDesigner.dynamics.mass = node.link.inertial[0].mass[0]
 
             # set center of mass position
-            inertia_location = string_to_list(node.link.inertial[0].pose[0].value())[0:3]
-            inertia_location[1] = inertia_location[1] - 1.0
-            inertia_rotation = string_to_list(node.link.inertial[0].pose[0].value())[3:]
+            if len(node.link.inertial[0].pose):
+                inertia_location = string_to_list(node.link.inertial[0].pose[0].value())[0:3]
+                inertia_location[1] = inertia_location[1] - 1.0
+                inertia_rotation = string_to_list(node.link.inertial[0].pose[0].value())[3:]
 
-            # bpy.data.objects[node.link.name].location = [inertia_location[1], inertia_location[2], inertia_location[0]]
-            bpy.data.objects[inertia_name].location = inertia_location
-            bpy.data.objects[inertia_name].rotation_euler = inertia_rotation
+                # bpy.data.objects[node.link.name].location = [inertia_location[1], inertia_location[2], inertia_location[0]]
+                bpy.data.objects[inertia_name].location = inertia_location
+                bpy.data.objects[inertia_name].rotation_euler = inertia_rotation
 
             # set inertia
             bpy.data.objects[inertia_name].RobotDesigner.dynamics.inertiaXX = i.ixx[0]
@@ -608,7 +609,6 @@ class Importer(object):
 
             # hide if don't show interia selected in GUI
             if global_properties.display_physics_selection.get(bpy.context.scene) == False:
-                print(' ----- hiding')
                 bpy.data.objects[inertia_name].hide_set(True)
 
         model = bpy.context.active_object
@@ -778,31 +778,47 @@ class Importer(object):
 
                         if model_type == COLLISON:
                             # import surface properties
-                            if len(model.surface):
+                            if model.surface:
                                 surface = bpy.data.objects[assigned_name].RobotDesigner.sdfCollisionProps
                                 surface.restitution_coeff = model.surface[0].bounce[0].restitution_coefficient[0]
                                 surface.threshold = model.surface[0].bounce[0].threshold[0]
-                                surface.coefficient = model.surface[0].friction[0].torsional[0].coefficient[0]
-                                surface.use_patch_radius = model.surface[0].friction[0].torsional[0].use_patch_radius[0]
-                                surface.surface_radius = model.surface[0].friction[0].torsional[0].surface_radius[0]
-                                surface.slip = model.surface[0].friction[0].torsional[0].ode[0].slip[0]
-                                surface.mu = model.surface[0].friction[0].ode[0].mu[0]
-                                surface.mu2 = model.surface[0].friction[0].ode[0].mu2[0]
-                                surface.fdir1 = string_to_list(model.surface[0].friction[0].ode[0].fdir1[0])
-                                surface.slip1 = model.surface[0].friction[0].ode[0].slip1[0]
-                                surface.slip2 = model.surface[0].friction[0].ode[0].slip2[0]
-                                surface.collide_wo_contact = model.surface[0].contact[0].collide_without_contact[0]
-                                surface.collide_wo_contact_bitmask = model.surface[0].contact[0].collide_without_contact_bitmask[0]
-                                surface.collide_bitmask = model.surface[0].contact[0].collide_bitmask[0]
-                                surface.category_bitmask = model.surface[0].contact[0].category_bitmask[0]
-                                surface.poissons_ratio = model.surface[0].contact[0].poissons_ratio[0]
-                                surface.elastic_modulus = model.surface[0].contact[0].elastic_modulus[0]
 
-                                if len(model.surface[0].contact[0].opensim) != 0:
+                                torsional = model.surface[0].friction[0].torsional
+                                if torsional:
+                                    surface.coefficient = torsional[0].coefficient[0]
+                                    surface.use_patch_radius = torsional[0].use_patch_radius[0]
+                                    surface.surface_radius = torsional[0].surface_radius[0]
+                                    surface.slip = torsional[0].ode[0].slip[0]
+
+                                ode = model.surface[0].friction[0].ode
+                                if ode:
+                                    surface.mu = ode[0].mu[0]
+                                    surface.mu2 = ode[0].mu2[0]
+                                    surface.fdir1 = string_to_list(ode[0].fdir1[0])
+                                    surface.slip1 = ode[0].slip1[0]
+                                    surface.slip2 = ode[0].slip2[0]
+
+                                contact = model.surface[0].contact
+                                if contact:
+                                    if contact[0].collide_without_contact:
+                                        surface.collide_wo_contact = contact[0].collide_without_contact[0]
+                                    if contact[0].collide_without_contact_bitmask:
+                                        surface.collide_wo_contact_bitmask = contact[0].collide_without_contact_bitmask[0]
+                                    if contact[0].collide_bitmask:
+                                        surface.collide_bitmask = contact[0].collide_bitmask[0]
+                                    if contact[0].category_bitmask:
+                                        surface.category_bitmask = contact[0].category_bitmask[0]
+                                    if contact[0].poissons_ratio:
+                                        surface.poissons_ratio = contact[0].poissons_ratio[0]
+                                    if contact[0].elastic_modulus:
+                                        surface.elastic_modulus = contact[0].elastic_modulus[0]
+
+                                opensim = model.surface[0].contact[0].opensim
+                                if opensim:
                                         bpy.data.objects[global_properties.model_name.get(bpy.context.scene)] \
                                         .RobotDesigner.physics_engine = 'OPENSIM'
-                                        surface.osim_stiffness = model.surface[0].contact[0].opensim[0].stiffness[0]
-                                        surface.osim_dissipation = model.surface[0].contact[0].opensim[0].dissipation[0]
+                                        surface.osim_stiffness = opensim[0].stiffness[0]
+                                        surface.osim_dissipation = opensim[0].dissipation[0]
 
                                 surface.soft_cfm = model.surface[0].contact[0].ode[0].soft_cfm[0]
                                 surface.soft_erp = model.surface[0].contact[0].ode[0].soft_erp[0]
