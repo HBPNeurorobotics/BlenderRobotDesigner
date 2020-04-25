@@ -85,7 +85,11 @@ class ROBOTDESIGNER_PT_UserInterface(bpy.types.Panel):
         elif control == 'sensors':
             sensors.draw(layout, context)
         if control == 'muscles':
-            muscles.draw(layout, context)
+            if bpy.data.objects[global_properties.model_name.get(bpy.context.scene)].RobotDesigner.physics_engine != 'OPENSIM':
+                row = layout.row()
+                row.label(text="Muscle Support for OpenSim Physics Engine Only")
+            else:
+                muscles.draw(layout, context)
         # elif control == 'markers':
         #     markers.draw(layout, context)
         elif control == 'files':

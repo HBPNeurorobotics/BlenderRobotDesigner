@@ -798,9 +798,11 @@ class Importer(object):
                                 surface.poissons_ratio = model.surface[0].contact[0].poissons_ratio[0]
                                 surface.elastic_modulus = model.surface[0].contact[0].elastic_modulus[0]
 
-                                # todo
-                                #surface.osim_stiffness = model.surface[0].contact[0].opensim[0].stiffness[0]
-                                #surface.osim_dissipation = model.surface[0].contact[0].opensim[0].dissipation[0]
+                                if len(model.surface[0].contact[0].opensim) != 0:
+                                        bpy.data.objects[global_properties.model_name.get(bpy.context.scene)] \
+                                        .RobotDesigner.physics_engine = 'OPENSIM'
+                                        surface.osim_stiffness = model.surface[0].contact[0].opensim[0].stiffness[0]
+                                        surface.osim_dissipation = model.surface[0].contact[0].opensim[0].dissipation[0]
 
                                 surface.soft_cfm = model.surface[0].contact[0].ode[0].soft_cfm[0]
                                 surface.soft_erp = model.surface[0].contact[0].ode[0].soft_erp[0]
@@ -986,6 +988,12 @@ class ImportPlain(RDOperator):
             import os
             importer = Importer(self, self.filepath)
             importer.import_file()
+            if importer.MUSCLE_PATH != '[]':
+                bpy.data.objects[global_properties.model_name.get(bpy.context.scene)] \
+                    .RobotDesigner.physics_engine = 'OPENSIM'
+                print('muscle path:', importer.MUSCLE_PATH)
+                osim_importer = OsimImporter(self.filepath, importer.MUSCLE_PATH)
+                osim_importer.import_osim()
             return {'FINISHED'}
 
 
@@ -1014,8 +1022,9 @@ class ImportPackage(RDOperator):
             importer.import_file()
             importer.import_config()
             if importer.MUSCLE_PATH != '[]':
-                print('muscle path:')
-                print(importer.MUSCLE_PATH)
+                bpy.data.objects[global_properties.model_name.get(bpy.context.scene)] \
+                    .RobotDesigner.physics_engine = 'OPENSIM'
+                print('muscle path:', importer.MUSCLE_PATH)
                 osim_importer = OsimImporter(self.filepath, importer.MUSCLE_PATH)
                 osim_importer.import_osim()
             return {'FINISHED'}
@@ -1063,6 +1072,12 @@ class ImportZippedPackage(RDOperator):
                     importer = Importer(operator=self, file_path=file_path)
                     importer.import_file()
                     importer.import_config()
+                    if importer.MUSCLE_PATH != '[]':
+                        bpy.data.objects[global_properties.model_name.get(bpy.context.scene)] \
+                            .RobotDesigner.physics_engine = 'OPENSIM'
+                        print('muscle path:', importer.MUSCLE_PATH)
+                        osim_importer = OsimImporter(file_path, importer.MUSCLE_PATH)
+                        osim_importer.import_osim()
                 else:
                     self.report({'ERROR'}, "No SDF file found in package")
                     self.logger.error("No SDF file found in package")

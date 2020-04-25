@@ -514,10 +514,14 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 contact.category_bitmask.append(surface_property.category_bitmask)
                 contact.poissons_ratio.append(surface_property.poissons_ratio)
                 contact.elastic_modulus.append(surface_property.elastic_modulus)
-                contact.opensim = [pyxb.BIND()]
-                contact_opensim = contact.opensim[0]
-                contact_opensim.stiffness.append(surface_property.osim_stiffness)
-                contact_opensim.dissipation.append(surface_property.osim_dissipation)
+
+                if bpy.data.objects[
+                    global_properties.model_name.get(bpy.context.scene)].RobotDesigner.physics_engine == 'OPENSIM':
+                    contact.opensim = [pyxb.BIND()]
+                    contact_opensim = contact.opensim[0]
+                    contact_opensim.stiffness.append(surface_property.osim_stiffness)
+                    contact_opensim.dissipation.append(surface_property.osim_dissipation)
+
                 contact.ode = [pyxb.BIND()]
                 contact_ode = contact.ode[0]
                 contact_ode.soft_cfm.append(surface_property.soft_cfm)
@@ -526,8 +530,12 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 contact_ode.kd.append(surface_property.kd)
                 contact_ode.max_vel.append(surface_property.max_vel)
                 contact_ode.min_depth.append(surface_property.min_depth)
+
                 # add soft contact properties
-                # not yet implemented dart properties.
+                # todo: not yet implemented dart properties.
+                # if bpy.data.objects[
+                #   global_properties.model_name.get(bpy.context.scene)].RobotDesigner.physics_engine == 'DART':
+
 
 
         ### Add Physics
@@ -650,22 +658,23 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
     # A link for world. Used for export of root links connected to world
     root.link.name = 'world'
 
-    # add root geometries to root.link
-    muscles = get_muscles(robot_name, context)
-    if muscles:
-        # add muscles path tag
-        muscle_uri = _uri_for_meshes_and_muscles(
-            in_ros_package,
-            abs_filepaths,
-            toplevel_directory,
-            os.path.join(toplevel_directory, 'muscles.osim'))
-        root.sdf.model[0].muscles.append(muscle_uri)
+    if bpy.data.objects[global_properties.model_name.get(bpy.context.scene)].RobotDesigner.physics_engine == 'OPENSIM':
+        # add root geometries to root.link
+        muscles = get_muscles(robot_name, context)
+        if muscles:
+            # add muscles path tag
+            muscle_uri = _uri_for_meshes_and_muscles(
+                in_ros_package,
+                abs_filepaths,
+                toplevel_directory,
+                os.path.join(toplevel_directory, 'muscles.osim'))
+            root.sdf.model[0].muscles.append(muscle_uri)
 
-        # add OpenSim muscle plugin
-        root.sdf.model[0].plugin.append(sdf_dom.plugin())
-        length = len(root.sdf.model[0].plugin)
-        root.sdf.model[0].plugin[length-1].name = "muscle_interface_plugin"
-        root.sdf.model[0].plugin[length-1].filename = "libgazebo_ros_muscle_interface.so"
+            # add OpenSim muscle plugin
+            root.sdf.model[0].plugin.append(sdf_dom.plugin())
+            length = len(root.sdf.model[0].plugin)
+            root.sdf.model[0].plugin[length-1].name = "muscle_interface_plugin"
+            root.sdf.model[0].plugin[length-1].filename = "libgazebo_ros_muscle_interface.so"
 
     # build control plugin element
     # if there is a segment which has a controller attached to it: then create controller plugin

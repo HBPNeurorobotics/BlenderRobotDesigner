@@ -484,6 +484,12 @@ class RDObjects(bpy.types.PropertyGroup):
     dynamics: PointerProperty(type=RDDynamics)
     modelMeta: PointerProperty(type=RDModelMeta)
 
+    physics_engine: EnumProperty(
+        items=[('ODE', 'ODE', 'Select Open Dynamics Engine (ODE)'),
+               ('SIMBODY', 'Simbody', 'Select Simbody as Physics Engine'),
+               ('OPENSIM', 'OpenSim', 'Select OpenSim as Physics Engine'),
+               ('DART', 'DART', 'Select DART as Physics Engine')])
+
     modelMeta1: PointerProperty(type=ModelMeta)
     robotSelfCollision: PointerProperty(type=RobotSelfCollision)
     linkInfo: PointerProperty(type=LinkInfo)

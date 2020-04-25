@@ -140,14 +140,15 @@ def draw(layout, context):
                 #limit_box.prop(context.active_bone.RobotDesigner.controller, "acceleration")
                 #limit_box.prop(context.active_bone.RobotDesigner.controller, "deceleration")
 
-
-            physics_box = JointPhysicsBox.get(joint_box, context, 'Physics')
-            if physics_box:
-                physics_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm_damping', text='CFM-Damping')
-                physics_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'i_s_damper',
-                                 text='I. S. Damper')  # implicit spring
-                physics_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm', text='CFM')  # constraint force mixing
-                physics_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'erp', text='ERP')  # error reduction parameter
+                physics_box = JointPhysicsBox.get(joint_box, context, 'Physics')
+                if physics_box:
+                    physics_ode_box = physics_box.box()
+                    physics_ode_box.label(text="ODE")
+                    physics_ode_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm_damping', text='CFM-Damping')
+                    physics_ode_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'i_s_damper',
+                                     text='I. S. Damper')  # implicit spring
+                    physics_ode_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm', text='CFM')  # constraint force mixing
+                    physics_ode_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'erp', text='ERP')  # error reduction parameter
 
             dynamics_box = JointDynamicsBox.get(joint_box, context, 'Dynamics')
             if dynamics_box:

@@ -108,6 +108,11 @@ def draw(layout, context):
         infoBox.draw_info()
 
         box = layout.box()
+        row = box.row(align=True)
+        row.prop(bpy.data.objects[global_properties.model_name.get(context.scene)].RobotDesigner, 'physics_engine', \
+                 text="Physics Engine")
+
+        box = layout.box()
         infoBox = InfoBox(box)
         box.label(text="Model Pose:")
         row = box.row()
@@ -157,6 +162,7 @@ def draw(layout, context):
             column.label(text="Custom Segment Visualization:")
             column = row.column(align=True)
             column.menu(menus.CoordinateFrameMenu.bl_idname, text='None')
+
 
         ## URDF only
         # box = layout.box()
