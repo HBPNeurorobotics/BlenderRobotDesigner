@@ -45,4 +45,4 @@ def create_thumbnail(toplevel_directory):
     bpy.context.scene.render.resolution_y = 600
 
     # render and save file
-    bpy.ops.render.opengl(write_still=True, view_context=True)
+    bpy.ops.render.render(write_still=True, use_viewport=True)

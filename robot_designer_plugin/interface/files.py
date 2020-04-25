@@ -44,6 +44,7 @@ from ..core import PluginManager
 from ..core.gui import InfoBox
 from ..properties.globals import global_properties
 from ..operators import file_tools
+from .helpers import DebugBox
 
 
 def draw(layout, context):
@@ -139,10 +140,14 @@ def draw(layout, context):
     row = tools_box.row(align=True)
     row.operator(file_tools.StlToDaeConverter.bl_idname)
 
-    settings_box = layout.box()
-    settings_box.label(text="RobotDesigner Settings")
-    row = settings_box.row()
-    row.label(text='Debugger Level')
-    global_properties.operator_debug_level.prop(bpy.context.scene, row, expand=True)
-    row = settings_box.row(align=True)
-    row.operator(file_tools.PrintTransformations.bl_idname)
+    layout.separator()
+    row = layout.row()
+    debug_box = DebugBox.get(row, context, "Debug Tools")
+    if debug_box:
+        row = debug_box.row()
+        row.label(text='Level')
+        global_properties.operator_debug_level.prop(bpy.context.scene, row, expand=True)
+        row = debug_box.row(align=True)
+        row.operator(file_tools.PrintTransformations.bl_idname)
+
+
