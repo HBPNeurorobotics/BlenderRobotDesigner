@@ -497,18 +497,16 @@ class Importer(object):
             if node.joint.parent[0] == 'world':
                 bpy.context.active_bone.RobotDesigner.world = True
 
-        # Set joint controller
-        if node.joint:
-            if len(node.joint.axis[0].limit):
-                bpy.context.active_bone.RobotDesigner.controller.maxTorque = float(get_list_value(
-                    node.joint.axis[0].limit[0].effort, 0))
-                bpy.context.active_bone.RobotDesigner.controller.maxVelocity = float(get_list_value(
-                    node.joint.axis[0].limit[0].velocity, 0))
-                bpy.context.active_bone.RobotDesigner.controller.isActive = True
+            # Set joint dynamic limits
+            if node.joint.axis[0].limit:
+                if node.joint.axis[0].limit[0].effort or node.joint.axis[0].limit[0].velocity:
+                    bpy.context.active_bone.RobotDesigner.dynamic_limits.maxTorque = float(get_list_value(
+                        node.joint.axis[0].limit[0].effort, 0))
+                    bpy.context.active_bone.RobotDesigner.dynamic_limits.maxVelocity = float(get_list_value(
+                        node.joint.axis[0].limit[0].velocity, 0))
+                    bpy.context.active_bone.RobotDesigner.dynamic_limits.isActive = True
 
-        # bpy.context.active_bone.RobotDesigner.controller.maxVelocity = float(tree.joint.limit.friction)
-
-        if node.joint:
+            # Set joint kinematic limits
             if node.joint.type == 'revolute':
                 bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE'
                 if len(node.joint.axis[0].limit):
@@ -516,6 +514,7 @@ class Importer(object):
                         float(get_list_value(node.joint.axis[0].limit[0].upper, 0)))
                     bpy.context.active_bone.RobotDesigner.theta.min = degrees(
                         float(get_list_value(node.joint.axis[0].limit[0].lower, 0)))
+                    bpy.context.active_bone.RobotDesigner.theta.isActive = True
             if node.joint.type == 'prismatic':
                 bpy.context.active_bone.RobotDesigner.jointMode = 'PRISMATIC'
                 if len(node.joint.axis[0].limit):
@@ -523,6 +522,7 @@ class Importer(object):
                         float(get_list_value(node.joint.axis[0].limit[0].upper, 0))
                     bpy.context.active_bone.RobotDesigner.d.min = \
                         float(get_list_value(node.joint.axis[0].limit[0].lower, 0))
+                    bpy.context.active_bone.RobotDesigner.d.isActive = True
             if node.joint.type == 'revolute2':
                 bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE2'
             if node.joint.type == 'universal':
@@ -534,7 +534,6 @@ class Importer(object):
         else:
             bpy.context.active_bone.RobotDesigner.jointMode = 'FIXED'
 
-        if node.joint:
             # import joint physics if they exist
             if len(node.joint.physics):
                 if len(node.joint.physics[0].ode):

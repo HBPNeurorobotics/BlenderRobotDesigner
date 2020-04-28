@@ -55,7 +55,8 @@ def draw(layout, context):
     :param context: Blender context
     """
 
-    if context.active_object and context.active_object.type == 'ARMATURE':
+    if context.active_object and context.active_object.type == 'ARMATURE' \
+            and global_properties.model_name.get(bpy.context.scene) != 'None':
         box = layout.box()
         box.label(text="Model Meta Data")
 

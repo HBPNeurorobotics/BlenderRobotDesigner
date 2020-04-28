@@ -56,9 +56,10 @@ class RDActuator(bpy.types.PropertyGroup):
     """
     Property group that contains all controller-related parameters
     """
+    isActive: BoolProperty(name="Active Dynamic Limits", default=False)
+
     maxVelocity: FloatProperty(name="Max. Velocity", precision=4, step=100, default=-1)
     maxTorque: FloatProperty(name="Max. Torque", precision=4, step=100, default=-1)
-    isActive: BoolProperty(name="Active", default=False)
     acceleration: FloatProperty(name="Acceleration", precision=4, step=100)
     deceleration: FloatProperty(name="Deceleration", precision=4, step=100)
 
@@ -110,6 +111,7 @@ class RDDegreeOfFreedom(bpy.types.PropertyGroup):
                           step=100)
     min: FloatProperty(name="Min", default=-90.0, precision=4, step=100)
     max: FloatProperty(name="Max", default=90.0, precision=4, step=100)
+    isActive: BoolProperty(name="LimitActive", default=True)
 
 
 @PluginManager.register_property_group()
@@ -289,7 +291,7 @@ class RDSegment(bpy.types.PropertyGroup):
     axis_revert: BoolProperty(name="Axis Reverted?", default=False,
                               update=callbackSegments)
 
-    controller: PointerProperty(type=RDActuator)
+    dynamic_limits: PointerProperty(type=RDActuator)
     theta: PointerProperty(type=RDDegreeOfFreedom)  # Joint transform + limits, relative to local frame.
     d: PointerProperty(type=RDDegreeOfFreedom)
     jointController: PointerProperty(type=RDJointController)

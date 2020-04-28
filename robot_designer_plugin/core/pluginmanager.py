@@ -251,7 +251,7 @@ class PluginManager(object):
 
             core_logger.debug("Properties: %s", cls._property_groups_to_register)
             for prop, extends in cls._property_groups_to_register:
-                report.append("\t+ propery {0:33} {1:8} in {2:40}".format(prop.__name__,
+                report.append("\t+ property {0:33} {1:8} in {2:40}".format(prop.__name__,
                                                                           "(%s)" % extends.__name__ if extends else '',
                                                                           "/".join(prop.__module__.split('.')[1:])))
 

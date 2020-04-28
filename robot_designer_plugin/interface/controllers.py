@@ -56,7 +56,7 @@ def draw(layout, context):
         control_box = ControllerBox.get(layout, context, 'Joint Controller Plugin')
         if control_box:
             if (context.active_bone.parent is not None) or (context.active_bone.RobotDesigner.world is True):
-                control_box.prop(context.active_bone.RobotDesigner.jointController, "isActive")
+                control_box.prop(context.active_bone.RobotDesigner.jointController, "isActive", text="Active Controller")
                 control_box.prop(context.active_bone.RobotDesigner.jointController, "controllerType")
                 control_box.separator()
                 control_box.prop(context.active_bone.RobotDesigner.jointController, "P")

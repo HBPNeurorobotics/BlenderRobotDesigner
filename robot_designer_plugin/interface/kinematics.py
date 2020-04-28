@@ -106,9 +106,11 @@ def draw(layout, context):
             joint_column.prop(context.active_bone.RobotDesigner.theta, "offset", slider=False)
             joint_column.prop(context.active_bone.RobotDesigner.theta, "min", slider=False)
             joint_column.prop(context.active_bone.RobotDesigner.theta, "max", slider=False)
+            joint_column.prop(context.active_bone.RobotDesigner.theta, "isActive", text="Active Joint Limits")
         elif context.active_bone.RobotDesigner.jointMode == 'PRISMATIC':
             joint_column.label(text="D:")
             joint_column.prop(context.active_bone.RobotDesigner.d, "value", slider=False)
             joint_column.prop(context.active_bone.RobotDesigner.d, "offset", slider=False)
             joint_column.prop(context.active_bone.RobotDesigner.d, "min", slider=False)
             joint_column.prop(context.active_bone.RobotDesigner.d, "max", slider=False)
+            joint_column.prop(context.active_bone.RobotDesigner.d, "isActive", text="Active Joint Limits")

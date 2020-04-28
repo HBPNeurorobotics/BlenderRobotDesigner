@@ -362,31 +362,38 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
 
         # Export individual limits only if set as active in GUI
-        if segment.RobotDesigner.jointMode == 'REVOLUTE':
-            if segment.RobotDesigner.controller.isActive is True:
+        seg = segment.RobotDesigner
+        if seg.jointMode == 'REVOLUTE':
+            if seg.theta.isActive or seg.dynamic_limits.isActive:
                 # child.joint.axis[0].limit.append(sdf_dom.CTD_ANON_59())
                 child.joint.axis[0].limit = [pyxb.BIND()]
-                child.joint.axis[0].limit[0].lower.append((radians(segment.RobotDesigner.theta.min)))
-                child.joint.axis[0].limit[0].upper.append((radians(segment.RobotDesigner.theta.max)))
-                child.joint.axis[0].limit[0].effort.append(segment.RobotDesigner.controller.maxTorque)
-                child.joint.axis[0].limit[0].velocity.append(segment.RobotDesigner.controller.maxVelocity)
+            if seg.theta.isActive:
+                child.joint.axis[0].limit[0].lower.append((radians(seg.theta.min)))
+                child.joint.axis[0].limit[0].upper.append((radians(seg.theta.max)))
+            if seg.dynamic_limits.isActive is True:
+                child.joint.axis[0].limit[0].effort.append(seg.dynamic_limits.maxTorque)
+                child.joint.axis[0].limit[0].velocity.append(seg.dynamic_limits.maxVelocity)
             child.joint.type = 'revolute'
-        if segment.RobotDesigner.jointMode == 'PRISMATIC':
-            if segment.RobotDesigner.controller.isActive is True:
+
+        if seg.jointMode == 'PRISMATIC':
+            if seg.d.isActive or seg.dynamic_limits.isActive:
                 # child.joint.axis[0].limit.append(sdf_dom.CTD_ANON_59())
                 child.joint.axis[0].limit = [pyxb.BIND()]
-                child.joint.axis[0].limit[0].lower.append(segment.RobotDesigner.d.min)
-                child.joint.axis[0].limit[0].upper.append(segment.RobotDesigner.d.max)
-                child.joint.axis[0].limit[0].effort.append(segment.RobotDesigner.controller.maxTorque)
-                child.joint.axis[0].limit[0].velocity.append(segment.RobotDesigner.controller.maxVelocity)
+            if seg.d.isActive:
+                child.joint.axis[0].limit[0].lower.append(seg.d.min)
+                child.joint.axis[0].limit[0].upper.append(seg.d.max)
+            if seg.dynamic_limits.isActive:
+                child.joint.axis[0].limit[0].effort.append(seg.dynamic_limits.maxTorque)
+                child.joint.axis[0].limit[0].velocity.append(seg.dynamic_limits.maxVelocity)
             child.joint.type = 'prismatic'
-        if segment.RobotDesigner.jointMode == 'REVOLUTE2':
+
+        if seg.jointMode == 'REVOLUTE2':
             child.joint.type = 'revolute2'
-        if segment.RobotDesigner.jointMode == 'UNIVERSAL':
+        if seg.jointMode == 'UNIVERSAL':
             child.joint.type = 'universal'
-        if segment.RobotDesigner.jointMode == 'BALL':
+        if seg.jointMode == 'BALL':
             child.joint.type = 'ball'
-        if segment.RobotDesigner.jointMode == 'FIXED':
+        if seg.jointMode == 'FIXED':
             child.joint.type = 'fixed'
 
         operator.logger.info(" joint type'%s'" % child.joint.type)

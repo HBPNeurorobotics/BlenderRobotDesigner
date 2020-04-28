@@ -261,7 +261,7 @@ class RDGlobals(PropertyGroupHandlerBase):
     def __init__(self):
 
         # Holds the current selected kinematics model (armature) name
-        self.model_name = PropertyHandler(StringProperty(name='Name', update=self.name_update))
+        self.model_name = PropertyHandler(StringProperty(name='Name', update=self.name_update, default='None'))
         self.old_name = PropertyHandler(StringProperty(name='Name'))
 
         # Holds the name of the currently selected segment (Bone)

@@ -215,11 +215,9 @@ def draw(layout, context):
         if boxy:
             infoBox = InfoBox(boxy)
             row4 = boxy.row()
-            selected_objects = [i for i in context.selected_objects if i.name != context.active_object.name]
-            if len(selected_objects):
-                meshes = global_properties.mesh_name.get(context.scene)
-                # obj = bpy.data.objects[meshes].RobotDesigner.wrap.scaling
-                obj = bpy.data.objects[meshes].RobotDesigner.scaling
+
+            meshes = global_properties.mesh_name.get(context.scene)
+            obj = bpy.data.objects[meshes].RobotDesigner.scaling
             if bpy.data.objects[meshes].RobotDesigner.wrap.WrappingType == "WRAPPING_SPHERE":
                 boxy.prop(obj, "scale_all", slider=False, text="Scale Sphere: ")
             elif bpy.data.objects[meshes].RobotDesigner.wrap.WrappingType == "WRAPPING_CYLINDER":
@@ -260,4 +258,4 @@ def draw(layout, context):
 
 
 
-    # infoBox.draw_info()
+    #infoBox.draw_info()

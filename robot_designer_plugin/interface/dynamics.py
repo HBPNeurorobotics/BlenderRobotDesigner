@@ -123,18 +123,10 @@ def draw(layout, context):
             # Only shown for child segments. Unless root segment is connected to world
             limit_box = JointLimitsBox.get(joint_box, context, 'Limits')
             if limit_box:
-                limit_box.prop(context.active_bone.RobotDesigner.controller, "isActive", text="Active Limits")
+                limit_box.prop(context.active_bone.RobotDesigner.dynamic_limits, "isActive", text="Active Dynamic Limits")
 
-                if context.active_bone.RobotDesigner.jointMode == 'REVOLUTE':
-                    limit_box.prop(context.active_bone.RobotDesigner.theta, "min", text="Min.")
-                    limit_box.prop(context.active_bone.RobotDesigner.theta, "max", text="Max.")
-                else:
-                    limit_box.prop(context.active_bone.RobotDesigner.d, "min")
-                    limit_box.prop(context.active_bone.RobotDesigner.d, "max")
-
-
-                limit_box.prop(context.active_bone.RobotDesigner.controller, "maxVelocity")
-                limit_box.prop(context.active_bone.RobotDesigner.controller, "maxTorque")
+                limit_box.prop(context.active_bone.RobotDesigner.dynamic_limits, "maxVelocity")
+                limit_box.prop(context.active_bone.RobotDesigner.dynamic_limits, "maxTorque")
 
                 ## URDF only
                 #limit_box.prop(context.active_bone.RobotDesigner.controller, "acceleration")
