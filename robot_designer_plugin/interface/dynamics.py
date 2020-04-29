@@ -144,11 +144,11 @@ def draw(layout, context):
 
             dynamics_box = JointDynamicsBox.get(joint_box, context, 'Dynamics')
             if dynamics_box:
-                dynamics_box.prop(bpy.context.active_bone.RobotDesigner.dynamics, 'damping', text='Damping')
-                dynamics_box.prop(bpy.context.active_bone.RobotDesigner.dynamics, 'friction', text='Friction')
+                dynamics_box.prop(bpy.context.active_bone.RobotDesigner.joint_dynamics, 'damping', text='Damping')
+                dynamics_box.prop(bpy.context.active_bone.RobotDesigner.joint_dynamics, 'friction', text='Friction')
                 dynamics_box.prop(
-                    bpy.context.active_bone.RobotDesigner.dynamics, 'spring_reference', text='Spring Reference')
+                    bpy.context.active_bone.RobotDesigner.joint_dynamics, 'spring_reference', text='Spring Reference')
                 dynamics_box.prop(
-                    bpy.context.active_bone.RobotDesigner.dynamics, 'spring_stiffness', text='Spring Stiffness')
+                    bpy.context.active_bone.RobotDesigner.joint_dynamics, 'spring_stiffness', text='Spring Stiffness')
 
     infoBox.draw_info()

@@ -172,37 +172,44 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
 
             hide_flag_backup = bpy.context.view_layer.objects.active.hide_get()
             bpy.context.view_layer.objects.active.hide_set(False)  # Blender does not want to export hidden objects.
+
+            ## bf disconnect
+            bpy.data.objects[mesh].parent = None
             bpy.ops.wm.collada_export(filepath=file_path, apply_modifiers=True, selected=True, use_texture_copies=True)
+            bpy.data.objects[mesh].parent = bpy.data.objects[model_name]
 
-            tree = ET.parse(source=file_path)
-            collada = tree.getroot()
-            if collada.tag[0] == '{':
-                uri, ignore, tag = collada.tag[1:].partition("}")
-                xmlns = '{' + uri + '}'
-                ET.register_namespace('', uri)
-                # ET.register_namespace('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
-            else:
-                xmlns = ''
+            ## collada importer does not import library_visual_scene in blender 2.8
+            # tree = ET.parse(source=file_path)
+            # collada = tree.getroot()
+            # if collada.tag[0] == '{':
+            #     uri, ignore, tag = collada.tag[1:].partition("}")
+            #     xmlns = '{' + uri + '}'
+            #     ET.register_namespace('', uri)
+            #     # ET.register_namespace('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
+            # else:
+            #     xmlns = ''
+            #
+            # lib_geometries = collada.find(xmlns + 'library_geometries')
+            # geometry_id = lib_geometries[0].get('id')
+            # mesh_url = '#' + geometry_id
+            #
+            # node_attr = {'id': mesh, 'name': mesh, 'type': 'NODE'}
+            # inst_geo_attr = {'url': mesh_url, 'name': mesh}
+            #
+            # lib_visual = collada.find(xmlns + 'library_visual_scenes')
+            # visual_scene = lib_visual.find(xmlns + 'visual_scene')
+            # if len(visual_scene) == 0:
+            #     node = visual_scene.makeelement('node', node_attr)
+            #     visual_scene.append(node)
+            #     instance = node.makeelement('instance_geometry', inst_geo_attr)
+            #     node.append(instance)
+            #
+            #     collada.set('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
+            #
+            #     indent(collada)
+            #     ET.ElementTree(collada).write(file_path, encoding="utf-8", xml_declaration=True)
+            ## collada importer does not import library_visual_scene in blender 2.8
 
-            lib_geometries = collada.find(xmlns + 'library_geometries')
-            geometry_id = lib_geometries[0].get('id')
-            mesh_url = '#' + geometry_id
-
-            node_attr = {'id': mesh, 'name': mesh, 'type': 'NODE'}
-            inst_geo_attr = {'url': mesh_url, 'name': mesh}
-
-            lib_visual = collada.find(xmlns + 'library_visual_scenes')
-            visual_scene = lib_visual.find(xmlns + 'visual_scene')
-            if len(visual_scene) == 0:
-                node = visual_scene.makeelement('node', node_attr)
-                visual_scene.append(node)
-                instance = node.makeelement('instance_geometry', inst_geo_attr)
-                node.append(instance)
-
-                collada.set('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
-
-                indent(collada)
-                ET.ElementTree(collada).write(file_path, encoding="utf-8", xml_declaration=True)
 
             # for elem in collada:
             #     scene = elem.find(xmlns + 'visual_scene')
@@ -290,10 +297,10 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         child.joint.physics[0].ode[0].cfm.append(segment.RobotDesigner.ode.cfm)
         child.joint.physics[0].ode[0].erp.append(segment.RobotDesigner.ode.erp)
         child.joint.axis[0].dynamics = [pyxb.BIND()]
-        child.joint.axis[0].dynamics[0].damping.append(segment.RobotDesigner.dynamics.damping)
-        child.joint.axis[0].dynamics[0].friction.append(segment.RobotDesigner.dynamics.friction)
-        child.joint.axis[0].dynamics[0].spring_reference.append(segment.RobotDesigner.dynamics.spring_reference)
-        child.joint.axis[0].dynamics[0].spring_stiffness.append(segment.RobotDesigner.dynamics.spring_stiffness)
+        child.joint.axis[0].dynamics[0].damping.append(segment.RobotDesigner.joint_dynamics.damping)
+        child.joint.axis[0].dynamics[0].friction.append(segment.RobotDesigner.joint_dynamics.friction)
+        child.joint.axis[0].dynamics[0].spring_reference.append(segment.RobotDesigner.joint_dynamics.spring_reference)
+        child.joint.axis[0].dynamics[0].spring_stiffness.append(segment.RobotDesigner.joint_dynamics.spring_stiffness)
 
 
         pose_xyz = list_to_string([i * j for i, j in zip(trafo.translation, blender_scale_factor)])

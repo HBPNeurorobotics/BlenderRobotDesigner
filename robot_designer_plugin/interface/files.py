@@ -45,7 +45,7 @@ from ..core.gui import InfoBox
 from ..properties.globals import global_properties
 from ..operators import file_tools
 from .helpers import DebugBox
-
+from . import menus
 
 def draw(layout, context):
     """
@@ -55,10 +55,12 @@ def draw(layout, context):
     :param context: Blender context
     """
 
+    box = layout.box()
+    box.label(text="Model Meta Data")
+
     if context.active_object and context.active_object.type == 'ARMATURE' \
             and global_properties.model_name.get(bpy.context.scene) != 'None':
-        box = layout.box()
-        box.label(text="Model Meta Data")
+
 
         model_box = box.box()
         model_box.label(text="Description")
@@ -79,6 +81,9 @@ def draw(layout, context):
 
         author_box.prop(bpy.context.active_object.RobotDesigner.author, 'authorName', text='Name')
         author_box.prop(bpy.context.active_object.RobotDesigner.author, 'authorEmail', text='Email')
+
+    else:
+        box.menu(menus.ModelMenu.bl_idname, text="Select Robot")
 
     file_box = layout.box()
     file_box.label(text='Import/Export')

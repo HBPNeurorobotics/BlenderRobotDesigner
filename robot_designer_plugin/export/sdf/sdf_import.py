@@ -459,10 +459,13 @@ class Importer(object):
             bpy.context.active_bone.RobotDesigner.jointController.D = float(PID[2])
 
         if node.joint:
-            axis = string_to_list(node.joint.axis[0].xyz[0])
+            if node.joint.axis:
+                axis = string_to_list(node.joint.axis[0].xyz[0])
+            else:
+                axis = string_to_list('1 0 0')
         else:
             axis = string_to_list('1 0 0')
-        # axis = [round(axis[0]), round(axis[1]), round(axis[2])]
+            # axis = [round(axis[0]), round(axis[1]), round(axis[2])]
         self.logger.info("axis -> %s", axis)
         for i, element in enumerate(axis):
             if element == -1.0:
@@ -498,65 +501,66 @@ class Importer(object):
                 bpy.context.active_bone.RobotDesigner.world = True
 
             # Set joint dynamic limits
-            if node.joint.axis[0].limit:
-                if node.joint.axis[0].limit[0].effort or node.joint.axis[0].limit[0].velocity:
-                    bpy.context.active_bone.RobotDesigner.dynamic_limits.maxTorque = float(get_list_value(
-                        node.joint.axis[0].limit[0].effort, 0))
-                    bpy.context.active_bone.RobotDesigner.dynamic_limits.maxVelocity = float(get_list_value(
-                        node.joint.axis[0].limit[0].velocity, 0))
-                    bpy.context.active_bone.RobotDesigner.dynamic_limits.isActive = True
+            if node.joint.axis:
+                if node.joint.axis[0].limit:
+                    if node.joint.axis[0].limit[0].effort or node.joint.axis[0].limit[0].velocity:
+                        bpy.context.active_bone.RobotDesigner.dynamic_limits.maxTorque = float(get_list_value(
+                            node.joint.axis[0].limit[0].effort, 0))
+                        bpy.context.active_bone.RobotDesigner.dynamic_limits.maxVelocity = float(get_list_value(
+                            node.joint.axis[0].limit[0].velocity, 0))
+                        bpy.context.active_bone.RobotDesigner.dynamic_limits.isActive = True
 
-            # Set joint kinematic limits
-            if node.joint.type == 'revolute':
-                bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE'
-                if len(node.joint.axis[0].limit):
-                    bpy.context.active_bone.RobotDesigner.theta.max = degrees(
-                        float(get_list_value(node.joint.axis[0].limit[0].upper, 0)))
-                    bpy.context.active_bone.RobotDesigner.theta.min = degrees(
-                        float(get_list_value(node.joint.axis[0].limit[0].lower, 0)))
-                    bpy.context.active_bone.RobotDesigner.theta.isActive = True
-            if node.joint.type == 'prismatic':
-                bpy.context.active_bone.RobotDesigner.jointMode = 'PRISMATIC'
-                if len(node.joint.axis[0].limit):
-                    bpy.context.active_bone.RobotDesigner.d.max = \
-                        float(get_list_value(node.joint.axis[0].limit[0].upper, 0))
-                    bpy.context.active_bone.RobotDesigner.d.min = \
-                        float(get_list_value(node.joint.axis[0].limit[0].lower, 0))
-                    bpy.context.active_bone.RobotDesigner.d.isActive = True
-            if node.joint.type == 'revolute2':
-                bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE2'
-            if node.joint.type == 'universal':
-                bpy.context.active_bone.RobotDesigner.jointMode = 'UNIVERSAL'
-            if node.joint.type == 'ball':
-                bpy.context.active_bone.RobotDesigner.jointMode = 'BALL'
-            if node.joint.type == 'fixed':
-                bpy.context.active_bone.RobotDesigner.jointMode = 'FIXED'
-        else:
-            bpy.context.active_bone.RobotDesigner.jointMode = 'FIXED'
+                # Set joint kinematic limits
+                if node.joint.type == 'revolute':
+                    bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE'
+                    if len(node.joint.axis[0].limit):
+                        bpy.context.active_bone.RobotDesigner.theta.max = degrees(
+                            float(get_list_value(node.joint.axis[0].limit[0].upper, 0)))
+                        bpy.context.active_bone.RobotDesigner.theta.min = degrees(
+                            float(get_list_value(node.joint.axis[0].limit[0].lower, 0)))
+                    else:
+                        bpy.context.active_bone.RobotDesigner.theta.isActive = False
+                if node.joint.type == 'prismatic':
+                    bpy.context.active_bone.RobotDesigner.jointMode = 'PRISMATIC'
+                    if len(node.joint.axis[0].limit):
+                        bpy.context.active_bone.RobotDesigner.d.max = \
+                            float(get_list_value(node.joint.axis[0].limit[0].upper, 0))
+                        bpy.context.active_bone.RobotDesigner.d.min = \
+                            float(get_list_value(node.joint.axis[0].limit[0].lower, 0))
+                    else:
+                        bpy.context.active_bone.RobotDesigner.d.isActive = False
+                if node.joint.type == 'revolute2':
+                    bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE2'
+                if node.joint.type == 'universal':
+                    bpy.context.active_bone.RobotDesigner.jointMode = 'UNIVERSAL'
+                if node.joint.type == 'ball':
+                    bpy.context.active_bone.RobotDesigner.jointMode = 'BALL'
+                if node.joint.type == 'fixed':
+                    bpy.context.active_bone.RobotDesigner.jointMode = 'FIXED'
 
-            # import joint physics if they exist
-            if len(node.joint.physics):
-                if len(node.joint.physics[0].ode):
-                    rd_physcis_ode = bpy.context.active_bone.RobotDesigner.ode
-                    if len(node.joint.physics[0].ode[0].cfm_damping):
-                        rd_physcis_ode.cfm_damping = node.joint.physics[0].ode[0].cfm_damping[0]
-                    if len(node.joint.physics[0].ode[0].implicit_spring_damper):
-                        rd_physcis_ode.i_s_damper = node.joint.physics[0].ode[0].implicit_spring_damper[0]
-                    if len(node.joint.physics[0].ode[0].cfm):
-                        rd_physcis_ode.cfm = node.joint.physics[0].ode[0].cfm[0]
-                    if len(node.joint.physics[0].ode[0].erp):
-                        rd_physcis_ode.erp = node.joint.physics[0].ode[0].erp[0]
+                # import joint physics if they exist
+                if node.joint.physics:
+                    if node.joint.physics[0].ode:
+                        rd_physcis_ode = bpy.context.active_bone.RobotDesigner.ode
+                        if node.joint.physics[0].ode[0].cfm_damping:
+                            rd_physcis_ode.cfm_damping = node.joint.physics[0].ode[0].cfm_damping[0]
+                        if node.joint.physics[0].ode[0].implicit_spring_damper:
+                            rd_physcis_ode.i_s_damper = node.joint.physics[0].ode[0].implicit_spring_damper[0]
+                        if node.joint.physics[0].ode[0].cfm:
+                            rd_physcis_ode.cfm = node.joint.physics[0].ode[0].cfm[0]
+                        if node.joint.physics[0].ode[0].erp:
+                            rd_physcis_ode.erp = node.joint.physics[0].ode[0].erp[0]
 
-            if len(node.joint.axis[0].dynamics):
-                rd_dynamics = bpy.context.active_bone.RobotDesigner.dynamics
-                if len(node.joint.axis[0].dynamics[0].damping):
-                    rd_dynamics.damping = node.joint.axis[0].dynamics[0].damping[0]
-                if len(node.joint.axis[0].dynamics[0].friction):
-                    rd_dynamics.friction = node.joint.axis[0].dynamics[0].friction[0]
-                if len(node.joint.axis[0].dynamics[0].spring_reference):
-                    rd_dynamics.spring_reference = node.joint.axis[0].dynamics[0].spring_reference[0]
-                if len(node.joint.axis[0].dynamics[0].spring_stiffness):
-                    rd_dynamics.spring_stiffness = node.joint.axis[0].dynamics[0].spring_stiffness[0]
+                if node.joint.axis[0].dynamics:
+                    rd_dynamics = bpy.context.active_bone.RobotDesigner.joint_dynamics
+                    if node.joint.axis[0].dynamics[0].damping:
+                        rd_dynamics.damping = node.joint.axis[0].dynamics[0].damping[0]
+                    if node.joint.axis[0].dynamics[0].friction:
+                        rd_dynamics.friction = node.joint.axis[0].dynamics[0].friction[0]
+                    if node.joint.axis[0].dynamics[0].spring_reference:
+                        rd_dynamics.spring_reference = node.joint.axis[0].dynamics[0].spring_reference[0]
+                    if node.joint.axis[0].dynamics[0].spring_stiffness:
+                        rd_dynamics.spring_stiffness = node.joint.axis[0].dynamics[0].spring_stiffness[0]
 
         model = bpy.context.active_object
         model_name = model.name
@@ -574,8 +578,9 @@ class Importer(object):
         if len(node.link.gravity) > 0:
             bpy.context.active_bone.RobotDesigner.linkInfo.gravity = node.link.gravity[0]
             bpy.context.active_bone.RobotDesigner.linkInfo.link_self_collide = node.link.self_collide[0]
-
+        print('bf importing inertia1')
         if len(node.link.inertial) > 0:
+            print('bf importing inertia2')
             i = node.link.inertial[0].inertia[0]
             SelectSegment.run(segment_name=segment_name)
             CreatePhysical.run(frameName=node.link.name)

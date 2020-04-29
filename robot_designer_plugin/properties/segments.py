@@ -84,7 +84,7 @@ class RDOde(bpy.types.PropertyGroup):
 
 
 @PluginManager.register_property_group()
-class RDDynamics(bpy.types.PropertyGroup):
+class RDJointDynamics(bpy.types.PropertyGroup):
     '''
     Property group that contains joint dynamics data
     '''
@@ -297,7 +297,7 @@ class RDSegment(bpy.types.PropertyGroup):
     jointController: PointerProperty(type=RDJointController)
     linkInfo: PointerProperty(type=RDLinkInfo)
     ode: PointerProperty(type=RDOde)
-    dynamics: PointerProperty(type=RDDynamics)
+    joint_dynamics: PointerProperty(type=RDJointDynamics)
     Euler: PointerProperty(type=RDEulerAnglesSegment)  # Frame relative to parent
     DH: PointerProperty(
         type=RDDenavitHartenbergSegment)  # Dito but in a different way. Only one, either DH or Euler is used.
