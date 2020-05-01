@@ -65,7 +65,8 @@ from ...core import config, PluginManager, RDOperator
 from ...operators.helpers import ModelSelected, ObjectMode
 from ...operators.model import SelectModel
 from ..osim.osim_export import create_osim, get_muscles
-from ..generic_tools import create_thumbnail
+from ..generic_tools import create_thumbnail, export_rqtez_publisher_muscle, export_rqtez_publisher_controller, \
+        export_rqt_multiplot_muscles, export_rqt_multiplot_jointcontroller
 
 from ...properties.segments import getTransformFromBlender
 from ...properties.globals import global_properties
@@ -954,7 +955,22 @@ class ExportPlain(RDOperator):
         create_osim(self, context, filepath=self.filepath,
                     meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                     in_ros_package=False, abs_filepaths=self.abs_file_paths)
+
+        # thumbnail export
         create_thumbnail(toplevel_directory=toplevel_dir)
+
+        # rqt_ez_publisher exports
+        if global_properties.export_rqt_ez_publisher_muscles.get(bpy.context.scene) == True:
+            export_rqtez_publisher_muscle(toplevel_directory=toplevel_dir)
+        if global_properties.export_rqt_ez_publisher_jointcontroller.get(bpy.context.scene) == True:
+            export_rqtez_publisher_controller(toplevel_directory=toplevel_dir)
+
+        # rqt_multiplot exports
+        if global_properties.export_rqt_multiplot_muscles.get(bpy.context.scene) == True:
+            export_rqt_multiplot_muscles(toplevel_directory=toplevel_dir)
+        if global_properties.export_rqt_multiplot_jointcontroller.get(bpy.context.scene) == True:
+            export_rqt_multiplot_jointcontroller(toplevel_directory=toplevel_dir)
+
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -998,7 +1014,22 @@ class ExportPackage(RDOperator):
         create_osim(self, context, filepath=self.filepath,
                     meshpath=toplevel_dir, toplevel_directory=toplevel_dir,
                     in_ros_package=False, abs_filepaths=self.abs_file_paths)
+
+        # thumbnail export
         create_thumbnail(toplevel_directory=toplevel_dir)
+
+        # rqt_ez_publisher exports
+        if global_properties.export_rqt_ez_publisher_muscles.get(bpy.context.scene) == True:
+            export_rqtez_publisher_muscle(toplevel_directory=toplevel_dir)
+        if global_properties.export_rqt_ez_publisher_jointcontroller.get(bpy.context.scene) == True:
+            export_rqtez_publisher_controller(toplevel_directory=toplevel_dir)
+
+        # rqt_multiplot exports
+        if global_properties.export_rqt_multiplot_muscles.get(bpy.context.scene) == True:
+            export_rqt_multiplot_muscles(toplevel_directory=toplevel_dir)
+        if global_properties.export_rqt_multiplot_jointcontroller.get(bpy.context.scene) == True:
+            export_rqt_multiplot_jointcontroller(toplevel_directory=toplevel_dir)
+
         return {'FINISHED'}
 
     def invoke(self, context, event):
@@ -1067,7 +1098,22 @@ class ExportZippedPackage(RDOperator):
             create_osim(self, context, filepath=self.filepath,
                         meshpath=temp_dir, toplevel_directory=temp_dir,
                         in_ros_package=False, abs_filepaths=self.abs_file_paths)
-            create_thumbnail(toplevel_directory=temp_dir)
+
+            # thumbnail export
+            create_thumbnail(toplevel_directory=toplevel_dir)
+
+            # rqt_ez_publisher exports
+            if global_properties.export_rqt_ez_publisher_muscles.get(bpy.context.scene) == True:
+                export_rqtez_publisher_muscle(toplevel_directory=toplevel_dir)
+            if global_properties.export_rqt_ez_publisher_jointcontroller.get(bpy.context.scene) == True:
+                export_rqtez_publisher_controller(toplevel_directory=toplevel_dir)
+
+            # rqt_multiplot exports
+            if global_properties.export_rqt_multiplot_muscles.get(bpy.context.scene) == True:
+                export_rqt_multiplot_muscles(toplevel_directory=toplevel_dir)
+            if global_properties.export_rqt_multiplot_jointcontroller.get(bpy.context.scene) == True:
+                export_rqt_multiplot_jointcontroller(toplevel_directory=toplevel_dir)
+
             self.logger.debug(temp_file)
             with zipfile.ZipFile(self.filepath, 'w') as zipf:
                 zipdir(target, zipf)

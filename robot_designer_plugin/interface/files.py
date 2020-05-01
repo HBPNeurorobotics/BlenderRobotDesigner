@@ -100,9 +100,21 @@ def draw(layout, context):
     # elif storage_mode == 'temporary':
     #      global_properties.git_url.prop(context.scene, layout)
 
-    row = file_box.row()
-    global_properties.export_thumbnail.prop(context.scene, row)
-    row = file_box.row()
+
+    # export options
+    file_options_box = file_box.box()
+    file_options_box.label(text='Export Options')
+    row = file_options_box.row()
+    global_properties.export_thumbnail.prop(context.scene, row, text='Thumbnail')
+    row = file_options_box.row()
+    row.label(text='Rqt Multiplot')
+    global_properties.export_rqt_multiplot_jointcontroller.prop(context.scene, row, text='Joints')
+    global_properties.export_rqt_multiplot_muscles.prop(context.scene, row, text='Muscles')
+    row = file_options_box.row()
+    row.label(text='Rqt Ez Publisher')
+    global_properties.export_rqt_ez_publisher_jointcontroller.prop(context.scene, row, text='Joints')
+    global_properties.export_rqt_ez_publisher_muscles.prop(context.scene, row, text='Muscles')
+    row = file_options_box.row()
     column = row.column()
 
     plugins = []
@@ -110,7 +122,7 @@ def draw(layout, context):
         label, operators, draw_function, _ = plugin
 
         if not label in plugins:
-            box = column.box()
+            box = file_box.box()
             row2 = box.row(align=True)
 
             column2 = row2.column(align=True)

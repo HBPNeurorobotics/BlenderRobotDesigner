@@ -403,9 +403,25 @@ class RDGlobals(PropertyGroupHandlerBase):
         self.muscle_dim = PropertyHandler(
             FloatProperty(name="Muscle Dimension:", default=0.005, min=0.001, max=0.1, update=self.muscle_dim_update))
 
+        # Export options
         self.export_thumbnail = PropertyHandler(
             BoolProperty(name="Create and Export Thumbnail", description="Generates and Exports a Rendered \
                                 Thumbnail from the Current Scene Image", default=True))
+        self.export_rqt_multiplot_muscles = PropertyHandler(
+            BoolProperty(name="Export rqt multiplot for muscles", description="Exports a xml description \
+                                for rqt multiplot of muscle sensors and actuation", default=False))
+        self.export_rqt_multiplot_jointcontroller = PropertyHandler(
+            BoolProperty(name="Export rqt multiplot for joint controller", description="Exports a xml description \
+                                for rqt multiplot of joint sensors and controller actuation", default=False))
+        self.export_rqt_ez_publisher_muscles = PropertyHandler(
+            BoolProperty(name="Export rqt ez publisher for joint controller", description="Exports a xml description \
+                                for rqt ez publisher of controller actuation", default=False))
+        self.export_rqt_ez_publisher_jointcontroller = PropertyHandler(
+            BoolProperty(name="Export rqt multiplot for muscles", description="Exports a xml description \
+                                for rqt ez publisher of muscle actuation", default=False))
+        # self.export_rqt_roslaunch = PropertyHandler(
+        #     BoolProperty(name="Export roslaunch file", description="Exports a roslaunch file \
+        #                         to launch the world and rqt tools", default=False))
 
 
 global_properties = RDGlobals()

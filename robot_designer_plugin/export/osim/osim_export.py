@@ -114,7 +114,7 @@ class OsimExporter(object):
         bpy.ops.robotdesigner.calc_muscle_length(muscle=m.name)
 
         if m.RobotDesigner.muscles.muscleType in \
-                ['THELEN', 'MILLARD_EQUIL', 'MILLARD_ACCEL', 'RIGID_TENDON']:
+                ['THELEN', 'MILLARD_EQUIL', 'MILLARD_ACCEL', 'RIGID_TENDON', 'MYOROBOTICS_MUSCLE']:
             m = pyxb_class(
                 name = m.name,
                 GeometryPath=osim_dom.GeometryPath(
