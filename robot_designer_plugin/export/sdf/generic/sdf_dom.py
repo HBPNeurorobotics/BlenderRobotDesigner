@@ -141,7 +141,9 @@ class pose_ (pyxb.binding.datatypes.string):
     _XSDLocation = pyxb.utils.utility.Location('file:///C:/Users/Jin-Ho/Desktop/HBP/BlenderRobotDesigner/robot_designer_plugin/resources/sdf1_6/types.xsd', 27, 2)
     _Documentation = None
 pose_._CF_pattern = pyxb.binding.facets.CF_pattern()
-pose_._CF_pattern.addPattern(pattern='(\\s*(-|\\+)?(\\d+(\\.\\d*)?|\\.\\d+|\\d+\\.\\d+[eE][-\\+]?[0-9]+)\\s+){5}((-|\\+)?(\\d+(\\.\\d*)?|\\.\\d+|\\d+\\.\\d+[eE][-\\+]?[0-9]+))\\s*')
+pose_._CF_pattern.addPattern(pattern = '(\\s*(\\-?\\+?)(\\d+)(\\d*\\.*\\d*)e?E?(\\-?\\+?)[0-9]*\\s+){5}(\\s*(\\-?\\+?)(\\d+)(\\d*\\.*\\d*)e?E?(\\-?\\+?)[0-9]*\\s*)')
+#pattern='(\\s*(-|\\+)?(\\d+(\\.\\d*)?|\\.\\d+|\\d+\\.\\d+[eE][-\\+]?[0-9]+)\\s+){5}((-|\\+)?(\\d+(\\.\\d*)?|\\.\\d+|\\d+\\.\\d+[eE][-\\+]?[0-9]+))\\s*')
+
 pose_._InitializeFacetMap(pose_._CF_pattern)
 Namespace.addCategoryObject('typeBinding', 'pose', pose_)
 _module_typeBindings.pose_ = pose_
