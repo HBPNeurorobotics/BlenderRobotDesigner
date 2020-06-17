@@ -35,37 +35,39 @@
 
   <xsd:group name="BasicMuscleElements">
     <xsd:sequence>
-    <xsd:element ref="GeometryPath"/>
-    <xsd:element type="xsd:float" name="optimal_force" minOccurs="0"/>
-    <xsd:element type="xsd:float" name="max_isometric_force">
-      <xsd:annotation>
-        <xsd:documentation>Maximum isometric force that the fibers can generate.</xsd:documentation>
-      </xsd:annotation>
-    </xsd:element>
-    <xsd:element type="xsd:float" name="min_control" minOccurs="0"/>
-    <xsd:element type="xsd:float" name="max_control" minOccurs="0">
-      <xsd:annotation>
-        <xsd:documentation>Maximum allowed value for control signal. Used primarily when solving for control values.Maximum allowed value for control signal.</xsd:documentation>
-      </xsd:annotation>
-    </xsd:element>
-    <xsd:element type="xsd:float" name="optimal_fiber_length">
-      <xsd:annotation>
-        <xsd:documentation>Optimal length of the muscle fibers.</xsd:documentation>
-      </xsd:annotation>
-    </xsd:element>
-    <xsd:element type="xsd:float" name="tendon_slack_length">
-      <xsd:annotation>
-        <xsd:documentation>Resting length of the tendonResting length of the tendon.</xsd:documentation>
-      </xsd:annotation>
-    </xsd:element>
-    <xsd:element type="xsd:float" name="pennation_angle_at_optimal" minOccurs="0">
-      <xsd:annotation>
-        <xsd:documentation>Angle between tendon and fibers at optimal fiber length expressed in radians.</xsd:documentation>
-      </xsd:annotation>
-    </xsd:element>
-    <xsd:element type="xsd:float" name="max_contraction_velocity" minOccurs="0"/>
-    <xsd:element type="xsd:float" name="ignore_tendon_compliance" minOccurs="0"/>
-    <xsd:element type="xsd:float" name="ignore_activation_dynamics" minOccurs="0"/>
+      <xsd:element ref="GeometryPath"/>
+      <xsd:choice minOccurs="0" maxOccurs='unbounded'>
+        <xsd:element type="xsd:float" name="optimal_force" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="max_isometric_force">
+          <xsd:annotation>
+            <xsd:documentation>Maximum isometric force that the fibers can generate.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element type="xsd:float" name="min_control" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="max_control" minOccurs="0">
+          <xsd:annotation>
+            <xsd:documentation>Maximum allowed value for control signal. Used primarily when solving for control values.Maximum allowed value for control signal.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element type="xsd:float" name="optimal_fiber_length">
+          <xsd:annotation>
+            <xsd:documentation>Optimal length of the muscle fibers.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element type="xsd:float" name="tendon_slack_length">
+          <xsd:annotation>
+            <xsd:documentation>Resting length of the tendonResting length of the tendon.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element type="xsd:float" name="pennation_angle_at_optimal" minOccurs="0">
+          <xsd:annotation>
+            <xsd:documentation>Angle between tendon and fibers at optimal fiber length expressed in radians.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element type="xsd:float" name="max_contraction_velocity" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="ignore_tendon_compliance" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="ignore_activation_dynamics" minOccurs="0"/>
+      </xsd:choice>
     </xsd:sequence>
   </xsd:group>
 
@@ -106,12 +108,14 @@
   <xsd:complexType name="Millard2012EquilibriumMuscle">
       <xsd:sequence>
         <xsd:group ref="BasicMuscleElements"/>
-        <xsd:element type="xsd:float" name="fiber_damping" minOccurs="0"/>
-        <xsd:element type="xsd:float" name="default_activation" minOccurs="0"/>
-        <xsd:element type="xsd:float" name="default_fiber_length" minOccurs="0"/>
-        <xsd:element type="xsd:float" name="activation_time_constant" minOccurs="0"/>
-        <xsd:element type="xsd:float" name="deactivation_time_constant" minOccurs="0"/>
-        <xsd:element type="xsd:float" name="minimum_activation" minOccurs="0"/>
+        <xsd:choice minOccurs="0" maxOccurs='unbounded'>
+          <xsd:element type="xsd:float" name="fiber_damping" minOccurs="0"/>
+          <xsd:element type="xsd:float" name="default_activation" minOccurs="0"/>
+          <xsd:element type="xsd:float" name="default_fiber_length" minOccurs="0"/>
+          <xsd:element type="xsd:float" name="activation_time_constant" minOccurs="0"/>
+          <xsd:element type="xsd:float" name="deactivation_time_constant" minOccurs="0"/>
+          <xsd:element type="xsd:float" name="minimum_activation" minOccurs="0"/>
+        </xsd:choice>
       </xsd:sequence>
       <xsd:attribute type="xsd:string" name="name"/>
   </xsd:complexType>
@@ -119,29 +123,31 @@
   <xsd:complexType name="Millard2012AccelerationMuscle">
       <xsd:sequence>
         <xsd:group ref="BasicMuscleElements"/>
-        <xsd:element type="xsd:float" name="default_activation" minOccurs="0"/>
-        <xsd:element type="xsd:float" name="default_fiber_length" minOccurs="0"/>
-        <xsd:element type="xsd:float" name="default_fiber_velocity" minOccurs="0"/>
-        <xsd:element name="MuscleFirstOrderActivationDynamicModel" minOccurs="0">
-          <xsd:annotation>
-            <xsd:documentation>Activation dynamics model with a lower boundactivation.</xsd:documentation>
-          </xsd:annotation>
-          <xsd:complexType>
-            <xsd:sequence>
-              <xsd:element type="xsd:float" name="minimum_activation">
-                <xsd:annotation>
-                  <xsd:documentation>Activation lower bound.</xsd:documentation>
-                </xsd:annotation>
-              </xsd:element>
-            </xsd:sequence>
-          </xsd:complexType>
-        </xsd:element>
-        <xsd:element type="xsd:float" name="fiber_damping" minOccurs="0"/>
-        <xsd:element type="xsd:float" name="fiber_force_length_damping" minOccurs="0"/>
-        <xsd:element type="xsd:float" name="fiber_compressive_force_length_damping" minOccurs="0"/>
-        <xsd:element type="xsd:float" name="fiber_compressive_force_cos_pennation_damping" minOccurs="0"/>
-        <xsd:element type="xsd:float" name="tendon_force_length_damping" minOccurs="0"/>
-        <xsd:element type="xsd:float" name="mass" minOccurs="0"/>
+        <xsd:choice minOccurs="0" maxOccurs='unbounded'>
+          <xsd:element type="xsd:float" name="default_activation" minOccurs="0"/>
+          <xsd:element type="xsd:float" name="default_fiber_length" minOccurs="0"/>
+          <xsd:element type="xsd:float" name="default_fiber_velocity" minOccurs="0"/>
+          <xsd:element name="MuscleFirstOrderActivationDynamicModel" minOccurs="0">
+            <xsd:annotation>
+              <xsd:documentation>Activation dynamics model with a lower boundactivation.</xsd:documentation>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element type="xsd:float" name="minimum_activation">
+                  <xsd:annotation>
+                    <xsd:documentation>Activation lower bound.</xsd:documentation>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element type="xsd:float" name="fiber_damping" minOccurs="0"/>
+          <xsd:element type="xsd:float" name="fiber_force_length_damping" minOccurs="0"/>
+          <xsd:element type="xsd:float" name="fiber_compressive_force_length_damping" minOccurs="0"/>
+          <xsd:element type="xsd:float" name="fiber_compressive_force_cos_pennation_damping" minOccurs="0"/>
+          <xsd:element type="xsd:float" name="tendon_force_length_damping" minOccurs="0"/>
+          <xsd:element type="xsd:float" name="mass" minOccurs="0"/>
+        </xsd:choice>
       </xsd:sequence>
       <xsd:attribute type="xsd:string" name="name"/>
   </xsd:complexType>
@@ -149,15 +155,17 @@
   <xsd:complexType name="Thelen2003Muscle">
     <xsd:sequence>
       <xsd:group ref="BasicMuscleElements"/>
-      <xsd:element type="xsd:float" name="activation_time_constant" minOccurs="0"/>
-      <xsd:element type="xsd:float" name="deactivation_time_constant" minOccurs="0"/>
-      <xsd:element type="xsd:float" name="FmaxTendonStrain" minOccurs="0"/>
-      <xsd:element type="xsd:float" name="FmaxMuscleStrain" minOccurs="0"/>
-      <xsd:element type="xsd:float" name="KshapeActive" minOccurs="0"/>
-      <xsd:element type="xsd:float" name="KshapePassive" minOccurs="0"/>
-      <xsd:element type="xsd:float" name="Af" minOccurs="0"/>
-      <xsd:element type="xsd:float" name="Flen" minOccurs="0"/>
-      <xsd:element type="xsd:float" name="fv_linear_extrap_threshold" minOccurs="0"/>
+      <xsd:choice minOccurs="0" maxOccurs='unbounded'>
+        <xsd:element type="xsd:float" name="activation_time_constant" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="deactivation_time_constant" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="FmaxTendonStrain" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="FmaxMuscleStrain" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="KshapeActive" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="KshapePassive" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="Af" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="Flen" minOccurs="0"/>
+        <xsd:element type="xsd:float" name="fv_linear_extrap_threshold" minOccurs="0"/>
+      </xsd:choice>
     </xsd:sequence>
     <xsd:attribute type="xsd:string" name="name"/>
   </xsd:complexType>

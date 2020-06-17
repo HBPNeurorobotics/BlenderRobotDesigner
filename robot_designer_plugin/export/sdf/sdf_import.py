@@ -578,9 +578,7 @@ class Importer(object):
         if len(node.link.gravity) > 0:
             bpy.context.active_bone.RobotDesigner.linkInfo.gravity = node.link.gravity[0]
             bpy.context.active_bone.RobotDesigner.linkInfo.link_self_collide = node.link.self_collide[0]
-        print('bf importing inertia1')
         if len(node.link.inertial) > 0:
-            print('bf importing inertia2')
             i = node.link.inertial[0].inertia[0]
             SelectSegment.run(segment_name=segment_name)
             CreatePhysical.run(frameName=node.link.name)

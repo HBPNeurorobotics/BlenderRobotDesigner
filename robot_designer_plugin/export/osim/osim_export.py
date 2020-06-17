@@ -130,9 +130,9 @@ class OsimExporter(object):
                     )
                 ),
                 # TODO: Fix hardcoded values
-                max_isometric_force = m.RobotDesigner.muscles.max_isometric_force,
-                optimal_fiber_length = m.RobotDesigner.muscles.length * 0.9,
-                tendon_slack_length = m.RobotDesigner.muscles.length * 0.1)
+                max_isometric_force = [0.6], #round(m.RobotDesigner.muscles.max_isometric_force, 4),
+                optimal_fiber_length = [0.6],# round(m.RobotDesigner.muscles.length * 0.9, 4),
+                tendon_slack_length = [0.6])#round(m.RobotDesigner.muscles.length * 0.1, 4))
         else:
             m = pyxb_class(
                 name = m.name,

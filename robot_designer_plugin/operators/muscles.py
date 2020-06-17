@@ -136,23 +136,19 @@ class CreateNewMuscle(RDOperator):
         muscleVis.dimensions = '3D'
         muscleVis.fill_mode = 'FULL'
         muscleVis.bevel_depth = global_properties.muscle_dim.get(context.scene)
-
         # create muscle object with visualization data
         muscle = bpy.data.objects.new(self.muscle_name, muscleVis)
         bpy.context.scene.collection.objects.link(muscle)
         muscle.location = (0.0, 0.0, 0.0)
-
         # setup a material
         lmat = bpy.data.materials.new(self.muscle_name + "_vis")
         lmat.diffuse_color = (0.0, 0.0, 1.0, 1.0)
         # lmat.use_shadeless = True
         muscle.data.materials.append(lmat)
-
         muscleData = muscle.RobotDesigner.muscles
         muscleData.name = self.muscle_name
         muscleData.muscleType = "THELEN"
         muscleData.robotName = global_properties.model_name.get(context.scene)
-
         return {'FINISHED'}
 
     def invoke(self, context, event):

@@ -401,7 +401,7 @@ class RDGlobals(PropertyGroupHandlerBase):
             update=self.display_muscles))
 
         self.muscle_dim = PropertyHandler(
-            FloatProperty(name="Muscle Dimension:", default=0.005, min=0.001, max=0.1, update=self.muscle_dim_update))
+            FloatProperty(name="Muscle Dimension:", default=0.005, min=0.0001, max=0.1, update=self.muscle_dim_update))
 
         # Export options
         self.export_thumbnail = PropertyHandler(

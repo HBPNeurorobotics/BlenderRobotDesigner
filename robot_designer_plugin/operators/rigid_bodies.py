@@ -213,7 +213,7 @@ class RenameAllGeometries(RDOperator):
         duplication_count = collections.defaultdict(int)
         for i in armature.children:
             if i.parent_bone != '' and i.type == 'MESH':
-                new_name = i.name[:4] + i.parent_bone
+                new_name = i.name.split('_')[0] + '_' + i.parent_bone
                 num = duplication_count[new_name]
                 duplication_count[new_name] = num + 1
                 if num > 0:
