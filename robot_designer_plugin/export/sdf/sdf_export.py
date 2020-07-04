@@ -146,21 +146,17 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
               obj.type == "MESH" and name == obj.name and
               obj.RobotDesigner.tag == "COLLISION"]
         directory = os.path.join(directory, "meshes", "collisions")
-
     if not os.path.exists(directory):
         os.makedirs(directory)
-
     # There is max. 1 object in the list
     assert len(meshes) <= 1
     for mesh in meshes:
         operator.logger.debug("Processing mesh: %s", mesh)
-
         model_name = bpy.context.active_object.name
         bpy.ops.object.select_all(action='DESELECT')
         bpy.data.objects[mesh].select_set(True)
         bpy.context.view_layer.objects.active = bpy.data.objects[mesh]
         # bpy.context.active_object.select = True
-
         # get the mesh vertices number
         bm = bpy.context.view_layer.objects.active.data
         # print("# of vertices=%d" % len(bm.vertices))
@@ -174,10 +170,15 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
             hide_flag_backup = bpy.context.view_layer.objects.active.hide_get()
             bpy.context.view_layer.objects.active.hide_set(False)  # Blender does not want to export hidden objects.
 
-            ## bf disconnect
+            # disconnect mesh from armature
+            parent_bone = bpy.data.objects[mesh].parent_bone
             bpy.data.objects[mesh].parent = None
+
             bpy.ops.wm.collada_export(filepath=file_path, apply_modifiers=True, selected=True, use_texture_copies=True)
+
+            # reconnect mesh to armature
             bpy.data.objects[mesh].parent = bpy.data.objects[model_name]
+            bpy.data.objects[mesh].parent_bone = parent_bone
 
             ## collada importer does not import library_visual_scene in blender 2.8
             # tree = ET.parse(source=file_path)
@@ -247,9 +248,7 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
             else:
                 file_path = os.path.join(directory, bpy.data.objects[mesh].RobotDesigner.fileName + '_vertices' + str(
                     len(bm.vertices)) + '.dae')
-
         SelectModel.run(model_name=model_name)
-
         return _uri_for_meshes_and_muscles(in_ros_package, abs_file_paths, toplevel_dir, file_path)
 
         # return ("model://" + os.path.join(model_folder_name, "meshes",
@@ -427,32 +426,26 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
             # bpy.context.active_object.matrix_world = segment_world * trafo_sdf * bpy.context.active_object.matrix_world  # * inverse_matrix(bpy.context.active_object.matrix_world)#* \
             #  bpy.context.active_object.matrix_world
-
             visual_path = export_mesh(operator, context, mesh, meshpath, toplevel_directory,
                                   in_ros_package, abs_filepaths, export_collision=False)
             operator.logger.info("visual mesh path: %s", visual_path)
-
             if visual_path and "_vertices1.dae" not in visual_path:
                 visual = child.add_mesh(visual_path,
                                     [i * j for i, j in zip(bpy.data.objects[mesh].scale, blender_scale_factor)])
                 visual_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
                 visual_pose_rpy = list_to_string(pose.to_euler())
-
                 visual.pose.append(' '.join([visual_pose_xyz, visual_pose_rpy]))
                 visual.name = bpy.data.objects[mesh].name  # child.link.name
             else:
                 operator.logger.info("No visual model for: %s", mesh)
-
             collision_path = export_mesh(operator, context, mesh, meshpath, toplevel_directory,
                                      in_ros_package, abs_filepaths, export_collision=True)
-
             operator.logger.info("collision mesh path: %s", collision_path)
             # this does not include basic collision objects
             if collision_path and "_vertices1.dae" not in collision_path:
                 collision = child.add_collision(collision_path,
                                             [i * j for i, j in
                                              zip(bpy.data.objects[mesh].scale, blender_scale_factor)])
-
                 operator.logger.info(" collision mesh pose translation wo scale'%s'" % pose.translation)
                 operator.logger.info(" collision mesh pose scale factor'%s'" % blender_scale_factor)
                 operator.logger.info(" collision mesh pose translation wi scale'%s'" % [i * j for i, j in
@@ -461,7 +454,6 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
                 collision_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
                 collision_pose_rpy = list_to_string(pose.to_euler())
-
                 collision.pose.append(' '.join([collision_pose_xyz, collision_pose_rpy]))
                 collision.name = bpy.data.objects[mesh].name  # child.link.name + '_collision'
                 operator.logger.info(" collision mesh pose'%s'" % collision.pose[0].value())
@@ -473,7 +465,6 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                                             [i * j for i, j in
                                              zip(bpy.data.objects[mesh].scale, blender_scale_factor)]
                                             )
-
                 operator.logger.info(" basic collision mesh pose translation wo scale'%s'" % pose.translation)
                 operator.logger.info(" basic collision mesh pose scale factor'%s'" % blender_scale_factor)
                 operator.logger.info(" basic collision mesh pose translation wi scale'%s'" % [i * j for i, j in
@@ -482,7 +473,6 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
                 collision_pose_xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
                 collision_pose_rpy = list_to_string(pose.to_euler())
-
                 collision.pose.append(' '.join([collision_pose_xyz, collision_pose_rpy]))
                 collision.name = bpy.data.objects[mesh].name  # child.link.name + '_collision'
                 operator.logger.info(" basic collision mesh pose'%s'" % collision.pose[0].value())
@@ -493,13 +483,11 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 # add surface properties
                 collision.surface.append(sdf_dom.surface())
                 surface_property = bpy.data.objects[mesh].RobotDesigner.sdfCollisionProps
-
                 # add bounce properties
                 collision.surface[0].bounce = [pyxb.BIND()]
                 bounce = collision.surface[0].bounce[0]
                 bounce.restitution_coefficient.append(surface_property.restitution_coeff)
                 bounce.threshold.append(surface_property.threshold)
-
                 # add friction properties
                 collision.surface[0].friction = [pyxb.BIND()]
                 friction = collision.surface[0].friction[0]
@@ -529,7 +517,6 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 contact.category_bitmask.append(surface_property.category_bitmask)
                 contact.poissons_ratio.append(surface_property.poissons_ratio)
                 contact.elastic_modulus.append(surface_property.elastic_modulus)
-
                 if bpy.data.objects[
                     global_properties.model_name.get(bpy.context.scene)].RobotDesigner.physics_engine == 'OPENSIM':
                     contact.opensim = [pyxb.BIND()]
@@ -545,12 +532,10 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
                 contact_ode.kd.append(surface_property.kd)
                 contact_ode.max_vel.append(surface_property.max_vel)
                 contact_ode.min_depth.append(surface_property.min_depth)
-
                 # add soft contact properties
                 # todo: not yet implemented dart properties.
                 # if bpy.data.objects[
                 #   global_properties.model_name.get(bpy.context.scene)].RobotDesigner.physics_engine == 'DART':
-
 
 
         ### Add Physics
