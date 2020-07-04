@@ -112,15 +112,18 @@ def draw(layout, context):
         linkBox.prop(bpy.context.active_bone.RobotDesigner.linkInfo, 'link_self_collide', text='Self Collide')
         linkBox.prop(bpy.context.active_bone.RobotDesigner.linkInfo, 'gravity', text='Gravity')
 
-
+        infoBox.draw_info()
 
     # joint physics properties
     # Only shown for child segments. Unless root segment is connected to world.
     joint_box = PhysicsBox.get(layout, context, 'Joint')
     if joint_box:
-        if (context.active_bone.parent is not None) or (context.active_bone.RobotDesigner.world is True):
-            # Joint controller limit properties
+        if not (context.active_bone.parent is not None) or (context.active_bone.RobotDesigner.world is True):
+            joint_box.label(text="No Joint defined for this Link.")
+        else:
             # Only shown for child segments. Unless root segment is connected to world
+
+            # Joint controller limit properties
             limit_box = JointLimitsBox.get(joint_box, context, 'Limits')
             if limit_box:
                 limit_box.prop(context.active_bone.RobotDesigner.dynamic_limits, "isActive", text="Active Dynamic Limits")
@@ -151,4 +154,4 @@ def draw(layout, context):
                 dynamics_box.prop(
                     bpy.context.active_bone.RobotDesigner.joint_dynamics, 'spring_stiffness', text='Spring Stiffness')
 
-    infoBox.draw_info()
+

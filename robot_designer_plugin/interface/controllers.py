@@ -55,7 +55,10 @@ def draw(layout, context):
         # Only shown for child segments. Unless root segment is connected to world
         control_box = ControllerBox.get(layout, context, 'Joint Controller Plugin')
         if control_box:
-            if (context.active_bone.parent is not None) or (context.active_bone.RobotDesigner.world is True):
+            if not (context.active_bone.parent is not None) or (context.active_bone.RobotDesigner.world is True):
+                control_box.label(text="No Joint defined for this Link.")
+            else:
+
                 control_box.prop(context.active_bone.RobotDesigner.jointController, "isActive", text="Active Controller")
                 control_box.prop(context.active_bone.RobotDesigner.jointController, "controllerType")
                 control_box.separator()

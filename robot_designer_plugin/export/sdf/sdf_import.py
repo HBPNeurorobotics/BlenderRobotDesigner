@@ -403,6 +403,7 @@ class Importer(object):
         #             bpy.ops.object.mode_set(mode='OBJECT')
 
         self.logger.info("parent name: %s", parent_name)
+
         # self.logger.debug('active bone name : %s', C.active_bone.name)
         self.logger.debug('active object name : %s', C.active_object.name)  # the name of the robot
 
@@ -421,6 +422,7 @@ class Importer(object):
         SelectSegment.run(segment_name=parent_name)
 
         CreateNewSegment.run(segment_name=node.link.name)
+        #bpy.context.active_object.data.bones[node.link.name].parent_bone = parent_name
 
         segment_name = C.active_bone.name
 
@@ -447,22 +449,22 @@ class Importer(object):
         # urdf xyz = string_to_list(get_value(node.joint.origin.xyz, "0 0 0"))
         # urdf euler = string_to_list(get_value(node.joint.origin.rpy, '0 0 0'))
 
-        # urdf
-        # import joint controllers
-        if segment_name in self.controllers:
-            controller = self.controllers[segment_name]
-            PID = controller.pid.split(" ")
-            bpy.context.active_bone.RobotDesigner.jointController.isActive = True
-            bpy.context.active_bone.RobotDesigner.jointController.controllerType = controller.type
-            bpy.context.active_bone.RobotDesigner.jointController.P = float(PID[0])
-            bpy.context.active_bone.RobotDesigner.jointController.I = float(PID[1])
-            bpy.context.active_bone.RobotDesigner.jointController.D = float(PID[2])
-
         if node.joint:
             if node.joint.axis:
                 axis = string_to_list(node.joint.axis[0].xyz[0])
             else:
                 axis = string_to_list('1 0 0')
+
+            if node.joint.name in self.controllers:
+                # import joint controllers
+                controller = self.controllers[node.joint.name]
+                PID = controller.pid.split(" ")
+                bpy.context.active_bone.RobotDesigner.jointController.isActive = True
+                bpy.context.active_bone.RobotDesigner.jointController.controllerType = controller.type
+                bpy.context.active_bone.RobotDesigner.jointController.P = float(PID[0])
+                bpy.context.active_bone.RobotDesigner.jointController.I = float(PID[1])
+                bpy.context.active_bone.RobotDesigner.jointController.D = float(PID[2])
+
         else:
             axis = string_to_list('1 0 0')
             # axis = [round(axis[0]), round(axis[1]), round(axis[2])]
