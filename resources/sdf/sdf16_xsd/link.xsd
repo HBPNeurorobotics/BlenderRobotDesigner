@@ -5,14 +5,14 @@
             <![CDATA[A physical link with inertia, collision, and visual properties. A link must be a child of a model, and any number of links may exist in a model.]]>
         </xsd:documentation>
     </xsd:annotation>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/inertial.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/collision.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/visual.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/sensor.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/projector.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/audio_sink.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/audio_source.xsd"/>
+    <xsd:include schemaLocation="types.xsd"/>
+    <xsd:include schemaLocation="inertial.xsd"/>
+    <xsd:include schemaLocation="collision.xsd"/>
+    <xsd:include schemaLocation="visual.xsd"/>
+    <xsd:include schemaLocation="sensor.xsd"/>
+    <xsd:include schemaLocation="projector.xsd"/>
+    <xsd:include schemaLocation="audio_sink.xsd"/>
+    <xsd:include schemaLocation="audio_source.xsd"/>
     <xsd:element name="link">
         <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">

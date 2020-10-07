@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/plugin.xsd"/>
+    <xsd:include schemaLocation="types.xsd"/>
+    <xsd:include schemaLocation="plugin.xsd"/>
     <xsd:element name="projector">
         <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">

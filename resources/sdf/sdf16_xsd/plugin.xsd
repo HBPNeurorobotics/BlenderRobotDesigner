@@ -5,7 +5,7 @@
             <![CDATA[A plugin is a dynamically loaded chunk of code. It can exist as a child of world, model, and sensor.]]>
         </xsd:documentation>
     </xsd:annotation>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+    <xsd:include schemaLocation="types.xsd"/>
     <xsd:element name="plugin">
         <xsd:complexType>
             <xsd:choice minOccurs="0" maxOccurs="unbounded">

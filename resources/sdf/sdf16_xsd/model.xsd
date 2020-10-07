@@ -5,11 +5,11 @@
             <![CDATA[The model element defines a complete robot or any other physical object.]]>
         </xsd:documentation>
     </xsd:annotation>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/link.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/joint.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/plugin.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/gripper.xsd"/>
+    <xsd:include schemaLocation="types.xsd"/>
+    <xsd:include schemaLocation="link.xsd"/>
+    <xsd:include schemaLocation="joint.xsd"/>
+    <xsd:include schemaLocation="plugin.xsd"/>
+    <xsd:include schemaLocation="gripper.xsd"/>
     <xsd:element name="model">
         <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">

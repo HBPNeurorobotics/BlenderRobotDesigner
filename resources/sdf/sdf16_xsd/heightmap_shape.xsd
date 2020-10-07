@@ -5,7 +5,7 @@
             <![CDATA[A heightmap based on a 2d grayscale image.]]>
         </xsd:documentation>
     </xsd:annotation>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+    <xsd:include schemaLocation="types.xsd"/>
     <xsd:element name="heightmap">
         <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">

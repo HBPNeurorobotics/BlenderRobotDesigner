@@ -5,10 +5,10 @@
             <![CDATA[The visual properties of the link. This element specifies the shape of the object (box, cylinder, etc.) for visualization purposes.]]>
         </xsd:documentation>
     </xsd:annotation>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/material.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/geometry.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/plugin.xsd"/>
+    <xsd:include schemaLocation="types.xsd"/>
+    <xsd:include schemaLocation="material.xsd"/>
+    <xsd:include schemaLocation="geometry.xsd"/>
+    <xsd:include schemaLocation="plugin.xsd"/>
     <xsd:element name="visual">
         <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">

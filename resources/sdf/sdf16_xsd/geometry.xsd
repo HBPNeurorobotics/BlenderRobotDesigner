@@ -5,15 +5,15 @@
             <![CDATA[The shape of the visual or collision object.]]>
         </xsd:documentation>
     </xsd:annotation>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/box_shape.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/cylinder_shape.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/heightmap_shape.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/image_shape.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/mesh_shape.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/plane_shape.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/polyline_shape.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/sphere_shape.xsd"/>
+    <xsd:include schemaLocation="types.xsd"/>
+    <xsd:include schemaLocation="box_shape.xsd"/>
+    <xsd:include schemaLocation="cylinder_shape.xsd"/>
+    <xsd:include schemaLocation="heightmap_shape.xsd"/>
+    <xsd:include schemaLocation="image_shape.xsd"/>
+    <xsd:include schemaLocation="mesh_shape.xsd"/>
+    <xsd:include schemaLocation="plane_shape.xsd"/>
+    <xsd:include schemaLocation="polyline_shape.xsd"/>
+    <xsd:include schemaLocation="sphere_shape.xsd"/>
     <xsd:element name="geometry">
         <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">

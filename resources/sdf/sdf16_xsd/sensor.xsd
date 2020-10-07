@@ -5,21 +5,21 @@
             <![CDATA[The sensor tag describes the type and properties of a sensor.]]>
         </xsd:documentation>
     </xsd:annotation>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/plugin.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/altimeter.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/camera.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/contact.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/gps.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/imu.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/logical_camera.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/magnetometer.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/ray.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/rfid.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/rfidtag.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/sonar.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/transceiver.xsd"/>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/forcetorque.xsd"/>
+    <xsd:include schemaLocation="types.xsd"/>
+    <xsd:include schemaLocation="plugin.xsd"/>
+    <xsd:include schemaLocation="altimeter.xsd"/>
+    <xsd:include schemaLocation="camera.xsd"/>
+    <xsd:include schemaLocation="contact.xsd"/>
+    <xsd:include schemaLocation="gps.xsd"/>
+    <xsd:include schemaLocation="imu.xsd"/>
+    <xsd:include schemaLocation="logical_camera.xsd"/>
+    <xsd:include schemaLocation="magnetometer.xsd"/>
+    <xsd:include schemaLocation="ray.xsd"/>
+    <xsd:include schemaLocation="rfid.xsd"/>
+    <xsd:include schemaLocation="rfidtag.xsd"/>
+    <xsd:include schemaLocation="sonar.xsd"/>
+    <xsd:include schemaLocation="transceiver.xsd"/>
+    <xsd:include schemaLocation="forcetorque.xsd"/>
     <xsd:element name="sensor">
         <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">

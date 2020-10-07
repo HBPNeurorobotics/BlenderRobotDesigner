@@ -5,7 +5,7 @@
             <![CDATA[The inertial properties of the link.]]>
         </xsd:documentation>
     </xsd:annotation>
-    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+    <xsd:include schemaLocation="types.xsd"/>
     <xsd:element name="inertial">
         <xsd:complexType>
             <xsd:choice maxOccurs="unbounded">
