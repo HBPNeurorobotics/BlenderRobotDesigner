@@ -133,8 +133,8 @@ class RDJointController(bpy.types.PropertyGroup):
     # )
 
     P: FloatProperty(name="P", precision=4, step=100, default=1.0)
-    I: FloatProperty(name="I", precision=4, step=100, default=1.0)
-    D: FloatProperty(name="D", precision=4, step=100, default=1.0)
+    I: FloatProperty(name="I", precision=4, step=100, default=0.0)
+    D: FloatProperty(name="D", precision=4, step=100, default=0.0)
 
 
 @PluginManager.register_property_group()

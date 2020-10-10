@@ -512,47 +512,6 @@ class Importer(object):
                             node.joint.axis[0].limit[0].velocity, 0))
                         bpy.context.active_bone.RobotDesigner.dynamic_limits.isActive = True
 
-                # Set joint kinematic limits
-                if node.joint.type == 'revolute':
-                    bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE'
-                    if len(node.joint.axis[0].limit):
-                        bpy.context.active_bone.RobotDesigner.theta.max = degrees(
-                            float(get_list_value(node.joint.axis[0].limit[0].upper, 0)))
-                        bpy.context.active_bone.RobotDesigner.theta.min = degrees(
-                            float(get_list_value(node.joint.axis[0].limit[0].lower, 0)))
-                    else:
-                        bpy.context.active_bone.RobotDesigner.theta.isActive = False
-                if node.joint.type == 'prismatic':
-                    bpy.context.active_bone.RobotDesigner.jointMode = 'PRISMATIC'
-                    if len(node.joint.axis[0].limit):
-                        bpy.context.active_bone.RobotDesigner.d.max = \
-                            float(get_list_value(node.joint.axis[0].limit[0].upper, 0))
-                        bpy.context.active_bone.RobotDesigner.d.min = \
-                            float(get_list_value(node.joint.axis[0].limit[0].lower, 0))
-                    else:
-                        bpy.context.active_bone.RobotDesigner.d.isActive = False
-                if node.joint.type == 'revolute2':
-                    bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE2'
-                if node.joint.type == 'universal':
-                    bpy.context.active_bone.RobotDesigner.jointMode = 'UNIVERSAL'
-                if node.joint.type == 'ball':
-                    bpy.context.active_bone.RobotDesigner.jointMode = 'BALL'
-                if node.joint.type == 'fixed':
-                    bpy.context.active_bone.RobotDesigner.jointMode = 'FIXED'
-
-                # import joint physics if they exist
-                if node.joint.physics:
-                    if node.joint.physics[0].ode:
-                        rd_physcis_ode = bpy.context.active_bone.RobotDesigner.ode
-                        if node.joint.physics[0].ode[0].cfm_damping:
-                            rd_physcis_ode.cfm_damping = node.joint.physics[0].ode[0].cfm_damping[0]
-                        if node.joint.physics[0].ode[0].implicit_spring_damper:
-                            rd_physcis_ode.i_s_damper = node.joint.physics[0].ode[0].implicit_spring_damper[0]
-                        if node.joint.physics[0].ode[0].cfm:
-                            rd_physcis_ode.cfm = node.joint.physics[0].ode[0].cfm[0]
-                        if node.joint.physics[0].ode[0].erp:
-                            rd_physcis_ode.erp = node.joint.physics[0].ode[0].erp[0]
-
                 if node.joint.axis[0].dynamics:
                     rd_dynamics = bpy.context.active_bone.RobotDesigner.joint_dynamics
                     if node.joint.axis[0].dynamics[0].damping:
@@ -563,6 +522,48 @@ class Importer(object):
                         rd_dynamics.spring_reference = node.joint.axis[0].dynamics[0].spring_reference[0]
                     if node.joint.axis[0].dynamics[0].spring_stiffness:
                         rd_dynamics.spring_stiffness = node.joint.axis[0].dynamics[0].spring_stiffness[0]
+
+            # Set joint kinematic limits
+            if node.joint.type == 'revolute':
+                bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE'
+                if len(node.joint.axis[0].limit):
+                    bpy.context.active_bone.RobotDesigner.theta.max = degrees(
+                        float(get_list_value(node.joint.axis[0].limit[0].upper, 0)))
+                    bpy.context.active_bone.RobotDesigner.theta.min = degrees(
+                        float(get_list_value(node.joint.axis[0].limit[0].lower, 0)))
+                else:
+                    bpy.context.active_bone.RobotDesigner.theta.isActive = False
+            if node.joint.type == 'prismatic':
+                bpy.context.active_bone.RobotDesigner.jointMode = 'PRISMATIC'
+                if len(node.joint.axis[0].limit):
+                    bpy.context.active_bone.RobotDesigner.d.max = \
+                        float(get_list_value(node.joint.axis[0].limit[0].upper, 0))
+                    bpy.context.active_bone.RobotDesigner.d.min = \
+                        float(get_list_value(node.joint.axis[0].limit[0].lower, 0))
+                else:
+                    bpy.context.active_bone.RobotDesigner.d.isActive = False
+            if node.joint.type == 'revolute2':
+                bpy.context.active_bone.RobotDesigner.jointMode = 'REVOLUTE2'
+            if node.joint.type == 'universal':
+                bpy.context.active_bone.RobotDesigner.jointMode = 'UNIVERSAL'
+            if node.joint.type == 'ball':
+                bpy.context.active_bone.RobotDesigner.jointMode = 'BALL'
+            if node.joint.type == 'fixed':
+                bpy.context.active_bone.RobotDesigner.jointMode = 'FIXED'
+
+            # import joint physics if they exist
+            if node.joint.physics:
+                if node.joint.physics[0].ode:
+                    rd_physcis_ode = bpy.context.active_bone.RobotDesigner.ode
+                    if node.joint.physics[0].ode[0].cfm_damping:
+                        rd_physcis_ode.cfm_damping = node.joint.physics[0].ode[0].cfm_damping[0]
+                    if node.joint.physics[0].ode[0].implicit_spring_damper:
+                        rd_physcis_ode.i_s_damper = node.joint.physics[0].ode[0].implicit_spring_damper[0]
+                    if node.joint.physics[0].ode[0].cfm:
+                        rd_physcis_ode.cfm = node.joint.physics[0].ode[0].cfm[0]
+                    if node.joint.physics[0].ode[0].erp:
+                        rd_physcis_ode.erp = node.joint.physics[0].ode[0].erp[0]
+
 
         model = bpy.context.active_object
         model_name = model.name
@@ -784,52 +785,64 @@ class Importer(object):
                             # import surface properties
                             if model.surface:
                                 surface = bpy.data.objects[assigned_name].RobotDesigner.sdfCollisionProps
-                                surface.restitution_coeff = model.surface[0].bounce[0].restitution_coefficient[0]
-                                surface.threshold = model.surface[0].bounce[0].threshold[0]
+                                bounce = model.surface[0].bounce
+                                if bounce:
+                                    surface.restitution_coeff =bounce[0].restitution_coefficient[0]
+                                    surface.threshold = model.surface[0].bounce[0].threshold[0]
 
-                                torsional = model.surface[0].friction[0].torsional
-                                if torsional:
-                                    surface.coefficient = torsional[0].coefficient[0]
-                                    surface.use_patch_radius = torsional[0].use_patch_radius[0]
-                                    surface.surface_radius = torsional[0].surface_radius[0]
-                                    surface.slip = torsional[0].ode[0].slip[0]
+                                friction = model.surface[0].friction
+                                if friction:
+                                    torsional = friction[0].torsional
+                                    if torsional:
+                                        surface.coefficient = torsional[0].coefficient[0]
+                                        surface.use_patch_radius = torsional[0].use_patch_radius[0]
+                                        surface.surface_radius = torsional[0].surface_radius[0]
+                                        surface.slip = torsional[0].ode[0].slip[0]
 
-                                ode = model.surface[0].friction[0].ode
-                                if ode:
-                                    surface.mu = ode[0].mu[0]
-                                    surface.mu2 = ode[0].mu2[0]
-                                    surface.fdir1 = string_to_list(ode[0].fdir1[0])
-                                    surface.slip1 = ode[0].slip1[0]
-                                    surface.slip2 = ode[0].slip2[0]
+                                    ode = friction[0].ode
+                                    if ode:
+                                        surface.mu = ode[0].mu[0]
+                                        surface.mu2 = ode[0].mu2[0]
+                                        surface.fdir1 = string_to_list(ode[0].fdir1[0])
+                                        surface.slip1 = ode[0].slip1[0]
+                                        surface.slip2 = ode[0].slip2[0]
 
                                 contact = model.surface[0].contact
                                 if contact:
-                                    if contact[0].collide_without_contact:
-                                        surface.collide_wo_contact = contact[0].collide_without_contact[0]
-                                    if contact[0].collide_without_contact_bitmask:
-                                        surface.collide_wo_contact_bitmask = contact[0].collide_without_contact_bitmask[0]
-                                    if contact[0].collide_bitmask:
-                                        surface.collide_bitmask = contact[0].collide_bitmask[0]
-                                    if contact[0].category_bitmask:
-                                        surface.category_bitmask = contact[0].category_bitmask[0]
-                                    if contact[0].poissons_ratio:
-                                        surface.poissons_ratio = contact[0].poissons_ratio[0]
-                                    if contact[0].elastic_modulus:
-                                        surface.elastic_modulus = contact[0].elastic_modulus[0]
+                                    dict = {key: value for key, value in contact[0].__dict__.items()}
+                                   # TODO contact[0].collide_without_contact = \
+                                    #    bool(dict.get('collide_without_contact', [surface.collide_wo_contact])[0])
+                                    contact[0].collide_without_contact_bitmask = \
+                                        dict.get('collide_without_contact_bitmask', [contact[0].collide_without_contact_bitmask])[0]
+                                    contact[0].collide_bitmask = \
+                                        dict.get('collide_bitmask', [contact[0].collide_bitmask])[0]
+                                    contact[0].category_bitmask = \
+                                        dict.get('category_bitmask', [contact[0].category_bitmask])[0]
+                                    contact[0].poissons_ratio = \
+                                        dict.get('poissons_ratio', [contact[0].poissons_ratio])[0]
+                                    contact[0].elastic_modulus = \
+                                        dict.get('elastic_modulus', [contact[0].elastic_modulus])[0]
 
                                 opensim = model.surface[0].contact[0].opensim
                                 if opensim:
-                                        bpy.data.objects[global_properties.model_name.get(bpy.context.scene)] \
-                                        .RobotDesigner.physics_engine = 'OPENSIM'
-                                        surface.osim_stiffness = opensim[0].stiffness[0]
-                                        surface.osim_dissipation = opensim[0].dissipation[0]
+                                    bpy.data.objects[global_properties.model_name.get(bpy.context.scene)] \
+                                    .RobotDesigner.physics_engine = 'OPENSIM'
 
-                                surface.soft_cfm = model.surface[0].contact[0].ode[0].soft_cfm[0]
-                                surface.soft_erp = model.surface[0].contact[0].ode[0].soft_erp[0]
-                                surface.kp = model.surface[0].contact[0].ode[0].kp[0]
-                                surface.kd = model.surface[0].contact[0].ode[0].kd[0]
-                                surface.max_vel = model.surface[0].contact[0].ode[0].max_vel[0]
-                                surface.min_depth = model.surface[0].contact[0].ode[0].min_depth[0]
+                                    dict = {key: value for key, value in opensim[0].__dict__.items()}
+                                    surface.osim_stiffness = dict.get('stiffness', [surface.osim_stiffness])[0]
+                                    surface.osim_dissipation = dict.get('dissipation', [surface.osim_dissipation])[0]
+
+
+                                ode = model.surface[0].contact[0].ode
+                                if ode:
+                                    dict = {key: value for key, value in ode[0].__dict__.items()}
+                                    surface.soft_cfm = dict.get('soft_cfm', [surface.soft_cfm])[0]
+                                    surface.soft_erp = dict.get('soft_erp', [surface.soft_erp])[0]
+                                    surface.kp = dict.get('kp', [surface.kp])[0]
+                                    surface.kd = dict.get('kd', [surface.kd])[0]
+                                    surface.max_vel = dict.get('max_vel', [surface.max_vel])[0]
+                                    surface.min_depth = dict.get('min_depth', [surface.min_depth])[0]
+
                             AssignGeometry.run(attach_collision_geometry=True)
                         else:
                             AssignGeometry.run()

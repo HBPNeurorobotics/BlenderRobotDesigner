@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+    <xsd:element name="gripper">
+        <xsd:complexType>
+            <xsd:choice maxOccurs="unbounded">
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="grasp_check">
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs="unbounded">
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="detach_steps" type="xsd:int">
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="attach_steps" type="xsd:int">
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="min_contact_count" type="xsd:unsignedInt">
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="unbounded" minOccurs="1">
+                    <xsd:element name="gripper_link" type="xsd:string">
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="1">
+                    <xsd:element name="palm_link" type="xsd:string">
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:choice>
+            <xsd:attribute name="name" type="xsd:string" use="required">
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

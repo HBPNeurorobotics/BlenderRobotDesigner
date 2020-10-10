@@ -128,6 +128,7 @@ class CreateWrappingSphere(RDOperator):
 
         sphere.RobotDesigner.tag = 'WRAPPING'
         sphere.RobotDesigner.wrap.WrappingType = 'WRAPPING_SPHERE'
+        sphere.parent_name = global_properties
 
         SelectModel.run(model_name=model.name)
         SelectGeometry.run(geometry_name=sphere.name)

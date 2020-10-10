@@ -1,0 +1,380 @@
+<?xml version="1.0" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+            <![CDATA[The surface parameters]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+    <xsd:element name="surface">
+        <xsd:complexType>
+            <xsd:choice maxOccurs="unbounded">
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="bounce">
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs="unbounded">
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="restitution_coefficient" type="xsd:double">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[Bounciness coefficient of restitution, from [0...1], where 0=no bounciness.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="threshold" type="xsd:double">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[Bounce capture velocity, below which effective coefficient of restitution is 0.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="friction">
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs="unbounded">
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="ode">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[ODE friction parameters]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs="unbounded">
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="mu" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Coefficient of friction in the range of [0..1].]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="mu2" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Second coefficient of friction in the range of [0..1]]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="fdir1" type="vector3">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[3-tuple specifying direction of mu1 in the collision local reference frame.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="slip1" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Force dependent slip direction 1 in collision local frame, between the range of [0..1].]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="slip2" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Force dependent slip direction 2 in collision local frame, between the range of [0..1].]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="bullet">
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs="unbounded">
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="friction" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Coefficient of friction in the range of [0..1].]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="friction2" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Coefficient of friction in the range of [0..1].]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="fdir1" type="vector3">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[3-tuple specifying direction of mu1 in the collision local reference frame.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="rolling_friction" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[ coefficient of friction in the range of [0..1]]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="contact">
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs="unbounded">
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="collide_without_contact" type="xsd:boolean">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[Flag to disable contact force generation, while still allowing collision checks and contact visualization to occur.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="collide_without_contact_bitmask" type="xsd:unsignedInt">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[Bitmask for collision filtering when collide_without_contact is on ]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="collide_bitmask" type="xsd:unsignedInt">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[Bitmask for collision filtering. This will override collide_without_contact]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="ode">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[ODE contact parameters]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs="unbounded">
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="soft_cfm" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Soft constraint force mixing.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="soft_erp" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Soft error reduction parameter]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="kp" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[dynamically "stiffness"-equivalent coefficient for contact joints]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="kd" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[dynamically "damping"-equivalent coefficient for contact joints]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="max_vel" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[maximum contact correction velocity truncation term.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="min_depth" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[minimum allowable depth before contact correction impulse is applied]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="bullet">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[Bullet contact parameters]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs="unbounded">
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="soft_cfm" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Soft constraint force mixing.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="soft_erp" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Soft error reduction parameter]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="kp" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[dynamically "stiffness"-equivalent coefficient for contact joints]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                                    <xsd:element name="kd" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[dynamically "damping"-equivalent coefficient for contact joints]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                                    <xsd:element name="split_impulse" type="xsd:boolean">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Similar to ODE's max_vel implementation.  See http://bulletphysics.org/mediawiki-1.5.8/index.php/BtContactSolverInfo#Split_Impulse for more information.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                                    <xsd:element name="split_impulse_penetration_threshold"
+                                                                 type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Similar to ODE's max_vel implementation.  See http://bulletphysics.org/mediawiki-1.5.8/index.php/BtContactSolverInfo#Split_Impulse for more information.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="soft_contact">
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs="unbounded">
+                                <xsd:choice maxOccurs="1" minOccurs="0">
+                                    <xsd:element name="dart">
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang="en">
+                                                <![CDATA[soft contact pamameters based on paper:
+             http://www.cc.gatech.edu/graphics/projects/Sumit/homepage/papers/sigasia11/jain_softcontacts_siga11.pdf
+      ]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                        <xsd:complexType>
+                                            <xsd:choice maxOccurs="unbounded">
+                                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                                    <xsd:element name="bone_attachment" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[This is variable k_v in the soft contacts paper.  Its unit is N/m.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                                    <xsd:element name="stiffness" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[This is variable k_e in the soft contacts paper.  Its unit is N/m.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                                    <xsd:element name="damping" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Viscous damping of point velocity in body frame.  Its unit is N/m/s.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                                <xsd:choice maxOccurs="1" minOccurs="1">
+                                                    <xsd:element name="flesh_mass_fraction" type="xsd:double">
+                                                        <xsd:annotation>
+                                                            <xsd:documentation xml:lang="en">
+                                                                <![CDATA[Fraction of mass to be distributed among deformable nodes.]]>
+                                                            </xsd:documentation>
+                                                        </xsd:annotation>
+                                                    </xsd:element>
+                                                </xsd:choice>
+                                            </xsd:choice>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:choice>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

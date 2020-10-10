@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+            <![CDATA[These elements are specific to the force torque sensor.]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="../../../robot_designer_plugin/resources/xsd_sdf/types.xsd"/>
+    <xsd:element name="force_torque">
+        <xsd:complexType>
+            <xsd:choice maxOccurs="unbounded">
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="frame" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[
+      Frame in which to report the wrench values. Currently supported frames are:
+        "parent" report the wrench expressed in the orientation of the parent link frame,
+        "child" report the wrench expressed in the orientation of the child link frame,
+        "sensor" report the wrench expressed in the orientation of the joint sensor frame.
+      Note that for each option the point with respect to which the 
+      torque component of the wrench is expressed is the joint origin.
+    ]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="measure_direction" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[
+      Direction of the wrench measured by the sensor. The supported options are:
+        "parent_to_child" if the measured wrench is the one applied by parent link on the child link,
+        "child_to_parent" if the measured wrench is the one applied by the child link on the parent link.
+    ]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:choice>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
