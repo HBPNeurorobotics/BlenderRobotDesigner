@@ -867,7 +867,7 @@ def create_config(operator: RDOperator, context, filepath: str, meshpath: str, t
     """
 
     # set namespace
-    pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace("http://schemas.humanbrainproject.eu/SP10/2017/robot_model_config")
+    # pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace("http://schemas.humanbrainproject.eu/SP10/2017/robot_model_config")
 
     # create model config element
     modelI = robot_model_config_dom.model()
@@ -924,6 +924,14 @@ class ExportPlain(RDOperator):
 
     gazebo: BoolProperty(name="Export Gazebo tags", default=True)
     filepath: StringProperty(name="Filename", subtype='FILE_PATH')
+
+    @classmethod
+    def run(cls, abs_file_paths, gazebo, filepath):
+        """
+        Run this operator
+        """
+
+        return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, ObjectMode)

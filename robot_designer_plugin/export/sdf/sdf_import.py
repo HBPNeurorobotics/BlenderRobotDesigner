@@ -998,6 +998,14 @@ class ImportPlain(RDOperator):
 
         filepath: StringProperty(name="Filename", subtype='FILE_PATH')
 
+        @classmethod
+        def run(cls, filepath):
+            """
+            Run this operator
+            """
+
+            return super().run(**cls.pass_keywords())
+
         def invoke(self, context, event):
             context.window_manager.fileselect_add(self)
             return {'RUNNING_MODAL'}

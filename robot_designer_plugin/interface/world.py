@@ -41,12 +41,15 @@ import math
 
 from . import menus
 from ..operators import sensors
-from .helpers import EditMusclesBox
+from .helpers import SolverBox, ConstraintsBox, SimbodyBox
 from ..core.gui import InfoBox
 from ..properties.globals import global_properties
-from ..operators import model, muscles, segments
+from ..operators import model, muscles, segments, world
+from ..core.logfile import LogFunction
+from ..export.sdf import sdf_world_export, sdf_world_import
 
 from .helpers import create_segment_selector
+
 
 def draw(layout, context):
     """
@@ -55,25 +58,168 @@ def draw(layout, context):
     :param layout: Current GUI element (e.g., collapsible box, row, etc.)
     :param context: Blender context
     """
-    if not check_armature(layout, context):
-        return
+    world_selected = True
 
-    # General Properties
-    box = layout.box()
-    box.label(text="Active Specification")
-    global_properties.world_s_name.prop(bpy.context.scene, box)
-    global_properties.gravity.prop(bpy.context.scene, box)
+    # Check if world is currently selected
+    if not check_world(context):
+        layout.menu(menus.WorldMenu.bl_idname, text="Select World")
+        world_selected = False
+    else:
+        layout.menu(menus.WorldMenu.bl_idname, text=context.active_object.name)
 
-    # Light Probperties
-    box1 = box.box()
-    box1.label(text="Light")
-    #todo change to dropdown just like adding a sensor
-    global_properties.light_s_name.prop(bpy.context.scene, box1)
-    global_properties.cast_shadows.prop(bpy.context.scene, box1)
-    global_properties.diffuse.prop(bpy.context.scene, box1)
-    global_properties.specular.prop(bpy.context.scene, box1)
+    if world_selected:
+        # Display general parameters of the world
+        box_general = layout.box()
+        box_general.label(text="General Parameters")
+        row = box_general.row()
+        row.prop(context.active_object, 'name', text='Name')
+        row = box_general.row()
+        row.prop(context.active_object.RobotDesigner.worlds, 'gravity', text='Gravity')
+        row = box_general.row()
+        row.prop(context.active_object.RobotDesigner.worlds, 'magnetic_field', text='Magnetic Field (*10⁵)')
+        row = box_general.row()
+        row.prop(context.active_object.RobotDesigner.worlds, 'wind_active', text='Wind')
+        row.prop(context.active_object.RobotDesigner.worlds, 'wind_vector', text='')
 
-    # Included Models
-    box2 = box.box()
-    box2.label(text="Insert Tobot Models Here Via Dropdown Menu ")
-    #todo list all added robots
+        # Display robots that are included in the world
+        box_robots = layout.box()
+        box_robots.label(text="Robots")
+        box_robots.menu(menus.AddRobotMenu.bl_idname, text=menus.AddRobotMenu.bl_label)
+        robot_list = context.active_object.RobotDesigner.worlds.robot_list
+        bots = [obj for obj in context.scene.objects if obj.type == 'ARMATURE' and obj.name in robot_list]
+
+        for bot in bots:
+            row = box_robots.row(align=True)
+            row.label(text=bot.name)
+            #row.prop(robot, 'name', text='')
+            row.prop(context.active_object.RobotDesigner.worlds.robot_list[bot.name], 'export')
+            world.RemoveRobot.place_button(row, text='remove', icon="CANCEL").robot_name = bot.name
+
+        # Display Physics Engine
+        box_physics = layout.box()
+        box_physics.label(text="Physics Engine")
+
+        row = box_physics.row()
+        row.prop(context.active_object.RobotDesigner.worldPhysics, 'name')
+        row = box_physics.row()
+        row.prop(context.active_object.RobotDesigner.worldPhysics, 'max_step_size')
+        row = box_physics.row()
+        row.prop(context.active_object.RobotDesigner.worldPhysics, 'real_time_factor')
+        row = box_physics.row()
+        row.prop(context.active_object.RobotDesigner.worldPhysics, 'real_time_update_rate')
+        row = box_physics.row()
+        row.prop(context.active_object.RobotDesigner.worldPhysics, 'max_contacts')
+        row = box_physics.row()
+        row.prop(context.active_object.RobotDesigner.worldPhysics, 'physics_engine', text='Physics Engine')
+        sub_box = box_physics.box()
+        sub_box.label(text=context.active_object.RobotDesigner.worldPhysics.physics_engine)
+
+        # Display ODE properties if selected as physics engine
+        if context.active_object.RobotDesigner.worldPhysics.physics_engine == 'ODE':
+            solver = SolverBox.get(sub_box, context, 'Solver')
+            if solver:
+                row = solver.row()
+                row.prop(context.active_object.RobotDesigner.worldODE, 'type')
+                row = solver.row()
+                row.prop(context.active_object.RobotDesigner.worldODE, 'min_step_size')
+                row = solver.row()
+                row.prop(context.active_object.RobotDesigner.worldODE, 'iters')
+                row = solver.row()
+                row.prop(context.active_object.RobotDesigner.worldODE, 'precon_iters')
+                row = solver.row()
+                row.prop(context.active_object.RobotDesigner.worldODE, 'sor')
+                row = solver.row()
+                row.prop(context.active_object.RobotDesigner.worldODE, 'use_dynamic_moi_rescaling')
+
+            constraints = ConstraintsBox.get(sub_box, context, 'Constraints')
+            if constraints:
+                row = constraints.row()
+                row.prop(context.active_object.RobotDesigner.worldODE, 'cfm')
+                row = constraints.row()
+                row.prop(context.active_object.RobotDesigner.worldODE, 'erp')
+                row = constraints.row()
+                row.prop(context.active_object.RobotDesigner.worldODE, 'contact_max_correcting_vel')
+                row = constraints.row()
+                row.prop(context.active_object.RobotDesigner.worldODE, 'contact_surface_layer')
+
+        # Display Simbody properties if selected as physics engine
+        elif context.active_object.RobotDesigner.worldPhysics.physics_engine == 'SIMBODY':
+            row = sub_box.row()
+            row.prop(context.active_object.RobotDesigner.worldSimbody, 'min_step_size')
+            row = sub_box.row()
+            row.prop(context.active_object.RobotDesigner.worldSimbody, 'accuracy')
+            row = sub_box.row()
+            row.prop(context.active_object.RobotDesigner.worldSimbody, 'max_transient_velocity')
+
+            contact = SimbodyBox.get(sub_box, context, "Contact")
+            if contact:
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldSimbody, 'stiffness')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldSimbody, 'dissipation')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldSimbody, 'plastic_coef_restitution')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldSimbody, 'plastic_impact_velocity')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldSimbody, 'static_friction')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldSimbody, 'dynamic_friction')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldSimbody, 'viscous_friction')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldSimbody, 'override_impact_capture_velocity')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldSimbody, 'override_stiction_transition_velocity')
+
+        # Display OpenSim properties if selected as physics engine
+        elif context.active_object.RobotDesigner.worldPhysics.physics_engine == 'OPENSIM':
+            row = sub_box.row()
+            row.prop(context.active_object.RobotDesigner.worldOpenSim, 'min_step_size')
+            row = sub_box.row()
+            row.prop(context.active_object.RobotDesigner.worldOpenSim, 'accuracy')
+            row = sub_box.row()
+            row.prop(context.active_object.RobotDesigner.worldOpenSim, 'max_transient_velocity')
+
+            contact = SimbodyBox.get(sub_box, context, "Contact")
+            if contact:
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldOpenSim, 'stiffness')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldOpenSim, 'dissipation')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldOpenSim, 'plastic_coef_restitution')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldOpenSim, 'plastic_impact_velocity')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldOpenSim, 'static_friction')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldOpenSim, 'dynamic_friction')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldOpenSim, 'viscous_friction')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldOpenSim, 'override_impact_capture_velocity')
+                row = contact.row()
+                row.prop(context.active_object.RobotDesigner.worldOpenSim, 'override_stiction_transition_velocity')
+
+    # Display menu to export/import a world
+    box_sdf = layout.box()
+    box_sdf.label(text='SDF')
+    if world_selected:
+        row = box_sdf.row(align=True)
+        row.prop(context.active_object.RobotDesigner.worlds, 'export_name')
+        sdf_world_export.ExportPlainWorld.place_button(box_sdf, text='Export World SDF')
+    sdf_world_import.ImportPlainWorld.place_button(box_sdf, text='Import World SDF')
+
+
+def check_world(context):
+    """
+    Helper function that checks whether a :ref:'world' is selected.
+
+    :param context: Blender contet
+    :return: Whether a world is selected (Bool).
+    """
+    if context.active_object is not None and context.active_object.RobotDesigner.tag == 'WORLD':
+        return True
+    else:
+        return False

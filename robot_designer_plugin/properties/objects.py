@@ -45,7 +45,8 @@ import mathutils
 
 import bpy
 from bpy.props import FloatProperty, StringProperty, \
-    EnumProperty, IntVectorProperty, FloatVectorProperty, PointerProperty, IntProperty, CollectionProperty, BoolProperty
+    EnumProperty, IntVectorProperty, FloatVectorProperty, PointerProperty, IntProperty, CollectionProperty, \
+    BoolProperty, CollectionProperty
 
 
 # RobotDesigner imports
@@ -329,10 +330,6 @@ class RDMuscle(bpy.types.PropertyGroup):
     connectedWraps: CollectionProperty(type=RDWrappingObjects)
 
 
-
-
-
-
 @PluginManager.register_property_group()
 class RDModelMeta(bpy.types.PropertyGroup):
     '''
@@ -380,6 +377,86 @@ class Ode(bpy.types.PropertyGroup):
     cfm: FloatProperty(name='CFM', default=0)
     erp: FloatProperty(name='ERP', default=0.2)
 
+
+@PluginManager.register_property_group()
+class WorldPhysics(bpy.types.PropertyGroup):
+    '''
+    Property group that contains data about the world's physics engine.
+    '''
+    name: StringProperty(name='Name', default='default_physics')
+    max_step_size: FloatProperty(name='Max Step Size', default=0.001, precision=5)
+    real_time_factor: FloatProperty(name='Real Time Factor', default=1)
+    real_time_update_rate: FloatProperty(name='Real Time Update Rate', default=1000)
+    max_contacts: IntProperty(name='Max Contacts', default=20)
+    physics_engine: EnumProperty(
+        items=[('ODE', 'ODE', 'Select Open Dynamics Engine (ODE)'),
+               ('SIMBODY', 'Simbody', 'Select Simbody as Physics Engine'),
+               ('OPENSIM', 'OpenSim', 'Select OpenSim as Physics Engine'),
+               ('DART', 'DART', 'Select DART as Physics Engine')], default='ODE')
+
+
+@PluginManager.register_property_group()
+class WorldODE(bpy.types.PropertyGroup):
+    '''
+    Property group that contains ODE parameters if selected as world's physics engine.
+    '''
+    # Solver
+    type: EnumProperty(
+        items=[('quick', 'Quick', 'Select Quick as type'),
+               ('world', 'World', 'Select World as type')], default='quick')
+    min_step_size: FloatProperty(name='Min Step Size', default=0.0001, precision=6)
+    iters: IntProperty(name='Iters', default=50)
+    precon_iters: IntProperty(name='Precon Iters', default=0)
+    sor: FloatProperty(name='Sor', default=1.3)
+    use_dynamic_moi_rescaling: BoolProperty(name='Use Dynamic Moi Rescaling', default=False)
+
+    # Constraints
+    cfm: FloatProperty(name='Cfm', default=0.0)
+    erp: FloatProperty(name='Erp', default=0.2)
+    contact_max_correcting_vel: FloatProperty(name='Contact Max Correcting Vel', default=100)
+    contact_surface_layer: FloatProperty(name='Contact Surface Layer', default=0.001, precision=5)
+
+
+@PluginManager.register_property_group()
+class WorldSimbody(bpy.types.PropertyGroup):
+    '''
+    Property group that contains Simbody parameters if selected as world's physics engine.
+    '''
+    min_step_size: FloatProperty(name='Min Step Size', default=0.0001, precision=5)
+    accuracy: FloatProperty(name='Accuracy', default=0.001, precision=4, min=0, max=1)
+    max_transient_velocity: FloatProperty(name='Max Transient Velocity', default=0.01, precision=3)
+
+    # Contact
+    stiffness: FloatProperty(name='Stiffness', default=1E8)
+    dissipation: FloatProperty(name='Dissipation', default=100)
+    plastic_coef_restitution: FloatProperty(name='Plastic Coef Restitution', default=0.5)
+    plastic_impact_velocity: FloatProperty(name='Plastic Impact Velocity', default=0.5)
+    static_friction: FloatProperty(name='Static Friction', default=0.9)
+    dynamic_friction: FloatProperty(name='Dynamic Friction', default=0.9)
+    viscous_friction: FloatProperty(name='Viscous Friction', default=0)
+    override_impact_capture_velocity: FloatProperty(name='Override Impact Capture Velocity', default=0.001, precision=4)
+    override_stiction_transition_velocity: FloatProperty(name='Override Stiction Transition Velocity', default=0.001, precision=4)
+
+@PluginManager.register_property_group()
+class WorldOpenSim(bpy.types.PropertyGroup):
+    '''
+    Property group that contains OpenSim parameters if selected as world's physics engine.
+    '''
+    min_step_size: FloatProperty(name='Min Step Size', default=0.0001, precision=5)
+    accuracy: FloatProperty(name='Accuracy', default=0.001, precision=4, min=0, max=1)
+    max_transient_velocity: FloatProperty(name='Max Transient Velocity', default=0.01, precision=3)
+
+    # Contact
+    stiffness: FloatProperty(name='Stiffness', default=1E8)
+    dissipation: FloatProperty(name='Dissipation', default=100)
+    plastic_coef_restitution: FloatProperty(name='Plastic Coef Restitution', default=0.5)
+    plastic_impact_velocity: FloatProperty(name='Plastic Impact Velocity', default=0.5)
+    static_friction: FloatProperty(name='Static Friction', default=0.9)
+    dynamic_friction: FloatProperty(name='Dynamic Friction', default=0.9)
+    viscous_friction: FloatProperty(name='Viscous Friction', default=0)
+    override_impact_capture_velocity: FloatProperty(name='Override Impact Capture Velocity', default=0.001, precision=4)
+    override_stiction_transition_velocity: FloatProperty(name='Override Stiction Transition Velocity', default=0.001,
+                                                         precision=4)
 
 @PluginManager.register_property_group()
 class SDFCollisionProperties(bpy.types.PropertyGroup):
@@ -450,6 +527,31 @@ class RDAuthor(bpy.types.PropertyGroup):
     authorEmail: StringProperty(name="Author Email")
 
 
+@PluginManager.register_property_group()
+class RDWorldsRobotListItem(bpy.types.PropertyGroup):
+    '''
+    Store information which robot is included in the world and maybe some other information
+    about how the robot should be included in the world to enable randomization of the environment
+    '''
+    name: StringProperty(name='Name', default="Robot")
+    export: BoolProperty(name='Export', default=False)
+
+
+@PluginManager.register_property_group()
+class RDWorlds(bpy.types.PropertyGroup):
+    '''
+    Porperty group that contains world parameters and settings
+    '''
+    name: StringProperty(name='Name', default='World')
+    export_name: StringProperty(name='Export Name', default='World')
+    gravity: FloatVectorProperty(name='Gravity', default=[0, 0, -9.81])
+    # Magnetic field is multiplied with 10⁵ for better representation in GUI
+    magnetic_field: FloatVectorProperty(name='Magnetic Field', precision=3, default=[0.6, 2.3, -4.2])
+    wind_active: BoolProperty(name='Wind Boolean', default=False)
+    wind_vector: FloatVectorProperty(name='Wind Vector', default=[0, 0, 0])
+    robot_list: CollectionProperty(type=RDWorldsRobotListItem)
+
+
 @PluginManager.register_property_group(bpy.types.Object)
 class RDObjects(bpy.types.PropertyGroup):
     '''
@@ -467,7 +569,8 @@ class RDObjects(bpy.types.PropertyGroup):
                ('SENSOR', 'Sensor', 'Sensor'),
                ('BASIC_COLLISION_BOX', 'Basic Collision Box', 'Basic Collision Box'),
                ('BASIC_COLLISION_CYLINDER', 'Basic Collision Cylinder', 'Basic Collision Cylinder'),
-               ('BASIC_COLLISION_SPHERE', 'Basic Collision Sphere', 'Basic Collision Sphere')
+               ('BASIC_COLLISION_SPHERE', 'Basic Collision Sphere', 'Basic Collision Sphere'),
+               ('WORLD', 'World', 'World')
                ]
     )
 
@@ -507,3 +610,8 @@ class RDObjects(bpy.types.PropertyGroup):
     muscles: PointerProperty(type=RDMuscle)
     wrap: PointerProperty(type=RDWrap)
     scaling: PointerProperty(type=RDScaler)
+    worlds: PointerProperty(type=RDWorlds)
+    worldPhysics: PointerProperty(type=WorldPhysics)
+    worldODE: PointerProperty(type=WorldODE)
+    worldSimbody: PointerProperty(type=WorldSimbody)
+    worldOpenSim: PointerProperty(type=WorldOpenSim)
