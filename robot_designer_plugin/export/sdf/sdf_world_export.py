@@ -55,8 +55,8 @@ def create_sdf(context,abs_file_paths, gazebo, filepath):
 
     if physics.physics_engine == 'ODE':
         ode = context.active_object.RobotDesigner.worldODE
-        sdf_ode = sdf_root_dom.CTD_ANON_96()
-        sdf_solver = sdf_root_dom.CTD_ANON_97()
+        sdf_ode = sdf_root_dom.CTD_ANON_9()
+        sdf_solver = sdf_root_dom.CTD_ANON_10()
         sdf_solver.type.append(ode.type)
         sdf_solver.min_step_size.append(ode.min_step_size)
         sdf_solver.iters.append(ode.iters)
@@ -64,7 +64,7 @@ def create_sdf(context,abs_file_paths, gazebo, filepath):
         sdf_solver.sor.append(ode.sor)
         sdf_solver.use_dynamic_moi_rescaling.append(ode.use_dynamic_moi_rescaling)
         sdf_ode.solver.append(sdf_solver)
-        sdf_constraints = sdf_root_dom.CTD_ANON_98()
+        sdf_constraints = sdf_root_dom.CTD_ANON_11()
         sdf_constraints.cfm.append(ode.cfm)
         sdf_constraints.erp.append(ode.erp)
         sdf_constraints.contact_max_correcting_vel.append(ode.contact_max_correcting_vel)
@@ -75,11 +75,11 @@ def create_sdf(context,abs_file_paths, gazebo, filepath):
 
     elif physics.physics_engine == 'SIMBODY':
         simbody = context.active_object.RobotDesigner.worldSimbody
-        sdf_simbody = sdf_root_dom.CTD_ANON_91()
+        sdf_simbody = sdf_root_dom.CTD_ANON_2()
         sdf_simbody.min_step_size.append(simbody.min_step_size)
         sdf_simbody.accuracy.append(simbody.accuracy)
         sdf_simbody.max_transient_velocity.append(simbody.max_transient_velocity)
-        sdf_contact = sdf_root_dom.CTD_ANON_92()
+        sdf_contact = sdf_root_dom.CTD_ANON_3()
         sdf_contact.stiffness.append(simbody.stiffness)
         sdf_contact.dissipation.append(simbody.dissipation)
         sdf_contact.plastic_coef_restitution.append(simbody.plastic_coef_restitution)
@@ -92,6 +92,26 @@ def create_sdf(context,abs_file_paths, gazebo, filepath):
         sdf_simbody.contact.append(sdf_contact)
 
         sdf_physics.simbody.append(sdf_simbody)
+
+    elif physics.physics_engine == 'OPENSIM':
+        opensim = context.active_object.RobotDesigner.worldOpenSim
+        sdf_opensim = sdf_root_dom.CTD_ANON_4()
+        sdf_opensim.min_step_size.append(opensim.min_step_size)
+        sdf_opensim.accuracy.append(opensim.accuracy)
+        sdf_opensim.max_transient_velocity.append(opensim.max_transient_velocity)
+        sdf_contact = sdf_root_dom.CTD_ANON_5()
+        sdf_contact.stiffness.append(opensim.stiffness)
+        sdf_contact.dissipation.append(opensim.dissipation)
+        sdf_contact.plastic_coef_restitution.append(opensim.plastic_coef_restitution)
+        sdf_contact.plastic_impact_velocity.append(opensim.plastic_impact_velocity)
+        sdf_contact.static_friction.append(opensim.static_friction)
+        sdf_contact.dynamic_friction.append(opensim.dynamic_friction)
+        sdf_contact.viscous_friction.append(opensim.viscous_friction)
+        sdf_contact.override_impact_capture_velocity.append(opensim.override_impact_capture_velocity)
+        sdf_contact.override_stiction_transition_velocity.append(opensim.override_stiction_transition_velocity)
+        sdf_opensim.contact.append(sdf_contact)
+
+        sdf_physics.opensim.append(sdf_opensim)
 
     sdf_world.physics.append(sdf_physics)
 

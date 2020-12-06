@@ -108,6 +108,35 @@ def import_sdf(context, filepath: str):
                         for val in sdf_contact.override_stiction_transition_velocity:
                             simbody_obj.override_stiction_transition_velocity = val
 
+            elif physics_obj.physics_engine == 'OPENSIM':
+                opensim_obj = obj.RobotDesigner.worldOpenSim
+                for sdf_opensim in sdf_physics.opensim:
+                    for val in sdf_opensim.min_step_size:
+                        opensim_obj.min_step_size = val
+                    for val in sdf_opensim.accuracy:
+                        opensim_obj.accuracy = val
+                    for val in sdf_opensim.max_transient_velocity:
+                        opensim_obj.max_transient_velocity = val
+                    for sdf_contact in sdf_opensim.contact:
+                        for val in sdf_contact.stiffness:
+                            opensim_obj.stiffness = val
+                        for val in sdf_contact.dissipation:
+                            opensim_obj.dissipation = val
+                        for val in sdf_contact.plastic_coef_restitution:
+                            opensim_obj.plastic_coef_restitution = val
+                        for val in sdf_contact.plastic_impact_velocity:
+                            opensim_obj.plastic_impact_velocity = val
+                        for val in sdf_contact.static_friction:
+                            opensim_obj.static_friction = val
+                        for val in sdf_contact.dynamic_friction:
+                            opensim_obj.dynamic_friction = val
+                        for val in sdf_contact.viscous_friction:
+                            opensim_obj.viscous_friction = val
+                        for val in sdf_contact.override_impact_capture_velocity:
+                            opensim_obj.override_impact_capture_velocity = val
+                        for val in sdf_contact.override_stiction_transition_velocity:
+                            opensim_obj.override_stiction_transition_velocity = val
+
         for incl in sdf_world.include:
             uri = incl.uri[0]
             if uri.startswith(FILE_URL_RELATIVE):

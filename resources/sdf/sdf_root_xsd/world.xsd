@@ -1,0 +1,150 @@
+<?xml version='1.0' ?>
+<xsd:schema xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+    <xsd:annotation>
+        <xsd:documentation xml:lang='en'>
+            <![CDATA[The world element encapsulates an entire world description including: models, scene, physics, joints, and plugins]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation='http://sdformat.org/schemas/types.xsd'/>
+    <xsd:include schemaLocation='atmosphere.xsd'/>
+    <xsd:include schemaLocation='http://sdformat.org/schemas/gui.xsd'/>
+    <xsd:include schemaLocation='physics.xsd'/>
+    <xsd:include schemaLocation='http://sdformat.org/schemas/scene.xsd'/>
+    <xsd:include schemaLocation='http://sdformat.org/schemas/light.xsd'/>
+    <xsd:include schemaLocation='http://sdformat.org/schemas/model.xsd'/>
+    <xsd:include schemaLocation='http://sdformat.org/schemas/actor.xsd'/>
+    <xsd:include schemaLocation='http://sdformat.org/schemas/plugin.xsd'/>
+    <xsd:include schemaLocation='http://sdformat.org/schemas/joint.xsd'/>
+    <xsd:include schemaLocation='http://sdformat.org/schemas/road.xsd'/>
+    <xsd:include schemaLocation='http://sdformat.org/schemas/spherical_coordinates.xsd'/>
+    <xsd:include schemaLocation='http://sdformat.org/schemas/state.xsd'/>
+    <xsd:include schemaLocation='http://sdformat.org/schemas/population.xsd'/>
+    <xsd:element name='world'>
+        <xsd:complexType>
+            <xsd:choice maxOccurs='unbounded'>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='audio'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Global audio properties.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                    <xsd:element name='device' type='xsd:string'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Device to use for audio playback. A value of "default" will use the system's default audio device. Otherwise, specify a an audio device file"]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                    <xsd:element name='wind'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[The wind tag specifies the type and properties of the wind.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='linear_velocity' type='vector3'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Linear velocity of the wind.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='0' maxOccurs='unbounded'>
+                    <xsd:element name='include'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[Include resources from a URI]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs='unbounded'>
+                                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                                    <xsd:element name='uri' type='xsd:string'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[URI to a resource, such as a model]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='name' type='xsd:string'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Override the name of the included model.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                                <xsd:choice  minOccurs='0' maxOccurs='1'>
+                                    <xsd:element name='static' type='xsd:boolean'>
+                                        <xsd:annotation>
+                                            <xsd:documentation xml:lang='en'>
+                                                <![CDATA[Override the static value of the included model.]]>
+                                            </xsd:documentation>
+                                        </xsd:annotation>
+                                    </xsd:element>
+                                </xsd:choice>
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                    <xsd:element name='gravity' type='vector3'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[The gravity vector in m/s^2, expressed in a coordinate frame defined by the spherical_coordinates tag.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice  minOccurs='1' maxOccurs='1'>
+                    <xsd:element name='magnetic_field' type='vector3'>
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang='en'>
+                                <![CDATA[The magnetic vector in Tesla, expressed in a coordinate frame defined by the spherical_coordinates tag.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:element ref='atmosphere'/>
+                <xsd:element ref='gui'/>
+                <xsd:element ref='physics'/>
+                <xsd:element ref='scene'/>
+                <xsd:element ref='light'/>
+                <xsd:element ref='model'/>
+                <xsd:element ref='actor'/>
+                <xsd:element ref='plugin'/>
+                <xsd:element ref='joint'/>
+                <xsd:element ref='road'/>
+                <xsd:element ref='spherical_coordinates'/>
+                <xsd:element ref='state'/>
+                <xsd:element ref='population'/>
+            </xsd:choice>
+            <xsd:attribute name='name' type='xsd:string' use='required' >
+                <xsd:annotation>
+                    <xsd:documentation xml:lang='en'>
+                        <![CDATA[Unique name of the world]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
