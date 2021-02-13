@@ -49,7 +49,7 @@ from bpy.props import IntProperty, StringProperty, CollectionProperty
 # ######
 # RobotDesigner imports
 
-from ..operators import segments, model, rigid_bodies, dynamics, sensors, muscles, mesh_generation
+from ..operators import segments, model, rigid_bodies, dynamics, sensors, muscles, mesh_generation, world
 
 from ..core import PluginManager
 from ..core.config import OPERATOR_PREFIX, MENU_PREFIX
@@ -491,6 +491,45 @@ class ModelMenu(bpy.types.Menu, BaseMenu):
         for arm in armatures:
             text = arm.name
             model.SelectModel.place_button(layout, text=text).model_name = text
+
+
+@PluginManager.register_class
+class WorldMenu(bpy.types.Menu, BaseMenu):
+    """
+    :ref: 'menu' for selecting worlds or optionally create new ones.
+    """
+    bl_idname = MENU_PREFIX + "worldmenu"
+    bl_label = "Select World"
+
+    @RDOperator.OperatorLogger
+    def draw(self, context):
+        layout = self.layout
+        worlds = [obj for obj in bpy.data.objects if obj.RobotDesigner.tag == 'WORLD']
+
+        layout.operator(world.CreateNewWorld.bl_idname, text="New...")
+
+        for obj in worlds:
+            text = obj.name
+            world.SelectWorld.place_button(layout, text=text).object_name = text
+
+
+@PluginManager.register_class
+class AddRobotMenu(bpy.types.Menu, BaseMenu):
+    """
+    :ref: 'menu' for adding existing robots to a world.
+    """
+    bl_idname = MENU_PREFIX + "addrobotmenu"
+    bl_label = "Add existing robot to world"
+
+    @RDOperator.OperatorLogger
+    def draw(self, context):
+        layout = self.layout
+        robots = [obj for obj in context.scene.objects if obj.type == 'ARMATURE'
+                  and obj.name not in context.active_object.RobotDesigner.worlds.robot_list]
+
+        for bot in robots:
+            text = bot.name
+            world.AddRobot.place_button(layout, text=text).robot_name = bot.name
 
 
 @PluginManager.register_class

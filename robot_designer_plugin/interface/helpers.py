@@ -170,6 +170,18 @@ class WrapPropertiesBox(CollapsibleBase):
 class DebugBox(CollapsibleBase):
     property_name = "debug_box"
 
+@PluginManager.register_class
+class SolverBox(CollapsibleBase):
+    property_name = "solver_box"
+
+@PluginManager.register_class
+class ConstraintsBox(CollapsibleBase):
+    property_name = "constraints_box"
+
+@PluginManager.register_class
+class SimbodyBox(CollapsibleBase):
+    property_name = "simbody_box"
+
 
 info_list = []
 

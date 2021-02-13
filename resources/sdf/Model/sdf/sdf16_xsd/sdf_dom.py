@@ -1,4 +1,4 @@
-# ./sdf_dom.py
+# ./sdf_model_dom.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:e92452c8d3e28a9e27abfc9994d2007779e7f4c9
 # Generated 2017-10-02 18:13:38.461234 by PyXB version 1.2.5 using Python 3.5.2.final.0

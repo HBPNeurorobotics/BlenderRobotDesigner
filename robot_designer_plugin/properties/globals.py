@@ -276,6 +276,9 @@ class RDGlobals(PropertyGroupHandlerBase):
         # Holds the name of the currently selected sensor (Camera or Empty object)
         self.camera_sensor_name = PropertyHandler(StringProperty())
 
+        # Holds the name of the currently selected world (Empty object)
+        self.world_name = PropertyHandler(StringProperty(default='Select World'))
+
         # Used to realize the main tab in the GUI
         self.gui_tab = PropertyHandler(EnumProperty(
             items=[('armatures', 'Robot', 'Modify the Robot'),
@@ -284,8 +287,8 @@ class RDGlobals(PropertyGroupHandlerBase):
                    ('sensors', 'Sensors', 'Attach sensors to the robot'),
                    ('muscles', 'Muscles', 'Attach muscles to the robot'),
                    # ('markers', 'Markers', 'Assign markers to bones'),
-                   ('files', 'Files', 'Export Armature')]
-                   #('world', 'World', 'Set world parameters')],
+                   ('files', 'Files', 'Export Armature'),
+                   ('world', 'World', 'Set world parameters')],
         ))
 
         # Holds the selection to operate on collision geometries OR visual geometries

@@ -235,9 +235,14 @@ class RenameModel(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
-        # oldName = context.active_object.name
+        oldName = context.active_object.name
         # context.active_object.name = self.newName
         # bpy.data.armatures[oldName].name = self.newName
+
+        worlds = [obj for obj in bpy.data.objects if obj.RobotDesigner.tag == 'WORLD']
+        for w in worlds:
+            if oldName in w.RobotDesigner.worlds.robot_list:
+                w.RobotDesigner.worlds.robot_list[oldName].name = self.newName
 
         global_properties.model_name.set(context.scene, self.newName)
 
@@ -317,6 +322,14 @@ class CreateNewModel(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         from . import segments
+
+        bots = [obj.name for obj in context.scene.objects if obj.type == 'ARMATURE']
+        index = 1
+        name = self.model_name
+        while self.model_name in bots:
+            self.model_name = name + str(index)
+            index += 1
+
         model_data = bpy.data.armatures.new(self.model_name)
         model_object = bpy.data.objects.new(self.model_name, model_data)
         model_object.data = model_data
