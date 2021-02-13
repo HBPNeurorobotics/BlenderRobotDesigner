@@ -11,7 +11,7 @@ from bpy.props import StringProperty, BoolProperty
 # ######
 # RobotDesigner imports
 from ...core import config, PluginManager, RDOperator
-from .generic import sdf_root_dom
+from .generic import sdf_world_dom
 from .generic.helpers import list_to_string, string_to_list
 from . import sdf_export
 from ...operators import world
@@ -28,7 +28,7 @@ def import_sdf(context, filepath: str):
     FILE_URL_RELATIVE = "model://"
 
     root_xml = open(filepath).read()
-    sdf = sdf_root_dom.CreateFromDocument(root_xml)
+    sdf = sdf_world_dom.CreateFromDocument(root_xml)
 
     for sdf_world in sdf.world:
         world.CreateNewWorld.run(sdf_world.name)

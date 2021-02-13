@@ -74,8 +74,8 @@ from ...properties.globals import global_properties
 from pyxb import ContentNondeterminismExceededError, BIND
 
 # config file generation
-from .generic import model_config_dom, robot_model_config_dom
-from .generic import sdf_dom
+from .generic import config_model_dom
+from .generic import sdf_model_dom
 from pyxb.namespace import XMLSchema_instance as xsi
 import pyxb
 
@@ -372,7 +372,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
         seg = segment.RobotDesigner
         if seg.jointMode == 'REVOLUTE':
             if seg.theta.isActive or seg.dynamic_limits.isActive:
-                # child.joint.axis[0].limit.append(sdf_dom.CTD_ANON_59())
+                # child.joint.axis[0].limit.append(sdf_model_dom.CTD_ANON_59())
                 child.joint.axis[0].limit = [pyxb.BIND()]
             if seg.theta.isActive:
                 child.joint.axis[0].limit[0].lower.append((radians(seg.theta.min)))
@@ -384,7 +384,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
 
         if seg.jointMode == 'PRISMATIC':
             if seg.d.isActive or seg.dynamic_limits.isActive:
-                # child.joint.axis[0].limit.append(sdf_dom.CTD_ANON_59())
+                # child.joint.axis[0].limit.append(sdf_model_dom.CTD_ANON_59())
                 child.joint.axis[0].limit = [pyxb.BIND()]
             if seg.d.isActive:
                 child.joint.axis[0].limit[0].lower.append(seg.d.min)
@@ -481,7 +481,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             # export surface properties for both collision and basic collision objects
             if 'COLLISION' in bpy.data.objects[mesh].RobotDesigner.tag:
                 # add surface properties
-                collision.surface.append(sdf_dom.surface())
+                collision.surface.append(sdf_model_dom.surface())
                 surface_property = bpy.data.objects[mesh].RobotDesigner.sdfCollisionProps
                 # add bounce properties
                 collision.surface[0].bounce = [pyxb.BIND()]
@@ -671,7 +671,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             root.sdf.model[0].muscles.append(muscle_uri)
 
             # add OpenSim muscle plugin
-            root.sdf.model[0].plugin.append(sdf_dom.plugin())
+            root.sdf.model[0].plugin.append(sdf_model_dom.plugin())
             length = len(root.sdf.model[0].plugin)
             root.sdf.model[0].plugin[length-1].name = "muscle_interface_plugin"
             root.sdf.model[0].plugin[length-1].filename = "libgazebo_ros_muscle_interface.so"
@@ -685,7 +685,7 @@ def create_sdf(operator: RDOperator, context, filepath: str, meshpath: str, topl
             pass
         elif segment.RobotDesigner.jointController.isActive is True:
             if operator.gazebo:
-                root.sdf.model[0].plugin.append(sdf_dom.plugin())
+                root.sdf.model[0].plugin.append(sdf_model_dom.plugin())
                 root.control_plugin = root.sdf.model[0].plugin[len(root.sdf.model[0].plugin) - 1]
                 root.control_plugin.name = robot_name + "_controller"
                 root.control_plugin.filename = "libgeneric_controller_plugin.so"
@@ -866,11 +866,8 @@ def create_config(operator: RDOperator, context, filepath: str, meshpath: str, t
     :return:
     """
 
-    # set namespace
-    # pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace("http://schemas.humanbrainproject.eu/SP10/2017/robot_model_config")
-
     # create model config element
-    modelI = robot_model_config_dom.model()
+    modelI = config_model_dom.model()
 
     # get model data
     modelI.name = bpy.context.active_object.RobotDesigner.modelMeta.model_config
@@ -880,14 +877,14 @@ def create_config(operator: RDOperator, context, filepath: str, meshpath: str, t
     modelI.thumbnail = "thumbnail.png"
 
     # set sdf fixed name
-    sdf = robot_model_config_dom.sdf_versioned()
+    sdf = config_model_dom.sdf_versioned()
     sdf._setValue("model.sdf")
     sdf.version = 1.6
 
     modelI.sdf = sdf
 
     # get author data
-    author = robot_model_config_dom.author_type(bpy.context.active_object.RobotDesigner.author.authorName,
+    author = config_model_dom.author_type(bpy.context.active_object.RobotDesigner.author.authorName,
                                           bpy.context.active_object.RobotDesigner.author.authorEmail)
     # modelI.author = author
     modelI.author = author

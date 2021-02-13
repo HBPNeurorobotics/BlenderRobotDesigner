@@ -1,6 +1,6 @@
 import logging
 
-import sdf_dom
+import sdf_model_dom
 
 # from helpers import list_to_string
 from pyxb import ContentNondeterminismExceededError
@@ -89,7 +89,7 @@ class SDFTree(object):
         # read the file
         # robot = sdf_model_dom.parse(file_name, silence=True)
         try:
-            root = sdf_dom.CreateFromDocument(open(file_name).read())
+            root = sdf_model_dom.CreateFromDocument(open(file_name).read())
         except ContentNondeterminismExceededError as e:
             logger.error("Error raised %s, %s", e, e.instance.name)
             raise e

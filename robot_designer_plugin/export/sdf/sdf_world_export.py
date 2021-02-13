@@ -11,7 +11,7 @@ from bpy.props import StringProperty, BoolProperty
 # ######
 # RobotDesigner imports
 from ...core import config, PluginManager, RDOperator
-from .generic import sdf_root_dom
+from .generic import sdf_world_dom
 from .generic.helpers import list_to_string
 from . import sdf_export
 from ...operators.helpers import ModelSelected, ObjectMode
@@ -33,8 +33,8 @@ def create_sdf(context,abs_file_paths, gazebo, filepath):
     """
     world_obj = context.active_object
     world = context.active_object.RobotDesigner.worlds
-    sdf = sdf_root_dom.sdf()
-    sdf_world = sdf_root_dom.world()
+    sdf = sdf_world_dom.sdf()
+    sdf_world = sdf_world_dom.world()
 
     sdf_world.name = world.name
     sdf_world.gravity.append(list_to_string(world.gravity))
@@ -45,7 +45,7 @@ def create_sdf(context,abs_file_paths, gazebo, filepath):
 
     physics = context.active_object.RobotDesigner.worldPhysics
 
-    sdf_physics = sdf_root_dom.physics()
+    sdf_physics = sdf_world_dom.physics()
     sdf_physics.name = physics.name
     sdf_physics.max_step_size.append(physics.max_step_size)
     sdf_physics.real_time_factor.append(physics.real_time_factor)
@@ -55,8 +55,8 @@ def create_sdf(context,abs_file_paths, gazebo, filepath):
 
     if physics.physics_engine == 'ODE':
         ode = context.active_object.RobotDesigner.worldODE
-        sdf_ode = sdf_root_dom.CTD_ANON_9()
-        sdf_solver = sdf_root_dom.CTD_ANON_10()
+        sdf_ode = sdf_world_dom.CTD_ANON_9()
+        sdf_solver = sdf_world_dom.CTD_ANON_10()
         sdf_solver.type.append(ode.type)
         sdf_solver.min_step_size.append(ode.min_step_size)
         sdf_solver.iters.append(ode.iters)
@@ -64,7 +64,7 @@ def create_sdf(context,abs_file_paths, gazebo, filepath):
         sdf_solver.sor.append(ode.sor)
         sdf_solver.use_dynamic_moi_rescaling.append(ode.use_dynamic_moi_rescaling)
         sdf_ode.solver.append(sdf_solver)
-        sdf_constraints = sdf_root_dom.CTD_ANON_11()
+        sdf_constraints = sdf_world_dom.CTD_ANON_11()
         sdf_constraints.cfm.append(ode.cfm)
         sdf_constraints.erp.append(ode.erp)
         sdf_constraints.contact_max_correcting_vel.append(ode.contact_max_correcting_vel)
@@ -75,11 +75,11 @@ def create_sdf(context,abs_file_paths, gazebo, filepath):
 
     elif physics.physics_engine == 'SIMBODY':
         simbody = context.active_object.RobotDesigner.worldSimbody
-        sdf_simbody = sdf_root_dom.CTD_ANON_2()
+        sdf_simbody = sdf_world_dom.CTD_ANON_2()
         sdf_simbody.min_step_size.append(simbody.min_step_size)
         sdf_simbody.accuracy.append(simbody.accuracy)
         sdf_simbody.max_transient_velocity.append(simbody.max_transient_velocity)
-        sdf_contact = sdf_root_dom.CTD_ANON_3()
+        sdf_contact = sdf_world_dom.CTD_ANON_3()
         sdf_contact.stiffness.append(simbody.stiffness)
         sdf_contact.dissipation.append(simbody.dissipation)
         sdf_contact.plastic_coef_restitution.append(simbody.plastic_coef_restitution)
@@ -95,11 +95,11 @@ def create_sdf(context,abs_file_paths, gazebo, filepath):
 
     elif physics.physics_engine == 'OPENSIM':
         opensim = context.active_object.RobotDesigner.worldOpenSim
-        sdf_opensim = sdf_root_dom.CTD_ANON_4()
+        sdf_opensim = sdf_world_dom.CTD_ANON_4()
         sdf_opensim.min_step_size.append(opensim.min_step_size)
         sdf_opensim.accuracy.append(opensim.accuracy)
         sdf_opensim.max_transient_velocity.append(opensim.max_transient_velocity)
-        sdf_contact = sdf_root_dom.CTD_ANON_5()
+        sdf_contact = sdf_world_dom.CTD_ANON_5()
         sdf_contact.stiffness.append(opensim.stiffness)
         sdf_contact.dissipation.append(opensim.dissipation)
         sdf_contact.plastic_coef_restitution.append(opensim.plastic_coef_restitution)
@@ -122,7 +122,7 @@ def create_sdf(context,abs_file_paths, gazebo, filepath):
         if arm.RobotDesigner.modelMeta.model_folder is '':
             arm.RobotDesigner.modelMeta.model_folder = arm.RobotDesigner.modelMeta.model_config
         include_name = arm.RobotDesigner.modelMeta.model_folder
-        sdf_include = sdf_root_dom.CTD_ANON_5()
+        sdf_include = sdf_world_dom.CTD_ANON_16()
         sdf_include.uri.append("model://"+include_name)
         sdf_world.include.append(sdf_include)
 

@@ -1,6 +1,6 @@
 import logging
 import pyxb
-from . import sdf_dom
+from . import sdf_model_dom
 from .helpers import list_to_string, string_to_list
 from pyxb import ContentNondeterminismExceededError
 import os
@@ -65,7 +65,7 @@ class SDFTree(object):
         # to add the root link to the kinematic chain, we create a virtual link on top of the root link. (temporal solution)
 
         try:
-            root = sdf_dom.CreateFromDocument(open(file_name).read())
+            root = sdf_model_dom.CreateFromDocument(open(file_name).read())
         except ContentNondeterminismExceededError as e:
             logger.error("Error raised %s, %s", e, e.instance.name)
             raise e
@@ -178,17 +178,17 @@ class SDFTree(object):
         :type name: string
         :return: The tree instance.
         """
-        sdf = sdf_dom.sdf()
+        sdf = sdf_model_dom.sdf()
         sdf.version = '1.6'
         pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(None)
 
         if not sdf.model:
-            sdf.model.append(sdf_dom.model())
+            sdf.model.append(sdf_model_dom.model())
         tree = SDFTree(connected_links={}, connected_joints={}, robot=sdf.model[0])
         tree.sdf = sdf
 
         tree.robot.name = name
-        tree.link = sdf_dom.link()
+        tree.link = sdf_model_dom.link()
 
         # tree.set_defaults() # todo set defaults
 
@@ -259,14 +259,14 @@ class SDFTree(object):
         Creates and adds another SDFTree instance to this node. Do not add children to the subtree manually as
         references are not created then. Note that if there is no robot member defined yet (i.e., you are *exporting*),
         it will be created automatically.
-        :param link: a sdf_dom link element
-        :param joint: a sdf_dom joint element
+        :param link: a sdf_model_dom link element
+        :param joint: a sdf_model_dom joint element
         :return: a reference to the newly created SDFTree instance.
         """
 
         tree = SDFTree(connected_links=self.connectedLinks, connected_joints=self.connectedJoints, robot=self.robot)
-        tree.joint = sdf_dom.joint()
-        tree.link = sdf_dom.link()
+        tree.joint = sdf_model_dom.joint()
+        tree.link = sdf_model_dom.link()
         tree.robot.link.append(tree.link)
         tree.robot.joint.append(tree.joint)
         tree.set_defaults()
@@ -307,14 +307,14 @@ class SDFTree(object):
         :type file_name: string
         :return:
         """
-        link_visual = sdf_dom.visual()  # CTD_ANON_97()   # CTD_ANON_60_visual  CTD_ANON_97--sdf
-        link_geometry = sdf_dom.geometry()  # CTD_ANON_17()
+        link_visual = sdf_model_dom.visual()  # CTD_ANON_97()   # CTD_ANON_60_visual  CTD_ANON_97--sdf
+        link_geometry = sdf_model_dom.geometry()  # CTD_ANON_17()
         self.link.visual.append(link_visual)
-        link_visual.geometry.append(link_geometry)  # sdf_dom.CTD_ANON_97.geometry()
-        # visual. = sdf_dom.CTD_ANON_96.pose()
-        link_visual.geometry[0].mesh.append(sdf_dom.mesh())
+        link_visual.geometry.append(link_geometry)  # sdf_model_dom.CTD_ANON_97.geometry()
+        # visual. = sdf_model_dom.CTD_ANON_96.pose()
+        link_visual.geometry[0].mesh.append(sdf_model_dom.mesh())
         link_visual.geometry[0].mesh[0].uri.append(file_name)
-        # link_visual.geometry[0].mesh[0].scale.append(sdf_dom.CTD_ANON_68().scale()  #list_to_string(scale_factor)
+        # link_visual.geometry[0].mesh[0].scale.append(sdf_model_dom.CTD_ANON_68().scale()  #list_to_string(scale_factor)
         link_visual.geometry[0].mesh[0].scale.append(list_to_string(scale_factor))
         return link_visual
 
@@ -326,16 +326,16 @@ class SDFTree(object):
         :type    file_name:  string
         :return: string:     Collision file that is used in the sdf
         """
-        link_collision = sdf_dom.collision()  # CTD_ANON_15()
-        link_geometry = sdf_dom.geometry()
+        link_collision = sdf_model_dom.collision()  # CTD_ANON_15()
+        link_geometry = sdf_model_dom.geometry()
         self.link.collision.append(link_collision)
         link_collision.geometry.append(link_geometry)
 
-        link_collision.geometry[0].mesh.append(sdf_dom.mesh())
+        link_collision.geometry[0].mesh.append(sdf_model_dom.mesh())
         link_collision.geometry[0].mesh[0].uri.append(file_name)
 
-        # collision.origin = sdf_dom.CTD_ANON_15.pose()
-        # collision.geometry.mesh = sdf_dom.CTD_ANON_70()
+        # collision.origin = sdf_model_dom.CTD_ANON_15.pose()
+        # collision.geometry.mesh = sdf_model_dom.CTD_ANON_70()
         # print('debug add_collisionmodel: ' + file_name)
         # collision.geometry.mesh.filename = file_name
         link_collision.geometry[0].mesh[0].scale.append(list_to_string(scale_factor))
@@ -350,20 +350,20 @@ class SDFTree(object):
         :return: string: Collision file that is used in the sdf
         """
 
-        link_collision = sdf_dom.collision()
-        link_geometry = sdf_dom.geometry()
+        link_collision = sdf_model_dom.collision()
+        link_geometry = sdf_model_dom.geometry()
         self.link.collision.append(link_collision)
         link_collision.geometry.append(link_geometry)
 
         if tag == 'BASIC_COLLISION_BOX':
-            link_collision.geometry[0].box.append(sdf_dom.box())
+            link_collision.geometry[0].box.append(sdf_model_dom.box())
             link_collision.geometry[0].box[0].size.append(list_to_string(scale_factor))
         elif tag == 'BASIC_COLLISION_CYLINDER':
-            link_collision.geometry[0].cylinder.append(sdf_dom.cylinder())
+            link_collision.geometry[0].cylinder.append(sdf_model_dom.cylinder())
             link_collision.geometry[0].cylinder[0].radius.append(scale_factor[0])
             link_collision.geometry[0].cylinder[0].length.append(scale_factor[2])
         elif tag == 'BASIC_COLLISION_SPHERE':
-            link_collision.geometry[0].sphere.append(sdf_dom.sphere())
+            link_collision.geometry[0].sphere.append(sdf_model_dom.sphere())
             link_collision.geometry[0].sphere[0].radius.append(scale_factor[0])
 
         return link_collision
@@ -374,12 +374,12 @@ class SDFTree(object):
 
         :return: string:     reference to inertial object
         """
-        # inertial = sdf_dom.inertial()#CTD_ANON_46()
+        # inertial = sdf_model_dom.inertial()#CTD_ANON_46()
         # self.link.inertial.append(inertial)
         self.link.inertial[0].mass.append('1.0')
         self.link.inertial[0].pose.append('0 0 0 0 0 0')
         # inertial.mass.value_ = "1.0"
-        # inertial.inertia = sdf_dom.inertia() #CTD_ANON_45()
+        # inertial.inertia = sdf_model_dom.inertia() #CTD_ANON_45()
         self.link.inertial[0].inertia.ixx = '1.0'
         self.link.inertial[0].inertia.iyy = '1.0'
         self.link.inertial[0].inertia.izz = '1.0'
@@ -389,7 +389,7 @@ class SDFTree(object):
 
         #     = inertial.inertia.izz =  inertial.inertia.iyy = "1.0"
         # inertial.inertia.ixy = inertial.inertia.ixz =  inertial.inertia.iyz = "0.0"
-        # inertial.origin = sdf_dom.CTD_ANON_46.pose()
+        # inertial.origin = sdf_model_dom.CTD_ANON_46.pose()
         # inertial.origin.xyz = "0 0 0"
         # inertial.origin.rpy = "0 0 0"
 
@@ -434,12 +434,12 @@ class SDFTree(object):
         :type file_name: string
         :return:
         """
-        link_sensor = sdf_dom.sensor()
+        link_sensor = sdf_model_dom.sensor()
         self.link.sensor.append(link_sensor)
         link_sensor.pose.append('0 0 0 0 0 0')
-        camera = sdf_dom.camera()
+        camera = sdf_model_dom.camera()
         link_sensor.append(camera)
-      #  image = sdf_dom.image()
+      #  image = sdf_model_dom.image()
       #  camera.append(image)
 
         return link_sensor
@@ -455,14 +455,14 @@ class SDFTree(object):
         joint.child = ''
         joint.parent = ''
 
-        # joint_axis = sdf_dom.CTD_ANON_57()
+        # joint_axis = sdf_model_dom.CTD_ANON_57()
         # if not joint_axis.xyz:
         #     print(vars(joint_axis.xyz))
         #     joint_axis.xyz.append('0 0 0 0')
-        # joint_axis_limit = sdf_dom.CTD_ANON_49()
+        # joint_axis_limit = sdf_model_dom.CTD_ANON_49()
 
-        link_inertial = sdf_dom.inertial()
-        # link_inertial_inertia = sdf_dom.CTD_ANON_55()
+        link_inertial = sdf_model_dom.inertial()
+        # link_inertial_inertia = sdf_model_dom.CTD_ANON_55()
         # joint_axis_xyz = joint_axis.xyz.vector3
         print('Joint Axis')
         if not joint.axis:
@@ -495,7 +495,7 @@ class SDFTree(object):
         # joint.axis[0].xyz.append(joint_axis_xyz)
 
         # if joint.limit is None:
-        #     joint.limit = sdf_dom.CTD_ANON_51()
+        #     joint.limit = sdf_model_dom.CTD_ANON_51()
         #     # this had to be completely defined (missing effor argument caused conversion to SDF to fail)
         #     joint.limit.effort = 100.0
         #     joint.limit.lower = joint.limit.upper = joint.limit.velocity = 1.0
@@ -507,34 +507,34 @@ class SDFTree(object):
         # #    joint.calibration.falling = 0.0
         #
         # if joint.origin is None:
-        #     joint.origin = sdf_dom.CTD_ANON_48.pose()
+        #     joint.origin = sdf_model_dom.CTD_ANON_48.pose()
         #     # joint.rpy =
         #
         # for visual in link.visual:
         #     if visual.origin is None:
-        #         visual.origin = sdf_dom.CTD_ANON_96.pose()
+        #         visual.origin = sdf_model_dom.CTD_ANON_96.pose()
         #
         # for collision in link.collision:
         #     if collision.origin is None:
-        #         collision.origin = sdf_dom.CTD_ANON_15.pose()
+        #         collision.origin = sdf_model_dom.CTD_ANON_15.pose()
         #
         # if joint.dynamics is None:
-        #     joint.dynamics = sdf_dom.CTD_ANON_49.dynamics()
+        #     joint.dynamics = sdf_model_dom.CTD_ANON_49.dynamics()
         #     joint.dynamics.damping = 1.0
         #
         # if link.pose is None:
         #     logger.debug("Link pose is None, creating default one.")
-        #     link.inertial = sdf_dom.CTD_ANON_58.pose()
+        #     link.inertial = sdf_model_dom.CTD_ANON_58.pose()
         #
         # if link.inertial is None:
         #     logger.debug("Inertial is None, creating default one.")
-        #     link.inertial = sdf_dom.CTD_ANON_58.inertial()
+        #     link.inertial = sdf_model_dom.CTD_ANON_58.inertial()
         #
         # for inertial in link.inertial:
         #     if inertial.mass is None:
-        #         inertial.mass = sdf_dom.CTD_ANON_46.mass()
+        #         inertial.mass = sdf_model_dom.CTD_ANON_46.mass()
         #     if inertial.inertia is None:
-        #         inertial.inertia = sdf_dom.CTD_ANON_46()
+        #         inertial.inertia = sdf_model_dom.CTD_ANON_46()
 
         # if joint.mimic is None: # truely optional
         # if joint.safety_controller is None: # ignored

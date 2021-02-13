@@ -67,7 +67,7 @@ from ...properties.globals import global_properties
 import logging
 
 # model.config file reading
-from .generic import model_config_dom, robot_model_config_dom
+from .generic import config_model_dom
 
 __author__ = 'Benedikt Feldotto(TUM), Guang Chen(TUM), Stefan Ulbrich(FZI)'
 
@@ -125,7 +125,7 @@ class Importer(object):
         """
         Adds a box with radius 0.5 to the blender scene. Uses the self.file_name variable of the parenting context
         The correct lengths are adjusted later together with the scaling
-        :param model: A sdf_dom.visual object.
+        :param model: A sdf_model_dom.visual object.
         :param type: COLLISION or VISUAL. COLLISION = 1. VISUAL = 0
         :return: Returns the transformation in the origin element (a 4x4 blender matrix).
         """
@@ -213,7 +213,7 @@ class Importer(object):
         """
         Adds a sphere of radius 1.0 to the blender scene. Uses the self.file_name variable of the parenting context
         The correct lengths are adjusted later together with the scaling
-        :param model: A sdf_dom.visual object.
+        :param model: A sdf_model_dom.visual object.
         :param type: COLLISION or VISUAL. COLLISION = 1. VISUAL = 0
         :return: Returns the transformation in the origin element (a 4x4 blender matrix).
         """
@@ -261,7 +261,7 @@ class Importer(object):
         """
         Adds a cylinder of radius 1.0 and depth 1.0 to the blender scene. Uses the self.file_name variable of the parenting context
         The correct lengths are adjusted later together with the scaling
-        :param model: A sdf_dom.visual object.
+        :param model: A sdf_model_dom.visual object.
         :param type: COLLISION or VISUAL. COLLISION = 1. VISUAL = 0
         :return: Returns the transformation in the origin element (a 4x4 blender matrix).
         """
@@ -309,7 +309,7 @@ class Importer(object):
     def import_geometry(self, model):
         """
         Adds a geometry to the blender scene. Uses the self.file_name variable of the parenting context
-        :param model: A sdf_dom.visual object.
+        :param model: A sdf_model_dom.visual object.
         :return: Returns the transformation in the origin element (a 4x4 blender matrix).
         """
 
@@ -972,7 +972,7 @@ class Importer(object):
         :return:
         """
         model_config_xml = open(self.base_dir + '/model.config').read()
-        model = robot_model_config_dom.CreateFromDocument(model_config_xml)
+        model = config_model_dom.CreateFromDocument(model_config_xml)
 
         # read model data
         bpy.context.active_object.RobotDesigner.modelMeta.model_config = model.name

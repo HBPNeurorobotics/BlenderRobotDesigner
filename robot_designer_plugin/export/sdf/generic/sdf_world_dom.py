@@ -1,4 +1,4 @@
-# ../../../../resources/sdf/sdf_root_xsd/sdf_root_dom.py
+# ../../../../resources/sdf/sdf_root_xsd/sdf_world_dom.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:e92452c8d3e28a9e27abfc9994d2007779e7f4c9
 # Generated 2020-12-06 21:23:47.491953 by PyXB version 1.2.5 using Python 3.6.9.final.0
