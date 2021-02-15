@@ -180,15 +180,11 @@ Installation
 Install on Linux and Windows:
 
 1.  Download blender from the dedicated website: https://www.blender.org/download/
-2.  Download the “installer.blend” from our github:
-        https://github.com/benef23/BlenderRobotDesigner/raw/master/installer.blend
-3.  Launch Blender and open the installer.blend file, click “run script” and wait until
-        “RD Installation Done!” appears in your terminal.
-4.  Navigate to Edit->Preferences->Add-Ons tab. Search for the NRP Robot Designer
-        add-on and check the box to enable the plugin.
+2.  Download the “installer.blend” from our github: https://github.com/benef23/BlenderRobotDesigner/raw/master/installer.blend
+3.  Launch Blender and open the installer.blend file, click “run script” and wait until “RD Installation Done!” appears in your terminal.
+4.  Navigate to Edit->Preferences->Add-Ons tab. Search for the NRP Robot Designer add-on and check the box to enable the plugin.
 
-You should now find the Blender RobotDesigner plugin on the right along with the "Tool",
-        "View" and "Edit" tabs. Please make sure to click the small arrow in order to expand the menu.
+You should now find the Blender RobotDesigner plugin on the right along with the "Tool", "View" and "Edit" tabs. Please make sure to click the small arrow in order to expand the menu.
 
 
 Troubleshooting
