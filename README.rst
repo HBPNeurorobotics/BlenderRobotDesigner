@@ -182,19 +182,20 @@ sub-projects.
 
 Installation
 ------------
-Important: You should have a latest blender (version>=2.77) on your computer. Your version of blender should have a built-in python. Install on linux and windows:
+Install on Linux and Windows:
 
 1.  Download blender from the dedicated website: https://www.blender.org/download/
-2.  Download the “installer.blend” from our github: https://github.com/HBPNeurorobotics/BlenderRobotDesigner/raw/master/installer.blend
-3.  Launch blender and open the installer.blend file, click “run script” and wait until “RD Installation Done!” appears in your terminal (Windows Users run Blender as administrator, as several python packages will be installed)
-4.  Relaunch blender, you will find the HBP add-on on the top left of blender GUI (Note: if the HBP tab does not appear in the tool shelf, navigate to File->User Preferences->Add-Ons tab, search for and select the NRP Robot Designer add-on, and click “Save User Settings”)
+2.  Download the “installer.blend” from our github: https://github.com/benef23/BlenderRobotDesigner/raw/master/installer.blend
+3.  Launch Blender and open the installer.blend file, click “run script” and wait until “RD Installation Done!” appears in your terminal.
+4.  Navigate to Edit->Preferences->Add-Ons tab. Search for the NRP Robot Designer add-on and check the box to enable the plugin.
 
-(Note: Launch blender from terminal to make sure that you choose the right version of blender if you have multiple blenders on your computer)
+You should now find the Blender RobotDesigner plugin on the right along with the "Tool", "View" and "Edit" tabs. Please make sure to click the
+small arrow in order to expand the menu.
+
 
 Troubleshooting
 --------
-
-If you get some compilation issues with any of Python libraries, you can try downloading precompiled .whl files from here: http://www.lfd.uci.edu/~gohlke/pythonlibs/
+Launch Blender from terminal and rerun the installation script to inspect the logs and investigate issues that arise during the installation.
 
 Features
 --------
