@@ -1,9 +1,14 @@
 # #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
-# in the Human Brain Project (HBP).
-# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -26,16 +31,26 @@
 
 # #####
 #
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
-#
-# Changes:
-#
-#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#  Copyright (c) 2016, FZI Forschungszentrum Informatik
 #
 # ######
 
-from . import api, helpers, collision, dynamics, file, file_tools, model, rigid_bodies, segments, soft_bodies, \
-    mesh_generation, sensors, muscles, world
+from . import (
+    api,
+    helpers,
+    collision,
+    dynamics,
+    file,
+    file_tools,
+    model,
+    rigid_bodies,
+    segments,
+    soft_bodies,
+    mesh_generation,
+    sensors,
+    muscles,
+    world,
+)
 
 from importlib import reload
 

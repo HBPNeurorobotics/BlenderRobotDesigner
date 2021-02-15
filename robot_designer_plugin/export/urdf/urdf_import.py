@@ -1,9 +1,14 @@
 # #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
-# in the Human Brain Project (HBP).
-# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -26,49 +31,39 @@
 
 # #####
 #
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
-#
-# Changes:
-#   2015        Stefan Ulbrich, Igor Peric, Maximilian Stauss
-#                   Initial version of URDF support
-#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#  Copyright (c) 2016, FZI Forschungszentrum Informatik
 #
 # ######
 """
 The module that encapsulates all blender calls and offers the importer and exporter for the RobotDesigner
 """
 
-# ######
 # System imports
 import os
 from math import *
 from mathutils import Euler, Matrix, Vector
 from pathlib import Path
 
-# ######
 # Blender imports
 import bpy
 from bpy.props import StringProperty
 
-# ######
 # RobotDesigner imports
 from ...core import config, PluginManager, Condition, RDOperator
+from ...core.logfile import export_logger
 from ...operators.helpers import ModelSelected, ObjectMode
-
 from ...operators.segments import SelectSegment, CreateNewSegment, UpdateSegments
 from ...operators.model import SelectModel, CreateNewModel, SelectCoordinateFrame
 from ...operators.rigid_bodies import SelectGeometry, AssignGeometry
 from ...operators.dynamics import AssignPhysical, CreatePhysical, SelectPhysical
-# ######
-# URDF-specific imports
 
+# URDF-specific imports
 from .generic import urdf_tree
 
 from .generic.helpers import string_to_list, get_value
 
 from ...properties.globals import global_properties
 
-import logging
 
 __author__ = 'Stefan Ulbrich(FZI), Igor Peric (FZI), Maximillian Stauss (FZI)'
 
@@ -84,7 +79,7 @@ class Importer(object):
             self.base_dir = base_dir
         else:
             self.base_dir = os.path.dirname(file_path)
-        self.logger = operator.logger
+        export_logger = operator.logger
         self.operator = operator
         self.controllers = None
 
@@ -100,8 +95,8 @@ def import_geometry(self, model):
     prefix_folder = ""
     mesh_url = model.geometry.mesh.filename
 
-    self.logger.info("base dir: %s", self.base_dir)
-    self.logger.info("mesh url: %s", mesh_url)
+    export_logger.info("base dir: %s", self.base_dir)
+    export_logger.info("mesh url: %s", mesh_url)
 
     # check for absolute file path
     if mesh_url.startswith(self.FILE_URL_ABSOLUTE):
@@ -111,15 +106,15 @@ def import_geometry(self, model):
         mesh_path = os.path.join(str(Path(self.base_dir).parent), mesh_path)
     else:
         self.operator.report({'ERROR'}, "Unsupported URL schema")
-        self.logger.error("Unsupported URL schema")
+        export_logger.error("Unsupported URL schema")
         return
 
     model_name = bpy.context.active_object.name
     # bpy.context.active_object.type = 'ARMATURE'
     model_type = bpy.context.active_object.type
 
-    self.logger.debug('model_name (geometry): %s', model_name)
-    self.logger.debug('model_type (geometry): %s', model_type)
+    export_logger.debug('model_name (geometry): %s', model_name)
+    export_logger.debug('model_type (geometry): %s', model_type)
 
     fn, extension = os.path.splitext(mesh_path)
     if extension == ".stl" or extension == ".STL":
@@ -129,7 +124,7 @@ def import_geometry(self, model):
             pass
     elif extension == ".dae" or extension == ".DAE":
         try:
-            self.logger.info("mesh file: %s", mesh_path)
+            export_logger.info("mesh file: %s", mesh_path)
             bpy.ops.wm.collada_import(filepath=mesh_path, import_units=True)
         except:
             pass
@@ -156,23 +151,23 @@ def parse(self, node: urdf_tree.URDFTree, parent_name = ""):
 
     C = bpy.context
 
-    self.logger.info("parent name: %s", parent_name)
-    # self.logger.debug('active bone name : %s', C.active_bone.name)
-    self.logger.debug('active object name (parse): %s', C.active_object.name)
+    export_logger.info("parent name: %s", parent_name)
+    # export_logger.debug('active bone name : %s', C.active_bone.name)
+    export_logger.debug('active object name (parse): %s', C.active_object.name)
 
-    self.logger.debug('active object type (parse): %s', C.active_object.type)
+    export_logger.debug('active object type (parse): %s', C.active_object.type)
 
     if bpy.context.active_object:
-        self.logger.debug('active object type == Armature: %s, %s', bpy.context.active_object.type == 'ARMATURE',
+        export_logger.debug('active object type == Armature: %s, %s', bpy.context.active_object.type == 'ARMATURE',
                       "Model not selected and active.")
     else:
-        self.logger.debug('active object type == Armature: %s, %s', False, "No model selected")
+        export_logger.debug('active object type == Armature: %s, %s', False, "No model selected")
 
     SelectSegment.run(segment_name=parent_name)
 
     CreateNewSegment.run(segment_name=node.joint.name)
     segment_name = C.active_bone.name
-    self.logger.info("%s -> %s", parent_name, segment_name)
+    export_logger.info("%s -> %s", parent_name, segment_name)
 
     xyz = string_to_list(get_value(node.joint.origin.xyz, "0 0 0"))
     euler = string_to_list(get_value(node.joint.origin.rpy, '0 0 0'))
@@ -265,7 +260,7 @@ def parse(self, node: urdf_tree.URDFTree, parent_name = ""):
     pose_bone = bpy.context.active_object.pose.bones[segment_name]
     segment_world = model.matrix_world * pose_bone.matrix
 
-    self.logger.debug("[COLLISION] parsed: " + str(len(list(node.link.collision))) + " collision meshes.")
+    export_logger.debug("[COLLISION] parsed: " + str(len(list(node.link.collision))) + " collision meshes.")
 
     # Iterate first over visual models then over collision models
     VISUAL, COLLISON = 0, 1
@@ -276,7 +271,7 @@ def parse(self, node: urdf_tree.URDFTree, parent_name = ""):
             if model.geometry.mesh is not None:
 
                 trafo_urdf = self.import_geometry(model)
-                # self.logger.debug("Trafo: \n%s", trafo_urdf)
+                # export_logger.debug("Trafo: \n%s", trafo_urdf)
                 # URDF (the import in ROS) exhibits a strange behavior:
                 # If there is a transformation preceding the mesh in a .dae file, only the scale is
                 # extracted and the rest is omitted. Therefore, we store the scale after import and
@@ -306,12 +301,12 @@ def parse(self, node: urdf_tree.URDFTree, parent_name = ""):
                     #                 [0, scale_urdf[1] * scale_object[1], 0, 0],
                     #                 [0, 0, scale_urdf[2] * scale_object[2], 0], [0, 0, 0, 1]])
                     # bpy.context.active_object.matrix_world = bone_transformation * trafo_urdf * scale_matrix
-                    # self.logger.debug("Scale: %s,%s, Matrix world: \n%s", scale_urdf, scale_object,
+                    # export_logger.debug("Scale: %s,%s, Matrix world: \n%s", scale_urdf, scale_object,
                     #              bpy.context.active_object.matrix_world)
 
                     # if the loop continues the name will be suffixed by a number
 
-                    self.logger.info("Model type: " + str(model_type))
+                    export_logger.info("Model type: " + str(model_type))
                     # Remove multiple "COL_" and "VIS_" strings before renaming
                     if model_type == COLLISON:
                         # %2d changed to %d because it created unwanted space with one digit numbers
@@ -352,7 +347,7 @@ def parse(self, node: urdf_tree.URDFTree, parent_name = ""):
                     bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)].scale = scale_factor
 
             else:
-                self.logger.error("Mesh file not found")
+                export_logger.error("Mesh file not found")
                 pass
 
     for sub_tree in node.children:
@@ -364,17 +359,17 @@ def import_file(self):
     robot_name, root_links, kinematic_chains, self.controllers, gazebo_tags = \
         urdf_tree.URDFTree.parse(self.file_path)
 
-    self.logger.debug("%s,%s", self.base_dir, self.file_path)
+    export_logger.debug("%s,%s", self.base_dir, self.file_path)
     # store gazebo tags
     tag_buffer = ''
-    self.logger.debug('Processing {0} tags.'.format(len(gazebo_tags)))
+    export_logger.debug('Processing {0} tags.'.format(len(gazebo_tags)))
     for gazebo_tag in gazebo_tags:
         curr_tag = gazebo_tag.toxml("utf-8").decode("utf-8")
         curr_tag = curr_tag[38:]  # remove <xml version=.../> tag
         tag_buffer = '{0}\n{1}'.format(tag_buffer, curr_tag)
     global_properties.gazebo_tags.set(bpy.context.scene, tag_buffer)
 
-    self.logger.debug('root links: %s', [i.name for i in root_links])
+    export_logger.debug('root links: %s', [i.name for i in root_links])
 
     CreateNewModel.run(model_name=robot_name, base_segment_name="")
     model_name = bpy.context.active_object.name
@@ -412,11 +407,11 @@ def import_package(self):
     import os
     package_dir = os.path.dirname(self.file_path)
     if not package_dir:
-        self.logger.error("No path to file given")
+        export_logger.error("No path to file given")
         return
 
     while not os.path.exists(os.path.join(package_dir, "package.xml")):
-        self.logger.debug("%s", package_dir)
+        export_logger.debug("%s", package_dir)
         package_dir = os.path.dirname(package_dir)
 
     self.base_dir = os.path.dirname(package_dir)
@@ -480,7 +475,7 @@ class ImportZippedPackage(RDOperator):
 
             file_path = ""
             for root, subFolders, files in os.walk(target):
-                self.logger.debug("%s,%s,%s,%s", root, subFolders, files, [os.path.splitext(i) for i in files])
+                export_logger.debug("%s,%s,%s,%s", root, subFolders, files, [os.path.splitext(i) for i in files])
                 for i in files:
                     if '.urdf' == os.path.splitext(i)[1]:
                         if file_path:
@@ -488,12 +483,12 @@ class ImportZippedPackage(RDOperator):
                         file_path = os.path.join(root, i)
 
             if file_path:
-                self.logger.debug("Importing: %s", file_path)
+                export_logger.debug("Importing: %s", file_path)
                 importer = Importer(operator=self, file_path=file_path)
                 importer.import_package()
             else:
                 self.report({'ERROR'}, "No URDF file found in package")
-                self.logger.error("No URDF file found in package")
+                export_logger.error("No URDF file found in package")
 
         return {'FINISHED'}
 
@@ -532,17 +527,17 @@ class ImportPlain(RDOperator):
         #     mesh_filename = mesh_filename.replace("package://", "").replace(
         #             "model://", "")
         #     ros_pkg_paths = ros_pkg_paths.split(":")
-        #     self.logger.debug("Checking ROS_PACKAGE_PATH:")
-        #     self.logger.debug(ros_pkg_paths)
+        #     export_logger.debug("Checking ROS_PACKAGE_PATH:")
+        #     export_logger.debug(ros_pkg_paths)
         #     for path in ros_pkg_paths:
         #         probe_path = os.path.join(path, mesh_filename)
-        #         self.logger.debug("Checking path: " + probe_path)
+        #         export_logger.debug("Checking path: " + probe_path)
         #         if os.path.exists(probe_path):
         #             prefix_folder = path
-        #             self.logger.debug("Prefix path found: " + prefix_folder)
+        #             export_logger.debug("Prefix path found: " + prefix_folder)
         #             break
         #     if prefix_folder == "":
-        #         self.logger.debug(
+        #         export_logger.debug(
         #                 "Warning! Couldn't load file relative to ROS_PACKAGE_PATH environment variable.")
         #         prefix_folder = os.path.dirname(self.file_path)
         #         if prefix_folder.split("/").pop() == mesh_filename.split("/")[

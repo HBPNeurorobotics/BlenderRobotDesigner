@@ -1,9 +1,14 @@
 # #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
-# in the Human Brain Project (HBP).
-# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -26,13 +31,11 @@
 
 # #####
 #
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
-#
-# Changes:
-#
-#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#  Copyright (c) 2016, FZI Forschungszentrum Informatik
+#  Copyright (c) 2021, TUM Technical University of Munich
 #
 # ######
+
 """
 This module includes import and export functions for different file formats for robot descriptions.
 """
@@ -50,8 +53,15 @@ reload(sdf)
 reload(osim)
 reload(generic_tools)
 
-PluginManager.register_plugin("SDF", [sdf.ImportPackage, sdf.ImportZippedPackage,
-                                      sdf.ExportPackage, sdf.ExportZippedPackage])
+PluginManager.register_plugin(
+    "SDF",
+    [
+        sdf.ImportPackage,
+        sdf.ImportZippedPackage,
+        sdf.ExportPackage,
+        sdf.ExportZippedPackage,
+    ],
+)
 # PluginManager.register_plugin("URDF", [urdf.ImportPlain, urdf.ImportPackage, urdf.ImportZippedPackage, urdf.ExportPlain,
 #                                       urdf.ExportPackage, urdf.ExportZippedPackage])
 
@@ -59,9 +69,9 @@ PluginManager.register_plugin("SDF", [sdf.ImportPackage, sdf.ImportZippedPackage
 # The file dialog should have a selection box for the format
 # todo that includes all plugins and draw the operators and arguments
 # required (a draw function has to be included)
-__author__ = 'ulbrich-gchen'
+__author__ = "ulbrich-gchen"
 
 # draft for creating a plugin mechanism
-plugins = [ ('sdf', 'SDF', '.sdf', True, True)]
-           #('urdf', 'URDF', '.urdf', True, True),
-           # ('simox', 'SIMOX XML', '.xml', True, False), ('collada', 'COLLADA v1.5', '.dae', False, True)]
+plugins = [("sdf", "SDF", ".sdf", True, True)]
+# ('urdf', 'URDF', '.urdf', True, True),
+# ('simox', 'SIMOX XML', '.xml', True, False), ('collada', 'COLLADA v1.5', '.dae', False, True)]

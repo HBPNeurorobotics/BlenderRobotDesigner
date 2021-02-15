@@ -1,21 +1,52 @@
+# #####
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
+# #####
+
+# ##### BEGIN GPL LICENSE BLOCK #####
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License
+#  as published by the Free Software Foundation; either version 2
+#  of the License, or (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software Foundation,
+#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# ##### END GPL LICENSE BLOCK #####
+
+# #####
+#
+#  Copyright (c) 2021, Technical University of Munich
+#
 # ######
+
 # System imports
 import os
-import sys
 
-# ######
 # Blender imports
-import bpy
 from bpy.props import StringProperty, BoolProperty
 
-# ######
 # RobotDesigner imports
 from ...core import config, PluginManager, RDOperator
 from .generic import sdf_world_dom
-from .generic.helpers import list_to_string, string_to_list
-from . import sdf_export
+from .generic.helpers import string_to_list
 from ...operators import world
-from ...operators.helpers import ModelSelected, ObjectMode
+from ...operators.helpers import ObjectMode
 from . import sdf_import
 
 
@@ -35,7 +66,10 @@ def import_sdf(context, filepath: str):
         obj = context.active_object
         world_obj = context.active_object.RobotDesigner.worlds
         world_obj.gravity = string_to_list(sdf_world.gravity[0])
-        world_obj.magnetic_field = [element * pow(10, 5) for element in string_to_list(sdf_world.magnetic_field[0])]
+        world_obj.magnetic_field = [
+            element * pow(10, 5)
+            for element in string_to_list(sdf_world.magnetic_field[0])
+        ]
         if sdf_world.wind:
             world_obj.wind_active = True
             world_obj.wind_vector = string_to_list(sdf_world.wind[0].linear_velocity[0])
@@ -53,7 +87,7 @@ def import_sdf(context, filepath: str):
                 physics_obj.max_contacts = val
             physics_obj.physics_engine = sdf_physics.type
 
-            if physics_obj.physics_engine == 'ODE':
+            if physics_obj.physics_engine == "ODE":
                 ode_obj = obj.RobotDesigner.worldODE
                 for sdf_ode in sdf_physics.ode:
                     for sdf_solver in sdf_ode.solver:
@@ -79,7 +113,7 @@ def import_sdf(context, filepath: str):
                         for val in sdf_constraints.contact_surface_layer:
                             ode_obj.contact_surface_layer = val
 
-            elif physics_obj.physics_engine == 'SIMBODY':
+            elif physics_obj.physics_engine == "SIMBODY":
                 simbody_obj = obj.RobotDesigner.worldSimbody
                 for sdf_simbody in sdf_physics.simbody:
                     for val in sdf_simbody.min_step_size:
@@ -108,7 +142,7 @@ def import_sdf(context, filepath: str):
                         for val in sdf_contact.override_stiction_transition_velocity:
                             simbody_obj.override_stiction_transition_velocity = val
 
-            elif physics_obj.physics_engine == 'OPENSIM':
+            elif physics_obj.physics_engine == "OPENSIM":
                 opensim_obj = obj.RobotDesigner.worldOpenSim
                 for sdf_opensim in sdf_physics.opensim:
                     for val in sdf_opensim.min_step_size:
@@ -140,8 +174,10 @@ def import_sdf(context, filepath: str):
         for incl in sdf_world.include:
             uri = incl.uri[0]
             if uri.startswith(FILE_URL_RELATIVE):
-                robot_name = uri.replace(FILE_URL_RELATIVE, '')
-                sdf_import.ImportPlain.run(filepath=base_dir+'/'+robot_name+'/model.sdf')
+                robot_name = uri.replace(FILE_URL_RELATIVE, "")
+                sdf_import.ImportPlain.run(
+                    filepath=base_dir + "/" + robot_name + "/model.sdf"
+                )
                 name = context.active_object.name
                 context.view_layer.objects.active = obj
                 world.AddRobot.run(robot_name=name)
@@ -154,22 +190,22 @@ class ImportPlainWorld(RDOperator):
     :term:`Operator<operator>` for importing a world from a SDF plain file
     """
 
-    bl_idname = config.OPERATOR_PREFIX + 'import_world_from_sdf_plain'
+    bl_idname = config.OPERATOR_PREFIX + "import_world_from_sdf_plain"
     bl_label = "Import World SDF - plain"
 
     filter_glob: StringProperty(
         default="*.world",
-        options={'HIDDEN'},
+        options={"HIDDEN"},
     )
 
-    filepath: StringProperty(name="Filename", subtype='FILE_PATH')
+    filepath: StringProperty(name="Filename", subtype="FILE_PATH")
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions()
     def execute(self, context):
         import_sdf(context, self.filepath)
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         context.window_manager.fileselect_add(self)
-        return {'RUNNING_MODAL'}
+        return {"RUNNING_MODAL"}

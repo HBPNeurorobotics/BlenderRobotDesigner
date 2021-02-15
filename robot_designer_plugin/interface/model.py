@@ -1,9 +1,14 @@
 # #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
-# in the Human Brain Project (HBP).
-# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -26,37 +31,25 @@
 
 # #####
 #
-# Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
-#
-# Changes:
-#   2015:       Stefan Ulbrich (FZI), Gui redesigned
-#   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#  Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)
+#  Copyright (c) 2016, FZI Forschungszentrum Informatik
+#  Copyright (c) 2017-2021, TUM Technical University of Munich
 #
 # ######
 
-# ######
 # System imports
-# import os
-# import sys
-# import math
+from mathutils import Vector
 
-# ######
 # Blender imports
 import bpy
 
-# ######
 # RobotDesigner imports
-from .helpers import create_segment_selector
 from ..core.logfile import LogFunction
 from ..core.gui import InfoBox
 from ..operators import model, segments
 from . import menus
-from .helpers import drawInfoBox, push_info, ModelPropertiesBox
-
-from mathutils import Vector
-
-from ..operators.helpers import PoseMode, NotEditMode, ObjectMode
+from .helpers import drawInfoBox, push_info, ModelPropertiesBox, create_segment_selector
+from ..operators.helpers import NotEditMode, ObjectMode
 from ..properties.globals import global_properties
 
 
@@ -69,7 +62,7 @@ def check_armature(layout, context):
     :param context: Blender context
     :return: Whether a robot model is selected (Bool).
     """
-    if context.active_object is not None and context.active_object.type == 'ARMATURE':
+    if context.active_object is not None and context.active_object.type == "ARMATURE":
         return True
     else:
         layout.menu(menus.ModelMenu.bl_idname, text="Select Robot")
@@ -85,7 +78,7 @@ def draw(layout, context):
     :param context: Blender context
     """
     is_model_selected = False
-    if context.active_object and context.active_object.type == 'ARMATURE':
+    if context.active_object and context.active_object.type == "ARMATURE":
 
         is_model_selected = True
 
@@ -96,7 +89,7 @@ def draw(layout, context):
         row.label(text="Select Robot:")
         menus.ModelMenu.putMenu(row, context, text=context.active_object.name)
 
-        row.operator('view3d.view_lock_to_active')
+        row.operator("view3d.view_lock_to_active")
         row = box.row(align=True)
         model.RenameModel.place_button(row, infoBox=infoBox)
         row.separator()
@@ -109,20 +102,37 @@ def draw(layout, context):
 
         box = layout.box()
         row = box.row(align=True)
-        row.prop(bpy.data.objects[global_properties.model_name.get(context.scene)].RobotDesigner, 'physics_engine', \
-                 text="Physics Engine")
+        row.prop(
+            bpy.data.objects[
+                global_properties.model_name.get(context.scene)
+            ].RobotDesigner,
+            "physics_engine",
+            text="Physics Engine",
+        )
 
         box = layout.box()
         infoBox = InfoBox(box)
         box.label(text="Model Pose:")
         row = box.row()
-        row.prop(bpy.data.objects[global_properties.model_name.get(context.scene)], "location", slider=False,
-                 text="Position")
+        row.prop(
+            bpy.data.objects[global_properties.model_name.get(context.scene)],
+            "location",
+            slider=False,
+            text="Position",
+        )
         row = box.row()
-        row.prop(bpy.data.objects[global_properties.model_name.get(context.scene)], "rotation_euler", slider=False,
-                 text="Rotation")
+        row.prop(
+            bpy.data.objects[global_properties.model_name.get(context.scene)],
+            "rotation_euler",
+            slider=False,
+            text="Rotation",
+        )
         row = box.row()
-        row.prop(bpy.data.objects[global_properties.model_name.get(context.scene)], "scale", slider=False)
+        row.prop(
+            bpy.data.objects[global_properties.model_name.get(context.scene)],
+            "scale",
+            slider=False,
+        )
 
         box = layout.box()
         infoBox = InfoBox(box)
@@ -140,40 +150,47 @@ def draw(layout, context):
         row.separator()
         right_column = row.column(align=False)
         segments.RenameSegment.place_button(right_column, infoBox=infoBox)
-        segments.CreateNewSegment.place_button(right_column, text="Create New Child Bone", infoBox=infoBox)
-        segments.InsertNewParentSegment.place_button(right_column, text="Create New Parent Bone", infoBox=infoBox)
+        segments.CreateNewSegment.place_button(
+            right_column, text="Create New Child Bone", infoBox=infoBox
+        )
+        segments.InsertNewParentSegment.place_button(
+            right_column, text="Create New Parent Bone", infoBox=infoBox
+        )
         right_column.separator()
-        segments.DeleteSegment.place_button(right_column, text="Delete Active Bone", infoBox=infoBox)
+        segments.DeleteSegment.place_button(
+            right_column, text="Delete Active Bone", infoBox=infoBox
+        )
         left_column.separator()
         row = box.row()
         row.label(text="Re-Assign Parent:")
         menus.AssignParentMenu.putMenu(row, context, text=parent_name)
 
         if context.active_object.scale != Vector((1.0, 1.0, 1.0)):
-            infoBox.add_message("Warning: You should not use a global scale factor"
-                                "for the kinematics. Units will be displayed without this factor")
+            infoBox.add_message(
+                "Warning: You should not use a global scale factor"
+                "for the kinematics. Units will be displayed without this factor"
+            )
 
         infoBox.draw_info()
 
-        box = ModelPropertiesBox.get(layout, context, 'Visualization Properties')
+        box = ModelPropertiesBox.get(layout, context, "Visualization Properties")
         if box:
             row = box.row(align=True)
             column = row.column(align=True)
             column.label(text="Custom Segment Visualization:")
             column = row.column(align=True)
-            column.menu(menus.CoordinateFrameMenu.bl_idname, text='None')
-
+            column.menu(menus.CoordinateFrameMenu.bl_idname, text="None")
 
         ## URDF only
         # box = layout.box()
         # box.label(text="Custom Gazebo Tags")
         # global_properties.gazebo_tags.prop(bpy.context.scene, box)
+
         push_info(NotEditMode)
     else:
         layout.menu(menus.ModelMenu.bl_idname, text="Select Robot")
         layout.label(text="Select Robot First")
         push_info(ObjectMode)
 
-
-    drawInfoBox(layout, context)  # ["Some operations require to be in pose mode"] if context.mode == "OBJECT" else [])
+    drawInfoBox(layout, context)
     return is_model_selected

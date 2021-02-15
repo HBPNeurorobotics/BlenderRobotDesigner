@@ -1,9 +1,14 @@
 # #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
-# in the Human Brain Project (HBP).
-# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -26,31 +31,19 @@
 
 # #####
 #
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
-#
-# Changes:
-#
-#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#  Copyright (c) 2016, FZI Forschungszentrum Informatik
+#  Copyright (c) 2017-2021, TUM Technical University of Munich
 #
 # ######
 
-# ######
-# System imports
-# import os
-# import sys
-# import math
-
-# ######
 # Blender imports
 import bpy
 from bpy.props import StringProperty, BoolProperty
-# import mathutils
 
-# ######
 # RobotDesigner imports
-from ..core import config, PluginManager, Condition, RDOperator
-from .helpers import ModelSelected, SingleSegmentSelected, ObjectMode, SingleCameraSelected
-
+from ..core import config, PluginManager, RDOperator
+from .helpers import ModelSelected, SingleSegmentSelected, SingleCameraSelected
+from ..core.logfile import operator_logger
 from ..properties.globals import global_properties
 
 
@@ -60,6 +53,7 @@ class SelectSensor(RDOperator):
     """
     :term:`Operator <operator>` for selecting a sensor.
     """
+
     bl_idname = config.OPERATOR_PREFIX + "select_camera_sensor"
     bl_label = "Select Camera"
     object_name: StringProperty()
@@ -82,7 +76,7 @@ class SelectSensor(RDOperator):
 
         global_properties.active_sensor.set(context.scene, self.object_name)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)
@@ -91,6 +85,7 @@ class AttachSensor(RDOperator):
     """
     :term:`Operator <operator>` for assigning a camera sensor to a :term:`segment`.
     """
+
     bl_idname = config.OPERATOR_PREFIX + "assign_sensor"
     bl_label = "Attach Sensor"
 
@@ -101,21 +96,33 @@ class AttachSensor(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleSegmentSelected)
     def execute(self, context):
-        if bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotDesigner.tag == 'SENSOR':
-            sensor_type = bpy.data.objects[global_properties.active_sensor.get(context.scene)].RobotDesigner.sensor_type
-            if sensor_type in ['CAMERA_SENSOR', 'DEPTH_CAMERA_SENSOR', 'LASER_SENSOR', 'ALTIMETER_SENSOR',
-                               'IMU_SENSOR']:
-                bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+        if (
+            bpy.data.objects[
+                global_properties.active_sensor.get(context.scene)
+            ].RobotDesigner.tag
+            == "SENSOR"
+        ):
+            sensor_type = bpy.data.objects[
+                global_properties.active_sensor.get(context.scene)
+            ].RobotDesigner.sensor_type
+            if sensor_type in [
+                "CAMERA_SENSOR",
+                "DEPTH_CAMERA_SENSOR",
+                "LASER_SENSOR",
+                "ALTIMETER_SENSOR",
+                "IMU_SENSOR",
+            ]:
+                bpy.ops.object.parent_set(type="BONE", keep_transform=True)
 
-            elif sensor_type == 'FORCE_TORQUE_SENSOR':
+            elif sensor_type == "FORCE_TORQUE_SENSOR":
                 # todo attach force torque sensor to joint
-                print("attaching force torque sensor")
+                operator_logger.info("attaching force torque sensor")
 
-            elif sensor_type == 'CONTACT_SENSOR':
+            elif sensor_type == "CONTACT_SENSOR":
                 # todo attach contact sensor to collision shape
-                print("attaching contact sensor")
+                operator_logger.info("attaching contact sensor")
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ModelSelected)
@@ -124,6 +131,7 @@ class DetachSensor(RDOperator):
     """
     :term:`Operator <operator>` for detaching a single camera sensor from a :term:`segment`.
     """
+
     bl_idname = config.OPERATOR_PREFIX + "detach_sensor"
     bl_label = "Detach Sensor"
 
@@ -139,7 +147,7 @@ class DetachSensor(RDOperator):
         mesh_global = current_sensor.matrix_world
         current_sensor.parent = None
         current_sensor.matrix_world = mesh_global
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ModelSelected, SingleCameraSelected)
@@ -148,6 +156,7 @@ class ConvertCameraToSensor(RDOperator):
     """
     :term:`Operator <operator>` for detaching a single camera sensor from a :term:`segment`.
     """
+
     bl_idname = config.OPERATOR_PREFIX + "convert_camera_to_sensor"
     bl_label = "Convert Camera Object to Sensor"
 
@@ -164,7 +173,7 @@ class ConvertCameraToSensor(RDOperator):
 
         selected.RobotDesigner.tag = "SENSOR"
         selected.RobotDesigner.sensor_type = "CAMERA_SENSOR"
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ModelSelected)
@@ -196,11 +205,11 @@ class CreateSensor(RDOperator):
             bpy.ops.object.camera_add()
         else:
             # add other type sensor
-            bpy.ops.object.empty_add(type='PLAIN_AXES')
+            bpy.ops.object.empty_add(type="PLAIN_AXES")
 
-        print("adding", self.sensor_type)
+        operator_logger.info("adding", self.sensor_type)
 
-        context.active_object.RobotDesigner.tag = 'SENSOR'
+        context.active_object.RobotDesigner.tag = "SENSOR"
         context.active_object.RobotDesigner.sensor_type = self.sensor_type
         context.active_object.name = self.sensor_name
         sensor_name = context.active_object.name
@@ -208,7 +217,7 @@ class CreateSensor(RDOperator):
         SelectModel.run(model_name=model_name)
         SelectSensor.run(object_name=sensor_name)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         self.sensor_type = global_properties.display_sensor_type.get(context.scene)
@@ -219,10 +228,11 @@ class CreateSensor(RDOperator):
 @PluginManager.register_class
 class RenameSensor(RDOperator):
     """
-    :term:`operator` for renaming the selected muscle
+    :term:`operator` for renaming the selected sensor
 
 
     """
+
     bl_idname = config.OPERATOR_PREFIX + "rename_sensor"
     bl_label = "Rename Active Sensor"
 
@@ -231,9 +241,11 @@ class RenameSensor(RDOperator):
     # todo
     @RDOperator.OperatorLogger
     def execute(self, context):
-        bpy.data.objects[global_properties.active_sensor.get(context.scene)].name = self.new_name
+        bpy.data.objects[
+            global_properties.active_sensor.get(context.scene)
+        ].name = self.new_name
         global_properties.active_sensor.set(context.scene, self.new_name)
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -247,10 +259,11 @@ class RenameSensor(RDOperator):
 @PluginManager.register_class
 class DeleteSensor(RDOperator):
     """
-    :term:`operator` for deleting the selected muscle.
+    :term:`operator` for deleting the selected sensor.
 
 
     """
+
     bl_idname = config.OPERATOR_PREFIX + "delete_sensor"
     bl_label = "Delete Active Sensor"
 
@@ -261,9 +274,9 @@ class DeleteSensor(RDOperator):
 
         # remove muscle and all its data
         bpy.data.objects.remove(bpy.data.objects[active_sensor], do_unlink=True)
-        bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
+        bpy.ops.wm.redraw_timer(type="DRAW_WIN_SWAP", iterations=1)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)

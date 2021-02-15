@@ -1,17 +1,49 @@
-import logging
+# #####
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
+# #####
+
+# ##### BEGIN GPL LICENSE BLOCK #####
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License
+#  as published by the Free Software Foundation; either version 2
+#  of the License, or (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software Foundation,
+#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# ##### END GPL LICENSE BLOCK #####
+
+# #####
+#
+#  Copyright (c) 2021, TUM Technical University of Munich
+#
+# ######
+
+# System imports
 import pyxb
+import os
+
+# Robot Designer imports
 from . import sdf_model_dom
 from .helpers import list_to_string, string_to_list
 from pyxb import ContentNondeterminismExceededError
-import os
-
-from pprint import pprint
-
-logger = logging.getLogger('SDF')
-logger.setLevel(logging.DEBUG)
-
-
-# ~/Documents/blender-2.78-d35bf3f-linux-glibc219-x86_64/2.78/python/bin/pyxbgen -u sdf_model.xsd -m sdf_model_dom
+from ....core.logfile import export_logger
 
 def set_value(l):
     """
@@ -90,7 +122,7 @@ class SDFTree(object):
         controller_cache = {}
         # gazebo_tags = []
         # logger.debug("Built controller cache:")
-        #  logger.debug(robot.plugin[0].filename)
+        # logger.debug(robot.plugin[0].filename)
 
         for plugin in robot.plugin:
             if plugin.filename == "libgeneric_controller_plugin.so":
@@ -125,8 +157,8 @@ class SDFTree(object):
         # for link in root_links:
         #     for joint in connected_joints[link]:
         #         tree = SDFTree(connected_links=connected_links, connected_joints=connected_joints, robot=robot)
-        #         #print({j.name: l.name for j, l in tree.connectedLinks.items()})
-        #         #print(tree.joint, tree.link)
+        #         #export_logger.debug({j.name: l.name for j, l in tree.connectedLinks.items()})
+        #         #export_logger.debug(tree.joint, tree.link)
         #         kinematic_chains.append(tree)
         #         tree.build(connected_links[joint], joint)
         #
@@ -135,8 +167,8 @@ class SDFTree(object):
         for link in root_links:
             # for joint in connected_joints[link]:
             tree = SDFTree(connected_links=connected_links, connected_joints=connected_joints, robot=robot)
-            # print({j.name: l.name for j, l in tree.connectedLinks.items()})
-            # print(tree.joint, tree.link)
+            # export_logger.debug({j.name: l.name for j, l in tree.connectedLinks.items()})
+            # export_logger.debug(tree.joint, tree.link)
             kinematic_chains.append(tree)
             try:
                 if world_joints[link]:
@@ -146,7 +178,7 @@ class SDFTree(object):
 
             # todo: parse joint controllers
 
-        logger.debug("kinematic chains: %s", kinematic_chains)
+        export_logger.debug("kinematic chains: %s", kinematic_chains)
         return muscles, robot.name, robot_location, robot_rotation, root_links, kinematic_chains, controller_cache # , gazebo_tags
 
     def build(self, link, joint=None, depth=0):
@@ -204,24 +236,24 @@ class SDFTree(object):
         :param file_name:
         :return:
         """
-        print("connected joints: ", {l.name: j[0].name for l, j in self.connectedJoints.items()})
+        export_logger.info("connected joints: ", {l.name: j[0].name for l, j in self.connectedJoints.items()})
 
-        print("connected links: ", {j.name: l.name for j, l in self.connectedLinks.items()})
+        export_logger.info("connected links: ", {j.name: l.name for j, l in self.connectedLinks.items()})
 
-        print("root link name: ", self.link.name)
+        export_logger.info("root link name: ", self.link.name)
 
         for joint, link in self.connectedLinks.items():
             joint.child.append(link.name)
 
         for link, joints in self.connectedJoints.items():
             for joint in joints:
-                print("connected link name:", link.name)
-                print("connected link linked joint name: ", joint.name)
+                export_logger.debug("connected link name:", link.name)
+                export_logger.debug("connected link linked joint name: ", joint.name)
                 joint.parent.append(link.name)
 
         # # Connect root joints to self.link (the root link)
         # for joint in self.robot.joint:
-        #     print("robot joint name: ", joint.name)
+        #     export_logger.debug("robot joint name: ", joint.name)
         #
         #     if joint.parent is None:
         #         joint.parent = self.link.name
@@ -229,17 +261,12 @@ class SDFTree(object):
         # self.connectedLinks = {key: value for key, value in self.sdf.model[0].items() if key.name != 'rd_virtual_joint'}
 
         self.sdf.model[0].joint = [j for j in self.sdf.model[0].joint if j.parent]
-        # for j in self.sdf.model[0].joint:
-        #
-        #     print(j.name)
-        # set sdf fixed name
 
         ## write sdf file
         if not os.path.exists(os.path.dirname(file_name)):
             os.makedirs(os.path.dirname(file_name))
 
         with open(file_name, "w") as f:
-            # f.write('<?xml version="1.0" ?>')
 
             output = self.sdf.toDOM().toprettyxml()
 
@@ -279,7 +306,7 @@ class SDFTree(object):
 
         # e.g., virtual joint --> base link
         self.connectedLinks[tree.joint] = tree.link
-        print("connected links (joint->link): ", {j.name: l.name for j, l in self.connectedLinks.items()})
+        export_logger.info("connected links (joint->link): ", {j.name: l.name for j, l in self.connectedLinks.items()})
 
         # if self.link not in self.connectedJoints:
         #     self.connectedJoints[self.link] = []
@@ -288,10 +315,9 @@ class SDFTree(object):
         #     if j.name == tree.joint.:
         #         self.connectedJoints[j].append(tree.joint)
         #
-        #     print("connected joints: ", {j.name: l for j, l in connected_joints.items()})
+        #     export_logger.info("connected joints: ", {j.name: l for j, l in connected_joints.items()})
 
 
-        #
         # if self.link in self.connectedJoints:
         #     self.connectedJoints[self.link].append(tree.link)
         # else:
@@ -311,10 +337,8 @@ class SDFTree(object):
         link_geometry = sdf_model_dom.geometry()  # CTD_ANON_17()
         self.link.visual.append(link_visual)
         link_visual.geometry.append(link_geometry)  # sdf_model_dom.CTD_ANON_97.geometry()
-        # visual. = sdf_model_dom.CTD_ANON_96.pose()
         link_visual.geometry[0].mesh.append(sdf_model_dom.mesh())
         link_visual.geometry[0].mesh[0].uri.append(file_name)
-        # link_visual.geometry[0].mesh[0].scale.append(sdf_model_dom.CTD_ANON_68().scale()  #list_to_string(scale_factor)
         link_visual.geometry[0].mesh[0].scale.append(list_to_string(scale_factor))
         return link_visual
 
@@ -336,7 +360,7 @@ class SDFTree(object):
 
         # collision.origin = sdf_model_dom.CTD_ANON_15.pose()
         # collision.geometry.mesh = sdf_model_dom.CTD_ANON_70()
-        # print('debug add_collisionmodel: ' + file_name)
+        # export_logger.debug('debug add_collisionmodel: ' + file_name)
         # collision.geometry.mesh.filename = file_name
         link_collision.geometry[0].mesh[0].scale.append(list_to_string(scale_factor))
         return link_collision
@@ -374,12 +398,8 @@ class SDFTree(object):
 
         :return: string:     reference to inertial object
         """
-        # inertial = sdf_model_dom.inertial()#CTD_ANON_46()
-        # self.link.inertial.append(inertial)
         self.link.inertial[0].mass.append('1.0')
         self.link.inertial[0].pose.append('0 0 0 0 0 0')
-        # inertial.mass.value_ = "1.0"
-        # inertial.inertia = sdf_model_dom.inertia() #CTD_ANON_45()
         self.link.inertial[0].inertia.ixx = '1.0'
         self.link.inertial[0].inertia.iyy = '1.0'
         self.link.inertial[0].inertia.izz = '1.0'
@@ -387,13 +407,8 @@ class SDFTree(object):
         self.link.inertial[0].inertia.ixz = '0.0'
         self.link.inertial[0].inertia.iyz = '0.0'
 
-        #     = inertial.inertia.izz =  inertial.inertia.iyy = "1.0"
-        # inertial.inertia.ixy = inertial.inertia.ixz =  inertial.inertia.iyz = "0.0"
-        # inertial.origin = sdf_model_dom.CTD_ANON_46.pose()
-        # inertial.origin.xyz = "0 0 0"
-        # inertial.origin.rpy = "0 0 0"
+        # export_logger.debug('debug add_inertial: ')
 
-        # print('debug add_inertial: ')
         return self.link.inertial[0]
 
         # def add_joint_control_plugin(self):
@@ -419,10 +434,10 @@ class SDFTree(object):
     #    joint_controller = urdf_dom.GenericControllerPluginDefType()
     #    if joint_controller.pid == "1.0 1.0 1.0":
     #        joint_controller.pid = "100.0 1.0 1.0"
-    #        print("Debug: Joint Controller set")
+    #        export_logger.debug("Debug: Joint Controller set")
 
     #    control_plugin.append(joint_controller)
-    #    print("Added joint controller.")
+    #    export_logger.info("Added joint controller.")
 
     #    return joint_controller
 
@@ -457,24 +472,24 @@ class SDFTree(object):
 
         # joint_axis = sdf_model_dom.CTD_ANON_57()
         # if not joint_axis.xyz:
-        #     print(vars(joint_axis.xyz))
+        #     export_logger.debug(vars(joint_axis.xyz))
         #     joint_axis.xyz.append('0 0 0 0')
         # joint_axis_limit = sdf_model_dom.CTD_ANON_49()
 
         link_inertial = sdf_model_dom.inertial()
         # link_inertial_inertia = sdf_model_dom.CTD_ANON_55()
         # joint_axis_xyz = joint_axis.xyz.vector3
-        print('Joint Axis')
+        export_logger.debug('Joint Axis')
         if not joint.axis:
             joint.axis = [pyxb.BIND()]
 
         # if not joint.axis[0].limit:
-        #     print('Set defaults: Joint Axis Limit ')
+        #     export_logger.debug('Set defaults: Joint Axis Limit ')
         #     joint.axis[0].limit.append(joint_axis_limit)
         #     # joint.axis[0].limit.append(BIND())
 
         if not link.inertial:
-            print('Set defaults: Inertia ')
+            export_logger.info('Set defaults: Inertia ')
             link.inertial.append(link_inertial)
 
         if not link.inertial[0].inertia:
@@ -490,8 +505,8 @@ class SDFTree(object):
         link.inertial[0].inertia[0].iyz.append(0.0)
 
         # if not joint.axis[0].xyz:
-        # print('Set defaults: Joint Axis xyz ')
-        # print(joint.axis[0].xyz)
+        # export_logger.debug('Set defaults: Joint Axis xyz ')
+        # export_logger.debug(joint.axis[0].xyz)
         # joint.axis[0].xyz.append(joint_axis_xyz)
 
         # if joint.limit is None:
@@ -550,10 +565,10 @@ class SDFTree(object):
         :param depth: the depth of the kinematics sub tree for indention
         """
         if depth > 1:
-            print(
+            export_logger.info(
                 "%s, link: %s, joint: %s, type: %s" % ("*" * depth, self.link.name, self.joint.name, self.joint.type_))
         elif depth == 1:
-            print("Root link: %s" % self.link.name)
+            export_logger.info("Root link: %s" % self.link.name)
         for tree in self.children:
             tree.show(depth + 1)
 

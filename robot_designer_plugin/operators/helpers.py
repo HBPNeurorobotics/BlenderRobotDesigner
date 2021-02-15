@@ -1,9 +1,14 @@
 # #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
-# in the Human Brain Project (HBP).
-# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -26,12 +31,9 @@
 
 # #####
 #
-# Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
-#
-# Changes:
-#
-#   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#  Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)
+#  Copyright (c) 2016, FZI Forschungszentrum Informatik
+#  Copyright (c) 2017-2021, TUM Technical University of Munich
 #
 # ######
 
@@ -43,7 +45,7 @@ import mathutils
 import bpy
 from bpy.props import StringProperty
 
-from ..core import Condition, PluginManager
+from ..core import Condition
 from ..core.constants import StringConstants
 from ..core import RDOperator
 
@@ -61,7 +63,9 @@ def _vec_roll_to_mat3(vec, roll):
     target = mathutils.Vector((0, 1, 0))
     nor = vec.normalized()
     axis = target.cross(nor)
-    if axis.dot(axis) > 0.0000000001:  # this seems to be the problem for some bones, no idea how to fix
+    if (
+        axis.dot(axis) > 0.0000000001
+    ):  # this seems to be the problem for some bones, no idea how to fix
         axis.normalize()
         theta = target.angle(nor)
         bMatrix = mathutils.Matrix.Rotation(theta, 3, axis)
@@ -91,6 +95,7 @@ def _mat3_to_vec_roll(mat):
     :return:
     """
     from ..properties.globals import global_properties
+
     vec = mat.col[1] * global_properties.bone_length.get(bpy.context.scene)
     vecmat = _vec_roll_to_mat3(mat.col[1], 0)
     vecmatinv = vecmat.inverted()
@@ -108,7 +113,10 @@ class ModelSelected(Condition):
         :return: True if the condition is met, else false. String with error message.
         """
         if bpy.context.active_object:
-            return bpy.context.active_object.type == 'ARMATURE', "Model not selected and active."  # or bpy.context.active_object.type == 'MESH'
+            return (
+                bpy.context.active_object.type == "ARMATURE",
+                "Model not selected and active.",
+            )
         else:
             return False, "No model selected"
 
@@ -122,7 +130,9 @@ class SingleSegmentSelected(Condition):
         :return: True if the condition is met, else false. String with error message.
         """
         if bpy.context.active_bone:
-            selected_segments = [i for i in bpy.context.active_object.data.bones if i.select]
+            selected_segments = [
+                i for i in bpy.context.active_object.data.bones if i.select
+            ]
             return len(selected_segments) == 1, "Single Segment must be selected"
         else:
             return False, "No Object Selected"
@@ -137,7 +147,9 @@ class AtLeastOneSegmentSelected(Condition):
         :return: True if the condition is met, else false. String with error message.
         """
         if bpy.context.active_bone:
-            selected_segments = [i for i in bpy.context.active_object.data.bones if i.select]
+            selected_segments = [
+                i for i in bpy.context.active_object.data.bones if i.select
+            ]
             return len(selected_segments) >= 1, "At least one segment must be selected"
         else:
             return False, "No Object Selected"
@@ -151,7 +163,7 @@ class SingleMeshSelected(Condition):
 
         :return: True if the condition is met, else false. String with error message.
         """
-        selected = [i for i in bpy.context.selected_objects if i.type == 'MESH']
+        selected = [i for i in bpy.context.selected_objects if i.type == "MESH"]
         return len(selected) == 1, "Single mesh object must be selected."
 
 
@@ -162,7 +174,7 @@ class ObjectMode(Condition):
         :term:`condition` that assures that the :term:`object mode` is selected.
         """
         if bpy.context.object:
-            return bpy.context.object.mode == 'OBJECT', "Must be in object mode"
+            return bpy.context.object.mode == "OBJECT", "Must be in object mode"
         else:
             return True, ""
 
@@ -174,7 +186,7 @@ class PoseMode(Condition):
         :term:`condition` that assures that the :term:`pose mode` is selected.
         """
         if bpy.context.object:
-            return bpy.context.object.mode == 'POSE', "Must be in Pose Mode"
+            return bpy.context.object.mode == "POSE", "Must be in Pose Mode"
         else:
             return True, ""
 
@@ -186,7 +198,7 @@ class NotEditMode(Condition):
         :term:`condition` that assures that the :term:`edit mode` is *not* selected.
         """
         if bpy.context.object:
-            return bpy.context.object.mode != 'EDIT', "Must not be in Edit Mode"
+            return bpy.context.object.mode != "EDIT", "Must not be in Edit Mode"
         else:
             return True, ""
 
@@ -197,7 +209,9 @@ class SingleCameraSelected(Condition):
         """
         :term:`condition` that assures that a :class:`bpy.types.Camera` associated object is selected.
         """
-        selected = [i for i in bpy.context.selected_objects if i.type == StringConstants.camera]
+        selected = [
+            i for i in bpy.context.selected_objects if i.type == StringConstants.camera
+        ]
         return len(selected) == 1, "Single camera object must be selected."
 
 
@@ -207,8 +221,12 @@ class SingleMassObjectSelected(Condition):
         """
         :term:`condition` that assures that a :class:`bpy.types.Camera` associated object is selected.
         """
-        selected = [i for i in bpy.context.selected_objects if
-                    i.type == StringConstants.empty and i.RobotDesigner.tag == "PHYSICS_FRAME"]
+        selected = [
+            i
+            for i in bpy.context.selected_objects
+            if i.type == StringConstants.empty
+            and i.RobotDesigner.tag == "PHYSICS_FRAME"
+        ]
         return len(selected) == 1, "Single mass object must be selected."
 
 
@@ -219,7 +237,7 @@ class SelectObjectBase(RDOperator):
     """
 
     object_name = StringProperty()
-    object_data_type = 'MESH'
+    object_data_type = "MESH"
 
     @classmethod
     def run(cls, object_name=""):
@@ -237,7 +255,7 @@ class SelectObjectBase(RDOperator):
         mesh.select_set(True)
         arm.select_set(True)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 class AssignObjectBase(RDOperator):
@@ -252,8 +270,8 @@ class AssignObjectBase(RDOperator):
 
     @RDOperator.OperatorLogger
     def execute(self, context):
-        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
-        return {'FINISHED'}
+        bpy.ops.object.parent_set(type="BONE", keep_transform=True)
+        return {"FINISHED"}
 
 
 class ObjectScaled(Condition):
@@ -264,6 +282,10 @@ class ObjectScaled(Condition):
         """
         if bpy.context.active_object:
             return (
-                   bpy.context.active_object.scale.x == bpy.context.active_object.scale.y == bpy.context.active_object.scale.z == 1.0), "Object has to be scaled!"
+                bpy.context.active_object.scale.x
+                == bpy.context.active_object.scale.y
+                == bpy.context.active_object.scale.z
+                == 1.0
+            ), "Object has to be scaled!"
         else:
             return True, ""

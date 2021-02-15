@@ -1,9 +1,14 @@
 # #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
-# in the Human Brain Project (HBP).
-# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -23,32 +28,22 @@
 #  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 # ##### END GPL LICENSE BLOCK #####
-
 # #####
 #
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
-#
-# Changes:
-#   2015-01-7 : Initial implementation of functionality
-#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#  Copyright (c) 2016, FZI Forschungszentrum Informatik
+#  Copyright (c) 2017-2021, TUM Technical University of Munich
 #
 # ######
 """
 Sphinx-autodoc tag
 """
 
-# System imports
-# import os
-# import sys
-# import math
-
 # Blender imports
 import bpy
 from bpy.props import FloatProperty, BoolProperty
-# import mathutils
 
 # RobotDesigner imports
-from ..core import config, PluginManager, RDOperator, Condition
+from ..core import config, PluginManager, RDOperator
 
 from .helpers import SingleMeshSelected, ModelSelected, ObjectScaled
 
@@ -71,14 +66,19 @@ class ConvertSoftBodies(RDOperator):
     solidify: BoolProperty(name="Make solid", default=False)
 
     t1: FloatProperty(name="Minimum weight", default=0.5, min=0.0, max=1.0)
-    t2: FloatProperty(name="Maximum common weight", default=0.5, min=0.0,
-                      max=1.0)
+    t2: FloatProperty(name="Maximum common weight", default=0.5, min=0.0, max=1.0)
 
-    thickness: FloatProperty(name="Thickness", unit='LENGTH', min=0.0, max=1.0, default=0.2)
+    thickness: FloatProperty(
+        name="Thickness", unit="LENGTH", min=0.0, max=1.0, default=0.2
+    )
 
     @RDOperator.OperatorLogger
     def execute(self, context):
-        self.logger.debug("Running ConvertSoftBodies with parameters: %s %s", self.smooth, self.solidify)
+        self.logger.debug(
+            "Running ConvertSoftBodies with parameters: %s %s",
+            self.smooth,
+            self.solidify,
+        )
 
         from .segments import SelectSegment
         from .rigid_bodies import SelectGeometry, AssignGeometry, SetGeometryActive
@@ -92,7 +92,7 @@ class ConvertSoftBodies(RDOperator):
         mesh_object = selected[0]
 
         # Make object active
-        bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
+        bpy.ops.object.mode_set(mode="OBJECT", toggle=False)
         bpy.ops.object.select_all(action="DESELECT")
         mesh_object.select_set(True)
         context.view_layer.objects.active = mesh_object
@@ -107,18 +107,17 @@ class ConvertSoftBodies(RDOperator):
             for g in v.groups:
 
                 # Already a vertex above the threshold is an overlap
-                if self.remove_overlaps and g.weight > self.t2 and maxima[v.index] > self.t2:
+                if (
+                    self.remove_overlaps
+                    and g.weight > self.t2
+                    and maxima[v.index] > self.t2
+                ):
                     indices[v.index] = -1
                 # If not, check if it passes the minimal threshold
                 elif g.weight > maxima[v.index]:
                     maxima[v.index] = g.weight
                     if g.weight > self.t1:
                         indices[v.index] = g.group
-
-
-
-
-
 
                         # if g.weight > maxima[v.index]:
                         #
@@ -139,22 +138,24 @@ class ConvertSoftBodies(RDOperator):
             for index in vertex_groups_indices:
                 if indices[v.index] != index:
                     mesh_object.vertex_groups[index].remove([v.index])
-            if v.index == -1 and 'RDNone' in mesh_object.vertex_groups:  # 'REPLACE', 'ADD', 'SUBTRACT')
-                mesh_object.vertex_groups['RDNone'].add([v.index], 0.9, "ADD")
+            if (
+                v.index == -1 and "RDNone" in mesh_object.vertex_groups
+            ):  # 'REPLACE', 'ADD', 'SUBTRACT')
+                mesh_object.vertex_groups["RDNone"].add([v.index], 0.9, "ADD")
 
         if self.separate:
             for m in mesh_object.modifiers:
                 if m.type == "ARMATURE":
                     mesh_object.modifiers.remove(m)
 
-            bpy.ops.object.mode_set(mode='EDIT', toggle=False)
+            bpy.ops.object.mode_set(mode="EDIT", toggle=False)
             bone2object = {}
             for v in mesh_object.vertex_groups:
                 bpy.ops.mesh.select_all(action="DESELECT")
                 mesh_object.vertex_groups.active_index = v.index
                 bpy.ops.object.vertex_group_select()
                 try:
-                    bpy.ops.mesh.separate(type='SELECTED')
+                    bpy.ops.mesh.separate(type="SELECTED")
                 except RuntimeError:
                     pass
                 selected = bpy.context.selected_objects
@@ -163,27 +164,29 @@ class ConvertSoftBodies(RDOperator):
                     bone2object[v.name] = selected[0].name
                     selected[0].select = False
 
-            bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
+            bpy.ops.object.mode_set(mode="OBJECT", toggle=False)
             for bone, object in bone2object.items():
                 if self.smooth:
                     SelectModel.run(model_name=model_name)
                     SelectGeometry.run(geometry_name=object)
                     SetGeometryActive.run()
                     bpy.ops.object.mode_set(mode="EDIT", toggle=False)
-                    bpy.ops.mesh.select_all(action='SELECT')
+                    bpy.ops.mesh.select_all(action="SELECT")
                     bpy.ops.mesh.region_to_loop()
                     bpy.ops.mesh.vertices_smooth(repeat=15)
-                    bpy.ops.mesh.select_all(action='SELECT')
+                    bpy.ops.mesh.select_all(action="SELECT")
                     bpy.ops.mesh.delete_loose()
-                    bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
+                    bpy.ops.object.mode_set(mode="OBJECT", toggle=False)
 
                 if self.solidify:
                     SelectModel.run(model_name=model_name)
                     SelectGeometry.run(geometry_name=object)
                     SetGeometryActive.run()
-                    mod = bpy.context.object.modifiers.new(name='solidify', type='SOLIDIFY')
+                    mod = bpy.context.object.modifiers.new(
+                        name="solidify", type="SOLIDIFY"
+                    )
                     mod.thickness = self.thickness
-                    bpy.ops.object.modifier_apply(modifier='solidify')
+                    bpy.ops.object.modifier_apply(modifier="solidify")
 
             if self.assign_to_model:
 
@@ -196,13 +199,15 @@ class ConvertSoftBodies(RDOperator):
                             SelectGeometry.run(geometry_name=object)
                             AssignGeometry.run()
                         else:
-                            self.logger.error("Vertex group %s has no matching bone" % bone)
+                            self.logger.error(
+                                "Vertex group %s has no matching bone" % bone
+                            )
                     except KeyError:
                         self.logger.info("Vertex group %s has no matching bone" % bone)
 
         SelectModel.run(model_name=model_name)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)

@@ -1,9 +1,14 @@
 # #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
-# in the Human Brain Project (HBP).
-# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -26,11 +31,7 @@
 
 # #####
 #
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
-#
-# Changes:
-#
-#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#  Copyright (c) 2016, FZI Forschungszentrum Informatik
 #
 # ######
 """
@@ -45,15 +46,12 @@ resource_path = os.path.join(script_path, 'resources')
 
 '''This variable stores the file name where the plugin is defined (assuming it is the top level of the :mod:`core`.)'''
 
-# PLUGIN_PREFIX = "hbp_robot_designer."
-
 PLUGIN_PREFIX = "robotdesigner"
 OPERATOR_PREFIX = PLUGIN_PREFIX + '.'
 MENU_PREFIX = "ROBOTDESIGNER_MT_"
 
 BACKTRACE_FILTER_FUNC = ('func_wrapper', 'op_logger', '__call__')
 BACKTRACE_FILTER_HIDE_CODE = ('run', 'runNestedOperator')
-# BACKTRACE_MESSAGE_STACK_CODE = "\t\t\t{4}\n\t\t{0:25}\t\t({1}:{2})\n"
 BACKTRACE_MESSAGE_STACK_CODE = "\t\t{0:25}\t\t({1}:{2})\n\t\t\t{3}\n"
 BACKTRACE_MESSAGE_STACK = "\t\t{0:25}\t\t({1}:{2})\n"
 

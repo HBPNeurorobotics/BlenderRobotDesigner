@@ -1,11 +1,15 @@
 # #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
-# in the Human Brain Project (HBP).
-# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
 # #####
-
 # ##### BEGIN GPL LICENSE BLOCK #####
 #
 #  This program is free software; you can redistribute it and/or
@@ -26,12 +30,9 @@
 
 # #####
 #
-# Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
-#
-# Changes:
-#   2015:       Stefan Ulbrich (FZI), Gui redesigned
-#   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#  Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)
+#  Copyright (c) 2016, FZI Forschungszentrum Informatik
+#  Copyright (c) 2017-2021, TUM Technical University of Munich
 #
 # ######
 
@@ -40,14 +41,20 @@ import bpy
 
 # RobotDesigner imports
 from ..operators import dynamics
-from . import menus
 from .model import check_armature
-from ..properties.globals import global_properties
 from ..core.gui import InfoBox
-from .helpers import getSingleSegment, getSingleObject
-from .helpers import PhysicsBox, LinkBox, JointLimitsBox, JointDynamicsBox, JointPhysicsBox
+from .helpers import getSingleSegment
+from .helpers import (
+    PhysicsBox,
+    LinkBox,
+    JointLimitsBox,
+    JointDynamicsBox,
+    JointPhysicsBox,
+)
+from ..core.logfile import LogFunction
 
 
+@LogFunction
 def draw(layout, context):
     """
     Draws the user interface for modifying the dynamic properties of a segment.
@@ -58,13 +65,10 @@ def draw(layout, context):
     if not check_armature(layout, context):
         return
 
-
-
     single_segment = getSingleSegment(context)
 
-
     # link properties
-    linkBox = LinkBox.get(layout, context, 'Link Properties')
+    linkBox = LinkBox.get(layout, context, "Link Properties")
     if linkBox:
         infoBox = InfoBox(linkBox)
         row = linkBox.column(align=True)
@@ -73,15 +77,21 @@ def draw(layout, context):
         dynamics.ComputePhysical.place_button(row, infoBox=infoBox)
         dynamics.ComputeMass.place_button(row, infoBox=infoBox)
 
-        objs = [o for o in context.active_object.children if
-                o.RobotDesigner.tag == 'PHYSICS_FRAME' and o.parent_bone == single_segment.name]
+        objs = [
+            o
+            for o in context.active_object.children
+            if o.RobotDesigner.tag == "PHYSICS_FRAME"
+            and o.parent_bone == single_segment.name
+        ]
         try:
-            obj, = objs
-            # obj = getSingleObject(context)
+            (obj,) = objs
             if obj and obj.RobotDesigner.tag == "PHYSICS_FRAME":
                 frame_name = obj.name
                 box = linkBox.box()
-                box.label(text="Mass Properties (" + single_segment.name + ")", icon="MODIFIER")
+                box.label(
+                    text="Mass Properties (" + single_segment.name + ")",
+                    icon="MODIFIER",
+                )
                 frame = bpy.data.objects[frame_name]
                 box.prop(frame.RobotDesigner.dynamics, "mass")
                 box.separator()
@@ -89,8 +99,10 @@ def draw(layout, context):
                 row_t = box.row(align=True)
                 row_r = box.row(align=True)
 
-                row_t.prop(bpy.data.objects[frame_name], 'location', text="Translation")
-                row_r.prop(bpy.data.objects[frame_name], 'rotation_euler', text="Rotation")
+                row_t.prop(bpy.data.objects[frame_name], "location", text="Translation")
+                row_r.prop(
+                    bpy.data.objects[frame_name], "rotation_euler", text="Rotation"
+                )
 
                 row0 = box.row(align=True)
                 row1 = box.row(align=True)
@@ -109,49 +121,85 @@ def draw(layout, context):
         except:
             pass
 
-        linkBox.prop(bpy.context.active_bone.RobotDesigner.linkInfo, 'link_self_collide', text='Self Collide')
-        linkBox.prop(bpy.context.active_bone.RobotDesigner.linkInfo, 'gravity', text='Gravity')
+        linkBox.prop(
+            bpy.context.active_bone.RobotDesigner.linkInfo,
+            "link_self_collide",
+            text="Self Collide",
+        )
+        linkBox.prop(
+            bpy.context.active_bone.RobotDesigner.linkInfo, "gravity", text="Gravity"
+        )
 
         infoBox.draw_info()
 
     # joint physics properties
     # Only shown for child segments. Unless root segment is connected to world.
-    joint_box = PhysicsBox.get(layout, context, 'Joint')
+    joint_box = PhysicsBox.get(layout, context, "Joint")
     if joint_box:
-        if not (context.active_bone.parent is not None) or (context.active_bone.RobotDesigner.world is True):
+        if not (context.active_bone.parent is not None) or (
+            context.active_bone.RobotDesigner.world is True
+        ):
             joint_box.label(text="No Joint defined for this Link.")
         else:
-            # Only shown for child segments. Unless root segment is connected to world
-
-            # Joint controller limit properties
-            limit_box = JointLimitsBox.get(joint_box, context, 'Limits')
+            limit_box = JointLimitsBox.get(joint_box, context, "Limits")
             if limit_box:
-                limit_box.prop(context.active_bone.RobotDesigner.dynamic_limits, "isActive", text="Active Dynamic Limits")
+                limit_box.prop(
+                    context.active_bone.RobotDesigner.dynamic_limits,
+                    "isActive",
+                    text="Active Dynamic Limits",
+                )
 
-                limit_box.prop(context.active_bone.RobotDesigner.dynamic_limits, "maxVelocity")
-                limit_box.prop(context.active_bone.RobotDesigner.dynamic_limits, "maxTorque")
+                limit_box.prop(
+                    context.active_bone.RobotDesigner.dynamic_limits, "maxVelocity"
+                )
+                limit_box.prop(
+                    context.active_bone.RobotDesigner.dynamic_limits, "maxTorque"
+                )
 
                 ## URDF only
-                #limit_box.prop(context.active_bone.RobotDesigner.controller, "acceleration")
-                #limit_box.prop(context.active_bone.RobotDesigner.controller, "deceleration")
+                # limit_box.prop(context.active_bone.RobotDesigner.controller, "acceleration")
+                # limit_box.prop(context.active_bone.RobotDesigner.controller, "deceleration")
 
-                physics_box = JointPhysicsBox.get(joint_box, context, 'Physics')
+                physics_box = JointPhysicsBox.get(joint_box, context, "Physics")
                 if physics_box:
                     physics_ode_box = physics_box.box()
                     physics_ode_box.label(text="ODE")
-                    physics_ode_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm_damping', text='CFM-Damping')
-                    physics_ode_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'i_s_damper',
-                                     text='I. S. Damper')  # implicit spring
-                    physics_ode_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'cfm', text='CFM')  # constraint force mixing
-                    physics_ode_box.prop(bpy.context.active_bone.RobotDesigner.ode, 'erp', text='ERP')  # error reduction parameter
+                    physics_ode_box.prop(
+                        bpy.context.active_bone.RobotDesigner.ode,
+                        "cfm_damping",
+                        text="CFM-Damping",
+                    )
+                    physics_ode_box.prop(
+                        bpy.context.active_bone.RobotDesigner.ode,
+                        "i_s_damper",
+                        text="I. S. Damper",
+                    )  # implicit spring
+                    physics_ode_box.prop(
+                        bpy.context.active_bone.RobotDesigner.ode, "cfm", text="CFM"
+                    )  # constraint force mixing
+                    physics_ode_box.prop(
+                        bpy.context.active_bone.RobotDesigner.ode, "erp", text="ERP"
+                    )  # error reduction parameter
 
-            dynamics_box = JointDynamicsBox.get(joint_box, context, 'Dynamics')
+            dynamics_box = JointDynamicsBox.get(joint_box, context, "Dynamics")
             if dynamics_box:
-                dynamics_box.prop(bpy.context.active_bone.RobotDesigner.joint_dynamics, 'damping', text='Damping')
-                dynamics_box.prop(bpy.context.active_bone.RobotDesigner.joint_dynamics, 'friction', text='Friction')
                 dynamics_box.prop(
-                    bpy.context.active_bone.RobotDesigner.joint_dynamics, 'spring_reference', text='Spring Reference')
+                    bpy.context.active_bone.RobotDesigner.joint_dynamics,
+                    "damping",
+                    text="Damping",
+                )
                 dynamics_box.prop(
-                    bpy.context.active_bone.RobotDesigner.joint_dynamics, 'spring_stiffness', text='Spring Stiffness')
-
-
+                    bpy.context.active_bone.RobotDesigner.joint_dynamics,
+                    "friction",
+                    text="Friction",
+                )
+                dynamics_box.prop(
+                    bpy.context.active_bone.RobotDesigner.joint_dynamics,
+                    "spring_reference",
+                    text="Spring Reference",
+                )
+                dynamics_box.prop(
+                    bpy.context.active_bone.RobotDesigner.joint_dynamics,
+                    "spring_stiffness",
+                    text="Spring Stiffness",
+                )

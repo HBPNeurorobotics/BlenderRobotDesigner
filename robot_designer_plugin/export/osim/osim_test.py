@@ -1,8 +1,14 @@
 # #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
-# in the Human Brain Project (HBP).
-# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Technical University of Munich at the chair of embedded and robotic system.
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -23,6 +29,13 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
+# #####
+#
+#  Copyright (c) 2021, TUM Technical University of Munich
+#
+# ######
+
+# System imports
 import os
 import sys
 import unittest
@@ -40,21 +53,16 @@ class XmlBuildLearningTest(unittest.TestCase):
         doc.Model = pyxb.BIND(
             ForceSet=pyxb.BIND(
                 objects=pyxb.BIND(
-                    Millard2012EquilibriumMuscle=[],
-                    Millard2012AccelerationMuscle=[]
+                    Millard2012EquilibriumMuscle=[], Millard2012AccelerationMuscle=[]
                 )
             )
         )
 
         m = osim_dom.Millard2012EquilibriumMuscle(
             GeometryPath=osim_dom.GeometryPath(
-                PathPointSet=pyxb.BIND(
-                    objects=pyxb.BIND(
-                        PathPoint=[]
-                    )
-                )
+                PathPointSet=pyxb.BIND(objects=pyxb.BIND(PathPoint=[]))
             ),
-            max_isometric_force=1000.,
+            max_isometric_force=1000.0,
             optimal_fiber_length=0.01,
             tendon_slack_length=0.01,
         )
@@ -62,15 +70,11 @@ class XmlBuildLearningTest(unittest.TestCase):
         pps = m.GeometryPath.PathPointSet.objects.PathPoint
         pps += [
             osim_dom.PathPoint(
-                location=osim_dom.vector3("0. 1. 2."),
-                body="body1",
-                name="pp_body1"
+                location=osim_dom.vector3("0. 1. 2."), body="body1", name="pp_body1"
             ),
             osim_dom.PathPoint(
-                location=osim_dom.vector3("3. 4. 5."),
-                body="body2",
-                name="pp_body2"
-            )
+                location=osim_dom.vector3("3. 4. 5."), body="body2", name="pp_body2"
+            ),
         ]
 
         doc.Model.ForceSet.objects.Millard2012EquilibriumMuscle.append(m)
@@ -86,17 +90,24 @@ class XmlBuildLearningTest(unittest.TestCase):
 class SchemaSanityCheck(unittest.TestCase):
     def runTest(self):
         import subprocess
-        schemafile = os.path.join(os.path.dirname(__file__), '..', '..', 'resources', 'osim_muscles.xsd')
-        samplexml = os.path.join(os.path.dirname(__file__), 'test_sample_muscle_file.osim')
-        out = subprocess.check_output(['xmllint', '-schema', schemafile, samplexml])
+
+        schemafile = os.path.join(
+            os.path.dirname(__file__), "..", "..", "resources", "osim_muscles.xsd"
+        )
+        samplexml = os.path.join(
+            os.path.dirname(__file__), "test_sample_muscle_file.osim"
+        )
+        out = subprocess.check_output(["xmllint", "-schema", schemafile, samplexml])
 
 
 class SchemaSanityCheckBindings(unittest.TestCase):
     def runTest(self):
-        with open(os.path.join(os.path.dirname(__file__), 'test_sample_muscle_file.osim'), 'r') as f:
+        with open(
+            os.path.join(os.path.dirname(__file__), "test_sample_muscle_file.osim"), "r"
+        ) as f:
             sample_xml = f.read()
         osim_dom.CreateFromDocument(sample_xml)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

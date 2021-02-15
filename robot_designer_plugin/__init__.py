@@ -1,3 +1,16 @@
+# #####
+#  This file is part of the RobotDesigner developed in the Neurorobotics subproject
+#  of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
+#  developed at the Karlsruhe Institute of Technology in the
+#  High Performance Humanoid Technologies Laboratory (H2T).
+# #####
+
 # ##### BEGIN GPL LICENSE BLOCK #####
 #
 #  This program is free software; you can redistribute it and/or
@@ -17,8 +30,6 @@
 # ##### END GPL LICENSE BLOCK #####
 
 from importlib import reload
-import sys
-import os
 
 try:
 

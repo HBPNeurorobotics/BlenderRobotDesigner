@@ -1,9 +1,14 @@
 # #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
-# in the Human Brain Project (HBP).
-# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -26,12 +31,9 @@
 
 # #####
 #
-# Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
-#
-# Changes:
-#   2015:       Stefan Ulbrich (FZI), Gui redesigned
-#   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#  Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)
+#  Copyright (c) 2016, FZI Forschungszentrum Informatik
+#  Copyright (c) 2017-2021, TUM Technical University of Munich
 #
 # ######
 
@@ -40,6 +42,7 @@ from . import menus
 from ..core import Condition
 from ..core.gui import CollapsibleBase
 from ..core.pluginmanager import PluginManager
+from ..core.logfile import operator_logger
 from ..properties.globals import global_properties
 
 
@@ -77,53 +80,66 @@ class PolygonReductionBox(CollapsibleBase):
 class ModelPropertiesBox(CollapsibleBase):
     property_name = "coordinate_frame_box"
 
+
 @PluginManager.register_class
 class PhysicsBox(CollapsibleBase):
     property_name = "Physics_box"
+
 
 @PluginManager.register_class
 class RobotSelfCollisionBox(CollapsibleBase):
     property_name = "rself_collision"
 
+
 @PluginManager.register_class
 class LinkBox(CollapsibleBase):
     property_name = "link_box"
+
 
 @PluginManager.register_class
 class SDFCollisionPropertiesBox(CollapsibleBase):
     property_name = "sdf_collision_box"
 
+
 @PluginManager.register_class
 class BounceBox(CollapsibleBase):
     property_name = "bounce_box"
+
 
 @PluginManager.register_class
 class FrictionBox(CollapsibleBase):
     property_name = "friction_box"
 
+
 @PluginManager.register_class
 class ContactBox(CollapsibleBase):
     property_name = "contact_box"
+
 
 @PluginManager.register_class
 class SoftContactBox(CollapsibleBase):
     property_name = "soft_contact_box"
 
+
 @PluginManager.register_class
 class JointLimitsBox(CollapsibleBase):
     property_name = "joint_limits_box"
+
 
 @PluginManager.register_class
 class JointPhysicsBox(CollapsibleBase):
     property_name = "joint_physics_box"
 
+
 @PluginManager.register_class
 class JointDynamicsBox(CollapsibleBase):
     property_name = "joint_dynamics_box"
 
+
 @PluginManager.register_class
 class ControllerBox(CollapsibleBase):
     property_name = "controller_box"
+
 
 @PluginManager.register_class
 class MeshGenerationBox(CollisionBox):
@@ -154,29 +170,36 @@ class EditMusclesBox(CollapsibleBase):
 class MusclePropertiesBox(CollapsibleBase):
     property_name = "muscle_properties_box"
 
+
 @PluginManager.register_class
 class WrappingBox(CollapsibleBase):
     property_name = "wrapping_box"
+
 
 @PluginManager.register_class
 class AttachWrapBox(CollapsibleBase):
     property_name = "attach_wrap_box"
 
+
 @PluginManager.register_class
 class WrapPropertiesBox(CollapsibleBase):
     property_name = "wrap_properties_box"
+
 
 @PluginManager.register_class
 class DebugBox(CollapsibleBase):
     property_name = "debug_box"
 
+
 @PluginManager.register_class
 class SolverBox(CollapsibleBase):
     property_name = "solver_box"
 
+
 @PluginManager.register_class
 class ConstraintsBox(CollapsibleBase):
     property_name = "constraints_box"
+
 
 @PluginManager.register_class
 class SimbodyBox(CollapsibleBase):
@@ -192,7 +215,7 @@ def push_info(message_or_condition):
         ok, potential_error_message = message_or_condition.check()
         if not ok:
             info_list.append(potential_error_message)
-            # print(info_list)
+            # operator_logger.debug(info_list)
     else:
         info_list.append(message_or_condition)
 
@@ -225,16 +248,24 @@ def drawInfoBox(layout, context, infos=[]):
         box = layout.box()
         column = box.column(align=True)
         for text in info_list + infos:
-            print(text)
+            operator_logger.debug(text)
             if text:
-                column.label(text=text, icon='INFO')
+                column.label(text=text, icon="INFO")
         info_list.clear()
 
 
 def create_segment_selector(layout, context):
     global info_list
     single_segment = getSingleSegment(context)
-    layout.menu(menus.SegmentsMenu.bl_idname, text=single_segment.name if single_segment else "Select Segment")
-    global_properties.segment_name.prop_search(context.scene, layout, context.active_object.data, 'bones',
-                                               icon='VIEWZOOM',
-                                               text='')
+    layout.menu(
+        menus.SegmentsMenu.bl_idname,
+        text=single_segment.name if single_segment else "Select Segment",
+    )
+    global_properties.segment_name.prop_search(
+        context.scene,
+        layout,
+        context.active_object.data,
+        "bones",
+        icon="VIEWZOOM",
+        text="",
+    )

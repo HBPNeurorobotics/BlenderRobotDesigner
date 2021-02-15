@@ -1,9 +1,14 @@
 # #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
-# in the Human Brain Project (HBP).
-# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -23,23 +28,21 @@
 #  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 #
 # ##### END GPL LICENSE BLOCK #####
-
 # #####
 #
-# Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
-#
-# Changes:
-#   2015:       Stefan Ulbrich (FZI), Gui redesigned
-#   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#  Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)
+#  Copyright (c) 2016, FZI Forschungszentrum Informatik
+#  Copyright (c) 2017-2021, TUM Technical University of Munich
 #
 # ######
 
 # RobotDesigner imports
 from .model import check_armature
 from .helpers import ControllerBox
+from ..core.logfile import LogFunction
 
 
+@LogFunction
 def draw(layout, context):
     """
     Draws the user interface for modifying the joint controller of a segment.
@@ -53,14 +56,21 @@ def draw(layout, context):
     if context.active_bone is not None:
         # Joint controller properties
         # Only shown for child segments. Unless root segment is connected to world
-        control_box = ControllerBox.get(layout, context, 'Joint Controller Plugin')
+        control_box = ControllerBox.get(layout, context, "Joint Controller Plugin")
         if control_box:
-            if not (context.active_bone.parent is not None) or (context.active_bone.RobotDesigner.world is True):
+            if not (context.active_bone.parent is not None) or (
+                context.active_bone.RobotDesigner.world is True
+            ):
                 control_box.label(text="No Joint defined for this Link.")
             else:
-
-                control_box.prop(context.active_bone.RobotDesigner.jointController, "isActive", text="Active Controller")
-                control_box.prop(context.active_bone.RobotDesigner.jointController, "controllerType")
+                control_box.prop(
+                    context.active_bone.RobotDesigner.jointController,
+                    "isActive",
+                    text="Active Controller",
+                )
+                control_box.prop(
+                    context.active_bone.RobotDesigner.jointController, "controllerType"
+                )
                 control_box.separator()
                 control_box.prop(context.active_bone.RobotDesigner.jointController, "P")
                 control_box.prop(context.active_bone.RobotDesigner.jointController, "I")

@@ -1,9 +1,14 @@
 # #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
-# in the Human Brain Project (HBP).
-# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -26,70 +31,68 @@
 
 # #####
 #
-# Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
-#
-# Changes:
-#
-#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
+#  Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)
+#  Copyright (c) 2016, FZI Forschungszentrum Informatik
+#  Copyright (c) 2017-2021, TUM Technical University of Munich
 #
 # ######
+
 """
 Sphinx-autodoc tag
 """
 
-# ######
-# System imports
-import os
-import sys
-# import math
-
-# ######
 # Blender imports
 import bpy
 from bpy.props import FloatProperty, IntProperty, StringProperty
-# import mathutils
 import bmesh
 
-# ######
 # RobotDesigner imports
 from ..core import config, PluginManager, RDOperator
 from .helpers import ModelSelected, SingleMeshSelected
 from .rigid_bodies import SelectGeometry, AssignGeometry
 from .segments import SelectSegment
 from .model import SelectModel
-from ..properties.globals import global_properties
+
 
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class GenerateAllCollisionMeshes(RDOperator):
     """
-    :ref:`operator` for ...
+    :ref:`operator` for generating all collision meshes
 
     **Preconditions:**
 
     **Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "generatallecollisionmeshes"
     bl_label = "Generate All Collision Meshes"
 
-    shrinkWrapOffset: FloatProperty(name="Shrinkwrap Offset", default=0.001,
-                                    unit='LENGTH', min=0, max=0.5)
+    shrinkWrapOffset: FloatProperty(
+        name="Shrinkwrap Offset", default=0.001, unit="LENGTH", min=0, max=0.5
+    )
     subdivisionLevels: IntProperty(name="Subdivision Levels", default=2)
 
     @RDOperator.OperatorLogger
-    # @Postconditions(ModelSelected)
     def execute(self, context):
-        visuals = [o.name for o in context.scene.objects if o.type == 'MESH'
-                   and o.parent == context.active_object and o.RobotDesigner.tag != "COLLISION"]
+        visuals = [
+            o.name
+            for o in context.scene.objects
+            if o.type == "MESH"
+            and o.parent == context.active_object
+            and o.RobotDesigner.tag != "COLLISION"
+        ]
 
         self.logger.debug("Visuals: %s", visuals)
 
         for i in visuals:
             SelectGeometry.run(geometry_name=i)
-            GenerateCollisionMesh.run(shrinkWrapOffset=self.shrinkWrapOffset, subdivisionLevels=self.subdivisionLevels)
+            GenerateCollisionMesh.run(
+                shrinkWrapOffset=self.shrinkWrapOffset,
+                subdivisionLevels=self.subdivisionLevels,
+            )
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -105,14 +108,19 @@ class GenerateAllCollisionConvexHull(RDOperator):
 
     **Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "generatallecollisionconvexhull"
     bl_label = "Generate Convex Hulls For All Collision Meshes"
 
     @RDOperator.OperatorLogger
-    # @Postconditions(ModelSelected)
     def execute(self, context):
-        visuals = [o.name for o in context.scene.objects if o.type == 'MESH'
-                   and o.parent == context.active_object and o.RobotDesigner.tag != "COLLISION"]
+        visuals = [
+            o.name
+            for o in context.scene.objects
+            if o.type == "MESH"
+            and o.parent == context.active_object
+            and o.RobotDesigner.tag != "COLLISION"
+        ]
 
         self.logger.debug("Visuals: %s", visuals)
 
@@ -121,7 +129,7 @@ class GenerateAllCollisionConvexHull(RDOperator):
             SelectGeometry.run(geometry_name=i)
             GenerateCollisionConvexHull.run()
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -138,11 +146,13 @@ class GenerateCollisionMesh(RDOperator):
 
     **Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "generatecollisionmesh"
     bl_label = "Generate Collision Mesh For Selected"
 
-    shrinkWrapOffset: FloatProperty(name="Shrinkwrap Offset", default=0.001,
-                                    unit='LENGTH', min=0, max=0.5)
+    shrinkWrapOffset: FloatProperty(
+        name="Shrinkwrap Offset", default=0.001, unit="LENGTH", min=0, max=0.5
+    )
     subdivisionLevels: IntProperty(name="Subdivision Levels", default=2)
 
     @classmethod
@@ -153,57 +163,63 @@ class GenerateCollisionMesh(RDOperator):
     def execute(self, context):
         from . import segments, model
 
-        target_name = [i.name for i in bpy.context.selected_objects if i.type == 'MESH'][0]
+        target_name = [
+            i.name for i in bpy.context.selected_objects if i.type == "MESH"
+        ][0]
         self.logger.debug("Creating Collision mesh for: %s", target_name)
         armature = context.active_object.name
 
-        bpy.ops.object.select_all(action='DESELECT')
+        bpy.ops.object.select_all(action="DESELECT")
         bpy.context.view_layer.objects.active = bpy.data.objects[target_name]
 
         d = bpy.data.objects[target_name].dimensions
         bpy.ops.mesh.primitive_cube_add(
             location=bpy.data.objects[target_name].location,
-            rotation=bpy.data.objects[target_name].rotation_euler)
+            rotation=bpy.data.objects[target_name].rotation_euler,
+        )
         bpy.context.object.dimensions = d * 1000000
         bpy.ops.object.transform_apply(scale=True)
-        mod = bpy.context.object.modifiers.new(name='subsurf', type='SUBSURF')
-        mod.subdivision_type = 'SIMPLE'
+        mod = bpy.context.object.modifiers.new(name="subsurf", type="SUBSURF")
+        mod.subdivision_type = "SIMPLE"
         mod.levels = self.subdivisionLevels
-        bpy.ops.object.modifier_apply(modifier='subsurf')
-        mod = bpy.context.object.modifiers.new(name='shrink_wrap',
-                                               type='SHRINKWRAP')
+        bpy.ops.object.modifier_apply(modifier="subsurf")
+        mod = bpy.context.object.modifiers.new(name="shrink_wrap", type="SHRINKWRAP")
         mod.wrap_method = "NEAREST_SURFACEPOINT"
         mod.offset = self.shrinkWrapOffset * 1000
         self.logger.debug("%f, %f", mod.offset, self.shrinkWrapOffset)
         mod.target = bpy.data.objects[target_name]
-        bpy.ops.object.modifier_apply(modifier='shrink_wrap')
+        bpy.ops.object.modifier_apply(modifier="shrink_wrap")
 
         if not bpy.context.object.name.startswith("COL_"):
-            bpy.context.object.name = 'COL_' + target_name[4:]
+            bpy.context.object.name = "COL_" + target_name[4:]
         name = bpy.context.object.name
 
-        context.active_object.RobotDesigner.tag = 'COLLISION'
+        context.active_object.RobotDesigner.tag = "COLLISION"
         self.logger.debug("Created mesh: %s", bpy.context.active_object.name)
 
-        if 'RD_COLLISON_OBJECT_MATERIAL' in bpy.data.materials:
+        if "RD_COLLISON_OBJECT_MATERIAL" in bpy.data.materials:
             bpy.ops.object.material_slot_add()
             context.active_object.data.materials[0] = bpy.data.materials[
-                'RD_COLLISON_OBJECT_MATERIAL']
-            self.logger.debug("Assigned material to : %s",
-                              bpy.context.active_object.name)
+                "RD_COLLISON_OBJECT_MATERIAL"
+            ]
+            self.logger.debug(
+                "Assigned material to : %s", bpy.context.active_object.name
+            )
         else:
             self.logger.debug("Could not find material for collision mesh")
 
-        bpy.ops.object.select_all(action='DESELECT')
+        bpy.ops.object.select_all(action="DESELECT")
 
         model.SelectModel.run(model_name=armature)
-        segments.SelectSegment.run(segment_name=bpy.data.objects[target_name].parent_bone)
+        segments.SelectSegment.run(
+            segment_name=bpy.data.objects[target_name].parent_bone
+        )
         bpy.data.objects[name].select_set(True)
-        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
-        bpy.ops.object.select_all(action='DESELECT')
+        bpy.ops.object.parent_set(type="BONE", keep_transform=True)
+        bpy.ops.object.select_all(action="DESELECT")
         model.SelectModel.run(model_name=armature)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -220,6 +236,7 @@ class GenerateCollisionConvexHull(RDOperator):
 
     **Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "generateconvexhull"
     bl_label = "Generate Convex Hull For Selected"
 
@@ -231,14 +248,16 @@ class GenerateCollisionConvexHull(RDOperator):
     def execute(self, context):
         from . import segments, model
 
-        target_name = [i.name for i in bpy.context.selected_objects if i.type == 'MESH'][0]
+        target_name = [
+            i.name for i in bpy.context.selected_objects if i.type == "MESH"
+        ][0]
 
         self.logger.debug("Creating Collision mesh for: %s", target_name)
         armature = context.active_object.name
 
-        cv_hull_obj_name = 'COL_' + target_name[4:] + "_convex_hull"
+        cv_hull_obj_name = "COL_" + target_name[4:] + "_convex_hull"
 
-        bpy.ops.object.select_all(action='DESELECT')
+        bpy.ops.object.select_all(action="DESELECT")
 
         exp_object = bpy.data.objects[target_name]
         orig_object = bpy.data.objects[target_name]
@@ -248,7 +267,10 @@ class GenerateCollisionConvexHull(RDOperator):
         bpy.ops.object.duplicate()
 
         for obj in bpy.context.scene.objects:
-            if obj.type == 'MESH' and obj.name == target_name + "_CONVEX_HULL_TMP_OBJECT" + ".001":
+            if (
+                obj.type == "MESH"
+                and obj.name == target_name + "_CONVEX_HULL_TMP_OBJECT" + ".001"
+            ):
                 obj.name = cv_hull_obj_name
                 obj.select_set(True)
                 exp_object.select_set(False)
@@ -302,27 +324,31 @@ class GenerateCollisionConvexHull(RDOperator):
 
             exp_object.select_set(True)
 
-            exp_object.RobotDesigner.tag = 'COLLISION'
+            exp_object.RobotDesigner.tag = "COLLISION"
             self.logger.debug("Created mesh: %s", exp_object.name)
 
             orig_object.name = target_name
 
-            bpy.ops.object.select_all(action='DESELECT')
+            bpy.ops.object.select_all(action="DESELECT")
 
-            if 'RD_COLLISON_OBJECT_MATERIAL' in bpy.data.materials:
+            if "RD_COLLISON_OBJECT_MATERIAL" in bpy.data.materials:
                 bpy.ops.object.material_slot_add()
                 context.active_object.data.materials[0] = bpy.data.materials[
-                    'RD_COLLISON_OBJECT_MATERIAL']
-                self.logger.debug("Assigned material to : %s",
-                                  bpy.context.active_object.name)
+                    "RD_COLLISON_OBJECT_MATERIAL"
+                ]
+                self.logger.debug(
+                    "Assigned material to : %s", bpy.context.active_object.name
+                )
             else:
                 self.logger.debug("Could not find material for collision mesh")
 
-            bpy.ops.object.select_all(action='DESELECT')
+            bpy.ops.object.select_all(action="DESELECT")
             model.SelectModel.run(model_name=armature)
-            segments.SelectSegment.run(segment_name=bpy.data.objects[target_name].parent_bone)
+            segments.SelectSegment.run(
+                segment_name=bpy.data.objects[target_name].parent_bone
+            )
             bpy.data.objects[cv_hull_obj_name].select_set(True)
-            bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+            bpy.ops.object.parent_set(type="BONE", keep_transform=True)
             model.SelectModel.run(model_name=armature)
 
         except Exception as e:
@@ -330,9 +356,9 @@ class GenerateCollisionConvexHull(RDOperator):
             self.logger.info("Exception when computing convex hull")
             self.logger.info(type(e))
             self.logger.info(e)
-            return {'CANCELLED'}
+            return {"CANCELLED"}
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ModelSelected)
@@ -345,6 +371,7 @@ class CreateBasicCollisionBox(RDOperator):
 
     **Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "create_basic_collision_box"
     bl_label = "Create Basic Collision Box"
 
@@ -363,22 +390,22 @@ class CreateBasicCollisionBox(RDOperator):
         bpy.ops.mesh.primitive_cube_add(size=1.0)
         cube = context.active_object
         cube.name = "BASCOL_" + self.cube_name
-        bpy.data.objects[cube.name].RobotDesigner.tag = 'BASIC_COLLISION_BOX'
+        bpy.data.objects[cube.name].RobotDesigner.tag = "BASIC_COLLISION_BOX"
 
-        mat = bpy.data.materials.new('blue')
+        mat = bpy.data.materials.new("blue")
         mat.diffuse_color = (0, 0, 1, 0.5)
         # mat.use_transparency = True
         # mat.alpha = 0.3
         # bpy.data.objects[cube.name].show_transparent = True
         cube.data.materials.append(mat)
 
-        bpy.ops.object.select_all(action='DESELECT')
+        bpy.ops.object.select_all(action="DESELECT")
         SelectModel.run(model_name=model.name)
         SelectGeometry.run(geometry_name=cube.name)
         SelectSegment.run(segment_name=segment.name)
-        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+        bpy.ops.object.parent_set(type="BONE", keep_transform=True)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -394,6 +421,7 @@ class CreateBasicCollisionCylinder(RDOperator):
 
     **Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "create_basic_collision_cylinder"
     bl_label = "Create Basic Collision Cylinder"
 
@@ -412,25 +440,26 @@ class CreateBasicCollisionCylinder(RDOperator):
         bpy.ops.mesh.primitive_cylinder_add(radius=1.0, depth=1.0)
         cylinder = context.active_object
         cylinder.name = "BASCOL_" + self.cylinder_name
-        bpy.data.objects[cylinder.name].RobotDesigner.tag = 'BASIC_COLLISION_CYLINDER'
+        bpy.data.objects[cylinder.name].RobotDesigner.tag = "BASIC_COLLISION_CYLINDER"
 
-        mat = bpy.data.materials.new('blue')
+        mat = bpy.data.materials.new("blue")
         mat.diffuse_color = (0, 0, 1, 0.5)
         # mat.use_transparency = True
         # mat.alpha = 0.3
         # bpy.data.objects[cylinder.name].show_transparent = True
         cylinder.data.materials.append(mat)
 
-        bpy.ops.object.select_all(action='DESELECT')
+        bpy.ops.object.select_all(action="DESELECT")
         SelectModel.run(model_name=model.name)
         SelectGeometry.run(geometry_name=cylinder.name)
         SelectSegment.run(segment_name=segment.name)
-        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+        bpy.ops.object.parent_set(type="BONE", keep_transform=True)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
+
 
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
@@ -442,6 +471,7 @@ class CreateBasicCollisionSphere(RDOperator):
 
     **Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "create_basic_collision_sphere"
     bl_label = "Create Basic Collision Sphere"
 
@@ -460,22 +490,22 @@ class CreateBasicCollisionSphere(RDOperator):
         bpy.ops.mesh.primitive_uv_sphere_add(radius=1.0)
         sphere = context.active_object
         sphere.name = "BASCOL_" + self.sphere_name
-        bpy.data.objects[sphere.name].RobotDesigner.tag = 'BASIC_COLLISION_SPHERE'
+        bpy.data.objects[sphere.name].RobotDesigner.tag = "BASIC_COLLISION_SPHERE"
 
-        mat = bpy.data.materials.new('blue')
+        mat = bpy.data.materials.new("blue")
         mat.diffuse_color = (0, 0, 1, 0.5)
         # mat.use_transparency = True
         # mat.alpha = 0.3
         # bpy.data.objects[sphere.name].show_transparent = True
         sphere.data.materials.append(mat)
 
-        bpy.ops.object.select_all(action='DESELECT')
+        bpy.ops.object.select_all(action="DESELECT")
         SelectModel.run(model_name=model.name)
         SelectGeometry.run(geometry_name=sphere.name)
         SelectSegment.run(segment_name=segment.name)
-        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+        bpy.ops.object.parent_set(type="BONE", keep_transform=True)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)

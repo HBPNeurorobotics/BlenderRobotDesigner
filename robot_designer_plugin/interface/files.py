@@ -1,9 +1,14 @@
 # #####
-# This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)
-# in the Human Brain Project (HBP).
-# It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)
-# developed at the Karlsruhe Institute of Technology in the
-# High Performance Humanoid Technologies Laboratory (H2T).
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
 # #####
 
 # ##### BEGIN GPL LICENSE BLOCK #####
@@ -26,30 +31,29 @@
 
 # #####
 #
-# Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)
-# Copyright (c) 2016, FZI Forschungszentrum Informatik
+#  Copyright (c) 2015, Karlsruhe Institute of Technology (KIT)
+#  Copyright (c) 2016, FZI Forschungszentrum Informatik
+#  Copyright (c) 2017-2021, TUM Technical University of Munich
 #
-# Changes:
-#   2015:       Stefan Ulbrich (FZI), Gui redesigned
-#   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
-#   2017:       Benedikt Feldotto (TUM), SDF and URDF re-integration, GUI unification, Model MetaData
 # ######
 
 # Blender imports
 import bpy
 
 # RobotDesigner imports
-from .model import check_armature
 from ..core import PluginManager
 from ..core.gui import InfoBox
 from ..properties.globals import global_properties
 from ..operators import file_tools
 from .helpers import DebugBox
 from . import menus
+from ..core.logfile import LogFunction
 
+
+@LogFunction
 def draw(layout, context):
     """
-    Draws the user interface for file operations (i.e., import/export)
+    Draws the user interface for model file operations (i.e., import/export)
 
     :param layout: Current GUI element (e.g., collapsible box, row, etc.)
     :param context: Blender context
@@ -58,19 +62,37 @@ def draw(layout, context):
     box = layout.box()
     box.label(text="Model Meta Data")
 
-    if context.active_object and context.active_object.type == 'ARMATURE' \
-            and global_properties.model_name.get(bpy.context.scene) != 'None':
-
+    if (
+        context.active_object
+        and context.active_object.type == "ARMATURE"
+        and global_properties.model_name.get(bpy.context.scene) != "None"
+    ):
 
         model_box = box.box()
         model_box.label(text="Description")
 
         global_properties.model_name.prop(context.scene, model_box)
 
-        model_box.prop(bpy.context.active_object.RobotDesigner.modelMeta, 'model_config', text='Config Name')
-        model_box.prop(bpy.context.active_object.RobotDesigner.modelMeta, 'model_version', text='Version')
-        model_box.prop(bpy.context.active_object.RobotDesigner.modelMeta, 'model_description', text='Description')
-        model_box.prop(bpy.context.active_object.RobotDesigner.modelMeta, 'model_folder', text='Folder Name')
+        model_box.prop(
+            bpy.context.active_object.RobotDesigner.modelMeta,
+            "model_config",
+            text="Config Name",
+        )
+        model_box.prop(
+            bpy.context.active_object.RobotDesigner.modelMeta,
+            "model_version",
+            text="Version",
+        )
+        model_box.prop(
+            bpy.context.active_object.RobotDesigner.modelMeta,
+            "model_description",
+            text="Description",
+        )
+        model_box.prop(
+            bpy.context.active_object.RobotDesigner.modelMeta,
+            "model_folder",
+            text="Folder Name",
+        )
 
         author_box = box.box()
         author_box.label(text="Author")
@@ -79,14 +101,18 @@ def draw(layout, context):
         # file.CreateAuthor.place_button(author_box, "Create new")
         # author_box.menu(menus.AuthorMenu.bl_idname, text="Author 1")
 
-        author_box.prop(bpy.context.active_object.RobotDesigner.author, 'authorName', text='Name')
-        author_box.prop(bpy.context.active_object.RobotDesigner.author, 'authorEmail', text='Email')
+        author_box.prop(
+            bpy.context.active_object.RobotDesigner.author, "authorName", text="Name"
+        )
+        author_box.prop(
+            bpy.context.active_object.RobotDesigner.author, "authorEmail", text="Email"
+        )
 
     else:
         box.menu(menus.ModelMenu.bl_idname, text="Select Robot")
 
     file_box = layout.box()
-    file_box.label(text='Import/Export')
+    file_box.label(text="Import/Export")
 
     # # GIT upload/download support functions
     # global_properties.storage_mode.prop(context.scene,layout, expand=True)
@@ -100,20 +126,27 @@ def draw(layout, context):
     # elif storage_mode == 'temporary':
     #      global_properties.git_url.prop(context.scene, layout)
 
-
     # export options
     file_options_box = file_box.box()
-    file_options_box.label(text='Export Options')
+    file_options_box.label(text="Export Options")
     row = file_options_box.row()
-    global_properties.export_thumbnail.prop(context.scene, row, text='Thumbnail')
+    global_properties.export_thumbnail.prop(context.scene, row, text="Thumbnail")
     row = file_options_box.row()
-    row.label(text='Rqt Multiplot')
-    global_properties.export_rqt_multiplot_jointcontroller.prop(context.scene, row, text='Joints')
-    global_properties.export_rqt_multiplot_muscles.prop(context.scene, row, text='Muscles')
+    row.label(text="Rqt Multiplot")
+    global_properties.export_rqt_multiplot_jointcontroller.prop(
+        context.scene, row, text="Joints"
+    )
+    global_properties.export_rqt_multiplot_muscles.prop(
+        context.scene, row, text="Muscles"
+    )
     row = file_options_box.row()
-    row.label(text='Rqt Ez Publisher')
-    global_properties.export_rqt_ez_publisher_jointcontroller.prop(context.scene, row, text='Joints')
-    global_properties.export_rqt_ez_publisher_muscles.prop(context.scene, row, text='Muscles')
+    row.label(text="Rqt Ez Publisher")
+    global_properties.export_rqt_ez_publisher_jointcontroller.prop(
+        context.scene, row, text="Joints"
+    )
+    global_properties.export_rqt_ez_publisher_muscles.prop(
+        context.scene, row, text="Muscles"
+    )
     row = file_options_box.row()
     column = row.column()
 
@@ -136,22 +169,20 @@ def draw(layout, context):
             info_row = button_columns.row()
             infoBox = InfoBox(info_row)
 
-
             if not draw_function:
-                for operator in operators[:len(operators)//2]:
+                for operator in operators[: len(operators) // 2]:
                     # Import operators
                     operator.place_button(layout=column_import, infoBox=infoBox)
 
-                for operator in operators[len(operators)//2:]:
+                for operator in operators[len(operators) // 2 :]:
                     # Export operators
                     operator.place_button(layout=column_export, infoBox=infoBox)
 
             infoBox.draw_info()
         plugins.append(label)
 
-
     tools_box = layout.box()
-    tools_box.label(text='File Tools')
+    tools_box.label(text="File Tools")
 
     row = tools_box.row(align=True)
     row.operator(file_tools.ConvertDAEPackages.bl_idname)
@@ -164,12 +195,9 @@ def draw(layout, context):
     if debug_box:
 
         row = debug_box.row()
-        row.label(text='Level')
+        row.label(text="Level")
         global_properties.operator_debug_level.prop(bpy.context.scene, row, expand=True)
 
         row = debug_box.column(align=False)
         row.operator(file_tools.PrintTransformations.bl_idname)
-        row.operator('script.reload', text="Reload Addon Scripts")
-
-
-
+        row.operator("script.reload", text="Reload Addon Scripts")

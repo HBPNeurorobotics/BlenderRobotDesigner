@@ -40,26 +40,21 @@
 Sphinx-autodoc tag
 """
 
-# ######
 # System imports
 # import os
 # import sys
 # import math
 
-# ######
 # Blender imports
-import bpy
 from bpy.props import StringProperty
-# import mathutils
 
-# ######
 # RobotDesigner imports
 from ..core import config, PluginManager
 from ..core.operators import RDOperator, OperatorLogger, Postconditions, checkConditions
 
 from .helpers import ModelSelected, SingleMeshSelected
 
-# NEVER import oder operators in the toplevel (avaid circular depedencies)
+# NEVER import oder operators in the toplevel (avoid circular depedencies)
 # and, above all, not with the from .. import statement (multiple registration)
 
 @RDOperator.Preconditions(ModelSelected, SingleMeshSelected)
