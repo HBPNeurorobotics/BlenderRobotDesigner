@@ -33,6 +33,7 @@
 #   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
+
 """
 This submodule provides the base class and decorators, and some functions for defining Blender :term:`operators` that
 register automatically.

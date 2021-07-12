@@ -1,0 +1,6 @@
+# Optional pip requirements list for Robot Designer Blender Plugin documentation building
+wheel
+pyxb==1.2.5
+sphinx
+sphinx-autodoc-typehints
+hbp-sphinx-theme

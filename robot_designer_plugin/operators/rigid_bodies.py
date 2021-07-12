@@ -35,25 +35,19 @@
 #
 # ######
 
-# ######
-# System imports
-# import os
-# import sys
-# import math
-
-# ######
 # Blender imports
 import bpy
-import bmesh
 from bpy.props import StringProperty, BoolProperty
-# import mathutils
 
-# ######
 # RobotDesigner imports
-from ..core import config, PluginManager, Condition, RDOperator
-from .helpers import ModelSelected, SingleMeshSelected, ObjectMode, SingleSegmentSelected, NotEditMode
-from .model import SelectModel
-
+from ..core import config, PluginManager, RDOperator
+from .helpers import (
+    ModelSelected,
+    SingleMeshSelected,
+    ObjectMode,
+    SingleSegmentSelected,
+)
+from ..core.logfile import operator_logger
 from ..properties.globals import global_properties
 
 
@@ -65,6 +59,7 @@ class SelectGeometry(RDOperator):
     :ref:`Operator <operator>` for selecting a geometry (:class:`bpy.types.Object` with `bpy.types.Mesh` data)
     second to the selected model (Blender object with :class:`bpy.types.Armature` data)
     """
+
     bl_idname = config.OPERATOR_PREFIX + "select_geometry"
     bl_label = "Select Geometry"
 
@@ -79,17 +74,17 @@ class SelectGeometry(RDOperator):
     def execute(self, context):
         mesh = bpy.data.objects[self.geometry_name]
 
-        if mesh.type != 'MESH':
-            self.report({'ERROR'}, 'Object is no geometry (Mesh). Is %s' % mesh.type)
-            global_properties.mesh_name.set(context.scene, 'Search')
-            return {'FINISHED'}
+        if mesh.type != "MESH":
+            self.report({"ERROR"}, "Object is no geometry (Mesh). Is %s" % mesh.type)
+            global_properties.mesh_name.set(context.scene, "Search")
+            return {"FINISHED"}
 
         # Has the side effect of de-selecting all other objects except for the armature and our mesh.
         global_properties.mesh_name.set(context.scene, self.geometry_name)
 
         #    context.region.tag_redraw()
         #    context.area.tag_redraw()
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ModelSelected)
@@ -103,7 +98,6 @@ class RenameGeometry(RDOperator):
     bl_label = "Rename Selected Mesh"
     new_name: StringProperty(name="Enter new name:")
 
-
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
@@ -113,7 +107,7 @@ class RenameGeometry(RDOperator):
         bpy.data.scenes["Scene"].RobotDesigner.mesh_name = current_mesh.name
         bpy.data.objects[current_mesh.name].RobotDesigner.fileName = current_mesh.name
         global_properties.mesh_name.set(context.scene, current_mesh.name)
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -122,18 +116,22 @@ class RenameGeometry(RDOperator):
     def run(cls, new_name=""):
         return super().run(**cls.pass_keywords())
 
+
 @RDOperator.Preconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
 @PluginManager.register_class
 class AssignGeometry(RDOperator):
     """
     :ref:`operator` for assigning a geometry to a segment.
     """
+
     bl_idname = config.OPERATOR_PREFIX + "assign_geometry"
     bl_label = "Assign Selected Geometry to Active Segment"
 
-    attach_collision_geometry: BoolProperty(name="Assign as Collision Mesh",
-                                             description="Adds a collision tag to the mesh",
-                                             default=False)
+    attach_collision_geometry: BoolProperty(
+        name="Assign as Collision Mesh",
+        description="Adds a collision tag to the mesh",
+        default=False,
+    )
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
@@ -143,37 +141,50 @@ class AssignGeometry(RDOperator):
         # in which case parent_bone should be left empty.
         # See also https://blender.stackexchange.com/questions/9200/make-object-a-a-parent-of-object-b-via-python
         # At this point bpy.context.scene.objects.active should point to the armature which will be the parent.
-        bpy.ops.object.parent_set(type='BONE', keep_transform=True)
+        bpy.ops.object.parent_set(type="BONE", keep_transform=True)
         # In order to get the child we have to jump through some hoops.
         obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
 
         # Change the name depending on whether we want collision geometry or visual geometry.
 
         def maybe_remove_prefix(s, prefix):
-            return s[len(prefix):] if s.startswith(prefix) else s
+            return s[len(prefix) :] if s.startswith(prefix) else s
 
         def maybe_remove_postfix(s, postfix):
-            return s[:-len(postfix)] if s.endswith(postfix) else s
+            return s[: -len(postfix)] if s.endswith(postfix) else s
 
         new_name = obj.name
-        new_name = maybe_remove_postfix(new_name, '.001')  # Heuristic to remove the suffix created by cloning.
+        new_name = maybe_remove_postfix(
+            new_name, ".001"
+        )  # Heuristic to remove the suffix created by cloning.
         # Heuristics to remove previously assigned prefixes.
         # Since the prefix is regenerated it seems in order to try to remove the old prefix.
-        if len(new_name) > len('VIS_'):
-            new_name = maybe_remove_prefix(new_name, 'VIS_')
-        if len(new_name) > len('COL_'):
-            new_name = maybe_remove_prefix(new_name, 'COL_')
+        if len(new_name) > len("VIS_"):
+            new_name = maybe_remove_prefix(new_name, "VIS_")
+        if len(new_name) > len("COL_"):
+            new_name = maybe_remove_prefix(new_name, "COL_")
 
-        print("Attaching ", "COL" if self.attach_collision_geometry else "VIS", "to ", obj.name)
+        operator_logger.info(
+            "Attaching ",
+            "COL" if self.attach_collision_geometry else "VIS",
+            "to ",
+            obj.name,
+        )
 
-        if self.attach_collision_geometry and \
-                obj.RobotDesigner.tag != 'COLLISION' and 'BASIC_COLLISION_' not in obj.RobotDesigner.tag:
-            obj.RobotDesigner.tag = 'COLLISION'
+        if (
+            self.attach_collision_geometry
+            and obj.RobotDesigner.tag != "COLLISION"
+            and "BASIC_COLLISION_" not in obj.RobotDesigner.tag
+        ):
+            obj.RobotDesigner.tag = "COLLISION"
             new_name = "COL_" + new_name
-        elif obj.RobotDesigner.tag == 'COLLISION' or 'BASIC_COLLISION_' in obj.RobotDesigner.tag:
+        elif (
+            obj.RobotDesigner.tag == "COLLISION"
+            or "BASIC_COLLISION_" in obj.RobotDesigner.tag
+        ):
             pass
         else:
-            obj.RobotDesigner.tag = 'DEFAULT'
+            obj.RobotDesigner.tag = "DEFAULT"
             new_name = "VIS_" + new_name
         obj.name = new_name
         obj.RobotDesigner.fileName = new_name
@@ -182,7 +193,7 @@ class AssignGeometry(RDOperator):
         # This is just a boolean variable which is reset here to False. It helps
         # determine whether we want a collision mesh or a visual one.
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self, width=400)
@@ -194,6 +205,7 @@ class RenameAllGeometries(RDOperator):
     """
     :ref:`operator` for renaming geometries using their parented segment's name.
     """
+
     bl_idname = config.OPERATOR_PREFIX + "rename_geometries"
     bl_label = "Rename Geometries After Segments"
 
@@ -205,6 +217,7 @@ class RenameAllGeometries(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         import collections
+
         mesh_name = global_properties.mesh_name.get(context.scene)
         current_mesh = bpy.data.objects[mesh_name]
         armature = context.active_object
@@ -212,18 +225,20 @@ class RenameAllGeometries(RDOperator):
         # Too late to make the filename member unique. Therefore let's keep track of duplicate names by ourselves.
         duplication_count = collections.defaultdict(int)
         for i in armature.children:
-            if i.parent_bone != '' and i.type == 'MESH':
-                new_name = i.name.split('_')[0] + '_' + i.parent_bone
+            if i.parent_bone != "" and i.type == "MESH":
+                new_name = i.name.split("_")[0] + "_" + i.parent_bone
                 num = duplication_count[new_name]
                 duplication_count[new_name] = num + 1
                 if num > 0:
-                    new_name += '_%i' % num
+                    new_name += "_%i" % num
                 i.name = new_name
                 i.RobotDesigner.fileName = new_name
 
-        global_properties.mesh_name.set(context.scene, current_mesh.name[:4] + current_mesh.parent_bone)
+        global_properties.mesh_name.set(
+            context.scene, current_mesh.name[:4] + current_mesh.parent_bone
+        )
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 # operator to unassign mesh from bone
@@ -233,6 +248,7 @@ class DetachGeometry(RDOperator):
     """
     :term:`operator` for detaching a single :term:`geometry` form a :term:`segment`.
     """
+
     bl_idname = config.OPERATOR_PREFIX + "unassignmesh"
     bl_label = "Detach Selected Geometry"
 
@@ -244,11 +260,12 @@ class DetachGeometry(RDOperator):
     @RDOperator.Postconditions(ModelSelected, SingleMeshSelected)
     def execute(self, context):
         from . import segments, model
+
         mesh_name = global_properties.mesh_name.get(context.scene)
         current_mesh = bpy.data.objects[mesh_name]
         mesh_global = current_mesh.matrix_world
         current_mesh.parent = None
-        current_mesh.RobotDesigner.tag = 'DEFAULT'
+        current_mesh.RobotDesigner.tag = "DEFAULT"
         if current_mesh.name.startswith("VIS_") or current_mesh.name.startswith("COL_"):
             current_mesh.name = current_mesh.name[4:]
         elif current_mesh.name.startswith("BASCOL_"):
@@ -258,7 +275,7 @@ class DetachGeometry(RDOperator):
 
         global_properties.mesh_name.set(context.scene, current_mesh.name)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ModelSelected)
@@ -267,11 +284,13 @@ class DetachAllGeometries(RDOperator):
     """
     :ref:`operator` for detaching *all* :term:`geometries` from the selected :term:`model`.
     """
+
     bl_idname = config.OPERATOR_PREFIX + "unassignallmeshes"
     bl_label = "Detach All Geometries"
 
     confirmation: BoolProperty(
-        name="This disconnects all collision OR visual geometries from the model. Are you sure?")
+        name="This disconnects all collision OR visual geometries from the model. Are you sure?"
+    )
 
     @classmethod
     def run(cls, confirmation=True):
@@ -281,19 +300,39 @@ class DetachAllGeometries(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         mesh_type = global_properties.display_mesh_selection.get(context.scene)
-        if mesh_type == 'all':
-            meshes = [obj for obj in bpy.data.objects if
-                      obj.type == 'MESH' and obj.parent_bone is not '' and
-                      obj.RobotDesigner.tag != 'WRAPPING' and obj.RobotDesigner.tag != 'PHYSICS_FRAME']
-        elif mesh_type == 'visual':
-            meshes = [obj for obj in bpy.data.objects if
-                      obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotDesigner.tag == 'DEFAULT']
-        elif mesh_type == 'collision':
-            meshes = [obj for obj in bpy.data.objects if
-                      obj.type == 'MESH' and obj.parent_bone is not '' and obj.RobotDesigner.tag == 'COLLISION']
-        elif mesh_type == 'bascol':
-            meshes = [obj for obj in bpy.data.objects if
-                      obj.type == 'MESH' and obj.parent_bone is not '' and 'BASIC_COLLISION_' in obj.RobotDesigner.tag]
+        if mesh_type == "all":
+            meshes = [
+                obj
+                for obj in bpy.data.objects
+                if obj.type == "MESH"
+                and obj.parent_bone is not ""
+                and obj.RobotDesigner.tag != "WRAPPING"
+                and obj.RobotDesigner.tag != "PHYSICS_FRAME"
+            ]
+        elif mesh_type == "visual":
+            meshes = [
+                obj
+                for obj in bpy.data.objects
+                if obj.type == "MESH"
+                and obj.parent_bone is not ""
+                and obj.RobotDesigner.tag == "DEFAULT"
+            ]
+        elif mesh_type == "collision":
+            meshes = [
+                obj
+                for obj in bpy.data.objects
+                if obj.type == "MESH"
+                and obj.parent_bone is not ""
+                and obj.RobotDesigner.tag == "COLLISION"
+            ]
+        elif mesh_type == "bascol":
+            meshes = [
+                obj
+                for obj in bpy.data.objects
+                if obj.type == "MESH"
+                and obj.parent_bone is not ""
+                and "BASIC_COLLISION_" in obj.RobotDesigner.tag
+            ]
         else:
             self.confirmation = False
 
@@ -303,12 +342,12 @@ class DetachAllGeometries(RDOperator):
                 DetachGeometry.run()
                 if mesh.name.startswith("VIS_") or mesh.name.startswith("COL_"):
                     mesh.name = mesh.name[4:]
-                    mesh.RobotDesigner.tag = 'DEFAULT'
+                    mesh.RobotDesigner.tag = "DEFAULT"
                 elif mesh.name.startswith("BASCOL_"):
                     mesh.name = mesh.name[7:]
-                    mesh.RobotDesigner.tag = 'DEFAULT'
+                    mesh.RobotDesigner.tag = "DEFAULT"
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -324,6 +363,7 @@ class SelectAllGeometries(RDOperator):
 
 
     """
+
     bl_idname = config.OPERATOR_PREFIX + "setallmeshesactiveobject"
     bl_label = "Select All Geometries"
 
@@ -335,17 +375,19 @@ class SelectAllGeometries(RDOperator):
     @RDOperator.Postconditions(ObjectMode)
     def execute(self, context):
         mesh_type = global_properties.mesh_type.get(context.scene)
-        meshes = {obj.name for obj in context.scene.objects if
-                  not obj.parent_bone is None and
-                  obj.type == 'MESH'}
-        bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.ops.object.select_all(action='DESELECT')
+        meshes = {
+            obj.name
+            for obj in context.scene.objects
+            if not obj.parent_bone is None and obj.type == "MESH"
+        }
+        bpy.ops.object.mode_set(mode="OBJECT")
+        bpy.ops.object.select_all(action="DESELECT")
 
         for mesh in meshes:
             bpy.data.objects[mesh].select_set(True)
             context.view_layer.objects.active = bpy.data.objects[mesh]
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ModelSelected, ObjectMode, SingleMeshSelected)
@@ -354,6 +396,7 @@ class SetGeometryActive(RDOperator):
     """
     :ref:`operator` for ...
     """
+
     bl_idname = config.OPERATOR_PREFIX + "setseletedmeshactiveobject"
     bl_label = "Make Geometry Active"
 
@@ -363,12 +406,12 @@ class SetGeometryActive(RDOperator):
 
     @RDOperator.OperatorLogger
     def execute(self, context):
-        selected = [i.name for i in bpy.context.selected_objects if i.type == 'MESH'][0]
-        bpy.ops.object.mode_set(mode='OBJECT')
-        bpy.ops.object.select_all(action='DESELECT')
+        selected = [i.name for i in bpy.context.selected_objects if i.type == "MESH"][0]
+        bpy.ops.object.mode_set(mode="OBJECT")
+        bpy.ops.object.select_all(action="DESELECT")
         bpy.data.objects[selected].select_set(True)
         context.view_layer.objects.active = bpy.data.objects[selected]
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ModelSelected, SingleMeshSelected)
@@ -379,6 +422,7 @@ class ReduceAllGeometry(RDOperator):
 
 
     """
+
     bl_idname = config.OPERATOR_PREFIX + "polygonallreduction"
     bl_label = "Apply to All Meshes"
 
@@ -392,23 +436,36 @@ class ReduceAllGeometry(RDOperator):
         armature = context.active_object
 
         hide_geometry = global_properties.display_mesh_selection.get(context.scene)
-        meshes = [obj for obj in armature.children if
-                  obj.parent_bone is not None and obj.type == 'MESH']
+        meshes = [
+            obj
+            for obj in armature.children
+            if obj.parent_bone is not None and obj.type == "MESH"
+        ]
 
-        if hide_geometry != 'all':
-            meshes = [item for item in meshes
-                      if (hide_geometry == 'collision' and item.RobotDesigner.tag == 'COLLISION')
-                      or (hide_geometry == 'visual' and item.RobotDesigner.tag == 'DEFAULT')]
+        if hide_geometry != "all":
+            meshes = [
+                item
+                for item in meshes
+                if (
+                    hide_geometry == "collision"
+                    and item.RobotDesigner.tag == "COLLISION"
+                )
+                or (hide_geometry == "visual" and item.RobotDesigner.tag == "DEFAULT")
+            ]
 
         mesh_names = [m.name for m in meshes]
         del meshes  # Don't want to get into trouble with danling pointers again.
 
-        ratio_act = bpy.data.objects[global_properties.mesh_name.get(context.scene)].modifiers["Decimate"].ratio
+        ratio_act = (
+            bpy.data.objects[global_properties.mesh_name.get(context.scene)]
+            .modifiers["Decimate"]
+            .ratio
+        )
         for selected_mesh in mesh_names:
             obj = bpy.data.objects[selected_mesh]
             try:
                 obj.modifiers["Decimate"].ratio = ratio_act
             except KeyError:
-                obj.modifiers.new("Decimate", 'DECIMATE').ratio = ratio_act
+                obj.modifiers.new("Decimate", "DECIMATE").ratio = ratio_act
 
-        return {'FINISHED'}
+        return {"FINISHED"}

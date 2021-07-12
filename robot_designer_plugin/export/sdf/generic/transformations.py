@@ -186,10 +186,11 @@ True
 
 """
 
+
+# System imports
+
 from __future__ import division, print_function
-
 import math
-
 import numpy
 
 __version__ = '2013.06.29'

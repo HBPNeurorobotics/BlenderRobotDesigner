@@ -44,23 +44,21 @@ Note: modify :meth:`pyxb.binding.basis._TypeBinding_mixin.toxml` to call :meth:`
 
 """
 
-# ######
 # System imports
 import os
 from math import radians
 import tempfile
 
-# ######
 # Blender imports
 import bpy
 from bpy.props import StringProperty, BoolProperty
 from mathutils import Vector
 
-# ######
 # RobotDesigner imports
 from .generic import urdf_tree
 from .generic.helpers import list_to_string
 from ...core import config, PluginManager, RDOperator
+from ...core.logfile import export_logger
 from ...operators.helpers import ModelSelected, ObjectMode
 from ...operators.model import SelectModel
 
@@ -103,7 +101,7 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
     # There is max. 1 object in the list
     assert len(meshes) <= 1
     for mesh in meshes:
-        operator.logger.debug("Processing mesh: %s", mesh)
+        export_logger.debug("Processing mesh: %s", mesh)
 
         model_name = bpy.context.active_object.name
         bpy.ops.object.select_all(action='DESELECT')
@@ -113,7 +111,7 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
 
         # get the mesh vertices number
         bm = bpy.context.scene.objects.active.data
-        # print("# of vertices=%d" % len(bm.vertices))
+        # export_logger.debug("# of vertices=%d" % len(bm.vertices))
 
         if len(bm.vertices) > 1:
             if '.' in mesh:
@@ -198,7 +196,7 @@ def walk_segments(segment, tree):
         child.joint.axis.xyz = list_to_string(Vector((0, 0, 1)) * revert)
 
     if segment.parent is None:
-        print("Debug: parent bone is none", segment,
+        export_logger.debug("Debug: parent bone is none", segment,
               segment.RobotDesigner.jointMode)
         child.joint.type = 'fixed'
     else:
@@ -240,7 +238,7 @@ def walk_segments(segment, tree):
             visual.origin.xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
             visual.origin.rpy = list_to_string(pose.to_euler())
         else:
-            operator.logger.info("No visual model for: %s", mesh)
+            export_logger.info("No visual model for: %s", mesh)
 
         collision_path = export_mesh(operator, context, mesh, meshpath, toplevel_directory,
                                      in_ros_package, abs_filepaths, export_collision=True)
@@ -252,7 +250,7 @@ def walk_segments(segment, tree):
             collision.origin.xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
             collision.origin.rpy = list_to_string(pose.to_euler())
         else:
-            operator.logger.info("No collision model for: %s", mesh)
+            export_logger.info("No collision model for: %s", mesh)
 
     # todo: pick up the real values from Physics Frame?
 
@@ -267,7 +265,7 @@ def walk_segments(segment, tree):
     for frame in frame_names:
         # Add inertial definitions (for Gazebo)
         inertial = child.add_inertial()
-        print(inertial, inertial.__dict__)
+        export_logger.debug(inertial, inertial.__dict__)
         if bpy.data.objects[frame].parent_bone == segment.name:
             # set mass
             inertial.mass.value_ = bpy.data.objects[frame].RobotDesigner.dynamics.mass
@@ -318,7 +316,7 @@ def walk_segments(segment, tree):
     for segments in root_segments:
         walk_segments(segments, root)
 
-    operator.logger.info("Writing to '%s'" % filepath)
+    export_logger.info("Writing to '%s'" % filepath)
     root.write(filepath)
 
     # insert gazebo tags before "</robot>" tag
@@ -344,7 +342,7 @@ def create_package(operator: RDOperator, context, toplevel_dir, base_link_name):
     import os
     import shutil
 
-    operator.logger.debug('Exporting to: %s', toplevel_dir)
+    export_logger.debug('Exporting to: %s', toplevel_dir)
     robot_name = context.active_object.name
 
     target = os.path.join(toplevel_dir, robot_name + '_description')
@@ -353,7 +351,7 @@ def create_package(operator: RDOperator, context, toplevel_dir, base_link_name):
        shutil.copytree(os.path.join(config.resource_path,
                                  'robot_name_description'), target)
     except FileExistsError:
-        operator.logger.error('Attempted to overwrite existing package')
+        export_logger.error('Attempted to overwrite existing package')
         operator.report({'ERROR'}, 'File %s exists' % target)
 
     for dname, dirs, files in os.walk(target, topdown=False):
@@ -362,7 +360,7 @@ def create_package(operator: RDOperator, context, toplevel_dir, base_link_name):
                        os.path.join(dname, dir.replace("robot_name", robot_name)))
 
         for fname in files:
-            operator.logger.debug('File: %s, %s, %s, %s',
+            export_logger.debug('File: %s, %s, %s, %s',
                               fname, dname, dirs, robot_name)
             fpath = os.path.join(dname, fname)
             try:

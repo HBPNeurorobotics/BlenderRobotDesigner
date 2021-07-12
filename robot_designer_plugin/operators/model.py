@@ -34,26 +34,18 @@
 #   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
+
 """
 Sphinx-autodoc tag
 """
 
-# ######
-# System imports
-# import os
-# import sys
-# import math
-
-# ######
 # Blender imports
 import bpy
 from bpy.props import StringProperty
-# import mathutils
 
-# ######
 # RobotDesigner imports
-from ..core import config, PluginManager, RDOperator, Condition
-from .helpers import ModelSelected, NotEditMode, ObjectMode
+from ..core import config, PluginManager, RDOperator
+from .helpers import ModelSelected, ObjectMode
 from ..properties.globals import global_properties
 
 
@@ -67,6 +59,7 @@ class SelectCoordinateFrame(RDOperator):
 
     **RDOperator.Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "selectcf"
     bl_label = "Select Mesh"
 
@@ -83,14 +76,16 @@ class SelectCoordinateFrame(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
-        for bone in [i.name for i in bpy.data.armatures[
-            context.active_object.data.name].bones]:
-            if self.mesh_name != 'None':
-                context.active_object.pose.bones[bone].custom_shape = \
-                    bpy.data.objects[self.mesh_name]
+        for bone in [
+            i.name for i in bpy.data.armatures[context.active_object.data.name].bones
+        ]:
+            if self.mesh_name != "None":
+                context.active_object.pose.bones[bone].custom_shape = bpy.data.objects[
+                    self.mesh_name
+                ]
             else:
                 context.active_object.pose.bones[bone].custom_shape = None
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ModelSelected)
@@ -104,6 +99,7 @@ class RebuildModel(RDOperator):
 
     **RDOperator.Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "rebuildmodel"
     bl_label = "Rebuild Model"
 
@@ -119,8 +115,12 @@ class RebuildModel(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         from . import rigid_bodies, segments, dynamics
-        mesh_names = [obj.name for obj in context.scene.objects if
-                      obj.type == 'MESH' and obj.parent_bone]
+
+        mesh_names = [
+            obj.name
+            for obj in context.scene.objects
+            if obj.type == "MESH" and obj.parent_bone
+        ]
         # first, meshes
         # build dictionary which stores the mapping of meshes to bones
         meshes_bones_dictionary = dict()
@@ -138,11 +138,10 @@ class RebuildModel(RDOperator):
             rigid_bodies.AssignGeometry.run()
 
         # then markers
-        marker_names = [obj.name for obj in context.scene.objects if
-                        obj.RobotDesigner.tag == 'MARKER' and obj.parent_bone]
-
-        marker_bones_dictionary = dict()
-
+        # marker_names = [obj.name for obj in context.scene.objects if
+        #                obj.RobotDesigner.tag == 'MARKER' and obj.parent_bone]
+        #
+        # marker_bones_dictionary = dict()
         # for m in marker_names:
         #     marker_bones_dictionary[m] = bpy.data.objects[m].parent_bone
         #     designer.selectmarker(markerName=m)
@@ -154,8 +153,11 @@ class RebuildModel(RDOperator):
         #     designer.assignmarker()
 
         # finally, physic frames
-        ph_names = [obj.name for obj in context.scene.objects if
-                    obj.RobotDesigner.tag == 'PHYSICS_FRAME' and obj.parent_bone]
+        ph_names = [
+            obj.name
+            for obj in context.scene.objects
+            if obj.RobotDesigner.tag == "PHYSICS_FRAME" and obj.parent_bone
+        ]
 
         ph_bones_dictionary = dict()
 
@@ -169,7 +171,7 @@ class RebuildModel(RDOperator):
             dynamics.SelectPhysical.run(frameName=k)
             dynamics.AssignPhysical.run()
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @PluginManager.register_class
@@ -181,6 +183,7 @@ class SelectModel(RDOperator):
 
     **RDOperator.Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "selectarmature"
     bl_label = "Select Model"
 
@@ -194,6 +197,7 @@ class SelectModel(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         from . import segments
+
         for obj in context.scene.objects:
             obj.select_set(False)
 
@@ -206,7 +210,7 @@ class SelectModel(RDOperator):
         if len(context.active_object.data.bones) > 0:
             baseBoneName = context.active_object.data.bones[0].name
             segments.SelectSegment.run(segment_name=baseBoneName)
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ModelSelected)
@@ -219,6 +223,7 @@ class RenameModel(RDOperator):
 
     **RDOperator.Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "renamearmature"
     bl_label = "Rename Selected Armature"
 
@@ -235,13 +240,16 @@ class RenameModel(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
-        # oldName = context.active_object.name
-        # context.active_object.name = self.newName
-        # bpy.data.armatures[oldName].name = self.newName
+        oldName = context.active_object.name
+
+        worlds = [obj for obj in bpy.data.objects if obj.RobotDesigner.tag == "WORLD"]
+        for w in worlds:
+            if oldName in w.RobotDesigner.worlds.robot_list:
+                w.RobotDesigner.worlds.robot_list[oldName].name = self.newName
 
         global_properties.model_name.set(context.scene, self.newName)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -257,6 +265,7 @@ class JoinModels(RDOperator):
 
     **RDOperator.Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "joinarmature"
 
     bl_label = "Join Two Models"
@@ -275,6 +284,7 @@ class JoinModels(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         from . import segments
+
         sourceArmName = context.active_object.name
         sourceParentBoneName = context.active_object.data.bones[0].name
         SelectModel.run(model_name=self.targetArmatureName)
@@ -282,11 +292,13 @@ class JoinModels(RDOperator):
 
         bpy.ops.object.join()
         segments.SelectSegment.run(segment_name=sourceParentBoneName)
-        segments.AssignParentSegment.run(parentName=context.active_object.data.bones[0].name)
+        segments.AssignParentSegment.run(
+            parentName=context.active_object.data.bones[0].name
+        )
 
         # Might be swapped! todo check double
         segments.UpdateSegments.run(segment_name=sourceParentBoneName, recurse=True)
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ObjectMode)
@@ -299,6 +311,7 @@ class CreateNewModel(RDOperator):
 
     **RDOperator.Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "create_model"
     bl_label = "Create New Robot Model"
 
@@ -317,19 +330,29 @@ class CreateNewModel(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         from . import segments
+
+        bots = [obj.name for obj in context.scene.objects if obj.type == "ARMATURE"]
+        index = 1
+        name = self.model_name
+        while self.model_name in bots:
+            self.model_name = name + str(index)
+            index += 1
+
         model_data = bpy.data.armatures.new(self.model_name)
         model_object = bpy.data.objects.new(self.model_name, model_data)
         model_object.data = model_data
         model_data.show_names = True
         model_data.show_axes = True
-        model_data.display_type = 'STICK'
+        model_data.display_type = "STICK"
         scene = bpy.context.scene
         scene.collection.objects.link(model_object)
-        bpy.data.objects[self.model_name].RobotDesigner.modelMeta.model_config = self.model_name
+        bpy.data.objects[
+            self.model_name
+        ].RobotDesigner.modelMeta.model_config = self.model_name
         SelectModel.run(model_name=self.model_name)
         if self.base_segment_name:
             segments.CreateNewSegment.run(segment_name=self.base_segment_name)
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -354,8 +377,6 @@ class CreateNewModel(RDOperator):
 #     return armature_Object
 
 
-
-
 # # update kinematics chain of armatureName starting with segment_name
 # def updateKinematics(model_name, segment_name=None):
 #     currentMode = bpy.context.object.mode
@@ -373,7 +394,7 @@ class CreateNewModel(RDOperator):
 #
 #     if bpy.data.armatures[armatureDataName].bones[
 #         segment_name].RobotDesigner.RD_Bone == False:
-#         print("Not updated (not a RD segment):", segment_name)
+#         operator_logger.error("Not updated (not a RD segment):", segment_name)
 #         return
 #
 #     # local variables for updating the constraints
@@ -416,7 +437,7 @@ class CreateNewModel(RDOperator):
 #     bpy.ops.object.mode_set(mode='POSE', toggle=False)
 #     # pose_bone = bpy.context.active_pose_bone
 #     pose_bone = bpy.context.object.pose.bones[segment_name]
-#     #    print (pose_bone.name, jointMatrix)
+#     #    operator_logger.debug (pose_bone.name, jointMatrix)
 #     pose_bone.matrix_basis = jointMatrix
 #
 #     # Adding constraints for revolute joints
@@ -451,18 +472,18 @@ class CreateNewModel(RDOperator):
 #     # -------------------------------------------------------
 #     bpy.ops.object.mode_set(mode=currentMode, toggle=False)
 #
-#     #   print("Number of children")
-#     #   print(len(arm.bones[boneName].children))
-#     #   print("updateKinematics Done")
+#     #   operator_logger.info("Number of children")
+#     #   operator_logger.debug(len(arm.bones[boneName].children))
+#     #   operator_logger.info("updateKinematics Done")
 #     # recursive call on all children
 #
 #     childBoneNames = [i.name for i in
 #                       bpy.data.armatures[armatureDataName].bones[
 #                           boneName].children]
-#     #   print(boneName,childBoneNames)
+#     #   operator_logger.debug(boneName,childBoneNames)
 #     for childBoneName in childBoneNames:
 #         #        if childBoneName == "":
-#         #            print('Empty name',childBoneName,childBoneNames,boneName)
+#         #            operator_logger.debug('Empty name',childBoneName,childBoneNames,boneName)
 #         updateKinematics(model_name, childBoneName)
 #
 #     designer.select_segment(boneName=segment_name)

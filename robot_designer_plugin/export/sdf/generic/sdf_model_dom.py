@@ -1,4 +1,4 @@
-# C:/Users/Jin-Ho/Desktop/HBP/BlenderRobotDesigner/robot_designer_plugin/export/sdf/generic\sdf_dom1_6.py
+# C:/Users/Jin-Ho/Desktop/HBP/BlenderRobotDesigner/robot_designer_plugin/export/sdf/generic\sdf_model_dom1_6.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:e92452c8d3e28a9e27abfc9994d2007779e7f4c9
 # Generated 2020-01-04 23:21:44.816295 by PyXB version 1.2.5 using Python 3.7.0.final.0

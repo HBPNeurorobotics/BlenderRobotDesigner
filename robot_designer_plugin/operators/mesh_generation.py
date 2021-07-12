@@ -34,24 +34,17 @@
 #
 # ######
 
-# ######
-# System imports
-# import os
-# import sys
-# import math
-
-# ######
 # Blender imports
 import bpy
 from bpy.props import StringProperty, BoolProperty
 from mathutils import Vector, Matrix, Euler
 from math import pi
 
-# ######
 # RobotDesigner imports
-from ..core import config, PluginManager, Condition, RDOperator
+from ..core import config, PluginManager, RDOperator
 from .helpers import ModelSelected, SingleMeshSelected, SingleSegmentSelected
 from ..properties.globals import global_properties
+from ..core.logfile import operator_logger
 
 
 # operator to select mesh
@@ -62,6 +55,7 @@ class GenerateMeshFromAllSegment(RDOperator):
     :ref:`operator` for ...
 
     """
+
     bl_idname = config.OPERATOR_PREFIX + "generate_all_meshes"
     bl_label = "Generate Geometry for All Segments"
 
@@ -69,11 +63,9 @@ class GenerateMeshFromAllSegment(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         from .model import SelectModel
-        from .rigid_bodies import SelectGeometry, AssignGeometry
         from .segments import SelectSegment
 
         C = bpy.context
-        D = bpy.data
         model_name = C.active_object.name
 
         segment_names = [i.name for i in C.active_object.data.bones if i.parent]
@@ -83,7 +75,7 @@ class GenerateMeshFromAllSegment(RDOperator):
             SelectSegment.run(segment_name=segment)
             GenerateMeshFromSegment.run()
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ModelSelected)
@@ -106,34 +98,39 @@ class CreateWrappingSphere(RDOperator):
         from .rigid_bodies import SelectGeometry
 
         model = bpy.context.active_object
-        active_muscle = bpy.data.objects[global_properties.active_muscle.get(bpy.context.scene)]
+        active_muscle = bpy.data.objects[
+            global_properties.active_muscle.get(bpy.context.scene)
+        ]
 
-        bpy.ops.mesh.primitive_uv_sphere_add(radius=1.0, calc_uvs=True, enter_editmode=False) # TODO: check if 0.5 is correct
+        bpy.ops.mesh.primitive_uv_sphere_add(
+            radius=1.0, calc_uvs=True, enter_editmode=False
+        )  # TODO: check if 0.5 is correct
 
         sphere = bpy.context.active_object
         sphere.name = self.sphere_name
 
         sphere.RobotDesigner.wrap.muscleNames.add()
         nrm = len(sphere.RobotDesigner.wrap.muscleNames)
-        sphere.RobotDesigner.wrap.muscleNames[nrm-1].name = active_muscle.name
+        sphere.RobotDesigner.wrap.muscleNames[nrm - 1].name = active_muscle.name
 
         active_muscle.RobotDesigner.muscles.connectedWraps.add()
         nrw = len(active_muscle.RobotDesigner.muscles.connectedWraps)
-        active_muscle.RobotDesigner.muscles.connectedWraps[nrw-1].wrappingName = sphere.name
+        active_muscle.RobotDesigner.muscles.connectedWraps[
+            nrw - 1
+        ].wrappingName = sphere.name
 
         lmat = bpy.data.materials.new(self.sphere_name)
         lmat.diffuse_color = (0.0, 0.135, 0.0, 1)
         # lmat.use_shadeless = True
         sphere.data.materials.append(lmat)
 
-        sphere.RobotDesigner.tag = 'WRAPPING'
-        sphere.RobotDesigner.wrap.WrappingType = 'WRAPPING_SPHERE'
-        sphere.parent_name = global_properties
+        sphere.RobotDesigner.tag = "WRAPPING"
+        sphere.RobotDesigner.wrap.WrappingType = "WRAPPING_SPHERE"
 
         SelectModel.run(model_name=model.name)
         SelectGeometry.run(geometry_name=sphere.name)
 
-        return{'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -159,7 +156,9 @@ class CreateWrappingCylinder(RDOperator):
         from .rigid_bodies import SelectGeometry
 
         model = bpy.context.active_object
-        active_muscle = bpy.data.objects[global_properties.active_muscle.get(bpy.context.scene)]
+        active_muscle = bpy.data.objects[
+            global_properties.active_muscle.get(bpy.context.scene)
+        ]
 
         bpy.ops.mesh.primitive_cylinder_add(radius=1, depth=1, enter_editmode=False)
 
@@ -172,20 +171,22 @@ class CreateWrappingCylinder(RDOperator):
 
         active_muscle.RobotDesigner.muscles.connectedWraps.add()
         nrw = len(active_muscle.RobotDesigner.muscles.connectedWraps)
-        active_muscle.RobotDesigner.muscles.connectedWraps[nrw - 1].wrappingName = cylinder.name
+        active_muscle.RobotDesigner.muscles.connectedWraps[
+            nrw - 1
+        ].wrappingName = cylinder.name
 
         lmat = bpy.data.materials.new(self.cylinder_name)
-        lmat.diffuse_color = (0., 0.135, 0.0, 1)
+        lmat.diffuse_color = (0.0, 0.135, 0.0, 1)
         # lmat.use_shadeless = True
         cylinder.data.materials.append(lmat)
 
-        cylinder.RobotDesigner.tag = 'WRAPPING'
-        cylinder.RobotDesigner.wrap.WrappingType = 'WRAPPING_CYLINDER'
+        cylinder.RobotDesigner.tag = "WRAPPING"
+        cylinder.RobotDesigner.wrap.WrappingType = "WRAPPING_CYLINDER"
 
         SelectModel.run(model_name=model.name)
         SelectGeometry.run(geometry_name=cylinder.name)
 
-        return{'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -199,28 +200,37 @@ class RenameWrappingObject(RDOperator):
 
 
     """
+
     bl_idname = config.OPERATOR_PREFIX + "rename_wrapping_object"
     bl_label = "Rename Wrapping Object"
 
     new_name: StringProperty(name="Enter new name:")
 
-
     @RDOperator.OperatorLogger
     def execute(self, context):
         selected_object = global_properties.mesh_name.get(context.scene)
 
-        for muscles in context.scene.objects[selected_object].RobotDesigner.wrap.muscleNames:
+        for muscles in context.scene.objects[
+            selected_object
+        ].RobotDesigner.wrap.muscleNames:
             i = 0
-            for connected_wraps in context.scene.objects[muscles.name].RobotDesigner.muscles.connectedWraps:
+            for connected_wraps in context.scene.objects[
+                muscles.name
+            ].RobotDesigner.muscles.connectedWraps:
                 if connected_wraps.wrappingName == selected_object:
-                    context.scene.objects[muscles.name].RobotDesigner.muscles.connectedWraps[i].wrappingName = \
-                        self.new_name
+                    context.scene.objects[
+                        muscles.name
+                    ].RobotDesigner.muscles.connectedWraps[
+                        i
+                    ].wrappingName = self.new_name
                     break
                 i = i + 1
 
-        bpy.data.objects[global_properties.mesh_name.get(bpy.context.scene)].name = self.new_name
+        bpy.data.objects[
+            global_properties.mesh_name.get(bpy.context.scene)
+        ].name = self.new_name
         global_properties.mesh_name.set(context.scene, self.new_name)
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -238,6 +248,7 @@ class DeleteWrappingObject(RDOperator):
 
 
     """
+
     bl_idname = config.OPERATOR_PREFIX + "delete_wrapping_object"
     bl_label = "Delete Wrapping Object"
 
@@ -246,22 +257,28 @@ class DeleteWrappingObject(RDOperator):
 
         selected_object = global_properties.mesh_name.get(context.scene)
 
-        for muscles in context.scene.objects[selected_object].RobotDesigner.wrap.muscleNames:
-            i=0
-            for connected_wraps in context.scene.objects[muscles.name].RobotDesigner.muscles.connectedWraps:
+        for muscles in context.scene.objects[
+            selected_object
+        ].RobotDesigner.wrap.muscleNames:
+            i = 0
+            for connected_wraps in context.scene.objects[
+                muscles.name
+            ].RobotDesigner.muscles.connectedWraps:
                 if connected_wraps.wrappingName == selected_object:
-                    context.scene.objects[muscles.name].RobotDesigner.muscles.connectedWraps.remove(i)
+                    context.scene.objects[
+                        muscles.name
+                    ].RobotDesigner.muscles.connectedWraps.remove(i)
                     break
-                i = i+1
-
+                i = i + 1
 
         bpy.data.objects.remove(bpy.data.objects[selected_object], do_unlink=True)
-        bpy.ops.wm.redraw_timer(type='DRAW_WIN_SWAP', iterations=1)
+        bpy.ops.wm.redraw_timer(type="DRAW_WIN_SWAP", iterations=1)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
+
 
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
@@ -277,22 +294,29 @@ class DisconnectWrappingObject(RDOperator):
 
         active_muscle = global_properties.active_muscle.get(context.scene)
 
-        connected_wraps = context.scene.objects[active_muscle].RobotDesigner.muscles.connectedWraps
+        connected_wraps = context.scene.objects[
+            active_muscle
+        ].RobotDesigner.muscles.connectedWraps
 
-        active_wrap = connected_wraps[self.wrappingOrder-1].wrappingName
+        active_wrap = connected_wraps[self.wrappingOrder - 1].wrappingName
 
         i = 0
-        for muscles in context.scene.objects[active_wrap].RobotDesigner.wrap.muscleNames:
+        for muscles in context.scene.objects[
+            active_wrap
+        ].RobotDesigner.wrap.muscleNames:
             if muscles.name == active_muscle:
-                context.scene.objects[active_wrap].RobotDesigner.wrap.muscleNames.remove(i)
-            i = i+1
+                context.scene.objects[
+                    active_wrap
+                ].RobotDesigner.wrap.muscleNames.remove(i)
+            i = i + 1
 
-        connected_wraps.remove(self.wrappingOrder-1)
+        connected_wraps.remove(self.wrappingOrder - 1)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
+
 
 @RDOperator.Preconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
 @PluginManager.register_class
@@ -300,9 +324,9 @@ class AttachWrappingObject(RDOperator):
     """
     :ref:`operator` for assigning a geometry to a segment.
     """
+
     bl_idname = config.OPERATOR_PREFIX + "attach_wrapping_object"
     bl_label = "Attach Wrapping Object to Active Segment"
-
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
@@ -312,9 +336,9 @@ class AttachWrappingObject(RDOperator):
         # in which case parent_bone should be left empty.
         # See also https://blender.stackexchange.com/questions/9200/make-object-a-a-parent-of-object-b-via-python
         # At this point bpy.context.scene.objects.active should point to the armature which will be the parent.
-        bpy.ops.object.parent_set(type='BONE', keep_transform=False)
+        bpy.ops.object.parent_set(type="BONE", keep_transform=False)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self, width=400)
@@ -326,6 +350,7 @@ class DetachWrappingObject(RDOperator):
     """
     :term:`operator` for detaching a single :term:`geometry` from a :term:`segment`.
     """
+
     bl_idname = config.OPERATOR_PREFIX + "detach_wrapping_object"
     bl_label = "Detach Selected Wrapping Object"
 
@@ -337,6 +362,7 @@ class DetachWrappingObject(RDOperator):
     @RDOperator.Postconditions(ModelSelected, SingleMeshSelected)
     def execute(self, context):
         from . import segments, model
+
         mesh_name = global_properties.mesh_name.get(context.scene)
         current_mesh = bpy.data.objects[mesh_name]
         mesh_global = current_mesh.matrix_world
@@ -344,7 +370,7 @@ class DetachWrappingObject(RDOperator):
 
         current_mesh.matrix_world = mesh_global
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self, width=400)
@@ -356,6 +382,7 @@ class DetachAllWrappingObjects(RDOperator):
     """
     :ref:`operator` for detaching *all* :term:`geometries` from the selected :term:`model`.
     """
+
     bl_idname = config.OPERATOR_PREFIX + "detach_all_meshes"
     bl_label = "Detach All Wrapping Objects"
 
@@ -367,14 +394,20 @@ class DetachAllWrappingObjects(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         from .rigid_bodies import SelectGeometry
-        meshes = [obj for obj in bpy.data.objects if obj.type == 'MESH' and
-                  obj.parent_bone is not '' and obj.RobotDesigner.tag == 'WRAPPING']
+
+        meshes = [
+            obj
+            for obj in bpy.data.objects
+            if obj.type == "MESH"
+            and obj.parent_bone is not ""
+            and obj.RobotDesigner.tag == "WRAPPING"
+        ]
 
         for mesh in meshes:
             SelectGeometry.run(geometry_name=mesh.name)
             DetachWrappingObject.run()
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -391,7 +424,9 @@ class SelectWrappingObject(RDOperator):
     @RDOperator.OperatorLogger
     def execute(self, context):
         model = bpy.data.objects[global_properties.model_name.get(context.scene)]
-        active_muscle = bpy.data.objects[global_properties.active_muscle.get(bpy.context.scene)]
+        active_muscle = bpy.data.objects[
+            global_properties.active_muscle.get(bpy.context.scene)
+        ]
 
         wrapping_object = context.scene.objects[self.wrapping_name]
         wrapping_object.RobotDesigner.wrap.muscleNames.add()
@@ -401,10 +436,9 @@ class SelectWrappingObject(RDOperator):
         wrapList = active_muscle.RobotDesigner.muscles.connectedWraps
         wrapList.add()
         nrw = len(wrapList)
-        wrapList[nrw-1].wrappingName = self.wrapping_name
+        wrapList[nrw - 1].wrappingName = self.wrapping_name
 
-
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -412,8 +446,6 @@ class SelectWrappingObject(RDOperator):
     @classmethod
     def run(cls, wrapping_name=""):
         return super().run(**cls.pass_keywords())
-
-
 
 
 # operator to select mesh
@@ -424,11 +456,12 @@ class GenerateMeshFromSegment(RDOperator):
     :ref:`operator` for ...
 
     """
+
     bl_idname = config.OPERATOR_PREFIX + "generate_mesh"
     bl_label = "Generate Geometry for Segment"
 
     @RDOperator.OperatorLogger
-    @RDOperator.Postconditions(ModelSelected, SingleSegmentSelected)  # Not SingleMeshSelected, in case of abortion
+    @RDOperator.Postconditions(ModelSelected, SingleSegmentSelected)
     def execute(self, context):
 
         from .model import SelectModel
@@ -445,7 +478,7 @@ class GenerateMeshFromSegment(RDOperator):
 
         if not C.active_bone.parent:
             self.report({"ERROR"}, "Does not work for root segments")
-            return {'CANCELLED'}
+            return {"CANCELLED"}
 
         parent_bone = C.active_object.pose.bones[C.active_bone.parent.name]
         parent_name = parent_bone.name
@@ -464,7 +497,7 @@ class GenerateMeshFromSegment(RDOperator):
 
         if max_v1 != 0:
             bpy.ops.curve.primitive_bezier_circle_add(radius=l / 20)
-            print(l)
+            operator_logger.debug(l)
 
             bevel = C.active_object
 
@@ -475,8 +508,7 @@ class GenerateMeshFromSegment(RDOperator):
 
             bezier.matrix_world = bone_world
 
-            print(bezier.matrix_world)
-            # e= C.active_bone.RobotDesigner.Euler
+            operator_logger.debug(bezier.matrix_world)
 
             bpy.ops.object.mode_set(mode="EDIT", toggle=False)
 
@@ -486,34 +518,28 @@ class GenerateMeshFromSegment(RDOperator):
             a.co = (0, 0, 0)
             b.co = bone_to_parent.translation
 
-            print(v1, max_v1)
+            operator_logger.debug(v1, max_v1)
             v1 = Vector([0.1 * i / max_v1 if abs(i) == max_v1 else 0.0 for i in v1])
 
             v2 = Vector([0.1 * i / max_v2 if abs(i) == max_v2 else 0.0 for i in v2])
-            # v2 = Vector(v2)#.to_4d()
-            # v2[3]=0.0
 
             a.handle_right = v1
             a.handle_left = -1 * v1
-            print(v1, a.handle_right, a.handle_left)
+            operator_logger.debug(v1, a.handle_right, a.handle_left)
 
             m = Matrix()
             m.translation = v2
 
-            # m[3][3] = 0
-            # b.co = (bone_to_parent *m).translation
-            print(m, bone_to_parent.inverted() @ parent_frame @ m)
+            operator_logger.debug(m, bone_to_parent.inverted() @ parent_frame @ m)
             b.handle_left = (bone_to_parent @ m).translation
             m.translation = -1 * v2
 
             b.handle_right = (bone_to_parent @ m).translation
-            print(v2, b.handle_right, b.handle_left)
-
-            # print(a.co,b.co)
+            operator_logger.debug(v2, b.handle_right, b.handle_left)
 
             bpy.ops.object.mode_set(mode="OBJECT", toggle=False)
-            bpy.ops.object.convert(target='MESH')
-            bpy.ops.object.select_all(action='DESELECT')
+            bpy.ops.object.convert(target="MESH")
+            bpy.ops.object.select_all(action="DESELECT")
             bevel.select_set(True)
             bpy.ops.object.delete()
 
@@ -525,7 +551,7 @@ class GenerateMeshFromSegment(RDOperator):
 
         GenerateMeshFromJoint.run()
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)
@@ -535,7 +561,7 @@ class GenerateMeshFromJoint(RDOperator):
     bl_label = "Generate Geometry for Joint"
 
     @RDOperator.OperatorLogger
-    @RDOperator.Postconditions(ModelSelected, SingleSegmentSelected)  # Not SingleMeshSelected, in case of abortion
+    @RDOperator.Postconditions(ModelSelected, SingleSegmentSelected)
     def execute(self, context):
 
         from .model import SelectModel
@@ -543,7 +569,6 @@ class GenerateMeshFromJoint(RDOperator):
         from .segments import SelectSegment
 
         C = bpy.context
-        D = bpy.data
 
         model = C.active_object
 
@@ -555,8 +580,10 @@ class GenerateMeshFromJoint(RDOperator):
         bone_world = model.matrix_world @ pose_bone.matrix
 
         segment_length = bone_to_parent.translation.length
-        distance_to_children = [(child.matrix.inverted() @ pose_bone.matrix).translation.length for child in
-                                pose_bone.children]
+        distance_to_children = [
+            (child.matrix.inverted() @ pose_bone.matrix).translation.length
+            for child in pose_bone.children
+        ]
 
         self.logger.debug("%s, %s", segment_length, distance_to_children)
 
@@ -571,23 +598,27 @@ class GenerateMeshFromJoint(RDOperator):
                 C.active_object.matrix_world = bone_world
             # if there IS a child, at distance >0 (or more than one child), draw a hinge joint
             elif len(pose_bone.children):
-                bpy.ops.mesh.primitive_cylinder_add(radius=max_length / 15, depth=max_length / 5)
-                if axis == 'X':
+                bpy.ops.mesh.primitive_cylinder_add(
+                    radius=max_length / 15, depth=max_length / 5
+                )
+                if axis == "X":
                     m = Euler((0, 0, pi / 4)).to_matrix().to_4x4()
-                elif axis == 'Y':
+                elif axis == "Y":
                     m = Euler((0, 0, pi / 4)).to_matrix().to_4x4()
                 else:
                     m = Matrix()
 
                 C.active_object.matrix_world = bone_world * m
             else:
-                bpy.ops.mesh.primitive_cone_add(radius1=segment_length / 10, radius2=segment_length / 10)
+                bpy.ops.mesh.primitive_cone_add(
+                    radius1=segment_length / 10, radius2=segment_length / 10
+                )
 
-            C.active_object.name = bone_name + '_axis'
+            C.active_object.name = bone_name + "_axis"
             new_name = C.active_object.name
             SelectModel.run(model_name=model.name)
             SelectSegment.run(bone_name)
             SelectGeometry.run(new_name)
             AssignGeometry.run()
 
-        return {'FINISHED'}
+        return {"FINISHED"}

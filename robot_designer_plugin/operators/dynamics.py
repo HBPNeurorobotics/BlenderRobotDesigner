@@ -34,17 +34,11 @@
 #   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
+
 """
 Sphinx-autodoc tag
 """
 
-# ######
-# System imports
-# import os
-# import sys
-# import math
-
-# ######
 # Blender imports
 from mathutils import Matrix
 from collections import defaultdict
@@ -52,25 +46,24 @@ from collections import defaultdict
 import bpy
 from bpy.props import StringProperty, FloatProperty, BoolProperty
 
-# ######
 # RobotDesigner imports
 from ..core import config, PluginManager, RDOperator
 from .helpers import ModelSelected, SingleSegmentSelected, SingleMassObjectSelected
-
+from ..core.logfile import operator_logger
 from ..properties.globals import global_properties
 
 
-# operator to create physics frame
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class CreatePhysical(RDOperator):
     """
-    :ref:`operator` for ...
+    :ref:`operator` for creating a physics frame
 
     **Preconditions:**
 
     **Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "createphysicsframe"
     bl_label = "Create And Attach Physics Frame"
 
@@ -83,9 +76,8 @@ class CreatePhysical(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)  # todo condition for physicframe
     def execute(self, context):
-        from . import model
 
-        bpy.ops.object.mode_set(mode='OBJECT', toggle=False)
+        bpy.ops.object.mode_set(mode="OBJECT", toggle=False)
 
         armature = context.active_object
 
@@ -93,7 +85,7 @@ class CreatePhysical(RDOperator):
 
         bones_that_have_physics_frames = set()
         for obj in armature.children:
-            if obj.parent_bone and obj.RobotDesigner.tag == 'PHYSICS_FRAME':
+            if obj.parent_bone and obj.RobotDesigner.tag == "PHYSICS_FRAME":
                 bone = armature.data.bones[obj.parent_bone]
                 bones_that_have_physics_frames.add(bone)
 
@@ -113,23 +105,22 @@ class CreatePhysical(RDOperator):
             SelectPhysical.run(frameName=frame.name)
             frame.RobotDesigner.dynamics.scale_update(context)
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 def assign_the_physics_frame_to_the_bone(context, frame, bone):
     armature = context.active_object
     frame.parent = armature
-    frame.parent_type = 'BONE'
+    frame.parent_type = "BONE"
     frame.parent_bone = bone.name
 
 
 def just_create_the_physics_frame(context, name):
     armature = context.active_object
-    #bpy.ops.object.empty_add(type='PLAIN_AXES')
     bpy.ops.mesh.primitive_cube_add(size=1.0)
-    context.active_object.name = 'PHYS_' + name
+    context.active_object.name = "PHYS_" + name
     frame = context.active_object.name
-    context.active_object.RobotDesigner.tag = 'PHYSICS_FRAME'
+    context.active_object.RobotDesigner.tag = "PHYSICS_FRAME"
     # set new mass object to cursor location
     cursor = bpy.context.scene.cursor.location
     context.active_object.location = [cursor.x, cursor.y, cursor.z]
@@ -140,30 +131,23 @@ def just_create_the_physics_frame(context, name):
     # obj.data.materials.clear()
     mat = bpy.data.materials.new(frame)
     mat.diffuse_color = (1.0, 0.0, 1.0, 0.5)
-    # mat.diffuse_shader = 'LAMBERT'
-    # mat.diffuse_intensity = 1.0
-    # mat.use_transparency = True
-    # mat.alpha = 0.3
     bpy.data.objects[frame].show_transparent = True
 
-
-    # mat = bpy.data.materials['MaterialName']
     obj.data.materials.append(mat)
 
     return obj
 
 
-# operator to select a physics frame
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class SelectPhysical(RDOperator):
     """
-    :ref:`operator` for ...
-
+    :ref:`operator` for selecting a physics frame
     **Preconditions:**
 
     **Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "selectphysicsframe"
     bl_label = "Select Physics Frame"
 
@@ -174,7 +158,7 @@ class SelectPhysical(RDOperator):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
-    @RDOperator.Postconditions(ModelSelected)  # todo condition for physicframe
+    @RDOperator.Postconditions(ModelSelected)  # todo condition for physicsframe
     def execute(self, context):
         arm = context.active_object
 
@@ -188,20 +172,22 @@ class SelectPhysical(RDOperator):
 
         context.view_layer.objects.active = arm
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
-# operator to assign selected physics frame to active bone
-@RDOperator.Preconditions(ModelSelected, SingleSegmentSelected, SingleMassObjectSelected)
+@RDOperator.Preconditions(
+    ModelSelected, SingleSegmentSelected, SingleMassObjectSelected
+)
 @PluginManager.register_class
 class AssignPhysical(RDOperator):
     """
-    :ref:`operator` for ...
+    :ref:`operator` for assigning physics frame to active bone
 
     **Preconditions:**
 
     **Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "assignphysicsframe"
     bl_label = "Assign Selected Physics Frame To Active Bone"
 
@@ -210,9 +196,11 @@ class AssignPhysical(RDOperator):
         return super().run(**cls.pass_keywords())
 
     @RDOperator.OperatorLogger
-    @RDOperator.Postconditions(ModelSelected, SingleSegmentSelected, SingleMassObjectSelected)
+    @RDOperator.Postconditions(
+        ModelSelected, SingleSegmentSelected, SingleMassObjectSelected
+    )
     def execute(self, context):
-        bpy.ops.object.parent_set(type='BONE')
+        bpy.ops.object.parent_set(type="BONE")
 
         # if bpy.context.active_bone.parent:
         #     to_parent_matrix = bpy.context.active_bone.parent.matrix_local
@@ -225,16 +213,24 @@ class AssignPhysical(RDOperator):
         # for ob in bpy.data.objects:
         #     if ob.select and ob.RobotDesigner.tag == 'PHYSICS_FRAME':
         #         frame = ob
-        #         print(frame.name)
+        #         operator_logger.debug(frame.name)
 
         # frame.matrix_basis = armature_matrix*to_parent_matrix*from_parent_matrix*bone_matrix
         # frame.matrix_basis = parent_matrix*armature_matrix*bone_matrix
-        return {'FINISHED'}
+        return {"FINISHED"}
 
 
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class ComputePhysical(RDOperator):
+    """
+    :ref:`operator` for computing the physics frame
+
+    **Preconditions:**
+
+    **Postconditions:**
+    """
+
     bl_idname = config.OPERATOR_PREFIX + "computephysicsframe"
     bl_label = "Compute Inertia From Mesh"
 
@@ -247,7 +243,13 @@ class ComputePhysical(RDOperator):
             self.physics_frame = None
 
         def __str__(self):
-            return '<' + ', '.join([str(self.visual), str(self.collision), str(self.physics_frame)]) + '>'
+            return (
+                "<"
+                + ", ".join(
+                    [str(self.visual), str(self.collision), str(self.physics_frame)]
+                )
+                + ">"
+            )
 
     def maybe_compute_inertia(self, bone, associations):
         assert associations.physics_frame is not None
@@ -259,31 +261,38 @@ class ComputePhysical(RDOperator):
             return
         bounds = the_mesh.bound_box
         dimension = the_mesh.dimensions
-        len = (bounds[-1][0] - bounds[0][0],
-               bounds[-1][1] - bounds[0][1],
-               bounds[1][2] - bounds[0][2])  # The 1 is no error!
+        len = (
+            bounds[-1][0] - bounds[0][0],
+            bounds[-1][1] - bounds[0][1],
+            bounds[1][2] - bounds[0][2],
+        )  # The 1 is no error!
         len = (dimension[0], dimension[1], dimension[2])
-        com = list(map(lambda x: x * 0.5,
-                       (bounds[-1][0] + bounds[0][0],
-                        bounds[-1][1] + bounds[0][1],
-                        bounds[1][2] + bounds[0][2])))
+        com = list(
+            map(
+                lambda x: x * 0.5,
+                (
+                    bounds[-1][0] + bounds[0][0],
+                    bounds[-1][1] + bounds[0][1],
+                    bounds[1][2] + bounds[0][2],
+                ),
+            )
+        )
         mass = 1.0
         # Of a Brick.
-        Iunit = (1. / 12. * (len[1] ** 2 + len[2] ** 2),
-                 1. / 12. * (len[0] ** 2 + len[2] ** 2),
-                 1. / 12. * (len[0] ** 2 + len[1] ** 2))
-        print("bone:", bone, len, mass, Iunit, com)
+        Iunit = (
+            1.0 / 12.0 * (len[1] ** 2 + len[2] ** 2),
+            1.0 / 12.0 * (len[0] ** 2 + len[2] ** 2),
+            1.0 / 12.0 * (len[0] ** 2 + len[1] ** 2),
+        )
+        operator_logger.debug("bone:", bone, len, mass, Iunit, com)
         d = associations.physics_frame.RobotDesigner.dynamics
         d.inertiaXX = mass * Iunit[0]
         d.inertiaYY = mass * Iunit[1]
         d.inertiaZZ = mass * Iunit[2]
-        d.inertiaXY = 0.
-        d.inertiaXZ = 0.
-        d.inertiaYZ = 0.
+        d.inertiaXY = 0.0
+        d.inertiaXZ = 0.0
+        d.inertiaYZ = 0.0
         d.mass = mass
-        # d.inertiaTrans = com
-        # d.inertiaRot   = [0., 0., 0.]
-        # print ("Setting matrix "+str(the_mesh.matrix_world))
         m_com = Matrix.Translation(com)
         associations.physics_frame.matrix_world = the_mesh.matrix_world @ m_com
         d.scale_update(bpy.context)
@@ -292,20 +301,22 @@ class ComputePhysical(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         armature = context.active_object
-        # print (self.__class__.__name__)
 
         # Mapping from bone to things
         segment_associations = defaultdict(self.SegmentAssociations)
         for obj in armature.children:
             if obj.parent_bone:
                 bone = armature.data.bones[obj.parent_bone]
-                print("visit ", obj, obj.parent_bone, bone, bone.select)
+                operator_logger.debug("visit ", obj, obj.parent_bone, bone, bone.select)
                 if bone.select:
-                    if obj.RobotDesigner.tag == 'PHYSICS_FRAME':
+                    if obj.RobotDesigner.tag == "PHYSICS_FRAME":
                         segment_associations[bone].physics_frame = obj
-                    elif obj.RobotDesigner.tag == 'COLLISION' or 'BASIC_COLLISION_' in obj.RobotDesigner.tag:
+                    elif (
+                        obj.RobotDesigner.tag == "COLLISION"
+                        or "BASIC_COLLISION_" in obj.RobotDesigner.tag
+                    ):
                         segment_associations[bone].collision = obj
-                    elif obj.RobotDesigner.tag == 'DEFAULT':
+                    elif obj.RobotDesigner.tag == "DEFAULT":
                         segment_associations[bone].visual = obj
 
         bones = [b for b in armature.data.bones if b.select]
@@ -313,7 +324,7 @@ class ComputePhysical(RDOperator):
         for bone in bones:
             self.maybe_compute_inertia(bone, segment_associations[bone])
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -322,6 +333,14 @@ class ComputePhysical(RDOperator):
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class ComputeMass(RDOperator):
+    """
+    :ref:`operator` for computing the physical mass
+
+    **Preconditions:**
+
+    **Postconditions:**
+    """
+
     bl_idname = config.OPERATOR_PREFIX + "computemass"
     bl_label = "Compute Mass Properties From Mesh"
 
@@ -335,7 +354,13 @@ class ComputeMass(RDOperator):
             self.physics_frame = None
 
         def __str__(self):
-            return '<' + ', '.join([str(self.visual), str(self.collision), str(self.physics_frame)]) + '>'
+            return (
+                "<"
+                + ", ".join(
+                    [str(self.visual), str(self.collision), str(self.physics_frame)]
+                )
+                + ">"
+            )
 
     def maybe_compute_and_assign_mass_props(self, bone, associations):
         assert associations.physics_frame is not None
@@ -347,37 +372,38 @@ class ComputeMass(RDOperator):
             return
         bounds = the_mesh.bound_box
         dimension = the_mesh.dimensions
-        len = (bounds[-1][0] - bounds[0][0],
-               bounds[-1][1] - bounds[0][1],
-               bounds[1][2] - bounds[0][2])  # The 1 is no error!
+        len = (
+            bounds[-1][0] - bounds[0][0],
+            bounds[-1][1] - bounds[0][1],
+            bounds[1][2] - bounds[0][2],
+        )  # The 1 is no error!
         len = (dimension[0], dimension[1], dimension[2])
         mass = len[0] * len[1] * len[2] * self.density
         # Of a Brick.
         d = associations.physics_frame.RobotDesigner.dynamics
         d.mass = mass
-        # d.inertiaTrans = com
-        # d.inertiaRot   = [0., 0., 0.]
-        # print ("Setting matrix "+str(the_mesh.matrix_world))
         d.scale_update(bpy.context)
 
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
         armature = context.active_object
-        # print (self.__class__.__name__)
 
         # Mapping from bone to things
         segment_associations = defaultdict(self.SegmentAssociations)
         for obj in armature.children:
             if obj.parent_bone:
                 bone = armature.data.bones[obj.parent_bone]
-                print("visit ", obj, obj.parent_bone, bone, bone.select)
+                operator_logger.debug("visit ", obj, obj.parent_bone, bone, bone.select)
                 if bone.select:
-                    if obj.RobotDesigner.tag == 'PHYSICS_FRAME':
+                    if obj.RobotDesigner.tag == "PHYSICS_FRAME":
                         segment_associations[bone].physics_frame = obj
-                    elif obj.RobotDesigner.tag == 'COLLISION' or 'BASIC_COLLISION_' in obj.RobotDesigner.tag:
+                    elif (
+                        obj.RobotDesigner.tag == "COLLISION"
+                        or "BASIC_COLLISION_" in obj.RobotDesigner.tag
+                    ):
                         segment_associations[bone].collision = obj
-                    elif obj.RobotDesigner.tag == 'DEFAULT':
+                    elif obj.RobotDesigner.tag == "DEFAULT":
                         segment_associations[bone].visual = obj
 
         bones = [b for b in armature.data.bones if b.select]
@@ -385,23 +411,23 @@ class ComputeMass(RDOperator):
         for bone in bones:
             self.maybe_compute_and_assign_mass_props(bone, segment_associations[bone])
 
-        return {'FINISHED'}
+        return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
 
 
-# operator to unassign selected physics frame
 @RDOperator.Preconditions(ModelSelected, SingleMassObjectSelected)
 @PluginManager.register_class
 class DetachPhysical(RDOperator):
     """
-    :ref:`operator` for ...
+    :ref:`operator` for detaching the selected physics frame
 
     **Preconditions:**
 
     **Postconditions:**
     """
+
     bl_idname = config.OPERATOR_PREFIX + "unassignphysicsframe"
     bl_label = "Detach Selected Physics Frame"
 
@@ -417,10 +443,10 @@ class DetachPhysical(RDOperator):
         if self.frameName:
             current_frame = context.scene.objects[self.frameName]
         else:
-            current_frame = context.scene.objects[global_properties.physics_frame_name.get(context.scene)]
+            current_frame = context.scene.objects[
+                global_properties.physics_frame_name.get(context.scene)
+            ]
         physNode_global = current_frame.matrix_world
         current_frame.parent = None
         current_frame.matrix_world = physNode_global
-        return {'FINISHED'}
-
-
+        return {"FINISHED"}

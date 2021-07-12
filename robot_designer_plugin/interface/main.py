@@ -34,67 +34,75 @@
 #   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
-# ######
-# System imports
-# import os
-# import sys
-# import math
 
-# ######
 # Blender imports
 import bpy
-from bpy.props import EnumProperty
 
-# ######
 # RobotDesigner imports
-
-from ..core import config, PluginManager
+from ..core import PluginManager
 from ..core.gui import InfoBox
 from ..properties.globals import global_properties
 from .helpers import DebugBox
+from ..core.logfile import LogFunction
 
 
 @PluginManager.register_class
 class ROBOTDESIGNER_PT_UserInterface(bpy.types.Panel):
+    """
+    Main class for the robot designer GUI Panel
+    """
+
     bl_label = "NRP Robot Designer"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = "HBP"
     bl_options = {"HIDE_HEADER"}
 
-    from ..core.logfile import LogFunction
     @LogFunction
     def draw(self, context):
-        from ..operators import file_tools
+        """
+        Draw the various tabs of the Robot Designer Plugin
+        @param context: active Blender context
+        @return:
+        """
         from . import files, model, segments, geometries, sensors, muscles, world
+
         layout = self.layout
 
-        layout.label(text="HBP Neurorobotics RobotDesigner", icon_value=PluginManager.get_icon('hbp'))
+        layout.label(
+            text="HBP Neurorobotics RobotDesigner",
+            icon_value=PluginManager.get_icon("hbp"),
+        )
         layout.separator()
 
         global_properties.gui_tab.prop(bpy.context.scene, layout, expand=True)
         control = global_properties.gui_tab.get(bpy.context.scene)
         layout.separator()
 
-        if control == 'armatures':
+        if control == "armatures":
             model.draw(layout, context)
-        elif control == 'bones':
+        elif control == "bones":
             segments.draw(layout, context)
-        elif control == 'meshes':
+        elif control == "meshes":
             geometries.draw(layout, context)
-        elif control == 'sensors':
+        elif control == "sensors":
             sensors.draw(layout, context)
-        if control == 'muscles':
-            if bpy.data.objects[global_properties.model_name.get(bpy.context.scene)].RobotDesigner.physics_engine != 'OPENSIM':
+        if control == "muscles":
+            if (
+                bpy.data.objects[
+                    global_properties.model_name.get(bpy.context.scene)
+                ].RobotDesigner.physics_engine
+                != "OPENSIM"
+            ):
                 row = layout.row()
                 row.label(text="Muscle Support for OpenSim Physics Engine Only")
             else:
                 muscles.draw(layout, context)
         # elif control == 'markers':
         #     markers.draw(layout, context)
-        elif control == 'files':
+        elif control == "files":
             files.draw(layout, context)
-        elif control == 'world':
+        elif control == "world":
             world.draw(layout, context)
 
         layout.separator()

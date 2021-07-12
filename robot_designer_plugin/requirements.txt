@@ -1,5 +1,1 @@
-wheel
-pyxb==1.2.5
-sphinx
-sphinx-autodoc-typehints
-hbp-sphinx-theme
+# Pip requirements list for Robot Designer Blender Plugin

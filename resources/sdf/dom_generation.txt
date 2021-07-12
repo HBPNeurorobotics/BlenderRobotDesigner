@@ -1,4 +1,0 @@
-
-To generate a dom file from the xsd root file:
-
-pyxbgen -m [dom_name] -u [absolute path to xsd] --binding-root [absolute path to save destination]

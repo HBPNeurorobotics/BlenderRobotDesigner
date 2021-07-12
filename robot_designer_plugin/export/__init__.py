@@ -33,6 +33,7 @@
 #   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
+
 """
 This module includes import and export functions for different file formats for robot descriptions.
 """
@@ -50,8 +51,15 @@ reload(sdf)
 reload(osim)
 reload(generic_tools)
 
-PluginManager.register_plugin("SDF", [sdf.ImportPackage, sdf.ImportZippedPackage,
-                                      sdf.ExportPackage, sdf.ExportZippedPackage])
+PluginManager.register_plugin(
+    "SDF",
+    [
+        sdf.ImportPackage,
+        sdf.ImportZippedPackage,
+        sdf.ExportPackage,
+        sdf.ExportZippedPackage,
+    ],
+)
 # PluginManager.register_plugin("URDF", [urdf.ImportPlain, urdf.ImportPackage, urdf.ImportZippedPackage, urdf.ExportPlain,
 #                                       urdf.ExportPackage, urdf.ExportZippedPackage])
 
@@ -59,9 +67,9 @@ PluginManager.register_plugin("SDF", [sdf.ImportPackage, sdf.ImportZippedPackage
 # The file dialog should have a selection box for the format
 # todo that includes all plugins and draw the operators and arguments
 # required (a draw function has to be included)
-__author__ = 'ulbrich-gchen'
+__author__ = "ulbrich-gchen"
 
 # draft for creating a plugin mechanism
-plugins = [ ('sdf', 'SDF', '.sdf', True, True)]
-           #('urdf', 'URDF', '.urdf', True, True),
-           # ('simox', 'SIMOX XML', '.xml', True, False), ('collada', 'COLLADA v1.5', '.dae', False, True)]
+plugins = [("sdf", "SDF", ".sdf", True, True)]
+# ('urdf', 'URDF', '.urdf', True, True),
+# ('simox', 'SIMOX XML', '.xml', True, False), ('collada', 'COLLADA v1.5', '.dae', False, True)]

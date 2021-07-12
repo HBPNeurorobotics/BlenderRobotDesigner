@@ -33,6 +33,7 @@
 #   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
+
 """
 This sub module contains the :class:`PluginManager` that handles automatic registration of classes.
 """
@@ -81,8 +82,6 @@ class PluginManager(object):
             return cls
 
         return decorator
-
-    # bpy.props.PointerProperty(type=robot_designer_plugin.properties.segments.RDDegreeOfFreedom)[1]['type'] is robot_designer_plugin.properties.segments.RDDegreeOfFreedom
 
 
 
