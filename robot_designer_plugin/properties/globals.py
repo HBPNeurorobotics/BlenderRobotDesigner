@@ -483,6 +483,7 @@ class RDGlobals(PropertyGroupHandlerBase):
         )
 
         # Holds the selection to list connected or unassigned segments in dropdown menus
+<<<<<<< HEAD
         self.list_segments = PropertyHandler(
             EnumProperty(
                 items=[
@@ -669,6 +670,108 @@ class RDGlobals(PropertyGroupHandlerBase):
                 default=False,
             )
         )
+=======
+        self.list_segments = PropertyHandler(EnumProperty(
+            items=[("all", 'List all', 'Show all bones in menu', 'RESTRICT_VIEW_OFF', 1),
+                   ("connected", 'List connected', 'Show only bones with connected meshes in menu',
+                    'OUTLINER_OB_ARMATURE', 2,),
+                   ('disconnected', 'List disconnected',
+                    'List only bones without connected meshes in menu', 'ARMATURE_DATA', 3)]))
+
+        self.storage_mode = PropertyHandler(EnumProperty(items=[('temporary', 'Non-persistant GIT',
+                                                           'Stores/retrieves files from GIT temporary' +
+                                                           ' repository'),
+                                                                ('git', 'Persitant GIT',
+                                                           'Stores/retrieves files from persistent GIT repository'),
+                                                                ('local', 'Local',
+                                                           'Stores/retrieves from local hard disk')]))
+        self.git_url = PropertyHandler(StringProperty(name='GIT URL'))
+        self.git_repository = PropertyHandler(StringProperty(name='GIT Repository'))
+
+        self.segment_tab = PropertyHandler(EnumProperty(
+            items=[('kinematics', 'Kinematics', 'Edit kinematic properties'),
+                   ('dynamics', 'Dynamics', 'Edit Dynamic properties'),
+                   ('controller', 'Controller', 'Edit Controller properties')],
+            name="asdf"))
+
+        self.bone_length = PropertyHandler(FloatProperty(name="Global bone length", default=1, min=0.001,
+                                                         update=self.updateGlobals))
+        self.do_kinematic_update = PropertyHandler(BoolProperty(name="Import Update", default=True))
+
+        self.gazebo_tags = PropertyHandler(StringProperty(name="Gazebo tags", default=""))
+
+        self.operator_debug_level = PropertyHandler(EnumProperty(
+            items=[('debug', 'Debug', 'Log everything including debug messages (verbose)'),
+                   ('info', 'Info', 'Log information'),
+                   ('warning', 'Warning', 'Log only warnings'),
+                   ('error', 'Error', 'Log only errors')], update=self.debug_level_callback))
+
+        self.active_muscle = PropertyHandler(StringProperty(name="Active Muscle", default=""))
+
+        self.display_muscle_selection = PropertyHandler(EnumProperty(
+            items=[('all', 'All', 'Show all muscles'),
+            #       ('MYOROBOTICS', 'Myorobotics', 'Show only Myorobotics Muscles'),
+                   ('MILLARD_EQUIL', 'Millard Equilibrium 2012', 'Show only Millard Equilibrium 2012 Muscles'),
+                   ('MILLARD_ACCEL', 'Millard Acceleration 2012', 'Show only Millard Acceleration 2012 Muscles'),
+                   ('THELEN', 'Thelen 2003', 'Show only Thelen 2003 Muscles'),
+                   ('RIGID_TENDON', 'Rigid Tendon', 'Show only Rigid Tendon Muscles'),
+                   ('none', "None", "Show no muscles")],
+            update=self.display_muscles))
+
+        self.muscle_dim = PropertyHandler(FloatProperty(name="Muscle Dimension:", default=0.05, update=self.muscle_dim_update))
+	
+# evolutionary alorithms
+        self.typeoptimization = PropertyHandler(EnumProperty(
+           items=[('joints', 'Joints position', 'EA to joints'),
+            ('meshes', 'Geometry nodes position', 'EA to meshes')]
+        ))
+
+        self.visualresult = PropertyHandler(EnumProperty(  # types of Evolutionary algorithms
+           items=[('best', 'Best model', 'Only best robot'),
+            ('all', 'All models', 'Get all robots of the simulation')]
+        ))
+
+        self.toolbox = PropertyHandler(EnumProperty(
+           items=[('on', 'On', 'Toolbox on'),
+            ('off', 'Off', 'Toolbox off')]
+        ))
+
+        self.encoding = PropertyHandler(EnumProperty(
+           items=[('real', 'Evolution Strategies', 'Real encoding for EA'),
+            ('binary', 'Genetic Algorithm', 'Binary encoding for EA')]
+        ))
+
+        self.num_adaptions = PropertyHandler(IntProperty(name="Adaptability steps", default=1, min=0, max=50))
+
+        self.adaption_rate = PropertyHandler(FloatProperty(name="Adaptability rate", default=0.6, min=0, max=1, precision=1))
+
+        self.model_to_simulate = PropertyHandler(CollectionProperty(
+            type=bpy.types.PropertyGroup
+        ))
+
+        self.population_size = PropertyHandler(IntProperty(name="Initial population size", default=1, min=1, max=1))
+
+
+        self.mutation_rate_bin = PropertyHandler(FloatProperty(name="Mutation rate", default=0.01, min=0, max=1,
+                                                           precision=3))
+
+        self.mutation_rate_real = PropertyHandler(FloatProperty(name="Mutation rate", default=0.2, min=0, max=1,
+                                                           precision=3))
+
+        self.mutation_deviation = PropertyHandler(FloatProperty(name="Mutation deviation", default=0.2, min=0,
+                                                           precision=5))
+
+        self.max_generation = PropertyHandler(IntProperty(name="Number of generations", default=4, min=1))
+
+        self.offspring_size = PropertyHandler(IntProperty(name="Offspring per generation", default=4, min=2))
+
+        self.selection_rate = PropertyHandler(FloatProperty(name="Selection rate", default=0.7, min=0.1, max=1))
+
+        self.offsetlateral = PropertyHandler(FloatProperty(name="Offsprings instance offset", default=4.0, min=1.0))
+
+        self.offsetfront = PropertyHandler(FloatProperty(name="Generations instance offset", default=4.0, min=1.0))
+
+>>>>>>> globals changes
 
 
 global_properties = RDGlobals()
