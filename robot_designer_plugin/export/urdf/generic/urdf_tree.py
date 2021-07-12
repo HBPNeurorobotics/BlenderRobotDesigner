@@ -33,6 +33,7 @@
 #   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
+
 """
 Module for importing robots specified in the URDF file format.
 """
@@ -261,7 +262,7 @@ class URDFTree(object):
 
         return tree
 
-    def add_mesh(self, file_name, scale_factor=(1.0,1.0,1.0)):
+    def add_mesh(self, file_name, scale_factor=(1.0, 1.0, 1.0)):
         """
         Adds a mesh to current segment.
 
@@ -278,7 +279,7 @@ class URDFTree(object):
         visual.geometry.mesh.scale = list_to_string(scale_factor)
         return visual
 
-    def add_collisionmodel(self, file_name,scale_factor=(1.0,1.0,1.0)):
+    def add_collisionmodel(self, file_name, scale_factor=(1.0, 1.0, 1.0)):
         """
         Add a collision model to a mesh object
 
@@ -307,8 +308,8 @@ class URDFTree(object):
         inertial.mass = urdf_dom.MassType()
         inertial.mass.value_ = "1.0"
         inertial.inertia = urdf_dom.InertiaType()
-        inertial.inertia.ixx = inertial.inertia.izz =  inertial.inertia.iyy = "1.0"
-        inertial.inertia.ixy = inertial.inertia.ixz =  inertial.inertia.iyz = "0.0"
+        inertial.inertia.ixx = inertial.inertia.izz = inertial.inertia.iyy = "1.0"
+        inertial.inertia.ixy = inertial.inertia.ixz = inertial.inertia.iyz = "0.0"
         inertial.origin = urdf_dom.PoseType()
         inertial.origin.xyz = "0 0 0"
         inertial.origin.rpy = "0 0 0"

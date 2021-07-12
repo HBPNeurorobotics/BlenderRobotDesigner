@@ -36,6 +36,7 @@ import bpy
 from bpy.props import PointerProperty, FloatProperty, StringProperty
 from .logfile import core_logger
 
+
 class PropertyHandler(object):
     """
     Wraps a Blender property factory functions (e.g., :func:`bpy.props.StringProperty`, :func:`bpy.props.FloatProperty` or
@@ -50,6 +51,7 @@ class PropertyHandler(object):
 
 
     """
+
     def __init__(self, property):
         self.property = property
         self.reference = []
@@ -68,17 +70,16 @@ class PropertyHandler(object):
         :param obj: A Blender object with additional properties defined by the wrapper classes.
         :return: The property.
         """
-        obj = getattr(obj,"RobotDesigner")
+        obj = getattr(obj, "RobotDesigner")
         for i in self.reference:
             obj = getattr(obj, i)
         return obj
 
-    def set(self,obj, value):
-        obj = getattr(obj,"RobotDesigner")
+    def set(self, obj, value):
+        obj = getattr(obj, "RobotDesigner")
         for i in self.reference[:-1]:
             obj = getattr(obj, i)
-        setattr(obj,self.reference[-1],value)
-
+        setattr(obj, self.reference[-1], value)
 
     def prop(self, obj, layout, *args, **kwargs):
         """
@@ -97,9 +98,9 @@ class PropertyHandler(object):
         :param obj: A Blender object with additional properties defined by the wrapper classes.
         :param layout:  A :class:`bpy.types.UIlayout` reference.
         """
-        obj = getattr(obj,'RobotDesigner')
+        obj = getattr(obj, 'RobotDesigner')
         for i in self.reference[:-1]:
-            obj = getattr(obj,i)
+            obj = getattr(obj, i)
 
         layout.prop(obj, self.reference[-1], *args, **kwargs)
 
@@ -122,13 +123,11 @@ class PropertyHandler(object):
         :param obj: A Blender object with additional properties defined by the wrapper classes.
         :param layout:  A :class:`bpy.types.UIlayout` reference.
         """
-        obj = getattr(obj,'RobotDesigner')
+        obj = getattr(obj, 'RobotDesigner')
         for i in self.reference[:-1]:
-            obj = getattr(obj,i)
+            obj = getattr(obj, i)
 
         layout.prop_search(obj, self.reference[-1], *args, **kwargs)
-
-
 
 
 class PropertyGroupHandlerBase(object):
@@ -183,15 +182,17 @@ class PropertyGroupHandlerBase(object):
         if bpy.app.version == 'Mockup':
             return
 
-        newPropertyGroup = type(self.__class__.__name__ + "_unwrapped", (bpy.types.PropertyGroup,), {})
+        newPropertyGroup = type(self.__class__.__name__ + "_unwrapped", (bpy.types.PropertyGroup,), {'__annotations__': {}})
 
         for attr in self.__dict__.items():
             if isinstance(attr[1], PropertyHandler):
+
                 attr[1].property[1]['attr'] = attr[0]
-                # print(attr[0], attr[1].d)
-                property=attr[1].property
-                setattr(newPropertyGroup, attr[0], property) # property[0](**property[1]))
+                property = attr[1].property
+
+                newPropertyGroup.__annotations__.update({attr[0]: property})
                 attr[1].reference = parent + [attr[0]]
+
             elif isinstance(attr[1], PropertyGroupHandlerBase):
                 pg = attr[1].register(None, parent + [attr[0]])
                 print(type(pg), pg.__bases__)
@@ -200,12 +201,17 @@ class PropertyGroupHandlerBase(object):
                 setattr(newPropertyGroup, attr[0], p)
 
         core_logger.debug("Registering generated property group: %s", newPropertyGroup.__name__)
+
         bpy.utils.register_class(newPropertyGroup)
-        PluginManager._registered_properties.append((newPropertyGroup,btype))
+        PluginManager._registered_properties.append((newPropertyGroup, btype))
         if btype:
-            setattr(btype,'RobotDesigner',
-                    bpy.props.PointerProperty(type=getattr(bpy.types, newPropertyGroup.__name__)))
+            setattr(btype, 'RobotDesigner',
+                    bpy.props.PointerProperty(type=newPropertyGroup))
+            '''
+            According to blender: 
+            Classes registered by addons are no longer available in bpy.types. 
+            Instead addons can import their own modules and access the classes directly.
+            This is probably why the above code isn't working. But how to do it then? 
+            '''
             core_logger.debug("Assigning property to: %s", btype)
         return newPropertyGroup
-
-

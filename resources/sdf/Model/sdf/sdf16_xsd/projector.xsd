@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:include schemaLocation="types.xsd"/>
+    <xsd:include schemaLocation="plugin.xsd"/>
+    <xsd:element name="projector">
+        <xsd:complexType>
+            <xsd:choice maxOccurs="unbounded">
+                <xsd:choice maxOccurs="1" minOccurs="1">
+                    <xsd:element name="texture" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Texture name]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="pose" type="pose">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Pose of the projector]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="fov" type="xsd:double">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Field of view]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="near_clip" type="xsd:double">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Near clip distance]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="far_clip" type="xsd:double">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[far clip distance]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:element ref="plugin"/>
+            </xsd:choice>
+            <xsd:attribute name="name" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        <![CDATA[Name of the projector]]>
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

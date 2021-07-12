@@ -42,6 +42,7 @@ from mathutils import *
 
 __author__ = 'ulbrich'
 
+
 def rpy_to_xyz(rpy):
     """Converts
     Converts a tuple representing roll-pitch-yaw (XYZ=ZY'X'')values to euler XY'Z''

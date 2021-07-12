@@ -33,6 +33,7 @@
 #   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
+
 """
 This submodule provides the base class and decorators, and some functions for defining Blender :term:`operators` that
 register automatically.
@@ -55,7 +56,7 @@ def get_registered_operator(operator):
         of the classes attributes.
     """
 
-    #logger.debug('For debug only')
+    # logger.debug('For debug only')
     return getattr(getattr(bpy.ops, PLUGIN_PREFIX), operator.bl_idname.replace(PLUGIN_PREFIX + '.', ''))
 
 
@@ -186,7 +187,7 @@ class RDOperator(bpy.types.Operator):
         :return: The return values of :meth:`bpy.types.Operator.execute`.
         """
         try:
-            #cls.logger.debug('get registered operator')
+            # cls.logger.debug('get registered operator')
             return get_registered_operator(cls)(**kwargs)
 
 
@@ -281,7 +282,8 @@ class RDOperator(bpy.types.Operator):
                 return result
 
             except Exception as e:
-                InfoBox.global_messages.append("%s: %s (%s)"  % (type(e).__name__, e.__str__(), log_callstack_last(back_trace=True)))
+                InfoBox.global_messages.append(
+                    "%s: %s (%s)" % (type(e).__name__, e.__str__(), log_callstack_last(back_trace=True)))
                 message = "Operator %s (%s) threw an exception:%s\n\t%s" % (id, class_name,
                                                                             type(e).__name__, e)
                 self.logger.error("Operator %s (%s) threw an exception:\n" + EXCEPTION_MESSAGE,
@@ -306,8 +308,7 @@ class RDOperator(bpy.types.Operator):
         :param conditions: a number of subclasses of :class:`.conditions.Condition`.
         """
 
-        def decorator(cls: RDOperator):
-            # Todo check why this check fails some times
+        def decorator(cls: RDOperator):  # Todo check why this check fails some times
             if not issubclass(cls, RDOperator):
                 raise TypeError("Preconditions: Can only decorate sub classes of RDOperator.i \n%s \n%s \n%s\n%s" % (
                     cls.__name__,
@@ -330,9 +331,10 @@ class RDOperator(bpy.types.Operator):
         else:
             if any([issubclass(i, RDOperator) for i in conditions]):
                 raise TypeError('Decorator Preconditions must be called with arguments of subclasses of Condition '
-                                '%s', conditions)
+                            '%s', conditions)
 
             return decorator
+
 
     @staticmethod
     def Postconditions(*conditions):

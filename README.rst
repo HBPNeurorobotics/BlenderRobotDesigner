@@ -9,7 +9,7 @@ Welcome
 
 This is the documentation of the RobotDesigner belonging to the *Neurorobotics Platform (NRP)* of the
 `Human Brain Project (HBP) <https://www.humanbrainproject.eu>`_ developed in the
-`sub-project SP-10 Neurorobotics <http://neurorobotics.net/>`_.
+`sub-project Neurorobotics <http://neurorobotics.net/>`_.
 It is realized as a plugin for the `Blender 3D modeling suite <http://blender.org>`_ written in the Python language.
 This document provides information about the plugin, its installation, its features and usage, as well as the
 programming reference for developers.
@@ -146,31 +146,26 @@ offer scientists and technology developers a software and
 hardware infrastructure allowing them to connect pre-validated brain
 models to detailed simulations of robot bodies and environments and to
 use the resulting neurorobotic systems in in silico experiments and
-technology development. The goal for the ramp-up phase (*editor's note:
-The first two years of the project ending in March 2016*) will be to
-develop the Neurorobotics Platform version 1 which will allow
+technology development. The Neurorobotics Platform allows
 researchers to design and run simple experiments in cognitive
 neuroscience using simulated robots and simulated environments linked to
 simplified versions of HBP brain models. The *Neurorobotics Platform*
-will include a Robot Designer, an Environment Builder, and a Closed-Loop
+includes a Robot Designer, an Environment Builder, and a Closed-Loop
 engine, as well as the *Neurorobotics Platform* host facility. The
 *Neurorobotics Platform* will exploit the 3D modelling capabilities
-provided by commercial and open source gaming platforms (the choice of
-platform will be made in the early stage of the project). The *HBP
-Neurorobotics Platform* will allow researchers to conduct closed-loop
+provided by commercial and open source gaming platforms. The *HBP
+Neurorobotics Platform* allows researchers to conduct closed-loop
 experiments, in which a virtual robot is connected to a brain model,
-running on the HPC platform or on neuromorphic hardware (*editor's note*:
-E.g., the
+running on the HPC platform or on neuromorphic hardware (E.g., the
 `SpiNNaker boards <http://apt.cs.manchester.ac.uk/projects/SpiNNaker/>`__ ).
 Although the capabilities to model virtual robots and
 environments already exist, and although various labs have created
-closed-loop set-ups with simple brain models, the HBP platform will be
+closed-loop set-ups with simple brain models, the HBP platform is
 the first to couple robots to detailed models of the brain. This will
 make it possible to perform experiments exploring the link between low
-level brain circuitry and high-level function. The first release of the
-*Neurorobotics Platform* will offer extremely simple functionality. The
-majority of technical development work will focus on the goals fixed for
-the second release, which will provide a flexible environment in which
+level brain circuitry and high-level function.
+
+The Neurorobotics Platform will provide a flexible environment in which
 researchers can perform experiments using simulated robots connected to
 different classes of brain model – simplified versions of the models
 provided by the Brain Simulation Platform, high level models coming from
@@ -182,19 +177,21 @@ sub-projects.
 
 Installation
 ------------
-Important: You should have a latest blender (version>=2.77) on your computer. Your version of blender should have a built-in python. Install on linux and windows:
+Install on Linux and Windows:
 
 1.  Download blender from the dedicated website: https://www.blender.org/download/
-2.  Download the “installer.blend” from our github: https://github.com/HBPNeurorobotics/BlenderRobotDesigner/blob/master/installer.blend
-3.  Launch blender and open the installer.blend file, click “run script” and wait until “RD Installation Done!” appears in your terminal (Windows Users run Blender as administrator, as several python packages will be installed)
-4.  Relaunch blender, you will find the HBP add-on on the top left of blender GUI (Note: if the HBP tab does not appear in the tool shelf, navigate to File->User Preferences->Add-Ons tab, search for and select the NRP Robot Designer add-on, and click “Save User Settings”)
+2.  Download the “installer.blend” from our github: https://github.com/hbpneurorobotics/BlenderRobotDesigner/raw/master/installer.blend
+3.  Launch Blender and open the installer.blend file, click “run script” and wait until “RD Installation Done!” appears in your terminal.
+4.  Navigate to Edit->Preferences->Add-Ons tab. Search for the NRP Robot Designer add-on and check the box to enable the plugin.
 
-(Note: Launch blender from terminal to make sure that you choose the right version of blender if you have multiple blenders on your computer)
+You should now find the Blender RobotDesigner plugin on the right along with the "Tool", "View" and "Edit" tabs. Please make sure to click the small arrow in order to expand the menu.
+
 
 Troubleshooting
 --------
-
-If you get some compilation issues with any of Python libraries, you can try downloading precompiled .whl files from here: http://www.lfd.uci.edu/~gohlke/pythonlibs/
+Launch Blender from terminal and rerun the installation script to
+inspect the logs and investigate issues that arise during the installation.
+Further logs can be found in robot_designer_plugin/resources/log.txt
 
 Features
 --------
@@ -205,8 +202,7 @@ Features
     installer script that can be directly executed from within Blender. That
     way, it can detect the used operating system and Blender version and
     link the files to the correct location as well as select the correct
-    binaries for the platform. For more information, refer to the
-    documentation. 
+    binaries for the platform.
 
 -   **Robot modeling**
 
@@ -223,12 +219,15 @@ Features
     -  Convex hull computation
     -  Conversion from deformable meshes to rigid bodies. This is useful to
        transform deformable actors such as those created by
-       `MakeHuman <http://www.makehuman.org/>`__ into robots. This is used
+       `MakeHuman <http://www.makehumancommunity.org/>`__ into robots. This is used
        to provide a standard humanoid robot model to the NRP.
     -  Generation of links and joint geometries based on the kinematic
        description (*still experimental*).
     -  Placing of sensors (*Note: Currently, this includes cameras only.
        More to follow on request by the NRP and users*)
+    -  Graphically defining muscles and its pathpoints on skeletal models.
+    -  Building of world files with multiple robots.
+
 
 -   **File format and ROS/Gazebo support**
 
@@ -243,8 +242,7 @@ Features
     directly in the robot description file. This file support relies on `the
     PyXB package <http://pyxb.sourceforge.net/>`__–a software that
     translates XML scheme definitions (XSD) into a Python document object
-    model. Currently, the RobotDesigner supports limited export and import
-    of these files. 
+    model.
     
 
 -   **Plugin Core Framework**
@@ -295,45 +293,17 @@ Planned features
 
 One of the key aspects of the ongoing development is data persistence,
 that is, the ability to store robot models in different file formats and
-different storage mechanisms. 
+different storage mechanisms. More file formats will be supported upon demand.
+By the inclusion and abstraction of the ``PyXB`` interface XML-based systems can be integrated easily.
 
-Human Brain Project Collaboratory Upload: 
-The zipped Robot model package can be directly uploaded to the 
-Neurorobotics platform to be used in the web-based simulator. As well 
-a robot model can be downloaded from a collaboratory to be modified and adapted
-in the Blender Robot Designer.
-
-More file formats will be supported upon demand. By the inclusion and abstraction
-of the ``PyXB`` interface XML-based systems can be integrated easily.
-
-Furthermore, the *plugin core* framework will be separated from the main
-project and will be extended to a web application that allows running a
-sub-set of Blender's design capabilities in a web browser. Work on this
-has been already initiated.
-
-The installer will be improved to install external dependencies
-automatically for the installed Blender version.
-
-.. Outdated planned features:
-.. \* GIT integration: The distributed
-.. version control system `GIT <https://git-scm.com/>`__ will be used to
-.. directly upload exported models to a remote repository that can be
-.. accessed by the *Neurorobotics Platform*. That way, it will not be
-.. necessary to upload and store robot models and create a seamless
-.. integration of the RobotDesigner in the web-based NRP. \* File formats
-.. \* Simulation Description Format (see above's section) \* 
-
-.. Currently, the abstraction from PyXB is in the process
-   of being refactored in order to release URDF support as an independent
-   package and make support of additional file formats much simpler.
-.. At first, this will be limited to the `unified robot description format
-   (URDF) <http://wiki.ros.org/urdf/XML>`__ format which is very popular
-    among the `Robot Operating System (ROS) <http://wiki.ros.org>`__
-   community. 
+As well, further model properties and in particular sensor modalities including its various
+sensor parameters will be implemented.
 
 Acknowledgement
 --------
-This open source software code was developed in part or in whole in the Human Brain Project, funded from the European Union’s Horizon 2020 Framework Programme for Research and Innovation under Specific Grant Agreements No. 720270 and No. 785907 (Human Brain Project SGA1 and SGA2).
+This open source software code was developed in part or in whole in the Human Brain Project,
+funded from the European Union’s Horizon 2020 Framework Programme for Research and Innovation
+under Specific Grant Agreements No. 720270 and No. 785907 (Human Brain Project SGA1 and SGA2).
 
 --------------
 

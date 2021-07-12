@@ -1,0 +1,51 @@
+<?xml version="1.0" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+            <![CDATA[These elements are specific to logical camera sensors. A logical camera reports objects that fall within a frustum. Computation should be performed on the CPU.]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="types.xsd"/>
+    <xsd:element name="logical_camera">
+        <xsd:complexType>
+            <xsd:choice maxOccurs="unbounded">
+                <xsd:choice maxOccurs="1" minOccurs="1">
+                    <xsd:element name="near" type="xsd:double">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Near clipping distance of the view frustum]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="1">
+                    <xsd:element name="far" type="xsd:double">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Far clipping distance of the view frustum]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="1">
+                    <xsd:element name="aspect_ratio" type="xsd:double">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Aspect ratio of the near and far planes. This is the width divided by the height of the near or far planes.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="1">
+                    <xsd:element name="horizontal_fov" type="xsd:double">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Horizontal field of view of the frustum, in radians. This is the angle between the frustum's vertex and the edges of the near or far plane.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:choice>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

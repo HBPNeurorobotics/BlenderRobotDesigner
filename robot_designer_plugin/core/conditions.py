@@ -33,6 +33,7 @@
 #   2016-01-15: Stefan Ulbrich (FZI), First version of the plugin framework core
 #
 # ######
+
 """
 This submodule provides the :class:`Condition`.
 """

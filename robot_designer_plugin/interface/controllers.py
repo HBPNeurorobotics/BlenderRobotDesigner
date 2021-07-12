@@ -37,9 +37,11 @@
 
 # RobotDesigner imports
 from .model import check_armature
-from .helpers import ControllerBox, ControllerLimitsBox
+from .helpers import ControllerBox
+from ..core.logfile import LogFunction
 
 
+@LogFunction
 def draw(layout, context):
     """
     Draws the user interface for modifying the joint controller of a segment.
@@ -51,30 +53,24 @@ def draw(layout, context):
     if not check_armature(layout, context):
         return
     if context.active_bone is not None:
-
-        box = ControllerLimitsBox.get(layout,context,'Limits')
-        if box:
-            box.prop(context.active_bone.RobotEditor.controller, "maxVelocity")
-            box.prop(context.active_bone.RobotEditor.controller, "maxTorque")
-            box.prop(context.active_bone.RobotEditor.controller, "acceleration")
-            box.prop(context.active_bone.RobotEditor.controller, "deceleration")
-            box.prop(context.active_bone.RobotEditor.controller, "isActive")
-            box.label("Joint Limits:")
-            if context.active_bone.RobotEditor.jointMode == 'REVOLUTE':
-                box.prop(context.active_bone.RobotEditor.theta, "min")
-                box.prop(context.active_bone.RobotEditor.theta, "max")
+        # Joint controller properties
+        # Only shown for child segments. Unless root segment is connected to world
+        control_box = ControllerBox.get(layout, context, "Joint Controller Plugin")
+        if control_box:
+            if not (context.active_bone.parent is not None) or (
+                context.active_bone.RobotDesigner.world is True
+            ):
+                control_box.label(text="No Joint defined for this Link.")
             else:
-                box.prop(context.active_bone.RobotEditor.d, "min")
-                box.prop(context.active_bone.RobotEditor.d, "max")
-
-        layout.separator()
-
-        box = ControllerBox.get(layout,context,'Controller')
-        if box:
-            box.label("Joint controller:")
-            box.prop(context.active_bone.RobotEditor.jointController, "isActive")
-            box.prop(context.active_bone.RobotEditor.jointController, "controllerType")
-            box.separator()
-            box.prop(context.active_bone.RobotEditor.jointController, "P")
-            box.prop(context.active_bone.RobotEditor.jointController, "I")
-            box.prop(context.active_bone.RobotEditor.jointController, "D")
+                control_box.prop(
+                    context.active_bone.RobotDesigner.jointController,
+                    "isActive",
+                    text="Active Controller",
+                )
+                control_box.prop(
+                    context.active_bone.RobotDesigner.jointController, "controllerType"
+                )
+                control_box.separator()
+                control_box.prop(context.active_bone.RobotDesigner.jointController, "P")
+                control_box.prop(context.active_bone.RobotDesigner.jointController, "I")
+                control_box.prop(context.active_bone.RobotDesigner.jointController, "D")

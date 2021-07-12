@@ -30,9 +30,10 @@
 #
 # Changes:
 #
-#   2016-03-29: Stefan Ulbrich (FZI), Added constants
+#   2016-01-15: Stefan Ulbrich (FZI), First version of the plugin framework core
 #
 # ######
+
 """
 This submodule provides resolvable names for Blender constants.
 """

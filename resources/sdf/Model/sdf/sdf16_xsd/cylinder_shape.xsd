@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+            <![CDATA[Cylinder shape]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="types.xsd"/>
+    <xsd:element name="cylinder">
+        <xsd:complexType>
+            <xsd:choice maxOccurs="unbounded">
+                <xsd:choice maxOccurs="1" minOccurs="1">
+                    <xsd:element name="radius" type="xsd:double">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Radius of the cylinder]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="1">
+                    <xsd:element name="length" type="xsd:double">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Length of the cylinder]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:choice>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

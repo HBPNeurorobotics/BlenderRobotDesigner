@@ -33,6 +33,7 @@
 #   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
+
 """
 This sub package provides logging mechanism for the plugin development.
 
@@ -65,7 +66,14 @@ reload(logging)
 logging.basicConfig(format='[%(levelname)5s|%(name)10s|%(filename)12s:%(lineno)03d|%(funcName)s()] %(message)s',
                     filename=os.path.join(script_path, 'resources/log.txt'), filemode='w')
 
+# Also log to stdout
+logging.getLogger().addHandler(logging.StreamHandler(sys.stdout))
+
 operator_logger = logging.getLogger('Operators')
+'''
+Logging object associated with :term:`operators`. All loggers store to ``resources/log.txt``
+'''
+export_logger = logging.getLogger('Export')
 '''
 Logging object associated with :term:`operators`. All loggers store to ``resources/log.txt``
 '''
@@ -82,10 +90,11 @@ prop_logger = logging.getLogger('Properties')
 Logging object associated with :term:`properties`. All loggers store to ``resources/log.txt``
 '''
 
-operator_logger.setLevel(logging.DEBUG)
-core_logger.setLevel(logging.DEBUG)
-gui_logger.setLevel(logging.DEBUG)
-prop_logger.setLevel(logging.DEBUG)
+operator_logger.setLevel(logging.INFO)
+export_logger.setLevel(logging.INFO)
+core_logger.setLevel(logging.INFO)
+gui_logger.setLevel(logging.INFO)
+prop_logger.setLevel(logging.INFO)
 
 
 def LogFunction(func):
@@ -155,7 +164,7 @@ def log_callstack_last(back_trace=False):
     print("Parsing stack")
 
     for path, line, func, code in stack:
-        print(path,func)
+        print(path, func)
         if func not in BACKTRACE_FILTER_FUNC:
             if func not in BACKTRACE_FILTER_HIDE_CODE:
                 file = os.path.split(path)[-1]

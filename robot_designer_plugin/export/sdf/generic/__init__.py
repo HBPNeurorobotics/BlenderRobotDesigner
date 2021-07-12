@@ -39,10 +39,10 @@ Generic (Blender-independent) parsing of SDF files.
 """
 
 from . import helpers
-from . import sdf_dom
+from . import sdf_model_dom
 from . import sdf_tree
 from importlib import reload
-reload(helpers)
-reload(sdf_dom)
-reload(sdf_tree)
 
+reload(helpers)
+reload(sdf_model_dom)
+reload(sdf_tree)

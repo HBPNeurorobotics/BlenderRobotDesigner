@@ -1,0 +1,44 @@
+<?xml version="1.0" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+            <![CDATA[The shape of the visual or collision object.]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="types.xsd"/>
+    <xsd:include schemaLocation="box_shape.xsd"/>
+    <xsd:include schemaLocation="cylinder_shape.xsd"/>
+    <xsd:include schemaLocation="heightmap_shape.xsd"/>
+    <xsd:include schemaLocation="image_shape.xsd"/>
+    <xsd:include schemaLocation="mesh_shape.xsd"/>
+    <xsd:include schemaLocation="plane_shape.xsd"/>
+    <xsd:include schemaLocation="polyline_shape.xsd"/>
+    <xsd:include schemaLocation="sphere_shape.xsd"/>
+    <xsd:element name="geometry">
+        <xsd:complexType>
+            <xsd:choice maxOccurs="unbounded">
+                <xsd:choice maxOccurs="1" minOccurs="0">
+                    <xsd:element name="empty">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[You can use the empty tag to make empty geometries.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                            <xsd:choice maxOccurs="unbounded">
+                            </xsd:choice>
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:element ref="box"/>
+                <xsd:element ref="cylinder"/>
+                <xsd:element ref="heightmap"/>
+                <xsd:element ref="image"/>
+                <xsd:element ref="mesh"/>
+                <xsd:element ref="plane"/>
+                <xsd:element ref="polyline"/>
+                <xsd:element ref="sphere"/>
+            </xsd:choice>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

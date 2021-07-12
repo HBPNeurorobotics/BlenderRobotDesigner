@@ -1,3 +1,36 @@
+# #####
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
+# #####
+
+# ##### BEGIN GPL LICENSE BLOCK #####
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License
+#  as published by the Free Software Foundation; either version 2
+#  of the License, or (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software Foundation,
+#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# ##### END GPL LICENSE BLOCK #####
+
+
+
 import xml.etree.cElementTree as etree
 import logging
 
@@ -94,7 +127,7 @@ class COLLADA(object):
     VISUAL_SCENE = '{ns}library_visual_scenes/{ns}visual_scene'
     VISUAL_SCENE_ID = VISUAL_SCENE + '[@id="{id}"]'
     VISUAL_SCENE_TYPE_SID = VISUAL_SCENE_ID + \
-        '//{ns}node[@sid="{sid}"][@type="{type}"]'  # Type either 'JOINT' or 'NODE'
+                            '//{ns}node[@sid="{sid}"][@type="{type}"]'  # Type either 'JOINT' or 'NODE'
     VISUAL_SCENE_SID = VISUAL_SCENE_ID + '//{ns}node[@sid="{sid}"]'
     VISUAL_SCENE_NAME = VISUAL_SCENE_ID + '//{ns}node[@name="{name}"]'
     VISUAL_SCENE_2SID = VISUAL_SCENE_SID + '//*[@sid="{sid2}"]'
@@ -111,13 +144,13 @@ class COLLADA(object):
     ARTICULATED_SYSTEMS_MOTION_ID = ARTICULATED_SYSTEMS_MOTION + '[@id="{id}"]'
     ARTICULATED_SYSTEMS_MOTION_SID = ARTICULATED_SYSTEMS_MOTION_ID + '//*[@sid="{sid}"]'
     ARTICULATED_SYSTEMS_MOTION_AXIS_INFO = ARTICULATED_SYSTEMS_MOTION_ID + \
-        '/{ns}motion/{ns}technique_common/{ns}axis_info[@axis="{axis}"]'
+                                           '/{ns}motion/{ns}technique_common/{ns}axis_info[@axis="{axis}"]'
 
     ARTICULATED_SYSTEMS_KINEMATICS = '{ns}library_articulated_systems/{ns}articulated_system[{ns}kinematics]'
     ARTICULATED_SYSTEMS_KINEMATICS_ID = ARTICULATED_SYSTEMS_KINEMATICS + '[@id="{id}"]'
     ARTICULATED_SYSTEMS_KINEMATICS_SID = ARTICULATED_SYSTEMS_KINEMATICS_ID + '//*[@sid="{sid}"]'
     ARTICULATED_SYSTEMS_KINEMATICS_AXIS_INFO = ARTICULATED_SYSTEMS_KINEMATICS_ID + \
-        '/{ns}kinematics/{ns}technique_common/{ns}axis_info[@axis="{axis}"]'
+                                               '/{ns}kinematics/{ns}technique_common/{ns}axis_info[@axis="{axis}"]'
 
     KINEMATICS_SCENES = '{ns}library_kinematics_scenes/{ns}kinematics_scene'
     KINEMATICS_SCENES_ID = KINEMATICS_SCENES + '[@id="{id}"]'

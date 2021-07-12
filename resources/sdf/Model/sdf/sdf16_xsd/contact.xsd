@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:annotation>
+        <xsd:documentation xml:lang="en">
+            <![CDATA[These elements are specific to the contact sensor.]]>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:include schemaLocation="types.xsd"/>
+    <xsd:element name="contact">
+        <xsd:complexType>
+            <xsd:choice maxOccurs="unbounded">
+                <xsd:choice maxOccurs="1" minOccurs="1">
+                    <xsd:element name="collision" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[name of the collision element within a link that acts as the contact sensor.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+                <xsd:choice maxOccurs="1" minOccurs="1">
+                    <xsd:element name="topic" type="xsd:string">
+                        <xsd:annotation>
+                            <xsd:documentation xml:lang="en">
+                                <![CDATA[Topic on which contact data is published.]]>
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:choice>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

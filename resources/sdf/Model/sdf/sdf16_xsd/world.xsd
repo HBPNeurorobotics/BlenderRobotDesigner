@@ -1,0 +1,71 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="element">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="description"/>
+        <xs:element name="attribute">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="description"/>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="name"/>
+            <xs:attribute type="xs:string" name="type"/>
+            <xs:attribute type="xs:string" name="default"/>
+            <xs:attribute type="xs:byte" name="required"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="element" maxOccurs="unbounded" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>End Gravity</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="description"/>
+              <xs:element name="element" maxOccurs="unbounded" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="description"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="name" use="optional"/>
+                  <xs:attribute type="xs:string" name="type" use="optional"/>
+                  <xs:attribute type="xs:string" name="default" use="optional"/>
+                  <xs:attribute type="xs:byte" name="required" use="optional"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="include" minOccurs="0">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute type="xs:string" name="filename"/>
+                      <xs:attribute type="xs:byte" name="required"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="name" use="optional"/>
+            <xs:attribute type="xs:string" name="required" use="optional"/>
+            <xs:attribute type="xs:string" name="type" use="optional"/>
+            <xs:attribute type="xs:string" name="default" use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="include" maxOccurs="unbounded" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>End Magnetic</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute type="xs:string" name="filename" use="optional"/>
+                <xs:attribute type="xs:string" name="required" use="optional"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="name"/>
+      <xs:attribute type="xs:string" name="required"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+

@@ -33,6 +33,7 @@
 #   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
+
 """
 This module adds URDF support to the RobotDesigner
 """
@@ -40,11 +41,12 @@ This module adds URDF support to the RobotDesigner
 from . import urdf_export, urdf_import, generic
 
 from importlib import reload
+
 reload(generic)
 reload(urdf_export)
 reload(urdf_import)
 
 from .urdf_import import ImportPlain, ImportPackage, ImportZippedPackage
 from .urdf_export import ExportPackage, ExportZippedPackage, ExportPlain
-__author__ = 'ulbrich'
 
+__author__ = 'ulbrich'

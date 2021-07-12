@@ -36,20 +36,17 @@
 #       Please add ALWAYS your modifications
 #
 # ######
+
 """
 Sphinx-autodoc tag
 """
 
 # System imports
 import os
-# import sys
-# import math
 from inspect import getmembers, isclass
 
 # Blender imports
 import bpy
-# from bpy.props import StringProperty
-# import mathutils
 
 # RobotDesigner imports
 from ..core import config, PluginManager, RDOperator, logfile
@@ -68,73 +65,90 @@ class GenerateAPI(RDOperator):
     bl_idname = config.OPERATOR_PREFIX + "generate_api"
     bl_label = "Generate Python API"
 
-
     @RDOperator.OperatorLogger
     def execute(self, context):
 
         try:
-            base_path = os.path.join(config.script_path, 'resources/blender_api/bpy/')
+            base_path = os.path.join(config.script_path, "resources/blender_api/bpy/")
             self.logger.info("Writing API stubs to: %s", base_path)
 
             for op_module_name in dir(bpy.ops):
-                ops_dir = os.path.join(base_path, 'ops')
+                ops_dir = os.path.join(base_path, "ops")
                 if not os.path.exists(ops_dir):
                     os.makedirs(ops_dir)
                 self.logger.debug("Creating module: %s", ops_dir)
 
-                with open(os.path.join(ops_dir, op_module_name + '.py'), 'w') as f:
+                with open(os.path.join(ops_dir, op_module_name + ".py"), "w") as f:
                     op_module = getattr(bpy.ops, op_module_name)
                     for op_submodule_name in dir(op_module):
                         op = getattr(op_module, op_submodule_name)
                         text = repr(op).split("\n")
                         if text[-1].startswith("bpy.ops."):
-                            f.write('def %s:\n    """\n    %s\n    """\n    pass\n' % (
-                                text[-1].replace("bpy.ops.%s." % op_module_name, ''), text[0].replace('#', '')))
+                            f.write(
+                                'def %s:\n    """\n    %s\n    """\n    pass\n'
+                                % (
+                                    text[-1].replace(
+                                        "bpy.ops.%s." % op_module_name, ""
+                                    ),
+                                    text[0].replace("#", ""),
+                                )
+                            )
 
-            types = [i for i in getmembers(bpy.types, isclass) if '.' not in i[0]]
+            types = [i for i in getmembers(bpy.types, isclass) if "." not in i[0]]
 
-            with open(os.path.join(base_path, 'types.py'), 'w') as f:
+            with open(os.path.join(base_path, "types.py"), "w") as f:
                 for bpy_type in types:
                     if bpy_type[0] is not "Operator":
                         f.write("class %s(object):\n\tpass\n\n" % bpy_type[0])
                     else:
                         # Adding overridable methods removes inspection check warnings about unused variables
-                        f.write("class %s(object):"
-                                "\n\t@classmethod"
-                                "\n\tdef poll(cls,context): pass"
-                                "\n\tdef invoke(self, context, event): pass"
-                                "\n\tdef execute(self,context): pass \n\n" % bpy_type[0])
+                        f.write(
+                            "class %s(object):"
+                            "\n\t@classmethod"
+                            "\n\tdef poll(cls,context): pass"
+                            "\n\tdef invoke(self, context, event): pass"
+                            "\n\tdef execute(self,context): pass \n\n" % bpy_type[0]
+                        )
 
             # Data is just a class with classes
 
             # Context
 
-            with open(os.path.join(base_path, '__init__.py'), 'w')as f:
-                f.write('from . import ops, types, props\n\n')
-                f.write('class context(object):')
+            with open(os.path.join(base_path, "__init__.py"), "w") as f:
+                f.write("from . import ops, types, props\n\n")
+                f.write("class context(object):")
 
-                for member in [i[0] for i in getmembers(bpy.context) if '__' not in i[0]]:
-                    f.write('\n    %s = None' % member)
-                f.write('\n\n')
+                for member in [
+                    i[0] for i in getmembers(bpy.context) if "__" not in i[0]
+                ]:
+                    f.write("\n    %s = None" % member)
+                f.write("\n\n")
 
-                f.write('class data(object):')
-                for member in [i[0] for i in getmembers(bpy.data) if '__' not in i[0]]:
-                    f.write('\n    %s = None' % member)
-                f.write('\n\n')
+                f.write("class data(object):")
+                for member in [i[0] for i in getmembers(bpy.data) if "__" not in i[0]]:
+                    f.write("\n    %s = None" % member)
+                f.write("\n\n")
 
             # utils are several modules
 
             # Properties are in one module
-            with open(base_path + 'props.py', 'w') as f:
-                f.write('import sys\n\n')
+            with open(base_path + "props.py", "w") as f:
+                f.write("import sys\n\n")
 
-                for prop in [getattr(bpy.props, i[0]) for i in getmembers(bpy.props) if 'Property' in i[0]]:
-                    text = prop.__doc__.split('\n')
-                    signature = text[0].replace('.. function:: ', '')
-                    docstring = '\n'.join(text[1:])
-                    f.write('def %s:\n   """%s\n   """\n   pass\n\n' % (signature, docstring))
+                for prop in [
+                    getattr(bpy.props, i[0])
+                    for i in getmembers(bpy.props)
+                    if "Property" in i[0]
+                ]:
+                    text = prop.__doc__.split("\n")
+                    signature = text[0].replace(".. function:: ", "")
+                    docstring = "\n".join(text[1:])
+                    f.write(
+                        'def %s:\n   """%s\n   """\n   pass\n\n'
+                        % (signature, docstring)
+                    )
 
-            return {'FINISHED'}
+            return {"FINISHED"}
 
         except:
             print(logfile.log_callstack())

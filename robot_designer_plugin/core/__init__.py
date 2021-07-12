@@ -33,6 +33,7 @@
 #   2016-01-15: Stefan Ulbrich (FZI), First version of the plugin framework core
 #
 # ######
+
 '''
 This package is a framework for creating large application-like plugins for Blender. It provides the
 Base classes and Python decorators for automatic registration, log files, resource management and
@@ -69,4 +70,3 @@ from .pluginmanager import PluginManager
 from .conditions import Condition
 from .operators import RDOperator
 # from .resources import reload_resources
-

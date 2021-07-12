@@ -33,6 +33,7 @@
 #   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.
 #
 # ######
+
 """
 This submodule holds the configuration of the plugin (path variables, error message format, etc.)
 """
@@ -45,14 +46,12 @@ resource_path = os.path.join(script_path, 'resources')
 
 '''This variable stores the file name where the plugin is defined (assuming it is the top level of the :mod:`core`.)'''
 
-# PLUGIN_PREFIX = "hbp_robot_designer."
-
-PLUGIN_PREFIX = "roboteditor"
+PLUGIN_PREFIX = "robotdesigner"
 OPERATOR_PREFIX = PLUGIN_PREFIX + '.'
+MENU_PREFIX = "ROBOTDESIGNER_MT_"
 
 BACKTRACE_FILTER_FUNC = ('func_wrapper', 'op_logger', '__call__')
 BACKTRACE_FILTER_HIDE_CODE = ('run', 'runNestedOperator')
-# BACKTRACE_MESSAGE_STACK_CODE = "\t\t\t{4}\n\t\t{0:25}\t\t({1}:{2})\n"
 BACKTRACE_MESSAGE_STACK_CODE = "\t\t{0:25}\t\t({1}:{2})\n\t\t\t{3}\n"
 BACKTRACE_MESSAGE_STACK = "\t\t{0:25}\t\t({1}:{2})\n"
 

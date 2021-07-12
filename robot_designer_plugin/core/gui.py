@@ -33,6 +33,7 @@
 #   2016-01-15: Stefan Ulbrich (FZI), First version of the plugin framework core
 #
 # ######
+
 """
 This submodule provides helper classes for creating blender guis.
 """
@@ -45,7 +46,7 @@ class InfoBox(object):
     This class collects messages (e.g., from :meth:`.operators.operators.RDOperator.poll`) and displays them
     with an info, either in a separated box or the current layout.
 
-    See :ref:`gui_develpment` for an example.
+    See :ref:`gui_development` for an example.
     """
 
     global_messages = []

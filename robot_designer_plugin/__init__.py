@@ -1,3 +1,16 @@
+# #####
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
+# #####
+
 # ##### BEGIN GPL LICENSE BLOCK #####
 #
 #  This program is free software; you can redistribute it and/or
@@ -17,19 +30,24 @@
 # ##### END GPL LICENSE BLOCK #####
 
 from importlib import reload
-import sys
-import os
 
 try:
 
     from . import core
+
     reload(core)  # Must be the first to reload
 
 except Exception as e:
     print("Could not load core functionality!", type(e).__name__, e)
     raise e
-    def register(): pass
-    def unregister(): pass
+
+
+    def register():
+        pass
+
+
+    def unregister():
+        pass
 
 try:
     from . import export
@@ -45,6 +63,7 @@ try:
     reload(interface)
 
     core.PluginManager.load_icon('hbp', 'icons/hbp.png')
+
 
     def register():
         import sys
@@ -77,22 +96,24 @@ try:
 
 except Exception as e:
     from .core.logfile import core_logger, EXCEPTION_MESSAGE, log_callstack
+
     core_logger.error("Could not import submodules:\n" + EXCEPTION_MESSAGE,
                       type(e).__name__, e, log_callstack(), log_callstack(True))
 
-    def register(): pass
-    def unregister(): pass
+
+    def register():
+        pass
 
 
+    def unregister():
+        pass
 
 bl_info = {
     "name": "NRP Robot Designer",
-    "author": "Stefan Ulbrich (FZI), Michael Bechtel",
-    "version": (0, 1),
-    "blender": (2, 78, 1),
+    "author": "Benedikt Feldotto (TUM), Stefan Ulbrich (FZI), et al.",
+    "version": (3, 0),
+    "blender": (2, 80, 2),
     "location": "View3D > Tools",
     "category": "Editor"}
 
 additionalModulePath = True
-
-

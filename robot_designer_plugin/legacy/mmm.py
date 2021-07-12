@@ -1,3 +1,34 @@
+# #####
+#  This file is part of the RobotDesigner developed in the Neurorobotics
+#  subproject of the Human Brain Project (https://www.humanbrainproject.eu).
+#
+#  The Human Brain Project is a European Commission funded project
+#  in the frame of the Horizon2020 FET Flagship plan.
+#  (http://ec.europa.eu/programmes/horizon2020/en/h2020-section/fet-flagships)
+#
+#  The Robot Designer has initially been forked from the RobotEditor
+#  (https://gitlab.com/h2t/roboteditor) developed at the Karlsruhe Institute
+#  of Technology in the High Performance Humanoid Technologies Laboratory (H2T).
+# #####
+
+# ##### BEGIN GPL LICENSE BLOCK #####
+#
+#  This program is free software; you can redistribute it and/or
+#  modify it under the terms of the GNU General Public License
+#  as published by the Free Software Foundation; either version 2
+#  of the License, or (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+#
+#  You should have received a copy of the GNU General Public License
+#  along with this program; if not, write to the Free Software Foundation,
+#  Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# ##### END GPL LICENSE BLOCK #####
+
 import bpy
 from mathutils import Euler, Matrix, Quaternion, Vector
 
@@ -49,7 +80,7 @@ def read(filepath):
     frameCounter = start  # count the current frame in blender
 
     # disable kinematic updates for import
-    bpy.context.scene.RobotEditor.doKinematicUpdate = False
+    bpy.context.scene.RobotDesigner.doKinematicUpdate = False
 
     for [i, [timestamp, root_position, root_rotation, joint_position]] in enumerate(
             itertools.zip_longest(timestamps, root_positions, root_rotations, joint_positions,
@@ -82,12 +113,12 @@ def read(filepath):
         # bpy.context.active_object.rotation_euler = Euler(root_rotation, "XYZ")
         for [x, value] in enumerate(joint_position):
             if x < len(names):
-                bpy.ops.roboteditor.select_segment(segment_name=names[x])
+                bpy.ops.RobotDesigner.select_segment(segment_name=names[x])
                 try:
-                    bpy.context.active_bone.RobotEditor.theta.value = value / pi * 180.0
+                    bpy.context.active_bone.RobotDesigner.theta.value = value / pi * 180.0
                 except KeyError:
                     print("Error updating %s" % s)
-                    # print(names[x], value/pi*180, bpy.context.active_bone.RobotEditor.theta.value)
+                    # print(names[x], value/pi*180, bpy.context.active_bone.RobotDesigner.theta.value)
 
         bpy.ops.object.mode_set(mode='POSE')
         bpy.ops.pose.select_all(action='SELECT')
@@ -97,7 +128,7 @@ def read(filepath):
 
         # armatures.updateKinematics(armName,segment_name)
 
-    bpy.context.scene.RobotEditor.doKinematicUpdate = True
+    bpy.context.scene.RobotDesigner.doKinematicUpdate = True
 
 # if __name__ == "__main__":
 #    import sys

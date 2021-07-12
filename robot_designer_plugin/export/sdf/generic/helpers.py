@@ -34,29 +34,48 @@
 #
 # ######
 
-# system imports
+# System imports
 import re
 import numbers
-from .transformations import compose_matrix, concatenate_matrices, inverse_matrix, translation_from_matrix, euler_from_matrix
+from .transformations import compose_matrix, concatenate_matrices, inverse_matrix, translation_from_matrix, \
+    euler_from_matrix
 
-# Blender-specific imports
+# Blender imports
 from mathutils import *
 
 __author__ = 'ulbrich'
 
+
 def string2float_list(s):
+    """
+    Converts a string in float list
+    @param s: string input
+    @return: float output list
+    """
     return [float(i) for i in s.split()]
 
+
 def rounded(val):
+    """
+    Rounds a input value
+    @param val: input value
+    @return:
+    """
     if isinstance(val, str):
         return rounded(float(val))
     elif isinstance(val, numbers.Number):
-        return int(round(val,6) * 1e5) / 1.0e5
+        return int(round(val, 6) * 1e5) / 1.0e5
     else:
         return [rounded(v) for v in val]
 
 
 def pose_modelpose(pose, model_pose):
+    """
+    Converts pose to homogeneous representation
+    @param pose: input pose
+    @param model_pose:
+    @return:
+    """
     pose_link = pose_float2homogeneous(rounded(pose))
     pose_model = pose_float2homogeneous(rounded(model_pose))
     con_matrix = concatenate_matrices(pose_model, pose_link)
@@ -66,6 +85,11 @@ def pose_modelpose(pose, model_pose):
 
 
 def pose_string2homogeneous(pose):
+    """
+    Converts pose string to homogenous
+    @param pose: pose string
+    @return:
+    """
     pose_float = string2float_list(pose)
     translate = pose_float[:3]
     angles = pose_float[3:]
@@ -74,12 +98,25 @@ def pose_string2homogeneous(pose):
 
 
 def pose_float2homogeneous(pose_float):
+    """
+    Converts pose float to homogenous
+    @param pose: pose float
+    @return:
+    """
     translate = pose_float[:3]
     angles = pose_float[3:]
     homogeneous = compose_matrix(None, None, angles, translate)
     return homogeneous
 
+
 def localpose2globalpose(ref_pose_global, angles, translate):
+    """
+    Converta a local pose to a global pose
+    @param ref_pose_global: global reference pose
+    @param angles: angle
+    @param translate: tranlation
+    @return:
+    """
     localhomo = compose_matrix(None, None, string2float_list(angles), string2float_list(translate))
     translate = ref_pose_global[:3]
     angles = ref_pose_global[3:]
@@ -91,19 +128,32 @@ def localpose2globalpose(ref_pose_global, angles, translate):
 
 
 def pose2origin(parent_pose_homo, self_pose_homo):
+    """
+    Transforms a pose to its origin
+    @param parent_pose_homo: parent pose in homogenous coordinates
+    @param self_pose_homo: own pose in homogeneous coordinates
+    @return: pose in origin
+    """
     relative_matrix = concatenate_matrices(inverse_matrix(parent_pose_homo), self_pose_homo)
     org_xyz = translation_from_matrix(relative_matrix)
     org_rpy = euler_from_matrix(relative_matrix)
     return org_xyz, org_rpy
 
+
 def homo2origin(self_pose_homo):
+    """
+    Transforms a homogeneous post to origin
+    @param self_pose_homo: homogeneous pose
+    @return:
+    """
     org_xyz = translation_from_matrix(self_pose_homo)
     org_rpy = euler_from_matrix(self_pose_homo)
     return org_xyz, org_rpy
 
 
 def rpy_to_xyz(rpy):
-    """Converts
+    """
+    Converts
     Converts a tuple representing roll-pitch-yaw (XYZ=ZY'X'')values to euler XY'Z''
 
     :param rpy: list/tuple with the RPY angles
@@ -114,7 +164,8 @@ def rpy_to_xyz(rpy):
 
 
 def convert_euler(euler, old_convention, new_convention):
-    """Converts between Euler conventions.
+    """
+    Converts between Euler conventions.
 
     **WARNING: does not do what it is expected to do (x will always be the angle around the local x axis)**.
     Converts between different euler conventions. Conventions are specified as strings.
@@ -143,7 +194,7 @@ def list_to_string(l):
     :param l:
     :return:
     """
-    #return " ".join([str(i).rstrip('0').rstrip('.') for i in l])  BUG e10 ->  e1
+    # return " ".join([str(i).rstrip('0').rstrip('.') for i in l])  BUG e10 ->  e1
     return " ".join([str(i) for i in l])
 
 

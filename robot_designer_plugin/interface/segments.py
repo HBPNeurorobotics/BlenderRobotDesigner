@@ -44,9 +44,11 @@ from .model import check_armature
 from . import kinematics, controllers, dynamics
 from .helpers import create_segment_selector
 from ..operators import segments
-from ..core.pluginmanager import PluginManager
 from ..properties.globals import global_properties
+from ..core.logfile import LogFunction
 
+
+@LogFunction
 def draw(layout, context):
     """
     Draws the user interface for modifying segments.
@@ -59,23 +61,28 @@ def draw(layout, context):
 
     layout.operator(segments.ImportBlenderArmature.bl_idname, text="(Re)Import Bones")
 
-    # layout.label("Active Bone:")
+    settings = layout.row()
+    global_properties.display_physics_selection.prop(context.scene, settings)
+
     if context.active_bone is not None:
 
         box = layout.box()
         row = box.row(align=True)
         column = row.column(align=True)
-        column.label('Active segment:')
+        column.label(text="Active Segment:")
         column = row.column(align=True)
         create_segment_selector(column, context)
 
-        if (context.mode == "OBJECT" or context.mode == 'POSE'):
-            assert isinstance(context.active_bone, bpy_types.Bone), 'Given object or pose mode, we should get a bone here but we got '+str(type(context.active_bone))
+        if context.mode == "OBJECT" or context.mode == "POSE":
+            assert isinstance(context.active_bone, bpy_types.Bone), (
+                "Given object or pose mode, we should get a bone here but we got "
+                + str(type(context.active_bone))
+            )
             box = layout.box()
             row = box.row()
-            if context.active_bone.RobotEditor.RD_Bone:
-                row.label("Edit:")
-                global_properties.segment_tab.prop(bpy.context.scene,row,expand=True)
+            if context.active_bone.RobotDesigner.RD_Bone:
+                row.label(text="Edit:")
+                global_properties.segment_tab.prop(bpy.context.scene, row, expand=True)
                 tab = global_properties.segment_tab.get(bpy.context.scene)
                 if tab == "kinematics":
                     kinematics.draw(box, context)
@@ -85,6 +92,8 @@ def draw(layout, context):
                     controllers.draw(box, context)
         else:
             box = layout.box()
-            box.label("Must be in object or pose mode.")
+            box.label(text="Must Be in Object or Pose Mode.")
     else:
-        layout.operator(segments.CreateNewSegment.bl_idname, text="Create new base bone")
+        layout.operator(
+            segments.CreateNewSegment.bl_idname, text="Create New Base Bone"
+        )
