@@ -185,7 +185,7 @@ def draw(layout, context):
     row = tools_box.row(align=True)
     row.operator(file_tools.ConvertDAEPackages.bl_idname)
     row = tools_box.row(align=True)
-    row.operator(file_tools.StlToDaeConverter.bl_idname)
+    row.operator(file_tools.FileToDaeConverter.bl_idname)
 
     layout.separator()
     row = layout.row()
