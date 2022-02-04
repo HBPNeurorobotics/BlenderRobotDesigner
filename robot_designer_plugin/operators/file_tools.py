@@ -113,6 +113,32 @@ class ConvertDAEPackages(RDOperator):
         default=0.0,
     )
 
+    lift_up: BoolProperty(
+        name="Lift Model above ground",
+        description="Moves the mesh above the ground for simulation",
+        default=True,
+    )
+
+    sdf_author_name: StringProperty(
+        name="Author Name",
+        description="The name of the model author",
+        default="Benedikt Feldotto",
+    )
+
+    sdf_author_mail: StringProperty(
+        name="Author EMail",
+        description="Email adress of the model author",
+        default="feldotto@in.tum.de",
+    )
+
+    sdf_description: StringProperty(
+        name="Model Description",
+        description="A short description of the model",
+        default="Export3D Model from https://de.3dexport.com/.",
+    )
+
+
+
 
     @classmethod
     def poll(cls, context):
@@ -124,7 +150,10 @@ class ConvertDAEPackages(RDOperator):
         dae_sdf_converter(self.directory, self.sdf_mesh_scale,
                           self.dae_mesh_dim_min, self.dae_mesh_dim_max,
                           self.rotate_x, self.rotate_y, self.rotate_z,
-                          self.translate_x, self.translate_y, self.translate_z)
+                          self.translate_x, self.translate_y, self.translate_z,
+                          self.lift_up,
+                          self.sdf_author_name, self.sdf_author_mail, self.sdf_description
+                          )
         return {"FINISHED"}
 
     def invoke(self, context, event):

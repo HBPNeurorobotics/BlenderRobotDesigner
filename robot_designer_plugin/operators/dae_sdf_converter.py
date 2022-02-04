@@ -109,20 +109,20 @@ def check_output_exist(sdf_name):
 
 
 def create_config_file(
-    sdf_name, author_name="Rui Li", author_email="raysworld@outlook.com", description=""
+    sdf_name, sdf_author_name="", sdf_author_email="", sdf_description=""
 ):
     """
     Create a config file with specific information.
 
     @param sdf_name      : the name of the sdf package
-    @param author_name   : the name of the author
-    @param author_email  : the email of the author
-    @param description   : the description of the package
+    @param sdf_author_name   : the name of the author
+    @param sdf_author_email  : the email of the author
+    @param sdf_description   : the description of the package
 
     @return
         String: content of the config file
     """
-    description = "ShapeNet Model converted from mesh file %s." % (sdf_name)
+    description = sdf_description + " Model converted from mesh file %s." % (sdf_name)
     config_content = """<?xml version="1.0"?>
 <model>
     <name>%s</name>
@@ -135,8 +135,8 @@ def create_config_file(
 </model>
 """ % (
         sdf_name,
-        author_name,
-        author_email,
+        sdf_author_name,
+        sdf_author_email,
         description,
     )
     return config_content
@@ -407,7 +407,8 @@ def obj_calc_inertia(obj, density=1000):
 def calc_inertial(file,
                   dae_mesh_dim_min, dae_mesh_dim_max,
                   rotate_x, rotate_y, rotate_z,
-                  translate_x, translate_y, translate_z
+                  translate_x, translate_y, translate_z,
+                  lift_up
                   ):
     """
     Calculate the inertial information for the imported .dae file.
@@ -422,6 +423,7 @@ def calc_inertial(file,
     @param translate_x : Translate all meshes in x
     @param translate_y : Translate all meshes in Y
     @param translate_z : Translate all meshes in z
+    @param lift_up : Lift the model to ground
 
     @return Tuple (mass, inertia):
             Float mass   - the mass of the object
@@ -457,6 +459,10 @@ def calc_inertial(file,
     # Translate the mesh
     obj.location = obj.location + Vector((translate_x, translate_y, translate_z))
 
+    # lift model above ground
+    if lift_up:
+        move_object_to_ground(obj)
+
     # calculate the mass and inertia of the object
     operator_logger.info("The name of the imported object is: %s" % obj.name)
     mass, inertia = obj_calc_inertia(obj)
@@ -466,6 +472,17 @@ def calc_inertial(file,
         raise Exception("Invalid mass!")
     return {"mass": mass, "inertia": inertia}
 
+
+def move_object_to_ground(obj):
+    """
+    Moves the given object to the ground, that means the lowest vertex point hits the ground
+    @param obj: Object to translate
+    @return:
+    """
+    matrix_w = obj.matrix_world
+    vectors = [matrix_w @ vertex.co for vertex in obj.data.vertices]
+    min_vec = min(vectors, key=lambda item: item.z)
+    obj.location[2] = obj.location[2] - min_vec[2]
 
 def gen_collision_mesh(sdf_name, is_remesh=False):
     """
@@ -505,7 +522,7 @@ def convert_collada_file(dst_path):
 
     @param dst_path : the .dae file to be exported
     """
-    bpy.ops.wm.collada_export(filepath=dst_path)
+    bpy.ops.wm.collada_export(filepath=dst_path,  apply_modifiers=True)
 
 
 def usage():
@@ -525,7 +542,10 @@ The output will be placed at: {out_path}
 def dae_sdf_converter(input_folder, sdf_mesh_scale,
                       dae_mesh_dim_min, dae_mesh_dim_max,
                       rotate_x, rotate_y, rotate_z,
-                      translate_x, translate_y, translate_z):
+                      translate_x, translate_y, translate_z,
+                      lift_up,
+                      sdf_author_name, sdf_author_mail, sdf_description
+):
     """
     Convert all the .dae files in [input_folder] to sdf packages,
         and save them in [output_folder].
@@ -540,6 +560,10 @@ def dae_sdf_converter(input_folder, sdf_mesh_scale,
     @param translate_x : Translate all meshes in x
     @param translate_y : Translate all meshes in Y
     @param translate_z : Translate all meshes in z
+    @param lift_up : If true the model is lifted above ground
+    @param sdf_author_name : Name of the model author
+    @param sdf_author_mail : Email of the model author
+    @param sdf_description : Description of the model
     """
     global output_dir
     input_dir = "%s" % input_folder
@@ -591,7 +615,8 @@ def dae_sdf_converter(input_folder, sdf_mesh_scale,
         inertial_properties = calc_inertial(file,
                                             dae_mesh_dim_min, dae_mesh_dim_max,
                                             rotate_x, rotate_y, rotate_z,
-                                            translate_x, translate_y, translate_z)
+                                            translate_x, translate_y, translate_z,
+                                            lift_up)
         # generate visual mesh
         gen_visual_mesh(sdf_name)
         # generate collision mesh
@@ -601,7 +626,7 @@ def dae_sdf_converter(input_folder, sdf_mesh_scale,
         f = "%s/%s/model.config" % (output_dir, sdf_name)
         operator_logger.info("Creating model.config at {}".format(f))
         h = open(f, "w+")
-        h.write(create_config_file(sdf_name))
+        h.write(create_config_file(sdf_name, sdf_author_name, sdf_author_mail, sdf_description))
         h.close()
 
         # create sdf file
