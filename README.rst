@@ -19,7 +19,7 @@ About
 
 The *NRP RobotDesigner* software developed in the scope of the `Human
 Brain Project <https://www.humanbrainproject.eu>`__ in the sub-project
-`SP10 Neurorobtics <http://neurorobotics.net/index.php>`__. It is part
+`SP10 Neurorobtics <http://neurorobotics.net/>`__. It is part
 of the *Neurorobotics Platform* which aims at providing easy accessible
 and usable tools to neuro-scientists and neuro-roboticists for
 simulating robots that are controlled by artificial brains in virtual
@@ -54,9 +54,9 @@ of the `Intelligent Systems and Production Engineering
 department <http://www.fzi.de/en/about-us/organisation/research-divisions/ispe/>`__
 of the `FZI Forschungszentrum Informatik <http://www.fzi.de/en/home/>`__
 in Karlsruhe. Currently the RobotDesigner is developed and maintained towards NRP
-compliance and biomimetic robot design capabilities under the lead of 
-`Benedikt Feldotto <http://www6.in.tum.de/en/people/benedikt-feldotto-msc/>`__ at 
-the `Chair of Robotics, Artificial Intelligence and Real-Time Systems 
+compliance and biomimetic robot design capabilities under the lead of
+`Benedikt Feldotto <http://www6.in.tum.de/en/people/benedikt-feldotto-msc/>`__ at
+the `Chair of Robotics, Artificial Intelligence and Real-Time Systems
 <http://www6.in.tum.de/en/home/>`__ at Technical University of Munich.
 
 History
@@ -141,7 +141,7 @@ The Neurorobotics Platform [#]_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The Neurorobotics sub-project will develop the `Neurorobotics Platform
-<http://neurorobotics.net>`__ which will 
+<http://neurorobotics.net>`__ which will
 offer scientists and technology developers a software and
 hardware infrastructure allowing them to connect pre-validated brain
 models to detailed simulations of robot bodies and environments and to
@@ -177,22 +177,37 @@ sub-projects.
 
 Installation
 ------------
-Install on Linux and Windows:
 
-1.  Download blender from the dedicated website: https://www.blender.org/download/
-2.  Download the “installer.blend” from our github: https://github.com/hbpneurorobotics/BlenderRobotDesigner/raw/master/installer.blend
-3.  Launch Blender and open the installer.blend file, click “run script” and wait until “RD Installation Done!” appears in your terminal.
-4.  Navigate to Edit->Preferences->Add-Ons tab. Search for the NRP Robot Designer add-on and check the box to enable the plugin.
+We currently support Blender version 2.8. Ubuntu users please download the archived Blender version, the apt-get installed Blender version is currently not supported.
 
-You should now find the Blender RobotDesigner plugin on the right along with the "Tool", "View" and "Edit" tabs. Please make sure to click the small arrow in order to expand the menu.
+To install the plugin on Linux and Windows follow these steps:
 
+1.  Download a supported Blender version from the dedicated website. Windows users download and install the  `*.msi` installer. `Go to Blender download page <https://download.blender.org/release/>`__
+
+2.  Download the Robot Designer installation file “robotdesigner_installer.blend” from our GitHub repository . `Download installation file <https://github.com/hbpneurorobotics/BlenderRobotDesigner/raw/master/robotdesigner_installer.blend>`__
+
+3.  Launch Blender and open the downloaded "robotdesigner_installer.blend" file, then click “run script”. The installation may take a bit of time while Blender is remaining passive. Once the installation is done you will see the Robot Designer plugin opening on the right side along with the "Tool", "View" and "Edit" tabs, as shown in the image below.
+
+.. figure:: RobotDesignerInstall.png
+	:align: center
+
+	After running the Robot Designer installation script (on the left) you will find the plugin opening up on the right side of the 3D view.
+	
 
 Troubleshooting
 --------
-Launch Blender from terminal and rerun the installation script to
-inspect the logs and investigate issues that arise during the installation.
-Further logs can be found in robot_designer_plugin/resources/log.txt
+- `Start Blender from terminal <https://docs.blender.org/manual/en/2.79/advanced/command_line/introduction.html>`__  to see log output during the installation process and runtime.
+- In newer versions you can open the terminal view via ``Window->Toggle System Console``.
+- If the plugin does not show up make sure it is enabled: Navigate to ``Edit->Preferences->Add-Ons`` tab. Search for the NRP Robot Designer add-on and check the box to enable the plugin. You may need to restart Blender thereafter.
+- If you see the error ``No module named 'pyxb'`` in the terminal try the following: 
 
+   In your terminal go to ``[blender-version]/[version]/python/bin`` and run ``./python3.7m -m pip install pyxb==1.2.5``
+
+- Additional logs during runtime of the plugin are written to ``blender_module_path/robot_designer_plugin/resources/log.txt``
+
+   - Ubuntu: ``blender_module_path =  $HOME/.config/blender/[version]/scripts/addons/``
+   - Windows: ``blender_module_path =   C:\Users\[profile]\AppData\Roaming\Blender Foundation\blender\[version]\scripts\addons``
+	
 Features
 --------
 
@@ -243,7 +258,7 @@ Features
     PyXB package <http://pyxb.sourceforge.net/>`__–a software that
     translates XML scheme definitions (XSD) into a Python document object
     model.
-    
+
 
 -   **Plugin Core Framework**
 
