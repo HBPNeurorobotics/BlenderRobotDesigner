@@ -275,11 +275,13 @@ def export_rqt_multiplot(
             + "        <link_scale>false</link_scale>\n"
             + "        <plots>\n"
         )
+
         output_file.write(string)
 
         diagram_id = 0
         for row_id in range(num_of_rows):
             # Start of row for loop
+
             string = "\t\t\t<row_" + str(row_id) + ">\n"
             output_file.write(string)
 
@@ -380,13 +382,14 @@ def export_rqt_multiplot(
                         + "\t\t\t\t\t\t\t</style>\n"
                         + "\t\t\t\t\t\t\t<subscriber_queue_size>100</subscriber_queue_size>\n"
                         + "\t\t\t\t\t\t\t<title>"
-                        + diagram_array[diagram_id].curve_titles[curve_id]
+                        + diagram_array[diagram_id].curve_titles[curve_id][0]
                         + "</title>\n"
                         + "\t\t\t\t\t\t</curve_"
                         + str(curve_id)
                         + ">\n"
                     )
                     output_file.write(string)
+
 
                 # End of column for loop
                 string = (
@@ -406,6 +409,7 @@ def export_rqt_multiplot(
 
                 diagram_id += 1
 
+
             # End of row for loop
             string = "\t\t\t</row_" + str(row_id) + ">\n"
             output_file.write(string)
@@ -417,6 +421,7 @@ def export_rqt_multiplot(
             + "    </table>\n"
             + "</rqt_multiplot>"
         )
+
         output_file.write(string)
 
 

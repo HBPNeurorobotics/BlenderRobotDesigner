@@ -35,6 +35,9 @@
 import os
 import shutil
 import numpy as np
+import glob
+from mathutils import Vector
+import math
 
 # Blender imports
 import bpy
@@ -42,29 +45,30 @@ import bpy
 # Robot Designer imports
 from ..core.logfile import operator_logger
 
-output_folder = "./output"
-output_temp_folder = "./temp"
+output_folder = "output_sdf_models"
 mesh_folder = "/home/hbp/Downloads/models/COLLADA"  # todo adapt paths
 
 
-def create_sdf_folder(sdf_name):
+def create_sdf_folder(output_dir, sdf_name):
     """
     Create the folder structure which satisfied SDF specification.
 
     @param sdf_name : the name of the sdf package
+    @param output_dir : the model output directory
     """
-    if not os.path.isdir(output_folder):
-        os.mkdir(output_folder)
-        os.mkdir(output_temp_folder)
+    operator_logger.info("Creating sdf folder in output dir: {}, sdf_name: {}".format(output_dir, sdf_name))
+
+    if not os.path.isdir(output_dir):
+        os.mkdir(output_dir)
         operator_logger.info("Output folder does not exist. Create it now.")
 
     # create the sdf_name folder
-    f = "%s/%s" % (output_folder, sdf_name)
-    if not os.path.isdir(f):
-        os.mkdir(f)
+    sdf_folder = os.path.join(output_dir, sdf_name)
+    if not os.path.isdir(sdf_folder):
+        os.mkdir(sdf_folder)
 
     # create the sdf_name/mesh folder
-    f = "%s/%s/mesh" % (output_folder, sdf_name)
+    f = "%s/%s/mesh" % (output_dir, sdf_name)
     if not os.path.isdir(f):
         os.mkdir(f)
 
@@ -90,7 +94,8 @@ def check_output_exist(sdf_name):
         Bool: True  - the same package has been created
               False - no package with the same name has been created
     """
-    output_folder_path = "%s/%s" % (output_folder, sdf_name)
+
+    output_folder_path = "%s/%s" % (output_dir, sdf_name)
     sdf_path = "%s/model.sdf" % output_folder_path
     config_path = "%s/model.config" % output_folder_path
     mesh_path = "%s/mesh" % output_folder_path
@@ -104,20 +109,20 @@ def check_output_exist(sdf_name):
 
 
 def create_config_file(
-    sdf_name, author_name="Rui Li", author_email="raysworld@outlook.com", description=""
+    sdf_name, sdf_author_name="", sdf_author_email="", sdf_description=""
 ):
     """
     Create a config file with specific information.
 
     @param sdf_name      : the name of the sdf package
-    @param author_name   : the name of the author
-    @param author_email  : the email of the author
-    @param description   : the description of the package
+    @param sdf_author_name   : the name of the author
+    @param sdf_author_email  : the email of the author
+    @param sdf_description   : the description of the package
 
     @return
         String: content of the config file
     """
-    description = "ShapeNet Model converted from mesh file %s." % (sdf_name)
+    description = sdf_description + " Model converted from mesh file %s." % (sdf_name)
     config_content = """<?xml version="1.0"?>
 <model>
     <name>%s</name>
@@ -130,14 +135,14 @@ def create_config_file(
 </model>
 """ % (
         sdf_name,
-        author_name,
-        author_email,
+        sdf_author_name,
+        sdf_author_email,
         description,
     )
     return config_content
 
 
-def create_sdf_file(sdf_name, sdf_mass=1, sdf_inertia=[1, 0, 0, 1, 0, 1]):
+def create_sdf_file(sdf_name, sdf_mass=1, sdf_inertia=[1, 0, 0, 1, 0, 1], sdf_mesh_scale=1):
     """
     Create an sdf file based on the imported .dae file.
 
@@ -170,6 +175,7 @@ def create_sdf_file(sdf_name, sdf_mass=1, sdf_inertia=[1, 0, 0, 1, 0, 1]):
                 <geometry>
                     <mesh>
                         <uri>model://{name}/mesh/{name}-coll.dae</uri>
+                        <scale>{sdf_mesh_scale} {sdf_mesh_scale} {sdf_mesh_scale}</scale>
                     </mesh>
                 </geometry>
             </collision>
@@ -178,6 +184,7 @@ def create_sdf_file(sdf_name, sdf_mass=1, sdf_inertia=[1, 0, 0, 1, 0, 1]):
                 <geometry>
                     <mesh>
                         <uri>model://{name}/mesh/{name}.dae</uri>
+                        <scale>{sdf_mesh_scale} {sdf_mesh_scale} {sdf_mesh_scale}</scale>
                     </mesh>
                 </geometry>
             </visual>
@@ -192,7 +199,7 @@ def create_sdf_file(sdf_name, sdf_mass=1, sdf_inertia=[1, 0, 0, 1, 0, 1]):
     </model>
 </sdf>
 """.format(
-        name=sdf_name, mass=sdf_mass, inertia=sdf_inertia
+        name=sdf_name, mass=sdf_mass, inertia=sdf_inertia, sdf_mesh_scale=sdf_mesh_scale
     )
     return sdf_content
 
@@ -231,12 +238,12 @@ def obj_get_dimensions(obj):
     @return Tuple (x, y, z): the 3d size (x, y, z) of the object
     """
     x, y, z = obj.dimensions.x, obj.dimensions.y, obj.dimensions.z
-    operator_logger.debug("The orginal size of the obj: %.4f, %.4f, %.4f" % (x, y, z))
+    operator_logger.debug("The orginal size of the obj: {:.4f}, {:.4f}, {:.4f}".format((x, y, z)))
     if bpy.context.scene.unit_settings.system == "IMPERIAL":
         # convert to the SI
         # 1 feet = 0.3048 meter
         x, y, z = x * 0.3048, y * 0.3048, z * 0.3048
-    operator_logger.debug("The converted size of the obj: %.4f, %.4f, %.4f" % (x, y, z))
+    operator_logger.debug("The converted size of the obj: {:.4f}, {:.4f}, {:.4f}".format((x, y, z)))
     return x, y, z
 
 
@@ -251,21 +258,23 @@ def obj_check(obj):
 
     min_d = np.min([x, y, z])
     if min_d < 0.001:  # the object is too thin
-        operator_logger.error("Invalid size: %.4f, %.4f, %.4f" % (x, y, z))
+        operator_logger.error("Invalid size: {:.4f}, {:.4f}, {:.4f}".format((x, y, z)))
         raise Exception("Invalid size!")
 
 
-def obj_scale(obj):
+def obj_scale(obj, dae_mesh_dim_min, dae_mesh_dim_max):
     """
     Scale the object to be fitted for the gripper
 
     @param obj : the Mesh to be re-scaled
+    @param dae_mesh_dim_min : Min dimension of the .dae mesh files
+    @param dae_mesh_dim_max : Max dimension of the .dae mesh files
     """
     x, y, z = obj_get_dimensions(obj)
 
-    # scale the object (to 5cm ~ 7cm)
-    MAX_D = 0.07
-    MIN_D = 0.05
+    # scale the object (to min ~ max in meters)
+    MAX_D = dae_mesh_dim_min
+    MIN_D = dae_mesh_dim_max
 
     l = np.sort([x, y, z])
     if l[1] < MIN_D:
@@ -274,7 +283,7 @@ def obj_scale(obj):
         factor = 1.0
     else:  # l[1] > MAX_D
         factor = MAX_D / l[1]
-    operator_logger.debug("The scale factor of the obj: %.4f" % factor)
+    operator_logger.debug("The scale factor of the obj: {:.4f}".format(factor))
     # Set the obj as current active object
     obj.select_set(True)
     bpy.ops.transform.resize(value=(factor, factor, factor))
@@ -282,13 +291,7 @@ def obj_scale(obj):
     obj.select_set(True)
     # https://docs.blender.org/api/blender_python_api_current/bpy.ops.object.html#bpy.ops.object.origin_set
     bpy.ops.object.origin_set(type="GEOMETRY_ORIGIN", center="BOUNDS")
-    # Move the object to world origin
-    obj.location = [0.0, 0.0, 0.0]
 
-    # Rotate the object to default frame
-    obj.rotation_euler[0] = 0.0
-    obj.rotation_euler[1] = 0.0
-    obj.rotation_euler[2] = 0.0
 
 
 def obj_remesh(obj):
@@ -401,11 +404,26 @@ def obj_calc_inertia(obj, density=1000):
     return mass, calc_inertia(x, y, z, mass)
 
 
-def calc_inertial(file):
+def calc_inertial(file,
+                  dae_mesh_dim_min, dae_mesh_dim_max,
+                  rotate_x, rotate_y, rotate_z,
+                  translate_x, translate_y, translate_z,
+                  lift_up
+                  ):
     """
     Calculate the inertial information for the imported .dae file.
 
     @param file : the .dae file to be imported
+    @param dae_mesh_dim_min : Min dimension of the .dae mesh files
+    @param dae_mesh_dim_max : Max dimension of the .dae mesh files
+
+    @param rotate_x : Rotate all meshes in x by degrees
+    @param rotate_y : Rotate all meshes in Y by degrees
+    @param rotate_z : Rotate all meshes in z by degrees
+    @param translate_x : Translate all meshes in x
+    @param translate_y : Translate all meshes in Y
+    @param translate_z : Translate all meshes in z
+    @param lift_up : Lift the model to ground
 
     @return Tuple (mass, inertia):
             Float mass   - the mass of the object
@@ -415,28 +433,56 @@ def calc_inertial(file):
     clear_scene()
     # set to the SI
     bpy.context.scene.unit_settings.system = "METRIC"
-    # load each of the mesh file
-    file_path = "%s/%s" % (mesh_folder, file)
     # import the dae file
-    bpy.ops.wm.collada_import(filepath=file_path, import_units=False)
+    try:
+        bpy.ops.wm.collada_import(filepath=file, import_units=False)
+    except:
+        operator_logger.error(
+        "An error occurred during importing the collada file: {}".format(file)
+    )
+
     # keep only the object in the scene
     clear_scene(keep_obj=True)
-    # combine all parts of the object
+    # combine all parts of the object - is done
     operator_logger.info("Combining the meshes...")
     obj_merge()
-    # scale the object so that it can be graspable
+    # scale the object so that it can be graspable -- Is done in SDF now
     operator_logger.info("Scaling the meshes...")
     obj = bpy.data.objects[0]
-    obj_scale(obj)
+    obj_scale(obj, dae_mesh_dim_min, dae_mesh_dim_max)
+
+    # Rotate the mesh
+    obj.rotation_euler[0] = obj.rotation_euler[0] + rotate_x * math.pi/180
+    obj.rotation_euler[1] = obj.rotation_euler[1] + rotate_y * math.pi/180
+    obj.rotation_euler[2] = obj.rotation_euler[2] + rotate_z * math.pi/180
+
+    # Translate the mesh
+    obj.location = obj.location + Vector((translate_x, translate_y, translate_z))
+
+    # lift model above ground
+    if lift_up:
+        move_object_to_ground(obj)
+
     # calculate the mass and inertia of the object
-    operator_logger.info("The name of the imported object is: %s" % obj.name)
+    operator_logger.info("The name of the imported object is: {}".format(obj.name))
     mass, inertia = obj_calc_inertia(obj)
     if mass == 0:
-        operator_logger.error("Invalid mass: %.4f" % mass)
+        operator_logger.error("Invalid mass: {:4f}".format( mass))
         # if the object has invalid mass, then the object cannot be used in the simulation
         raise Exception("Invalid mass!")
     return {"mass": mass, "inertia": inertia}
 
+
+def move_object_to_ground(obj):
+    """
+    Moves the given object to the ground, that means the lowest vertex point hits the ground
+    @param obj: Object to translate
+    @return:
+    """
+    matrix_w = obj.matrix_world
+    vectors = [matrix_w @ vertex.co for vertex in obj.data.vertices]
+    min_vec = min(vectors, key=lambda item: item.z)
+    obj.location[2] = obj.location[2] - min_vec[2]
 
 def gen_collision_mesh(sdf_name, is_remesh=False):
     """
@@ -454,7 +500,7 @@ def gen_collision_mesh(sdf_name, is_remesh=False):
         obj_remesh(obj)
     # After remesh, the original Mesh will be overwritten!
     coll_name = sdf_name + "-coll"
-    dst_path = os.path.abspath("%s/%s/mesh" % (output_folder, sdf_name))
+    dst_path = os.path.abspath("%s/%s/mesh" % (output_dir, sdf_name))
     dst_name = "%s/%s.dae" % (dst_path, coll_name)
     convert_collada_file(dst_name)
 
@@ -465,7 +511,7 @@ def gen_visual_mesh(sdf_name):
 
     @param sdf_name  : the name of the sdf package
     """
-    dst_path = os.path.abspath("%s/%s/mesh" % (output_folder, sdf_name))
+    dst_path = os.path.abspath("%s/%s/mesh" % (output_dir, sdf_name))
     dst_name = "%s/%s.dae" % (dst_path, sdf_name)
     convert_collada_file(dst_name)
 
@@ -476,15 +522,15 @@ def convert_collada_file(dst_path):
 
     @param dst_path : the .dae file to be exported
     """
-    bpy.ops.wm.collada_export(filepath=dst_path)
+    bpy.ops.wm.collada_export(filepath=dst_path,  apply_modifiers=True)
 
 
 def usage():
     msg = """\33[33mUsage of this script:\033[0m
     \33[34mblender -b -P obj_sdf_converter_shapenet.py -- [path_to_mesh]
 
-\33[34m[path_to_mesh]\033[0m refers to the absolute path of the folder which contains .obj files. 
-For example: 
+\33[34m[path_to_mesh]\033[0m refers to the absolute path of the folder which contains .obj files.
+For example:
   python obj_sdf_converter.py '/home/user_name/Documents/meshes'
 The output will be placed at: {out_path}
     """.format(
@@ -493,98 +539,119 @@ The output will be placed at: {out_path}
     operator_logger.info(msg)
 
 
-def dae_sdf_converter(input_folder):
+def dae_sdf_converter(input_folder, sdf_mesh_scale,
+                      dae_mesh_dim_min, dae_mesh_dim_max,
+                      rotate_x, rotate_y, rotate_z,
+                      translate_x, translate_y, translate_z,
+                      lift_up,
+                      sdf_author_name, sdf_author_mail, sdf_description
+):
     """
     Convert all the .dae files in [input_folder] to sdf packages,
         and save them in [output_folder].
 
     @param input_folder: .dae files input folder
-    ```
+    @param sdf_mesh_scale: user defined scale of the sdf model meshes
+    @param dae_mesh_dim_min : Min dimension of the .dae mesh files
+    @param dae_mesh_dim_max : Max dimension of the .dae mesh files
+    @param rotate_x : Rotate all meshes in x by degrees
+    @param rotate_y : Rotate all meshes in Y by degrees
+    @param rotate_z : Rotate all meshes in z by degrees
+    @param translate_x : Translate all meshes in x
+    @param translate_y : Translate all meshes in Y
+    @param translate_z : Translate all meshes in z
+    @param lift_up : If true the model is lifted above ground
+    @param sdf_author_name : Name of the model author
+    @param sdf_author_mail : Email of the model author
+    @param sdf_description : Description of the model
     """
-    global mesh_folder, output_folder, output_temp_folder
-    mesh_folder = input_folder
-    output_folder = "%s/../output" % mesh_folder
-    output_temp_folder = "%s/../temp" % mesh_folder
+    global output_dir
+    input_dir = "%s" % input_folder
+    output_dir = os.path.join(input_dir, output_folder)
+    operator_logger.info("input dir is {}".format(input_folder))
+    operator_logger.info("output dir is {}".format(output_dir))
+
     operator_logger.info("\n")
     operator_logger.info(
-        "\33[33mThe DAE files in this folder will be converted: %s\033[0m"
-        % os.path.abspath(mesh_folder)
+        "\33[33mThe DAE files in this folder will be converted: {}\033[0m".format(
+            os.path.abspath(input_dir))
     )
     operator_logger.info(
-        "\33[33mThe converted SDF packages will be stored at: %s\033[0m"
-        % os.path.abspath(output_folder)
-    )
-    operator_logger.info(
-        "\33[33mAfter conversion, you can delete the temporary folder: %s\033[0m"
-        % os.path.abspath(output_temp_folder)
+        "\33[33mThe converted SDF packages will be stored at: {}\033[0m".format(
+            os.path.abspath(output_dir))
     )
 
     # extract all the mesh file in the current folder
     success_cnt = 0
     file_cnt = 0
-    for root, dirs, files in os.walk(mesh_folder):
-        for idx, file in enumerate(files):
-            if file.endswith(".dae"):
-                file_cnt += 1
-                try:
-                    # load each of the mesh file
-                    operator_logger.info(
-                        "\n\nProcessing the %d of %d files: %s"
-                        % (idx + 1, len(files), os.path.join(root, file))
-                    )
-                    (sdf_name, ext_name) = os.path.splitext(file)
-                    # before processing, first check if it has already been created
-                    if check_output_exist(sdf_name) == True:
-                        operator_logger.info(
-                            "The package for %s has already been created. Skipping..."
-                            % sdf_name
-                        )
-                        success_cnt += 1
-                        continue
-                    else:
-                        # create folder structure
-                        operator_logger.info("Creating package for %s..." % sdf_name)
-                        create_sdf_folder(sdf_name)
-                        operator_logger.info("Finished.")
 
-                    # get inertial properties
-                    inertial_properties = calc_inertial(file)
-                    # generate visual mesh
-                    gen_visual_mesh(sdf_name)
-                    # generate collision mesh
-                    gen_collision_mesh(sdf_name)
+    # list of all .dae files in all subdirectories
+    files = glob.glob(input_dir + "/**/*.dae", recursive=True)
+    #files = [os.path.basename(file_path) for file_path in files_path]
+    operator_logger.info("Found these {} .dae files: {}".format(len(files), files))
 
-                    # create config file
-                    f = "%s/%s/model.config" % (output_folder, sdf_name)
-                    h = open(f, "w+")
-                    h.write(create_config_file(sdf_name))
-                    h.close()
+    for idx, file in enumerate(files):
+        file_cnt += 1
 
-                    # create sdf file
-                    f = "%s/%s/model.sdf" % (output_folder, sdf_name)
-                    h = open(f, "w+")
-                    h.write(
-                        create_sdf_file(
-                            sdf_name,
-                            sdf_mass=inertial_properties["mass"],
-                            sdf_inertia=inertial_properties["inertia"],
-                        )
-                    )
-                    h.close()
+        # load each of the mesh file
+        operator_logger.info(
+            "\n\nProcessing the {} of {} files: {}".format(
+                (idx + 1, len(files), file))
+        )
+        sdf_name = os.path.basename(file.replace(".dae", ""))
+        # before processing, first check if it has already been created
+        while check_output_exist(sdf_name) == True:
+            operator_logger.info(
+                "The package for {} has already been created. Adding index...".format(
+                    sdf_name)
+            )
+            sdf_name = sdf_name + '_0'
 
-                    success_cnt += 1
-                except:
-                    operator_logger.error(
-                        "An error occurred during creation of the package."
-                    )
-                    delete_sdf_folder(sdf_name)
-                    continue
+        # create folder structure
+        operator_logger.info("Creating package for {}...".format(sdf_name))
+        create_sdf_folder(output_dir, sdf_name)
+
+        # get inertial properties
+        inertial_properties = calc_inertial(file,
+                                            dae_mesh_dim_min, dae_mesh_dim_max,
+                                            rotate_x, rotate_y, rotate_z,
+                                            translate_x, translate_y, translate_z,
+                                            lift_up)
+        # generate visual mesh
+        gen_visual_mesh(sdf_name)
+        # generate collision mesh
+        gen_collision_mesh(sdf_name)
+
+        # create config file
+        f = "{}/{}/model.config".format((output_dir, sdf_name))
+        operator_logger.info("Creating model.config at {}".format(f))
+        h = open(f, "w+")
+        h.write(create_config_file(sdf_name, sdf_author_name, sdf_author_mail, sdf_description))
+        h.close()
+
+        # create sdf file
+        f = "%s/%s/model.sdf" % (output_dir, sdf_name)
+        operator_logger.info("Creating model.sdf at {}".format(f))
+        h = open(f, "w+")
+        h.write(
+            create_sdf_file(
+                sdf_name,
+                sdf_mass=inertial_properties["mass"],
+                sdf_inertia=inertial_properties["inertia"],
+                sdf_mesh_scale=sdf_mesh_scale,
+            )
+        )
+        h.close()
+
+        success_cnt += 1
+
+        delete_sdf_folder(sdf_name)
 
     operator_logger.info(
-        "\33[33m\nConversion finished. Total: %d. Succeeded: %d.\033[0m"
-        % (file_cnt, success_cnt)
+        "\33[33m\nConversion finished. Total: {}. Succeeded: {}.\033[0m".format(
+            (file_cnt, success_cnt))
     )
     operator_logger.info(
-        "\33[33mThe converted SDF packages have been stored at: %s\033[0m"
-        % os.path.abspath(output_folder)
+        "\33[33mThe converted SDF packages have been stored at: {}\033[0m".format(
+            os.path.abspath(output_folder))
     )

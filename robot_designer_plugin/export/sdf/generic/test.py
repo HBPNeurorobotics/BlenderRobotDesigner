@@ -118,7 +118,7 @@ class SDFTree(object):
         try:
             root = sdf_model_dom.CreateFromDocument(open(file_name).read())
         except ContentNondeterminismExceededError as e:
-            logger.error("Error raised %s, %s", e, e.instance.name)
+            logger.error("Error raised {}, {}".format(e, e.instance.name))
             raise e
         robot = root.model[0]
         print('The name of the robot ', robot)
@@ -189,8 +189,8 @@ class SDFTree(object):
         for link in root_links:
             print(link.name)
 
-        logger.debug("Root links: %s", [i.name for i in root_links])
-        logger.debug("connected links: %s", {j.name: l.name for j, l in connected_links.items()})
+        logger.debug("Root links: {}".format([i.name for i in root_links]))
+        logger.debug("connected links: {}".format({j.name: l.name for j, l in connected_links.items()}))
 
         kinematic_chains = []
 
@@ -215,7 +215,7 @@ class SDFTree(object):
             print("connected joints: ", {j.name: l for j, l in chain.connectedJoints.items()})
             print("chain child: ", chain.children)
 
-        # logger.debug("kinematic chains: %s", kinematic_chains)
+        # logger.debug("kinematic chains: {}".format(kinematic_chains))
         # print(repr(kinematic_chains))
         return robot.name, root_links, kinematic_chains  # , controller_cache, gazebo_tags
 

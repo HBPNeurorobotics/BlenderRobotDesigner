@@ -77,7 +77,7 @@ class OperatorTemplate(RDOperator):
     def execute(self, context):
         from .segments import SelectSegment
         message = "info"
-        self.logger.debug('printing %s', message)
+        self.logger.debug('printing {}'.format(message))
 
         # You can report messages that are shown in the gui (if invoked from the GUI)
         # {'ERROR'} will also throw an exception which is handled by the OperatorLogger

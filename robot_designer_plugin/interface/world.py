@@ -273,16 +273,17 @@ def draw(layout, context):
 
     # Display menu to export/import a world
     box_sdf = layout.box()
-    box_sdf.label(text="Import/Export SDF")
-    if world_selected:
-        row = box_sdf.row(align=True)
-        row.prop(
-            context.active_object.RobotDesigner.worlds,
-            "export_name",
-            text="Export Filename",
-        )
-        sdf_world_export.ExportPlainWorld.place_button(box_sdf, text="Export World SDF")
-    sdf_world_import.ImportPlainWorld.place_button(box_sdf, text="Import World SDF")
+    box_sdf.label(text="Import/Export World SDF")
+    row = box_sdf.row(align=True)
+    row.prop(
+        context.active_object.RobotDesigner.worlds,
+        "export_name",
+        text="Export Filename",
+    )
+    row = box_sdf.row()
+    col = row.column(align=True)
+    sdf_world_export.ExportPlainWorld.place_button(col, text="Export World SDF")
+    sdf_world_import.ImportPlainWorld.place_button(col, text="Import World SDF")
 
 
 def check_world(context):
@@ -299,4 +300,3 @@ def check_world(context):
         return True
     else:
         return False
-

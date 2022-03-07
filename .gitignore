@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 *.blend*
-!installer.blend
+!robotdesigner_installer.blend
 *.dae
 .rope*
 screencast*

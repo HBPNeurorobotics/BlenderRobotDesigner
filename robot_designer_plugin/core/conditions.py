@@ -76,8 +76,8 @@ class Condition(object):
             return all([i[0] for i in check]), "\n".join([i[1] for i in check if not i[0]])
 
         except Exception as e:
-            logger.error("Exception in check precondition!\n" + EXCEPTION_MESSAGE + "\nConditions: %s",
-                         type(e).__name__, e, log_callstack(), log_callstack(True), conditions)
+            logger.error("Exception in check precondition!\n {} \nConditions: {}  {} {}".format(EXCEPTION_MESSAGE,
+                         type(e).__name__, e, log_callstack(), log_callstack(True), conditions))
             return False, "Exception raised"
 
     @staticmethod

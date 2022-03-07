@@ -155,8 +155,8 @@ class OsimExporter(object):
             pyxb_class = self._select_pyxb_muscle_class(m)
         except KeyError as e:
             export_logger.error(
-                "Warning: Not exporting object as muscle because: \n%s: %s"
-                % (type(e).__name__, str(e))
+                "Warning: Not exporting object as muscle because: \n{}: {}".format(
+                    (type(e).__name__, str(e)))
             )
             return
         # calc muscle length

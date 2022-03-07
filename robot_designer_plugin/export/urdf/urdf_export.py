@@ -101,7 +101,7 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
     # There is max. 1 object in the list
     assert len(meshes) <= 1
     for mesh in meshes:
-        export_logger.debug("Processing mesh: %s", mesh)
+        export_logger.debug("Processing mesh: {}".format(mesh))
 
         model_name = bpy.context.active_object.name
         bpy.ops.object.select_all(action='DESELECT')
@@ -111,7 +111,7 @@ def export_mesh(operator: RDOperator, context, name: str, directory: str, toplev
 
         # get the mesh vertices number
         bm = bpy.context.scene.objects.active.data
-        # export_logger.debug("# of vertices=%d" % len(bm.vertices))
+        # export_logger.debug("# of vertices={}".format(len(bm.vertices)))
 
         if len(bm.vertices) > 1:
             if '.' in mesh:
@@ -196,8 +196,8 @@ def walk_segments(segment, tree):
         child.joint.axis.xyz = list_to_string(Vector((0, 0, 1)) * revert)
 
     if segment.parent is None:
-        export_logger.debug("Debug: parent bone is none", segment,
-              segment.RobotDesigner.jointMode)
+        export_logger.debug("Debug: parent bone is none {} {}".format(segment,
+              segment.RobotDesigner.jointMode))
         child.joint.type = 'fixed'
     else:
         if segment.RobotDesigner.jointMode == 'REVOLUTE':
@@ -238,7 +238,7 @@ def walk_segments(segment, tree):
             visual.origin.xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
             visual.origin.rpy = list_to_string(pose.to_euler())
         else:
-            export_logger.info("No visual model for: %s", mesh)
+            export_logger.info("No visual model for: {}".format(mesh))
 
         collision_path = export_mesh(operator, context, mesh, meshpath, toplevel_directory,
                                      in_ros_package, abs_filepaths, export_collision=True)
@@ -250,7 +250,7 @@ def walk_segments(segment, tree):
             collision.origin.xyz = list_to_string([i * j for i, j in zip(pose.translation, blender_scale_factor)])
             collision.origin.rpy = list_to_string(pose.to_euler())
         else:
-            export_logger.info("No collision model for: %s", mesh)
+            export_logger.info("No collision model for: {}".format(mesh))
 
     # todo: pick up the real values from Physics Frame?
 
@@ -316,7 +316,7 @@ def walk_segments(segment, tree):
     for segments in root_segments:
         walk_segments(segments, root)
 
-    export_logger.info("Writing to '%s'" % filepath)
+    export_logger.info("Writing to {}".format(filepath))
     root.write(filepath)
 
     # insert gazebo tags before "</robot>" tag
@@ -342,7 +342,7 @@ def create_package(operator: RDOperator, context, toplevel_dir, base_link_name):
     import os
     import shutil
 
-    export_logger.debug('Exporting to: %s', toplevel_dir)
+    export_logger.debug('Exporting to: {}'.format(toplevel_dir))
     robot_name = context.active_object.name
 
     target = os.path.join(toplevel_dir, robot_name + '_description')
@@ -360,8 +360,8 @@ def create_package(operator: RDOperator, context, toplevel_dir, base_link_name):
                        os.path.join(dname, dir.replace("robot_name", robot_name)))
 
         for fname in files:
-            export_logger.debug('File: %s, %s, %s, %s',
-                              fname, dname, dirs, robot_name)
+            export_logger.debug('File: {}, {}, {}, {}'.format(fname, \
+                            dname, dirs, robot_name))
             fpath = os.path.join(dname, fname)
             try:
                 with open(fpath) as f:
@@ -419,7 +419,7 @@ class ExportZippedPackage(RDOperator):
         def zipdir(path, ziph):
             # ziph is zipfile handle
             for root, dirs, files in os.walk(path):
-                self.logger.debug("%s, %s, %s,", root, dirs, files)
+                self.logger.debug("{}, {} ,{}".format(root, dirs, files))
                 for file in files:
                     file_path = os.path.join(root, file)
                     ziph.write(file_path, os.path.relpath(file_path, path))

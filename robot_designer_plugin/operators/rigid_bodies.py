@@ -89,6 +89,41 @@ class SelectGeometry(RDOperator):
 
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
+class SelectWrappingObject(RDOperator):
+    """
+    :ref:`Operator <operator>` for selecting a wrapping object (:class:`bpy.types.Object` with `bpy.types.Mesh` data)
+    second to the selected model (Blender object with :class:`bpy.types.Armature` data)
+    """
+
+    bl_idname = config.OPERATOR_PREFIX + "select_wrappingobject"
+    bl_label = "Select Wrapping Object"
+
+    wrapping_name: StringProperty()
+
+    @classmethod
+    def run(cls, wrapping_name=""):
+        return super().run(**cls.pass_keywords())
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected, SingleMeshSelected)
+    def execute(self, context):
+        mesh = bpy.data.objects[self.wrapping_name]
+
+        if mesh.type != "MESH" or mesh.RobotDesigner.tag != "WRAPPING":
+            self.report({"ERROR"}, "Object is no wrapping geometry (Mesh). Is %s" % mesh.type)
+            global_properties.wrapping_name.set(context.scene, "Search")
+            return {"FINISHED"}
+
+        # Has the side effect of de-selecting all other objects except for the armature and our mesh.
+        global_properties.wrapping_name.set(context.scene, self.wrapping_name)
+
+        #    context.region.tag_redraw()
+        #    context.area.tag_redraw()
+        return {"FINISHED"}
+
+
+@RDOperator.Preconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
+@PluginManager.register_class
 class RenameGeometry(RDOperator):
     """
     :term:`operator` for renaming the selected mesh
@@ -165,10 +200,8 @@ class AssignGeometry(RDOperator):
             new_name = maybe_remove_prefix(new_name, "COL_")
 
         operator_logger.info(
-            "Attaching ",
-            "COL" if self.attach_collision_geometry else "VIS",
-            "to ",
-            obj.name,
+            "Attaching {} to {}".format("COL" if self.attach_collision_geometry else "VIS",
+             obj.name)
         )
 
         if (
@@ -360,12 +393,10 @@ class SelectAllGeometries(RDOperator):
     :ref:`operator` for selecting all geometries.
 
 
-
-
     """
 
     bl_idname = config.OPERATOR_PREFIX + "setallmeshesactiveobject"
-    bl_label = "Select All Geometries"
+    bl_label = "Make All Geometries Active"
 
     @classmethod
     def run(cls):
@@ -374,7 +405,6 @@ class SelectAllGeometries(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ObjectMode)
     def execute(self, context):
-        mesh_type = global_properties.mesh_type.get(context.scene)
         meshes = {
             obj.name
             for obj in context.scene.objects

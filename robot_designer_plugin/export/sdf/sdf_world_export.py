@@ -37,7 +37,7 @@ from ...core import config, PluginManager, RDOperator
 from .generic import sdf_world_dom
 from .generic.helpers import list_to_string
 from . import sdf_export
-from ...operators.helpers import ObjectMode
+from ...operators.helpers import ObjectMode, WorldSelected
 
 
 def create_sdf(context, abs_file_paths, gazebo, filepath):
@@ -186,7 +186,7 @@ def create_sdf(context, abs_file_paths, gazebo, filepath):
         f.close()
 
 
-@RDOperator.Preconditions(ObjectMode)
+@RDOperator.Preconditions(ObjectMode, WorldSelected)
 @PluginManager.register_class
 class ExportPlainWorld(RDOperator):
     """

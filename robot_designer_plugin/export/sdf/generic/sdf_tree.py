@@ -88,7 +88,7 @@ class SDFTree(object):
         try:
             root = sdf_model_dom.CreateFromDocument(open(file_name).read())
         except ContentNondeterminismExceededError as e:
-            logger.error("Error raised %s, %s", e, e.instance.name)
+            export_logger.error("Error raised {}, {}".format(e, e.instance.name))
             raise e
         robot = root.model[0]
 
@@ -102,7 +102,7 @@ class SDFTree(object):
 
         # get muscles
         muscles = str(robot.muscles)
-        logger.debug('Muscle Path:' + muscles)
+        export_logger.debug('Muscle Path:' + muscles)
 
         # get controller
         # parsing joint controllers
@@ -110,14 +110,14 @@ class SDFTree(object):
         # easily searchable during tree traversal
         controller_cache = {}
         # gazebo_tags = []
-        # logger.debug("Built controller cache:")
-        # logger.debug(robot.plugin[0].filename)
+        # export_logger.debug("Built controller cache:")
+        # export_logger.debug(robot.plugin[0].filename)
 
         for plugin in robot.plugin:
             if plugin.filename == "libgeneric_controller_plugin.so":
                 controller_cache = {controller.joint_name: controller for controller in plugin.controller}
-                logger.debug("Built controller cache:")
-                logger.debug(controller_cache)
+                export_logger.debug("Built controller cache:")
+                export_logger.debug(controller_cache)
 
         # create mapping from (parent) links to joints  (a list)
         connected_joints = {link: [joint for joint in robot.joint if link.name == joint.parent[0]] for link
@@ -137,8 +137,8 @@ class SDFTree(object):
         # look for root links connected to world and create mapping from root link to world joint
         world_joints = {link: joint for link in root_links for joint in robot.joint if link.name == joint.child[0]}
 
-        logger.debug("Root links: %s", [i.name for i in root_links])
-        logger.debug("connected links: %s", {j.name: l.name for j, l in connected_links.items()})
+        export_logger.debug("Root links: {}".format([i.name for i in root_links]))
+        export_logger.debug("connected links: {}".format({j.name: l.name for j, l in connected_links.items()}))
 
         kinematic_chains = []
 
@@ -167,7 +167,7 @@ class SDFTree(object):
 
             # todo: parse joint controllers
 
-        export_logger.debug("kinematic chains: %s", kinematic_chains)
+        export_logger.debug("kinematic chains: {}".format(kinematic_chains))
         return muscles, robot.name, robot_location, robot_rotation, root_links, kinematic_chains, controller_cache # , gazebo_tags
 
     def build(self, link, joint=None, depth=0):
@@ -225,24 +225,24 @@ class SDFTree(object):
         :param file_name:
         :return:
         """
-        export_logger.info("connected joints: ", {l.name: j[0].name for l, j in self.connectedJoints.items()})
+        export_logger.info("connected joints: {}".format({l.name: j[0].name for l, j in self.connectedJoints.items()}))
 
         export_logger.info("connected links: ", {j.name: l.name for j, l in self.connectedLinks.items()})
 
-        export_logger.info("root link name: ", self.link.name)
+        export_logger.info("root link name: {}".format(self.link.name))
 
         for joint, link in self.connectedLinks.items():
             joint.child.append(link.name)
 
         for link, joints in self.connectedJoints.items():
             for joint in joints:
-                export_logger.debug("connected link name:", link.name)
-                export_logger.debug("connected link linked joint name: ", joint.name)
+                export_logger.debug("connected link name: {}".format(link.name))
+                export_logger.debug("connected link linked joint name: {}".format(joint.name))
                 joint.parent.append(link.name)
 
         # # Connect root joints to self.link (the root link)
         # for joint in self.robot.joint:
-        #     export_logger.debug("robot joint name: ", joint.name)
+        #     export_logger.debug("robot joint name: {}".format(joint.name))
         #
         #     if joint.parent is None:
         #         joint.parent = self.link.name
@@ -295,7 +295,7 @@ class SDFTree(object):
 
         # e.g., virtual joint --> base link
         self.connectedLinks[tree.joint] = tree.link
-        export_logger.info("connected links (joint->link): ", {j.name: l.name for j, l in self.connectedLinks.items()})
+        export_logger.info("connected links (joint->link): {}".format({j.name: l.name for j, l in self.connectedLinks.items()}))
 
         # if self.link not in self.connectedJoints:
         #     self.connectedJoints[self.link] = []
@@ -304,7 +304,7 @@ class SDFTree(object):
         #     if j.name == tree.joint.:
         #         self.connectedJoints[j].append(tree.joint)
         #
-        #     export_logger.info("connected joints: ", {j.name: l for j, l in connected_joints.items()})
+        #     export_logger.info("connected joints: {}".format({j.name: l for j, l in connected_joints.items()}))
 
 
         # if self.link in self.connectedJoints:
@@ -349,7 +349,7 @@ class SDFTree(object):
 
         # collision.origin = sdf_model_dom.CTD_ANON_15.pose()
         # collision.geometry.mesh = sdf_model_dom.CTD_ANON_70()
-        # export_logger.debug('debug add_collisionmodel: ' + file_name)
+        # export_logger.debug('debug add_collisionmodel: {}'.format(file_name))
         # collision.geometry.mesh.filename = file_name
         link_collision.geometry[0].mesh[0].scale.append(list_to_string(scale_factor))
         return link_collision
@@ -527,11 +527,11 @@ class SDFTree(object):
         #     joint.dynamics.damping = 1.0
         #
         # if link.pose is None:
-        #     logger.debug("Link pose is None, creating default one.")
+        #     export_logger.debug("Link pose is None, creating default one.")
         #     link.inertial = sdf_model_dom.CTD_ANON_58.pose()
         #
         # if link.inertial is None:
-        #     logger.debug("Inertial is None, creating default one.")
+        #     export_logger.debug("Inertial is None, creating default one.")
         #     link.inertial = sdf_model_dom.CTD_ANON_58.inertial()
         #
         # for inertial in link.inertial:
@@ -555,9 +555,9 @@ class SDFTree(object):
         """
         if depth > 1:
             export_logger.info(
-                "%s, link: %s, joint: %s, type: %s" % ("*" * depth, self.link.name, self.joint.name, self.joint.type_))
+                "{}, link: {}, joint: {}, type: {}".format("*" * depth, self.link.name, self.joint.name, self.joint.type_))
         elif depth == 1:
-            export_logger.info("Root link: %s" % self.link.name)
+            export_logger.info("Root link: {}".format(self.link.name))
         for tree in self.children:
             tree.show(depth + 1)
 

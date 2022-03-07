@@ -284,7 +284,7 @@ class ComputePhysical(RDOperator):
             1.0 / 12.0 * (len[0] ** 2 + len[2] ** 2),
             1.0 / 12.0 * (len[0] ** 2 + len[1] ** 2),
         )
-        operator_logger.debug("bone:", bone, len, mass, Iunit, com)
+        operator_logger.debug("bone: {} {} {} {} {}".format(bone, len, mass, Iunit, com))
         d = associations.physics_frame.RobotDesigner.dynamics
         d.inertiaXX = mass * Iunit[0]
         d.inertiaYY = mass * Iunit[1]
@@ -307,7 +307,7 @@ class ComputePhysical(RDOperator):
         for obj in armature.children:
             if obj.parent_bone:
                 bone = armature.data.bones[obj.parent_bone]
-                operator_logger.debug("visit ", obj, obj.parent_bone, bone, bone.select)
+                operator_logger.debug("visit {} {} {} {}".format(obj, obj.parent_bone, bone, bone.select))
                 if bone.select:
                     if obj.RobotDesigner.tag == "PHYSICS_FRAME":
                         segment_associations[bone].physics_frame = obj
@@ -342,7 +342,7 @@ class ComputeMass(RDOperator):
     """
 
     bl_idname = config.OPERATOR_PREFIX + "computemass"
-    bl_label = "Compute Mass Properties From Mesh"
+    bl_label = "Compute Mass From Mesh"
 
     density: FloatProperty(name="Density (kg/m^3)", precision=4, step=0.01, default=1.0)
     from_visual_geometry: BoolProperty(name="From visual geometry")
@@ -394,7 +394,7 @@ class ComputeMass(RDOperator):
         for obj in armature.children:
             if obj.parent_bone:
                 bone = armature.data.bones[obj.parent_bone]
-                operator_logger.debug("visit ", obj, obj.parent_bone, bone, bone.select)
+                operator_logger.debug("visit {} {} {} {}".format(obj, obj.parent_bone, bone, bone.select))
                 if bone.select:
                     if obj.RobotDesigner.tag == "PHYSICS_FRAME":
                         segment_associations[bone].physics_frame = obj

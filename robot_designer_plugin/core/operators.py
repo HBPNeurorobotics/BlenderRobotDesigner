@@ -139,7 +139,7 @@ class RDOperator(bpy.types.Operator):
         if cls in cls._pre_conditions:
             check, messages = Condition.check_conditions(*cls._pre_conditions[cls])
             if not check:
-                cls.logger.debug("Unmet preconditions: \n%s", messages)
+                cls.logger.debug("Unmet preconditions: \n{}".format(messages))
             return check
         return True
 
@@ -197,29 +197,29 @@ class RDOperator(bpy.types.Operator):
                 if kwarg not in dir(cls):
                     bad_kwargs.append(kwarg)
 
-            cls.logger.error('Exception when running operator %s (%s):'
-                             '\n\tkeywords:\t%s\n\tBad keywords:\t%s'
-                             '\n\tException:\t%s\n\tMessages:\n\t\t%s',
+            cls.logger.error('Exception when running operator {} ({}):'
+                             '\n\tkeywords:\t%s\n\tBad keywords:\t{}'
+                             '\n\tException:\t%s\n\tMessages:\n\t\t{}'.format(
                              cls.bl_idname, cls.__name__,
                              kwargs,
                              ', '.join(bad_kwargs), type(e).__name__,
-                             '\n\t\t'.join(e.__str__().split('\n')))
+                             '\n\t\t'.join(e.__str__().split('\n'))))
             InfoBox.global_messages.append(e.__str__())
             raise e
 
             # todo check for keyword arguments without default value
 
         except RuntimeError as e:
-            cls.logger.error('Exception when running operator %s (%s):'
-                             '\n\tException:\t%s\n\t%s\n', cls.bl_idname, cls.__name__,
-                             type(e).__name__, '\n\t'.join(e.__str__().split('\n')))
+            cls.logger.error('Exception when running operator {} ({}):'
+                             '\n\tException:\t{}\n\t{}\n'.format(cls.bl_idname, cls.__name__,
+                             type(e).__name__, '\n\t'.join(e.__str__().split('\n'))))
             check, messages = Condition.check_conditions(*cls._pre_conditions[cls])
-            cls.logger.info("Conditions set for this operator: %s\n\t%s\n\t%s", cls._pre_conditions[cls], check,
-                            messages)
+            cls.logger.info("Conditions set for this operator: {}\n\t{}\n\t{}".format(cls._pre_conditions[cls], check,
+                            messages))
             InfoBox.global_messages.append(e.__str__())
             raise e
         except Exception as e:
-            cls.logger.error('THIS CODE SHOULD NEVER BE EXECUTED: %s\n%s\n', e, log_callstack(back_trace=True))
+            cls.logger.error('THIS CODE SHOULD NEVER BE EXECUTED: {}\n{}\n'.format(e, log_callstack(back_trace=True)))
             InfoBox.global_messages.append(e.__str__())
             raise e
 
@@ -272,12 +272,12 @@ class RDOperator(bpy.types.Operator):
 
             # Execute the Operator
             try:
-                # self.logger.debug("Entering %s() from %s(%s):\n%s",
+                # self.logger.debug("Entering {}() from {}({}):\n{}".format(
                 #                    func.__name__, id, class_name,
-                #                    log_callstack())
+                #                    log_callstack()))
 
                 result = func(self, context)
-                # self.logger.debug("Leaving %s() %s(%s)", id, class_name, result)
+                # self.logger.debug("Leaving {}() {}({})".format(id, class_name, result))
 
                 return result
 
@@ -286,8 +286,8 @@ class RDOperator(bpy.types.Operator):
                     "%s: %s (%s)" % (type(e).__name__, e.__str__(), log_callstack_last(back_trace=True)))
                 message = "Operator %s (%s) threw an exception:%s\n\t%s" % (id, class_name,
                                                                             type(e).__name__, e)
-                self.logger.error("Operator %s (%s) threw an exception:\n" + EXCEPTION_MESSAGE,
-                                  id, class_name, type(e).__name__, e, log_callstack(), log_callstack(back_trace=True))
+                self.logger.error("Operator {} ({}) threw an exception:\n {} {} {} {}".format(EXCEPTION_MESSAGE,
+                                  id, class_name, type(e).__name__, e, log_callstack(), log_callstack(back_trace=True)))
                 if isinstance(self, RDOperator):
                     self.report({'ERROR'}, message)
                     return {'FINISHED'}
@@ -319,13 +319,13 @@ class RDOperator(bpy.types.Operator):
             cls.__doc__ += "\n    **Preconditions**:\n\n%s" % "".join(
                 '    * :class:`%s.%s`\n' % (i.__module__, i.__name__) for i in conditions)
 
-            # RDOperator.logger.debug("Decorating %s, \nArgs: %s\n %s, %s, %s", cls, args, issubclass(cls, RDOperator),
-            #                        issubclass(cls, bpy.types.Operator), [RDOperator is i for i in cls.mro()])
+            # RDOperator.logger.debug("Decorating {}, \nArgs: {}\n {}, {}, {}".format(cls, args, issubclass(cls, RDOperator),
+            #                        issubclass(cls, bpy.types.Operator), [RDOperator is i for i in cls.mro()]))
             # for i in cls.mro():
             #    print(i)
             return cls
 
-        # RDOperator.logger.debug("Precondition:\nArgs: %s", args)
+        # RDOperator.logger.debug("Precondition:\nArgs: {}".format(args))
         if len(conditions) == 1 and issubclass(conditions[0], RDOperator):
             raise TypeError('Decorator Preconditions must be called with arguments of subclasses of Condition')
         else:

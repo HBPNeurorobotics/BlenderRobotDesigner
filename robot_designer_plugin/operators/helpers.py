@@ -49,6 +49,7 @@ from ..core.constants import StringConstants
 from ..core import RDOperator
 
 
+
 def _vec_roll_to_mat3(vec, roll):
     """
     Function to convert a given rotation vector and a roll angle along this axis into a 3x3 rotation matrix
@@ -137,6 +138,37 @@ class SingleSegmentSelected(Condition):
             return False, "No Object Selected"
 
 
+class WorldSelected(Condition):
+    @staticmethod
+    def check():
+        """
+        :ref:`condition` that assures that a single world object.
+
+        :return: True if the condition is met, else false. String with error message.
+        """
+        from ..properties.globals import global_properties
+
+        world = global_properties.world_name.get(bpy.context.scene)
+
+        if world != "" and world != "Select World":
+            if bpy.data.objects[world]:
+                return (
+                    bpy.data.objects[world].RobotDesigner.tag == 'WORLD',
+                    "Single world object must be selected."
+                    )
+        else:
+            return False, "No world selected"
+
+        # return world != "" and bpy.data.objects[world].RobotDesigner.tag == 'WORLD', "Single world object must be selected."
+
+        # if bpy.context.active_object:
+        #     return (
+        #         bpy.context.active_object.RobotDesigner.tag == "WORLD",
+        #         "World not selected and active.",
+        #     )
+        # else:
+        #     return False, "No world selected"
+
 class AtLeastOneSegmentSelected(Condition):
     @staticmethod
     def check():
@@ -164,6 +196,18 @@ class SingleMeshSelected(Condition):
         """
         selected = [i for i in bpy.context.selected_objects if i.type == "MESH"]
         return len(selected) == 1, "Single mesh object must be selected."
+
+
+class SingleSensorSelected(Condition):
+    @staticmethod
+    def check():
+        """
+        :ref:`condition` that assures that a single sensor object ist selected.
+
+        :return: True if the condition is met, else false. String with error message.
+        """
+        selected = [i for i in bpy.context.selected_objects if i.RobotDesigner.tag == "SENSOR"]
+        return len(selected) == 1, "Single sensor object must be selected."
 
 
 class ObjectMode(Condition):

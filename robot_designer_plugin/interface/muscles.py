@@ -53,7 +53,7 @@ from ..core.logfile import LogFunction
 @LogFunction
 def draw(layout, context):
     """
-    Draws the user interface for geometric modelling.
+    Draws the user interface for muscle modelling.
 
     :param layout: Current GUI element (e.g., collapsible box, row, etc.)
     :param context: Blender context
@@ -267,35 +267,38 @@ def draw(layout, context):
             infoBox = InfoBox(boxy)
             row4 = boxy.row()
 
-            meshes = global_properties.mesh_name.get(context.scene)
-            obj = bpy.data.objects[meshes].RobotDesigner.scaling
-            if (
-                bpy.data.objects[meshes].RobotDesigner.wrap.WrappingType
-                == "WRAPPING_SPHERE"
-            ):
-                boxy.prop(obj, "scale_all", slider=False, text="Scale Sphere: ")
-            elif (
-                bpy.data.objects[meshes].RobotDesigner.wrap.WrappingType
-                == "WRAPPING_CYLINDER"
-            ):
-                column = row4.column()
-                column.prop(obj, "scale_radius", slider=False, text="Scale Radius")
-                column.prop(obj, "scale_depth", slider=False, text="Scale Depth")
-                row5 = boxy.row()
-                row5.prop(
-                    bpy.data.objects[meshes],
-                    "rotation_euler",
-                    slider=False,
-                    text="Rotate: ",
-                )
+            meshes = global_properties.wrapping_name.get(context.scene)
+            if meshes != "":
+                obj = bpy.data.objects[meshes].RobotDesigner.wrap_scaling
+                if (
+                    bpy.data.objects[meshes].RobotDesigner.wrap.WrappingType
+                    == "WRAPPING_SPHERE"
+                ):
+                    boxy.prop(obj, "scale_all", slider=False, text="Scale Sphere: ")
+                elif (
+                    bpy.data.objects[meshes].RobotDesigner.wrap.WrappingType
+                    == "WRAPPING_CYLINDER"
+                ):
+                    column = row4.column()
+                    column.prop(obj, "scale_radius", slider=False, text="Scale Radius")
+                    column.prop(obj, "scale_depth", slider=False, text="Scale Depth")
+                    row5 = boxy.row()
+                    row5.prop(
+                        bpy.data.objects[meshes],
+                        "rotation_euler",
+                        slider=False,
+                        text="Rotate: ",
+                    )
 
-            row6 = boxy.row()
-            row6.prop(
-                bpy.data.objects[global_properties.mesh_name.get(context.scene)],
-                "location",
-                slider=False,
-                text="Location",
-            )
+                row6 = boxy.row()
+                row6.prop(
+                    bpy.data.objects[global_properties.wrapping_name.get(context.scene)],
+                    "location",
+                    slider=False,
+                    text="Location",
+                    )
+            else:
+                row4.label(text="No wrapping object selected")
 
         box = AttachWrapBox.get(
             box, context, "Wrapping Object Attach/Detach", icon="LINKED"

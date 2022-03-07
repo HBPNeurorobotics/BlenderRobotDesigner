@@ -162,7 +162,7 @@ def export_mesh(
     # There is max. 1 object in the list
     assert len(meshes) <= 1
     for mesh in meshes:
-        export_logger.debug("Processing mesh: %s", mesh)
+        export_logger.debug("Processing mesh: {}".format(mesh))
         model_name = bpy.context.active_object.name
         bpy.ops.object.select_all(action="DESELECT")
         bpy.data.objects[mesh].select_set(True)
@@ -170,7 +170,7 @@ def export_mesh(
         # bpy.context.active_object.select = True
         # get the mesh vertices number
         bm = bpy.context.view_layer.objects.active.data
-        # export_logger.debug("# of vertices=%d" % len(bm.vertices))
+        # export_logger.debug("# of vertices={}".format(len(bm.vertices)))
         if len(bm.vertices) > 1:
             if "." in mesh:
                 file_path = os.path.join(
@@ -316,7 +316,7 @@ def create_sdf(
         :param tree: Reference to a SDF Tree object. (Defined in sdf_tree.py)
         """
 
-        export_logger.info("walk_segments: %s" % str(segment))
+        export_logger.info("walk_segments: {}".format(str(segment)))
 
         child = tree.add()
         trafo, dummy = segment.RobotDesigner.getTransform()
@@ -359,7 +359,7 @@ def create_sdf(
         pose_rpy = list_to_string(trafo.to_euler())
         pose_xyz, pose_rpy = localpose2globalpose(ref_pose, pose_rpy, pose_xyz)
 
-        export_logger.info(" child link pose'%s'" % " ".join([pose_xyz, pose_rpy]))
+        export_logger.info(" child link pose'{}'".format(" ".join([pose_xyz, pose_rpy])))
         child.link.pose.append(" ".join([pose_xyz, pose_rpy]))
         # child.link.pos[0] = ' '.join([pose_xyz, pose_rpy])
         # if '_joint' in segment.name:
@@ -387,17 +387,17 @@ def create_sdf(
             tree.connectedJoints[tree.link] = [child.joint]
 
         if segment.parent:
-            export_logger.info(" segment parent name'%s'" % segment.parent.name)
-        export_logger.info(" segment joint name'%s'" % child.joint.name)
-        export_logger.info(" segment link name'%s'" % child.link.name)
+            export_logger.info(" segment parent name'{}'".format(segment.parent.name))
+        export_logger.info(" segment joint name'{}'".format(child.joint.name))
+        export_logger.info(" segment link name'{}'".format(child.link.name))
 
         export_logger.info(
-            "connected links (joint->link): ",
-            {j.name: l.name for j, l in tree.connectedLinks.items()},
+            "connected links (joint->link): {}".format(
+            {j.name: l.name for j, l in tree.connectedLinks.items()})
         )
         export_logger.info(
-            "connected joints (link->joint): ",
-            {l.name: j[0].name for l, j in tree.connectedJoints.items()},
+            "connected joints (link->joint): {}".format(
+            {l.name: j[0].name for l, j in tree.connectedJoints.items()})
         )
 
         if segment.RobotDesigner.axis_revert:
@@ -420,14 +420,14 @@ def create_sdf(
 
         # child.joint.axis[0].use_parent_model_frame.append(True)
 
-        export_logger.info(" joint axis xyz'%s'" % joint_axis_xyz)
+        export_logger.info(" joint axis xyz'{}'".format(joint_axis_xyz))
 
-        export_logger.info("Parent link:", child.joint.parent)
-        export_logger.info("Child link:", child.joint.child)
-        export_logger.info("Joint type:", child.joint.type)
-        export_logger.info("Axis:", child.joint.axis)
-        export_logger.info("Axis limit:", child.joint.axis[0].limit)
-        export_logger.info("Axis xyz:", child.joint.axis[0].xyz)
+        export_logger.info("Parent link: {}".format(child.joint.parent))
+        export_logger.info("Child link {}:".format(child.joint.child))
+        export_logger.info("Joint type: {}".format(child.joint.type))
+        export_logger.info("Axis: {}".format(child.joint.axis))
+        export_logger.info("Axis limit: {}".format(child.joint.axis[0].limit))
+        export_logger.info("Axis xyz: {}".format(child.joint.axis[0].xyz))
 
         # Export individual limits only if set as active in GUI
         seg = segment.RobotDesigner
@@ -468,7 +468,7 @@ def create_sdf(
         if seg.jointMode == "FIXED":
             child.joint.type = "fixed"
 
-        export_logger.info(" joint type'%s'" % child.joint.type)
+        export_logger.info(" joint type'{}'".format(child.joint.type))
 
         ### Add Meshes
         armature = context.active_object
@@ -489,7 +489,7 @@ def create_sdf(
         #     # todo: solutions add another property to a bone or
         #     # chose the name from the list of connected meshes
         for mesh in connected_meshes:
-            export_logger.info("Connected mesh name: %s", mesh)
+            export_logger.info("Connected mesh name: {}".format(mesh))
             pose_bone = context.active_object.pose.bones[segment.name]
             pose = (
                 pose_bone.matrix.inverted()
@@ -509,7 +509,7 @@ def create_sdf(
                 abs_filepaths,
                 export_collision=False,
             )
-            export_logger.info("visual mesh path: %s", visual_path)
+            export_logger.info("visual mesh path: {}".format(visual_path))
             if visual_path and "_vertices1.dae" not in visual_path:
                 visual = child.add_mesh(
                     visual_path,
@@ -527,7 +527,8 @@ def create_sdf(
                 visual.pose.append(" ".join([visual_pose_xyz, visual_pose_rpy]))
                 visual.name = bpy.data.objects[mesh].name  # child.link.name
             else:
-                export_logger.info("No visual model for: %s", mesh)
+                export_logger.info("No visual model for: {}".format(mesh))
+
             collision_path = export_mesh(
                 operator,
                 context,
@@ -538,7 +539,7 @@ def create_sdf(
                 abs_filepaths,
                 export_collision=True,
             )
-            export_logger.info("collision mesh path: %s", collision_path)
+            export_logger.info("collision mesh path: {}".format(collision_path))
             # this does not include basic collision objects
             if collision_path and "_vertices1.dae" not in collision_path:
                 collision = child.add_collision(
@@ -551,14 +552,14 @@ def create_sdf(
                     ],
                 )
                 export_logger.info(
-                    " collision mesh pose translation wo scale'%s'" % pose.translation
+                    " collision mesh pose translation wo scale'{}'".format(pose.translation)
                 )
                 export_logger.info(
-                    " collision mesh pose scale factor'%s'" % blender_scale_factor
+                    " collision mesh pose scale factor'{}'".format(blender_scale_factor)
                 )
                 export_logger.info(
-                    " collision mesh pose translation wi scale'%s'"
-                    % [i * j for i, j in zip(pose.translation, blender_scale_factor)]
+                    " collision mesh pose translation wi scale'{}'".format(
+                    [i * j for i, j in zip(pose.translation, blender_scale_factor)])
                 )
 
                 collision_pose_xyz = list_to_string(
@@ -575,7 +576,7 @@ def create_sdf(
                     " collision mesh pose'%s'" % collision.pose[0].value()
                 )
             else:
-                export_logger.info("No collision model for: %s", mesh)
+                export_logger.info("No collision model for: {}".format(mesh))
             # add basic collision objects
             if "BASIC_COLLISION_" in bpy.data.objects[mesh].RobotDesigner.tag:
                 collision = child.add_basic(
@@ -588,15 +589,15 @@ def create_sdf(
                     ],
                 )
                 export_logger.info(
-                    " basic collision mesh pose translation wo scale'%s'"
-                    % pose.translation
+                    " basic collision mesh pose translation wo scale'{}'".format(
+                    pose.translation)
                 )
                 export_logger.info(
-                    " basic collision mesh pose scale factor'%s'" % blender_scale_factor
+                    " basic collision mesh pose scale factor'{}'".format(blender_scale_factor)
                 )
                 export_logger.info(
-                    " basic collision mesh pose translation wi scale'%s'"
-                    % [i * j for i, j in zip(pose.translation, blender_scale_factor)]
+                    " basic collision mesh pose translation wi scale'{}'".format(
+                     [i * j for i, j in zip(pose.translation, blender_scale_factor)])
                 )
 
                 collision_pose_xyz = list_to_string(
@@ -610,10 +611,10 @@ def create_sdf(
                     mesh
                 ].name  # child.link.name + '_collision'
                 export_logger.info(
-                    " basic collision mesh pose'%s'" % collision.pose[0].value()
+                    " basic collision mesh pose'{}'".format(collision.pose[0].value())
                 )
             else:
-                export_logger.info("No basic collision model for: %s", mesh)
+                export_logger.info("No basic collision model for: {}".format(mesh))
             # export surface properties for both collision and basic collision objects
             if "COLLISION" in bpy.data.objects[mesh].RobotDesigner.tag:
                 # add surface properties
@@ -701,7 +702,7 @@ def create_sdf(
         ]
 
         # If no frame is connected create a default one. This is required for Gazebo!
-        export_logger.info("frame names: %s", frame_names)
+        export_logger.info("frame names: {}".format(frame_names))
 
         # if not frame_names:
         #     child.add_inertial()
@@ -787,7 +788,7 @@ def create_sdf(
             and sensor.parent_bone == segment.name
         ]
 
-        export_logger.info(" sensor name'%s'" % sensor_names)
+        export_logger.info(" sensor name'{}".format(sensor_names))
 
         for sensor in sensor_names:
             active_sensor = bpy.data.objects[sensor]
@@ -809,19 +810,19 @@ def create_sdf(
         # elif type == 'CAMERA':   todo other sensor types
         #   sensor_sdf.type = 'camera'
 
-        #      export_logger.info(" sensor name'%s'" % child.link.sensor.name)
+        #      export_logger.info(" sensor name'{}'".format(child.link.sensor.name))
 
         """
         A quick word on poses in sdf 1.6
         The way it works hasn't changed from 1.5
         You first have to append before you can freely set a value in it.
-        Difference is when calling the value. 
-        In 1.6, you have to use: ...pose[0].value() in order to call the value of the pose. 
+        Difference is when calling the value.
+        In 1.6, you have to use: ...pose[0].value() in order to call the value of the pose.
         """
 
         # Add geometry
         for child_segments in segment.children:
-            export_logger.info("Next Segment'%s'" % child_segments.name)
+            export_logger.info("Next Segment'{}'".format(child_segments.name))
             ref_pose = string_to_list(child.link.pose[0].value())
             walk_segments(child_segments, child, ref_pose)
 
@@ -896,7 +897,7 @@ def create_sdf(
     root_segments = [b for b in context.active_object.data.bones if b.parent is None]
 
     for segments in root_segments:
-        export_logger.info("Root Segment'%s'" % segments.name)
+        export_logger.info("Root Segment'{}'".format(segments.name))
         ref_pose = [
             0.0,
             0.0,
@@ -907,7 +908,7 @@ def create_sdf(
         ]  # transform to gazebo coordinate frame
         walk_segments(segments, root, ref_pose)
 
-    export_logger.info("Writing to '%s'" % filepath)
+    export_logger.info("Writing to '{}'".format(filepath))
     root.write(filepath)
 
 
@@ -973,8 +974,9 @@ def create_config(
         output.documentElement.setAttributeNS(
             xsi.uri(), "xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance"
         )
+
         output = output.toprettyxml()
-        f.write(output)
+        f.write(output.replace("ns1:", ""))
 
 
 @RDOperator.Preconditions(ModelSelected, ObjectMode)
@@ -1215,7 +1217,7 @@ class ExportZippedPackage(RDOperator):
         def zipdir(path, ziph):
             # ziph is zipfile handle
             for root, dirs, files in os.walk(path):
-                self.logger.debug("%s, %s, %s,", root, dirs, files)
+                self.logger.debug("{}, {}, {},".format(root, dirs, files))
                 for file in files:
                     file_path = os.path.join(root, file)
                     ziph.write(file_path, os.path.relpath(file_path, path))

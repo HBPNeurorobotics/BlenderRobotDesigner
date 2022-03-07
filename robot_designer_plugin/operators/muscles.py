@@ -533,6 +533,9 @@ class CalculateMuscleLength(RDOperator):
     def execute(self, context):
         leng = 0.0
 
+        if len(bpy.data.objects[self.muscle].data.splines) == 0:
+            return {"CANCELLED"}
+
         spline = bpy.data.objects[self.muscle].data.splines[0]
 
         for i in range(0, len(spline.points) - 1):

@@ -104,7 +104,7 @@ class URDFTree(object):
         try:
             robot = urdf_dom.CreateFromDocument(open(file_name).read())
         except ContentNondeterminismExceededError as e:
-            logger.error("Error raised %s, %s", e, e.instance.name)
+            logger.error("Error raised {}, {}".format(e, e.instance.name))
             raise e
 
         # parsing joint controllers
@@ -118,7 +118,7 @@ class URDFTree(object):
                 if plugin_tag.name == "generic_controller":
                     for controller in plugin_tag.controller:
                         # store the controller in cache, so it's accessible
-                        logger.debug("Found controller for joint: " + controller.joint_name + ", caching it.")
+                        logger.debug("Found controller for joint: {}, caching it".format(controller.joint_name))
                         controller_cache[controller.joint_name] = controller
                     # remove last tag from the last, it is handled by controller plugin differently
                     gazebo_tags.pop()
@@ -138,8 +138,8 @@ class URDFTree(object):
                        link.name == joint.child.link]
         root_links = [link for link in robot.link if link.name not in child_links]
 
-        logger.debug("Root links: %s", [i.name for i in root_links])
-        logger.debug("connected links: %s", {j.name: l.name for j, l in connected_links.items()})
+        logger.debug("Root links: {}".format([i.name for i in root_links]))
+        logger.debug("connected links: {}".format({j.name: l.name for j, l in connected_links.items()}))
 
         kinematic_chains = []
 
@@ -152,7 +152,7 @@ class URDFTree(object):
 
         # todo: parse joint controllers
 
-        logger.debug("kinematic chains: %s", kinematic_chains)
+        logger.debug("kinematic chains: {}".format(kinematic_chains))
         return robot.name, root_links, kinematic_chains, controller_cache, gazebo_tags
 
     def build(self, link, joint=None, depth=0):

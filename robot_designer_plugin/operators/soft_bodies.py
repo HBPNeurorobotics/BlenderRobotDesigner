@@ -75,9 +75,9 @@ class ConvertSoftBodies(RDOperator):
     @RDOperator.OperatorLogger
     def execute(self, context):
         self.logger.debug(
-            "Running ConvertSoftBodies with parameters: %s %s",
+            "Running ConvertSoftBodies with parameters: {} {}".format(
             self.smooth,
-            self.solidify,
+            self.solidify)
         )
 
         from .segments import SelectSegment
@@ -101,7 +101,7 @@ class ConvertSoftBodies(RDOperator):
         indices = [-1] * len(mesh_object.data.vertices)
 
         if self.remove_overlaps:
-            self.logger.debug("Removing overlaps. Threshold: %s", self.t2)
+            self.logger.debug("Removing overlaps. Threshold: {}".format(self.t2))
 
         for v in mesh_object.data.vertices:
             for g in v.groups:
@@ -200,10 +200,10 @@ class ConvertSoftBodies(RDOperator):
                             AssignGeometry.run()
                         else:
                             self.logger.error(
-                                "Vertex group %s has no matching bone" % bone
+                                "Vertex group %s has no matching bone {}".format(bone)
                             )
                     except KeyError:
-                        self.logger.info("Vertex group %s has no matching bone" % bone)
+                        self.logger.info("Vertex group %s has no matching bone {}".format(bone))
 
         SelectModel.run(model_name=model_name)
 

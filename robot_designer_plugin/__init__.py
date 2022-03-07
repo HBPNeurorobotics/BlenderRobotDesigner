@@ -97,8 +97,8 @@ try:
 except Exception as e:
     from .core.logfile import core_logger, EXCEPTION_MESSAGE, log_callstack
 
-    core_logger.error("Could not import submodules:\n" + EXCEPTION_MESSAGE,
-                      type(e).__name__, e, log_callstack(), log_callstack(True))
+    core_logger.error("Could not import submodules:\n {} {} {} {} {}".format(EXCEPTION_MESSAGE,
+                      type(e).__name__, e, log_callstack(), log_callstack(True)))
 
 
     def register():

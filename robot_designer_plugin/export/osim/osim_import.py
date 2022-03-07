@@ -221,10 +221,10 @@ class OsimImporter(object):
         SelectSegment.run(segment_name=body.name)
         SelectGeometry.run(geometry_name=assigned_name)
 
-        bpy.data.objects[sphere.name].RobotDesigner.scaling.scale_all = radius
+        bpy.data.objects[sphere.name].RobotDesigner.wrap_scaling.scale_all = radius
         # Model has to be selected and active in order to update scale
         # Geometry has to be selected, else the update function itself will take a different object
-        bpy.data.objects[sphere.name].RobotDesigner.scaling.scale_all_update(
+        bpy.data.objects[sphere.name].RobotDesigner.wrap_scaling.scale_all_update(
             bpy.context
         )
 
@@ -276,14 +276,14 @@ class OsimImporter(object):
         SelectSegment.run(segment_name=body.name)
         SelectGeometry.run(geometry_name=assigned_name)
 
-        bpy.data.objects[cylinder.name].RobotDesigner.scaling.scale_radius = radius
-        bpy.data.objects[cylinder.name].RobotDesigner.scaling.scale_depth = depth
+        bpy.data.objects[cylinder.name].RobotDesigner.wrap_scaling.scale_radius = radius
+        bpy.data.objects[cylinder.name].RobotDesigner.wrap_scaling.scale_depth = depth
         # Model has to be selected and active in order to update scale
         # Geometry has to be selected, else the update function itself will take a different object
-        bpy.data.objects[cylinder.name].RobotDesigner.scaling.scale_radius_update(
+        bpy.data.objects[cylinder.name].RobotDesigner.wrap_scaling.scale_radius_update(
             bpy.context
         )
-        bpy.data.objects[cylinder.name].RobotDesigner.scaling.scale_depth_update(
+        bpy.data.objects[cylinder.name].RobotDesigner.wrap_scaling.scale_depth_update(
             bpy.context
         )
 
@@ -298,13 +298,13 @@ class OsimImporter(object):
         while True:
             try:
                 body = self.muscles.Model.BodySet[0].objects.Body[b]
-                export_logger.info("\nimporting for ", body.name)
+                export_logger.info("\nimporting for {}".format(body.name))
                 s = 0
                 while True:
                     try:
                         wrapping_sphere = body.WrapObjectSet[0].objects.WrapSphere[s]
                         export_logger.info(
-                            "importing wrapping sphere: ", wrapping_sphere.name
+                            "importing wrapping sphere: {}".format(wrapping_sphere.name)
                         )
                         self.import_wrapping_sphere(body, wrapping_sphere)
                         s += 1
@@ -317,7 +317,7 @@ class OsimImporter(object):
                             c
                         ]
                         export_logger.info(
-                            "importing wrapping cylinder: ", wrapping_cylinder.name
+                            "importing wrapping cylinder: {}".format(wrapping_cylinder.name)
                         )
                         self.import_wrapping_cylinder(body, wrapping_cylinder)
                         c += 1
