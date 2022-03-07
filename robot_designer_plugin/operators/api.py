@@ -70,13 +70,13 @@ class GenerateAPI(RDOperator):
 
         try:
             base_path = os.path.join(config.script_path, "resources/blender_api/bpy/")
-            self.logger.info("Writing API stubs to: %s", base_path)
+            self.logger.info("Writing API stubs to: {}".format(base_path))
 
             for op_module_name in dir(bpy.ops):
                 ops_dir = os.path.join(base_path, "ops")
                 if not os.path.exists(ops_dir):
                     os.makedirs(ops_dir)
-                self.logger.debug("Creating module: %s", ops_dir)
+                self.logger.debug("Creating module: {}".format(ops_dir))
 
                 with open(os.path.join(ops_dir, op_module_name + ".py"), "w") as f:
                     op_module = getattr(bpy.ops, op_module_name)

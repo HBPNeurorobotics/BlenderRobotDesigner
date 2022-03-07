@@ -41,7 +41,7 @@ from bpy.props import StringProperty, BoolProperty
 
 # RobotDesigner imports
 from ..core import config, PluginManager, RDOperator
-from .helpers import ModelSelected, SingleSegmentSelected, SingleCameraSelected
+from .helpers import ModelSelected, SingleSegmentSelected, SingleCameraSelected, SingleSensorSelected
 from ..core.logfile import operator_logger
 from ..properties.globals import global_properties
 
@@ -206,7 +206,7 @@ class CreateSensor(RDOperator):
             # add other type sensor
             bpy.ops.object.empty_add(type="PLAIN_AXES")
 
-        operator_logger.info("adding", self.sensor_type)
+        operator_logger.info("adding {}".format(self.sensor_type))
 
         context.active_object.RobotDesigner.tag = "SENSOR"
         context.active_object.RobotDesigner.sensor_type = self.sensor_type
@@ -223,7 +223,7 @@ class CreateSensor(RDOperator):
         return context.window_manager.invoke_props_dialog(self)
 
 
-@RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)
+@RDOperator.Preconditions(ModelSelected, SingleSensorSelected)
 @PluginManager.register_class
 class RenameSensor(RDOperator):
     """
@@ -254,7 +254,7 @@ class RenameSensor(RDOperator):
         return super().run(**cls.pass_keywords())
 
 
-@RDOperator.Preconditions(ModelSelected)
+@RDOperator.Preconditions(ModelSelected, SingleSensorSelected)
 @PluginManager.register_class
 class DeleteSensor(RDOperator):
     """

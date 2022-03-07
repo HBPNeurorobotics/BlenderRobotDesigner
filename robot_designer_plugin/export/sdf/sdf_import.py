@@ -137,7 +137,7 @@ class Importer(object):
 
         # determine prefix path for loading meshes in case of paths relative to ROS_PACKAGE_PATH
         prefix_folder = ""
-        export_logger.debug("model_geometry_bbox: %s", model.geometry[0].box[0].size[0])
+        export_logger.debug("model_geometry_bbox: {}".format(model.geometry[0].box[0].size[0]))
         # Previous method for making a box. While it has its uses, for simple box creation, not needed.
         """
         width = string_to_list(model.geometry[0].box[0].size[0])[0] / 2
@@ -198,17 +198,17 @@ class Importer(object):
 
             bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_BOX"
 
-        export_logger.debug("model_name (geometry): %s", model_name)
-        export_logger.debug("model_type (geometry): %s", model_type)
+        export_logger.debug("model_name (geometry): {}".format(model_name))
+        export_logger.debug("model_type (geometry): {}".format(model_type))
 
-        export_logger.debug("model_geometry_bbox: %s", model.geometry[0].box[0].size[0])
+        export_logger.debug("model_geometry_bbox: {}".format(model.geometry[0].box[0].size[0]))
 
         # todo: if geometry pose is missing
         if not model.pose:
             model_posexyz = [0, 0, 0]
             model_poserpy = [0, 0, 0]
         else:
-            export_logger.debug("model_pose (geometry): %s", model.pose[0].value())
+            export_logger.debug("model_pose (geometry): {}".format(model.pose[0].value()))
             model_posexyz = string_to_list(model.pose[0].value())[0:3]
             model_poserpy = string_to_list(model.pose[0].value())[3:]
 
@@ -234,7 +234,7 @@ class Importer(object):
         bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
 
         export_logger.debug(
-            "Active robot name: %s", bpy.context.active_object.RobotDesigner.fileName
+            "Active robot name: {}".format(bpy.context.active_object.RobotDesigner.fileName)
         )
 
         bpy.context.active_object.name = os.path.basename(model.name)
@@ -249,17 +249,17 @@ class Importer(object):
 
             bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_SPHERE"
 
-        export_logger.debug("model_name (geometry): %s", model_name)
-        export_logger.debug("model_type (geometry): %s", model_type)
+        export_logger.debug("model_name (geometry): {}".format(model_name))
+        export_logger.debug("model_type (geometry): {}".format(model_type))
 
-        export_logger.debug("model_geometry_sphere: radius %s", c_radius)
+        export_logger.debug("model_geometry_sphere: radius {}".format(c_radius))
 
         # todo: if geometry pose is missing
         if not model.pose:
             model_posexyz = [0, 0, 0]
             model_poserpy = [0, 0, 0]
         else:
-            export_logger.debug("model_pose (geometry): %s", model.pose[0].value())
+            export_logger.debug("model_pose (geometry): {}".format(model.pose[0].value()))
             model_posexyz = string_to_list(model.pose[0].value())[0:3]
             model_poserpy = string_to_list(model.pose[0].value())[3:]
 
@@ -286,7 +286,7 @@ class Importer(object):
         bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
 
         export_logger.debug(
-            "Active robot name: %s", bpy.context.active_object.RobotDesigner.fileName
+            "Active robot name: {}".format(bpy.context.active_object.RobotDesigner.fileName)
         )
 
         bpy.context.active_object.name = os.path.basename(model.name)
@@ -301,11 +301,11 @@ class Importer(object):
 
             bpy.context.active_object.RobotDesigner.tag = "BASIC_COLLISION_CYLINDER"
 
-        export_logger.debug("model_name (geometry): %s", model_name)
-        export_logger.debug("model_type (geometry): %s", model_type)
+        export_logger.debug("model_name (geometry): {}".format(model_name))
+        export_logger.debug("model_type (geometry): {}".format(model_type))
 
         export_logger.debug(
-            "model_geometry_cylinder: radius %s, depth %s", c_radius, c_depth
+            "model_geometry_cylinder: radius {}, depth {}".format(c_radius, c_depth)
         )
 
         # todo: if geometry pose is missing
@@ -313,7 +313,7 @@ class Importer(object):
             model_posexyz = [0, 0, 0]
             model_poserpy = [0, 0, 0]
         else:
-            export_logger.debug("model_pose (geometry): %s", model.pose[0].value())
+            export_logger.debug("model_pose (geometry): {}".format(model.pose[0].value()))
             model_posexyz = string_to_list(model.pose[0].value())[0:3]
             model_poserpy = string_to_list(model.pose[0].value())[3:]
 
@@ -344,7 +344,7 @@ class Importer(object):
                 self.PACKAGE_URL, ""
             )
             mesh_path = os.path.join(str(Path(self.base_dir).parent), mesh_path)
-            export_logger.debug("mesh path %s", mesh_path)
+            export_logger.debug("mesh path {}".format(mesh_path))
 
         else:
             self.operator.report({"ERROR"}, "Unsupported URL schema")
@@ -357,6 +357,9 @@ class Importer(object):
         #
         #     bpy.ops.mesh.primitive_cylinder_add(depth=c_depth, radius=c_radius)
         #     bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
+
+        if not os.path.isfile(mesh_path):
+            raise Exception("Mesh file {} not found".format(mesh_path))
 
         fn, extension = os.path.splitext(mesh_path)
         if extension == ".stl" or extension == ".STL":
@@ -375,18 +378,18 @@ class Importer(object):
         )
 
         export_logger.debug(
-            "Active robot name: %s", bpy.context.active_object.RobotDesigner.fileName
+            "Active robot name: {}".format(bpy.context.active_object.RobotDesigner.fileName)
         )
         bpy.context.active_object.name = os.path.basename(model.name)
         model_name = bpy.context.active_object.name
         # bpy.context.active_object.type = 'ARMATURE'
         model_type = bpy.context.active_object.type
 
-        export_logger.debug("model_name (geometry): %s", model_name)
-        export_logger.debug("model_type (geometry): %s", model_type)
+        export_logger.debug("model_name (geometry): {}".format(model_name))
+        export_logger.debug("model_type (geometry): {}".format(model_type))
 
         export_logger.debug(
-            "model_geometry_mesh_scale (geometry): %s", model.geometry[0].mesh[0].scale
+            "model_geometry_mesh_scale (geometry): {}".format(model.geometry[0].mesh[0].scale)
         )
 
         scale_matrix = Matrix([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
@@ -398,7 +401,7 @@ class Importer(object):
             model_posexyz = [0, 0, 0]
             model_poserpy = [0, 0, 0]
         else:
-            export_logger.debug("model_pose (geometry): %s", model.pose[0].value())
+            export_logger.debug("model_pose (geometry): {}".format(model.pose[0].value()))
             model_posexyz = string_to_list(model.pose[0].value())[0:3]
             model_poserpy = string_to_list(model.pose[0].value())[3:]
 
@@ -427,13 +430,13 @@ class Importer(object):
             "active object name : %s", C.active_object.name
         )  # the name of the robot
 
-        export_logger.debug("active object type : %s", C.active_object.type)
+        export_logger.debug("active object type : {}".format(C.active_object.type))
 
         if bpy.context.active_object:
             export_logger.debug(
-                "active object type == Armature: %s, %s",
+                "active object type == Armature: {}, {}".format(
                 bpy.context.active_object.type == "ARMATURE",
-                "Model not selected and active.",
+                "Model not selected and active.")
             )
         else:
             export_logger.debug(
@@ -462,10 +465,10 @@ class Importer(object):
         child_pose_homo = pose_float2homogeneous(rounded(child_link_pose))
         xyz, euler = pose2origin(parent_pose_homo, child_pose_homo)
 
-        export_logger.info("child link pose xyzeuler-> %s", child_link_pose)
-        export_logger.info("parent link pose xyzeuler-> %s", ref_pose)
-        export_logger.info("converted local pose xyz -> %s", xyz)
-        export_logger.info("converted local pose euler -> %s", euler)
+        export_logger.info("child link pose xyzeuler-> {}".format(child_link_pose))
+        export_logger.info("parent link pose xyzeuler-> {}".format(ref_pose))
+        export_logger.info("converted local pose xyz -> {}".format(xyz))
+        export_logger.info("converted local pose euler -> {}".format(euler))
 
         if node.joint:
             if node.joint.axis:
@@ -488,7 +491,7 @@ class Importer(object):
         else:
             axis = string_to_list("1 0 0")
             # axis = [round(axis[0]), round(axis[1]), round(axis[2])]
-        export_logger.info("axis -> %s", axis)
+        export_logger.info("axis -> {}".format(axis))
         for i, element in enumerate(axis):
             if element == -1.0:
                 bpy.context.active_bone.RobotDesigner.axis_revert = True
@@ -502,10 +505,10 @@ class Importer(object):
         else:
             # todo throw exception -- only main axes are supported. Add a limitations section to documentation
             # (which has to be created as well)!
-            export_logger.info("axis is wrong -> %s", axis)
+            export_logger.info("axis is wrong -> {}".format(axis))
             pass
 
-        export_logger.info("axis -> %s", axis)
+        export_logger.info("axis -> {}".format(axis))
 
         bpy.context.active_bone.RobotDesigner.Euler.x.value = xyz[0]
         bpy.context.active_bone.RobotDesigner.Euler.y.value = xyz[1]
@@ -658,14 +661,14 @@ class Importer(object):
 
         pose_bone = bpy.context.active_object.pose.bones[segment_name]
         export_logger.debug(
-            "bpy.context.active_object name (before iterating over visual): %s",
-            bpy.context.active_object.name,
+            "bpy.context.active_object name (before iterating over visual): {}".format(
+            bpy.context.active_object.name)
         )
         export_logger.debug(
-            "active object pose bone matrix: %s", homo2origin(pose_bone.matrix)
+            "active object pose bone matrix: {}".format(homo2origin(pose_bone.matrix))
         )
         export_logger.debug(
-            "active object matrix world: %s", homo2origin(model.matrix_world)
+            "active object matrix world: {}".format(homo2origin(model.matrix_world))
         )
 
         segment_world = model.matrix_world @ pose_bone.matrix
@@ -728,27 +731,26 @@ class Importer(object):
 
         pose_bone = bpy.context.active_object.pose.bones[segment_name]
         export_logger.debug(
-            "bpy.context.active_object name (before iterating over visual): %s",
-            bpy.context.active_object.name,
+            "bpy.context.active_object name (before iterating over visual): {}".format(
+            bpy.context.active_object.name)
         )
         export_logger.debug(
-            "active object pose bone matrix: %s", homo2origin(pose_bone.matrix)
+            "active object pose bone matrix: {}".format(homo2origin(pose_bone.matrix))
         )
         export_logger.debug(
-            "active object matrix world: %s", homo2origin(model.matrix_world)
+            "active object matrix world: {}".format(homo2origin(model.matrix_world))
         )
 
         segment_world = model.matrix_world @ pose_bone.matrix
         # segment_world = pose_float2homogeneous(rounded(string_to_list("0 0 0.6 0 0 -1.570796")))*pose_bone.matrix
 
         export_logger.debug(
-            "[VISUAL] parsed: " + str(len(list(node.link.visual))) + " visual meshes."
+            "[VISUAL] parsed: {} visual meshes.".format(str(len(list(node.link.visual))))
         )
 
         export_logger.debug(
-            "[COLLISION] parsed: "
-            + str(len(list(node.link.collision)))
-            + " collision meshes."
+            "[COLLISION] parsed: {} collision meshes.".format(
+             str(len(list(node.link.collision))))
         )
 
         # Iterate first over visual models then over collision models
@@ -758,13 +760,13 @@ class Importer(object):
         ):
             # Iterate over the geometric models that are declared for the link
             for nr, model in enumerate(geometric_models):
-                export_logger.debug("name = %s", model.name)
+                export_logger.debug("name = {}".format(model.name))
                 if not len(model.geometry):
                     continue
                 # geometry is not optional in the xml
                 # geometry element: "box", "cylinder", "heightmap", "image", "mesh", "plane", "polyline", "sphere"
                 # if len(model.geometry[0].box) > 0:
-                #     export_logger.debug("[VISUAL] box size: " + str(model.geometry[0].box[0].size[0]))
+                #     export_logger.debug("[VISUAL] box size: {}".format(str(model.geometry[0].box[0].size[0])))
                 # if len(model.geometry[0].cylinder) > 0:
                 #     trafo_sdf = self.import_cylinder(model)
                 #     # if there are multiple objects in the COLLADA file, they will be selected
@@ -774,23 +776,23 @@ class Importer(object):
                 #         bpy.ops.object.parent_clear(type="CLEAR_KEEP_TRANSFORM")
                 #     for object in selected_objects:
                 #         #if object.type != 'MESH':
-                #         #    export_logger.debug("object type): %s", object.type)
+                #         #    export_logger.debug("object type): {}".format(object.type))
                 #         #    continue
                 #
                 #         # Select the object (and deselect others)
                 #         bpy.ops.object.select_all(False)
                 #         bpy.context.scene.objects.active = object  # bpy.data.objects[object]
                 #         bpy.context.active_object.select = True
-                #         export_logger.debug("active object matrix world (from mesh): %s", homo2origin(bpy.context.active_object.matrix_world))
+                #         export_logger.debug("active object matrix world (from mesh): {}".format(homo2origin(bpy.context.active_object.matrix_world)))
                 #         #bpy.context.active_object.matrix_world = pose_float2homogeneous(rounded(string_to_list("0 0 0 0 0 0")))
-                #         export_logger.debug("bpy.context.active_object name: %s", bpy.context.active_object.name)
-                #         export_logger.debug("active object matrix world (before transfer): %s", homo2origin(bpy.context.active_object.matrix_world))
+                #         export_logger.debug("bpy.context.active_object name: {}".format(bpy.context.active_object.name))
+                #         export_logger.debug("active object matrix world (before transfer): {}".format(homo2origin(bpy.context.active_object.matrix_world)))
                 #         bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
                 #         # after applying transform, matrix world becomes zero again
                 #         bpy.context.active_object.matrix_world =  segment_world * trafo_sdf * bpy.context.active_object.matrix_world#* inverse_matrix(bpy.context.active_object.matrix_world)#* \
                 #                                                #  bpy.context.active_object.matrix_world
-                #         export_logger.debug("active object matrix world (after transfer): %s", homo2origin(bpy.context.active_object.matrix_world))
-                #         export_logger.info("Model type: " + str(model_type))
+                #         export_logger.debug("active object matrix world (after transfer): {}".format(homo2origin(bpy.context.active_object.matrix_world)))
+                #         export_logger.info("Model type: {}".format(str(model_type)))
                 #         # Remove multiple "COL_" and "VIS_" strings before renaming
                 #         if model_type == COLLISON:
                 #             # %2d changed to %d because it created unwanted space with one digit numbers
@@ -829,7 +831,7 @@ class Importer(object):
                     or type == "box"
                     or type == "sphere"
                 ):
-                    export_logger.debug("geometry %s", model.geometry[0])
+                    export_logger.debug("geometry {}".format(model.geometry[0]))
 
                     if type == "cylinder":
                         trafo_sdf = self.import_cylinder(model, model_type)
@@ -845,6 +847,7 @@ class Importer(object):
                         export_logger.info("import mesh")
                     # if there are multiple objects in the COLLADA file, they will be selected
                     selected_objects = [i for i in bpy.context.selected_objects]
+
                     for object in selected_objects:
                         bpy.context.view_layer.objects.active = (
                             object  # bpy.data.objects[object]
@@ -853,7 +856,7 @@ class Importer(object):
                     for object in selected_objects:
                         if object.type != "MESH":
                             export_logger.debug(
-                                "object type not mesh): %s", object.type
+                                "object type not mesh): {}".format(object.type)
                             )
                             continue
 
@@ -864,17 +867,17 @@ class Importer(object):
                         )
                         bpy.context.active_object.select_set(True)
                         export_logger.debug(
-                            "active object matrix world (from mesh): %s",
-                            homo2origin(bpy.context.active_object.matrix_world),
+                            "active object matrix world (from mesh): {}".format(
+                            homo2origin(bpy.context.active_object.matrix_world))
                         )
                         # bpy.context.active_object.matrix_world = pose_float2homogeneous(rounded(string_to_list("0 0 0 0 0 0")))
                         export_logger.debug(
-                            "bpy.context.active_object name: %s",
-                            bpy.context.active_object.name,
+                            "bpy.context.active_object name: {}".format(
+                            bpy.context.active_object.name)
                         )
                         export_logger.debug(
-                            "active object matrix world (before transfer): %s",
-                            homo2origin(bpy.context.active_object.matrix_world),
+                            "active object matrix world (before transfer): {}".format(
+                            homo2origin(bpy.context.active_object.matrix_world))
                         )
                         # if len(model.geometry[0].mesh) > 0:
                         bpy.ops.object.transform_apply(
@@ -888,10 +891,10 @@ class Importer(object):
                         )  # * inverse_matrix(bpy.context.active_object.matrix_world)#* \
                         #  bpy.context.active_object.matrix_world
                         export_logger.debug(
-                            "active object matrix world (after transfer): %s",
-                            homo2origin(bpy.context.active_object.matrix_world),
+                            "active object matrix world (after transfer): {}".format(
+                            homo2origin(bpy.context.active_object.matrix_world))
                         )
-                        export_logger.info("Model type: " + str(model_type))
+                        export_logger.info("Model type: {}".format(str(model_type)))
                         # Remove multiple "COL_" and "VIS_" strings before renaming
                         """
                         if model_type == COLLISON:
@@ -1082,8 +1085,8 @@ class Importer(object):
 
         self.MUSCLE_PATH = muscles
 
-        export_logger.debug("%s,%s", self.base_dir, self.file_path)
-        export_logger.debug("root links: %s", [i.name for i in root_links])
+        export_logger.debug("{}, {}".format(self.base_dir, self.file_path))
+        export_logger.debug("root links: {}".format([i.name for i in root_links]))
 
         CreateNewModel.run(model_name=robot_name, base_segment_name="")
         model_name = bpy.context.active_object.name
@@ -1092,13 +1095,13 @@ class Importer(object):
             os.path.basename(os.path.dirname(self.file_path))
         )
 
-        export_logger.debug("model_name: %s", model_name)
-        export_logger.debug("model_type: %s", model_type)
+        export_logger.debug("model_name: {}".format(model_name))
+        export_logger.debug("model_type: {}".format(model_type))
 
         SelectModel.run(model_name=model_name)
         # for link in root_links:
         #     for visual in link.visual:
-        #         export_logger.debug('mesh name: %s', visual.geometry[0].mesh[0].uri[0])
+        #         export_logger.debug('mesh name: {}'.format(visual.geometry[0].mesh[0].uri[0]))
         #         if visual.geometry[0].mesh is not None:
         #             trafo = self.import_geometry(visual)
         #
@@ -1108,8 +1111,8 @@ class Importer(object):
         #                 s1 = string_to_list(visual.geometry[0].mesh[0].scale[0])  # string_to_list([0].mesh[0].scale)
         #             s2 = bpy.context.active_object.scale
         #
-        #             export_logger.debug('visual_geometry_mesh_scale: %s', s1)
-        #             export_logger.debug('context_active_object_scale: %s', s2)
+        #             export_logger.debug('visual_geometry_mesh_scale: {}'.format(s1))
+        #             export_logger.debug('context_active_object_scale: {}'.format(s2))
         #
         #
         #             scale = Matrix([[s1[0] * s2[0], 0, 0, 0], [0, s1[1] * s2[1], 0, 0],
@@ -1117,7 +1120,7 @@ class Importer(object):
         #             bpy.context.active_object.matrix_world = trafo * scale
         for chain in kinematic_chains:
             ref_pose = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
-            export_logger.debug("new chain: %s   %s", chain, ref_pose)
+            export_logger.debug("new chain: {}  {}".format(chain, ref_pose))
             root_name = self.parse(chain, ref_pose)
             UpdateSegments.run(segment_name=root_name, recurse=True)
 
@@ -1189,7 +1192,7 @@ class ImportPlain(RDOperator):
             bpy.data.objects[
                 global_properties.model_name.get(bpy.context.scene)
             ].RobotDesigner.physics_engine = "OPENSIM"
-            self.logger.info("muscle path:", importer.MUSCLE_PATH)
+            self.logger.info("muscle path: {}".format(importer.MUSCLE_PATH))
             osim_importer = OsimImporter(self.filepath, importer.MUSCLE_PATH)
             osim_importer.import_osim()
         return {"FINISHED"}
@@ -1224,7 +1227,7 @@ class ImportPackage(RDOperator):
             bpy.data.objects[
                 global_properties.model_name.get(bpy.context.scene)
             ].RobotDesigner.physics_engine = "OPENSIM"
-            export_logger.info("muscle path:", importer.MUSCLE_PATH)
+            export_logger.info("muscle path: {}".format(importer.MUSCLE_PATH))
             osim_importer = OsimImporter(self.filepath, importer.MUSCLE_PATH)
             osim_importer.import_osim()
         return {"FINISHED"}
@@ -1260,11 +1263,11 @@ class ImportZippedPackage(RDOperator):
             file_path = ""
             for root, subFolders, files in os.walk(target):
                 export_logger.debug(
-                    "root: %s, subfolders: %s, files: %s, splitfiles: %s",
+                    "root: {}, subfolders: {}, files: {}, splitfiles: {}".format(
                     root,
                     subFolders,
                     files,
-                    [os.path.splitext(i) for i in files],
+                    [os.path.splitext(i) for i in files])
                 )
                 for i in files:
                     if ".sdf" == os.path.splitext(i)[1]:
@@ -1275,7 +1278,7 @@ class ImportZippedPackage(RDOperator):
                         file_path = os.path.join(root, i)
 
             if file_path:
-                export_logger.debug("Importing: %s", file_path)
+                export_logger.debug("Importing: {}".format(file_path))
                 importer = Importer(operator=self, file_path=file_path)
                 importer.import_file()
                 importer.import_config()
@@ -1283,7 +1286,7 @@ class ImportZippedPackage(RDOperator):
                     bpy.data.objects[
                         global_properties.model_name.get(bpy.context.scene)
                     ].RobotDesigner.physics_engine = "OPENSIM"
-                    export_logger.info("muscle path:", importer.MUSCLE_PATH)
+                    export_logger.info("muscle path: {}".format(importer.MUSCLE_PATH))
                     osim_importer = OsimImporter(file_path, importer.MUSCLE_PATH)
                     osim_importer.import_osim()
             else:

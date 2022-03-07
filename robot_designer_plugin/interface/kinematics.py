@@ -126,8 +126,8 @@ def draw(layout, context):
         name = jointbox.column(align=True)
         name.prop(context.active_bone.RobotDesigner, "joint_name", text="Joint Name")
         row = jointbox.row(align=True)
-        segments.SetDefaultJointName.place_button(row, text="Default Name")
-        segments.SetDefaultJointNameAll.place_button(row, text="Default Name All")
+        segments.SetDefaultJointName.place_button(row, text="Use Default Name")
+        segments.SetDefaultJointNameAll.place_button(row, text="Use Default Name for All Joints")
 
         jointbox.label(text="Active Axis:")
         axis_row = jointbox.row()
@@ -148,16 +148,17 @@ def draw(layout, context):
             joint_column.prop(
                 context.active_bone.RobotDesigner.theta, "offset", slider=False
             )
-            joint_column.prop(
-                context.active_bone.RobotDesigner.theta, "min", slider=False
-            )
-            joint_column.prop(
-                context.active_bone.RobotDesigner.theta, "max", slider=False
-            )
+            if context.active_bone.RobotDesigner.theta.isActive:
+                joint_column.prop(
+                    context.active_bone.RobotDesigner.theta, "min", slider=False
+                )
+                joint_column.prop(
+                    context.active_bone.RobotDesigner.theta, "max", slider=False
+                )
             joint_column.prop(
                 context.active_bone.RobotDesigner.theta,
                 "isActive",
-                text="Active Joint Limits",
+                text="Active Joint Kinematic Limits",
             )
         elif context.active_bone.RobotDesigner.jointMode == "PRISMATIC":
             joint_column.label(text="D:")
@@ -167,10 +168,11 @@ def draw(layout, context):
             joint_column.prop(
                 context.active_bone.RobotDesigner.d, "offset", slider=False
             )
-            joint_column.prop(context.active_bone.RobotDesigner.d, "min", slider=False)
-            joint_column.prop(context.active_bone.RobotDesigner.d, "max", slider=False)
+            if context.active_bone.RobotDesigner.d.isActive:
+                joint_column.prop(context.active_bone.RobotDesigner.d, "min", slider=False)
+                joint_column.prop(context.active_bone.RobotDesigner.d, "max", slider=False)
             joint_column.prop(
                 context.active_bone.RobotDesigner.d,
                 "isActive",
-                text="Active Joint Limits",
+                text="Active Joint Kinematic Limits",
             )

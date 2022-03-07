@@ -394,7 +394,7 @@ class CreateNewModel(RDOperator):
 #
 #     if bpy.data.armatures[armatureDataName].bones[
 #         segment_name].RobotDesigner.RD_Bone == False:
-#         operator_logger.error("Not updated (not a RD segment):", segment_name)
+#         operator_logger.error("Not updated (not a RD segment): {}".format(segment_name))
 #         return
 #
 #     # local variables for updating the constraints

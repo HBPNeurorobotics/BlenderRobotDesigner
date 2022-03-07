@@ -81,7 +81,7 @@ class GenerateAllCollisionMeshes(RDOperator):
             and o.RobotDesigner.tag != "COLLISION"
         ]
 
-        self.logger.debug("Visuals: %s", visuals)
+        self.logger.debug("Visuals: {}".format(visuals))
 
         for i in visuals:
             SelectGeometry.run(geometry_name=i)
@@ -120,10 +120,10 @@ class GenerateAllCollisionConvexHull(RDOperator):
             and o.RobotDesigner.tag != "COLLISION"
         ]
 
-        self.logger.debug("Visuals: %s", visuals)
+        self.logger.debug("Visuals: {}".format(visuals))
 
         for i in visuals:
-            self.logger.debug("Compute convex hull for: " + i)
+            self.logger.debug("Compute convex hull for: {}".format(i))
             SelectGeometry.run(geometry_name=i)
             GenerateCollisionConvexHull.run()
 
@@ -164,7 +164,7 @@ class GenerateCollisionMesh(RDOperator):
         target_name = [
             i.name for i in bpy.context.selected_objects if i.type == "MESH"
         ][0]
-        self.logger.debug("Creating Collision mesh for: %s", target_name)
+        self.logger.debug("Creating Collision mesh for: {}".format(target_name))
         armature = context.active_object.name
 
         bpy.ops.object.select_all(action="DESELECT")
@@ -184,7 +184,7 @@ class GenerateCollisionMesh(RDOperator):
         mod = bpy.context.object.modifiers.new(name="shrink_wrap", type="SHRINKWRAP")
         mod.wrap_method = "NEAREST_SURFACEPOINT"
         mod.offset = self.shrinkWrapOffset * 1000
-        self.logger.debug("%f, %f", mod.offset, self.shrinkWrapOffset)
+        self.logger.debug("{}, {}".format(mod.offset, self.shrinkWrapOffset))
         mod.target = bpy.data.objects[target_name]
         bpy.ops.object.modifier_apply(modifier="shrink_wrap")
 
@@ -193,7 +193,8 @@ class GenerateCollisionMesh(RDOperator):
         name = bpy.context.object.name
 
         context.active_object.RobotDesigner.tag = "COLLISION"
-        self.logger.debug("Created mesh: %s", bpy.context.active_object.name)
+        context.active_object.RobotDesigner.fileName = name
+        self.logger.debug("Created mesh: {}".format(bpy.context.active_object.name))
 
         if "RD_COLLISON_OBJECT_MATERIAL" in bpy.data.materials:
             bpy.ops.object.material_slot_add()
@@ -201,7 +202,7 @@ class GenerateCollisionMesh(RDOperator):
                 "RD_COLLISON_OBJECT_MATERIAL"
             ]
             self.logger.debug(
-                "Assigned material to : %s", bpy.context.active_object.name
+                "Assigned material to : {}".format(bpy.context.active_object.name)
             )
         else:
             self.logger.debug("Could not find material for collision mesh")
@@ -250,7 +251,7 @@ class GenerateCollisionConvexHull(RDOperator):
             i.name for i in bpy.context.selected_objects if i.type == "MESH"
         ][0]
 
-        self.logger.debug("Creating Collision mesh for: %s", target_name)
+        self.logger.debug("Creating Collision mesh for: {}".format(target_name))
         armature = context.active_object.name
 
         cv_hull_obj_name = "COL_" + target_name[4:] + "_convex_hull"
@@ -262,6 +263,7 @@ class GenerateCollisionConvexHull(RDOperator):
 
         orig_object.select_set(True)
         orig_object.name = target_name + "_CONVEX_HULL_TMP_OBJECT"
+        corig_object.RobotDesigner.fileName = target_name + "_CONVEX_HULL_TMP_OBJECT"
         bpy.ops.object.duplicate()
 
         for obj in bpy.context.scene.objects:
@@ -311,9 +313,9 @@ class GenerateCollisionConvexHull(RDOperator):
             # };
             new = set(new["geom"])
             to_delete = [v for v in bm.verts if not v in new]
-            bmesh.ops.delete(bm, geom=to_delete, context=1)
+            bmesh.ops.delete(bm, geom=to_delete)
             to_delete = [f for f in bm.faces if not f in new]
-            bmesh.ops.delete(bm, geom=to_delete, context=5)
+            bmesh.ops.delete(bm, geom=to_delete)
 
             bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
 
@@ -323,7 +325,7 @@ class GenerateCollisionConvexHull(RDOperator):
             exp_object.select_set(True)
 
             exp_object.RobotDesigner.tag = "COLLISION"
-            self.logger.debug("Created mesh: %s", exp_object.name)
+            self.logger.debug("Created mesh: {}".format(exp_object.name))
 
             orig_object.name = target_name
 
@@ -335,7 +337,7 @@ class GenerateCollisionConvexHull(RDOperator):
                     "RD_COLLISON_OBJECT_MATERIAL"
                 ]
                 self.logger.debug(
-                    "Assigned material to : %s", bpy.context.active_object.name
+                    "Assigned material to : {}".format(bpy.context.active_object.name)
                 )
             else:
                 self.logger.debug("Could not find material for collision mesh")

@@ -77,7 +77,7 @@ class PluginManager(object):
 
         def decorator(cls):
             if issubclass(cls, bpy.types.PropertyGroup):
-                # RD_logger.info("Dependencies: %s", base)
+                # RD_logger.info("Dependencies: {}".format(base))
                 PluginManager._property_groups_to_register.append((cls, base))
             return cls
 
@@ -102,8 +102,8 @@ class PluginManager(object):
             elif issubclass(cls, CollapsibleBase):
                 PluginManager._bools_to_register.append(cls.property_name)
             else:
-                core_logger.error("Could not register %s, subclass of: %s\nDependencies: %s\n%s", cls, cls.mro(),
-                                  dependencies, args)
+                core_logger.error("Could not register %s, subclass of: {}\nDependencies: {}\n{}".format(cls, cls.mro(),
+                                  dependencies, args))
 
                 raise TypeError("Wrong with decorator")
             # print(cls)
@@ -191,7 +191,7 @@ class PluginManager(object):
         '''
         file_path = os.path.join(resource_path, filename)
         if not os.path.exists(file_path):
-            core_logger.debug("File does not exist: %s", file_path)
+            core_logger.debug("File does not exist: {}".format(file_path))
         else:
             cls._icons_to_register.append((id, file_path, 'IMAGE'))
 
@@ -248,7 +248,7 @@ class PluginManager(object):
                 cls._registered_classes.append(class_)
             core_logger.info('Done')
 
-            core_logger.debug("Properties: %s", cls._property_groups_to_register)
+            core_logger.debug("Properties: {}".format(cls._property_groups_to_register))
             for prop, extends in cls._property_groups_to_register:
                 report.append("\t+ property {0:33} {1:8} in {2:40}".format(prop.__name__,
                                                                           "(%s)" % extends.__name__ if extends else '',
@@ -276,7 +276,7 @@ class PluginManager(object):
 
         except Exception as e:
             report.append("Error occured")
-            core_logger.info("\n".join(report))
+            core_logger.info("\n{}".format(report))
             core_logger.error(EXCEPTION_MESSAGE,
                               type(e).__name__, e, log_callstack(), log_callstack(back_trace=True))
 
@@ -299,7 +299,8 @@ class PluginManager(object):
 
             for prop, extends in cls._registered_properties:
                 bpy.utils.unregister_class(prop)
-                if extends in (bpy.types.Object, bpy.types.Scene, bpy.types.Bone):
+                if extends in (bpy.types.Object, bpy.types.Scene, bpy.types.Bone) and \
+                    hasattr(extends, "RobotDesigner"):
                     delattr(extends, "RobotDesigner")
 
             for prop in cls._registered_bools:
@@ -312,7 +313,7 @@ class PluginManager(object):
 
         except Exception as e:
             report.append("Error occured during clean up. You should restart blender!")
-            core_logger.info("\n".join(report) + '\n')
+            core_logger.info("\n".join(report))
             core_logger.error(EXCEPTION_MESSAGE,
                               type(e).__name__, e, log_callstack(), log_callstack(back_trace=True))
 

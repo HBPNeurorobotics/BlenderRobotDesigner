@@ -48,6 +48,9 @@ from ..properties.globals import global_properties
 class GeometrySettingsBox(CollapsibleBase):
     property_name = "geometry_settings_box"
 
+@PluginManager.register_class
+class GeometryParameterBox(CollapsibleBase):
+    property_name = "geometry_parameter_box"
 
 @PluginManager.register_class
 class DisconnectGeometryBox(CollapsibleBase):
@@ -123,6 +126,9 @@ class SoftContactBox(CollapsibleBase):
 class JointLimitsBox(CollapsibleBase):
     property_name = "joint_limits_box"
 
+@PluginManager.register_class
+class JointAxisBox(CollapsibleBase):
+    property_name = "joint_axis_box"
 
 @PluginManager.register_class
 class JointPhysicsBox(CollapsibleBase):

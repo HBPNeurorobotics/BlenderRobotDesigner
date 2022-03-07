@@ -148,6 +148,27 @@ class RDGlobals(PropertyGroupHandlerBase):
             pass
 
     @staticmethod
+    def update_wrapping_name(self, context):
+        print("Update Wrapping object name")
+        for i in [
+            i
+            for i in bpy.context.selected_objects
+            if i.name != context.active_object.name
+        ]:
+            i.select_set(False)
+        try:
+            bpy.data.objects[global_properties.wrapping_name.get(context.scene)].select_set(
+                True
+            )
+        except KeyError:
+            print(
+                "Selecting ",
+                global_properties.wrapping_name.get(context.scene),
+                " failed due to key error!",
+            )
+            pass
+
+    @staticmethod
     def display_geometries(self, context):
         """
         Hides/Shows mesh objects in dependence of the respective Global property
@@ -283,11 +304,12 @@ class RDGlobals(PropertyGroupHandlerBase):
         """
         updates the robot name of the active object, the armature and  for every assigned muscle
         """
-        # update aramture name
-        bpy.data.armatures[self.old_name].name = self.model_name
 
-        # update muscle attachement name
         if self.old_name != "":
+            # update aramture name
+            bpy.data.armatures[self.old_name].name = self.model_name
+
+            # update muscle attachement name
             muscles = [
                 obj
                 for obj in bpy.data.objects
@@ -307,7 +329,6 @@ class RDGlobals(PropertyGroupHandlerBase):
         """
         updates the visualization dimension of all muscles in scene
         """
-        print("in the function")
         active_model = self.model_name
         for muscle in [
             obj.name
@@ -316,7 +337,6 @@ class RDGlobals(PropertyGroupHandlerBase):
             == active_model
         ]:
             bpy.data.objects[muscle].data.bevel_depth = self.muscle_dim
-            print("changing ----")
 
     def __init__(self):
 
@@ -332,6 +352,11 @@ class RDGlobals(PropertyGroupHandlerBase):
         # Holds the name of the currently selected geometry (Mesh object)
         self.mesh_name = PropertyHandler(
             StringProperty(update=self.update_geometry_name)
+        )
+
+        # Holds the name of the currently selected wrapping object
+        self.wrapping_name = PropertyHandler(
+            StringProperty(update=self.update_wrapping_name)
         )
 
         # Holds the name of the currently selected physics frame (Empty object)
@@ -354,16 +379,6 @@ class RDGlobals(PropertyGroupHandlerBase):
                    ('files', 'Files', 'Export Armature'),
                    ('world', 'World', 'Set world parameters')],
         ))
-
-        # Holds the selection to operate on collision geometries OR visual geometries
-        self.mesh_type = PropertyHandler(
-            EnumProperty(
-                items=[
-                    ("DEFAULT", "Visual geometries", "Edit visual geometries"),
-                    ("COLLISION", "Collision geometries", "Edit collision geometries"),
-                ]
-            )
-        )
 
         self.display_sensor_type = PropertyHandler(
             EnumProperty(
@@ -455,6 +470,7 @@ class RDGlobals(PropertyGroupHandlerBase):
             EnumProperty(
                 items=[
                     ("all", "All", "Show All Objects in Viewport"),
+                    ("visual", "Visual", "Show Only Connected Visual Geometries"),
                     (
                         "collision",
                         "Collision",
@@ -465,7 +481,6 @@ class RDGlobals(PropertyGroupHandlerBase):
                         "BASCOL",
                         "Show Only Connected Basic Collision Geometries",
                     ),
-                    ("visual", "Visual", "Show Only Connected Visual Geometries"),
                     ("none", "None", "Show No Connected Geometries"),
                 ],
                 update=self.display_geometries,

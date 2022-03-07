@@ -45,7 +45,8 @@ from ..core import config, PluginManager, RDOperator
 from .helpers import ModelSelected, SingleMeshSelected, SingleSegmentSelected
 from ..properties.globals import global_properties
 from ..core.logfile import operator_logger
-
+from .model import SelectModel
+from .rigid_bodies import SelectWrappingObject
 
 # operator to select mesh
 @RDOperator.Preconditions(ModelSelected)
@@ -81,7 +82,7 @@ class GenerateMeshFromAllSegment(RDOperator):
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class CreateWrappingSphere(RDOperator):
-    bl_idname = config.OPERATOR_PREFIX + "create_sphere"
+    bl_idname = config.OPERATOR_PREFIX + "create_wrapping_sphere"
     bl_label = "Create New Sphere"
 
     sphere_name: StringProperty(name="Enter new sphere name:")
@@ -94,14 +95,7 @@ class CreateWrappingSphere(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
 
-        from .model import SelectModel
-        from .rigid_bodies import SelectGeometry
-
         model = bpy.context.active_object
-        active_muscle = bpy.data.objects[
-            global_properties.active_muscle.get(bpy.context.scene)
-        ]
-
         bpy.ops.mesh.primitive_uv_sphere_add(
             radius=1.0, calc_uvs=True, enter_editmode=False
         )  # TODO: check if 0.5 is correct
@@ -109,15 +103,19 @@ class CreateWrappingSphere(RDOperator):
         sphere = bpy.context.active_object
         sphere.name = self.sphere_name
 
-        sphere.RobotDesigner.wrap.muscleNames.add()
-        nrm = len(sphere.RobotDesigner.wrap.muscleNames)
-        sphere.RobotDesigner.wrap.muscleNames[nrm - 1].name = active_muscle.name
+        ##sphere.RobotDesigner.wrap.muscleNames.add()
 
-        active_muscle.RobotDesigner.muscles.connectedWraps.add()
-        nrw = len(active_muscle.RobotDesigner.muscles.connectedWraps)
-        active_muscle.RobotDesigner.muscles.connectedWraps[
-            nrw - 1
-        ].wrappingName = sphere.name
+        # maybe add wrapping directly to muscle
+        # active_muscle = bpy.data.objects[
+        #     global_properties.active_muscle.get(bpy.context.scene)
+        # ]
+        # nrm = len(sphere.RobotDesigner.wrap.muscleNames)
+        # sphere.RobotDesigner.wrap.muscleNames[nrm - 1].name = active_muscle.name
+        # active_muscle.RobotDesigner.muscles.connectedWraps.add()
+        # nrw = len(active_muscle.RobotDesigner.muscles.connectedWraps)
+        # active_muscle.RobotDesigner.muscles.connectedWraps[
+        #     nrw - 1
+        # ].wrappingName = sphere.name
 
         lmat = bpy.data.materials.new(self.sphere_name)
         lmat.diffuse_color = (0.0, 0.135, 0.0, 1)
@@ -128,7 +126,7 @@ class CreateWrappingSphere(RDOperator):
         sphere.RobotDesigner.wrap.WrappingType = "WRAPPING_SPHERE"
 
         SelectModel.run(model_name=model.name)
-        SelectGeometry.run(geometry_name=sphere.name)
+        SelectWrappingObject.run(wrapping_name=sphere.name)
 
         return {"FINISHED"}
 
@@ -139,7 +137,7 @@ class CreateWrappingSphere(RDOperator):
 @RDOperator.Preconditions(ModelSelected)
 @PluginManager.register_class
 class CreateWrappingCylinder(RDOperator):
-    bl_idname = config.OPERATOR_PREFIX + "create_cylinder"
+    bl_idname = config.OPERATOR_PREFIX + "create_wrapping_cylinder"
     bl_label = "Create New Cylinder"
 
     cylinder_name: StringProperty(name="Enter new cylinder name:")
@@ -152,28 +150,26 @@ class CreateWrappingCylinder(RDOperator):
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
 
-        from .model import SelectModel
-        from .rigid_bodies import SelectGeometry
-
         model = bpy.context.active_object
-        active_muscle = bpy.data.objects[
-            global_properties.active_muscle.get(bpy.context.scene)
-        ]
-
         bpy.ops.mesh.primitive_cylinder_add(radius=1, depth=1, enter_editmode=False)
 
         cylinder = bpy.context.active_object
         cylinder.name = self.cylinder_name
 
-        cylinder.RobotDesigner.wrap.muscleNames.add()
-        nrm = len(cylinder.RobotDesigner.wrap.muscleNames)
-        cylinder.RobotDesigner.wrap.muscleNames[nrm - 1].name = active_muscle.name
+        #cylinder.RobotDesigner.wrap.muscleNames.add()
 
-        active_muscle.RobotDesigner.muscles.connectedWraps.add()
-        nrw = len(active_muscle.RobotDesigner.muscles.connectedWraps)
-        active_muscle.RobotDesigner.muscles.connectedWraps[
-            nrw - 1
-        ].wrappingName = cylinder.name
+        # active_muscle = bpy.data.objects[
+        #     global_properties.active_muscle.get(bpy.context.scene)
+        # ]
+        # maybe add wrap to muscle directly
+        # nrm = len(cylinder.RobotDesigner.wrap.muscleNames)
+        # cylinder.RobotDesigner.wrap.muscleNames[nrm - 1].name = active_muscle.name
+        #
+        # active_muscle.RobotDesigner.muscles.connectedWraps.add()
+        # nrw = len(active_muscle.RobotDesigner.muscles.connectedWraps)
+        # active_muscle.RobotDesigner.muscles.connectedWraps[
+        #     nrw - 1
+        # ].wrappingName = cylinder.name
 
         lmat = bpy.data.materials.new(self.cylinder_name)
         lmat.diffuse_color = (0.0, 0.135, 0.0, 1)
@@ -184,12 +180,50 @@ class CreateWrappingCylinder(RDOperator):
         cylinder.RobotDesigner.wrap.WrappingType = "WRAPPING_CYLINDER"
 
         SelectModel.run(model_name=model.name)
-        SelectGeometry.run(geometry_name=cylinder.name)
+        SelectWrappingObject.run(wrapping_name=cylinder.name)
 
         return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
+
+
+@RDOperator.Preconditions(ModelSelected)
+@PluginManager.register_class
+class AddWrappingObjectToActiveMuscle(RDOperator):
+    bl_idname = config.OPERATOR_PREFIX + "add_wrapping_object_to_active_muscle"
+    bl_label = "Create New Sphere"
+
+    wrapping_name: StringProperty(name="Enter new sphere name:")
+
+    @classmethod
+    def run(cls, sphere_name):
+        return super().run(**cls.pass_keywords())
+
+    @RDOperator.OperatorLogger
+    @RDOperator.Postconditions(ModelSelected)
+    def execute(self, context):
+
+        wrapping_object = bpy.data.objects[self.wrapping_name]
+
+        if not wrapping_object.RobotDesigner.wrap.muscleNames:
+            wrapping_object.RobotDesigner.wrap.muscleNames.add()
+
+        active_muscle = bpy.data.objects[
+             global_properties.active_muscle.get(bpy.context.scene)
+         ]
+        nrm = len(wrapping_object.RobotDesigner.wrap.muscleNames)
+        wrapping_object.RobotDesigner.wrap.muscleNames[nrm - 1].name = active_muscle.name
+        active_muscle.RobotDesigner.muscles.connectedWraps.add()
+        nrw = len(active_muscle.RobotDesigner.muscles.connectedWraps)
+        active_muscle.RobotDesigner.muscles.connectedWraps[
+             nrw - 1
+        ].wrappingName = wrapping_object.name
+
+        SelectWrappingObject.run(wrapping_name=self.wrapping_name)
+
+        return {"FINISHED"}
+
 
 
 @RDOperator.Preconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
@@ -208,7 +242,7 @@ class RenameWrappingObject(RDOperator):
 
     @RDOperator.OperatorLogger
     def execute(self, context):
-        selected_object = global_properties.mesh_name.get(context.scene)
+        selected_object = global_properties.wrapping_name.get(context.scene)
 
         for muscles in context.scene.objects[
             selected_object
@@ -227,9 +261,10 @@ class RenameWrappingObject(RDOperator):
                 i = i + 1
 
         bpy.data.objects[
-            global_properties.mesh_name.get(bpy.context.scene)
+            global_properties.wrapping_name.get(bpy.context.scene)
         ].name = self.new_name
-        global_properties.mesh_name.set(context.scene, self.new_name)
+        global_properties.wrapping_name.set(context.scene, self.new_name)
+
         return {"FINISHED"}
 
     def invoke(self, context, event):
@@ -240,7 +275,7 @@ class RenameWrappingObject(RDOperator):
         return super().run(**cls.pass_keywords())
 
 
-@RDOperator.Preconditions(ModelSelected)
+@RDOperator.Preconditions(ModelSelected, SingleMeshSelected, SingleSegmentSelected)
 @PluginManager.register_class
 class DeleteWrappingObject(RDOperator):
     """
@@ -255,7 +290,7 @@ class DeleteWrappingObject(RDOperator):
     @RDOperator.OperatorLogger
     def execute(self, context):
 
-        selected_object = global_properties.mesh_name.get(context.scene)
+        selected_object = global_properties.wrapping_name.get(context.scene)
 
         for muscles in context.scene.objects[
             selected_object
@@ -363,8 +398,8 @@ class DetachWrappingObject(RDOperator):
     def execute(self, context):
         from . import segments, model
 
-        mesh_name = global_properties.mesh_name.get(context.scene)
-        current_mesh = bpy.data.objects[mesh_name]
+        wrapping_name = global_properties.wrapping_name.get(context.scene)
+        current_mesh = bpy.data.objects[wrapping_name]
         mesh_global = current_mesh.matrix_world
         current_mesh.parent = None
 
@@ -393,7 +428,6 @@ class DetachAllWrappingObjects(RDOperator):
     @RDOperator.OperatorLogger
     @RDOperator.Postconditions(ModelSelected)
     def execute(self, context):
-        from .rigid_bodies import SelectGeometry
 
         meshes = [
             obj
@@ -404,7 +438,7 @@ class DetachAllWrappingObjects(RDOperator):
         ]
 
         for mesh in meshes:
-            SelectGeometry.run(geometry_name=mesh.name)
+            SelectWrappingObject.run(wrapping_name=mesh.name)
             DetachWrappingObject.run()
 
         return {"FINISHED"}
@@ -413,32 +447,33 @@ class DetachAllWrappingObjects(RDOperator):
         return context.window_manager.invoke_props_dialog(self)
 
 
-@RDOperator.Preconditions(ModelSelected)
-@PluginManager.register_class
-class SelectWrappingObject(RDOperator):
-    bl_idname = config.OPERATOR_PREFIX + "select_wrapping_object"
-    bl_label = "Select Wrapping Object: "
-
-    wrapping_name: StringProperty()
-
-    @RDOperator.OperatorLogger
-    def execute(self, context):
-        model = bpy.data.objects[global_properties.model_name.get(context.scene)]
-        active_muscle = bpy.data.objects[
-            global_properties.active_muscle.get(bpy.context.scene)
-        ]
-
-        wrapping_object = context.scene.objects[self.wrapping_name]
-        wrapping_object.RobotDesigner.wrap.muscleNames.add()
-        nr = len(wrapping_object.RobotDesigner.wrap.muscleNames)
-        wrapping_object.RobotDesigner.wrap.muscleNames[nr - 1].name = active_muscle.name
-
-        wrapList = active_muscle.RobotDesigner.muscles.connectedWraps
-        wrapList.add()
-        nrw = len(wrapList)
-        wrapList[nrw - 1].wrappingName = self.wrapping_name
-
-        return {"FINISHED"}
+# @RDOperator.Preconditions(ModelSelected)
+# @PluginManager.register_class
+# class SelectWrappingObject(RDOperator):
+#     bl_idname = config.OPERATOR_PREFIX + "select_wrapping_object"
+#     bl_label = "Select Wrapping Object: "
+#
+#     wrapping_name: StringProperty()
+#
+#     @RDOperator.OperatorLogger
+#     def execute(self, context):
+#
+#         model = bpy.data.objects[global_properties.model_name.get(context.scene)]
+#         active_muscle = bpy.data.objects[
+#             global_properties.active_muscle.get(bpy.context.scene)
+#         ]
+#
+#         wrapping_object = context.scene.objects[self.wrapping_name]
+#         wrapping_object.RobotDesigner.wrap.muscleNames.add()
+#         nr = len(wrapping_object.RobotDesigner.wrap.muscleNames)
+#         wrapping_object.RobotDesigner.wrap.muscleNames[nr - 1].name = active_muscle.name
+#
+#         wrapList = active_muscle.RobotDesigner.muscles.connectedWraps
+#         wrapList.add()
+#         nrw = len(wrapList)
+#         wrapList[nrw - 1].wrappingName = self.wrapping_name
+#
+#         return {"FINISHED"}
 
     def invoke(self, context, event):
         return context.window_manager.invoke_props_dialog(self)
@@ -453,7 +488,7 @@ class SelectWrappingObject(RDOperator):
 @PluginManager.register_class
 class GenerateMeshFromSegment(RDOperator):
     """
-    :ref:`operator` for ...
+    :ref:`operator` for generating a mesh from the given segment.
 
     """
 
@@ -585,7 +620,7 @@ class GenerateMeshFromJoint(RDOperator):
             for child in pose_bone.children
         ]
 
-        self.logger.debug("%s, %s", segment_length, distance_to_children)
+        self.logger.debug("{}, {}".format(segment_length, distance_to_children))
 
         # if there is no translation to parent, the parent (or its parent) draws the joint
         if bone_to_parent.translation.length > 0.001:

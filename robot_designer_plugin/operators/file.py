@@ -80,7 +80,7 @@ class Traverse(RDOperator):
             .bones[segment_name]
             .RobotDesigner.RD_Bone
         ):
-            self.logger.info("Not updated (not a RD segment): %s", segment_name)
+            self.logger.info("Not updated (not a RD segment): {}".format(segment_name))
             return
 
         # local variables for updating the constraints

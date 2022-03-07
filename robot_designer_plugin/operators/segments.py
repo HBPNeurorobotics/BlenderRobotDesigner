@@ -139,7 +139,7 @@ class RenameSegment(RDOperator):
         return super().run(**cls.pass_keywords())
 
 
-@RDOperator.Preconditions(ModelSelected, SingleSegmentSelected, PoseMode)
+@RDOperator.Preconditions(ModelSelected, SingleSegmentSelected)
 @PluginManager.register_class
 class InsertNewParentSegment(RDOperator):
     """
@@ -164,7 +164,7 @@ class InsertNewParentSegment(RDOperator):
             context.active_bone.parent.name if context.active_bone.parent else ""
         )
 
-        self.logger.info("%s %s", current_segment_name, parent_segment_name)
+        self.logger.info("{} {}".format(current_segment_name, parent_segment_name))
 
         bpy.ops.pose.select_all(
             action="DESELECT"
@@ -250,7 +250,7 @@ class ImportBlenderArmature(RDOperator):
     bl_label = "(Re)Import Bones"
 
     def execute_on_bone(self, bone):
-        self.logger.info("Importing bone %s", bone.name)
+        self.logger.info("Importing bone {}".format(bone.name))
         # Make the UpdateSegments operator consider this bone as if it has not been taken control of yet.
         # Otherwise UpdateSegments would mess up the bones transform as soon as the first RD related property is changed.
         # Example:
@@ -332,15 +332,15 @@ class ConvertVertexMapSkinning(RDOperator):
         ]
         for obj in meshes_to_connect:
             self.logger.debug(
-                "Attempt to attach geometry %s to %s", obj.name, bone.name
+                "Attempt to attach geometry {} to {}".format(obj.name, bone.name)
             )
             self.stop_vertex_group_from_interfering(armature, obj, context)
             # We just use the operators that we already have.
             # Assign geometry operates on selected items - one bone and one mesh.
             SelectGeometry.run(geometry_name=obj.name)
-            AssignGeometry.run(
-                attach_collision_geometry=(global_properties.mesh_type == "COLLISION")
-            )
+            # AssignGeometry.run(
+            #     attach_collision_geometry=(global_properties.mesh_type == "COLLISION")
+            # )
 
     @RDOperator.OperatorLogger
     def execute(self, context):
@@ -500,9 +500,9 @@ class CreateNewSegment(RDOperator):
         bpy.ops.object.mode_set(mode=current_mode, toggle=False)
 
         self.logger.info(
-            "Current mode after: %s (%s)", bpy.context.object.mode, current_mode
+            "Current mode after: {} ({})".format(bpy.context.object.mode, current_mode)
         )
-        self.logger.debug("Segment created. (%s -> %s)", parent_name, self.segment_name)
+        self.logger.debug("Segment created. ({} -> .format()".format(parent_name, self.segment_name))
 
         UpdateSegments.run(recurse=True, segment_name=self.segment_name)
 
@@ -533,9 +533,9 @@ class UpdateSegments(RDOperator):
     def execute(self, context):
         current_mode = bpy.context.object.mode
         self.logger.debug(
-            "UpdateSegments: recurse=%s, bone=%s",
+            "UpdateSegments: recurse={}, bone={}".format(
             str(self.recurse),
-            str(self.segment_name),
+            str(self.segment_name))
         )
 
         armature_data_name = context.active_object.data.name
@@ -554,7 +554,7 @@ class UpdateSegments(RDOperator):
             .bones[segment_name]
             .RobotDesigner.RD_Bone
         ):
-            self.logger.info("Not updated (not a RD segment): %s", segment_name)
+            self.logger.info("Not updated (not a RD segment): {}".format(segment_name))
             return {"FINISHED"}
 
         bone = bpy.data.armatures[armature_data_name].bones[segment_name]

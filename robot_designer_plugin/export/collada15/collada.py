@@ -69,7 +69,7 @@ class COLLADA(object):
             root = self.root
         result = root.findall(s.format(**kw))
         if len(result) == 0 and warning:
-            self.logger.warning('No results for query: %s\nKW:%s\nroot:%s', s, kw, root)
+            self.logger.warning('No results for query: {}\nKW:{}\nroot:{}'.format(s, kw, root))
             raise Exception('XML element found')
         return result
 
@@ -79,7 +79,7 @@ class COLLADA(object):
             root = self.root
         result = root.find(s.format(**kw))
         if result is None and warning:
-            self.logger.warning('No results for query: %s\nKW:%s\nroot:%s', s, kw, root)
+            self.logger.warning('No results for query: {}\nKW:{}\nroot:{}'.format(s, kw, root))
             raise Exception('XML element found')
         return result
 
@@ -175,7 +175,7 @@ class COLLADA(object):
 
     def SubInstance(self, parent, element):
         tag = element.tag.replace(self.ns, '{ns}instance_')
-        # self.logger.debug('tag: %s', tag)
+        # self.logger.debug('tag: {}'.format(tag))
         return self.SubElement(parent, tag,
                                attrib={'url': '#' + element.get('id'), 'sid': "inst_" + element.get('id')})
 
@@ -221,7 +221,7 @@ class COLLADA(object):
 
         kinematics_model = self.SubElement(library_kinematics_models,
                                            '{ns}kinematics_model', {'id': armature.name + '_kinematics_model'})
-        self.logger.debug('kin mod:%s', etree.tostring(kinematics_model))
+        self.logger.debug('kin mod: {}'.format(etree.tostring(kinematics_model)))
         kinematics_model_technique = self.SubElement(kinematics_model,
                                                      '{ns}technique_common')
 
@@ -507,8 +507,8 @@ class COLLADA(object):
             id_kinematics_model = self.getID(instance_kinematics_model)
             kinematics_model = self.find(COLLADA.KINEMATICS_MODEL, id=id_kinematics_model)
 
-            self.logger.info('Found kinematics model: %s', kinematics_model)
-            self.logger.info('Creating Armature: %s', kinematics_model[:-9])
+            self.logger.info('Found kinematics model: {}'.format(kinematics_model))
+            self.logger.info('Creating Armature: {}'.format(kinematics_model[:-9]))
 
             # Fetch the extra OpenRAVE information
             frame_origin = None
@@ -546,17 +546,17 @@ class COLLADA(object):
             # fetch the information for each joint.
             def parseLink(link, armature_, depth=0):
                 space = '.' * depth
-                self.logger.debug('%sLink: %s', space, link.get('sid'))
+                self.logger.debug('{}Link: {}'.format(space, link.get('sid')))
                 if link == frame_origin:
-                    self.logger.debug('%sFrame origin', space)
+                    self.logger.debug('{} Frame origin'.format(space))
                     armature_.frame_origin = True
 
                 if link == frame_tip:
-                    self.logger.debug('%sFrame tip', space)
+                    self.logger.debug('{}Frame tip'.format(space))
                     armature_.frame_tip = True
 
                 for attachment in self.findall('{ns}attachment_full', link, warning=False):
-                    self.logger.debug('%s%s', space, attachment.get('joint'))
+                    self.logger.debug('{}{}'.format(space, attachment.get('joint')))
 
                     [id, sid] = attachment.get('joint').split('/')
                     instance_joint = self.find(COLLADA.KINEMATICS_MODEL_SID, id=id, sid=sid)
@@ -574,9 +574,9 @@ class COLLADA(object):
                         armatureJoint.axis_type = axis.tag.replace(self.ns, '')
                         armatureJoint.axis = [int(i) for i in axis[0].text.split()]
 
-                        self.logger.debug('%sAxis: %s', space, axis.get('sid'))
+                        self.logger.debug('{}Axis: {}'.format(space, axis.get('sid')))
                         if axis in gripper_axes:
-                            self.logger.debug('%sGripper Joint: Closing direction: %s', space, gripper_axes[axis])
+                            self.logger.debug('{}Gripper Joint: Closing direction: {}'.format(space, gripper_axes[axis]))
                             armatureJoint.isGripper = True
                             armatureJoint.closingDirection = gripper_axes[axis]
 
@@ -605,7 +605,7 @@ class COLLADA(object):
                                                 bind.get('symbol'))
                         bind_joint_axis = self.getParent(self.getParent(param))
 
-                        self.logger.debug('%sBinding to node: %s', space, bind_joint_axis.get('target'))
+                        self.logger.debug('{}Binding to node: {}'.format(space, bind_joint_axis.get('target')))
 
                         # Find the connected meshes (it is an optional parameter!)
                         if bind_joint_axis.get('target'):
@@ -625,7 +625,7 @@ class COLLADA(object):
                         [id, sid] = self.find('{ns}SIDREF', newparam).text.split('/')
                         newparam = self.find(COLLADA.ARTICULATED_SYSTEMS_KINEMATICS_SID, id=id, sid=sid)
 
-                        self.logger.debug('%sInitial value:%s', space, newparam[0].text)
+                        self.logger.debug('{}Initial value:{}'.format(space, newparam[0].text))
                         armatureJoint.initialValue = newparam[0].text
 
                         # it should be easier to obtain the <axis_info>
@@ -633,10 +633,10 @@ class COLLADA(object):
                             COLLADA.ARTICULATED_SYSTEMS_KINEMATICS_AXIS_INFO,
                             id=self.getID(instance_AS_kinematics),
                             axis=self.makeSIDREF(kinematics_model, instance_joint, axis))
-                        self.logger.debug('%sactive: %s, locked: %s, min: %s, max: %s', space,
+                        self.logger.debug('{}active: {}, locked: {}, min: {}, max: {}'.format(space,
                                           axis_info_kinematics[0][0].text, axis_info_kinematics[1][0].text,
                                           axis_info_kinematics[2][0][0].text,
-                                          axis_info_kinematics[2][1][0].text)
+                                          axis_info_kinematics[2][1][0].text))
                         armatureJoint.active = axis_info_kinematics[0][0].text
                         armatureJoint.locked = axis_info_kinematics[1][0].text
                         armatureJoint.min = float(axis_info_kinematics[2][0][0].text)
@@ -646,10 +646,10 @@ class COLLADA(object):
                             COLLADA.ARTICULATED_SYSTEMS_MOTION_AXIS_INFO,
                             id=self.getID(instance_AS_motion),
                             axis=self.makeSIDREF(AS_kinematics, axis_info_kinematics))
-                        self.logger.debug('%sspeed: %s, acceleration: %s, deceleration: %s, jerk: %s', space,
+                        self.logger.debug('%sspeed: {}, acceleration: {}, deceleration: %{}, jerk: {}'.format(space,
                                           axis_info_motion[0][0].text, axis_info_motion[1][0].text,
                                           axis_info_motion[2][0].text,
-                                          axis_info_motion[3][0].text)
+                                          axis_info_motion[3][0].text))
                         armatureJoint.speed = float(axis_info_motion[0][0].text)
                         armatureJoint.acceleration = float(axis_info_motion[1][0].text)
                         armatureJoint.deceleration = float(axis_info_motion[2][0].text)
@@ -662,7 +662,7 @@ class COLLADA(object):
             for link in self.findall('{ns}technique_common/{ns}link', kinematics_model):
                 parseLink(link, armature)
 
-        self.logger.debug("Meshes:\n%s", meshes)
+        self.logger.debug("Meshes:\n{}".format(meshes))
 
         return armature, meshes
 

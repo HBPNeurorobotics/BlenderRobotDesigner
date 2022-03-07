@@ -40,7 +40,7 @@ from ...core import config, PluginManager, RDOperator
 from .generic import sdf_world_dom
 from .generic.helpers import string_to_list
 from ...operators import world
-from ...operators.helpers import ObjectMode
+from ...operators.helpers import ObjectMode, WorldSelected
 from . import sdf_import
 
 

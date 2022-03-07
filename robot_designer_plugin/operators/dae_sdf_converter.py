@@ -238,12 +238,12 @@ def obj_get_dimensions(obj):
     @return Tuple (x, y, z): the 3d size (x, y, z) of the object
     """
     x, y, z = obj.dimensions.x, obj.dimensions.y, obj.dimensions.z
-    operator_logger.debug("The orginal size of the obj: %.4f, %.4f, %.4f" % (x, y, z))
+    operator_logger.debug("The orginal size of the obj: {:.4f}, {:.4f}, {:.4f}".format((x, y, z)))
     if bpy.context.scene.unit_settings.system == "IMPERIAL":
         # convert to the SI
         # 1 feet = 0.3048 meter
         x, y, z = x * 0.3048, y * 0.3048, z * 0.3048
-    operator_logger.debug("The converted size of the obj: %.4f, %.4f, %.4f" % (x, y, z))
+    operator_logger.debug("The converted size of the obj: {:.4f}, {:.4f}, {:.4f}".format((x, y, z)))
     return x, y, z
 
 
@@ -258,7 +258,7 @@ def obj_check(obj):
 
     min_d = np.min([x, y, z])
     if min_d < 0.001:  # the object is too thin
-        operator_logger.error("Invalid size: %.4f, %.4f, %.4f" % (x, y, z))
+        operator_logger.error("Invalid size: {:.4f}, {:.4f}, {:.4f}".format((x, y, z)))
         raise Exception("Invalid size!")
 
 
@@ -283,7 +283,7 @@ def obj_scale(obj, dae_mesh_dim_min, dae_mesh_dim_max):
         factor = 1.0
     else:  # l[1] > MAX_D
         factor = MAX_D / l[1]
-    operator_logger.debug("The scale factor of the obj: %.4f" % factor)
+    operator_logger.debug("The scale factor of the obj: {:.4f}".format(factor))
     # Set the obj as current active object
     obj.select_set(True)
     bpy.ops.transform.resize(value=(factor, factor, factor))
@@ -464,10 +464,10 @@ def calc_inertial(file,
         move_object_to_ground(obj)
 
     # calculate the mass and inertia of the object
-    operator_logger.info("The name of the imported object is: %s" % obj.name)
+    operator_logger.info("The name of the imported object is: {}".format(obj.name))
     mass, inertia = obj_calc_inertia(obj)
     if mass == 0:
-        operator_logger.error("Invalid mass: %.4f" % mass)
+        operator_logger.error("Invalid mass: {:4f}".format( mass))
         # if the object has invalid mass, then the object cannot be used in the simulation
         raise Exception("Invalid mass!")
     return {"mass": mass, "inertia": inertia}
@@ -529,8 +529,8 @@ def usage():
     msg = """\33[33mUsage of this script:\033[0m
     \33[34mblender -b -P obj_sdf_converter_shapenet.py -- [path_to_mesh]
 
-\33[34m[path_to_mesh]\033[0m refers to the absolute path of the folder which contains .obj files. 
-For example: 
+\33[34m[path_to_mesh]\033[0m refers to the absolute path of the folder which contains .obj files.
+For example:
   python obj_sdf_converter.py '/home/user_name/Documents/meshes'
 The output will be placed at: {out_path}
     """.format(
@@ -573,12 +573,12 @@ def dae_sdf_converter(input_folder, sdf_mesh_scale,
 
     operator_logger.info("\n")
     operator_logger.info(
-        "\33[33mThe DAE files in this folder will be converted: %s\033[0m"
-        % os.path.abspath(input_dir)
+        "\33[33mThe DAE files in this folder will be converted: {}\033[0m".format(
+            os.path.abspath(input_dir))
     )
     operator_logger.info(
-        "\33[33mThe converted SDF packages will be stored at: %s\033[0m"
-        % os.path.abspath(output_dir)
+        "\33[33mThe converted SDF packages will be stored at: {}\033[0m".format(
+            os.path.abspath(output_dir))
     )
 
     # extract all the mesh file in the current folder
@@ -595,20 +595,20 @@ def dae_sdf_converter(input_folder, sdf_mesh_scale,
 
         # load each of the mesh file
         operator_logger.info(
-            "\n\nProcessing the %d of %d files: %s"
-            % (idx + 1, len(files), file)
+            "\n\nProcessing the {} of {} files: {}".format(
+                (idx + 1, len(files), file))
         )
         sdf_name = os.path.basename(file.replace(".dae", ""))
         # before processing, first check if it has already been created
         while check_output_exist(sdf_name) == True:
             operator_logger.info(
-                "The package for %s has already been created. Adding index..."
-                % sdf_name
+                "The package for {} has already been created. Adding index...".format(
+                    sdf_name)
             )
             sdf_name = sdf_name + '_0'
 
         # create folder structure
-        operator_logger.info("Creating package for %s..." % sdf_name)
+        operator_logger.info("Creating package for {}...".format(sdf_name))
         create_sdf_folder(output_dir, sdf_name)
 
         # get inertial properties
@@ -623,7 +623,7 @@ def dae_sdf_converter(input_folder, sdf_mesh_scale,
         gen_collision_mesh(sdf_name)
 
         # create config file
-        f = "%s/%s/model.config" % (output_dir, sdf_name)
+        f = "{}/{}/model.config".format((output_dir, sdf_name))
         operator_logger.info("Creating model.config at {}".format(f))
         h = open(f, "w+")
         h.write(create_config_file(sdf_name, sdf_author_name, sdf_author_mail, sdf_description))
@@ -648,10 +648,10 @@ def dae_sdf_converter(input_folder, sdf_mesh_scale,
         delete_sdf_folder(sdf_name)
 
     operator_logger.info(
-        "\33[33m\nConversion finished. Total: %d. Succeeded: %d.\033[0m"
-        % (file_cnt, success_cnt)
+        "\33[33m\nConversion finished. Total: {}. Succeeded: {}.\033[0m".format(
+            (file_cnt, success_cnt))
     )
     operator_logger.info(
-        "\33[33mThe converted SDF packages have been stored at: %s\033[0m"
-        % os.path.abspath(output_folder)
+        "\33[33mThe converted SDF packages have been stored at: {}\033[0m".format(
+            os.path.abspath(output_folder))
     )

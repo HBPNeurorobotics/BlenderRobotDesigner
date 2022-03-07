@@ -126,11 +126,12 @@ def draw(layout, context):
             text="Rotation",
         )
         row = box.row()
-        row.prop(
-            bpy.data.objects[global_properties.model_name.get(context.scene)],
-            "scale",
-            slider=False,
-        )
+        # You should not use a scale factor is not considered
+        # row.prop(
+        #     bpy.data.objects[global_properties.model_name.get(context.scene)],
+        #     "scale",
+        #     slider=False,
+        # )
 
         box = layout.box()
         infoBox = InfoBox(box)
@@ -151,9 +152,9 @@ def draw(layout, context):
         segments.CreateNewSegment.place_button(
             right_column, text="Create New Child Bone", infoBox=infoBox
         )
-        segments.InsertNewParentSegment.place_button(
-            right_column, text="Create New Parent Bone", infoBox=infoBox
-        )
+        #segments.InsertNewParentSegment.place_button(
+        #    right_column, text="Create New Parent Bone", infoBox=infoBox
+        #)
         right_column.separator()
         segments.DeleteSegment.place_button(
             right_column, text="Delete Active Bone", infoBox=infoBox
@@ -188,7 +189,6 @@ def draw(layout, context):
     else:
         layout.menu(menus.ModelMenu.bl_idname, text="Select Robot")
         layout.label(text="Select Robot First")
-        push_info(ObjectMode)
 
     drawInfoBox(layout, context)
     return is_model_selected

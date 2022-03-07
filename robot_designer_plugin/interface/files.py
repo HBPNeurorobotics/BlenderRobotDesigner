@@ -110,7 +110,7 @@ def draw(layout, context):
         box.menu(menus.ModelMenu.bl_idname, text="Select Robot")
 
     file_box = layout.box()
-    file_box.label(text="Import/Export")
+    file_box.label(text="Import/Export Model SDF")
 
     # # GIT upload/download support functions
     # global_properties.storage_mode.prop(context.scene,layout, expand=True)
@@ -130,11 +130,12 @@ def draw(layout, context):
     row = file_options_box.row()
     global_properties.export_thumbnail.prop(context.scene, row, text="Thumbnail")
     row = file_options_box.row()
+
     row.label(text="Rqt Multiplot")
     global_properties.export_rqt_multiplot_jointcontroller.prop(
         context.scene, row, text="Joints"
     )
-    global_properties.export_rqt_multiplot_muscles.prop(
+    x=global_properties.export_rqt_multiplot_muscles.prop(
         context.scene, row, text="Muscles"
     )
     row = file_options_box.row()

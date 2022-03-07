@@ -87,8 +87,8 @@ class SegmentsGeometriesMenu(bpy.types.Menu, BaseMenu):
         @param context: Blender active context
         @return:
         """
-        mesh_type = global_properties.mesh_type.get(context.scene)
-        hide_bone = global_properties.display_mesh_selection.get(context.scene)
+        mesh_type = global_properties.display_mesh_selection.get(context.scene)
+        hide_bone = global_properties.list_segments.get(context.scene)
         layout = self.layout
 
         current_model = context.active_object
@@ -178,12 +178,11 @@ class ConnectWrapMenu(bpy.types.Menu, BaseMenu):
         layout = self.layout
         current_model = context.active_object
         active_muscle = global_properties.active_muscle.get(context.scene)
+        wrapping_objects = []
         for obj in [
             wrap_object.name
             for wrap_object in context.scene.objects
-            if wrap_object.RobotDesigner.tag == "WRAPPING"
-            and current_model.name == wrap_object.parent.name
-        ]:
+            if wrap_object.RobotDesigner.tag == "WRAPPING"]:
             if obj not in [
                 connected_wrap.wrappingName
                 for connected_wrap in context.scene.objects[
@@ -191,7 +190,7 @@ class ConnectWrapMenu(bpy.types.Menu, BaseMenu):
                 ].RobotDesigner.muscles.connectedWraps
             ]:
                 layout.operator(
-                    mesh_generation.SelectWrappingObject.bl_idname, text=obj
+                    mesh_generation.AddWrappingObjectToActiveMuscle.bl_idname, text=obj
                 ).wrapping_name = obj
 
 
@@ -217,7 +216,7 @@ class ConnectedObjectsMenu(bpy.types.Menu, BaseMenu):
         @param context: active Blender context
         """
         if self.blender_type == "MESH":
-            obj_tag = self.obj_tag.get(context.scene)
+            #obj_tag = self.obj_tag.get(context.scene)
             obj_hidden = self.show_connected.get(context.scene)
             layout = self.layout
             type = global_properties.display_mesh_selection.get(context.scene)
@@ -410,7 +409,6 @@ class GeometriesMenu(ConnectedObjectsMenu):
     bl_idname = MENU_PREFIX + "meshmenu"
     bl_label = "Select Geometry"
 
-    obj_tag = global_properties.mesh_type
     show_connected = global_properties.list_meshes  # set to scene property
     blender_type = StringConstants.mesh
     quick_search = global_properties.mesh_name
@@ -427,12 +425,11 @@ class WrappingObjectsMenu(ConnectedObjectsMenu):
     bl_idname = MENU_PREFIX + "wrappingobjectsmenu"
     bl_label = "Select Wrapping Object"
 
-    obj_tag = global_properties.mesh_type
     show_connected = global_properties.list_meshes
     blender_type = StringConstants.mesh
-    quick_search = global_properties.mesh_name
-    operator_property = "geometry_name"
-    operator = rigid_bodies.SelectGeometry
+    quick_search = global_properties.wrapping_name
+    operator_property = "wrapping_name"
+    operator = rigid_bodies.SelectWrappingObject
 
     @RDOperator.OperatorLogger
     def draw(self, context):
@@ -440,7 +437,7 @@ class WrappingObjectsMenu(ConnectedObjectsMenu):
         Draw the warpping objects selection menu
         @param context: active Blender context
         """
-        obj_tag = self.obj_tag.get(context.scene)
+        #obj_tag = self.obj_tag.get(context.scene)
         obj_hidden = self.show_connected.get(context.scene)
         layout = self.layout
         status = global_properties.display_wrapping_selection.get(context.scene)
@@ -691,7 +688,7 @@ class JoinModelMenu(bpy.types.Menu, BaseMenu):
 @PluginManager.register_class
 class CoordinateFrameMenu(bpy.types.Menu, BaseMenu):
     """
-    :ref:`menu` to select alternative display for the coordinate frames.
+    :ref:`menu` to select alternative mesh as display for the coordinate frames.
     """
 
     bl_idname = MENU_PREFIX + "cfmenu"
@@ -717,7 +714,7 @@ class CoordinateFrameMenu(bpy.types.Menu, BaseMenu):
 @PluginManager.register_class
 class MuscleMenu(bpy.types.Menu, BaseMenu):
     """
-    :ref:`menu` to select alternative display for the coordinate frames.
+    :ref:`menu` to select a muscle from the list.
     """
 
     bl_idname = MENU_PREFIX + "musclemenu"
@@ -746,7 +743,7 @@ class MuscleMenu(bpy.types.Menu, BaseMenu):
 @PluginManager.register_class
 class MusclePointsMenu(bpy.types.Menu, BaseMenu):
     """
-    :ref:`menu` to select alternative display for the coordinate frames.
+    :ref:`menu` to select a pathpoint from the list.
     """
 
     bl_idname = MENU_PREFIX + "musclepointsmenu"

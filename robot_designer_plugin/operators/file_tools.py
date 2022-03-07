@@ -221,7 +221,7 @@ class FileToDaeConverter(RDOperator):
         description="Decimates all models that have a vertex count above the given threshold",
         default=50000,
     )
-    
+
     @classmethod
     def poll(cls, context):
         return True
@@ -347,8 +347,8 @@ class PrintTransformations(RDOperator):
 
         for ob in [obj for obj in context.scene.objects if obj.select_get()]:
             operator_logger.info(
-                "Transformation from %(from)s to %(to)s:"
-                % {"from": active_object.name, "to": ob.name}
+                "Transformation from {} to {}".format(
+                    {"from": active_object.name, "to": ob.name})
             )
             transform = active_object.matrix_world.inverted() @ ob.matrix_world
             operator_logger.info(transform)
