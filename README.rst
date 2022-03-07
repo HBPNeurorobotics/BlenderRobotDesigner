@@ -193,10 +193,10 @@ To install the plugin on Linux and Windows follow these steps:
 
 	After running the Robot Designer installation script (on the left) you will find the plugin opening up on the right side of the 3D view.
 
-  .. figure:: RobotDesignerInstall_open.png
-  	:align: center
+.. figure:: RobotDesignerInstall_open.png
+	:align: center
 
-  	If the plugin does not pop up, you will find it by opening the pane on the right of the 3D view with clicking on the small arrow.
+	If the plugin does not pop up, you will find it by opening the pane on the right of the 3D view with clicking on the small arrow.
 
 Troubleshooting
 --------
