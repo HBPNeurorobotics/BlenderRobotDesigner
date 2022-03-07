@@ -186,20 +186,24 @@ To install the plugin on Linux and Windows follow these steps:
 
 2.  Download the Robot Designer installation file “robotdesigner_installer.blend” from our GitHub repository . `Download installation file <https://github.com/hbpneurorobotics/BlenderRobotDesigner/raw/master/robotdesigner_installer.blend>`__
 
-3.  Launch Blender and open the downloaded "robotdesigner_installer.blend" file, then click “run script”. The installation may take a bit of time while Blender is remaining passive. Once the installation is done you will see the Robot Designer plugin opening on the right side along with the "Tool", "View" and "Edit" tabs, as shown in the image below.
+3.  Launch Blender and open the downloaded "robotdesigner_installer.blend" file, then click on the triangle above the script to execute it. The installation may take a bit of time while Blender is remaining passive. Once the installation is done you will see the Robot Designer plugin opening on the right side along with the "Tool", "View" and "Edit" tabs, as shown in the image below.
 
-.. figure:: RobotDesignerInstall.png
+.. figure:: RobotDesignerInstall_plugin.png
 	:align: center
 
 	After running the Robot Designer installation script (on the left) you will find the plugin opening up on the right side of the 3D view.
-	
+
+  .. figure:: RobotDesignerInstall_open.png
+  	:align: center
+
+  	If the plugin does not pop up, you will find it by opening the pane on the right of the 3D view with clicking on the small arrow.
 
 Troubleshooting
 --------
 - `Start Blender from terminal <https://docs.blender.org/manual/en/2.79/advanced/command_line/introduction.html>`__  to see log output during the installation process and runtime.
 - In newer versions you can open the terminal view via ``Window->Toggle System Console``.
-- If the plugin does not show up make sure it is enabled: Navigate to ``Edit->Preferences->Add-Ons`` tab. Search for the NRP Robot Designer add-on and check the box to enable the plugin. You may need to restart Blender thereafter.
-- If you see the error ``No module named 'pyxb'`` in the terminal try the following: 
+- If the plugin does not show up or does not show up anymore after restarting Blender make sure it is enabled: Navigate to ``Edit->Preferences->Add-Ons`` tab. Search for the NRP Robot Designer add-on and check the box to enable the plugin. You may need to restart Blender thereafter.
+- If you see the error ``No module named 'pyxb'`` in the terminal try the following:
 
    In your terminal go to ``[blender-version]/[version]/python/bin`` and run ``./python3.7m -m pip install pyxb==1.2.5``
 
@@ -207,7 +211,7 @@ Troubleshooting
 
    - Ubuntu: ``blender_module_path =  $HOME/.config/blender/[version]/scripts/addons/``
    - Windows: ``blender_module_path =   C:\Users\[profile]\AppData\Roaming\Blender Foundation\blender\[version]\scripts\addons``
-	
+
 Features
 --------
 
