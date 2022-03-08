@@ -153,7 +153,7 @@ def parse(self, node: urdf_tree.URDFTree, parent_name = ""):
     C = bpy.context
 
     export_logger.info("parent name: {}".format( parent_name))
-    # export_logger.debug('active bone name : %s', C.active_bone.name)
+    # export_logger.debug('active bone name : {}'.format(C.active_bone.name))
     export_logger.debug('active object name (parse): {}'.format(C.active_object.name))
 
     export_logger.debug('active object type (parse): {}'.format(C.active_object.type))
@@ -272,7 +272,7 @@ def parse(self, node: urdf_tree.URDFTree, parent_name = ""):
             if model.geometry.mesh is not None:
 
                 trafo_urdf = self.import_geometry(model)
-                # export_logger.debug("Trafo: \n%s", trafo_urdf)
+                # export_logger.debug("Trafo: \n{}".format(trafo_urdf))
                 # URDF (the import in ROS) exhibits a strange behavior:
                 # If there is a transformation preceding the mesh in a .dae file, only the scale is
                 # extracted and the rest is omitted. Therefore, we store the scale after import and
@@ -312,18 +312,18 @@ def parse(self, node: urdf_tree.URDFTree, parent_name = ""):
                     if model_type == COLLISON:
                         # %2d changed to %d because it created unwanted space with one digit numbers
                         if not node.link.name.startswith("COL_"):
-                            bpy.context.active_object.name = "COL_%s" % (node.link.name)
+                            bpy.context.active_object.name = "COL_%{}".format(node.link.name)
                         else:
-                            bpy.context.active_object.name = "%s" % (node.link.name)
+                            bpy.context.active_object.name = "{}".format(node.link.name)
                         bpy.context.active_object.RobotDesigner.tag = 'COLLISION'
                     else:
                         if not node.link.name.startswith("VIS_"):
-                            bpy.context.active_object.name = "VIS_%s" % (node.link.name)
+                            bpy.context.active_object.name = "VIS_{}".format(node.link.name)
                         else:
-                            bpy.context.active_object.name = "%s" % (node.link.name)
+                            bpy.context.active_object.name = "{}".format(node.link.name)
 
                     if not node.link.name.endswith("_" + str(nr)) and nr != 0:
-                        bpy.context.active_object.name = "%s_%d" % (bpy.context.active_object.name, nr)
+                        bpy.context.active_object.name = "{}_{}".format(bpy.context.active_object.name, nr)
 
                     # remove spaces from link name
                     bpy.context.active_object.name = bpy.context.active_object.name.replace(" ", "")
@@ -480,7 +480,7 @@ class ImportZippedPackage(RDOperator):
                 for i in files:
                     if '.urdf' == os.path.splitext(i)[1]:
                         if file_path:
-                            self.report({"INFO"}, "Multiple URDF in zip. Choosing: %s", i)
+                            self.report({"INFO"}, "Multiple URDF in zip. Choosing: {}".format(i))
                         file_path = os.path.join(root, i)
 
             if file_path:

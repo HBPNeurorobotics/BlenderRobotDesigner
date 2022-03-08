@@ -58,4 +58,4 @@ BACKTRACE_MESSAGE_STACK = "\t\t{0:25}\t\t({1}:{2})\n"
 BACKTRACE_MESSAGE_CALLSTACK = "\n\tNesting Level %d:\n\n\tCallstack:\n"
 BACKTRACE_MESSAGE = "\n\tBacktrace:\n"
 
-EXCEPTION_MESSAGE = "\tException:\t%s\n\tMessages:\n\t\t%s\n%s\n%s"
+EXCEPTION_MESSAGE = "\tException:\t{}\n\tMessages:\n\t\t{}\n{}\n{}"

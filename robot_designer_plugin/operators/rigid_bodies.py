@@ -75,7 +75,7 @@ class SelectGeometry(RDOperator):
         mesh = bpy.data.objects[self.geometry_name]
 
         if mesh.type != "MESH":
-            self.report({"ERROR"}, "Object is no geometry (Mesh). Is %s" % mesh.type)
+            self.report({"ERROR"}, "Object is no geometry (Mesh). Is {}".format(mesh.type))
             global_properties.mesh_name.set(context.scene, "Search")
             return {"FINISHED"}
 
@@ -110,7 +110,7 @@ class SelectWrappingObject(RDOperator):
         mesh = bpy.data.objects[self.wrapping_name]
 
         if mesh.type != "MESH" or mesh.RobotDesigner.tag != "WRAPPING":
-            self.report({"ERROR"}, "Object is no wrapping geometry (Mesh). Is %s" % mesh.type)
+            self.report({"ERROR"}, "Object is no wrapping geometry (Mesh). Is {}".format(mesh.type))
             global_properties.wrapping_name.set(context.scene, "Search")
             return {"FINISHED"}
 

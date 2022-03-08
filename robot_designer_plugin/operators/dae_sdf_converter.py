@@ -68,7 +68,7 @@ def create_sdf_folder(output_dir, sdf_name):
         os.mkdir(sdf_folder)
 
     # create the sdf_name/mesh folder
-    f = "%s/%s/mesh" % (output_dir, sdf_name)
+    f = "{}/{}/mesh".format(output_dir, sdf_name)
     if not os.path.isdir(f):
         os.mkdir(f)
 
@@ -79,7 +79,7 @@ def delete_sdf_folder(sdf_name):
 
     @param sdf_name : the name of the sdf package
     """
-    f = "%s/%s" % (output_folder, sdf_name)
+    f = "{}%{}".format(output_folder, sdf_name)
     if os.path.isdir(f):
         shutil.rmtree(f)
 
@@ -95,11 +95,11 @@ def check_output_exist(sdf_name):
               False - no package with the same name has been created
     """
 
-    output_folder_path = "%s/%s" % (output_dir, sdf_name)
-    sdf_path = "%s/model.sdf" % output_folder_path
-    config_path = "%s/model.config" % output_folder_path
-    mesh_path = "%s/mesh" % output_folder_path
-    dae_path = "%s/%s.dae" % (mesh_path, sdf_name)
+    output_folder_path = "{}/{}".format(output_dir, sdf_name)
+    sdf_path = "{}/model.sdf".format(output_folder_path)
+    config_path = "{}/model.config".format(output_folder_path)
+    mesh_path = "{}/mesh".format(output_folder_path)
+    dae_path = "{}/{}.dae".format(mesh_path, sdf_name)
     if os.path.exists(output_folder_path):
         if os.path.exists(sdf_path) and os.path.exists(config_path):
             if os.path.exists(mesh_path):
@@ -122,18 +122,18 @@ def create_config_file(
     @return
         String: content of the config file
     """
-    description = sdf_description + " Model converted from mesh file %s." % (sdf_name)
+    description = sdf_description + " Model converted from mesh file {}.".format(sdf_name)
     config_content = """<?xml version="1.0"?>
 <model>
-    <name>%s</name>
+    <name>{}</name>
     <sdf version="1.6">model.sdf</sdf>
     <author>
-        <name>%s</name>
-        <email>%s</email>
+        <name>{}</name>
+        <email>{}</email>
     </author>
-    <description>%s</description>
+    <description>{}</description>
 </model>
-""" % (
+""".format(
         sdf_name,
         sdf_author_name,
         sdf_author_email,
@@ -500,8 +500,8 @@ def gen_collision_mesh(sdf_name, is_remesh=False):
         obj_remesh(obj)
     # After remesh, the original Mesh will be overwritten!
     coll_name = sdf_name + "-coll"
-    dst_path = os.path.abspath("%s/%s/mesh" % (output_dir, sdf_name))
-    dst_name = "%s/%s.dae" % (dst_path, coll_name)
+    dst_path = os.path.abspath("{}/{}/mesh".format(output_dir, sdf_name))
+    dst_name = "{}/{}.dae".format(dst_path, coll_name)
     convert_collada_file(dst_name)
 
 
@@ -511,8 +511,8 @@ def gen_visual_mesh(sdf_name):
 
     @param sdf_name  : the name of the sdf package
     """
-    dst_path = os.path.abspath("%s/%s/mesh" % (output_dir, sdf_name))
-    dst_name = "%s/%s.dae" % (dst_path, sdf_name)
+    dst_path = os.path.abspath("{}/{}/mesh".format(output_dir, sdf_name))
+    dst_name = "{}/{}.dae".format(dst_path, sdf_name)
     convert_collada_file(dst_name)
 
 
@@ -566,7 +566,7 @@ def dae_sdf_converter(input_folder, sdf_mesh_scale,
     @param sdf_description : Description of the model
     """
     global output_dir
-    input_dir = "%s" % input_folder
+    input_dir = "{}".format(input_folder)
     output_dir = os.path.join(input_dir, output_folder)
     operator_logger.info("input dir is {}".format(input_folder))
     operator_logger.info("output dir is {}".format(output_dir))
@@ -630,7 +630,7 @@ def dae_sdf_converter(input_folder, sdf_mesh_scale,
         h.close()
 
         # create sdf file
-        f = "%s/%s/model.sdf" % (output_dir, sdf_name)
+        f = "{}/{}/model.sdf".format(output_dir, sdf_name)
         operator_logger.info("Creating model.sdf at {}".format(f))
         h = open(f, "w+")
         h.write(

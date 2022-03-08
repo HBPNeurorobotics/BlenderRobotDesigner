@@ -200,10 +200,10 @@ class ConvertSoftBodies(RDOperator):
                             AssignGeometry.run()
                         else:
                             self.logger.error(
-                                "Vertex group %s has no matching bone {}".format(bone)
+                                "Vertex group {} has no matching bone {}".format(bone)
                             )
                     except KeyError:
-                        self.logger.info("Vertex group %s has no matching bone {}".format(bone))
+                        self.logger.info("Vertex group {} has no matching bone {}".format(bone))
 
         SelectModel.run(model_name=model_name)
 
