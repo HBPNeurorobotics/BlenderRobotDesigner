@@ -414,7 +414,7 @@ class OsimExporter(object):
 
         def transform_vertex(arg):
             i, pt = arg
-            name = "%s_node%i" % (m.name, i)
+            name = "{}_node{}".format(m.name, i)
             parent = m.RobotDesigner.muscles.pathPoints[i].coordFrame
             x, y, z = pt.co
             active_model = global_properties.model_name.get(context.scene)

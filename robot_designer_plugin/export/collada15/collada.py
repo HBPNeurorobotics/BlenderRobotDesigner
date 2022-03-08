@@ -646,7 +646,7 @@ class COLLADA(object):
                             COLLADA.ARTICULATED_SYSTEMS_MOTION_AXIS_INFO,
                             id=self.getID(instance_AS_motion),
                             axis=self.makeSIDREF(AS_kinematics, axis_info_kinematics))
-                        self.logger.debug('%sspeed: {}, acceleration: {}, deceleration: %{}, jerk: {}'.format(space,
+                        self.logger.debug('{} speed: {}, acceleration: {}, deceleration: {}, jerk: {}'.format(space,
                                           axis_info_motion[0][0].text, axis_info_motion[1][0].text,
                                           axis_info_motion[2][0].text,
                                           axis_info_motion[3][0].text))
@@ -769,7 +769,7 @@ class Tree(object):
                 match = '(OK)'
             else:
                 match = '(Failed)'
-            print("%s %s %s %s %s %s" % (
+            print("{} {} {} {} {} {}".format(
                 str(marker * 2 * depth), str(v1), str(v2), str(type(v1)), str(type(v1)), str(match)))
 
         check(self.name, other.name, depth, '-')

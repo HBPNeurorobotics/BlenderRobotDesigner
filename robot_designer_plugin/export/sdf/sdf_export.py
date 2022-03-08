@@ -573,7 +573,7 @@ def create_sdf(
                     mesh
                 ].name  # child.link.name + '_collision'
                 export_logger.info(
-                    " collision mesh pose'%s'" % collision.pose[0].value()
+                    " collision mesh pose'{}'".format(collision.pose[0].value())
                 )
             else:
                 export_logger.info("No collision model for: {}".format(mesh))

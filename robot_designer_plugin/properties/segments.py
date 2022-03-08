@@ -75,7 +75,7 @@ class RDLinkInfo(bpy.types.PropertyGroup):
     Property group that contains information about link's gravity and self collision
     """
 
-    link_self_collide: BoolProperty(name="Self Collide", default=True)
+    link_self_collide: BoolProperty(name="Self Collide", default=False)
     gravity: BoolProperty(name="Gravity", default=True)
 
 

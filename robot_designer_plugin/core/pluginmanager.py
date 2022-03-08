@@ -102,7 +102,7 @@ class PluginManager(object):
             elif issubclass(cls, CollapsibleBase):
                 PluginManager._bools_to_register.append(cls.property_name)
             else:
-                core_logger.error("Could not register %s, subclass of: {}\nDependencies: {}\n{}".format(cls, cls.mro(),
+                core_logger.error("Could not register {}, subclass of: {}\nDependencies: {}\n{}".format(cls, cls.mro(),
                                   dependencies, args))
 
                 raise TypeError("Wrong with decorator")
@@ -251,7 +251,7 @@ class PluginManager(object):
             core_logger.debug("Properties: {}".format(cls._property_groups_to_register))
             for prop, extends in cls._property_groups_to_register:
                 report.append("\t+ property {0:33} {1:8} in {2:40}".format(prop.__name__,
-                                                                          "(%s)" % extends.__name__ if extends else '',
+                                                                          "({})".format(extends.__name__ if extends else ''),
                                                                           "/".join(prop.__module__.split('.')[1:])))
 
                 bpy.utils.register_class(prop)

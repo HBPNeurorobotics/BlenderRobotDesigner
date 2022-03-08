@@ -352,7 +352,7 @@ def create_package(operator: RDOperator, context, toplevel_dir, base_link_name):
                                  'robot_name_description'), target)
     except FileExistsError:
         export_logger.error('Attempted to overwrite existing package')
-        operator.report({'ERROR'}, 'File %s exists' % target)
+        operator.report({'ERROR'}, 'File {} exists'.format(target))
 
     for dname, dirs, files in os.walk(target, topdown=False):
         for dir in [i for i in dirs if "robot_name" in i]:
