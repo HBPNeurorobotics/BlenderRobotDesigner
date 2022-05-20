@@ -96,7 +96,7 @@ class GenerateAPI(RDOperator):
 
             with open(os.path.join(base_path, "types.py"), "w") as f:
                 for bpy_type in types:
-                    if bpy_type[0] is not "Operator":
+                    if bpy_type[0] != "Operator":
                         f.write("class {}(object):\n\tpass\n\n".format(bpy_type[0]))
                     else:
                         # Adding overridable methods removes inspection check warnings about unused variables

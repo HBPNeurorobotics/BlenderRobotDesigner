@@ -338,7 +338,7 @@ class DetachAllGeometries(RDOperator):
                 obj
                 for obj in bpy.data.objects
                 if obj.type == "MESH"
-                and obj.parent_bone is not ""
+                and obj.parent_bone != ""
                 and obj.RobotDesigner.tag != "WRAPPING"
                 and obj.RobotDesigner.tag != "PHYSICS_FRAME"
             ]
@@ -347,7 +347,7 @@ class DetachAllGeometries(RDOperator):
                 obj
                 for obj in bpy.data.objects
                 if obj.type == "MESH"
-                and obj.parent_bone is not ""
+                and obj.parent_bone != ""
                 and obj.RobotDesigner.tag == "DEFAULT"
             ]
         elif mesh_type == "collision":
@@ -355,7 +355,7 @@ class DetachAllGeometries(RDOperator):
                 obj
                 for obj in bpy.data.objects
                 if obj.type == "MESH"
-                and obj.parent_bone is not ""
+                and obj.parent_bone != ""
                 and obj.RobotDesigner.tag == "COLLISION"
             ]
         elif mesh_type == "bascol":
@@ -363,7 +363,7 @@ class DetachAllGeometries(RDOperator):
                 obj
                 for obj in bpy.data.objects
                 if obj.type == "MESH"
-                and obj.parent_bone is not ""
+                and obj.parent_bone != ""
                 and "BASIC_COLLISION_" in obj.RobotDesigner.tag
             ]
         else:

@@ -1,1 +1,0 @@
-# Pip requirements list for Robot Designer Blender Plugin

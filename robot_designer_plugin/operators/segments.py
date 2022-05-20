@@ -400,7 +400,7 @@ class DeleteSegment(RDOperator):
 @PluginManager.register_class
 class SetDefaultJointName(RDOperator):
     """
-    :term:`operator` for setting joint name to a default name
+    :term:`operator` for setting joint name to a default name.
     """
 
     bl_idname = config.OPERATOR_PREFIX + "default_joint_name"

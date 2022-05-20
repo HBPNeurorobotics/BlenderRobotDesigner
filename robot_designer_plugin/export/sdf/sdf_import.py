@@ -699,10 +699,16 @@ class Importer(object):
 
             # set center of mass position
             if len(node.link.inertial[0].pose):
+                print("BF setting center of mass location to {}".format(string_to_list(
+                    node.link.inertial[0].pose[0].value()
+                )[0:3]))
                 inertia_location = string_to_list(
                     node.link.inertial[0].pose[0].value()
                 )[0:3]
                 inertia_location[1] = inertia_location[1] - 1.0
+                print("setting center of mass rotation to {}".format(string_to_list(
+                    node.link.inertial[0].pose[0].value()
+                )[3:]))
                 inertia_rotation = string_to_list(
                     node.link.inertial[0].pose[0].value()
                 )[3:]
