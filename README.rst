@@ -1,5 +1,5 @@
-The BlenderRobotDesigner of the Neurorobotics Platform (NRP)
-============================================================
+The Blender RobotDesigner of the Neurorobotics Platform (NRP)
+=============================================================
 
 Introduction
 ------------
@@ -7,15 +7,15 @@ Introduction
 Welcome
 ^^^^^^^
 
-This is the documentation of the RobotDesigner belonging to the *Neurorobotics Platform (NRP)* of the
+This is the documentation of the RobotDesigner belonging to the *Neurorobotics Platform (NRP)* [#]_ of the
 `Human Brain Project (HBP) <https://www.humanbrainproject.eu>`_ developed in the
-`sub-project Neurorobotics <http://neurorobotics.net/>`_.
+`sub-project Neurorobotics <http://neurorobotics.net/>`_ [#]_.
 It is realized as a plugin for the `Blender 3D modeling suite <http://blender.org>`_ written in the Python language.
 This document provides information about the plugin, its installation, its features and usage, as well as the
 programming reference for developers.
 
 About
-~~~~~
+^^^^^
 
 The *NRP RobotDesigner* software developed in the scope of the `Human
 Brain Project <https://www.humanbrainproject.eu>`__ in the sub-project
@@ -48,6 +48,10 @@ development plans of the robot designer, however, include provide a
 simplified web-based interface integrated into the NRP to construct
 robots from building blocks. Therefore, the code base of the standalone
 software is planned to be used and will be further maintained.
+
+A comprehensive description of the Robot Designer can be found in the manuscript
+`"The Neurorobotics Platform Robot Designer: Modeling Morphologies for Embodied Learning Experiments"
+<https://www.frontiersin.org/articles/10.3389/fnbot.2022.856727/full>`__ [#]_.
 
 The RobotDesigner project was started under the lead
 of the `Intelligent Systems and Production Engineering
@@ -106,15 +110,9 @@ the existing project by components required for the NRP (e.g., for
 communication/file exchange), additional file formats, support for
 simulators, an installer and an adapted user interface.
 
-License
-^^^^^^^
 
-Similar to its predecessor *the RobotEditor* the NRP RobotDesigner is
-published as open source software under the `GPLv2
-license <http://www.gnu.org/licenses/gpl-2.0.html>`__.
-
-The NRP RobotDesigner
----------------------
+Background
+----------
 
 The Human Brain Project [#]_
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -178,7 +176,10 @@ sub-projects.
 Installation
 ------------
 
-We currently support Blender version 2.8. Ubuntu users please download the archived Blender version, the apt-get installed Blender version is currently not supported.
+Installation with Installer Script
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We currently support Blender version 2.8.
 
 To install the plugin on Linux and Windows follow these steps:
 
@@ -199,7 +200,7 @@ To install the plugin on Linux and Windows follow these steps:
 	If the plugin does not pop up, you will find it by opening the pane on the right of the 3D view with clicking on the small arrow.
 
 Troubleshooting
---------
+^^^^^^^^^^^^^^^
 - `Start Blender from terminal <https://docs.blender.org/manual/en/2.79/advanced/command_line/introduction.html>`__  to see log output during the installation process and runtime.
 - In newer versions you can open the terminal view via ``Window->Toggle System Console``.
 - If the plugin does not show up or does not show up anymore after restarting Blender make sure it is enabled: Navigate to ``Edit->Preferences->Add-Ons`` tab. Search for the NRP Robot Designer add-on and check the box to enable the plugin. You may need to restart Blender thereafter.
@@ -215,6 +216,9 @@ Troubleshooting
 Features
 --------
 
+Implemented Features
+^^^^^^^^^^^^^^^^^^^^
+
 -   **Installer**
 
     The installer comes in a form of a ``.blend`` file that contains an
@@ -229,9 +233,9 @@ Features
     respect to robotics:
 
     -  Kinematic modeling in a scientific/engineering way (e.g., entering
-       transformations in *Denavit-Hartenberg* convention)
+       transformations in *Denavit-Hartenberg* or *Euler* convention)
     -  Editing of dynamic properties (center of mass and distribution,
-       friction, etc.)
+       friction, etc.) and automated computation from mesh
     -  Automatic mesh generation
     -  Creation of collision models using geometries with fixed size of
        vertices and safety distance
@@ -242,10 +246,12 @@ Features
        to provide a standard humanoid robot model to the NRP.
     -  Generation of links and joint geometries based on the kinematic
        description (*still experimental*).
-    -  Placing of sensors (*Note: Currently, this includes cameras only.
-       More to follow on request by the NRP and users*)
-    -  Graphically defining muscles and its pathpoints on skeletal models.
-    -  Building of world files with multiple robots.
+    -  Placing of sensors (*Note: Import and export of sensors is
+       in development)
+    -  Graphically defining muscles and its pathpoints on skeletal models,
+       including muscle wrapping surfaces.
+    -  Building of world files with multiple robots and defining environment
+       parametrization.
 
 
 -   **File format and ROS/Gazebo support**
@@ -253,9 +259,9 @@ Features
     In order to interchange models with the *Neurorobotics platform* the
     Robot designer has to support additional file formats.
 
-    In the file section robot models can be imported and exported as single files or zipped packages in the
-    `Simulator Description Format (SDF) <http://sdformat.org/spec?elem=sdf>`__ file format.
-    It will be enriched by additional information tags supported
+    In the file section robot models can be imported and exported as single files
+    or zipped packages in the `Simulator Description Format (SDF) <http://sdformat.org/spec?elem=sdf>`__ file format.
+    It will be enriched by additional parameter tags supported
     by the `Gazebo <http://gazebosim.org/>`__ simulator–especially for
     supporting a plugin developed for the NRP to include joint controllers
     directly in the robot description file. This file support relies on `the
@@ -294,9 +300,6 @@ Features
     using `MyPy <http://mypy-lang.org/>`__ and code analysis
     (`PyLint <https://www.pylint.org/>`__) on plugin loading.
 
-    The ``Plugin Core`` has an extensive documentation and might be released
-    as a separated project in the future for inclusion in different
-    projects.
 
 -   **Documentation** and coding standards
 
@@ -308,7 +311,7 @@ Features
     standards such as `PEP 8 <https://www.python.org/dev/peps/pep-0008/>`__.
 
 Planned features
-----------------
+^^^^^^^^^^^^^^^^
 
 One of the key aspects of the ongoing development is data persistence,
 that is, the ability to store robot models in different file formats and
@@ -318,19 +321,77 @@ By the inclusion and abstraction of the ``PyXB`` interface XML-based systems can
 As well, further model properties and in particular sensor modalities including its various
 sensor parameters will be implemented.
 
+
+How to cite
+-----------
+If you find the Robot Designer helpful and use it in your work, please cite the
+Robot Designer paper: `"The Neurorobotics Platform Robot Designer: Modeling Morphologies
+for Embodied Learning Experiments" <https://www.frontiersin.org/articles/10.3389/fnbot.2022.856727/full>`__
+
+.. code-block:: php
+
+    Feldotto B, Morin FO and Knoll A (2022) The Neurorobotics Platform Robot Designer:
+    Modeling Morphologies for Embodied Learning Experiments. Front. Neurorobot. 16:856727.
+    doi: 10.3389/fnbot.2022.856727
+
+
+The corresponding bibtex entry is:
+
+.. code-block:: php
+
+   @ARTICLE{10.3389/fnbot.2022.856727,
+
+   AUTHOR={Feldotto, Benedikt and Morin, Fabrice O. and Knoll, Alois},
+
+   TITLE={The Neurorobotics Platform Robot Designer: Modeling Morphologies for Embodied Learning Experiments},
+
+   JOURNAL={Frontiers in Neurorobotics},
+
+   VOLUME={16},
+
+   YEAR={2022},
+
+   URL={https://www.frontiersin.org/article/10.3389/fnbot.2022.856727},
+
+   DOI={10.3389/fnbot.2022.856727},
+
+   ISSN={1662-5218},
+
+
+License
+-------
+
+Similar to its predecessor *the RobotEditor* the NRP RobotDesigner is
+published as open source software under the `GPLv2
+license <http://www.gnu.org/licenses/gpl-2.0.html>`__.
+
+
 Acknowledgement
---------
+---------------
 This open source software code was developed in part or in whole in the Human Brain Project,
 funded from the European Union’s Horizon 2020 Framework Programme for Research and Innovation
-under Specific Grant Agreements No. 720270 and No. 785907 (Human Brain Project SGA1 and SGA2).
+under Specific Grant Agreements No. 720270, 785907 and 945539 (Human Brain Project SGA1, SGA2 and SGA3).
 
 --------------
 
 Footnotes
-^^^^^^^^^
+---------
+
+.. [#] Falotico, E., Vannucci, L., Ambrosano, A., Albanese, U., Ulbrich, S.,
+    Vasquez Tieck, J. C., Hinkel, G., Kaiser, J., Peric, I., Denninger, O., & others. (2017).
+    Connecting artificial brains to robots in a comprehensive simulation framework:
+    The Neurorobotics Platform. Frontiers in Neurorobotics, 11, 2.
+
+.. [#] Knoll, A., Gewaltig, M.-O., Sanders, J., & Oberst, J. (2016). Neurorobotics:
+    a strategic pillar of the Human Brain Project. Science Robotics.
+
+.. [#] Feldotto B, Morin FO and Knoll A (2022) The Neurorobotics Platform Robot Designer:
+    Modeling Morphologies for Embodied Learning Experiments. Front. Neurorobot. 16:856727.
+    doi: 10.3389/fnbot.2022.856727
 
 .. [#] Funded by the European Commission through its Cognition Unit under the
     Information Society Technologies of the seventh Framework Programme (FP7)
+
 .. [#] B. Leon, S. Ulbrich, R. Diankov, G. Puche, M. Przybylski, A. Morales,
     T. Asfour, S. Moisio, J. Bohg, J. Kuffner and R. Dillmann, *"OpenGRASP:
     A Toolkit for Robot Grasping Simulation",* 2nd International Conference
@@ -344,4 +405,4 @@ Footnotes
     Whole-Body Human Motion Database"*, International Conference on Advanced
     Robotics (ICAR), pp. 0 - 0, July, 2015
 .. [#] From `the project's website <http://www.humanbrainproject.eu>`__
-.. [#] From `the Neurorobotics website <neurorobotics.net>`__
+.. [#] From `the Neurorobotics website <http://www.neurorobotics.net>`__
