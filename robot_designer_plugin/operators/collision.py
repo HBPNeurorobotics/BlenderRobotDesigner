@@ -193,7 +193,7 @@ class GenerateCollisionMesh(RDOperator):
         name = bpy.context.object.name
 
         context.active_object.RobotDesigner.tag = "COLLISION"
-        context.active_object.RobotDesigner.fileName = name
+        context.active_object.RobotDesigner.fileName = target_name
         self.logger.debug("Created mesh: {}".format(bpy.context.active_object.name))
 
         if "RD_COLLISON_OBJECT_MATERIAL" in bpy.data.materials:

@@ -61,6 +61,16 @@ def draw(layout, context):
     if not check_armature(layout, context):
         return
 
+    if (
+        bpy.data.objects[
+            global_properties.model_name.get(bpy.context.scene)
+        ].RobotDesigner.physics_engine
+        != "OPENSIM"
+    ):
+        row = layout.row()
+        row.label(text="Muscle Support for OpenSim Physics Engine Only")
+        return
+
     box = layout.box()
     row = box.row()
     # selective display muscle type

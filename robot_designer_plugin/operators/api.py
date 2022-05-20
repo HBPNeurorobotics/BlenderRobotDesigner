@@ -85,29 +85,27 @@ class GenerateAPI(RDOperator):
                         text = repr(op).split("\n")
                         if text[-1].startswith("bpy.ops."):
                             f.write(
-                                'def %s:\n    """\n    %s\n    """\n    pass\n'
-                                % (
+                                'def {}:\n    """\n    {}\n    """\n    pass\n'.format(
                                     text[-1].replace(
-                                        "bpy.ops.%s." % op_module_name, ""
+                                        "bpy.ops.{}".format(op_module_name), ""
                                     ),
-                                    text[0].replace("#", ""),
+                                    text[0].replace("#", ""))
                                 )
-                            )
 
             types = [i for i in getmembers(bpy.types, isclass) if "." not in i[0]]
 
             with open(os.path.join(base_path, "types.py"), "w") as f:
                 for bpy_type in types:
-                    if bpy_type[0] is not "Operator":
-                        f.write("class %s(object):\n\tpass\n\n" % bpy_type[0])
+                    if bpy_type[0] != "Operator":
+                        f.write("class {}(object):\n\tpass\n\n".format(bpy_type[0]))
                     else:
                         # Adding overridable methods removes inspection check warnings about unused variables
                         f.write(
-                            "class %s(object):"
+                            "class {}(object):"
                             "\n\t@classmethod"
                             "\n\tdef poll(cls,context): pass"
                             "\n\tdef invoke(self, context, event): pass"
-                            "\n\tdef execute(self,context): pass \n\n" % bpy_type[0]
+                            "\n\tdef execute(self,context): pass \n\n".format(bpy_type[0])
                         )
 
             # Data is just a class with classes
@@ -121,12 +119,12 @@ class GenerateAPI(RDOperator):
                 for member in [
                     i[0] for i in getmembers(bpy.context) if "__" not in i[0]
                 ]:
-                    f.write("\n    %s = None" % member)
+                    f.write("\n    {} = None".format( member))
                 f.write("\n\n")
 
                 f.write("class data(object):")
                 for member in [i[0] for i in getmembers(bpy.data) if "__" not in i[0]]:
-                    f.write("\n    %s = None" % member)
+                    f.write("\n    {} = None".format(member))
                 f.write("\n\n")
 
             # utils are several modules
@@ -144,8 +142,8 @@ class GenerateAPI(RDOperator):
                     signature = text[0].replace(".. function:: ", "")
                     docstring = "\n".join(text[1:])
                     f.write(
-                        'def %s:\n   """%s\n   """\n   pass\n\n'
-                        % (signature, docstring)
+                        'def {}:\n   """{}\n   """\n   pass\n\n'.format(
+                        signature, docstring)
                     )
 
             return {"FINISHED"}

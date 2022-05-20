@@ -409,9 +409,9 @@ class URDFTree(object):
         """
         if depth > 1:
             print(
-                "%s, link: %s, joint: %s, type: %s" % ("*" * depth, self.link.name, self.joint.name, self.joint.type_))
+                "{}, link: {}, joint: {}, type: {}".format("*" * depth, self.link.name, self.joint.name, self.joint.type_))
         elif depth == 1:
-            print("Root link: %s" % self.link.name)
+            print("Root link: {}".format(self.link.name))
         for tree in self.children:
             tree.show(depth + 1)
 

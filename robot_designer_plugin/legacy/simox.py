@@ -99,7 +99,7 @@ def parse(element, root):
     if axis is None:
         axis = element.find('joint/translationdirection')
 
-    children = [root.find('./robotnode[@name="%s"]' % i.get('name')) for i in element.findall('child')]
+    children = [root.find('./robotnode[@name="{}"]'.format(i.get('name')) for i in element.findall('child'))]
 
     if True:
 
@@ -161,7 +161,7 @@ def read(filename, createTree=True):
     root.get('StandardName')
 
     tolower(root)
-    rootNode = root.find('./robotnode[@name="%s"]' % root.get('RootNode'))
+    rootNode = root.find('./robotnode[@name="{}"]'.format(root.get('RootNode')))
     return parse(rootNode, root)
 
 # if __name__ == "__main__":

@@ -184,7 +184,7 @@ class Importer(object):
         bpy.context.active_object.RobotDesigner.fileName = os.path.basename(model.name)
 
         export_logger.debug(
-            "Active robot name: %s", bpy.context.active_object.RobotDesigner.fileName
+            "Active robot name: {}".format(bpy.context.active_object.RobotDesigner.fileName)
         )
 
         bpy.context.active_object.name = os.path.basename(model.name)
@@ -423,11 +423,11 @@ class Importer(object):
 
         C = bpy.context
 
-        export_logger.info("Context mode: %s", C.mode)
-        export_logger.info("parent name: %s", parent_name)
+        export_logger.info("Context mode: {}".format(C.mode))
+        export_logger.info("parent name: {}".format(parent_name))
 
         export_logger.debug(
-            "active object name : %s", C.active_object.name
+            "active object name : {}".format(C.active_object.name)
         )  # the name of the robot
 
         export_logger.debug("active object type : {}".format(C.active_object.type))
@@ -440,7 +440,7 @@ class Importer(object):
             )
         else:
             export_logger.debug(
-                "active object type == Armature: %s, %s", False, "No model selected"
+                "active object type == Armature: {}, {}".format(False, "No model selected")
             )
 
         SelectSegment.run(segment_name=parent_name)
@@ -449,8 +449,8 @@ class Importer(object):
 
         segment_name = C.active_bone.name
 
-        export_logger.info("%s -> %s", parent_name, segment_name)
-        export_logger.info("link name -> %s", node.link.name)
+        export_logger.info("{} -> {}".format(parent_name, segment_name))
+        export_logger.info("link name -> {}".format(node.link.name))
 
         # to confirm: SDF a joint's pose is given in child link frame, URDF joint frame = child link frame
 
@@ -699,10 +699,16 @@ class Importer(object):
 
             # set center of mass position
             if len(node.link.inertial[0].pose):
+                print("BF setting center of mass location to {}".format(string_to_list(
+                    node.link.inertial[0].pose[0].value()
+                )[0:3]))
                 inertia_location = string_to_list(
                     node.link.inertial[0].pose[0].value()
                 )[0:3]
                 inertia_location[1] = inertia_location[1] - 1.0
+                print("setting center of mass rotation to {}".format(string_to_list(
+                    node.link.inertial[0].pose[0].value()
+                )[3:]))
                 inertia_rotation = string_to_list(
                     node.link.inertial[0].pose[0].value()
                 )[3:]
@@ -796,10 +802,10 @@ class Importer(object):
                 #         # Remove multiple "COL_" and "VIS_" strings before renaming
                 #         if model_type == COLLISON:
                 #             # %2d changed to %d because it created unwanted space with one digit numbers
-                #             bpy.context.active_object.name = "COL_%s_%d" % (node.link.name, nr)
+                #             bpy.context.active_object.name = "COL_{}_{}".format(node.link.name, nr)
                 #             bpy.context.active_object.RobotDesigner.tag = 'COLLISION'
                 #         else:
-                #             bpy.context.active_object.name = "VIS_%s_%d" % (node.link.name, nr)
+                #             bpy.context.active_object.name = "VIS_{}_{}".format(node.link.name, nr)
                 #
                 #         # remove spaces from link name
                 #         bpy.context.active_object.name = bpy.context.active_object.name.replace(" ", "")
@@ -900,20 +906,20 @@ class Importer(object):
                         if model_type == COLLISON:
                             # %2d changed to %d because it created unwanted space with one digit numbers
                             if not model.name.startswith("COL_"):
-                                bpy.context.active_object.name = "COL_%s" % (model.name)
+                                bpy.context.active_object.name = "COL_{}".format(model.name)
                             else:
-                                bpy.context.active_object.name = "%s" % (model.name)
+                                bpy.context.active_object.name = "{}".format(model.name)
                             bpy.context.active_object.RobotDesigner.tag = 'COLLISION'
 
                         else:
                             if not model.name.startswith("VIS_"):
-                                bpy.context.active_object.name = "VIS_%s" % (model.name)
+                                bpy.context.active_object.name = "VIS_{}".format(model.name)
                             else:
-                                bpy.context.active_object.name = "%s" % (model.name)
+                                bpy.context.active_object.name = "{}".format(model.name)
                         """
 
                         if not model.name.endswith("_" + str(nr)) and nr != 0:
-                            bpy.context.active_object.name = "%s_%d" % (model.name, nr)
+                            bpy.context.active_object.name = "{}_{}".format(model.name, nr)
 
                         # remove spaces from link name
                         bpy.context.active_object.name = (

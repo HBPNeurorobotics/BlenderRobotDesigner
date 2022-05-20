@@ -264,7 +264,7 @@ class CreateNewPathpoint(RDOperator):
 @PluginManager.register_class
 class SelectMusclePathPoint(RDOperator):
     """
-    :ref:`operator` for selecting a muscle pathpoint.
+    :ref:`operator` for selecting a muscle pathpoint
     """
 
     bl_idname = config.OPERATOR_PREFIX + "select_muscle_pathpoint"
@@ -519,7 +519,7 @@ class SelectSegmentMuscle(RDOperator):
 @PluginManager.register_class
 class CalculateMuscleLength(RDOperator):
     """
-    :term:`operator` for calculating the length of the active muscle.
+    :term:`operator` for calculating the length of the active muscle
 
 
     """

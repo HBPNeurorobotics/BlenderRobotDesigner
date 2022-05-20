@@ -57,7 +57,7 @@ def read(filepath):
     missing = []
     for i in names:
         if i not in bpy.context.object.data.bones.keys():
-            print("Could not find joint: %s" % i)
+            print("Could not find joint: {}".format(i))
             names.remove(i)
             missing.append(i)
 
@@ -117,7 +117,7 @@ def read(filepath):
                 try:
                     bpy.context.active_bone.RobotDesigner.theta.value = value / pi * 180.0
                 except KeyError:
-                    print("Error updating %s" % s)
+                    print("Error updating {}".format(s))
                     # print(names[x], value/pi*180, bpy.context.active_bone.RobotDesigner.theta.value)
 
         bpy.ops.object.mode_set(mode='POSE')

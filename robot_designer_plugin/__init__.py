@@ -111,7 +111,7 @@ except Exception as e:
 bl_info = {
     "name": "NRP Robot Designer",
     "author": "Benedikt Feldotto (TUM), Stefan Ulbrich (FZI), et al.",
-    "version": (3, 0),
+    "version": (3, 2),
     "blender": (2, 80, 2),
     "location": "View3D > Tools",
     "category": "Editor"}

@@ -75,7 +75,7 @@ class SelectGeometry(RDOperator):
         mesh = bpy.data.objects[self.geometry_name]
 
         if mesh.type != "MESH":
-            self.report({"ERROR"}, "Object is no geometry (Mesh). Is %s" % mesh.type)
+            self.report({"ERROR"}, "Object is no geometry (Mesh). Is {}".format(mesh.type))
             global_properties.mesh_name.set(context.scene, "Search")
             return {"FINISHED"}
 
@@ -110,7 +110,7 @@ class SelectWrappingObject(RDOperator):
         mesh = bpy.data.objects[self.wrapping_name]
 
         if mesh.type != "MESH" or mesh.RobotDesigner.tag != "WRAPPING":
-            self.report({"ERROR"}, "Object is no wrapping geometry (Mesh). Is %s" % mesh.type)
+            self.report({"ERROR"}, "Object is no wrapping geometry (Mesh). Is {}".format(mesh.type))
             global_properties.wrapping_name.set(context.scene, "Search")
             return {"FINISHED"}
 
@@ -338,7 +338,7 @@ class DetachAllGeometries(RDOperator):
                 obj
                 for obj in bpy.data.objects
                 if obj.type == "MESH"
-                and obj.parent_bone is not ""
+                and obj.parent_bone != ""
                 and obj.RobotDesigner.tag != "WRAPPING"
                 and obj.RobotDesigner.tag != "PHYSICS_FRAME"
             ]
@@ -347,7 +347,7 @@ class DetachAllGeometries(RDOperator):
                 obj
                 for obj in bpy.data.objects
                 if obj.type == "MESH"
-                and obj.parent_bone is not ""
+                and obj.parent_bone != ""
                 and obj.RobotDesigner.tag == "DEFAULT"
             ]
         elif mesh_type == "collision":
@@ -355,7 +355,7 @@ class DetachAllGeometries(RDOperator):
                 obj
                 for obj in bpy.data.objects
                 if obj.type == "MESH"
-                and obj.parent_bone is not ""
+                and obj.parent_bone != ""
                 and obj.RobotDesigner.tag == "COLLISION"
             ]
         elif mesh_type == "bascol":
@@ -363,7 +363,7 @@ class DetachAllGeometries(RDOperator):
                 obj
                 for obj in bpy.data.objects
                 if obj.type == "MESH"
-                and obj.parent_bone is not ""
+                and obj.parent_bone != ""
                 and "BASIC_COLLISION_" in obj.RobotDesigner.tag
             ]
         else:

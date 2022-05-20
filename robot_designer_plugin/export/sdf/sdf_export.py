@@ -172,16 +172,11 @@ def export_mesh(
         bm = bpy.context.view_layer.objects.active.data
         # export_logger.debug("# of vertices={}".format(len(bm.vertices)))
         if len(bm.vertices) > 1:
-            if "." in mesh:
-                file_path = os.path.join(
+            file_path = os.path.join(
                     directory,
-                    bpy.data.objects[mesh].RobotDesigner.fileName.replace(".", "_")
-                    + ".dae",
-                )
-            else:
-                file_path = os.path.join(
-                    directory, bpy.data.objects[mesh].RobotDesigner.fileName + ".dae"
-                )
+                    bpy.data.objects[mesh].RobotDesigner.fileName.replace(".", "_").replace(" ", "_")
+                    + ".dae")
+
 
             hide_flag_backup = bpy.context.view_layer.objects.active.hide_get()
             bpy.context.view_layer.objects.active.hide_set(
@@ -364,8 +359,8 @@ def create_sdf(
         # child.link.pos[0] = ' '.join([pose_xyz, pose_rpy])
         # if '_joint' in segment.name:
         #     segment.name = segment.name.replace("_joint", "")
-        if "." in segment.name:
-            segment.name = segment.name.replace(".", "_")
+
+        segment.name = segment.name.replace(".", "_").replace(" ", "_")
 
         # sdf: here the child does not mean the child of the joint!!!!it is different
         child.joint.name = segment.RobotDesigner.joint_name
@@ -525,7 +520,7 @@ def create_sdf(
                 )
                 visual_pose_rpy = list_to_string(pose.to_euler())
                 visual.pose.append(" ".join([visual_pose_xyz, visual_pose_rpy]))
-                visual.name = bpy.data.objects[mesh].name  # child.link.name
+                visual.name = bpy.data.objects[mesh].name.replace(".", "_").replace(" ", "_")  # child.link.name
             else:
                 export_logger.info("No visual model for: {}".format(mesh))
 
@@ -571,9 +566,9 @@ def create_sdf(
                 )
                 collision.name = bpy.data.objects[
                     mesh
-                ].name  # child.link.name + '_collision'
+                ].name.replace(".", "_").replace(" ", "_")  # child.link.name + '_collision'
                 export_logger.info(
-                    " collision mesh pose'%s'" % collision.pose[0].value()
+                    " collision mesh pose'{}'".format(collision.pose[0].value())
                 )
             else:
                 export_logger.info("No collision model for: {}".format(mesh))
@@ -976,7 +971,7 @@ def create_config(
         )
 
         output = output.toprettyxml()
-        f.write(output.replace("ns1:", ""))
+        f.write(output.replace("ns1:", "").replace(":ns1", ""))
 
 
 @RDOperator.Preconditions(ModelSelected, ObjectMode)

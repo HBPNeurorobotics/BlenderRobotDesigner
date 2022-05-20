@@ -198,8 +198,8 @@ class RDOperator(bpy.types.Operator):
                     bad_kwargs.append(kwarg)
 
             cls.logger.error('Exception when running operator {} ({}):'
-                             '\n\tkeywords:\t%s\n\tBad keywords:\t{}'
-                             '\n\tException:\t%s\n\tMessages:\n\t\t{}'.format(
+                             '\n\tkeywords:\t{}\n\tBad keywords:\t{}'
+                             '\n\tException:\t{}\n\tMessages:\n\t\t{}'.format(
                              cls.bl_idname, cls.__name__,
                              kwargs,
                              ', '.join(bad_kwargs), type(e).__name__,
@@ -239,7 +239,7 @@ class RDOperator(bpy.types.Operator):
         """
         if infoBox and cls in cls._pre_conditions:
             # if not isinstance(infoBox, InfoBox):
-            #    raise TypeError("Argument: infobox must be of type %s (not %s)" % (InfoBox.__name__, type(infoBox)))
+            #    raise TypeError("Argument: infobox must be of type {} (not {})".format(InfoBox.__name__, type(infoBox)))
 
             check, messages = Condition.check_conditions(*cls._pre_conditions[cls])
             if not check:
@@ -283,11 +283,11 @@ class RDOperator(bpy.types.Operator):
 
             except Exception as e:
                 InfoBox.global_messages.append(
-                    "%s: %s (%s)" % (type(e).__name__, e.__str__(), log_callstack_last(back_trace=True)))
-                message = "Operator %s (%s) threw an exception:%s\n\t%s" % (id, class_name,
+                    "{}: {} ({})".format(type(e).__name__, e.__str__(), log_callstack_last(back_trace=True)))
+                message = "Operator {} ({}) threw an exception:{}\n\t{}".format(id, class_name,
                                                                             type(e).__name__, e)
-                self.logger.error("Operator {} ({}) threw an exception:\n {} {} {} {}".format(EXCEPTION_MESSAGE,
-                                  id, class_name, type(e).__name__, e, log_callstack(), log_callstack(back_trace=True)))
+                self.logger.error("Operator {} ({}) threw an exception:\n ".format(id, class_name) + EXCEPTION_MESSAGE.format(
+                                  type(e).__name__, e, log_callstack(), log_callstack(back_trace=True)))
                 if isinstance(self, RDOperator):
                     self.report({'ERROR'}, message)
                     return {'FINISHED'}
@@ -310,14 +310,14 @@ class RDOperator(bpy.types.Operator):
 
         def decorator(cls: RDOperator):  # Todo check why this check fails some times
             if not issubclass(cls, RDOperator):
-                raise TypeError("Preconditions: Can only decorate sub classes of RDOperator.i \n%s \n%s \n%s\n%s" % (
+                raise TypeError("Preconditions: Can only decorate sub classes of RDOperator.i \n{} \n{} \n{}\n{}".format(
                     cls.__name__,
                     cls.mro(), type(cls), conditions))
 
             cls._pre_conditions[cls] = conditions
 
-            cls.__doc__ += "\n    **Preconditions**:\n\n%s" % "".join(
-                '    * :class:`%s.%s`\n' % (i.__module__, i.__name__) for i in conditions)
+            cls.__doc__ += "\n    **Preconditions**:\n\n{}".format("".join(
+                '    * :class:`{}.{}`\n'.format(i.__module__, i.__name__) for i in conditions))
 
             # RDOperator.logger.debug("Decorating {}, \nArgs: {}\n {}, {}, {}".format(cls, args, issubclass(cls, RDOperator),
             #                        issubclass(cls, bpy.types.Operator), [RDOperator is i for i in cls.mro()]))
@@ -330,8 +330,8 @@ class RDOperator(bpy.types.Operator):
             raise TypeError('Decorator Preconditions must be called with arguments of subclasses of Condition')
         else:
             if any([issubclass(i, RDOperator) for i in conditions]):
-                raise TypeError('Decorator Preconditions must be called with arguments of subclasses of Condition '
-                            '%s', conditions)
+                raise TypeError('Decorator Preconditions must be called with arguments of subclasses of Condition {}'.format(
+                             conditions))
 
             return decorator
 
@@ -354,12 +354,12 @@ class RDOperator(bpy.types.Operator):
                 check, messages = Condition.check_conditions(*conditions)
                 if not check:
                     self.report({'ERROR'}, messages)
-                    logger.error('Postcondition not met: %s\\n%s\n%s', messages, log_callstack(), log_callstack(True))
+                    logger.error('Postcondition not met: {}\\n{}\n{}'.format(messages, log_callstack(), log_callstack(True)))
                     InfoBox.global_messages.append(messages)
                 return result
 
-            doc = "\n    **Postconditions**:\n\n%s" % "".join(
-                '    * :class:`%s.%s`\n' % (i.__module__, i.__name__) for i in conditions)
+            doc = "\n    **Postconditions**:\n\n{}".format("".join(
+                '    * :class:`{}.{}`\n'.format(i.__module__, i.__name__) for i in conditions))
             func.__doc__ = func.__doc__ + doc if func.__doc__ else doc
             return func_wrapper
 
