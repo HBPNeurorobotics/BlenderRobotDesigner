@@ -19,4 +19,3 @@ Contents
     coding_standards
     debugging
     ../apidoc/modules
-

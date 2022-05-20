@@ -12,7 +12,9 @@ the suggested tools.
     This section assumes that you use either `Ubuntu Linux <http://www.ubuntu.com/>`_ or Mac OS X.
 
 The RobotDesigner (and Blender Plugins in general) are written in
-`Python <https://en.wikipedia.org/wiki/Python_(programming_language)>`_.  Therefore, you will at first require
+`Python <https://en.wikipedia.org/wiki/Python_(programming_language)>`_.
+If you downloaded Blender as an archive from the dedicated website Python will
+be shipped with the package, if you installed it via package manager you will at first require
 a python installation. On Linux, you have to write the following commands in a terminal:
 
 .. code-block:: console
@@ -66,7 +68,8 @@ Editing with PyCharm (TM)
         :width: 200px
         :align: center
 
-Main text
+A brief description on how to configure the virtual environment with PyCharm
+can be found in the image below, please follow the indexed steps.
 
 .. figure:: images/interpreter.png
    :align: center
@@ -166,74 +169,94 @@ Bezier curves
 
 .. code-block:: python
 
-import bpy
-from mathutils import Vector, Matrix
+    import bpy
+    from mathutils import Vector, Matrix
 
-C = bpy.context
-D = bpy.data
+    C = bpy.context
+    D = bpy.data
 
-model = C.active_object
-pose_bone = C.active_object.pose.bones[C.active_bone.name]
-parent_bone = C.active_object.pose.bones[C.active_bone.parent.name]
+    model = C.active_object
+    pose_bone = C.active_object.pose.bones[C.active_bone.name]
+    parent_bone = C.active_object.pose.bones[C.active_bone.parent.name]
 
-parent_frame = model.matrix_world * parent_bone.matrix
-parent_to_bone = parent_frame.inverted() * bezier.matrix_world
+    parent_frame = model.matrix_world * parent_bone.matrix
+    parent_to_bone = parent_frame.inverted() * bezier.matrix_world
 
-bone_to_parent = bezier.matrix_world.inverted() * parent_frame
+    bone_to_parent = bezier.matrix_world.inverted() * parent_frame
 
-l = bone_to_parent.translation.length
-
-
-
-
-bevel= bpy.ops.curve.primitive_bezier_circle_add(radius=l/0.25)
-bezier=bpy.ops.curve.primitive_bezier_curve_add()
-
-bezier.bevel_object = bevel
-
-bezier.matrix_world =  model.matrix_world * pose_bone.matrix
+    l = bone_to_parent.translation.length
 
 
 
-print(bezier.matrix_world)
-#e= C.active_bone.RobotEditor.Euler
 
-bpy.ops.object.mode_set(mode="EDIT",toggle=False)
+    bevel= bpy.ops.curve.primitive_bezier_circle_add(radius=l/0.25)
+    bezier=bpy.ops.curve.primitive_bezier_curve_add()
 
+    bezier.bevel_object = bevel
 
-a=bezier.data.splines[0].bezier_points[0]
-b=bezier.data.splines[0].bezier_points[1]
-
-
-a.co = (0,0,0)
-b.co = bone_to_parent.translation
-
-v1 = bone_to_parent.translation
-
-max_v1 = max ( abs(i) for i in v1)
-print(v1,max_v1)
-v1 = [ 0.1*i/max_v1 if abs(i)==max_v1 else 0.0 for i in v1]
-
-v2 = parent_to_bone.translation
-max_v2 = max ( abs(i) for i in v2)
-v2 = [ 0.1*i/max_v2 if abs(i)==max_v2 else 0.0 for i in v2]
-#v2 = Vector(v2)#.to_4d()
-#v2[3]=0.0
-
-a.handle_right=v1
-#a.handle_left=-1 * a.handle_right
-print(v1,a.handle_right,a.handle_left)
-
-m=Matrix()
-m.translation = v2
-#m[3][3] = 0
-#b.co = (bone_to_parent *m).translation
-print(m, bone_to_parent.inverted() * parent_frame * m)
-b.handle_left=(bone_to_parent * m).translation
-#b.handle_left=-1 * b.handle_right
-print(v2,b.handle_right,b.handle_left)
+    bezier.matrix_world =  model.matrix_world * pose_bone.matrix
 
 
-#print(a.co,b.co)
 
-bpy.ops.object.mode_set(mode="OBJECT",toggle=False)
+    print(bezier.matrix_world)
+    #e= C.active_bone.RobotEditor.Euler
+
+    bpy.ops.object.mode_set(mode="EDIT",toggle=False)
+
+
+    a=bezier.data.splines[0].bezier_points[0]
+    b=bezier.data.splines[0].bezier_points[1]
+
+
+    a.co = (0,0,0)
+    b.co = bone_to_parent.translation
+
+    v1 = bone_to_parent.translation
+
+    max_v1 = max ( abs(i) for i in v1)
+    print(v1,max_v1)
+    v1 = [ 0.1*i/max_v1 if abs(i)==max_v1 else 0.0 for i in v1]
+
+    v2 = parent_to_bone.translation
+    max_v2 = max ( abs(i) for i in v2)
+    v2 = [ 0.1*i/max_v2 if abs(i)==max_v2 else 0.0 for i in v2]
+    #v2 = Vector(v2)#.to_4d()
+    #v2[3]=0.0
+
+    a.handle_right=v1
+    #a.handle_left=-1 * a.handle_right
+    print(v1,a.handle_right,a.handle_left)
+
+    m=Matrix()
+    m.translation = v2
+    #m[3][3] = 0
+    #b.co = (bone_to_parent *m).translation
+    print(m, bone_to_parent.inverted() * parent_frame * m)
+    b.handle_left=(bone_to_parent * m).translation
+    #b.handle_left=-1 * b.handle_right
+    print(v2,b.handle_right,b.handle_left)
+
+
+    #print(a.co,b.co)
+
+    bpy.ops.object.mode_set(mode="OBJECT",toggle=False)
+
+
+Building the documentation
+--------------------------
+
+The requirements necessary to build the documentation can be found in the
+requirements_docu.txt file.
+
+The documentation is generated with the Python documentation generator
+`Sphinx <https://www.sphinx-doc.org>`__. It can be build with the following terminal
+command from within the BlenderRobotDesigner folder:
+
+.. code-block::
+
+    sphinx-build -b html docu/ output_dir
+
+A preview of the documenation build can be seen by opening the index.html file
+from the build folder.
+The resulting output files need to be pushed to the GitHub repository branch
+*gh-pages* to make the documentation available online.
