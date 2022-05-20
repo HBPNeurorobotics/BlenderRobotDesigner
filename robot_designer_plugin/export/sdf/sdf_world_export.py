@@ -156,7 +156,7 @@ def create_sdf(context, abs_file_paths, gazebo, filepath):
     ]
 
     for arm in armatures:
-        if arm.RobotDesigner.modelMeta.model_folder is "":
+        if arm.RobotDesigner.modelMeta.model_folder == "":
             arm.RobotDesigner.modelMeta.model_folder = (
                 arm.RobotDesigner.modelMeta.model_config
             )

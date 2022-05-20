@@ -122,7 +122,7 @@ def draw(layout, context):
         i for i in context.selected_objects if i.name != context.active_object.name
     ]
     if len(selected_objects) and \
-            global_properties.mesh_name.get(context.scene) is not "":
+            global_properties.mesh_name.get(context.scene) != "":
         mesh_obj = bpy.data.objects[global_properties.mesh_name.get(context.scene)]
     else:
         mesh_obj = None

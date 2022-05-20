@@ -433,7 +433,7 @@ class DetachAllWrappingObjects(RDOperator):
             obj
             for obj in bpy.data.objects
             if obj.type == "MESH"
-            and obj.parent_bone is not ""
+            and obj.parent_bone != ""
             and obj.RobotDesigner.tag == "WRAPPING"
         ]
 
