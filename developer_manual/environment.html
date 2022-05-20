@@ -1,141 +1,112 @@
-
-
-
 <!DOCTYPE html>
-
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Developing the RobotDesigner &#8212; NRP RobotDesigner 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="../_static/hbpdoc.js"></script>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developing the RobotDesigner &mdash; NRP RobotDesigner 3.2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="The Plugin Core" href="plugin_core.html" />
-    <link rel="prev" title="Developers Manual" href="index.html" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="prev" title="Developers Manual" href="index.html" /> 
+</head>
 
-  </head>
-  <body>
-<div class="hbpdoc-page">
-    <section class="hbpdoc-title page-header">
-        <a class="project-title" href="../index.html">NRP RobotDesigner</a>
-
-        <a class="hbpdoc-toc-toggle pull-right" href>
-            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-        </a>
-    </section>
-    <section class="hbpdoc-main">
-        <nav class="hbpdoc-sidebar hbpdoc-container">
-            <a class="hbpdoc-toc-toggle pull-right" href>
-                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-            </a>
-            
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="../index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Developing the RobotDesigner</a><ul>
-<li><a class="reference internal" href="#setting-up-the-development-environment">Setting up the development environment</a></li>
-<li><a class="reference internal" href="#editing-with-pycharm-tm">Editing with PyCharm (TM)</a></li>
-<li><a class="reference internal" href="#editing-with-atom">Editing with Atom</a></li>
-<li><a class="reference internal" href="#geometric-operations-in-blender">Geometric operations in Blender</a><ul>
-<li><a class="reference internal" href="#pose-of-segment-in-world-coordinates"><code class="docutils literal"><span class="pre">Pose</span></code> of segment in <code class="docutils literal"><span class="pre">world</span> <span class="pre">coordinates</span></code></a></li>
-<li><a class="reference internal" href="#relative-pose-to-segment">Relative <code class="docutils literal"><span class="pre">pose</span></code> to segment</a></li>
-<li><a class="reference internal" href="#bezier-curves">Bezier curves</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">Developers Manual</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="plugin_core.html"
-                        title="next chapter">The Plugin Core</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/developer_manual/environment.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> NRP RobotDesigner
+          </a>
+              <div class="version">
+                3.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">The Blender RobotDesigner of the Neurorobotics Platform (NRP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_manual/index.html">User Manual</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developers Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">Introduction</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#contents">Contents</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Developing the RobotDesigner</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#setting-up-the-development-environment">Setting up the development environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#editing-with-pycharm-tm">Editing with PyCharm (TM)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#editing-with-atom">Editing with Atom</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#geometric-operations-in-blender">Geometric operations in Blender</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#building-the-documentation">Building the documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="plugin_core.html">The Plugin Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../apidoc/modules.html">robot_designer_plugin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../planned.html">Roadmap</a></li>
+</ul>
+
         </div>
       </div>
-        </nav>
+    </nav>
 
-        <article class="hbpdoc-content">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NRP RobotDesigner</a>
+      </nav>
 
-            <div class="content">
-                
-                <div class="breadcrumb breadcrumb-meta expand">
-                    
-                    <a href="index.html">Developers Manual</a>
-                    
-                </div>
-                
-
-                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
-                    
-                    <span class="hbpdoc-hnav-previous">
-                        previous: <a class="hbpdoc-hnav-link" href="index.html">Developers Manual</a>
-                    </span>
-                    
-                    
-                    <span class="hbpdoc-hnav-next">
-                        next: <a class="hbpdoc-hnav-link" href="plugin_core.html">The Plugin Core</a>
-                    </span>
-                    
-                </aside>
-
-                <div class="section" id="developing-the-robotdesigner">
-<h1>Developing the RobotDesigner<a class="headerlink" href="#developing-the-robotdesigner" title="Permalink to this headline">¶</a></h1>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Developers Manual</a> &raquo;</li>
+      <li>Developing the RobotDesigner</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/developer_manual/environment.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="developing-the-robotdesigner">
+<h1>Developing the RobotDesigner<a class="headerlink" href="#developing-the-robotdesigner" title="Permalink to this headline"></a></h1>
 <div class="section" id="setting-up-the-development-environment">
-<h2>Setting up the development environment<a class="headerlink" href="#setting-up-the-development-environment" title="Permalink to this headline">¶</a></h2>
+<h2>Setting up the development environment<a class="headerlink" href="#setting-up-the-development-environment" title="Permalink to this headline"></a></h2>
 <p>This section describes how to setup an environment for developing the RobotDesigner including a description of
 the suggested tools.</p>
 <blockquote>
 <div><div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This section assumes that you use either <a class="reference external" href="http://www.ubuntu.com/">Ubuntu Linux</a> or Mac OS X.</p>
+<p class="admonition-title">Note</p>
+<p>This section assumes that you use either <a class="reference external" href="http://www.ubuntu.com/">Ubuntu Linux</a> or Mac OS X.</p>
 </div>
 </div></blockquote>
 <p>The RobotDesigner (and Blender Plugins in general) are written in
-<a class="reference external" href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>.  Therefore, you will at first require
+<a class="reference external" href="https://en.wikipedia.org/wiki/Python_(programming_language)">Python</a>.
+If you downloaded Blender as an archive from the dedicated website Python will
+be shipped with the package, if you installed it via package manager you will at first require
 a python installation. On Linux, you have to write the following commands in a terminal:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">$</span> sudo apt-get install python3, python3-pip
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> sudo apt-get install python3, python3-pip
 <span class="gp">$</span> pip3 install virtualenv
 </pre></div>
 </div>
@@ -144,12 +115,12 @@ a python installation. On Linux, you have to write the following commands in a t
 you can install additional Python Packages and tools while only affecting your project.</p>
 <p>On MacOS it is suggested to install python via <a class="reference external" href="http://brew.sh/">homebrew</a>. After its installation, run the
 following commands:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">user@hbp $</span> brew install python3
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">user@hbp $</span> brew install python3
 <span class="gp">user@hbp $</span> pip3 install virtualenv
 </pre></div>
 </div>
 <p>Now you need to download the RobotDesigner repository and to setup a virtual environment within its folder.</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">user@hbp ~$</span> <span class="nb">cd</span> projects
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">user@hbp ~$</span> <span class="nb">cd</span> projects
 <span class="gp">user@hbp ~/projects $</span> git clone ...
 <span class="gp">user@hbp ~/projects$</span> <span class="nb">cd</span> RobotDesigner/
 <span class="gp">user@hbp ~/projects/RobotDesigner$</span> virtualenv -p /usr/local/bin/python3.4 venv
@@ -169,24 +140,26 @@ to used in open source projects. A good alternative is the <a class="reference e
 for the work with Python projects.</p>
 </div>
 <div class="section" id="editing-with-pycharm-tm">
-<h2>Editing with PyCharm (TM)<a class="headerlink" href="#editing-with-pycharm-tm" title="Permalink to this headline">¶</a></h2>
-<p>Main text</p>
-<div class="figure align-center" id="id3">
+<h2>Editing with PyCharm (TM)<a class="headerlink" href="#editing-with-pycharm-tm" title="Permalink to this headline"></a></h2>
+<p>A brief description on how to configure the virtual environment with PyCharm
+can be found in the image below, please follow the indexed steps.</p>
+<div class="figure align-center" id="id1">
 <a class="reference internal image-reference" href="../_images/interpreter.png"><img alt="../_images/interpreter.png" src="../_images/interpreter.png" style="width: 384.0px; height: 235.0px;" /></a>
-<p class="caption"><span class="caption-text">Setup for Pycharm with a virtual env (click to enlarge).</span></p>
+<p class="caption"><span class="caption-text">Setup for Pycharm with a virtual env (click to enlarge).</span><a class="headerlink" href="#id1" title="Permalink to this image"></a></p>
 </div>
 </div>
 <div class="section" id="editing-with-atom">
-<h2>Editing with Atom<a class="headerlink" href="#editing-with-atom" title="Permalink to this headline">¶</a></h2>
+<h2>Editing with Atom<a class="headerlink" href="#editing-with-atom" title="Permalink to this headline"></a></h2>
 <p>This editor is an interesting alternative for developing Python projects. According to its web page
 it is</p>
 <blockquote>
-<div>A hackable text editor for the 21st Century</div></blockquote>
-<p>in the <code class="docutils literal"><span class="pre">resources/templates</span></code> folder of the RobotDesigner repository there are templates for setting up the
+<div><p>A hackable text editor for the 21st Century</p>
+</div></blockquote>
+<p>in the <code class="docutils literal notranslate"><span class="pre">resources/templates</span></code> folder of the RobotDesigner repository there are templates for setting up the
 development environment. First, download and install the editor (from the homepage or a package manager).
-Open the editor and add the RobotDesigner project (<code class="docutils literal"><span class="pre">File-&gt;Add</span> <span class="pre">Project</span> <span class="pre">Folder</span></code>).</p>
+Open the editor and add the RobotDesigner project (<code class="docutils literal notranslate"><span class="pre">File-&gt;Add</span> <span class="pre">Project</span> <span class="pre">Folder</span></code>).</p>
 <p>Then close the editor and run the following commands to install the proposed setup:</p>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">user@hbp ~$</span> <span class="nb">cd</span> projects/RobotDesigner
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">user@hbp ~$</span> <span class="nb">cd</span> projects/RobotDesigner
 <span class="gp">user@hbp ~/projects/RobotDesigner$</span> <span class="nb">cd</span> resources/templates
 <span class="gp">user@hbp ~/projects/RobotDesigner/resources/templates$</span> apm install --packages-file package-list.txt
 <span class="gp">user@hbp ~/projects/RobotDesigner/resources/templates$</span> pip3 --install atom-requirements.txt
@@ -195,131 +168,175 @@ Open the editor and add the RobotDesigner project (<code class="docutils literal
 </div>
 <p>This gives you a basic configuration for the editor.</p>
 <div class="admonition note">
-<p class="first admonition-title">Note</p>
+<p class="admonition-title">Note</p>
 <p>This section is currently under development. For more information, please refer to the documentation of the
 individual packages:</p>
-<ul class="last simple">
-<li><a class="reference external" href="https://atom.io/packages/atom-beautify">atom-beautify</a></li>
-<li><a class="reference external" href="https://atom.io/packages/autocomplete-python">autocomplete-python</a></li>
-<li><a class="reference external" href="https://atom.io/packages/hyperclick">hyperclick</a></li>
-<li><a class="reference external" href="https://atom.io/packages/language-restructuredtext">language-restructuredtext</a></li>
-<li><a class="reference external" href="https://atom.io/packages/linter">linter</a></li>
-<li><a class="reference external" href="https://atom.io/packages/linter-flake8">linter-flake8</a></li>
-<li><a class="reference external" href="https://atom.io/packages/open-recent">open-recent</a></li>
-<li><a class="reference external" href="https://atom.io/packages/project-manager">project-manager</a></li>
+<ul class="simple">
+<li><p><a class="reference external" href="https://atom.io/packages/atom-beautify">atom-beautify</a></p></li>
+<li><p><a class="reference external" href="https://atom.io/packages/autocomplete-python">autocomplete-python</a></p></li>
+<li><p><a class="reference external" href="https://atom.io/packages/hyperclick">hyperclick</a></p></li>
+<li><p><a class="reference external" href="https://atom.io/packages/language-restructuredtext">language-restructuredtext</a></p></li>
+<li><p><a class="reference external" href="https://atom.io/packages/linter">linter</a></p></li>
+<li><p><a class="reference external" href="https://atom.io/packages/linter-flake8">linter-flake8</a></p></li>
+<li><p><a class="reference external" href="https://atom.io/packages/open-recent">open-recent</a></p></li>
+<li><p><a class="reference external" href="https://atom.io/packages/project-manager">project-manager</a></p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="geometric-operations-in-blender">
-<h2>Geometric operations in Blender<a class="headerlink" href="#geometric-operations-in-blender" title="Permalink to this headline">¶</a></h2>
+<h2>Geometric operations in Blender<a class="headerlink" href="#geometric-operations-in-blender" title="Permalink to this headline"></a></h2>
 <p>If executed in a text editor in Blender, add these lines first:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bpy</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bpy</span>
 
 <span class="n">C</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span>
 <span class="n">D</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">scnd</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span><span class="s1">&#39;MESH&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scnd</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span><span class="s1">&#39;MESH&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">active_object</span>
 </pre></div>
 </div>
-<p>Together with <a class="reference internal" href="glossary.html#term-condition"><span class="xref std std-term">condition</span></a> <a class="reference internal" href="../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a>.</p>
+<p>Together with <a class="reference internal" href="glossary.html#term-condition"><span class="xref std std-term">condition</span></a> <a class="reference internal" href="../apidoc/robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a>.</p>
 <div class="section" id="pose-of-segment-in-world-coordinates">
-<h3><span class="xref std std-term">Pose</span> of segment in <span class="xref std std-term">world coordinates</span><a class="headerlink" href="#pose-of-segment-in-world-coordinates" title="Permalink to this headline">¶</a></h3>
+<h3><span class="xref std std-term">Pose</span> of segment in <span class="xref std std-term">world coordinates</span><a class="headerlink" href="#pose-of-segment-in-world-coordinates" title="Permalink to this headline"></a></h3>
 <p>For example, Place an object (second) at the coordinate frame of the segment.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pose_bone</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">C</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pose_bone</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">C</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
 <span class="n">global_pose</span> <span class="o">=</span>  <span class="n">model</span><span class="o">.</span><span class="n">matrix_world</span> <span class="o">*</span> <span class="n">pose_bone</span><span class="o">.</span><span class="n">matrix</span>
 <span class="n">scnd</span><span class="o">.</span><span class="n">matrix_world</span> <span class="o">=</span> <span class="n">global_pose</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="relative-pose-to-segment">
-<h3>Relative <span class="xref std std-term">pose</span> to segment<a class="headerlink" href="#relative-pose-to-segment" title="Permalink to this headline">¶</a></h3>
+<h3>Relative <span class="xref std std-term">pose</span> to segment<a class="headerlink" href="#relative-pose-to-segment" title="Permalink to this headline"></a></h3>
 <p>Retrieve the relative posiion of an object to a segment:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pose_bone</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">C</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pose_bone</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">C</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
 <span class="n">relative_pose</span> <span class="o">=</span> <span class="n">pose_bone</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">matrix_world</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span> <span class="o">*</span> <span class="n">scnd</span><span class="o">.</span><span class="n">matrix_world</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="bezier-curves">
-<h3>Bezier curves<a class="headerlink" href="#bezier-curves" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span></span>
+<h3>Bezier curves<a class="headerlink" href="#bezier-curves" title="Permalink to this headline"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">bpy</span>
+<span class="kn">from</span> <span class="nn">mathutils</span> <span class="kn">import</span> <span class="n">Vector</span><span class="p">,</span> <span class="n">Matrix</span>
+
+<span class="n">C</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span>
+<span class="n">D</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">active_object</span>
+<span class="n">pose_bone</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">C</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+<span class="n">parent_bone</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">C</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+
+<span class="n">parent_frame</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">matrix_world</span> <span class="o">*</span> <span class="n">parent_bone</span><span class="o">.</span><span class="n">matrix</span>
+<span class="n">parent_to_bone</span> <span class="o">=</span> <span class="n">parent_frame</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span> <span class="o">*</span> <span class="n">bezier</span><span class="o">.</span><span class="n">matrix_world</span>
+
+<span class="n">bone_to_parent</span> <span class="o">=</span> <span class="n">bezier</span><span class="o">.</span><span class="n">matrix_world</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span> <span class="o">*</span> <span class="n">parent_frame</span>
+
+<span class="n">l</span> <span class="o">=</span> <span class="n">bone_to_parent</span><span class="o">.</span><span class="n">translation</span><span class="o">.</span><span class="n">length</span>
+
+
+
+
+<span class="n">bevel</span><span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">curve</span><span class="o">.</span><span class="n">primitive_bezier_circle_add</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="n">l</span><span class="o">/</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">bezier</span><span class="o">=</span><span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">curve</span><span class="o">.</span><span class="n">primitive_bezier_curve_add</span><span class="p">()</span>
+
+<span class="n">bezier</span><span class="o">.</span><span class="n">bevel_object</span> <span class="o">=</span> <span class="n">bevel</span>
+
+<span class="n">bezier</span><span class="o">.</span><span class="n">matrix_world</span> <span class="o">=</span>  <span class="n">model</span><span class="o">.</span><span class="n">matrix_world</span> <span class="o">*</span> <span class="n">pose_bone</span><span class="o">.</span><span class="n">matrix</span>
+
+
+
+<span class="k">print</span><span class="p">(</span><span class="n">bezier</span><span class="o">.</span><span class="n">matrix_world</span><span class="p">)</span>
+<span class="c1">#e= C.active_bone.RobotEditor.Euler</span>
+
+<span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;EDIT&quot;</span><span class="p">,</span><span class="n">toggle</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+
+<span class="n">a</span><span class="o">=</span><span class="n">bezier</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">splines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bezier_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">b</span><span class="o">=</span><span class="n">bezier</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">splines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">bezier_points</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="n">a</span><span class="o">.</span><span class="n">co</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">co</span> <span class="o">=</span> <span class="n">bone_to_parent</span><span class="o">.</span><span class="n">translation</span>
+
+<span class="n">v1</span> <span class="o">=</span> <span class="n">bone_to_parent</span><span class="o">.</span><span class="n">translation</span>
+
+<span class="n">max_v1</span> <span class="o">=</span> <span class="nb">max</span> <span class="p">(</span> <span class="nb">abs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">v1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span><span class="n">max_v1</span><span class="p">)</span>
+<span class="n">v1</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="n">max_v1</span> <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">==</span><span class="n">max_v1</span> <span class="k">else</span> <span class="mf">0.0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">v1</span><span class="p">]</span>
+
+<span class="n">v2</span> <span class="o">=</span> <span class="n">parent_to_bone</span><span class="o">.</span><span class="n">translation</span>
+<span class="n">max_v2</span> <span class="o">=</span> <span class="nb">max</span> <span class="p">(</span> <span class="nb">abs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">v2</span><span class="p">)</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">i</span><span class="o">/</span><span class="n">max_v2</span> <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">==</span><span class="n">max_v2</span> <span class="k">else</span> <span class="mf">0.0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">v2</span><span class="p">]</span>
+<span class="c1">#v2 = Vector(v2)#.to_4d()</span>
+<span class="c1">#v2[3]=0.0</span>
+
+<span class="n">a</span><span class="o">.</span><span class="n">handle_right</span><span class="o">=</span><span class="n">v1</span>
+<span class="c1">#a.handle_left=-1 * a.handle_right</span>
+<span class="k">print</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">handle_right</span><span class="p">,</span><span class="n">a</span><span class="o">.</span><span class="n">handle_left</span><span class="p">)</span>
+
+<span class="n">m</span><span class="o">=</span><span class="n">Matrix</span><span class="p">()</span>
+<span class="n">m</span><span class="o">.</span><span class="n">translation</span> <span class="o">=</span> <span class="n">v2</span>
+<span class="c1">#m[3][3] = 0</span>
+<span class="c1">#b.co = (bone_to_parent *m).translation</span>
+<span class="k">print</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">bone_to_parent</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span> <span class="o">*</span> <span class="n">parent_frame</span> <span class="o">*</span> <span class="n">m</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">handle_left</span><span class="o">=</span><span class="p">(</span><span class="n">bone_to_parent</span> <span class="o">*</span> <span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">translation</span>
+<span class="c1">#b.handle_left=-1 * b.handle_right</span>
+<span class="k">print</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">handle_right</span><span class="p">,</span><span class="n">b</span><span class="o">.</span><span class="n">handle_left</span><span class="p">)</span>
+
+
+<span class="c1">#print(a.co,b.co)</span>
+
+<span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;OBJECT&quot;</span><span class="p">,</span><span class="n">toggle</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>import bpy
-from mathutils import Vector, Matrix</p>
-<p>C = bpy.context
-D = bpy.data</p>
-<p>model = C.active_object
-pose_bone = C.active_object.pose.bones[C.active_bone.name]
-parent_bone = C.active_object.pose.bones[C.active_bone.parent.name]</p>
-<p>parent_frame = model.matrix_world * parent_bone.matrix
-parent_to_bone = parent_frame.inverted() * bezier.matrix_world</p>
-<p>bone_to_parent = bezier.matrix_world.inverted() * parent_frame</p>
-<p>l = bone_to_parent.translation.length</p>
-<p>bevel= bpy.ops.curve.primitive_bezier_circle_add(radius=l/0.25)
-bezier=bpy.ops.curve.primitive_bezier_curve_add()</p>
-<p>bezier.bevel_object = bevel</p>
-<p>bezier.matrix_world =  model.matrix_world * pose_bone.matrix</p>
-<p>print(bezier.matrix_world)
-#e= C.active_bone.RobotEditor.Euler</p>
-<p>bpy.ops.object.mode_set(mode=”EDIT”,toggle=False)</p>
-<p>a=bezier.data.splines[0].bezier_points[0]
-b=bezier.data.splines[0].bezier_points[1]</p>
-<p>a.co = (0,0,0)
-b.co = bone_to_parent.translation</p>
-<p>v1 = bone_to_parent.translation</p>
-<p>max_v1 = max ( abs(i) for i in v1)
-print(v1,max_v1)
-v1 = [ 0.1*i/max_v1 if abs(i)==max_v1 else 0.0 for i in v1]</p>
-<p>v2 = parent_to_bone.translation
-max_v2 = max ( abs(i) for i in v2)
-v2 = [ 0.1*i/max_v2 if abs(i)==max_v2 else 0.0 for i in v2]
-#v2 = Vector(v2)#.to_4d()
-#v2[3]=0.0</p>
-<p>a.handle_right=v1
-#a.handle_left=-1 * a.handle_right
-print(v1,a.handle_right,a.handle_left)</p>
-<p>m=Matrix()
-m.translation = v2
-#m[3][3] = 0
-#b.co = (bone_to_parent <a href="#id1"><span class="problematic" id="id2">*</span></a>m).translation
-print(m, bone_to_parent.inverted() * parent_frame * m)
-b.handle_left=(bone_to_parent * m).translation
-#b.handle_left=-1 * b.handle_right
-print(v2,b.handle_right,b.handle_left)</p>
-<p>#print(a.co,b.co)</p>
-<p>bpy.ops.object.mode_set(mode=”OBJECT”,toggle=False)</p>
 </div>
+</div>
+<div class="section" id="building-the-documentation">
+<h2>Building the documentation<a class="headerlink" href="#building-the-documentation" title="Permalink to this headline"></a></h2>
+<p>The requirements necessary to build the documentation can be found in the
+requirements_docu.txt file.</p>
+<p>The documentation is generated with the Python documentation generator
+<a class="reference external" href="https://www.sphinx-doc.org">Sphinx</a>. It can be build with the following terminal
+command from within the BlenderRobotDesigner folder:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sphinx</span><span class="o">-</span><span class="n">build</span> <span class="o">-</span><span class="n">b</span> <span class="n">html</span> <span class="n">docu</span><span class="o">/</span> <span class="n">output_dir</span>
+</pre></div>
+</div>
+<p>A preview of the documenation build can be seen by opening the index.html file
+from the build folder.
+The resulting output files need to be pushed to the GitHub repository branch
+<em>gh-pages</em> to make the documentation available online.</p>
 </div>
 </div>
 
-            </div>
 
-            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
-                
-                <span class="hbpdoc-hnav-previous">
-                    previous: <a class="hbpdoc-hnav-link" href="index.html">Developers Manual</a>
-                </span>
-                
-                
-                <span class="hbpdoc-hnav-next">
-                    next: <a class="hbpdoc-hnav-link" href="plugin_core.html">The Plugin Core</a>
-                </span>
-                
-            </aside>
-        </article>
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Developers Manual" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="plugin_core.html" class="btn btn-neutral float-right" title="The Plugin Core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Human Brain Project - Neurorobotics, Benedikt Feldotto (TUM), Stefan Ulbrich (FZI).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
     </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-    <div class="hbpdoc-footer">
-        NRP RobotDesigner <small>0.1</small> 
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
-    </div>
-    </div>
-</div>
-
-  </body>
+</body>
 </html>

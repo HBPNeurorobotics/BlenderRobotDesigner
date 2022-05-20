@@ -1,91 +1,76 @@
-
-
-
 <!DOCTYPE html>
-
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>robot_designer_plugin.operators.segments &#8212; NRP RobotDesigner 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../../../_static/hbpdoc.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>robot_designer_plugin.operators.segments &mdash; NRP RobotDesigner 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
 
-  </head>
-  <body>
-<div class="hbpdoc-page">
-    <section class="hbpdoc-title page-header">
-        <a class="project-title" href="../../../index.html">NRP RobotDesigner</a>
-
-        <a class="hbpdoc-toc-toggle pull-right" href>
-            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-        </a>
-    </section>
-    <section class="hbpdoc-main">
-        <nav class="hbpdoc-sidebar hbpdoc-container">
-            <a class="hbpdoc-toc-toggle pull-right" href>
-                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-            </a>
-            
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> NRP RobotDesigner
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../add_readme.html">The Blender RobotDesigner of the Neurorobotics Platform (NRP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_manual/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_manual/index.html">Developers Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../planned.html">Roadmap</a></li>
+</ul>
+
         </div>
       </div>
-        </nav>
+    </nav>
 
-        <article class="hbpdoc-content">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NRP RobotDesigner</a>
+      </nav>
 
-            <div class="content">
-                
-                <div class="breadcrumb breadcrumb-meta expand">
-                    
-                    <a href="../../index.html">Module code</a>
-                    
-                    <a href="../../robot_designer_plugin.html">robot_designer_plugin</a>
-                    
-                </div>
-                
-
-                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
-                    
-                    
-                </aside>
-
-                <h1>Source code for robot_designer_plugin.operators.segments</h1><div class="highlight"><pre>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+          <li><a href="../../robot_designer_plugin.html">robot_designer_plugin</a> &raquo;</li>
+      <li>robot_designer_plugin.operators.segments</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for robot_designer_plugin.operators.segments</h1><div class="highlight"><pre>
 <span></span><span class="c1"># #####</span>
 <span class="c1"># This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
 <span class="c1"># in the Human Brain Project (HBP).</span>
@@ -122,6 +107,7 @@
 <span class="c1">#   2015-01-16: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.</span>
 <span class="c1">#</span>
 <span class="c1"># ######</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Sphinx-autodoc tag</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -132,12 +118,17 @@
 <span class="c1"># Blender imports</span>
 <span class="kn">import</span> <span class="nn">bpy</span>
 <span class="kn">from</span> <span class="nn">bpy.props</span> <span class="k">import</span> <span class="n">StringProperty</span><span class="p">,</span> <span class="n">BoolProperty</span>
-<span class="c1"># import mathutils</span>
 
 <span class="c1"># RobotDesigner imports</span>
-<span class="kn">from</span> <span class="nn">..core</span> <span class="k">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">PluginManager</span><span class="p">,</span> <span class="n">Condition</span><span class="p">,</span> <span class="n">RDOperator</span>
-
-<span class="kn">from</span> <span class="nn">.helpers</span> <span class="k">import</span> <span class="n">_mat3_to_vec_roll</span><span class="p">,</span> <span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleSegmentSelected</span><span class="p">,</span> <span class="n">PoseMode</span>
+<span class="kn">from</span> <span class="nn">.rigid_bodies</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">_mat3_to_vec_roll</span><span class="p">,</span>
+    <span class="n">ModelSelected</span><span class="p">,</span>
+    <span class="n">SingleSegmentSelected</span><span class="p">,</span>
+    <span class="n">PoseMode</span><span class="p">,</span>
+    <span class="n">AtLeastOneSegmentSelected</span><span class="p">,</span>
+    <span class="n">NotEditMode</span><span class="p">,</span>
+<span class="p">)</span>
 
 
 <div class="viewcode-block" id="SelectSegment"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.SelectSegment">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
@@ -147,28 +138,44 @@
 <span class="sd">    :term:`Operator&lt;operator&gt;` for selecting a segment. If :attr:`segment_name` is empty,</span>
 <span class="sd">    all segments will be deselected</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;select_segment&quot;</span>
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Select Segment&quot;</span>
 
-    <span class="n">segment_name</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">()</span>
+    <span class="n">segment_name</span><span class="p">:</span> <span class="n">StringProperty</span><span class="p">()</span>
 
     <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;ARMATURE&#39;</span><span class="p">):</span>  <span class="c1">#or context.active_object.type == &#39;MESH&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;ARMATURE&quot;</span>
+        <span class="p">):</span>  <span class="c1"># or context.active_object.type == &#39;MESH&#39;</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;BoneSelectionException&quot;</span><span class="p">)</span>
 
         <span class="n">model</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
+
         <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span><span class="p">:</span>
             <span class="n">b</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="kc">False</span>
 
+        <span class="c1"># Alternative to do this:</span>
+        <span class="c1"># mode = context.mode</span>
+        <span class="c1"># bpy.ops.object.mode_set(mode=&#39;EDIT&#39;)</span>
+        <span class="c1"># bpy.ops.armature.select_all(action=&#39;DESELECT&#39;)</span>
+        <span class="c1"># bpy.ops.object.mode_set(mode=mode)</span>
+
+        <span class="c1"># Second alternative:</span>
+        <span class="c1"># mode = context.mode</span>
+        <span class="c1"># bpy.ops.object.mode_set(mode=&#39;EDIT&#39;)</span>
+        <span class="c1"># for b in context.selected_bones:</span>
+        <span class="c1">#     b.select = False</span>
+        <span class="c1"># bpy.ops.object.mode_set(mode=mode)</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span><span class="p">:</span>
             <span class="n">model</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span><span class="p">]</span>
-
             <span class="n">model</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span><span class="o">.</span><span class="n">active</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">model</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span><span class="o">.</span><span class="n">active</span> <span class="o">=</span> <span class="kc">None</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span>
 
 <div class="viewcode-block" id="SelectSegment.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.SelectSegment.run">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">segment_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
@@ -183,16 +190,19 @@
 
 
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;rename_segment&quot;</span>
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Rename active segment&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Rename Active Segment&quot;</span>
 
-    <span class="n">new_name</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Enter new name:&quot;</span><span class="p">)</span>
-
+    <span class="n">new_name</span><span class="p">:</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Enter new name:&quot;</span><span class="p">)</span>
 
     <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">old_name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span>
         <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_name</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">joint_name</span> <span class="o">==</span> <span class="n">old_name</span> <span class="o">+</span> <span class="s2">&quot;_joint&quot;</span><span class="p">:</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">joint_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_name</span> <span class="o">+</span> <span class="s2">&quot;_joint&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span>
 
 <div class="viewcode-block" id="RenameSegment.invoke"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.RenameSegment.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span><span class="o">.</span><span class="n">invoke_props_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
@@ -202,7 +212,7 @@
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="bp">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div></div>
 
 
-<div class="viewcode-block" id="InsertNewParentSegment"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.InsertNewParentSegment">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleSegmentSelected</span><span class="p">,</span> <span class="n">PoseMode</span><span class="p">)</span>
+<div class="viewcode-block" id="InsertNewParentSegment"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.InsertNewParentSegment">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleSegmentSelected</span><span class="p">)</span>
 <span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
 <span class="k">class</span> <span class="nc">InsertNewParentSegment</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -210,10 +220,11 @@
 
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;createparentbone&quot;</span>
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Create new parent Bone&quot;</span>
 
-    <span class="n">segment_name</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Enter new parent bone name:&quot;</span><span class="p">)</span>
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;createparentbone&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Create New Parent Bone&quot;</span>
+
+    <span class="n">segment_name</span><span class="p">:</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Enter new parent bone name:&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="InsertNewParentSegment.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.InsertNewParentSegment.run">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">segment_name</span><span class="p">):</span>
@@ -222,11 +233,15 @@
     <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">current_segment_name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span>
-        <span class="n">parent_segment_name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">parent</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">parent_segment_name</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">parent</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">current_segment_name</span><span class="p">,</span> <span class="n">parent_segment_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">current_segment_name</span><span class="p">,</span> <span class="n">parent_segment_name</span><span class="p">))</span>
 
-        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">select_all</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s2">&quot;DESELECT&quot;</span><span class="p">)</span> <span class="c1">#todo make an operator that switches context</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">select_all</span><span class="p">(</span>
+            <span class="n">action</span><span class="o">=</span><span class="s2">&quot;DESELECT&quot;</span>
+        <span class="p">)</span>  <span class="c1"># todo make an operator that switches context</span>
 
         <span class="n">CreateNewSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span><span class="p">)</span>
         <span class="n">new_segment_name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span>
@@ -237,10 +252,8 @@
         <span class="n">SelectSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">current_segment_name</span><span class="p">)</span>
         <span class="n">AssignParentSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">parent_name</span><span class="o">=</span><span class="n">new_segment_name</span><span class="p">)</span>
 
-
-
         <span class="c1"># rearrange parent pointers accordingly in edit mode</span>
-        <span class="c1">#current_mode = context.object.mode</span>
+        <span class="c1"># current_mode = context.object.mode</span>
 
         <span class="c1"># bpy.ops.object.mode_set(mode=&#39;EDIT&#39;, toggle=False)</span>
         <span class="c1">#</span>
@@ -260,7 +273,7 @@
 
         <span class="n">UpdateSegments</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span><span class="p">,</span> <span class="n">recurse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span>
 
 <div class="viewcode-block" id="InsertNewParentSegment.invoke"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.InsertNewParentSegment.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span><span class="o">.</span><span class="n">invoke_props_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
@@ -273,10 +286,11 @@
 
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;assignparentbone&quot;</span>
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Assign parent bone&quot;</span>
 
-    <span class="n">parent_name</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">()</span>
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;assignparentbone&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Assign Parent Bone&quot;</span>
+
+    <span class="n">parent_name</span><span class="p">:</span> <span class="n">StringProperty</span><span class="p">()</span>
 
 <div class="viewcode-block" id="AssignParentSegment.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.AssignParentSegment.run">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parent_name</span><span class="p">):</span>
@@ -288,75 +302,127 @@
         <span class="n">current_segment_name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span>
 
         <span class="n">current_mode</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode</span>
-        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;EDIT&#39;</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">new_parent_editbone</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">edit_bones</span><span class="p">[</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">parent_name</span><span class="p">]</span>
-        <span class="n">current_editbone</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">edit_bones</span><span class="p">[</span>
-            <span class="n">current_segment_name</span><span class="p">]</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;EDIT&quot;</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">new_parent_editbone</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">edit_bones</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">parent_name</span><span class="p">]</span>
+        <span class="n">current_editbone</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">edit_bones</span><span class="p">[</span><span class="n">current_segment_name</span><span class="p">]</span>
         <span class="n">current_editbone</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">new_parent_editbone</span>
         <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">current_mode</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="n">UpdateSegments</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">current_segment_name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span></div>
 
 
-<div class="viewcode-block" id="ImportBlenderArmature"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.ImportBlenderArmature">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">()</span>
+<div class="viewcode-block" id="ImportBlenderArmature"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.ImportBlenderArmature">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">AtLeastOneSegmentSelected</span><span class="p">,</span> <span class="n">NotEditMode</span><span class="p">)</span>
 <span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
 <span class="k">class</span> <span class="nc">ImportBlenderArmature</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    :term:`operator` for converting a :term:`armature` into a :term:`model`</span>
-
-
+<span class="sd">    Set :term:`pose` properties and mark all selected bones as known to the robot designer.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;importnative&quot;</span>
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Import native blender segment&quot;</span>
 
-    <span class="n">recursive</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Proceed recursively?&quot;</span><span class="p">)</span>
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;importnative&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;(Re)Import Bones&quot;</span>
+
+<div class="viewcode-block" id="ImportBlenderArmature.execute_on_bone"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.ImportBlenderArmature.execute_on_bone">[docs]</a>    <span class="k">def</span> <span class="nf">execute_on_bone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bone</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Importing bone </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bone</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="c1"># Make the UpdateSegments operator consider this bone as if it has not been taken control of yet.</span>
+        <span class="c1"># Otherwise UpdateSegments would mess up the bones transform as soon as the first RD related property is changed.</span>
+        <span class="c1"># Example:</span>
+        <span class="c1"># - have this bone down a bone hierarchy. It happens to be managed by RD already.</span>
+        <span class="c1"># - Further down we do bpy.context.active_bone.RobotDesigner.Euler.x.value = xyz[0]</span>
+        <span class="c1"># - Triggers UpdateSegments</span>
+        <span class="c1"># - y, z, etc still filled with garbage.</span>
+        <span class="c1"># - UpdateSegments uses garbage to compute and assign new bone transform.</span>
+        <span class="n">bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">RD_Bone</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">parent</span> <span class="o">=</span> <span class="n">bone</span><span class="o">.</span><span class="n">parent</span>
+        <span class="k">if</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">matrix_local</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span> <span class="o">@</span> <span class="n">bone</span><span class="o">.</span><span class="n">matrix_local</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">bone</span><span class="o">.</span><span class="n">matrix_local</span>
+        <span class="n">euler</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">to_euler</span><span class="p">()</span>
+        <span class="n">xyz</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">translation</span>
+        <span class="n">bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">degrees</span><span class="p">(</span><span class="n">euler</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">degrees</span><span class="p">(</span><span class="n">euler</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">degrees</span><span class="p">(</span><span class="n">euler</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">RD_Bone</span> <span class="o">=</span> <span class="kc">True</span></div>
 
     <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">armature</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
+        <span class="c1"># Done via names because I get crashes if I keep references. Perhaps due to angling pointers inside kept references?</span>
+        <span class="n">selected_bone_names</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">armature</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">bname</span> <span class="ow">in</span> <span class="n">selected_bone_names</span><span class="p">:</span>
+            <span class="n">SelectSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">bname</span><span class="p">)</span>  <span class="c1"># required by property update callback.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">execute_on_bone</span><span class="p">(</span><span class="n">armature</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">bname</span><span class="p">])</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span></div>
 
-        <span class="n">current_mode</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode</span>
-        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;EDIT&#39;</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-        <span class="n">bone</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span>
-        <span class="n">parent</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">parent</span>
-        <span class="n">children</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">children</span>
-        <span class="n">bone</span><span class="o">.</span><span class="n">use_connect</span> <span class="o">=</span> <span class="kc">False</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
-            <span class="n">i</span><span class="o">.</span><span class="n">use_connect</span> <span class="o">=</span> <span class="kc">False</span>
+<div class="viewcode-block" id="ConvertVertexMapSkinning"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.ConvertVertexMapSkinning">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">AtLeastOneSegmentSelected</span><span class="p">,</span> <span class="n">NotEditMode</span><span class="p">)</span>
+<span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">ConvertVertexMapSkinning</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :term:`operator` Operator for converting vertex weight based skinning to</span>
+<span class="sd">    use of the bone parent property. Bone parent will be assigned to the</span>
+<span class="sd">    bone with the largest total weight. Vertex weighting will be disabled</span>
+<span class="sd">    on the mesh.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-        <span class="n">bone</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;convert_vertexmap_skinning&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Assign Selected Bones Via Vertex Maps&quot;</span>
 
-        <span class="k">if</span> <span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">m</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span> <span class="o">*</span> <span class="n">bone</span><span class="o">.</span><span class="n">matrix</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">m</span> <span class="o">=</span> <span class="n">bone</span><span class="o">.</span><span class="n">matrix</span>
+<div class="viewcode-block" id="ConvertVertexMapSkinning.allow_connect_to_that_bone_because_vertex_weight"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.allow_connect_to_that_bone_because_vertex_weight">[docs]</a>    <span class="k">def</span> <span class="nf">allow_connect_to_that_bone_because_vertex_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bone</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; There can only be one parent_bone. So in case of multiple VG&#39;s we have to decide which one to take.&quot;&quot;&quot;</span>
+        <span class="n">total_weights</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">vg</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">vertex_groups</span><span class="p">:</span>
+            <span class="n">total_weight</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">vertices</span><span class="p">)):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">total_weight</span> <span class="o">+=</span> <span class="n">vg</span><span class="o">.</span><span class="n">weight</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+            <span class="n">total_weights</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">vg</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">total_weight</span><span class="p">))</span>
+        <span class="n">bone_with_largest_weight</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">total_weights</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">bone_with_largest_weight</span> <span class="o">==</span> <span class="n">bone</span><span class="o">.</span><span class="n">name</span></div>
 
-        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">current_mode</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="viewcode-block" id="ConvertVertexMapSkinning.allow_connect_to_that_bone"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.allow_connect_to_that_bone">[docs]</a>    <span class="k">def</span> <span class="nf">allow_connect_to_that_bone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bone</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">parent_bone</span> <span class="o">==</span> <span class="n">bone</span><span class="o">.</span><span class="n">name</span> <span class="ow">or</span> <span class="p">(</span>
+            <span class="n">bone</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">vertex_groups</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_connect_to_that_bone_because_vertex_weight</span><span class="p">(</span><span class="n">bone</span><span class="p">,</span> <span class="n">obj</span><span class="p">)</span>
+        <span class="p">)</span></div>
 
-        <span class="n">euler</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">to_euler</span><span class="p">()</span>
-        <span class="n">xyz</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">translation</span>
+<div class="viewcode-block" id="ConvertVertexMapSkinning.stop_vertex_group_from_interfering"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.stop_vertex_group_from_interfering">[docs]</a>    <span class="k">def</span> <span class="nf">stop_vertex_group_from_interfering</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">armature</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">modifiers</span><span class="p">[</span><span class="n">armature</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">use_vertex_groups</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="c1"># This is the normal case actually, i.e. the object has no vertex weighting w.r.t. that bone.</span>
+            <span class="k">pass</span></div>
 
-        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">y</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">z</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">xyz</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<div class="viewcode-block" id="ConvertVertexMapSkinning.execute_on_bone"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.execute_on_bone">[docs]</a>    <span class="k">def</span> <span class="nf">execute_on_bone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bone</span><span class="p">,</span> <span class="n">armature</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">meshes_to_connect</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">ch</span> <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">armature</span><span class="o">.</span><span class="n">children</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_connect_to_that_bone</span><span class="p">(</span><span class="n">bone</span><span class="p">,</span> <span class="n">ch</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">meshes_to_connect</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                <span class="s2">&quot;Attempt to attach geometry </span><span class="si">{}</span><span class="s2"> to </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">bone</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stop_vertex_group_from_interfering</span><span class="p">(</span><span class="n">armature</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+            <span class="c1"># We just use the operators that we already have.</span>
+            <span class="c1"># Assign geometry operates on selected items - one bone and one mesh.</span>
+            <span class="n">SelectGeometry</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">geometry_name</span><span class="o">=</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">)</span></div>
+            <span class="c1"># AssignGeometry.run(</span>
+            <span class="c1">#     attach_collision_geometry=(global_properties.mesh_type == &quot;COLLISION&quot;)</span>
+            <span class="c1"># )</span>
 
-        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">degrees</span><span class="p">(</span><span class="n">euler</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">degrees</span><span class="p">(</span><span class="n">euler</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">gamma</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">degrees</span><span class="p">(</span><span class="n">euler</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
-
-        <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">RD_Bone</span> <span class="o">=</span> <span class="kc">True</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">recursive</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">children</span><span class="p">]:</span>
-                <span class="n">SelectSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
-                <span class="n">ImportBlenderArmature</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
-
-<div class="viewcode-block" id="ImportBlenderArmature.invoke"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.ImportBlenderArmature.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span><span class="o">.</span><span class="n">invoke_props_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">armature</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
+        <span class="n">bone_names</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">armature</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span> <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">select</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">bname</span> <span class="ow">in</span> <span class="n">bone_names</span><span class="p">:</span>
+            <span class="n">SelectSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">bname</span><span class="p">)</span>  <span class="c1"># required by property update callback.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">execute_on_bone</span><span class="p">(</span><span class="n">armature</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">bname</span><span class="p">],</span> <span class="n">armature</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span></div>
 
 
 <div class="viewcode-block" id="DeleteSegment"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.DeleteSegment">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleSegmentSelected</span><span class="p">)</span>
@@ -367,17 +433,18 @@
 
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;deletebone&quot;</span>
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Delete segment and ALL its children&quot;</span>
 
-    <span class="n">confirmation</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Are you sure?&quot;</span><span class="p">)</span>
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;deletebone&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Delete Segment And ALL Its Children&quot;</span>
+
+    <span class="n">confirmation</span><span class="p">:</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Are you sure?&quot;</span><span class="p">)</span>
 
     <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">confirmation</span><span class="p">:</span>
 
             <span class="n">current_mode</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode</span>
-            <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;EDIT&#39;</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;EDIT&quot;</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">bone</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">edit_bones</span><span class="p">:</span>
                 <span class="n">bone</span><span class="o">.</span><span class="n">select</span> <span class="o">=</span> <span class="kc">False</span>
 
@@ -396,43 +463,53 @@
 
             <span class="k">if</span> <span class="n">parent_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">SelectSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">parent_name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span>
 
 <div class="viewcode-block" id="DeleteSegment.invoke"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.DeleteSegment.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span><span class="o">.</span><span class="n">invoke_props_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
 
 
-<span class="c1"># class CreateNewSegment(bpy.types.Operator):</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     :term:`operator` for creating a new segment in the robot model.</span>
-<span class="c1">#</span>
-<span class="c1">#</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     bl_idname = config.OPERATOR_PREFIX + &quot;createbone&quot;</span>
-<span class="c1">#     bl_label = &quot;Create new Bone&quot;</span>
-<span class="c1">#</span>
-<span class="c1">#     boneName = StringProperty(name=&quot;Enter new bone name:&quot;)</span>
-<span class="c1">#</span>
-<span class="c1">#     def execute(self, context):</span>
-<span class="c1">#         try:</span>
-<span class="c1">#             parentBoneName = context.active_bone.name</span>
-<span class="c1">#         except:</span>
-<span class="c1">#             parentBoneName = None</span>
-<span class="c1">#</span>
-<span class="c1">#         if not context.active_object.type == &#39;ARMATURE&#39;:</span>
-<span class="c1">#             raise Exception(&quot;BoneCreationException&quot;)</span>
-<span class="c1">#             # return{&#39;FINISHED&#39;}</span>
-<span class="c1">#         armatureName = context.active_object.name</span>
-<span class="c1">#         armatures.createBone(armatureName, self.boneName, parentBoneName)</span>
-<span class="c1">#</span>
-<span class="c1">#         designer.ops.select_segment(boneName=self.boneName)</span>
-<span class="c1">#         armatures.updateKinematics(armatureName, self.boneName)</span>
-<span class="c1">#</span>
-<span class="c1">#         # TODO: set parentMode according to own parent</span>
-<span class="c1">#         return {&#39;FINISHED&#39;}</span>
-<span class="c1">#</span>
-<span class="c1">#     def invoke(self, context, event):</span>
-<span class="c1">#         return context.window_manager.invoke_props_dialog(self)</span>
+<div class="viewcode-block" id="SetDefaultJointName"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.SetDefaultJointName">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">,</span> <span class="n">SingleSegmentSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">SetDefaultJointName</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :term:`operator` for setting joint name to a default name</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;default_joint_name&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Set Joint Name to Default Name&quot;</span>
+
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">joint_name</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_joint&quot;</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="SetDefaultJointNameAll"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.SetDefaultJointNameAll">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
+<span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
+<span class="k">class</span> <span class="nc">SetDefaultJointNameAll</span><span class="p">(</span><span class="n">RDOperator</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    :term:`operator` for setting joint name to a default name for all segments</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;default_joint_name_all&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Set Joint Name to Default Name for All Segments&quot;</span>
+
+    <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
+    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;ARMATURE&quot;</span>
+        <span class="p">):</span>  <span class="c1"># or context.active_object.type == &#39;MESH&#39;</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;BoneSelectionException&quot;</span><span class="p">)</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">active_object</span>
+
+        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span><span class="p">:</span>
+            <span class="n">b</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">joint_name</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_joint&quot;</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span></div>
+
 
 <div class="viewcode-block" id="CreateNewSegment"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.CreateNewSegment">[docs]</a><span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Preconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
 <span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
@@ -442,15 +519,17 @@
 <span class="sd">    If a segment is already selected, the new segment is added as a child segment. A call :class:`SelectSegment`</span>
 <span class="sd">    before might be necessary.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;create_segment&quot;</span>
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Create new segment&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Create New Segment&quot;</span>
 
     <span class="c1"># model_name = StringProperty()</span>
-    <span class="n">segment_name</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Enter new segment name:&quot;</span><span class="p">)</span>
-    <span class="c1">#parent_name = StringProperty(default=&quot;&quot;)</span>
+    <span class="n">segment_name</span><span class="p">:</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Enter new segment name:&quot;</span><span class="p">)</span>
+
+    <span class="c1"># parent_name = StringProperty(default=&quot;&quot;)</span>
 
 <div class="viewcode-block" id="CreateNewSegment.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.CreateNewSegment.run">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">segment_name</span><span class="p">):</span><span class="c1">#, parent_name=&quot;&quot;):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">segment_name</span><span class="p">):</span>  <span class="c1"># , parent_name=&quot;&quot;):</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="bp">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
 
     <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
@@ -458,24 +537,13 @@
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">current_mode</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode</span>
         <span class="n">selected_segments</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">bones</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">select</span><span class="p">]</span>
+
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">selected_segments</span><span class="p">):</span>
             <span class="n">parent_name</span> <span class="o">=</span> <span class="n">selected_segments</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">parent_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="c1"># if not self.parent_name:</span>
-        <span class="c1">#     try:</span>
-        <span class="c1">#         parentBoneName = context.active_bone.name</span>
-        <span class="c1">#     except:</span>
-        <span class="c1">#         parentBoneName = None</span>
-        <span class="c1"># else:</span>
-        <span class="c1">#     if self.parent_name in context.active_object:</span>
-        <span class="c1">#         parentBoneName = self.parent_name</span>
-        <span class="c1">#     else:</span>
-        <span class="c1">#         parentBoneName = None</span>
-
-
-        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;EDIT&#39;</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;EDIT&quot;</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">bone</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">edit_bones</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span><span class="p">)</span>
         <span class="n">segment_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span>
         <span class="n">bone</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># Dummy</span>
@@ -486,57 +554,35 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">parent_name</span><span class="p">)</span>
             <span class="n">bone</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">edit_bones</span><span class="p">[</span><span class="n">parent_name</span><span class="p">]</span>
 
-        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;POSE&#39;</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;POSE&quot;</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="n">SelectSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">segment_name</span><span class="p">)</span>
 
+        <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">RD_Bone</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># default parent joint name of link</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">joint_name</span> <span class="o">=</span> <span class="n">segment_name</span> <span class="o">+</span> <span class="s2">&quot;_joint&quot;</span>
 
-        <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">RD_Bone</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">parent_name</span><span class="p">:</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">Euler</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mf">90.0</span>
+            <span class="n">context</span><span class="o">.</span><span class="n">active_bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">DH</span><span class="o">.</span><span class="n">alpha</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mf">90.0</span>
 
-        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">constraint_add</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;LIMIT_ROTATION&#39;</span><span class="p">)</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">constraint_add</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;LIMIT_ROTATION&quot;</span><span class="p">)</span>
         <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span>
-            <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;RobotEditorConstraint&#39;</span>
+            <span class="mi">0</span>
+        <span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;RobotDesignerConstraint&quot;</span>
         <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">current_mode</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Current mode after: </span><span class="si">%s</span><span class="s2"> (</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="n">current_mode</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Segment created. (</span><span class="si">%s</span><span class="s2"> -&gt; </span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">parent_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s2">&quot;Current mode after: </span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode</span><span class="p">,</span> <span class="n">current_mode</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Segment created. (</span><span class="si">{}</span><span class="s2"> -&gt; .format()&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">parent_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span><span class="p">))</span>
+
+        <span class="n">UpdateSegments</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">recurse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">segment_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span>
 
 <div class="viewcode-block" id="CreateNewSegment.invoke"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.CreateNewSegment.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">window_manager</span><span class="o">.</span><span class="n">invoke_props_dialog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div></div>
-
-<span class="c1"># def createBone(model_name, bone_name, parent_name=None):</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     Creates a new bone</span>
-<span class="c1">#</span>
-<span class="c1">#     :param model_name: string identifier of the armature</span>
-<span class="c1">#     :param bone_name: the name of the new bone</span>
-<span class="c1">#     :param parent_name: (optional) identifies the name of the parent bone</span>
-<span class="c1">#     &quot;&quot;&quot;</span>
-<span class="c1">#     print(&quot;createBone&quot;)</span>
-<span class="c1">#     designer.selectarmature(armatureName=model_name)</span>
-<span class="c1">#     currentMode = bpy.context.object.mode</span>
-<span class="c1">#</span>
-<span class="c1">#     print(bpy.ops.object.mode_set(mode=&#39;EDIT&#39;, toggle=False))</span>
-<span class="c1">#     # arm = bpy.data.armatures[armatureName]</span>
-<span class="c1">#     bone = bpy.data.armatures[model_name].edit_bones.new(bone_name)</span>
-<span class="c1">#     bone.head = (0, 0, 0)  # Dummy</span>
-<span class="c1">#     bone.tail = (0, 0, 1)  # Dummy</span>
-<span class="c1">#     bone.lock = True</span>
-<span class="c1">#</span>
-<span class="c1">#     if parent_name is not None:</span>
-<span class="c1">#         bone.parent = bpy.data.armatures[model_name].edit_bones[parent_name]</span>
-<span class="c1">#</span>
-<span class="c1">#     bpy.ops.object.mode_set(mode=&#39;POSE&#39;, toggle=False)</span>
-<span class="c1">#</span>
-<span class="c1">#     designer.select_segment(boneName=bone_name)</span>
-<span class="c1">#     bpy.ops.pose.constraint_add(type=&#39;LIMIT_ROTATION&#39;)</span>
-<span class="c1">#     bpy.context.object.pose.bones[bone_name].constraints[</span>
-<span class="c1">#         0].name = &#39;RobotEditorConstraint&#39;</span>
-<span class="c1">#     bpy.ops.object.mode_set(mode=currentMode, toggle=False)</span>
-<span class="c1">#</span>
-<span class="c1">#     print(&quot;createBone done&quot;)</span>
-
 
 
 <div class="viewcode-block" id="UpdateSegments"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.UpdateSegments">[docs]</a><span class="nd">@PluginManager</span><span class="o">.</span><span class="n">register_class</span>
@@ -545,20 +591,13 @@
 <span class="sd">    :term:`operator` for updating the :term:`robot models` after parameters changed.</span>
 <span class="sd">    If a :term:`segment` name is given it will proceed recursively.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;udpate_model&quot;</span>
-    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;update model&quot;</span>
+    <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Update Model&quot;</span>
 
     <span class="c1"># model_name = StringProperty()</span>
-    <span class="n">segment_name</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-    <span class="n">recurse</span> <span class="o">=</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<div class="viewcode-block" id="UpdateSegments.run"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.operators.segments.html#robot_designer_plugin.operators.segments.UpdateSegments.run">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">recurse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">segment_name</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Run this operator</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="o">**</span><span class="bp">cls</span><span class="o">.</span><span class="n">pass_keywords</span><span class="p">())</span></div>
+    <span class="n">segment_name</span><span class="p">:</span> <span class="n">StringProperty</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">recurse</span><span class="p">:</span> <span class="n">BoolProperty</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">Postconditions</span><span class="p">(</span><span class="n">ModelSelected</span><span class="p">)</span>
     <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
@@ -566,68 +605,102 @@
     <span class="c1">#    @Preconditions(ModelSelected)</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">current_mode</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="s2">&quot;UpdateSegments: recurse=</span><span class="si">{}</span><span class="s2">, bone=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">recurse</span><span class="p">),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span><span class="p">))</span>
+        <span class="p">)</span>
 
-        <span class="c1"># arm = bpy.data.armatures[armatureName]</span>
-
-        <span class="c1"># armature_data_ame = bpy.data.objects[self.model_name].data.name # conversion to operator</span>
-        <span class="n">armature_data_ame</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">armature_data_name</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">active_object</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">name</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span><span class="p">:</span>
-            <span class="n">segment_name</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_ame</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">segment_name</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_name</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="p">)</span>  <span class="c1"># Isn&#39;t this the identity operation??</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">segment_name</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_ame</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">segment_name</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_name</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
 
         <span class="n">SelectSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_ame</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">RD_Bone</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Not updated (not a RD segment): </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">segment_name</span><span class="p">)</span>
-            <span class="k">return</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="ow">not</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_name</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">RD_Bone</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Not updated (not a RD segment): </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">segment_name</span><span class="p">))</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span>
 
-        <span class="c1"># local variables for updating the constraints</span>
-        <span class="n">joint_axis</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_ame</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">axis</span>
-        <span class="n">min_rot</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_ame</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">min</span>
-        <span class="n">max_rot</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_ame</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">max</span>
-        <span class="n">jointMode</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_ame</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">jointMode</span>
-        <span class="n">jointValue</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_ame</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">bone</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_name</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span>
 
-        <span class="n">matrix</span><span class="p">,</span> <span class="n">joint_matrix</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_ame</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span>
-            <span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">RobotEditor</span><span class="o">.</span><span class="n">getTransform</span><span class="p">()</span>
+        <span class="c1"># Transforms as per RD spec.</span>
+        <span class="n">matrix</span><span class="p">,</span> <span class="n">joint_matrix</span> <span class="o">=</span> <span class="n">bone</span><span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">getTransform</span><span class="p">()</span>
 
-        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;EDIT&#39;</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;EDIT&quot;</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-        <span class="n">editbone</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_ame</span><span class="p">]</span><span class="o">.</span><span class="n">edit_bones</span><span class="p">[</span>
-            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_ame</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+        <span class="n">editbone</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_name</span><span class="p">]</span><span class="o">.</span><span class="n">edit_bones</span><span class="p">[</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_name</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+        <span class="p">]</span>
         <span class="n">editbone</span><span class="o">.</span><span class="n">use_inherit_rotation</span> <span class="o">=</span> <span class="kc">True</span>
 
+        <span class="c1"># Express desired matrix in frame of the Armature</span>
         <span class="k">if</span> <span class="n">editbone</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">transform</span> <span class="o">=</span> <span class="n">editbone</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">matrix</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">matrix</span> <span class="o">=</span> <span class="n">transform</span> <span class="o">*</span> <span class="n">matrix</span>
+            <span class="n">matrix</span> <span class="o">=</span> <span class="n">transform</span> <span class="o">@</span> <span class="n">matrix</span>
 
+        <span class="c1"># Adjust bone properties to match RD transform specs.</span>
+        <span class="c1"># Try to move it around rigidly. Keep length.</span>
         <span class="n">pos</span> <span class="o">=</span> <span class="n">matrix</span><span class="o">.</span><span class="n">to_translation</span><span class="p">()</span>
         <span class="n">axis</span><span class="p">,</span> <span class="n">roll</span> <span class="o">=</span> <span class="n">_mat3_to_vec_roll</span><span class="p">(</span><span class="n">matrix</span><span class="o">.</span><span class="n">to_3x3</span><span class="p">())</span>
-
-        <span class="n">editbone</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">pos</span>
-        <span class="n">editbone</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">axis</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="n">editbone</span><span class="o">.</span><span class="n">length</span>
+        <span class="n">editbone</span><span class="o">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">pos</span>  <span class="c1"># Changes length.</span>
+        <span class="n">editbone</span><span class="o">.</span><span class="n">tail</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="n">length</span> <span class="o">*</span> <span class="n">axis</span>
         <span class="n">editbone</span><span class="o">.</span><span class="n">roll</span> <span class="o">=</span> <span class="n">roll</span>
-
-        <span class="n">editbone</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="mi">1</span>
 
         <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">current_mode</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="c1"># update pose</span>
-        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">&#39;POSE&#39;</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">&quot;POSE&quot;</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">pose_bone</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span>
         <span class="n">pose_bone</span><span class="o">.</span><span class="n">matrix_basis</span> <span class="o">=</span> <span class="n">joint_matrix</span>
 
-        <span class="k">if</span> <span class="n">jointMode</span> <span class="o">==</span> <span class="s1">&#39;REVOLUTE&#39;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s1">&#39;RobotEditorConstraint&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pose_bone</span><span class="o">.</span><span class="n">constraints</span><span class="p">:</span>
-                <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">constraint_add</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;LIMIT_ROTATION&#39;</span><span class="p">)</span>
+        <span class="c1"># Local variables for updating the constraints</span>
+        <span class="c1"># These refer to the settings pertaining to the RD.</span>
+        <span class="n">joint_axis</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_name</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">axis</span>
+        <span class="p">)</span>
+        <span class="n">min_rot</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_name</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">min</span>
+        <span class="p">)</span>
+        <span class="n">max_rot</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_name</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">max</span>
+        <span class="p">)</span>
+        <span class="n">jointMode</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_name</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">jointMode</span>
+        <span class="p">)</span>
+        <span class="n">jointValue</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_name</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span>
+            <span class="o">.</span><span class="n">RobotDesigner</span><span class="o">.</span><span class="n">theta</span><span class="o">.</span><span class="n">value</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">jointMode</span> <span class="o">==</span> <span class="s2">&quot;REVOLUTE&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;RobotDesignerConstraint&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">pose_bone</span><span class="o">.</span><span class="n">constraints</span><span class="p">:</span>
+                <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">constraint_add</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;LIMIT_ROTATION&quot;</span><span class="p">)</span>
                 <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span>
-                    <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;RobotEditorConstraint&#39;</span>
-            <span class="n">constraint</span> <span class="o">=</span> \
-                <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pose_bone</span><span class="o">.</span><span class="n">constraints</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">&#39;LIMIT_ROTATION&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">constraint</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;RobotEditorConstraint&#39;</span>
-            <span class="n">constraint</span><span class="o">.</span><span class="n">owner_space</span> <span class="o">=</span> <span class="s1">&#39;LOCAL&#39;</span>
+                    <span class="mi">0</span>
+                <span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;RobotDesignerConstraint&quot;</span>
+            <span class="n">constraint</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">pose_bone</span><span class="o">.</span><span class="n">constraints</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;LIMIT_ROTATION&quot;</span>
+            <span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">constraint</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;RobotDesignerConstraint&quot;</span>
+            <span class="n">constraint</span><span class="o">.</span><span class="n">owner_space</span> <span class="o">=</span> <span class="s2">&quot;LOCAL&quot;</span>
             <span class="n">constraint</span><span class="o">.</span><span class="n">use_limit_x</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">constraint</span><span class="o">.</span><span class="n">use_limit_y</span> <span class="o">=</span> <span class="kc">True</span>
             <span class="n">constraint</span><span class="o">.</span><span class="n">use_limit_z</span> <span class="o">=</span> <span class="kc">True</span>
@@ -637,46 +710,60 @@
             <span class="n">constraint</span><span class="o">.</span><span class="n">max_x</span> <span class="o">=</span> <span class="mf">0.0</span>
             <span class="n">constraint</span><span class="o">.</span><span class="n">max_y</span> <span class="o">=</span> <span class="mf">0.0</span>
             <span class="n">constraint</span><span class="o">.</span><span class="n">max_z</span> <span class="o">=</span> <span class="mf">0.0</span>
-            <span class="k">if</span> <span class="n">joint_axis</span> <span class="o">==</span> <span class="s1">&#39;X&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">joint_axis</span> <span class="o">==</span> <span class="s2">&quot;X&quot;</span><span class="p">:</span>
                 <span class="n">constraint</span><span class="o">.</span><span class="n">min_x</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="n">min_rot</span><span class="p">)</span>
                 <span class="n">constraint</span><span class="o">.</span><span class="n">max_x</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="n">max_rot</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">joint_axis</span> <span class="o">==</span> <span class="s1">&#39;Y&#39;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">joint_axis</span> <span class="o">==</span> <span class="s2">&quot;Y&quot;</span><span class="p">:</span>
                 <span class="n">constraint</span><span class="o">.</span><span class="n">min_y</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="n">min_rot</span><span class="p">)</span>
                 <span class="n">constraint</span><span class="o">.</span><span class="n">max_y</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="n">max_rot</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">joint_axis</span> <span class="o">==</span> <span class="s1">&#39;Z&#39;</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="n">joint_axis</span> <span class="o">==</span> <span class="s2">&quot;Z&quot;</span><span class="p">:</span>
                 <span class="n">constraint</span><span class="o">.</span><span class="n">min_z</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="n">min_rot</span><span class="p">)</span>
                 <span class="n">constraint</span><span class="o">.</span><span class="n">max_z</span> <span class="o">=</span> <span class="n">radians</span><span class="p">(</span><span class="n">max_rot</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s2">&quot;RobotDesignerConstraint&quot;</span> <span class="ow">in</span> <span class="n">pose_bone</span><span class="o">.</span><span class="n">constraints</span><span class="p">:</span>
+            <span class="n">pose_bone</span><span class="o">.</span><span class="n">constraints</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span>
+                <span class="n">pose_bone</span><span class="o">.</span><span class="n">constraints</span><span class="p">[</span><span class="s2">&quot;RobotDesignerConstraint&quot;</span><span class="p">]</span>
+            <span class="p">)</span>
+
         <span class="c1"># -------------------------------------------------------</span>
         <span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">mode_set</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="n">current_mode</span><span class="p">,</span> <span class="n">toggle</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-        <span class="n">children_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span>
-                          <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_ame</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span>
-                              <span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">children</span><span class="p">]</span>
+        <span class="n">children_names</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">armatures</span><span class="p">[</span><span class="n">armature_data_name</span><span class="p">]</span><span class="o">.</span><span class="n">bones</span><span class="p">[</span><span class="n">segment_name</span><span class="p">]</span><span class="o">.</span><span class="n">children</span>
+        <span class="p">]</span>
         <span class="k">for</span> <span class="n">child_name</span> <span class="ow">in</span> <span class="n">children_names</span><span class="p">:</span>
             <span class="n">UpdateSegments</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">child_name</span><span class="p">,</span> <span class="n">recurse</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">recurse</span><span class="p">)</span>
 
         <span class="n">SelectSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">segment_name</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span></div>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span></div>
 </pre></div>
-            </div>
 
-            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
-                
-                
-            </aside>
-        </article>
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Human Brain Project - Neurorobotics, Benedikt Feldotto (TUM), Stefan Ulbrich (FZI).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
     </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-    <div class="hbpdoc-footer">
-        NRP RobotDesigner <small>0.1</small> 
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
-    </div>
-    </div>
-</div>
-
-  </body>
+</body>
 </html>

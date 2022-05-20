@@ -1,321 +1,400 @@
-
-
-
 <!DOCTYPE html>
-
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>robot_designer_plugin.operators.helpers module &#8212; NRP RobotDesigner 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="../_static/hbpdoc.js"></script>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>robot_designer_plugin.operators.helpers module &mdash; NRP RobotDesigner 3.2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="robot_designer_plugin.operators.model module" href="robot_designer_plugin.operators.model.html" />
-    <link rel="prev" title="robot_designer_plugin.operators.gui module" href="robot_designer_plugin.operators.gui.html" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="prev" title="robot_designer_plugin.operators.gui module" href="robot_designer_plugin.operators.gui.html" /> 
+</head>
 
-  </head>
-  <body>
-<div class="hbpdoc-page">
-    <section class="hbpdoc-title page-header">
-        <a class="project-title" href="../index.html">NRP RobotDesigner</a>
-
-        <a class="hbpdoc-toc-toggle pull-right" href>
-            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-        </a>
-    </section>
-    <section class="hbpdoc-main">
-        <nav class="hbpdoc-sidebar hbpdoc-container">
-            <a class="hbpdoc-toc-toggle pull-right" href>
-                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-            </a>
-            
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="robot_designer_plugin.operators.gui.html"
-                        title="previous chapter">robot_designer_plugin.operators.gui module</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="robot_designer_plugin.operators.model.html"
-                        title="next chapter">robot_designer_plugin.operators.model module</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/apidoc/robot_designer_plugin.operators.helpers.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> NRP RobotDesigner
+          </a>
+              <div class="version">
+                3.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../add_readme.html">The Blender RobotDesigner of the Neurorobotics Platform (NRP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_manual/index.html">User Manual</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../developer_manual/index.html">Developers Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../developer_manual/index.html#introduction">Introduction</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../developer_manual/index.html#contents">Contents</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../developer_manual/environment.html">Developing the RobotDesigner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer_manual/plugin_core.html">The Plugin Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer_manual/debugging.html">Debugging</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="modules.html">robot_designer_plugin</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="robot_designer_plugin.html">robot_designer_plugin package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../planned.html">Roadmap</a></li>
+</ul>
+
         </div>
       </div>
-        </nav>
+    </nav>
 
-        <article class="hbpdoc-content">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NRP RobotDesigner</a>
+      </nav>
 
-            <div class="content">
-                
-                <div class="breadcrumb breadcrumb-meta expand">
-                    
-                    <a href="../developer_manual/index.html">Developers Manual</a>
-                    
-                    <a href="modules.html">robot_designer_plugin</a>
-                    
-                    <a href="robot_designer_plugin.html">robot_designer_plugin package</a>
-                    
-                    <a href="robot_designer_plugin.operators.html">robot_designer_plugin.operators package</a>
-                    
-                </div>
-                
-
-                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
-                    
-                    <span class="hbpdoc-hnav-previous">
-                        previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.gui.html">robot_designer_plugin.operators.gui module</a>
-                    </span>
-                    
-                    
-                    <span class="hbpdoc-hnav-next">
-                        next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.model.html">robot_designer_plugin.operators.model module</a>
-                    </span>
-                    
-                </aside>
-
-                <div class="section" id="module-robot_designer_plugin.operators.helpers">
-<span id="robot-designer-plugin-operators-helpers-module"></span><h1>robot_designer_plugin.operators.helpers module<a class="headerlink" href="#module-robot_designer_plugin.operators.helpers" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="robot_designer_plugin.operators.helpers.AssignObjectBase">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.helpers.</code><code class="descname">AssignObjectBase</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#AssignObjectBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.AssignObjectBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../developer_manual/index.html">Developers Manual</a> &raquo;</li>
+          <li><a href="modules.html">robot_designer_plugin</a> &raquo;</li>
+          <li><a href="robot_designer_plugin.html">robot_designer_plugin package</a> &raquo;</li>
+          <li><a href="robot_designer_plugin.operators.html">robot_designer_plugin.operators package</a> &raquo;</li>
+      <li>robot_designer_plugin.operators.helpers module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/apidoc/robot_designer_plugin.operators.helpers.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-robot_designer_plugin.operators.helpers">
+<span id="robot-designer-plugin-operators-helpers-module"></span><h1>robot_designer_plugin.operators.helpers module<a class="headerlink" href="#module-robot_designer_plugin.operators.helpers" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.AssignObjectBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.helpers.</span></span><span class="sig-name descname"><span class="pre">AssignObjectBase</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#AssignObjectBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.AssignObjectBase" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p>Base class for <span class="xref std std-ref">operators</span> for assigning an object to the currently selected
 segment segment.</p>
-<dl class="method">
-<dt id="robot_designer_plugin.operators.helpers.AssignObjectBase.execute">
-<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.helpers.AssignObjectBase.execute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.AssignObjectBase.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.helpers.AssignObjectBase.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>'Context'</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.helpers.AssignObjectBase.order">
-<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘run’, ‘execute’]</em><a class="headerlink" href="#robot_designer_plugin.operators.helpers.AssignObjectBase.order" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="classmethod">
-<dt id="robot_designer_plugin.operators.helpers.AssignObjectBase.run">
-<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#AssignObjectBase.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.AssignObjectBase.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.AssignObjectBase.run">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#AssignObjectBase.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.AssignObjectBase.run" title="Permalink to this definition"></a></dt>
+<dd><p>Enables to run an <span class="xref std std-ref">operator</span> by calling its class object.
+Child classes <em>should</em> override this method with keywords. Then your <a class="reference internal" href="../developer_manual/glossary.html#term-IDE"><span class="xref std std-term">IDE</span></a> will be able to assist you
+The <code class="xref py py-meth docutils literal notranslate"><span class="pre">pass_keywords()</span></code> function makes
+overriding very convenient (just copy the method’s body):</p>
+<p>In addition, this method also does extensive error and exception handling writing everything to the log file
+(see <a class="reference internal" href="robot_designer_plugin.core.logfile.html#module-robot_designer_plugin.core.logfile" title="robot_designer_plugin.core.logfile"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logfile</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – The keyword arguments passed to the <span class="xref std std-ref">Operator</span> (<strong>must</strong> match the names of the class’s
+attributes (only of type :class:<a href="#id1"><span class="problematic" id="id2">`</span></a>bpy.types.Property).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The return values of <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.execute" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bpy.types.Operator.execute()</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.helpers.ModelSelected">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.helpers.</code><code class="descname">ModelSelected</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#ModelSelected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.ModelSelected" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
-<dl class="staticmethod">
-<dt id="robot_designer_plugin.operators.helpers.ModelSelected.check">
-<em class="property">static </em><code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#ModelSelected.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.ModelSelected.check" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.AtLeastOneSegmentSelected">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.helpers.</span></span><span class="sig-name descname"><span class="pre">AtLeastOneSegmentSelected</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#AtLeastOneSegmentSelected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.AtLeastOneSegmentSelected" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.AtLeastOneSegmentSelected.check">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#AtLeastOneSegmentSelected.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.AtLeastOneSegmentSelected.check" title="Permalink to this definition"></a></dt>
+<dd><p><span class="xref std std-ref">condition</span> that assures that at least one bone of the active object is selected</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the condition is met, else false. String with error message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.ModelSelected">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.helpers.</span></span><span class="sig-name descname"><span class="pre">ModelSelected</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#ModelSelected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.ModelSelected" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.ModelSelected.check">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#ModelSelected.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.ModelSelected.check" title="Permalink to this definition"></a></dt>
 <dd><p><span class="xref std std-ref">condition</span> that assures the armature is selected.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if the condition is met, else false. String with error message.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the condition is met, else false. String with error message.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.helpers.NotEditMode">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.helpers.</code><code class="descname">NotEditMode</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#NotEditMode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.NotEditMode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
-<dl class="staticmethod">
-<dt id="robot_designer_plugin.operators.helpers.NotEditMode.check">
-<em class="property">static </em><code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#NotEditMode.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.NotEditMode.check" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.NotEditMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.helpers.</span></span><span class="sig-name descname"><span class="pre">NotEditMode</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#NotEditMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.NotEditMode" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.NotEditMode.check">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#NotEditMode.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.NotEditMode.check" title="Permalink to this definition"></a></dt>
 <dd><p><a class="reference internal" href="../developer_manual/glossary.html#term-condition"><span class="xref std std-term">condition</span></a> that assures that the <span class="xref std std-term">edit mode</span> is <em>not</em> selected.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.helpers.ObjectMode">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.helpers.</code><code class="descname">ObjectMode</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#ObjectMode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.ObjectMode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
-<dl class="staticmethod">
-<dt id="robot_designer_plugin.operators.helpers.ObjectMode.check">
-<em class="property">static </em><code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#ObjectMode.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.ObjectMode.check" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.ObjectMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.helpers.</span></span><span class="sig-name descname"><span class="pre">ObjectMode</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#ObjectMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.ObjectMode" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.ObjectMode.check">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#ObjectMode.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.ObjectMode.check" title="Permalink to this definition"></a></dt>
 <dd><p><a class="reference internal" href="../developer_manual/glossary.html#term-condition"><span class="xref std std-term">condition</span></a> that assures that the <span class="xref std std-term">object mode</span> is selected.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.helpers.PoseMode">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.helpers.</code><code class="descname">PoseMode</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#PoseMode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.PoseMode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
-<dl class="staticmethod">
-<dt id="robot_designer_plugin.operators.helpers.PoseMode.check">
-<em class="property">static </em><code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#PoseMode.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.PoseMode.check" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.ObjectScaled">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.helpers.</span></span><span class="sig-name descname"><span class="pre">ObjectScaled</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#ObjectScaled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.ObjectScaled" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.ObjectScaled.check">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#ObjectScaled.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.ObjectScaled.check" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="../developer_manual/glossary.html#term-condition"><span class="xref std std-term">condition</span></a> that assures that model has been scaled before the operation.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.PoseMode">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.helpers.</span></span><span class="sig-name descname"><span class="pre">PoseMode</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#PoseMode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.PoseMode" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.PoseMode.check">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#PoseMode.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.PoseMode.check" title="Permalink to this definition"></a></dt>
 <dd><p><a class="reference internal" href="../developer_manual/glossary.html#term-condition"><span class="xref std std-term">condition</span></a> that assures that the <span class="xref std std-term">pose mode</span> is selected.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.helpers.SelectObjectBase">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.helpers.</code><code class="descname">SelectObjectBase</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SelectObjectBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SelectObjectBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
-<p>Base class for <span class="xref std std-ref">operators</span> for selecting an object (<a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Object.html#bpy.types.Object" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Object</span></code></a>)
-second to the selected model (Blender object with <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Armature.html#bpy.types.Armature" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Armature</span></code></a> data)</p>
-<dl class="method">
-<dt id="robot_designer_plugin.operators.helpers.SelectObjectBase.execute">
-<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SelectObjectBase.execute" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SelectObjectBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.helpers.</span></span><span class="sig-name descname"><span class="pre">SelectObjectBase</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SelectObjectBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SelectObjectBase" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p>Base class for <span class="xref std std-ref">operators</span> for selecting an object (<a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Object.html#bpy.types.Object" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.Object</span></code></a>)
+second to the selected model (Blender object with <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Armature.html#bpy.types.Armature" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.Armature</span></code></a> data)</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SelectObjectBase.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SelectObjectBase.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>'Context'</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SelectObjectBase.object_data_type">
+<span class="sig-name descname"><span class="pre">object_data_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MESH'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SelectObjectBase.object_data_type" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.helpers.SelectObjectBase.object_data_type">
-<code class="descname">object_data_type</code><em class="property"> = ‘MESH’</em><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SelectObjectBase.object_data_type" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SelectObjectBase.object_name">
+<span class="sig-name descname"><span class="pre">object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SelectObjectBase.object_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.helpers.SelectObjectBase.object_name">
-<code class="descname">object_name</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {})</em><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SelectObjectBase.object_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.helpers.SelectObjectBase.order">
-<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘object_name’, ‘object_data_type’, ‘run’, ‘execute’]</em><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SelectObjectBase.order" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="classmethod">
-<dt id="robot_designer_plugin.operators.helpers.SelectObjectBase.run">
-<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SelectObjectBase.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SelectObjectBase.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SelectObjectBase.run">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SelectObjectBase.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SelectObjectBase.run" title="Permalink to this definition"></a></dt>
+<dd><p>Enables to run an <span class="xref std std-ref">operator</span> by calling its class object.
+Child classes <em>should</em> override this method with keywords. Then your <a class="reference internal" href="../developer_manual/glossary.html#term-IDE"><span class="xref std std-term">IDE</span></a> will be able to assist you
+The <code class="xref py py-meth docutils literal notranslate"><span class="pre">pass_keywords()</span></code> function makes
+overriding very convenient (just copy the method’s body):</p>
+<p>In addition, this method also does extensive error and exception handling writing everything to the log file
+(see <a class="reference internal" href="robot_designer_plugin.core.logfile.html#module-robot_designer_plugin.core.logfile" title="robot_designer_plugin.core.logfile"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logfile</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – The keyword arguments passed to the <span class="xref std std-ref">Operator</span> (<strong>must</strong> match the names of the class’s
+attributes (only of type :class:<a href="#id3"><span class="problematic" id="id4">`</span></a>bpy.types.Property).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The return values of <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.execute" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bpy.types.Operator.execute()</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.helpers.SingleCameraSelected">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.helpers.</code><code class="descname">SingleCameraSelected</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleCameraSelected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleCameraSelected" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
-<dl class="staticmethod">
-<dt id="robot_designer_plugin.operators.helpers.SingleCameraSelected.check">
-<em class="property">static </em><code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleCameraSelected.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleCameraSelected.check" title="Permalink to this definition">¶</a></dt>
-<dd><p><a class="reference internal" href="../developer_manual/glossary.html#term-condition"><span class="xref std std-term">condition</span></a> that assures that a <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Camera.html#bpy.types.Camera" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Camera</span></code></a> associated object is selected.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SingleCameraSelected">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.helpers.</span></span><span class="sig-name descname"><span class="pre">SingleCameraSelected</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleCameraSelected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleCameraSelected" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SingleCameraSelected.check">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleCameraSelected.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleCameraSelected.check" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="../developer_manual/glossary.html#term-condition"><span class="xref std std-term">condition</span></a> that assures that a <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Camera.html#bpy.types.Camera" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.Camera</span></code></a> associated object is selected.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.helpers.SingleMassObjectSelected">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.helpers.</code><code class="descname">SingleMassObjectSelected</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleMassObjectSelected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleMassObjectSelected" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
-<dl class="staticmethod">
-<dt id="robot_designer_plugin.operators.helpers.SingleMassObjectSelected.check">
-<em class="property">static </em><code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleMassObjectSelected.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleMassObjectSelected.check" title="Permalink to this definition">¶</a></dt>
-<dd><p><a class="reference internal" href="../developer_manual/glossary.html#term-condition"><span class="xref std std-term">condition</span></a> that assures that a <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Camera.html#bpy.types.Camera" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal"><span class="pre">bpy.types.Camera</span></code></a> associated object is selected.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SingleMassObjectSelected">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.helpers.</span></span><span class="sig-name descname"><span class="pre">SingleMassObjectSelected</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleMassObjectSelected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleMassObjectSelected" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SingleMassObjectSelected.check">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleMassObjectSelected.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleMassObjectSelected.check" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="../developer_manual/glossary.html#term-condition"><span class="xref std std-term">condition</span></a> that assures that a <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Camera.html#bpy.types.Camera" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bpy.types.Camera</span></code></a> associated object is selected.</p>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.helpers.SingleMeshSelected">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.helpers.</code><code class="descname">SingleMeshSelected</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleMeshSelected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleMeshSelected" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
-<dl class="staticmethod">
-<dt id="robot_designer_plugin.operators.helpers.SingleMeshSelected.check">
-<em class="property">static </em><code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleMeshSelected.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleMeshSelected.check" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SingleMeshSelected">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.helpers.</span></span><span class="sig-name descname"><span class="pre">SingleMeshSelected</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleMeshSelected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleMeshSelected" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SingleMeshSelected.check">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleMeshSelected.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleMeshSelected.check" title="Permalink to this definition"></a></dt>
 <dd><p><span class="xref std std-ref">condition</span> that assures that a single mesh object (i.e., two selected objects where exactly one is a mesh).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if the condition is met, else false. String with error message.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the condition is met, else false. String with error message.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.helpers.SingleSegmentSelected">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.helpers.</code><code class="descname">SingleSegmentSelected</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleSegmentSelected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleSegmentSelected" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
-<dl class="staticmethod">
-<dt id="robot_designer_plugin.operators.helpers.SingleSegmentSelected.check">
-<em class="property">static </em><code class="descname">check</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleSegmentSelected.check"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleSegmentSelected.check" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SingleSegmentSelected">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.helpers.</span></span><span class="sig-name descname"><span class="pre">SingleSegmentSelected</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleSegmentSelected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleSegmentSelected" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SingleSegmentSelected.check">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleSegmentSelected.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleSegmentSelected.check" title="Permalink to this definition"></a></dt>
 <dd><p><span class="xref std std-ref">condition</span> that assures that a single mesh object (i.e., two selected objects where exactly one is a mesh).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if the condition is met, else false. String with error message.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the condition is met, else false. String with error message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SingleSensorSelected">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.helpers.</span></span><span class="sig-name descname"><span class="pre">SingleSensorSelected</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleSensorSelected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleSensorSelected" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.SingleSensorSelected.check">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#SingleSensorSelected.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.SingleSensorSelected.check" title="Permalink to this definition"></a></dt>
+<dd><p><span class="xref std std-ref">condition</span> that assures that a single sensor object ist selected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the condition is met, else false. String with error message.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.WorldSelected">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.helpers.</span></span><span class="sig-name descname"><span class="pre">WorldSelected</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#WorldSelected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.WorldSelected" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.conditions.html#robot_designer_plugin.core.conditions.Condition" title="robot_designer_plugin.core.conditions.Condition"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.conditions.Condition</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.helpers.WorldSelected.check">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/helpers.html#WorldSelected.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.helpers.WorldSelected.check" title="Permalink to this definition"></a></dt>
+<dd><p><span class="xref std std-ref">condition</span> that assures that a single world object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the condition is met, else false. String with error message.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 </div>
 
-            </div>
 
-            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
-                
-                <span class="hbpdoc-hnav-previous">
-                    previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.gui.html">robot_designer_plugin.operators.gui module</a>
-                </span>
-                
-                
-                <span class="hbpdoc-hnav-next">
-                    next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.model.html">robot_designer_plugin.operators.model module</a>
-                </span>
-                
-            </aside>
-        </article>
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="robot_designer_plugin.operators.gui.html" class="btn btn-neutral float-left" title="robot_designer_plugin.operators.gui module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="robot_designer_plugin.operators.model.html" class="btn btn-neutral float-right" title="robot_designer_plugin.operators.model module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Human Brain Project - Neurorobotics, Benedikt Feldotto (TUM), Stefan Ulbrich (FZI).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
     </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-    <div class="hbpdoc-footer">
-        NRP RobotDesigner <small>0.1</small> 
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
-    </div>
-    </div>
-</div>
-
-  </body>
+</body>
 </html>

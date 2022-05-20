@@ -1,91 +1,76 @@
-
-
-
 <!DOCTYPE html>
-
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>robot_designer_plugin.core.property &#8212; NRP RobotDesigner 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../../../_static/hbpdoc.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>robot_designer_plugin.core.property &mdash; NRP RobotDesigner 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
 
-  </head>
-  <body>
-<div class="hbpdoc-page">
-    <section class="hbpdoc-title page-header">
-        <a class="project-title" href="../../../index.html">NRP RobotDesigner</a>
-
-        <a class="hbpdoc-toc-toggle pull-right" href>
-            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-        </a>
-    </section>
-    <section class="hbpdoc-main">
-        <nav class="hbpdoc-sidebar hbpdoc-container">
-            <a class="hbpdoc-toc-toggle pull-right" href>
-                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-            </a>
-            
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> NRP RobotDesigner
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../add_readme.html">The Blender RobotDesigner of the Neurorobotics Platform (NRP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_manual/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_manual/index.html">Developers Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../planned.html">Roadmap</a></li>
+</ul>
+
         </div>
       </div>
-        </nav>
+    </nav>
 
-        <article class="hbpdoc-content">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NRP RobotDesigner</a>
+      </nav>
 
-            <div class="content">
-                
-                <div class="breadcrumb breadcrumb-meta expand">
-                    
-                    <a href="../../index.html">Module code</a>
-                    
-                    <a href="../../robot_designer_plugin.html">robot_designer_plugin</a>
-                    
-                </div>
-                
-
-                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
-                    
-                    
-                </aside>
-
-                <h1>Source code for robot_designer_plugin.core.property</h1><div class="highlight"><pre>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+          <li><a href="../../robot_designer_plugin.html">robot_designer_plugin</a> &raquo;</li>
+      <li>robot_designer_plugin.core.property</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for robot_designer_plugin.core.property</h1><div class="highlight"><pre>
 <span></span><span class="c1"># # This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
 <span class="c1"># in the Human Brain Project (HBP).</span>
 <span class="c1"># It has been forked from the RobotEditor (https://gitlab.com/h2t/roboteditor)</span>
@@ -124,6 +109,7 @@
 <span class="kn">from</span> <span class="nn">bpy.props</span> <span class="k">import</span> <span class="n">PointerProperty</span><span class="p">,</span> <span class="n">FloatProperty</span><span class="p">,</span> <span class="n">StringProperty</span>
 <span class="kn">from</span> <span class="nn">.logfile</span> <span class="k">import</span> <span class="n">core_logger</span>
 
+
 <div class="viewcode-block" id="PropertyHandler"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.property.html#robot_designer_plugin.core.property.PropertyHandler">[docs]</a><span class="k">class</span> <span class="nc">PropertyHandler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Wraps a Blender property factory functions (e.g., :func:`bpy.props.StringProperty`, :func:`bpy.props.FloatProperty` or</span>
@@ -138,6 +124,7 @@
 
 
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">property</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">property</span> <span class="o">=</span> <span class="nb">property</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">reference</span> <span class="o">=</span> <span class="p">[]</span>
@@ -156,17 +143,16 @@
 <span class="sd">        :param obj: A Blender object with additional properties defined by the wrapper classes.</span>
 <span class="sd">        :return: The property.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="s2">&quot;RobotDesigner&quot;</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;RobotDesigner&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference</span><span class="p">:</span>
             <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">obj</span></div>
 
-<div class="viewcode-block" id="PropertyHandler.set"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.property.html#robot_designer_plugin.core.property.PropertyHandler.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">obj</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="s2">&quot;RobotDesigner&quot;</span><span class="p">)</span>
+<div class="viewcode-block" id="PropertyHandler.set"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.property.html#robot_designer_plugin.core.property.PropertyHandler.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;RobotDesigner&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
             <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
-        <span class="nb">setattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">value</span><span class="p">)</span></div>
-
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">value</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="PropertyHandler.prop"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.property.html#robot_designer_plugin.core.property.PropertyHandler.prop">[docs]</a>    <span class="k">def</span> <span class="nf">prop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -185,9 +171,9 @@
 <span class="sd">        :param obj: A Blender object with additional properties defined by the wrapper classes.</span>
 <span class="sd">        :param layout:  A :class:`bpy.types.UIlayout` reference.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="s1">&#39;RobotDesigner&#39;</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39;RobotDesigner&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-            <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
 
         <span class="n">layout</span><span class="o">.</span><span class="n">prop</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
@@ -210,13 +196,11 @@
 <span class="sd">        :param obj: A Blender object with additional properties defined by the wrapper classes.</span>
 <span class="sd">        :param layout:  A :class:`bpy.types.UIlayout` reference.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="s1">&#39;RobotDesigner&#39;</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">&#39;RobotDesigner&#39;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-            <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
 
         <span class="n">layout</span><span class="o">.</span><span class="n">prop_search</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
-
-
 
 
 <div class="viewcode-block" id="PropertyGroupHandlerBase"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.property.html#robot_designer_plugin.core.property.PropertyGroupHandlerBase">[docs]</a><span class="k">class</span> <span class="nc">PropertyGroupHandlerBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -271,15 +255,17 @@
         <span class="k">if</span> <span class="n">bpy</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">version</span> <span class="o">==</span> <span class="s1">&#39;Mockup&#39;</span><span class="p">:</span>
             <span class="k">return</span>
 
-        <span class="n">newPropertyGroup</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;_unwrapped&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PropertyGroup</span><span class="p">,),</span> <span class="p">{})</span>
+        <span class="n">newPropertyGroup</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;_unwrapped&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PropertyGroup</span><span class="p">,),</span> <span class="p">{</span><span class="s1">&#39;__annotations__&#39;</span><span class="p">:</span> <span class="p">{}})</span>
 
         <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">PropertyHandler</span><span class="p">):</span>
+
                 <span class="n">attr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">property</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;attr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                <span class="c1"># print(attr[0], attr[1].d)</span>
-                <span class="nb">property</span><span class="o">=</span><span class="n">attr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">property</span>
-                <span class="nb">setattr</span><span class="p">(</span><span class="n">newPropertyGroup</span><span class="p">,</span> <span class="n">attr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">property</span><span class="p">)</span> <span class="c1"># property[0](**property[1]))</span>
+                <span class="nb">property</span> <span class="o">=</span> <span class="n">attr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">property</span>
+
+                <span class="n">newPropertyGroup</span><span class="o">.</span><span class="vm">__annotations__</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">attr</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="nb">property</span><span class="p">})</span>
                 <span class="n">attr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reference</span> <span class="o">=</span> <span class="n">parent</span> <span class="o">+</span> <span class="p">[</span><span class="n">attr</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+
             <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">attr</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">PropertyGroupHandlerBase</span><span class="p">):</span>
                 <span class="n">pg</span> <span class="o">=</span> <span class="n">attr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span> <span class="o">+</span> <span class="p">[</span><span class="n">attr</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
                 <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pg</span><span class="p">),</span> <span class="n">pg</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">)</span>
@@ -287,35 +273,48 @@
                 <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;attr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">attr</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="n">newPropertyGroup</span><span class="p">,</span> <span class="n">attr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">)</span>
 
-        <span class="n">core_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Registering generated property group: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">newPropertyGroup</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">core_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Registering generated property group: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">newPropertyGroup</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+
         <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_class</span><span class="p">(</span><span class="n">newPropertyGroup</span><span class="p">)</span>
-        <span class="n">PluginManager</span><span class="o">.</span><span class="n">_registered_properties</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">newPropertyGroup</span><span class="p">,</span><span class="n">btype</span><span class="p">))</span>
+        <span class="n">PluginManager</span><span class="o">.</span><span class="n">_registered_properties</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">newPropertyGroup</span><span class="p">,</span> <span class="n">btype</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">btype</span><span class="p">:</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="n">btype</span><span class="p">,</span><span class="s1">&#39;RobotDesigner&#39;</span><span class="p">,</span>
-                    <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="p">,</span> <span class="n">newPropertyGroup</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)))</span>
-            <span class="n">core_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Assigning property to: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">btype</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">btype</span><span class="p">,</span> <span class="s1">&#39;RobotDesigner&#39;</span><span class="p">,</span>
+                    <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">newPropertyGroup</span><span class="p">))</span>
+            <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            According to blender:</span>
+<span class="sd">            Classes registered by addons are no longer available in bpy.types.</span>
+<span class="sd">            Instead addons can import their own modules and access the classes directly.</span>
+<span class="sd">            This is probably why the above code isn&#39;t working. But how to do it then?</span>
+<span class="sd">            &#39;&#39;&#39;</span>
+            <span class="n">core_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Assigning property to: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">btype</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">newPropertyGroup</span></div></div>
-
-
 </pre></div>
-            </div>
 
-            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
-                
-                
-            </aside>
-        </article>
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Human Brain Project - Neurorobotics, Benedikt Feldotto (TUM), Stefan Ulbrich (FZI).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
     </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-    <div class="hbpdoc-footer">
-        NRP RobotDesigner <small>0.1</small> 
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
-    </div>
-    </div>
-</div>
-
-  </body>
+</body>
 </html>

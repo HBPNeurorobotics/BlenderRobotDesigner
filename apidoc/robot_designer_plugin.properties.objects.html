@@ -1,341 +1,126 @@
-
-
-
 <!DOCTYPE html>
-
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>robot_designer_plugin.properties.objects module &#8212; NRP RobotDesigner 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="../_static/hbpdoc.js"></script>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>robot_designer_plugin.properties.objects module &mdash; NRP RobotDesigner 3.2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="robot_designer_plugin.properties.segments module" href="robot_designer_plugin.properties.segments.html" />
-    <link rel="prev" title="robot_designer_plugin.properties.globals module" href="robot_designer_plugin.properties.globals.html" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="prev" title="robot_designer_plugin.properties.globals module" href="robot_designer_plugin.properties.globals.html" /> 
+</head>
 
-  </head>
-  <body>
-<div class="hbpdoc-page">
-    <section class="hbpdoc-title page-header">
-        <a class="project-title" href="../index.html">NRP RobotDesigner</a>
-
-        <a class="hbpdoc-toc-toggle pull-right" href>
-            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-        </a>
-    </section>
-    <section class="hbpdoc-main">
-        <nav class="hbpdoc-sidebar hbpdoc-container">
-            <a class="hbpdoc-toc-toggle pull-right" href>
-                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-            </a>
-            
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="robot_designer_plugin.properties.globals.html"
-                        title="previous chapter">robot_designer_plugin.properties.globals module</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="robot_designer_plugin.properties.segments.html"
-                        title="next chapter">robot_designer_plugin.properties.segments module</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/apidoc/robot_designer_plugin.properties.objects.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> NRP RobotDesigner
+          </a>
+              <div class="version">
+                3.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">The Blender RobotDesigner of the Neurorobotics Platform (NRP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_manual/index.html">User Manual</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../developer_manual/index.html">Developers Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../developer_manual/index.html#introduction">Introduction</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../developer_manual/index.html#contents">Contents</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../developer_manual/environment.html">Developing the RobotDesigner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer_manual/plugin_core.html">The Plugin Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer_manual/debugging.html">Debugging</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="modules.html">robot_designer_plugin</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="robot_designer_plugin.html">robot_designer_plugin package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../planned.html">Roadmap</a></li>
+</ul>
+
         </div>
       </div>
-        </nav>
+    </nav>
 
-        <article class="hbpdoc-content">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NRP RobotDesigner</a>
+      </nav>
 
-            <div class="content">
-                
-                <div class="breadcrumb breadcrumb-meta expand">
-                    
-                    <a href="../developer_manual/index.html">Developers Manual</a>
-                    
-                    <a href="modules.html">robot_designer_plugin</a>
-                    
-                    <a href="robot_designer_plugin.html">robot_designer_plugin package</a>
-                    
-                    <a href="robot_designer_plugin.properties.html">robot_designer_plugin.properties package</a>
-                    
-                </div>
-                
-
-                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
-                    
-                    <span class="hbpdoc-hnav-previous">
-                        previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.properties.globals.html">robot_designer_plugin.properties.globals module</a>
-                    </span>
-                    
-                    
-                    <span class="hbpdoc-hnav-next">
-                        next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.properties.segments.html">robot_designer_plugin.properties.segments module</a>
-                    </span>
-                    
-                </aside>
-
-                <div class="section" id="module-robot_designer_plugin.properties.objects">
-<span id="robot-designer-plugin-properties-objects-module"></span><h1>robot_designer_plugin.properties.objects module<a class="headerlink" href="#module-robot_designer_plugin.properties.objects" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="robot_designer_plugin.properties.objects.RDAuthor">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.properties.objects.</code><code class="descname">RDAuthor</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/properties/objects.html#RDAuthor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDAuthor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bpy_types.PropertyGroup</span></code></p>
-<p>Property group that contains author details such as name and email</p>
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDAuthor.authorEmail">
-<code class="descname">authorEmail</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘authorEmail’, ‘name’: ‘author email’})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDAuthor.authorEmail" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDAuthor.authorName">
-<code class="descname">authorName</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘authorName’, ‘name’: ‘author name’})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDAuthor.authorName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDAuthor.bl_rna">
-<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“RDAuthor”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDAuthor.bl_rna" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="robot_designer_plugin.properties.objects.RDCamera">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.properties.objects.</code><code class="descname">RDCamera</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/properties/objects.html#RDCamera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDCamera" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bpy_types.PropertyGroup</span></code></p>
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDCamera.bl_rna">
-<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“RDCamera”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDCamera.bl_rna" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDCamera.format">
-<code class="descname">format</code><em class="property"> = (&lt;built-in function EnumProperty&gt;, {‘attr’: ‘format’, ‘items’: [(‘L8’, ‘L8’, ‘L8’), (‘R8G8B8’, ‘R8G8B8’, ‘R8G8B8’), (‘B8G8R8’, ‘B8G8R8’, ‘B8G8R8’), (‘BAYER_RGGB8’, ‘BAYER_RGGB8’, ‘BAYER_RGGB8’), (‘BAYER_BGGR8’, ‘BAYER_BGGR8’, ‘BAYER_BGGR8’), (‘BAYER_GBRG8’, ‘BAYER_GBRG8’, ‘BAYER_GBRG8’), (‘BAYER_GRBG8’, ‘BAYER_GRBG8’, ‘BAYER_GRBG8’)]})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDCamera.format" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDCamera.height">
-<code class="descname">height</code><em class="property"> = (&lt;built-in function IntProperty&gt;, {‘min’: 1, ‘attr’: ‘height’, ‘default’: 240})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDCamera.height" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDCamera.width">
-<code class="descname">width</code><em class="property"> = (&lt;built-in function IntProperty&gt;, {‘min’: 1, ‘attr’: ‘width’, ‘default’: 320})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDCamera.width" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="robot_designer_plugin.properties.objects.RDDynamics">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.properties.objects.</code><code class="descname">RDDynamics</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/properties/objects.html#RDDynamics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDDynamics" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bpy_types.PropertyGroup</span></code></p>
-<p>Property group that contains dynamics values</p>
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDDynamics.bl_rna">
-<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“RDDynamics”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDDynamics.bl_rna" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDDynamics.inertiaRot">
-<code class="descname">inertiaRot</code><em class="property"> = (&lt;built-in function FloatVectorProperty&gt;, {‘precision’: 4, ‘attr’: ‘inertiaRot’, ‘name’: ‘Rotation’, ‘step’: 0.1, ‘default’: [0.0, 0.0, 0.0]})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDDynamics.inertiaRot" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDDynamics.inertiaTrans">
-<code class="descname">inertiaTrans</code><em class="property"> = (&lt;built-in function FloatVectorProperty&gt;, {‘precision’: 4, ‘attr’: ‘inertiaTrans’, ‘name’: ‘Translation’, ‘step’: 0.1, ‘default’: [0.0, 0.0, 0.0]})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDDynamics.inertiaTrans" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDDynamics.inertiaXX">
-<code class="descname">inertiaXX</code><em class="property"> = (&lt;built-in function FloatProperty&gt;, {‘precision’: 4, ‘attr’: ‘inertiaXX’, ‘name’: ”, ‘step’: 0.1, ‘default’: 1.0})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDDynamics.inertiaXX" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDDynamics.inertiaXY">
-<code class="descname">inertiaXY</code><em class="property"> = (&lt;built-in function FloatProperty&gt;, {‘precision’: 4, ‘attr’: ‘inertiaXY’, ‘name’: ”, ‘step’: 0.1, ‘default’: 1.0})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDDynamics.inertiaXY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDDynamics.inertiaXZ">
-<code class="descname">inertiaXZ</code><em class="property"> = (&lt;built-in function FloatProperty&gt;, {‘precision’: 4, ‘attr’: ‘inertiaXZ’, ‘name’: ”, ‘step’: 0.1, ‘default’: 1.0})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDDynamics.inertiaXZ" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDDynamics.inertiaYY">
-<code class="descname">inertiaYY</code><em class="property"> = (&lt;built-in function FloatProperty&gt;, {‘precision’: 4, ‘attr’: ‘inertiaYY’, ‘name’: ”, ‘step’: 0.1, ‘default’: 1.0})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDDynamics.inertiaYY" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDDynamics.inertiaYZ">
-<code class="descname">inertiaYZ</code><em class="property"> = (&lt;built-in function FloatProperty&gt;, {‘precision’: 4, ‘attr’: ‘inertiaYZ’, ‘name’: ”, ‘step’: 0.1, ‘default’: 1.0})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDDynamics.inertiaYZ" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDDynamics.inertiaZZ">
-<code class="descname">inertiaZZ</code><em class="property"> = (&lt;built-in function FloatProperty&gt;, {‘precision’: 4, ‘attr’: ‘inertiaZZ’, ‘name’: ”, ‘step’: 0.1, ‘default’: 1.0})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDDynamics.inertiaZZ" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDDynamics.mass">
-<code class="descname">mass</code><em class="property"> = (&lt;built-in function FloatProperty&gt;, {‘precision’: 4, ‘attr’: ‘mass’, ‘name’: ‘Mass (kg)’, ‘step’: 0.1, ‘default’: 1.0})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDDynamics.mass" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="robot_designer_plugin.properties.objects.RDLaser">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.properties.objects.</code><code class="descname">RDLaser</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/properties/objects.html#RDLaser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDLaser" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bpy_types.PropertyGroup</span></code></p>
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDLaser.bl_rna">
-<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“RDLaser”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDLaser.bl_rna" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDLaser.horizontal_samples">
-<code class="descname">horizontal_samples</code><em class="property"> = (&lt;built-in function IntProperty&gt;, {‘min’: 1, ‘attr’: ‘horizontal_samples’, ‘name’: ‘horizontal samples’, ‘default’: 320})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDLaser.horizontal_samples" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDLaser.resolution">
-<code class="descname">resolution</code><em class="property"> = (&lt;built-in function EnumProperty&gt;, {‘attr’: ‘resolution’, ‘items’: [(‘8-Bit’, ‘8-Bit’, ‘8-Bit’), (‘16-Bit’, ‘16-Bit’, ‘16-Bit’)]})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDLaser.resolution" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDLaser.vertical_samples">
-<code class="descname">vertical_samples</code><em class="property"> = (&lt;built-in function IntProperty&gt;, {‘min’: 1, ‘attr’: ‘vertical_samples’, ‘name’: ‘vertical samples’, ‘default’: 240})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDLaser.vertical_samples" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="robot_designer_plugin.properties.objects.RDModelMeta">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.properties.objects.</code><code class="descname">RDModelMeta</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/properties/objects.html#RDModelMeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDModelMeta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bpy_types.PropertyGroup</span></code></p>
-<p>Property group that contains model meta data suc as name, version and description</p>
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDModelMeta.bl_rna">
-<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“RDModelMeta”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDModelMeta.bl_rna" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDModelMeta.model_description">
-<code class="descname">model_description</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘model_description’, ‘name’: ‘Description’})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDModelMeta.model_description" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDModelMeta.model_version">
-<code class="descname">model_version</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘model_version’, ‘name’: ‘Version’, ‘default’: ‘1.0’})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDModelMeta.model_version" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="robot_designer_plugin.properties.objects.RDObjects">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.properties.objects.</code><code class="descname">RDObjects</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/properties/objects.html#RDObjects"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDObjects" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">bpy_types.PropertyGroup</span></code></p>
-<p>Property group that stores general information for individual Blender
-objects with respect to the RobotEditor</p>
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDObjects.author">
-<code class="descname">author</code><em class="property"> = (&lt;built-in function PointerProperty&gt;, {‘type’: &lt;class ‘robot_designer_plugin.properties.objects.RDAuthor’&gt;, ‘attr’: ‘author’})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDObjects.author" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDObjects.bl_rna">
-<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“RDObjects”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDObjects.bl_rna" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDObjects.camera">
-<code class="descname">camera</code><em class="property"> = (&lt;built-in function PointerProperty&gt;, {‘type’: &lt;class ‘robot_designer_plugin.properties.objects.RDCamera’&gt;, ‘attr’: ‘camera’})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDObjects.camera" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDObjects.dynamics">
-<code class="descname">dynamics</code><em class="property"> = (&lt;built-in function PointerProperty&gt;, {‘type’: &lt;class ‘robot_designer_plugin.properties.objects.RDDynamics’&gt;, ‘attr’: ‘dynamics’})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDObjects.dynamics" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDObjects.fileName">
-<code class="descname">fileName</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘fileName’, ‘name’: ‘Mesh File Name’})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDObjects.fileName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDObjects.modelMeta">
-<code class="descname">modelMeta</code><em class="property"> = (&lt;built-in function PointerProperty&gt;, {‘type’: &lt;class ‘robot_designer_plugin.properties.objects.RDModelMeta’&gt;, ‘attr’: ‘modelMeta’})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDObjects.modelMeta" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.properties.objects.RDObjects.tag">
-<code class="descname">tag</code><em class="property"> = (&lt;built-in function EnumProperty&gt;, {‘attr’: ‘tag’, ‘items’: [(‘DEFAULT’, ‘Default’, ‘Default’), (‘MARKER’, ‘Marker’, ‘Marker’), (‘PHYSICS_FRAME’, ‘Physics Frame’, ‘Physics Frame’), (‘ARMATURE’, ‘Armature’, ‘Armature’), (‘COLLISION’, ‘Collision’, ‘Collision’), (‘CAMERA_SENSOR’, ‘Camera sensor’, ‘Camera sensor’), (‘LASER_SENSOR’, ‘Laser sensor’, ‘Laser sensor’)]})</em><a class="headerlink" href="#robot_designer_plugin.properties.objects.RDObjects.tag" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../developer_manual/index.html">Developers Manual</a> &raquo;</li>
+          <li><a href="modules.html">robot_designer_plugin</a> &raquo;</li>
+          <li><a href="robot_designer_plugin.html">robot_designer_plugin package</a> &raquo;</li>
+          <li><a href="robot_designer_plugin.properties.html">robot_designer_plugin.properties package</a> &raquo;</li>
+      <li>robot_designer_plugin.properties.objects module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/apidoc/robot_designer_plugin.properties.objects.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="robot-designer-plugin-properties-objects-module">
+<h1>robot_designer_plugin.properties.objects module<a class="headerlink" href="#robot-designer-plugin-properties-objects-module" title="Permalink to this headline"></a></h1>
 </div>
 
-            </div>
 
-            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
-                
-                <span class="hbpdoc-hnav-previous">
-                    previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.properties.globals.html">robot_designer_plugin.properties.globals module</a>
-                </span>
-                
-                
-                <span class="hbpdoc-hnav-next">
-                    next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.properties.segments.html">robot_designer_plugin.properties.segments module</a>
-                </span>
-                
-            </aside>
-        </article>
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="robot_designer_plugin.properties.globals.html" class="btn btn-neutral float-left" title="robot_designer_plugin.properties.globals module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="robot_designer_plugin.properties.segments.html" class="btn btn-neutral float-right" title="robot_designer_plugin.properties.segments module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Human Brain Project - Neurorobotics, Benedikt Feldotto (TUM), Stefan Ulbrich (FZI).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
     </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-    <div class="hbpdoc-footer">
-        NRP RobotDesigner <small>0.1</small> 
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
-    </div>
-    </div>
-</div>
-
-  </body>
+</body>
 </html>

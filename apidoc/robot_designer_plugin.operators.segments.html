@@ -1,540 +1,919 @@
-
-
-
 <!DOCTYPE html>
-
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>robot_designer_plugin.operators.segments module &#8212; NRP RobotDesigner 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="../_static/hbpdoc.js"></script>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>robot_designer_plugin.operators.segments module &mdash; NRP RobotDesigner 3.2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="robot_designer_plugin.operators.soft_bodies module" href="robot_designer_plugin.operators.soft_bodies.html" />
-    <link rel="prev" title="robot_designer_plugin.operators.rigid_bodies module" href="robot_designer_plugin.operators.rigid_bodies.html" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="prev" title="robot_designer_plugin.operators.rigid_bodies module" href="robot_designer_plugin.operators.rigid_bodies.html" /> 
+</head>
 
-  </head>
-  <body>
-<div class="hbpdoc-page">
-    <section class="hbpdoc-title page-header">
-        <a class="project-title" href="../index.html">NRP RobotDesigner</a>
-
-        <a class="hbpdoc-toc-toggle pull-right" href>
-            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-        </a>
-    </section>
-    <section class="hbpdoc-main">
-        <nav class="hbpdoc-sidebar hbpdoc-container">
-            <a class="hbpdoc-toc-toggle pull-right" href>
-                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-            </a>
-            
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="robot_designer_plugin.operators.rigid_bodies.html"
-                        title="previous chapter">robot_designer_plugin.operators.rigid_bodies module</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="robot_designer_plugin.operators.soft_bodies.html"
-                        title="next chapter">robot_designer_plugin.operators.soft_bodies module</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/apidoc/robot_designer_plugin.operators.segments.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> NRP RobotDesigner
+          </a>
+              <div class="version">
+                3.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../add_readme.html">The Blender RobotDesigner of the Neurorobotics Platform (NRP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_manual/index.html">User Manual</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../developer_manual/index.html">Developers Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../developer_manual/index.html#introduction">Introduction</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../developer_manual/index.html#contents">Contents</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../developer_manual/environment.html">Developing the RobotDesigner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer_manual/plugin_core.html">The Plugin Core</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../developer_manual/debugging.html">Debugging</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="modules.html">robot_designer_plugin</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="robot_designer_plugin.html">robot_designer_plugin package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../planned.html">Roadmap</a></li>
+</ul>
+
         </div>
       </div>
-        </nav>
+    </nav>
 
-        <article class="hbpdoc-content">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NRP RobotDesigner</a>
+      </nav>
 
-            <div class="content">
-                
-                <div class="breadcrumb breadcrumb-meta expand">
-                    
-                    <a href="../developer_manual/index.html">Developers Manual</a>
-                    
-                    <a href="modules.html">robot_designer_plugin</a>
-                    
-                    <a href="robot_designer_plugin.html">robot_designer_plugin package</a>
-                    
-                    <a href="robot_designer_plugin.operators.html">robot_designer_plugin.operators package</a>
-                    
-                </div>
-                
-
-                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
-                    
-                    <span class="hbpdoc-hnav-previous">
-                        previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.rigid_bodies.html">robot_designer_plugin.operators.rigid_bodies module</a>
-                    </span>
-                    
-                    
-                    <span class="hbpdoc-hnav-next">
-                        next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.soft_bodies.html">robot_designer_plugin.operators.soft_bodies module</a>
-                    </span>
-                    
-                </aside>
-
-                <div class="section" id="module-robot_designer_plugin.operators.segments">
-<span id="robot-designer-plugin-operators-segments-module"></span><h1>robot_designer_plugin.operators.segments module<a class="headerlink" href="#module-robot_designer_plugin.operators.segments" title="Permalink to this headline">¶</a></h1>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../developer_manual/index.html">Developers Manual</a> &raquo;</li>
+          <li><a href="modules.html">robot_designer_plugin</a> &raquo;</li>
+          <li><a href="robot_designer_plugin.html">robot_designer_plugin package</a> &raquo;</li>
+          <li><a href="robot_designer_plugin.operators.html">robot_designer_plugin.operators package</a> &raquo;</li>
+      <li>robot_designer_plugin.operators.segments module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/apidoc/robot_designer_plugin.operators.segments.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-robot_designer_plugin.operators.segments">
+<span id="robot-designer-plugin-operators-segments-module"></span><h1>robot_designer_plugin.operators.segments module<a class="headerlink" href="#module-robot_designer_plugin.operators.segments" title="Permalink to this headline"></a></h1>
 <p>Sphinx-autodoc tag</p>
-<dl class="class">
-<dt id="robot_designer_plugin.operators.segments.AssignParentSegment">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.segments.</code><code class="descname">AssignParentSegment</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#AssignParentSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.AssignParentSegment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.AssignParentSegment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.segments.</span></span><span class="sig-name descname"><span class="pre">AssignParentSegment</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#AssignParentSegment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.AssignParentSegment" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">operator</span></a> for assigning a parent to a segment.</p>
-<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.AssignParentSegment.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.assignparentbone’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.AssignParentSegment.bl_idname" title="Permalink to this definition">¶</a></dt>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.AssignParentSegment.bl_idname">
+<span class="sig-name descname"><span class="pre">bl_idname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'robotdesigner.assignparentbone'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.AssignParentSegment.bl_idname" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.AssignParentSegment.bl_label">
+<span class="sig-name descname"><span class="pre">bl_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Assign</span> <span class="pre">Parent</span> <span class="pre">Bone'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.AssignParentSegment.bl_label" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.AssignParentSegment.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.AssignParentSegment.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>'Context'</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.AssignParentSegment.parent_name">
+<span class="sig-name descname"><span class="pre">parent_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.AssignParentSegment.parent_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.AssignParentSegment.bl_label">
-<code class="descname">bl_label</code><em class="property"> = ‘Assign parent bone’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.AssignParentSegment.bl_label" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.AssignParentSegment.run">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#AssignParentSegment.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.AssignParentSegment.run" title="Permalink to this definition"></a></dt>
+<dd><p>Enables to run an <span class="xref std std-ref">operator</span> by calling its class object.
+Child classes <em>should</em> override this method with keywords. Then your <a class="reference internal" href="../developer_manual/glossary.html#term-IDE"><span class="xref std std-term">IDE</span></a> will be able to assist you
+The <code class="xref py py-meth docutils literal notranslate"><span class="pre">pass_keywords()</span></code> function makes
+overriding very convenient (just copy the method’s body):</p>
+<p>In addition, this method also does extensive error and exception handling writing everything to the log file
+(see <a class="reference internal" href="robot_designer_plugin.core.logfile.html#module-robot_designer_plugin.core.logfile" title="robot_designer_plugin.core.logfile"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logfile</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – The keyword arguments passed to the <span class="xref std std-ref">Operator</span> (<strong>must</strong> match the names of the class’s
+attributes (only of type :class:<a href="#id1"><span class="problematic" id="id2">`</span></a>bpy.types.Property).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The return values of <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.execute" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bpy.types.Operator.execute()</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.ConvertVertexMapSkinning">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.segments.</span></span><span class="sig-name descname"><span class="pre">ConvertVertexMapSkinning</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#ConvertVertexMapSkinning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.ConvertVertexMapSkinning" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">operator</span></a> Operator for converting vertex weight based skinning to
+use of the bone parent property. Bone parent will be assigned to the
+bone with the largest total weight. Vertex weighting will be disabled
+on the mesh.</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></p></li>
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.AtLeastOneSegmentSelected" title="robot_designer_plugin.operators.helpers.AtLeastOneSegmentSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.AtLeastOneSegmentSelected</span></code></a></p></li>
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.NotEditMode" title="robot_designer_plugin.operators.helpers.NotEditMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.NotEditMode</span></code></a></p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.allow_connect_to_that_bone">
+<span class="sig-name descname"><span class="pre">allow_connect_to_that_bone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bone</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#ConvertVertexMapSkinning.allow_connect_to_that_bone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.allow_connect_to_that_bone" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.AssignParentSegment.bl_rna">
-<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_assignparentbone”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.AssignParentSegment.bl_rna" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.allow_connect_to_that_bone_because_vertex_weight">
+<span class="sig-name descname"><span class="pre">allow_connect_to_that_bone_because_vertex_weight</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bone</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#ConvertVertexMapSkinning.allow_connect_to_that_bone_because_vertex_weight"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.allow_connect_to_that_bone_because_vertex_weight" title="Permalink to this definition"></a></dt>
+<dd><p>There can only be one parent_bone. So in case of multiple VG’s we have to decide which one to take.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.bl_idname">
+<span class="sig-name descname"><span class="pre">bl_idname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'robotdesigner.convert_vertexmap_skinning'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.bl_idname" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.bl_label">
+<span class="sig-name descname"><span class="pre">bl_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Assign</span> <span class="pre">Selected</span> <span class="pre">Bones</span> <span class="pre">Via</span> <span class="pre">Vertex</span> <span class="pre">Maps'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.bl_label" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>'Context'</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.execute_on_bone">
+<span class="sig-name descname"><span class="pre">execute_on_bone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bone</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">armature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#ConvertVertexMapSkinning.execute_on_bone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.execute_on_bone" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="robot_designer_plugin.operators.segments.AssignParentSegment.execute">
-<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.AssignParentSegment.execute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.AssignParentSegment.order">
-<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘parent_name’, ‘run’, ‘execute’]</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.AssignParentSegment.order" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.AssignParentSegment.parent_name">
-<code class="descname">parent_name</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘parent_name’})</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.AssignParentSegment.parent_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="classmethod">
-<dt id="robot_designer_plugin.operators.segments.AssignParentSegment.run">
-<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#AssignParentSegment.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.AssignParentSegment.run" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.stop_vertex_group_from_interfering">
+<span class="sig-name descname"><span class="pre">stop_vertex_group_from_interfering</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">armature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#ConvertVertexMapSkinning.stop_vertex_group_from_interfering"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.ConvertVertexMapSkinning.stop_vertex_group_from_interfering" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.segments.CreateNewSegment">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.segments.</code><code class="descname">CreateNewSegment</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#CreateNewSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.CreateNewSegment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.segments.</span></span><span class="sig-name descname"><span class="pre">CreateNewSegment</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#CreateNewSegment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">Operator</span></a> for creating new robot segments and add it to the current model.
-If a segment is already selected, the new segment is added as a child segment. A call <a class="reference internal" href="#robot_designer_plugin.operators.segments.SelectSegment" title="robot_designer_plugin.operators.segments.SelectSegment"><code class="xref py py-class docutils literal"><span class="pre">SelectSegment</span></code></a>
+If a segment is already selected, the new segment is added as a child segment. A call <a class="reference internal" href="#robot_designer_plugin.operators.segments.SelectSegment" title="robot_designer_plugin.operators.segments.SelectSegment"><code class="xref py py-class docutils literal notranslate"><span class="pre">SelectSegment</span></code></a>
 before might be necessary.</p>
-<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <p><strong>Preconditions</strong>:</p>
 <ul class="simple">
-<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></p></li>
 </ul>
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.CreateNewSegment.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.create_segment’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment.bl_idname" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.CreateNewSegment.bl_idname">
+<span class="sig-name descname"><span class="pre">bl_idname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'robotdesigner.create_segment'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment.bl_idname" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.CreateNewSegment.bl_label">
-<code class="descname">bl_label</code><em class="property"> = ‘Create new segment’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment.bl_label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.CreateNewSegment.bl_label">
+<span class="sig-name descname"><span class="pre">bl_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Create</span> <span class="pre">New</span> <span class="pre">Segment'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment.bl_label" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.CreateNewSegment.bl_rna">
-<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_create_segment”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment.bl_rna" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.CreateNewSegment.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>'Context'</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="method">
-<dt id="robot_designer_plugin.operators.segments.CreateNewSegment.execute">
-<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment.execute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.CreateNewSegment.invoke">
+<span class="sig-name descname"><span class="pre">invoke</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#CreateNewSegment.invoke"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment.invoke" title="Permalink to this definition"></a></dt>
+<dd><p>Invoke the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>'Context'</em>) – </p></li>
+<li><p><strong>event</strong> (<em>'Event'</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="method">
-<dt id="robot_designer_plugin.operators.segments.CreateNewSegment.invoke">
-<code class="descname">invoke</code><span class="sig-paren">(</span><em>context</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#CreateNewSegment.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment.invoke" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.CreateNewSegment.run">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">segment_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#CreateNewSegment.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment.run" title="Permalink to this definition"></a></dt>
+<dd><p>Enables to run an <span class="xref std std-ref">operator</span> by calling its class object.
+Child classes <em>should</em> override this method with keywords. Then your <a class="reference internal" href="../developer_manual/glossary.html#term-IDE"><span class="xref std std-term">IDE</span></a> will be able to assist you
+The <code class="xref py py-meth docutils literal notranslate"><span class="pre">pass_keywords()</span></code> function makes
+overriding very convenient (just copy the method’s body):</p>
+<p>In addition, this method also does extensive error and exception handling writing everything to the log file
+(see <a class="reference internal" href="robot_designer_plugin.core.logfile.html#module-robot_designer_plugin.core.logfile" title="robot_designer_plugin.core.logfile"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logfile</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – The keyword arguments passed to the <span class="xref std std-ref">Operator</span> (<strong>must</strong> match the names of the class’s
+attributes (only of type :class:<a href="#id3"><span class="problematic" id="id4">`</span></a>bpy.types.Property).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The return values of <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.execute" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bpy.types.Operator.execute()</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.CreateNewSegment.order">
-<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘segment_name’, ‘run’, ‘execute’, ‘invoke’]</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment.order" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="classmethod">
-<dt id="robot_designer_plugin.operators.segments.CreateNewSegment.run">
-<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#CreateNewSegment.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.CreateNewSegment.segment_name">
-<code class="descname">segment_name</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘segment_name’, ‘name’: ‘Enter new segment name:’})</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment.segment_name" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.CreateNewSegment.segment_name">
+<span class="sig-name descname"><span class="pre">segment_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.CreateNewSegment.segment_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.segments.DeleteSegment">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.segments.</code><code class="descname">DeleteSegment</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#DeleteSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.DeleteSegment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.DeleteSegment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.segments.</span></span><span class="sig-name descname"><span class="pre">DeleteSegment</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#DeleteSegment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.DeleteSegment" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">operator</span></a> for deleting a the selected segment <em>ALL</em> of its children.</p>
-<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <p><strong>Preconditions</strong>:</p>
 <ul class="simple">
-<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
-<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleSegmentSelected" title="robot_designer_plugin.operators.helpers.SingleSegmentSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.SingleSegmentSelected</span></code></a></li>
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></p></li>
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleSegmentSelected" title="robot_designer_plugin.operators.helpers.SingleSegmentSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.SingleSegmentSelected</span></code></a></p></li>
 </ul>
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.DeleteSegment.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.deletebone’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.DeleteSegment.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.DeleteSegment.bl_idname">
+<span class="sig-name descname"><span class="pre">bl_idname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'robotdesigner.deletebone'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.DeleteSegment.bl_idname" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.DeleteSegment.bl_label">
+<span class="sig-name descname"><span class="pre">bl_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Delete</span> <span class="pre">Segment</span> <span class="pre">And</span> <span class="pre">ALL</span> <span class="pre">Its</span> <span class="pre">Children'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.DeleteSegment.bl_label" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.DeleteSegment.confirmation">
+<span class="sig-name descname"><span class="pre">confirmation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.DeleteSegment.confirmation" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.DeleteSegment.bl_label">
-<code class="descname">bl_label</code><em class="property"> = ‘Delete segment and ALL its children’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.DeleteSegment.bl_label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.DeleteSegment.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.DeleteSegment.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>'Context'</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.DeleteSegment.bl_rna">
-<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_deletebone”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.DeleteSegment.bl_rna" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.DeleteSegment.confirmation">
-<code class="descname">confirmation</code><em class="property"> = (&lt;built-in function BoolProperty&gt;, {‘attr’: ‘confirmation’, ‘name’: ‘Are you sure?’})</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.DeleteSegment.confirmation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="robot_designer_plugin.operators.segments.DeleteSegment.execute">
-<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.DeleteSegment.execute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="robot_designer_plugin.operators.segments.DeleteSegment.invoke">
-<code class="descname">invoke</code><span class="sig-paren">(</span><em>context</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#DeleteSegment.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.DeleteSegment.invoke" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.DeleteSegment.order">
-<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘confirmation’, ‘execute’, ‘invoke’]</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.DeleteSegment.order" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.DeleteSegment.invoke">
+<span class="sig-name descname"><span class="pre">invoke</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#DeleteSegment.invoke"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.DeleteSegment.invoke" title="Permalink to this definition"></a></dt>
+<dd><p>Invoke the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>'Context'</em>) – </p></li>
+<li><p><strong>event</strong> (<em>'Event'</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.segments.ImportBlenderArmature">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.segments.</code><code class="descname">ImportBlenderArmature</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#ImportBlenderArmature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.ImportBlenderArmature" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
-<p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">operator</span></a> for converting a <a class="reference internal" href="../developer_manual/glossary.html#term-armature"><span class="xref std std-term">armature</span></a> into a <a class="reference internal" href="../developer_manual/glossary.html#term-model"><span class="xref std std-term">model</span></a></p>
-<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.ImportBlenderArmature">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.segments.</span></span><span class="sig-name descname"><span class="pre">ImportBlenderArmature</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#ImportBlenderArmature"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.ImportBlenderArmature" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p>Set <span class="xref std std-term">pose</span> properties and mark all selected bones as known to the robot designer.</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <p><strong>Preconditions</strong>:</p>
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.ImportBlenderArmature.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.importnative’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.ImportBlenderArmature.bl_idname" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<ul class="simple">
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></p></li>
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.AtLeastOneSegmentSelected" title="robot_designer_plugin.operators.helpers.AtLeastOneSegmentSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.AtLeastOneSegmentSelected</span></code></a></p></li>
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.NotEditMode" title="robot_designer_plugin.operators.helpers.NotEditMode"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.NotEditMode</span></code></a></p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.ImportBlenderArmature.bl_idname">
+<span class="sig-name descname"><span class="pre">bl_idname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'robotdesigner.importnative'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.ImportBlenderArmature.bl_idname" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.ImportBlenderArmature.bl_label">
-<code class="descname">bl_label</code><em class="property"> = ‘Import native blender segment’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.ImportBlenderArmature.bl_label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.ImportBlenderArmature.bl_label">
+<span class="sig-name descname"><span class="pre">bl_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'(Re)Import</span> <span class="pre">Bones'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.ImportBlenderArmature.bl_label" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.ImportBlenderArmature.bl_rna">
-<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_importnative”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.ImportBlenderArmature.bl_rna" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.ImportBlenderArmature.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.ImportBlenderArmature.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>'Context'</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="method">
-<dt id="robot_designer_plugin.operators.segments.ImportBlenderArmature.execute">
-<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.ImportBlenderArmature.execute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="robot_designer_plugin.operators.segments.ImportBlenderArmature.invoke">
-<code class="descname">invoke</code><span class="sig-paren">(</span><em>context</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#ImportBlenderArmature.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.ImportBlenderArmature.invoke" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.ImportBlenderArmature.order">
-<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘recursive’, ‘execute’, ‘invoke’]</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.ImportBlenderArmature.order" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.ImportBlenderArmature.recursive">
-<code class="descname">recursive</code><em class="property"> = (&lt;built-in function BoolProperty&gt;, {‘attr’: ‘recursive’, ‘name’: ‘Proceed recursively?’})</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.ImportBlenderArmature.recursive" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.ImportBlenderArmature.execute_on_bone">
+<span class="sig-name descname"><span class="pre">execute_on_bone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bone</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#ImportBlenderArmature.execute_on_bone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.ImportBlenderArmature.execute_on_bone" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.segments.InsertNewParentSegment">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.segments.</code><code class="descname">InsertNewParentSegment</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#InsertNewParentSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.InsertNewParentSegment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.segments.</span></span><span class="sig-name descname"><span class="pre">InsertNewParentSegment</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#InsertNewParentSegment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">operator</span></a> for create new parent segment for the currently selected segment.</p>
-<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <p><strong>Preconditions</strong>:</p>
 <ul class="simple">
-<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
-<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleSegmentSelected" title="robot_designer_plugin.operators.helpers.SingleSegmentSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.SingleSegmentSelected</span></code></a></li>
-<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.PoseMode" title="robot_designer_plugin.operators.helpers.PoseMode"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.PoseMode</span></code></a></li>
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></p></li>
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleSegmentSelected" title="robot_designer_plugin.operators.helpers.SingleSegmentSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.SingleSegmentSelected</span></code></a></p></li>
 </ul>
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.InsertNewParentSegment.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.createparentbone’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment.bl_idname" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.InsertNewParentSegment.bl_idname">
+<span class="sig-name descname"><span class="pre">bl_idname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'robotdesigner.createparentbone'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment.bl_idname" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.InsertNewParentSegment.bl_label">
-<code class="descname">bl_label</code><em class="property"> = ‘Create new parent Bone’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment.bl_label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.InsertNewParentSegment.bl_label">
+<span class="sig-name descname"><span class="pre">bl_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Create</span> <span class="pre">New</span> <span class="pre">Parent</span> <span class="pre">Bone'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment.bl_label" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.InsertNewParentSegment.bl_rna">
-<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_createparentbone”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment.bl_rna" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.InsertNewParentSegment.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>'Context'</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="method">
-<dt id="robot_designer_plugin.operators.segments.InsertNewParentSegment.execute">
-<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment.execute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.InsertNewParentSegment.invoke">
+<span class="sig-name descname"><span class="pre">invoke</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#InsertNewParentSegment.invoke"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment.invoke" title="Permalink to this definition"></a></dt>
+<dd><p>Invoke the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>'Context'</em>) – </p></li>
+<li><p><strong>event</strong> (<em>'Event'</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="method">
-<dt id="robot_designer_plugin.operators.segments.InsertNewParentSegment.invoke">
-<code class="descname">invoke</code><span class="sig-paren">(</span><em>context</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#InsertNewParentSegment.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment.invoke" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.InsertNewParentSegment.run">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">segment_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#InsertNewParentSegment.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment.run" title="Permalink to this definition"></a></dt>
+<dd><p>Enables to run an <span class="xref std std-ref">operator</span> by calling its class object.
+Child classes <em>should</em> override this method with keywords. Then your <a class="reference internal" href="../developer_manual/glossary.html#term-IDE"><span class="xref std std-term">IDE</span></a> will be able to assist you
+The <code class="xref py py-meth docutils literal notranslate"><span class="pre">pass_keywords()</span></code> function makes
+overriding very convenient (just copy the method’s body):</p>
+<p>In addition, this method also does extensive error and exception handling writing everything to the log file
+(see <a class="reference internal" href="robot_designer_plugin.core.logfile.html#module-robot_designer_plugin.core.logfile" title="robot_designer_plugin.core.logfile"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logfile</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – The keyword arguments passed to the <span class="xref std std-ref">Operator</span> (<strong>must</strong> match the names of the class’s
+attributes (only of type :class:<a href="#id5"><span class="problematic" id="id6">`</span></a>bpy.types.Property).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The return values of <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.execute" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bpy.types.Operator.execute()</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.InsertNewParentSegment.order">
-<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘segment_name’, ‘run’, ‘execute’, ‘invoke’]</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment.order" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="classmethod">
-<dt id="robot_designer_plugin.operators.segments.InsertNewParentSegment.run">
-<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#InsertNewParentSegment.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.InsertNewParentSegment.segment_name">
-<code class="descname">segment_name</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘segment_name’, ‘name’: ‘Enter new parent bone name:’})</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment.segment_name" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.InsertNewParentSegment.segment_name">
+<span class="sig-name descname"><span class="pre">segment_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.InsertNewParentSegment.segment_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.segments.RenameSegment">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.segments.</code><code class="descname">RenameSegment</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#RenameSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.RenameSegment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.segments.</span></span><span class="sig-name descname"><span class="pre">RenameSegment</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#RenameSegment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">operator</span></a> for renaming an active bone</p>
-<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <p><strong>Preconditions</strong>:</p>
 <ul class="simple">
-<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
-<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleSegmentSelected" title="robot_designer_plugin.operators.helpers.SingleSegmentSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.SingleSegmentSelected</span></code></a></li>
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></p></li>
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleSegmentSelected" title="robot_designer_plugin.operators.helpers.SingleSegmentSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.SingleSegmentSelected</span></code></a></p></li>
 </ul>
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.RenameSegment.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.rename_segment’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment.bl_idname" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.RenameSegment.bl_idname">
+<span class="sig-name descname"><span class="pre">bl_idname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'robotdesigner.rename_segment'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment.bl_idname" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.RenameSegment.bl_label">
+<span class="sig-name descname"><span class="pre">bl_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Rename</span> <span class="pre">Active</span> <span class="pre">Segment'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment.bl_label" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.RenameSegment.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>'Context'</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.RenameSegment.invoke">
+<span class="sig-name descname"><span class="pre">invoke</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#RenameSegment.invoke"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment.invoke" title="Permalink to this definition"></a></dt>
+<dd><p>Invoke the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>context</strong> (<em>'Context'</em>) – </p></li>
+<li><p><strong>event</strong> (<em>'Event'</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.RenameSegment.new_name">
+<span class="sig-name descname"><span class="pre">new_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment.new_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.RenameSegment.bl_label">
-<code class="descname">bl_label</code><em class="property"> = ‘Rename active segment’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment.bl_label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.RenameSegment.bl_rna">
-<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_rename_segment”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment.bl_rna" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="robot_designer_plugin.operators.segments.RenameSegment.execute">
-<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment.execute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="robot_designer_plugin.operators.segments.RenameSegment.invoke">
-<code class="descname">invoke</code><span class="sig-paren">(</span><em>context</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#RenameSegment.invoke"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment.invoke" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.RenameSegment.new_name">
-<code class="descname">new_name</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘new_name’, ‘name’: ‘Enter new name:’})</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment.new_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.RenameSegment.order">
-<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘new_name’, ‘execute’, ‘invoke’, ‘run’]</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment.order" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="classmethod">
-<dt id="robot_designer_plugin.operators.segments.RenameSegment.run">
-<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#RenameSegment.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.RenameSegment.run">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#RenameSegment.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.RenameSegment.run" title="Permalink to this definition"></a></dt>
+<dd><p>Enables to run an <span class="xref std std-ref">operator</span> by calling its class object.
+Child classes <em>should</em> override this method with keywords. Then your <a class="reference internal" href="../developer_manual/glossary.html#term-IDE"><span class="xref std std-term">IDE</span></a> will be able to assist you
+The <code class="xref py py-meth docutils literal notranslate"><span class="pre">pass_keywords()</span></code> function makes
+overriding very convenient (just copy the method’s body):</p>
+<p>In addition, this method also does extensive error and exception handling writing everything to the log file
+(see <a class="reference internal" href="robot_designer_plugin.core.logfile.html#module-robot_designer_plugin.core.logfile" title="robot_designer_plugin.core.logfile"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logfile</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – The keyword arguments passed to the <span class="xref std std-ref">Operator</span> (<strong>must</strong> match the names of the class’s
+attributes (only of type :class:<a href="#id7"><span class="problematic" id="id8">`</span></a>bpy.types.Property).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The return values of <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.execute" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bpy.types.Operator.execute()</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.segments.SelectSegment">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.segments.</code><code class="descname">SelectSegment</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#SelectSegment"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.SelectSegment" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
-<p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">Operator</span></a> for selecting a segment. If <a class="reference internal" href="#robot_designer_plugin.operators.segments.SelectSegment.segment_name" title="robot_designer_plugin.operators.segments.SelectSegment.segment_name"><code class="xref py py-attr docutils literal"><span class="pre">segment_name</span></code></a> is empty,
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.SelectSegment">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.segments.</span></span><span class="sig-name descname"><span class="pre">SelectSegment</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#SelectSegment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.SelectSegment" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">Operator</span></a> for selecting a segment. If <a class="reference internal" href="#robot_designer_plugin.operators.segments.SelectSegment.segment_name" title="robot_designer_plugin.operators.segments.SelectSegment.segment_name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">segment_name</span></code></a> is empty,
 all segments will be deselected</p>
-<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
 <p><strong>Preconditions</strong>:</p>
 <ul class="simple">
-<li><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></li>
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></p></li>
 </ul>
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.SelectSegment.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.select_segment’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.SelectSegment.bl_idname" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.SelectSegment.bl_idname">
+<span class="sig-name descname"><span class="pre">bl_idname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'robotdesigner.select_segment'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.SelectSegment.bl_idname" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.SelectSegment.bl_label">
-<code class="descname">bl_label</code><em class="property"> = ‘Select Segment’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.SelectSegment.bl_label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.SelectSegment.bl_label">
+<span class="sig-name descname"><span class="pre">bl_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Select</span> <span class="pre">Segment'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.SelectSegment.bl_label" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.SelectSegment.bl_rna">
-<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_select_segment”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.SelectSegment.bl_rna" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.SelectSegment.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.SelectSegment.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>'Context'</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="method">
-<dt id="robot_designer_plugin.operators.segments.SelectSegment.execute">
-<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.SelectSegment.execute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.SelectSegment.run">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">segment_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#SelectSegment.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.SelectSegment.run" title="Permalink to this definition"></a></dt>
+<dd><p>Enables to run an <span class="xref std std-ref">operator</span> by calling its class object.
+Child classes <em>should</em> override this method with keywords. Then your <a class="reference internal" href="../developer_manual/glossary.html#term-IDE"><span class="xref std std-term">IDE</span></a> will be able to assist you
+The <code class="xref py py-meth docutils literal notranslate"><span class="pre">pass_keywords()</span></code> function makes
+overriding very convenient (just copy the method’s body):</p>
+<p>In addition, this method also does extensive error and exception handling writing everything to the log file
+(see <a class="reference internal" href="robot_designer_plugin.core.logfile.html#module-robot_designer_plugin.core.logfile" title="robot_designer_plugin.core.logfile"><code class="xref py py-mod docutils literal notranslate"><span class="pre">logfile</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – The keyword arguments passed to the <span class="xref std std-ref">Operator</span> (<strong>must</strong> match the names of the class’s
+attributes (only of type :class:<a href="#id9"><span class="problematic" id="id10">`</span></a>bpy.types.Property).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The return values of <a class="reference external" href="https://docs.blender.org/api/blender_python_api_current/bpy.types.Operator.html#bpy.types.Operator.execute" title="(in Blender v2.78.0 e8299c8 - API)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">bpy.types.Operator.execute()</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.SelectSegment.order">
-<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘segment_name’, ‘execute’, ‘run’]</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.SelectSegment.order" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="classmethod">
-<dt id="robot_designer_plugin.operators.segments.SelectSegment.run">
-<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#SelectSegment.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.SelectSegment.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.SelectSegment.segment_name">
-<code class="descname">segment_name</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘segment_name’})</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.SelectSegment.segment_name" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.SelectSegment.segment_name">
+<span class="sig-name descname"><span class="pre">segment_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.SelectSegment.segment_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="robot_designer_plugin.operators.segments.UpdateSegments">
-<em class="property">class </em><code class="descclassname">robot_designer_plugin.operators.segments.</code><code class="descname">UpdateSegments</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#UpdateSegments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.SetDefaultJointName">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.segments.</span></span><span class="sig-name descname"><span class="pre">SetDefaultJointName</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#SetDefaultJointName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.SetDefaultJointName" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">operator</span></a> for setting joint name to a default name</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></p></li>
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.SingleSegmentSelected" title="robot_designer_plugin.operators.helpers.SingleSegmentSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.SingleSegmentSelected</span></code></a></p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.SetDefaultJointName.bl_idname">
+<span class="sig-name descname"><span class="pre">bl_idname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'robotdesigner.default_joint_name'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.SetDefaultJointName.bl_idname" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.SetDefaultJointName.bl_label">
+<span class="sig-name descname"><span class="pre">bl_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Set</span> <span class="pre">Joint</span> <span class="pre">Name</span> <span class="pre">to</span> <span class="pre">Default</span> <span class="pre">Name'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.SetDefaultJointName.bl_label" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.SetDefaultJointName.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.SetDefaultJointName.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>'Context'</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.SetDefaultJointNameAll">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.segments.</span></span><span class="sig-name descname"><span class="pre">SetDefaultJointNameAll</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#SetDefaultJointNameAll"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.SetDefaultJointNameAll" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
+<p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">operator</span></a> for setting joint name to a default name for all segments</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<p><strong>Preconditions</strong>:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="robot_designer_plugin.operators.helpers.html#robot_designer_plugin.operators.helpers.ModelSelected" title="robot_designer_plugin.operators.helpers.ModelSelected"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.operators.helpers.ModelSelected</span></code></a></p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.SetDefaultJointNameAll.bl_idname">
+<span class="sig-name descname"><span class="pre">bl_idname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'robotdesigner.default_joint_name_all'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.SetDefaultJointNameAll.bl_idname" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.SetDefaultJointNameAll.bl_label">
+<span class="sig-name descname"><span class="pre">bl_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Set</span> <span class="pre">Joint</span> <span class="pre">Name</span> <span class="pre">to</span> <span class="pre">Default</span> <span class="pre">Name</span> <span class="pre">for</span> <span class="pre">All</span> <span class="pre">Segments'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.SetDefaultJointNameAll.bl_label" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.SetDefaultJointNameAll.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.SetDefaultJointNameAll.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>'Context'</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.UpdateSegments">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.operators.segments.</span></span><span class="sig-name descname"><span class="pre">UpdateSegments</span></span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#UpdateSegments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="robot_designer_plugin.core.operators.html#robot_designer_plugin.core.operators.RDOperator" title="robot_designer_plugin.core.operators.RDOperator"><code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.operators.RDOperator</span></code></a></p>
 <p><a class="reference internal" href="../developer_manual/glossary.html#term-operator"><span class="xref std std-term">operator</span></a> for updating the <span class="xref std std-term">robot models</span> after parameters changed.
 If a <a class="reference internal" href="../developer_manual/glossary.html#term-segment"><span class="xref std std-term">segment</span></a> name is given it will proceed recursively.</p>
-<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.UpdateSegments.bl_idname">
-<code class="descname">bl_idname</code><em class="property"> = ‘roboteditor.udpate_model’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments.bl_idname" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.UpdateSegments.bl_label">
-<code class="descname">bl_label</code><em class="property"> = ‘update model’</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments.bl_label" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.UpdateSegments.bl_rna">
-<code class="descname">bl_rna</code><em class="property"> = &lt;bpy_struct, Struct(“ROBOTEDITOR_OT_udpate_model”)&gt;</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments.bl_rna" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="robot_designer_plugin.operators.segments.UpdateSegments.execute">
-<code class="descname">execute</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments.execute" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.UpdateSegments.order">
-<code class="descname">order</code><em class="property"> = [‘__module__’, ‘__qualname__’, ‘__doc__’, ‘bl_idname’, ‘bl_label’, ‘segment_name’, ‘recurse’, ‘run’, ‘execute’]</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments.order" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.UpdateSegments.recurse">
-<code class="descname">recurse</code><em class="property"> = (&lt;built-in function BoolProperty&gt;, {‘attr’: ‘recurse’, ‘default’: True})</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments.recurse" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="classmethod">
-<dt id="robot_designer_plugin.operators.segments.UpdateSegments.run">
-<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><em>segment_name=”</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/operators/segments.html#UpdateSegments.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments.run" title="Permalink to this definition">¶</a></dt>
-<dd><p>Run this operator</p>
+<p><strong>Automatically registered</strong> to <code class="xref py py-class docutils literal notranslate"><span class="pre">robot_designer_plugin.core.pluginmanager.Pluginmanager</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.UpdateSegments.bl_idname">
+<span class="sig-name descname"><span class="pre">bl_idname</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'robotdesigner.udpate_model'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments.bl_idname" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="robot_designer_plugin.operators.segments.UpdateSegments.segment_name">
-<code class="descname">segment_name</code><em class="property"> = (&lt;built-in function StringProperty&gt;, {‘attr’: ‘segment_name’, ‘default’: ”})</em><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments.segment_name" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.UpdateSegments.bl_label">
+<span class="sig-name descname"><span class="pre">bl_label</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Update</span> <span class="pre">Model'</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments.bl_label" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.UpdateSegments.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments.execute" title="Permalink to this definition"></a></dt>
+<dd><p>Execute the operator</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>context</strong> (<em>'Context'</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><em>Union</em>[<em>Set</em>[str], <em>Set</em>[int]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>result * RUNNING_MODAL Running Modal, Keep the operator running with blender. * CANCELLED Cancelled, The operator exited without doing anything, so no undo entry should be pushed. * FINISHED Finished, The operator exited after completing its action. * PASS_THROUGH Pass Through, Do nothing and pass the event on. * INTERFACE Interface, Handled but not executed (popup menus).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.UpdateSegments.recurse">
+<span class="sig-name descname"><span class="pre">recurse</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments.recurse" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="robot_designer_plugin.operators.segments.UpdateSegments.segment_name">
+<span class="sig-name descname"><span class="pre">segment_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#robot_designer_plugin.operators.segments.UpdateSegments.segment_name" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </div>
 
-            </div>
 
-            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
-                
-                <span class="hbpdoc-hnav-previous">
-                    previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.rigid_bodies.html">robot_designer_plugin.operators.rigid_bodies module</a>
-                </span>
-                
-                
-                <span class="hbpdoc-hnav-next">
-                    next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.operators.soft_bodies.html">robot_designer_plugin.operators.soft_bodies module</a>
-                </span>
-                
-            </aside>
-        </article>
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="robot_designer_plugin.operators.rigid_bodies.html" class="btn btn-neutral float-left" title="robot_designer_plugin.operators.rigid_bodies module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="robot_designer_plugin.operators.soft_bodies.html" class="btn btn-neutral float-right" title="robot_designer_plugin.operators.soft_bodies module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Human Brain Project - Neurorobotics, Benedikt Feldotto (TUM), Stefan Ulbrich (FZI).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
     </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-    <div class="hbpdoc-footer">
-        NRP RobotDesigner <small>0.1</small> 
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
-    </div>
-    </div>
-</div>
-
-  </body>
+</body>
 </html>

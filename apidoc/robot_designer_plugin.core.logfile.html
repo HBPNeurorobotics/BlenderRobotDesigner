@@ -1,264 +1,198 @@
-
-
-
 <!DOCTYPE html>
-
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>robot_designer_plugin.core.logfile module &#8212; NRP RobotDesigner 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../_static/hbpdoc.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="../_static/hbpdoc.js"></script>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>robot_designer_plugin.core.logfile module &mdash; NRP RobotDesigner 3.2 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/hbp_32x32.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="robot_designer_plugin.core.operators module" href="robot_designer_plugin.core.operators.html" />
-    <link rel="prev" title="robot_designer_plugin.core.gui module" href="robot_designer_plugin.core.gui.html" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="prev" title="robot_designer_plugin.core.gui module" href="robot_designer_plugin.core.gui.html" /> 
+</head>
 
-  </head>
-  <body>
-<div class="hbpdoc-page">
-    <section class="hbpdoc-title page-header">
-        <a class="project-title" href="../index.html">NRP RobotDesigner</a>
-
-        <a class="hbpdoc-toc-toggle pull-right" href>
-            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-        </a>
-    </section>
-    <section class="hbpdoc-main">
-        <nav class="hbpdoc-sidebar hbpdoc-container">
-            <a class="hbpdoc-toc-toggle pull-right" href>
-                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-            </a>
-            
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="robot_designer_plugin.core.gui.html"
-                        title="previous chapter">robot_designer_plugin.core.gui module</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="robot_designer_plugin.core.operators.html"
-                        title="next chapter">robot_designer_plugin.core.operators module</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/apidoc/robot_designer_plugin.core.logfile.rst.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> NRP RobotDesigner
+          </a>
+              <div class="version">
+                3.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../readme.html">The Blender RobotDesigner of the Neurorobotics Platform (NRP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_manual/index.html">User Manual</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../developer_manual/index.html">Developers Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../developer_manual/index.html#introduction">Introduction</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../developer_manual/index.html#contents">Contents</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../developer_manual/environment.html">Developing the RobotDesigner</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../developer_manual/plugin_core.html">The Plugin Core</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../developer_manual/plugin_core.html#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../developer_manual/plugin_core.html#blender-concepts">Blender concepts</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../developer_manual/plugin_core.html#suggested-plugin-structure-and-templates">Suggested plugin structure and templates</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../developer_manual/plugin_core.html#api-reference">API reference</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../developer_manual/debugging.html">Debugging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules.html">robot_designer_plugin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../planned.html">Roadmap</a></li>
+</ul>
+
         </div>
       </div>
-        </nav>
+    </nav>
 
-        <article class="hbpdoc-content">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">NRP RobotDesigner</a>
+      </nav>
 
-            <div class="content">
-                
-                <div class="breadcrumb breadcrumb-meta expand">
-                    
-                    <a href="../developer_manual/index.html">Developers Manual</a>
-                    
-                    <a href="../developer_manual/plugin_core.html">The Plugin Core</a>
-                    
-                </div>
-                
-
-                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
-                    
-                    <span class="hbpdoc-hnav-previous">
-                        previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.core.gui.html">robot_designer_plugin.core.gui module</a>
-                    </span>
-                    
-                    
-                    <span class="hbpdoc-hnav-next">
-                        next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.core.operators.html">robot_designer_plugin.core.operators module</a>
-                    </span>
-                    
-                </aside>
-
-                <div class="section" id="module-robot_designer_plugin.core.logfile">
-<span id="robot-designer-plugin-core-logfile-module"></span><h1>robot_designer_plugin.core.logfile module<a class="headerlink" href="#module-robot_designer_plugin.core.logfile" title="Permalink to this headline">¶</a></h1>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../developer_manual/index.html">Developers Manual</a> &raquo;</li>
+          <li><a href="../developer_manual/plugin_core.html">The Plugin Core</a> &raquo;</li>
+      <li>robot_designer_plugin.core.logfile module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/apidoc/robot_designer_plugin.core.logfile.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="module-robot_designer_plugin.core.logfile">
+<span id="robot-designer-plugin-core-logfile-module"></span><h1>robot_designer_plugin.core.logfile module<a class="headerlink" href="#module-robot_designer_plugin.core.logfile" title="Permalink to this headline"></a></h1>
 <p>This sub package provides logging mechanism for the plugin development.</p>
 <p>Blender is not easy to debug (adding an external debugger is planned) such that providing informative
 output to a log file is mandatory.
-The log file is stored in the path stored in the plugin directory (<code class="xref py py-data docutils literal"><span class="pre">config.script_path</span></code>) in
-<code class="docutils literal"><span class="pre">resources/log.txt</span></code>.</p>
+The log file is stored in the path stored in the plugin directory (<code class="xref py py-data docutils literal notranslate"><span class="pre">config.script_path</span></code>) in
+<code class="docutils literal notranslate"><span class="pre">resources/log.txt</span></code>.</p>
 <p>An example of a log file:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>
-<span class="p">[</span><span class="n">DEBUG</span><span class="o">|</span><span class="n">Properties</span><span class="o">|</span> <span class="n">segments</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">119</span><span class="o">|</span><span class="n">callbackSegments</span><span class="p">()]</span> <span class="n">Callback</span> <span class="n">called</span>
-
-<span class="p">[</span><span class="n">DEBUG</span><span class="o">|</span> <span class="n">Operators</span><span class="o">|</span>  <span class="n">helpers</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">213</span><span class="o">|</span><span class="n">op_logger</span><span class="p">()]</span> <span class="n">Entering</span> <span class="n">execute</span><span class="p">()</span> <span class="kn">from</span> <span class="nn">roboteditor.udpate_model</span><span class="p">(</span><span class="n">UpdateModel</span><span class="p">):</span>
-
-	<span class="n">Nesting</span> <span class="n">Level</span> <span class="mi">1</span><span class="p">:</span>
-
-	<span class="n">Callstack</span><span class="p">:</span>
-		<span class="n">callbackSegments</span>         		<span class="p">(</span><span class="o">.../</span><span class="n">robot_designer_plugin</span><span class="o">/</span><span class="n">properties</span><span class="o">/</span><span class="n">segments</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">123</span><span class="p">)</span>
-			<span class="n">UpdateModel</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">segment_name</span><span class="p">)</span>
-		<span class="n">run</span>                      		<span class="p">(</span><span class="o">.../</span><span class="n">robot_designer_plugin</span><span class="o">/</span><span class="n">operators</span><span class="o">/</span><span class="n">helpers</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">272</span><span class="p">)</span>
-
-
-<span class="p">[</span><span class="n">DEBUG</span><span class="o">|</span> <span class="n">Operators</span><span class="o">|</span>  <span class="n">helpers</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">213</span><span class="o">|</span><span class="n">op_logger</span><span class="p">()]</span> <span class="n">Entering</span> <span class="n">execute</span><span class="p">()</span> <span class="kn">from</span> <span class="nn">roboteditor.select_segment</span><span class="p">(</span><span class="n">SelectSegment</span><span class="p">):</span>
-
-	<span class="n">Nesting</span> <span class="n">Level</span> <span class="mi">2</span><span class="p">:</span>
-
-	<span class="n">Callstack</span><span class="p">:</span>
-		<span class="n">callbackSegments</span>         		<span class="p">(</span><span class="o">.../</span><span class="n">robot_designer_plugin</span><span class="o">/</span><span class="n">properties</span><span class="o">/</span><span class="n">segments</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">123</span><span class="p">)</span>
-			<span class="n">UpdateModel</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">segment_name</span><span class="p">)</span>
-		<span class="n">run</span>                      		<span class="p">(</span><span class="o">.../</span><span class="n">robot_designer_plugin</span><span class="o">/</span><span class="n">operators</span><span class="o">/</span><span class="n">helpers</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">272</span><span class="p">)</span>
-		<span class="n">execute</span>                  		<span class="p">(</span><span class="o">.../</span><span class="n">robot_designer_plugin</span><span class="o">/</span><span class="n">operators</span><span class="o">/</span><span class="n">segments</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">422</span><span class="p">)</span>
-			<span class="n">SelectSegment</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">segment_name</span><span class="p">)</span>
-		<span class="n">run</span>                      		<span class="p">(</span><span class="o">.../</span><span class="n">robot_designer_plugin</span><span class="o">/</span><span class="n">operators</span><span class="o">/</span><span class="n">helpers</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">272</span><span class="p">)</span>
-
-
-<span class="p">[</span><span class="n">DEBUG</span><span class="o">|</span> <span class="n">Operators</span><span class="o">|</span>  <span class="n">helpers</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">217</span><span class="o">|</span><span class="n">op_logger</span><span class="p">()]</span> <span class="n">Leaving</span> <span class="n">roboteditor</span><span class="o">.</span><span class="n">select_segment</span><span class="p">()</span> <span class="n">SelectSegment</span><span class="p">({</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">})</span>
-
-<span class="p">[</span><span class="n">ERROR</span><span class="o">|</span> <span class="n">Operators</span><span class="o">|</span>  <span class="n">helpers</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">287</span><span class="o">|</span><span class="n">run</span><span class="p">()]</span> <span class="ne">Exception</span> <span class="n">when</span> <span class="n">running</span> <span class="n">operator</span> <span class="n">roboteditor</span><span class="o">.</span><span class="n">udpate_model</span> <span class="p">(</span><span class="n">UpdateModel</span><span class="p">):</span>
-	<span class="n">keywords</span><span class="p">:</span>	<span class="p">{</span><span class="s1">&#39;segment_name&#39;</span><span class="p">:</span> <span class="s1">&#39;lowerleg02_L&#39;</span><span class="p">,</span> <span class="s1">&#39;recurse&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;model_name&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">}</span>
-	<span class="n">Bad</span> <span class="n">keywords</span><span class="p">:</span>	<span class="n">model_name</span>
-	<span class="ne">Exception</span><span class="p">:</span>	<span class="ne">TypeError</span>
-	<span class="n">Messages</span><span class="p">:</span>
-		<span class="n">Converting</span> <span class="n">py</span> <span class="n">args</span> <span class="n">to</span> <span class="n">operator</span> <span class="n">properties</span><span class="p">:</span> <span class="p">:</span> <span class="n">keyword</span> <span class="s2">&quot;model_name&quot;</span> <span class="n">unrecognized</span>
-
-<span class="p">[</span><span class="n">ERROR</span><span class="o">|</span> <span class="n">Operators</span><span class="o">|</span>  <span class="n">helpers</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">227</span><span class="o">|</span><span class="n">op_logger</span><span class="p">()]</span> <span class="n">Operator</span> <span class="n">roboteditor</span><span class="o">.</span><span class="n">udpate_model</span> <span class="p">(</span><span class="n">UpdateModel</span><span class="p">)</span> <span class="n">threw</span> <span class="n">an</span> <span class="n">exception</span><span class="p">:</span>
-	<span class="ne">Exception</span><span class="p">:</span>	<span class="ne">TypeError</span>
-	<span class="n">Messages</span><span class="p">:</span>
-		<span class="n">Converting</span> <span class="n">py</span> <span class="n">args</span> <span class="n">to</span> <span class="n">operator</span> <span class="n">properties</span><span class="p">:</span> <span class="p">:</span> <span class="n">keyword</span> <span class="s2">&quot;model_name&quot;</span> <span class="n">unrecognized</span>
-
-	<span class="n">Nesting</span> <span class="n">Level</span> <span class="mi">1</span><span class="p">:</span>
-
-	<span class="n">Callstack</span><span class="p">:</span>
-		<span class="n">callbackSegments</span>         		<span class="p">(</span><span class="o">.../</span><span class="n">robot_designer_plugin</span><span class="o">/</span><span class="n">properties</span><span class="o">/</span><span class="n">segments</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">123</span><span class="p">)</span>
-			<span class="n">UpdateModel</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">segment_name</span><span class="o">=</span><span class="n">segment_name</span><span class="p">)</span>
-		<span class="n">run</span>                      		<span class="p">(</span><span class="o">.../</span><span class="n">robot_designer_plugin</span><span class="o">/</span><span class="n">operators</span><span class="o">/</span><span class="n">helpers</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">272</span><span class="p">)</span>
-
-
-<span class="p">[</span><span class="n">ERROR</span><span class="o">|</span> <span class="n">Operators</span><span class="o">|</span>  <span class="n">helpers</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">295</span><span class="o">|</span><span class="n">run</span><span class="p">()]</span> <span class="ne">Exception</span> <span class="n">when</span> <span class="n">running</span> <span class="n">operator</span> <span class="n">roboteditor</span><span class="o">.</span><span class="n">udpate_model</span> <span class="p">(</span><span class="n">UpdateModel</span><span class="p">):</span>
-	<span class="ne">Exception</span><span class="p">:</span>	<span class="ne">RuntimeError</span>
-	<span class="n">Error</span><span class="p">:</span> <span class="n">Operator</span> <span class="n">roboteditor</span><span class="o">.</span><span class="n">udpate_model</span> <span class="p">(</span><span class="n">UpdateModel</span><span class="p">)</span> <span class="n">threw</span> <span class="n">an</span> <span class="n">exception</span><span class="p">:</span><span class="ne">TypeError</span>
-		<span class="n">Converting</span> <span class="n">py</span> <span class="n">args</span> <span class="n">to</span> <span class="n">operator</span> <span class="n">properties</span><span class="p">:</span> <span class="p">:</span> <span class="n">keyword</span> <span class="s2">&quot;model_name&quot;</span> <span class="n">unrecognized</span>
-</pre></div>
-</div>
-<p>Logging of operators can be automated with the decorators and base classes in the <a class="reference internal" href="robot_designer_plugin.core.operators.html#module-robot_designer_plugin.core.operators" title="robot_designer_plugin.core.operators"><code class="xref py py-mod docutils literal"><span class="pre">operators</span></code></a> module.</p>
-<dl class="function">
-<dt id="robot_designer_plugin.core.logfile.LogFunction">
-<code class="descclassname">robot_designer_plugin.core.logfile.</code><code class="descname">LogFunction</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/logfile.html#LogFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.logfile.LogFunction" title="Permalink to this definition">¶</a></dt>
+<p>Logging of operators can be automated with the decorators and base classes in the <a class="reference internal" href="robot_designer_plugin.core.operators.html#module-robot_designer_plugin.core.operators" title="robot_designer_plugin.core.operators"><code class="xref py py-mod docutils literal notranslate"><span class="pre">operators</span></code></a> module.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="robot_designer_plugin.core.logfile.LogFunction">
+<span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.core.logfile.</span></span><span class="sig-name descname"><span class="pre">LogFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/logfile.html#LogFunction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.core.logfile.LogFunction" title="Permalink to this definition"></a></dt>
 <dd><p>Logging / exception handling decorator for functions (use for draw function for instance).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> – The function to decorate</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A <a class="reference internal" href="../developer_manual/glossary.html#term-decorator"><span class="xref std std-term">decorator</span></a></td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>func</strong> – The function to decorate</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="../developer_manual/glossary.html#term-decorator"><span class="xref std std-term">decorator</span></a></p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="data">
-<dt id="robot_designer_plugin.core.logfile.core_logger">
-<code class="descclassname">robot_designer_plugin.core.logfile.</code><code class="descname">core_logger</code><em class="property"> = &lt;logging.Logger object&gt;</em><a class="headerlink" href="#robot_designer_plugin.core.logfile.core_logger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Logging object associated with the <span class="xref std std-term">plugin core</span>. All loggers store to <code class="docutils literal"><span class="pre">resources/log.txt</span></code></p>
+<dl class="py data">
+<dt class="sig sig-object py" id="robot_designer_plugin.core.logfile.core_logger">
+<span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.core.logfile.</span></span><span class="sig-name descname"><span class="pre">core_logger</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Logger</span> <span class="pre">Core</span> <span class="pre">(INFO)&gt;</span></em><a class="headerlink" href="#robot_designer_plugin.core.logfile.core_logger" title="Permalink to this definition"></a></dt>
+<dd><p>Logging object associated with the <span class="xref std std-term">plugin core</span>. All loggers store to <code class="docutils literal notranslate"><span class="pre">resources/log.txt</span></code></p>
 </dd></dl>
 
-<dl class="data">
-<dt id="robot_designer_plugin.core.logfile.gui_logger">
-<code class="descclassname">robot_designer_plugin.core.logfile.</code><code class="descname">gui_logger</code><em class="property"> = &lt;logging.Logger object&gt;</em><a class="headerlink" href="#robot_designer_plugin.core.logfile.gui_logger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Logging object associated with the user interface. All loggers store to <code class="docutils literal"><span class="pre">resources/log.txt</span></code></p>
+<dl class="py data">
+<dt class="sig sig-object py" id="robot_designer_plugin.core.logfile.export_logger">
+<span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.core.logfile.</span></span><span class="sig-name descname"><span class="pre">export_logger</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Logger</span> <span class="pre">Export</span> <span class="pre">(INFO)&gt;</span></em><a class="headerlink" href="#robot_designer_plugin.core.logfile.export_logger" title="Permalink to this definition"></a></dt>
+<dd><p>Logging object associated with <span class="xref std std-term">operators</span>. All loggers store to <code class="docutils literal notranslate"><span class="pre">resources/log.txt</span></code></p>
 </dd></dl>
 
-<dl class="function">
-<dt id="robot_designer_plugin.core.logfile.log_callstack">
-<code class="descclassname">robot_designer_plugin.core.logfile.</code><code class="descname">log_callstack</code><span class="sig-paren">(</span><em>back_trace=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/logfile.html#log_callstack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.logfile.log_callstack" title="Permalink to this definition">¶</a></dt>
+<dl class="py data">
+<dt class="sig sig-object py" id="robot_designer_plugin.core.logfile.gui_logger">
+<span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.core.logfile.</span></span><span class="sig-name descname"><span class="pre">gui_logger</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Logger</span> <span class="pre">GUI</span> <span class="pre">(INFO)&gt;</span></em><a class="headerlink" href="#robot_designer_plugin.core.logfile.gui_logger" title="Permalink to this definition"></a></dt>
+<dd><p>Logging object associated with the user interface. All loggers store to <code class="docutils literal notranslate"><span class="pre">resources/log.txt</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="robot_designer_plugin.core.logfile.log_callstack">
+<span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.core.logfile.</span></span><span class="sig-name descname"><span class="pre">log_callstack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">back_trace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/logfile.html#log_callstack"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.core.logfile.log_callstack" title="Permalink to this definition"></a></dt>
 <dd><p>Helper function that formats either a (filtered) backtrace or call stack in a string. Blender internals
 are filtered such that errors in the own code can be detected more easily.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>back_trace</strong> – If true, the backtrace is returned. Otherwise, the call stack is returned.</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the formatted call stack/backtrace in a string.</td>
-</tr>
-</tbody>
-</table>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>back_trace</strong> – If true, the backtrace is returned. Otherwise, the call stack is returned.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the formatted call stack/backtrace in a string.</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="function">
-<dt id="robot_designer_plugin.core.logfile.log_callstack_last">
-<code class="descclassname">robot_designer_plugin.core.logfile.</code><code class="descname">log_callstack_last</code><span class="sig-paren">(</span><em>back_trace=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/logfile.html#log_callstack_last"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#robot_designer_plugin.core.logfile.log_callstack_last" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="robot_designer_plugin.core.logfile.log_callstack_last">
+<span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.core.logfile.</span></span><span class="sig-name descname"><span class="pre">log_callstack_last</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">back_trace</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/robot_designer_plugin/core/logfile.html#log_callstack_last"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#robot_designer_plugin.core.logfile.log_callstack_last" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<dl class="data">
-<dt id="robot_designer_plugin.core.logfile.operator_logger">
-<code class="descclassname">robot_designer_plugin.core.logfile.</code><code class="descname">operator_logger</code><em class="property"> = &lt;logging.Logger object&gt;</em><a class="headerlink" href="#robot_designer_plugin.core.logfile.operator_logger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Logging object associated with <span class="xref std std-term">operators</span>. All loggers store to <code class="docutils literal"><span class="pre">resources/log.txt</span></code></p>
+<dl class="py data">
+<dt class="sig sig-object py" id="robot_designer_plugin.core.logfile.operator_logger">
+<span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.core.logfile.</span></span><span class="sig-name descname"><span class="pre">operator_logger</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Logger</span> <span class="pre">Operators</span> <span class="pre">(INFO)&gt;</span></em><a class="headerlink" href="#robot_designer_plugin.core.logfile.operator_logger" title="Permalink to this definition"></a></dt>
+<dd><p>Logging object associated with <span class="xref std std-term">operators</span>. All loggers store to <code class="docutils literal notranslate"><span class="pre">resources/log.txt</span></code></p>
 </dd></dl>
 
-<dl class="data">
-<dt id="robot_designer_plugin.core.logfile.prop_logger">
-<code class="descclassname">robot_designer_plugin.core.logfile.</code><code class="descname">prop_logger</code><em class="property"> = &lt;logging.Logger object&gt;</em><a class="headerlink" href="#robot_designer_plugin.core.logfile.prop_logger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Logging object associated with <span class="xref std std-term">properties</span>. All loggers store to <code class="docutils literal"><span class="pre">resources/log.txt</span></code></p>
+<dl class="py data">
+<dt class="sig sig-object py" id="robot_designer_plugin.core.logfile.prop_logger">
+<span class="sig-prename descclassname"><span class="pre">robot_designer_plugin.core.logfile.</span></span><span class="sig-name descname"><span class="pre">prop_logger</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Logger</span> <span class="pre">Properties</span> <span class="pre">(INFO)&gt;</span></em><a class="headerlink" href="#robot_designer_plugin.core.logfile.prop_logger" title="Permalink to this definition"></a></dt>
+<dd><p>Logging object associated with <span class="xref std std-term">properties</span>. All loggers store to <code class="docutils literal notranslate"><span class="pre">resources/log.txt</span></code></p>
 </dd></dl>
 
 </div>
 
-            </div>
 
-            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
-                
-                <span class="hbpdoc-hnav-previous">
-                    previous: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.core.gui.html">robot_designer_plugin.core.gui module</a>
-                </span>
-                
-                
-                <span class="hbpdoc-hnav-next">
-                    next: <a class="hbpdoc-hnav-link" href="robot_designer_plugin.core.operators.html">robot_designer_plugin.core.operators module</a>
-                </span>
-                
-            </aside>
-        </article>
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="robot_designer_plugin.core.gui.html" class="btn btn-neutral float-left" title="robot_designer_plugin.core.gui module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="robot_designer_plugin.core.operators.html" class="btn btn-neutral float-right" title="robot_designer_plugin.core.operators module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Human Brain Project - Neurorobotics, Benedikt Feldotto (TUM), Stefan Ulbrich (FZI).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
     </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-    <div class="hbpdoc-footer">
-        NRP RobotDesigner <small>0.1</small> 
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
-    </div>
-    </div>
-</div>
-
-  </body>
+</body>
 </html>

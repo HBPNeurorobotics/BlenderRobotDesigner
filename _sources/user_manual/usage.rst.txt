@@ -2,7 +2,7 @@ Usage
 =====
 
 Blender
--------
+^^^^^^^
 
 Blender is a feature-rich and very powerful 3D modelling software. For this reason, however,
 learning how to use this software can be challenging for the beginner. The RobotDesigner plugin
@@ -11,13 +11,14 @@ controls of Blender is mandatory. At this point, we would like to refer to a lar
 tutorials provided on this matter which can be found `here <https://www.blender.org/support/tutorials/>`_ for instance.
 
 The RobotDesigner
------------------
+^^^^^^^^^^^^^^^^^
 We introduce the structure of the Graphical User Interface as well as explain the workflow of creating a new robot model.
 If an existing model is imported the user can also start at any tab section of interest.
 
 In the gif below you can see how to create a simple tigrillo robot with muscles from scratch using the Robot Designer.
 The design here includes mesh creation, kinematic and dynamics definition, visual and collision mesh attachment, muscle
-definition and SDF package export.
+definition and SDF package export. The full video with audio description can be found at
+`1.3 Robot Designer Demo <https://www.youtube.com/watch?v=_ii0CVzVcsA>`__.
 
 .. figure:: gifs/tigrillo.gif
     :align: center
@@ -25,14 +26,14 @@ definition and SDF package export.
     Creating a simple tigrillo model from scratch.
 
 
-Panel Overview
+Panel overview
 ^^^^^^^^^^^^^^
 The various functionalities are collected in several tabs for intuitive user interaction. Creating a new robot the developer
 would start from the left tab to the right, or as listed below from creating a robot to exporting it.
 
 
 The Robot properties tab
-************************
+""""""""""""""""""""""""
 
 The Robot properties tab allows us to create a new robot model or select an existing one. Hier we can also rename
 it or merge with another model. New segments for expanding the robot model can be created and deleted here as well.
@@ -45,7 +46,7 @@ These segments are called *bones* in blender.
 
 
 The Segments properties tab
-***************************
+"""""""""""""""""""""""""""
 
 In the Segments properties tab we can modify the properties of the previously created segments by setting joint type,
 joint limits, orientation and position in relation to the parent bone.
@@ -57,7 +58,7 @@ joint limits, orientation and position in relation to the parent bone.
 
 
 The Geometries properties tab
-*****************************
+"""""""""""""""""""""""""""""
 
 The Geometries properties tab allows us to connect the kinematics model or armature created by the NRP RobotDesigner with
 an existing geometrical model, generate such a model or disconnect it once it has been attached. Additionally we can set
@@ -70,48 +71,49 @@ basic properties as well as reduce the complexity of the geometries.
 
 
 The Sensors properties tab
-**************************
+""""""""""""""""""""""""""
 
 In the Sensor properties tab a camera or laser sensor can be attached, detached and its properties adjusted.
 
-.. figure:: images/sensors_empty.png
+.. figure:: images/sensors_example_expanded.png
     :align: center
 
     The Sensors properties tab of the NRP RobotDesigner
 
 
 The Muscles properties tab
-************************
+""""""""""""""""""""""""""
 
 In the muscles section muscles can be defined interactively in the scene, while pathpoints and characteristics get
 listed in the GUI.
 
-.. figure:: images/muscles_tab.png
+.. figure:: images/muscles_example_expanded.png
     :align: center
 
     The Muscles properties tab of the NRP RobotDesigner
 
 
-The Tools properties tab
-************************
-
-In the tools section debug information such as Info, Error and Warning messages can be inspected.
-
-.. figure:: images/tools_empty.png
-    :align: center
-
-    The Tools properties tab of the NRP RobotDesigner
-
-
 The Files properties tab
-************************
+""""""""""""""""""""""""
 
-Here we can export the created robot model as a an URDF file/package or import a robot model from an URDF file/package.
+Here we can export the created robot model as a SDF file/package or import a robot model from an SDF file/package.
 
-.. figure:: images/files_example.png
+.. figure:: images/files_example_expanded.png
     :align: center
 
     The Files properties tab of the NRP RobotDesigner
+
+The Worlds properties tab
+"""""""""""""""""""""""""
+
+In the worlds tab the simulation environment can be parametrized and individual
+robot models can be added to the scene. The dedicated tab allows users to import
+existing world files and export a created environment to file.
+
+.. figure:: images/world_example_expanded.png
+    :align: center
+
+    The World properties tab of the NRP RobotDesigner
 
 
 Creating and maintaining robot models
@@ -124,6 +126,7 @@ Creating and maintaining robot models
 
 .. figure:: gifs/create_new_model.gif
     :align: center
+    :scale: 150%
 
     Creating a new armature.
 
@@ -140,15 +143,15 @@ You can also assign different visualizations of coordinate frames (blender objec
 
 
 
-Creating Robot Joint/links
+Creating robot joints/links
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. figure:: images/segments_example.png
+.. figure:: images/segments_example_expanded.png
     :align: center
 
     The kinematics settings in the segments properties tab of the NRP RobotDesigner.
 
-.. figure:: images/dynamics_example.png
+.. figure:: images/dynamics_example_expanded.png
     :align: center
 
     The dynamics settings in the segments properties tab of the NRP RobotDesigner.
@@ -160,6 +163,7 @@ Creating Robot Joint/links
 
 .. figure:: gifs/create_child_bone.gif
     :align: center
+    :scale: 120%
 
     Adding a new segment to an armature.
 
@@ -209,8 +213,12 @@ disconneccted, then click on **Detach selected geometry**.
 Alternatively all meshes can be disconnected at once by selecting **Detach all geometries**.
 
 
-Adding Muscles
+Adding muscles
 ^^^^^^^^^^^^^^
+
+The video below shows the process of adding muscles with multiple pathpoints to
+the model by directly selecting pathpoint in the 3D environment. The full video
+with audio description can be found at `1.3 Robot Designer Demo <https://www.youtube.com/watch?v=_ii0CVzVcsA>`__.
 
 .. figure:: gifs/mouse.gif
     :align: center
@@ -221,39 +229,23 @@ Adding Muscles
 Import and export
 ^^^^^^^^^^^^^^^^^
 
-.. figure:: images/files_empty.png
+.. figure:: images/files_example_expanded.png
     :align: center
 
     The file properties tab of the NRP RobotDesigner.
 
 .. figure:: gifs/import_sdf_hollie_arm.gif
     :align: center
-    :height: 712px
-    :width: 1287px
+    :height: 356px
+    :width: 643px
 
     Importing a robot model of Schunk robot arm from a plain SDF file
 
 
 In the file section additional meta data can be added to the model such as a model description and author contact information.
-One of the main strengths of the RobotDesigner is the possibility to import from and export to URDF as well as SDF files.
-
-URDF
-****
-The URDF file format has been extended to support for controller definitions. Note that, in order to load URDF models
-that use the ``package`` directive, the environment variable has to be accessible in Blender (i.e., blender has to be
-invoked from a shell) or a model folder has to be specified in the respective text box (which is also used for export).
-Exporting the model as a ROS package will several additional files helpful for usage in the ROS environment.
+One of the main strengths of the RobotDesigner is the possibility to import from and export to SDF files.
 
 SDF
 ****
-The SDF is the file format the Neurorobotics Platform (or Gazebo/ROS in general) depends on. Visual and collision meshes,
-joints and link description as well as a model.config file can be imported and exported. In addition to this basic features,
-further properties will be implemented soon.
-
-
-
-
-
-
-
-
+The SDF is one of the file formats the Neurorobotics Platform (or Gazebo/ROS in general) depends on. Visual and collision meshes,
+joints and link description as well as a model.config file can be imported and exported.

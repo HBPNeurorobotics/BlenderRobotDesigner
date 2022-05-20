@@ -1,91 +1,76 @@
-
-
-
 <!DOCTYPE html>
-
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>robot_designer_plugin.core.pluginmanager &#8212; NRP RobotDesigner 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../../../_static/hbpdoc.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>robot_designer_plugin.core.pluginmanager &mdash; NRP RobotDesigner 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
 
-  </head>
-  <body>
-<div class="hbpdoc-page">
-    <section class="hbpdoc-title page-header">
-        <a class="project-title" href="../../../index.html">NRP RobotDesigner</a>
-
-        <a class="hbpdoc-toc-toggle pull-right" href>
-            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-        </a>
-    </section>
-    <section class="hbpdoc-main">
-        <nav class="hbpdoc-sidebar hbpdoc-container">
-            <a class="hbpdoc-toc-toggle pull-right" href>
-                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-            </a>
-            
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> NRP RobotDesigner
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../add_readme.html">The Blender RobotDesigner of the Neurorobotics Platform (NRP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_manual/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_manual/index.html">Developers Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../planned.html">Roadmap</a></li>
+</ul>
+
         </div>
       </div>
-        </nav>
+    </nav>
 
-        <article class="hbpdoc-content">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NRP RobotDesigner</a>
+      </nav>
 
-            <div class="content">
-                
-                <div class="breadcrumb breadcrumb-meta expand">
-                    
-                    <a href="../../index.html">Module code</a>
-                    
-                    <a href="../../robot_designer_plugin.html">robot_designer_plugin</a>
-                    
-                </div>
-                
-
-                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
-                    
-                    
-                </aside>
-
-                <h1>Source code for robot_designer_plugin.core.pluginmanager</h1><div class="highlight"><pre>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+          <li><a href="../../robot_designer_plugin.html">robot_designer_plugin</a> &raquo;</li>
+      <li>robot_designer_plugin.core.pluginmanager</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for robot_designer_plugin.core.pluginmanager</h1><div class="highlight"><pre>
 <span></span><span class="c1"># #####</span>
 <span class="c1"># This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
 <span class="c1"># in the Human Brain Project (HBP).</span>
@@ -121,6 +106,7 @@
 <span class="c1">#   2016-01-15: Stefan Ulbrich (FZI), Major refactoring. Integrated into complex plugin framework.</span>
 <span class="c1">#</span>
 <span class="c1"># ######</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This sub module contains the :class:`PluginManager` that handles automatic registration of classes.</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -164,13 +150,11 @@
 
         <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
             <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">PropertyGroup</span><span class="p">):</span>
-                <span class="c1"># RD_logger.info(&quot;Dependencies: %s&quot;, base)</span>
+                <span class="c1"># RD_logger.info(&quot;Dependencies: {}&quot;.format(base))</span>
                 <span class="n">PluginManager</span><span class="o">.</span><span class="n">_property_groups_to_register</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="bp">cls</span><span class="p">,</span> <span class="n">base</span><span class="p">))</span>
             <span class="k">return</span> <span class="bp">cls</span>
 
         <span class="k">return</span> <span class="n">decorator</span></div>
-
-    <span class="c1"># bpy.props.PointerProperty(type=robot_designer_plugin.properties.segments.RDDegreeOfFreedom)[1][&#39;type&#39;] is robot_designer_plugin.properties.segments.RDDegreeOfFreedom</span>
 
 
 
@@ -191,8 +175,8 @@
             <span class="k">elif</span> <span class="nb">issubclass</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">CollapsibleBase</span><span class="p">):</span>
                 <span class="n">PluginManager</span><span class="o">.</span><span class="n">_bools_to_register</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">property_name</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">core_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not register </span><span class="si">%s</span><span class="s2">, subclass of: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">Dependencies: </span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">mro</span><span class="p">(),</span>
-                                  <span class="n">dependencies</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+                <span class="n">core_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not register </span><span class="si">%s</span><span class="s2">, subclass of: </span><span class="si">{}</span><span class="se">\n</span><span class="s2">Dependencies: </span><span class="si">{}</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">mro</span><span class="p">(),</span>
+                                  <span class="n">dependencies</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span>
 
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Wrong with decorator&quot;</span><span class="p">)</span>
             <span class="c1"># print(cls)</span>
@@ -274,21 +258,20 @@
 <div class="viewcode-block" id="PluginManager.load_icon"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.load_icon">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">load_icon</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-
 <span class="sd">        :param id: ID of the label</span>
 <span class="sd">        :param filename: Relative to :data:`.config/resource_path`</span>
 <span class="sd">        :return: None</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">resource_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
-            <span class="n">core_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;File does not exist: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">file_path</span><span class="p">)</span>
+            <span class="n">core_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;File does not exist: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">cls</span><span class="o">.</span><span class="n">_icons_to_register</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">id</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;IMAGE&#39;</span><span class="p">))</span></div>
+
 
 <div class="viewcode-block" id="PluginManager.get_icon"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.get_icon">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_icon</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
-
 <span class="sd">        :param id:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -297,6 +280,7 @@
             <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_bl_icons_dict</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">.</span><span class="n">icon_id</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">0</span></div>
+
 
 <div class="viewcode-block" id="PluginManager.clear"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.clear">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
@@ -309,6 +293,7 @@
         <span class="bp">cls</span><span class="o">.</span><span class="n">_bools_to_register</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_icons_to_register</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
 
+
 <div class="viewcode-block" id="PluginManager.get_property"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.get_property">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">get_property</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">prop</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;</span>
@@ -319,6 +304,7 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">args</span><span class="p">,</span> <span class="n">varargs</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="nb">locals</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getargvalues</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">())</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">varargs</span><span class="p">,</span> <span class="n">keywords</span><span class="p">,</span> <span class="nb">locals</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="PluginManager.register"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.register">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
@@ -335,15 +321,15 @@
                 <span class="bp">cls</span><span class="o">.</span><span class="n">_registered_classes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">class_</span><span class="p">)</span>
             <span class="n">core_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Done&#39;</span><span class="p">)</span>
 
-            <span class="n">core_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Properties: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_property_groups_to_register</span><span class="p">)</span>
+            <span class="n">core_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Properties: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_property_groups_to_register</span><span class="p">))</span>
             <span class="k">for</span> <span class="n">prop</span><span class="p">,</span> <span class="n">extends</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_property_groups_to_register</span><span class="p">:</span>
-                <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">+ propery </span><span class="si">{0:33}</span><span class="s2"> </span><span class="si">{1:8}</span><span class="s2"> in </span><span class="si">{2:40}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prop</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">+ property </span><span class="si">{0:33}</span><span class="s2"> </span><span class="si">{1:8}</span><span class="s2"> in </span><span class="si">{2:40}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">prop</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
                                                                           <span class="s2">&quot;(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="n">extends</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">if</span> <span class="n">extends</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
                                                                           <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">prop</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])))</span>
 
                 <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">register_class</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">extends</span> <span class="ow">in</span> <span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Object</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Scene</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Bone</span><span class="p">):</span>
-                    <span class="nb">setattr</span><span class="p">(</span><span class="n">extends</span><span class="p">,</span> <span class="s1">&#39;RobotEditor&#39;</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="p">,</span> <span class="n">prop</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)))</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="n">extends</span><span class="p">,</span> <span class="s1">&#39;RobotDesigner&#39;</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="o">.</span><span class="n">PointerProperty</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">prop</span><span class="p">))</span>
                 <span class="bp">cls</span><span class="o">.</span><span class="n">_registered_properties</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">prop</span><span class="p">,</span> <span class="n">extends</span><span class="p">))</span>
 
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_property_fields</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -363,11 +349,12 @@
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Error occured&quot;</span><span class="p">)</span>
-            <span class="n">core_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">report</span><span class="p">))</span>
+            <span class="n">core_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">report</span><span class="p">))</span>
             <span class="n">core_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">EXCEPTION_MESSAGE</span><span class="p">,</span>
                               <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">log_callstack</span><span class="p">(),</span> <span class="n">log_callstack</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 
         <span class="bp">cls</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div>
+
 
 <div class="viewcode-block" id="PluginManager.unregister"><a class="viewcode-back" href="../../../apidoc/robot_designer_plugin.core.pluginmanager.html#robot_designer_plugin.core.pluginmanager.PluginManager.unregister">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">unregister</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
@@ -385,8 +372,9 @@
 
             <span class="k">for</span> <span class="n">prop</span><span class="p">,</span> <span class="n">extends</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_registered_properties</span><span class="p">:</span>
                 <span class="n">bpy</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">unregister_class</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">extends</span> <span class="ow">in</span> <span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Object</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Scene</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Bone</span><span class="p">):</span>
-                    <span class="nb">delattr</span><span class="p">(</span><span class="n">extends</span><span class="p">,</span> <span class="s2">&quot;RobotEditor&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">extends</span> <span class="ow">in</span> <span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Object</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Scene</span><span class="p">,</span> <span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Bone</span><span class="p">)</span> <span class="ow">and</span> \
+                    <span class="nb">hasattr</span><span class="p">(</span><span class="n">extends</span><span class="p">,</span> <span class="s2">&quot;RobotDesigner&quot;</span><span class="p">):</span>
+                    <span class="nb">delattr</span><span class="p">(</span><span class="n">extends</span><span class="p">,</span> <span class="s2">&quot;RobotDesigner&quot;</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_registered_bools</span><span class="p">:</span>
                 <span class="nb">delattr</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Scene</span><span class="p">,</span> <span class="n">prop</span><span class="p">)</span>
@@ -398,7 +386,7 @@
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Error occured during clean up. You should restart blender!&quot;</span><span class="p">)</span>
-            <span class="n">core_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">report</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">core_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">report</span><span class="p">))</span>
             <span class="n">core_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">EXCEPTION_MESSAGE</span><span class="p">,</span>
                               <span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">log_callstack</span><span class="p">(),</span> <span class="n">log_callstack</span><span class="p">(</span><span class="n">back_trace</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
 
@@ -406,24 +394,32 @@
         <span class="bp">cls</span><span class="o">.</span><span class="n">_property_groups_to_register</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
         <span class="bp">cls</span><span class="o">.</span><span class="n">_registered_bools</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></div></div>
 </pre></div>
-            </div>
 
-            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
-                
-                
-            </aside>
-        </article>
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Human Brain Project - Neurorobotics, Benedikt Feldotto (TUM), Stefan Ulbrich (FZI).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
     </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-    <div class="hbpdoc-footer">
-        NRP RobotDesigner <small>0.1</small> 
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
-    </div>
-    </div>
-</div>
-
-  </body>
+</body>
 </html>

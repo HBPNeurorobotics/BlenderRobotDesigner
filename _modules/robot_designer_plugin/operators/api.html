@@ -1,91 +1,76 @@
-
-
-
 <!DOCTYPE html>
-
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>robot_designer_plugin.operators.api &#8212; NRP RobotDesigner 0.1 documentation</title>
-    
-    <link rel="stylesheet" href="../../../_static/hbpdoc.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../../../',
-        VERSION:     '0.1',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true,
-        SOURCELINK_SUFFIX: '.txt'
-      };
-    </script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="../../../_static/hbpdoc.js"></script>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>robot_designer_plugin.operators.api &mdash; NRP RobotDesigner 0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../../_static/hbp_32x32.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
 
-  </head>
-  <body>
-<div class="hbpdoc-page">
-    <section class="hbpdoc-title page-header">
-        <a class="project-title" href="../../../index.html">NRP RobotDesigner</a>
-
-        <a class="hbpdoc-toc-toggle pull-right" href>
-            <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-        </a>
-    </section>
-    <section class="hbpdoc-main">
-        <nav class="hbpdoc-sidebar hbpdoc-container">
-            <a class="hbpdoc-toc-toggle pull-right" href>
-                <span class="zmdi zmdi-menu"></span> <span class="sr-only icon-text">Menu</span>
-            </a>
-            
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> NRP RobotDesigner
+          </a>
+              <div class="version">
+                0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
 </div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../add_readme.html">The Blender RobotDesigner of the Neurorobotics Platform (NRP)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_manual/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_manual/index.html">Developers Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../planned.html">Roadmap</a></li>
+</ul>
+
         </div>
       </div>
-        </nav>
+    </nav>
 
-        <article class="hbpdoc-content">
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">NRP RobotDesigner</a>
+      </nav>
 
-            <div class="content">
-                
-                <div class="breadcrumb breadcrumb-meta expand">
-                    
-                    <a href="../../index.html">Module code</a>
-                    
-                    <a href="../../robot_designer_plugin.html">robot_designer_plugin</a>
-                    
-                </div>
-                
-
-                <aside class="hbpdoc-hnav hbpdoc-hnav-top">
-                    
-                    
-                </aside>
-
-                <h1>Source code for robot_designer_plugin.operators.api</h1><div class="highlight"><pre>
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+          <li><a href="../../robot_designer_plugin.html">robot_designer_plugin</a> &raquo;</li>
+      <li>robot_designer_plugin.operators.api</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for robot_designer_plugin.operators.api</h1><div class="highlight"><pre>
 <span></span><span class="c1"># #####</span>
 <span class="c1"># This file is part of the RobotDesigner of the Neurorobotics subproject (SP10)</span>
 <span class="c1"># in the Human Brain Project (HBP).</span>
@@ -124,20 +109,17 @@
 <span class="c1">#       Please add ALWAYS your modifications</span>
 <span class="c1">#</span>
 <span class="c1"># ######</span>
+
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Sphinx-autodoc tag</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># System imports</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="c1"># import sys</span>
-<span class="c1"># import math</span>
 <span class="kn">from</span> <span class="nn">inspect</span> <span class="k">import</span> <span class="n">getmembers</span><span class="p">,</span> <span class="n">isclass</span>
 
 <span class="c1"># Blender imports</span>
 <span class="kn">import</span> <span class="nn">bpy</span>
-<span class="c1"># from bpy.props import StringProperty</span>
-<span class="c1"># import mathutils</span>
 
 <span class="c1"># RobotDesigner imports</span>
 <span class="kn">from</span> <span class="nn">..core</span> <span class="k">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">PluginManager</span><span class="p">,</span> <span class="n">RDOperator</span><span class="p">,</span> <span class="n">logfile</span>
@@ -156,95 +138,120 @@
     <span class="n">bl_idname</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">OPERATOR_PREFIX</span> <span class="o">+</span> <span class="s2">&quot;generate_api&quot;</span>
     <span class="n">bl_label</span> <span class="o">=</span> <span class="s2">&quot;Generate Python API&quot;</span>
 
-
     <span class="nd">@RDOperator</span><span class="o">.</span><span class="n">OperatorLogger</span>
     <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">base_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">script_path</span><span class="p">,</span> <span class="s1">&#39;resources/blender_api/bpy/&#39;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Writing API stubs to: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">base_path</span><span class="p">)</span>
+            <span class="n">base_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">script_path</span><span class="p">,</span> <span class="s2">&quot;resources/blender_api/bpy/&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Writing API stubs to: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base_path</span><span class="p">))</span>
 
             <span class="k">for</span> <span class="n">op_module_name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="p">):</span>
-                <span class="n">ops_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s1">&#39;ops&#39;</span><span class="p">)</span>
+                <span class="n">ops_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;ops&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">ops_dir</span><span class="p">):</span>
                     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">ops_dir</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Creating module: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">ops_dir</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Creating module: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ops_dir</span><span class="p">))</span>
 
-                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ops_dir</span><span class="p">,</span> <span class="n">op_module_name</span> <span class="o">+</span> <span class="s1">&#39;.py&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ops_dir</span><span class="p">,</span> <span class="n">op_module_name</span> <span class="o">+</span> <span class="s2">&quot;.py&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                     <span class="n">op_module</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">ops</span><span class="p">,</span> <span class="n">op_module_name</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">op_submodule_name</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">op_module</span><span class="p">):</span>
                         <span class="n">op</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">op_module</span><span class="p">,</span> <span class="n">op_submodule_name</span><span class="p">)</span>
                         <span class="n">text</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="n">op</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
                         <span class="k">if</span> <span class="n">text</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;bpy.ops.&quot;</span><span class="p">):</span>
-                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;def </span><span class="si">%s</span><span class="s1">:</span><span class="se">\n</span><span class="s1">    &quot;&quot;&quot;</span><span class="se">\n</span><span class="s1">    </span><span class="si">%s</span><span class="se">\n</span><span class="s1">    &quot;&quot;&quot;</span><span class="se">\n</span><span class="s1">    pass</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span>
-                                <span class="n">text</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;bpy.ops.</span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">op_module_name</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)))</span>
+                            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+                                <span class="s1">&#39;def </span><span class="si">%s</span><span class="s1">:</span><span class="se">\n</span><span class="s1">    &quot;&quot;&quot;</span><span class="se">\n</span><span class="s1">    </span><span class="si">%s</span><span class="se">\n</span><span class="s1">    &quot;&quot;&quot;</span><span class="se">\n</span><span class="s1">    pass</span><span class="se">\n</span><span class="s1">&#39;</span>
+                                <span class="o">%</span> <span class="p">(</span>
+                                    <span class="n">text</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+                                        <span class="s2">&quot;bpy.ops.</span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">op_module_name</span><span class="p">,</span> <span class="s2">&quot;&quot;</span>
+                                    <span class="p">),</span>
+                                    <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                                <span class="p">)</span>
+                            <span class="p">)</span>
 
-            <span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">getmembers</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="p">,</span> <span class="n">isclass</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="n">types</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">getmembers</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">types</span><span class="p">,</span> <span class="n">isclass</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
 
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s1">&#39;types.py&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;types.py&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">bpy_type</span> <span class="ow">in</span> <span class="n">types</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">bpy_type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s2">&quot;Operator&quot;</span><span class="p">:</span>
                         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;class </span><span class="si">%s</span><span class="s2">(object):</span><span class="se">\n\t</span><span class="s2">pass</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">bpy_type</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="c1"># Adding overridable methods removes inspection check warnings about unused variables</span>
-                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;class </span><span class="si">%s</span><span class="s2">(object):&quot;</span>
-                                <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">@classmethod&quot;</span>
-                                <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">def poll(cls,context): pass&quot;</span>
-                                <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">def invoke(self, context, event): pass&quot;</span>
-                                <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">def execute(self,context): pass </span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">bpy_type</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+                            <span class="s2">&quot;class </span><span class="si">%s</span><span class="s2">(object):&quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">@classmethod&quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">def poll(cls,context): pass&quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">def invoke(self, context, event): pass&quot;</span>
+                            <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">def execute(self,context): pass </span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">bpy_type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="p">)</span>
 
             <span class="c1"># Data is just a class with classes</span>
 
             <span class="c1"># Context</span>
 
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s1">&#39;__init__.py&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span><span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;from . import ops, types, props</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;class context(object):&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">base_path</span><span class="p">,</span> <span class="s2">&quot;__init__.py&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;from . import ops, types, props</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;class context(object):&quot;</span><span class="p">)</span>
 
-                <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">getmembers</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;__&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]]:</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">    </span><span class="si">%s</span><span class="s1"> = None&#39;</span> <span class="o">%</span> <span class="n">member</span><span class="p">)</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="p">[</span>
+                    <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">getmembers</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;__&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="p">]:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    </span><span class="si">%s</span><span class="s2"> = None&quot;</span> <span class="o">%</span> <span class="n">member</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;class data(object):&#39;</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">getmembers</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;__&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]]:</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">    </span><span class="si">%s</span><span class="s1"> = None&#39;</span> <span class="o">%</span> <span class="n">member</span><span class="p">)</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;class data(object):&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">member</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">getmembers</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;__&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]]:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    </span><span class="si">%s</span><span class="s2"> = None&quot;</span> <span class="o">%</span> <span class="n">member</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
             <span class="c1"># utils are several modules</span>
 
             <span class="c1"># Properties are in one module</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">base_path</span> <span class="o">+</span> <span class="s1">&#39;props.py&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;import sys</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">base_path</span> <span class="o">+</span> <span class="s2">&quot;props.py&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;import sys</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-                <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">getmembers</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="p">)</span> <span class="k">if</span> <span class="s1">&#39;Property&#39;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]]:</span>
-                    <span class="n">text</span> <span class="o">=</span> <span class="n">prop</span><span class="o">.</span><span class="vm">__doc__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-                    <span class="n">signature</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.. function:: &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-                    <span class="n">docstring</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
-                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;def </span><span class="si">%s</span><span class="s1">:</span><span class="se">\n</span><span class="s1">   &quot;&quot;&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s1">   &quot;&quot;&quot;</span><span class="se">\n</span><span class="s1">   pass</span><span class="se">\n\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">docstring</span><span class="p">))</span>
+                <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="p">[</span>
+                    <span class="nb">getattr</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">getmembers</span><span class="p">(</span><span class="n">bpy</span><span class="o">.</span><span class="n">props</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="s2">&quot;Property&quot;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="p">]:</span>
+                    <span class="n">text</span> <span class="o">=</span> <span class="n">prop</span><span class="o">.</span><span class="vm">__doc__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">signature</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.. function:: &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                    <span class="n">docstring</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+                        <span class="s1">&#39;def </span><span class="si">%s</span><span class="s1">:</span><span class="se">\n</span><span class="s1">   &quot;&quot;&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s1">   &quot;&quot;&quot;</span><span class="se">\n</span><span class="s1">   pass</span><span class="se">\n\n</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">docstring</span><span class="p">)</span>
+                    <span class="p">)</span>
 
-            <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;FINISHED&#39;</span><span class="p">}</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;FINISHED&quot;</span><span class="p">}</span>
 
         <span class="k">except</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="n">logfile</span><span class="o">.</span><span class="n">log_callstack</span><span class="p">())</span></div>
 </pre></div>
-            </div>
 
-            <aside class="hbpdoc-hnav hbpdoc-hnav-bottom">
-                
-                
-            </aside>
-        </article>
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Human Brain Project - Neurorobotics, Benedikt Feldotto (TUM), Stefan Ulbrich (FZI).</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
     </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-    <div class="hbpdoc-footer">
-        NRP RobotDesigner <small>0.1</small> 
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2015, Stefan Ulbrich (FZI).
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
-    </div>
-    </div>
-</div>
-
-  </body>
+</body>
 </html>
